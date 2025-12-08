@@ -1,0 +1,3259 @@
+openapi: 3.1.0
+info:
+  title: Clinical Decision Engine - Knowledge & Evidence Domain API
+  version: 1.0.0
+  description: |
+    Knowledge & Evidence Domain API for the Clinical Decision Engine.
+    Part of the CuurAI MCP ecosystem.
+
+    ## REST Pattern
+    - **GET /entity** → List resources
+    - **GET /entity/:id** → Get resource detail
+    - **POST /entity** → Create resource
+    - **PATCH /entity/:id** → Update resource
+    - **DELETE /entity/:id** → Delete resource
+    - **GET /entity/:id/sub-entity** → List child resources
+  contact:
+    name: CuurAI MCP Team
+  license:
+    name: Proprietary
+
+servers:
+  - url: https://api.cuurai.com/api/v1
+    description: Production
+  - url: http://localhost:8000/api/v1
+    description: Local development
+
+tags:
+  - name: Clinical Rules
+    description: Atomic executable rules (if-then logic, triggers, conditions)
+  - name: Rule Sets
+    description: Groups of rules bundled into named artifacts
+  - name: Clinical Guidelines
+    description: High-level guideline documents (NICE, ACC/AHA) with structured sections
+  - name: Care Protocol Templates
+    description: Structured, evidence-based protocols (STEMI, DKA)
+  - name: Order Set Templates
+    description: Pre-configured sets of orders driven by evidence
+  - name: Model Definitions
+    description: Metadata for predictive/ML models
+  - name: Model Versions
+    description: Concrete versioned artifacts of models
+  - name: Ontology Terms
+    description: Concepts from SNOMED, ICD-10, LOINC, RxNorm
+  - name: Value Sets
+    description: Curated lists of codes representing clinical concept sets
+  - name: Concept Maps
+    description: Mappings between code systems
+  - name: Scoring Templates
+    description: Definitions of clinical scores and how to compute them
+  - name: Questionnaire Templates
+    description: Structured questionnaires/forms used as evidence inputs
+  - name: Evidence Citations
+    description: Links to papers, guidelines, trials, or systematic reviews
+  - name: Evidence Reviews
+    description: Internal evidence appraisal (GRADE, strength of recommendation)
+  - name: Knowledge Packages
+    description: Deployable bundles of rules, models, value sets, and protocols
+
+paths:
+  # ========================================================================
+  # 1. CLINICAL RULE
+  # ========================================================================
+  /clinical-rules:
+    get:
+      tags: [Clinical Rules]
+      summary: List clinical rules
+      operationId: listClinicalRules
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: ruleType
+          in: query
+          schema:
+            type: string
+            enum: [alert, recommendation, calculation, workflow]
+        - name: enabled
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of clinical rules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClinicalRule"
+
+    post:
+      tags: [Clinical Rules]
+      summary: Create clinical rule
+      operationId: createClinicalRule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClinicalRuleInput"
+      responses:
+        "201":
+          description: Clinical rule created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClinicalRule"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /clinical-rules/{id}:
+    get:
+      tags: [Clinical Rules]
+      summary: Get clinical rule by ID
+      operationId: getClinicalRule
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Clinical rule details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClinicalRule"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Clinical Rules]
+      summary: Update clinical rule
+      operationId: updateClinicalRule
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClinicalRuleUpdate"
+      responses:
+        "200":
+          description: Clinical rule updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClinicalRule"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Clinical Rules]
+      summary: Delete clinical rule
+      operationId: deleteClinicalRule
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Clinical rule deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /clinical-rules/{id}/versions:
+    get:
+      tags: [Clinical Rules]
+      summary: List clinical rule versions
+      operationId: listClinicalRuleVersions
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of rule versions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClinicalRuleVersion"
+
+  /clinical-rules/{id}/tests:
+    get:
+      tags: [Clinical Rules]
+      summary: List clinical rule tests
+      operationId: listClinicalRuleTests
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of rule tests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RuleTest"
+
+  # ========================================================================
+  # 2. RULE SET
+  # ========================================================================
+  /rule-sets:
+    get:
+      tags: [Rule Sets]
+      summary: List rule sets
+      operationId: listRuleSets
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of rule sets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RuleSet"
+
+    post:
+      tags: [Rule Sets]
+      summary: Create rule set
+      operationId: createRuleSet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RuleSetInput"
+      responses:
+        "201":
+          description: Rule set created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RuleSet"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /rule-sets/{id}:
+    get:
+      tags: [Rule Sets]
+      summary: Get rule set by ID
+      operationId: getRuleSet
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Rule set details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RuleSet"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Rule Sets]
+      summary: Update rule set
+      operationId: updateRuleSet
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RuleSetUpdate"
+      responses:
+        "200":
+          description: Rule set updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RuleSet"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Rule Sets]
+      summary: Delete rule set
+      operationId: deleteRuleSet
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Rule set deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /rule-sets/{id}/clinical-rules:
+    get:
+      tags: [Rule Sets]
+      summary: List rule set clinical rules
+      operationId: listRuleSetClinicalRules
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of clinical rules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClinicalRule"
+
+  # ========================================================================
+  # 3. CLINICAL GUIDELINE
+  # ========================================================================
+  /guidelines:
+    get:
+      tags: [Clinical Guidelines]
+      summary: List clinical guidelines
+      operationId: listGuidelines
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: organization
+          in: query
+          schema:
+            type: string
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of clinical guidelines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClinicalGuideline"
+
+    post:
+      tags: [Clinical Guidelines]
+      summary: Create clinical guideline
+      operationId: createGuideline
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClinicalGuidelineInput"
+      responses:
+        "201":
+          description: Clinical guideline created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClinicalGuideline"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /guidelines/{id}:
+    get:
+      tags: [Clinical Guidelines]
+      summary: Get clinical guideline by ID
+      operationId: getGuideline
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Clinical guideline details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClinicalGuideline"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Clinical Guidelines]
+      summary: Update clinical guideline
+      operationId: updateGuideline
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClinicalGuidelineUpdate"
+      responses:
+        "200":
+          description: Clinical guideline updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClinicalGuideline"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Clinical Guidelines]
+      summary: Delete clinical guideline
+      operationId: deleteGuideline
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Clinical guideline deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /guidelines/{id}/sections:
+    get:
+      tags: [Clinical Guidelines]
+      summary: List guideline sections
+      operationId: listGuidelineSections
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of guideline sections
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GuidelineSection"
+
+  /guidelines/{id}/evidence-citations:
+    get:
+      tags: [Clinical Guidelines]
+      summary: List guideline evidence citations
+      operationId: listGuidelineEvidenceCitations
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of evidence citations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EvidenceCitation"
+
+  # ========================================================================
+  # 4. CARE PROTOCOL TEMPLATE
+  # ========================================================================
+  /care-protocols:
+    get:
+      tags: [Care Protocol Templates]
+      summary: List care protocol templates
+      operationId: listCareProtocols
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [draft, active, deprecated]
+      responses:
+        "200":
+          description: List of care protocol templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CareProtocolTemplate"
+
+    post:
+      tags: [Care Protocol Templates]
+      summary: Create care protocol template
+      operationId: createCareProtocol
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CareProtocolTemplateInput"
+      responses:
+        "201":
+          description: Care protocol template created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareProtocolTemplate"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /care-protocols/{id}:
+    get:
+      tags: [Care Protocol Templates]
+      summary: Get care protocol template by ID
+      operationId: getCareProtocol
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Care protocol template details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareProtocolTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Care Protocol Templates]
+      summary: Update care protocol template
+      operationId: updateCareProtocol
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CareProtocolTemplateUpdate"
+      responses:
+        "200":
+          description: Care protocol template updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CareProtocolTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Care Protocol Templates]
+      summary: Delete care protocol template
+      operationId: deleteCareProtocol
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Care protocol template deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /care-protocols/{id}/steps:
+    get:
+      tags: [Care Protocol Templates]
+      summary: List care protocol steps
+      operationId: listCareProtocolSteps
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of protocol steps
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProtocolStep"
+
+  /care-protocols/{id}/order-sets:
+    get:
+      tags: [Care Protocol Templates]
+      summary: List care protocol order sets
+      operationId: listCareProtocolOrderSets
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of order sets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderSetTemplate"
+
+  # ========================================================================
+  # 5. ORDER SET TEMPLATE
+  # ========================================================================
+  /order-set-templates:
+    get:
+      tags: [Order Set Templates]
+      summary: List order set templates
+      operationId: listOrderSetTemplates
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [draft, active, deprecated]
+      responses:
+        "200":
+          description: List of order set templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderSetTemplate"
+
+    post:
+      tags: [Order Set Templates]
+      summary: Create order set template
+      operationId: createOrderSetTemplate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderSetTemplateInput"
+      responses:
+        "201":
+          description: Order set template created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderSetTemplate"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /order-set-templates/{id}:
+    get:
+      tags: [Order Set Templates]
+      summary: Get order set template by ID
+      operationId: getOrderSetTemplate
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Order set template details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderSetTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Order Set Templates]
+      summary: Update order set template
+      operationId: updateOrderSetTemplate
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderSetTemplateUpdate"
+      responses:
+        "200":
+          description: Order set template updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderSetTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Order Set Templates]
+      summary: Delete order set template
+      operationId: deleteOrderSetTemplate
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Order set template deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /order-set-templates/{id}/items:
+    get:
+      tags: [Order Set Templates]
+      summary: List order set template items
+      operationId: listOrderSetTemplateItems
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of order set items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderSetItem"
+
+  # ========================================================================
+  # 6. MODEL DEFINITION
+  # ========================================================================
+  /model-definitions:
+    get:
+      tags: [Model Definitions]
+      summary: List model definitions
+      operationId: listModelDefinitions
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: modelType
+          in: query
+          schema:
+            type: string
+            enum: [diagnostic, prognostic, treatment, risk-assessment, other]
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [draft, active, deprecated, archived]
+      responses:
+        "200":
+          description: List of model definitions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ModelDefinition"
+
+    post:
+      tags: [Model Definitions]
+      summary: Create model definition
+      operationId: createModelDefinition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModelDefinitionInput"
+      responses:
+        "201":
+          description: Model definition created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelDefinition"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /model-definitions/{id}:
+    get:
+      tags: [Model Definitions]
+      summary: Get model definition by ID
+      operationId: getModelDefinition
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Model definition details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelDefinition"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Model Definitions]
+      summary: Update model definition
+      operationId: updateModelDefinition
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModelDefinitionUpdate"
+      responses:
+        "200":
+          description: Model definition updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelDefinition"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Model Definitions]
+      summary: Delete model definition
+      operationId: deleteModelDefinition
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Model definition deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /model-definitions/{id}/versions:
+    get:
+      tags: [Model Definitions]
+      summary: List model definition versions
+      operationId: listModelDefinitionVersions
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of model versions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ModelVersion"
+
+  /model-definitions/{id}/performance-metrics:
+    get:
+      tags: [Model Definitions]
+      summary: List model definition performance metrics
+      operationId: listModelDefinitionPerformanceMetrics
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of performance metrics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PerformanceMetric"
+
+  # ========================================================================
+  # 7. MODEL VERSION
+  # ========================================================================
+  /model-versions:
+    get:
+      tags: [Model Versions]
+      summary: List model versions
+      operationId: listModelVersions
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: modelDefinitionId
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [training, validated, deployed, deprecated]
+      responses:
+        "200":
+          description: List of model versions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ModelVersion"
+
+    post:
+      tags: [Model Versions]
+      summary: Create model version
+      operationId: createModelVersion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModelVersionInput"
+      responses:
+        "201":
+          description: Model version created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelVersion"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /model-versions/{id}:
+    get:
+      tags: [Model Versions]
+      summary: Get model version by ID
+      operationId: getModelVersion
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Model version details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelVersion"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Model Versions]
+      summary: Update model version
+      operationId: updateModelVersion
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModelVersionUpdate"
+      responses:
+        "200":
+          description: Model version updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelVersion"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Model Versions]
+      summary: Delete model version
+      operationId: deleteModelVersion
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Model version deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /model-versions/{id}/tests:
+    get:
+      tags: [Model Versions]
+      summary: List model version tests
+      operationId: listModelVersionTests
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of model tests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ModelTest"
+
+  /model-versions/{id}/feature-definitions:
+    get:
+      tags: [Model Versions]
+      summary: List model version feature definitions
+      operationId: listModelVersionFeatureDefinitions
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of feature definitions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FeatureDefinition"
+
+  # ========================================================================
+  # 8. ONTOLOGY TERM (Read-only)
+  # ========================================================================
+  /ontology-terms:
+    get:
+      tags: [Ontology Terms]
+      summary: Search/browse ontology terms
+      operationId: searchOntologyTerms
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: system
+          in: query
+          schema:
+            type: string
+            description: Coding system (SNOMED-CT, LOINC, ICD-10, RxNorm)
+        - name: code
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+            description: Search term
+      responses:
+        "200":
+          description: List of ontology terms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OntologyTerm"
+
+  /ontology-terms/{id}:
+    get:
+      tags: [Ontology Terms]
+      summary: Get ontology term by ID
+      operationId: getOntologyTerm
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Ontology term details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OntologyTerm"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /ontology-terms/{id}/children:
+    get:
+      tags: [Ontology Terms]
+      summary: List ontology term children
+      operationId: listOntologyTermChildren
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of child ontology terms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OntologyTerm"
+
+  /ontology-terms/{id}/parents:
+    get:
+      tags: [Ontology Terms]
+      summary: List ontology term parents
+      operationId: listOntologyTermParents
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of parent ontology terms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OntologyTerm"
+
+  /ontology-terms/{id}/mappings:
+    get:
+      tags: [Ontology Terms]
+      summary: List ontology term mappings
+      operationId: listOntologyTermMappings
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of term mappings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TermMapping"
+
+  # ========================================================================
+  # 9. VALUE SET
+  # ========================================================================
+  /value-sets:
+    get:
+      tags: [Value Sets]
+      summary: List value sets
+      operationId: listValueSets
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of value sets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ValueSet"
+
+    post:
+      tags: [Value Sets]
+      summary: Create value set
+      operationId: createValueSet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ValueSetInput"
+      responses:
+        "201":
+          description: Value set created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValueSet"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /value-sets/{id}:
+    get:
+      tags: [Value Sets]
+      summary: Get value set by ID
+      operationId: getValueSet
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Value set details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValueSet"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Value Sets]
+      summary: Update value set
+      operationId: updateValueSet
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ValueSetUpdate"
+      responses:
+        "200":
+          description: Value set updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValueSet"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Value Sets]
+      summary: Delete value set
+      operationId: deleteValueSet
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Value set deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /value-sets/{id}/codes:
+    get:
+      tags: [Value Sets]
+      summary: List value set codes
+      operationId: listValueSetCodes
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of codes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ValueSetCode"
+
+  # ========================================================================
+  # 10. CONCEPT MAP
+  # ========================================================================
+  /concept-maps:
+    get:
+      tags: [Concept Maps]
+      summary: List concept maps
+      operationId: listConceptMaps
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: sourceSystem
+          in: query
+          schema:
+            type: string
+        - name: targetSystem
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of concept maps
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConceptMap"
+
+    post:
+      tags: [Concept Maps]
+      summary: Create concept map
+      operationId: createConceptMap
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConceptMapInput"
+      responses:
+        "201":
+          description: Concept map created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConceptMap"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /concept-maps/{id}:
+    get:
+      tags: [Concept Maps]
+      summary: Get concept map by ID
+      operationId: getConceptMap
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Concept map details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConceptMap"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Concept Maps]
+      summary: Update concept map
+      operationId: updateConceptMap
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConceptMapUpdate"
+      responses:
+        "200":
+          description: Concept map updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConceptMap"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Concept Maps]
+      summary: Delete concept map
+      operationId: deleteConceptMap
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Concept map deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /concept-maps/{id}/mappings:
+    get:
+      tags: [Concept Maps]
+      summary: List concept map mappings
+      operationId: listConceptMapMappings
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of mappings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConceptMapping"
+
+  # ========================================================================
+  # 11. SCORING TEMPLATE
+  # ========================================================================
+  /scoring-templates:
+    get:
+      tags: [Scoring Templates]
+      summary: List scoring templates
+      operationId: listScoringTemplates
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of scoring templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ScoringTemplate"
+
+    post:
+      tags: [Scoring Templates]
+      summary: Create scoring template
+      operationId: createScoringTemplate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScoringTemplateInput"
+      responses:
+        "201":
+          description: Scoring template created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScoringTemplate"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /scoring-templates/{id}:
+    get:
+      tags: [Scoring Templates]
+      summary: Get scoring template by ID
+      operationId: getScoringTemplate
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Scoring template details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScoringTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Scoring Templates]
+      summary: Update scoring template
+      operationId: updateScoringTemplate
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScoringTemplateUpdate"
+      responses:
+        "200":
+          description: Scoring template updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScoringTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Scoring Templates]
+      summary: Delete scoring template
+      operationId: deleteScoringTemplate
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Scoring template deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /scoring-templates/{id}/items:
+    get:
+      tags: [Scoring Templates]
+      summary: List scoring template items
+      operationId: listScoringTemplateItems
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of scoring items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ScoringItem"
+
+  # ========================================================================
+  # 12. QUESTIONNAIRE TEMPLATE
+  # ========================================================================
+  /questionnaire-templates:
+    get:
+      tags: [Questionnaire Templates]
+      summary: List questionnaire templates
+      operationId: listQuestionnaireTemplates
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of questionnaire templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/QuestionnaireTemplate"
+
+    post:
+      tags: [Questionnaire Templates]
+      summary: Create questionnaire template
+      operationId: createQuestionnaireTemplate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuestionnaireTemplateInput"
+      responses:
+        "201":
+          description: Questionnaire template created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuestionnaireTemplate"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /questionnaire-templates/{id}:
+    get:
+      tags: [Questionnaire Templates]
+      summary: Get questionnaire template by ID
+      operationId: getQuestionnaireTemplate
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Questionnaire template details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuestionnaireTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Questionnaire Templates]
+      summary: Update questionnaire template
+      operationId: updateQuestionnaireTemplate
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuestionnaireTemplateUpdate"
+      responses:
+        "200":
+          description: Questionnaire template updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuestionnaireTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Questionnaire Templates]
+      summary: Delete questionnaire template
+      operationId: deleteQuestionnaireTemplate
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Questionnaire template deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /questionnaire-templates/{id}/questions:
+    get:
+      tags: [Questionnaire Templates]
+      summary: List questionnaire template questions
+      operationId: listQuestionnaireTemplateQuestions
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/QuestionnaireQuestion"
+
+  # ========================================================================
+  # 13. EVIDENCE CITATION
+  # ========================================================================
+  /evidence-citations:
+    get:
+      tags: [Evidence Citations]
+      summary: List evidence citations
+      operationId: listEvidenceCitations
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: citationType
+          in: query
+          schema:
+            type: string
+            enum: [paper, guideline, trial, systematic-review, other]
+      responses:
+        "200":
+          description: List of evidence citations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EvidenceCitation"
+
+    post:
+      tags: [Evidence Citations]
+      summary: Create evidence citation
+      operationId: createEvidenceCitation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EvidenceCitationInput"
+      responses:
+        "201":
+          description: Evidence citation created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EvidenceCitation"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /evidence-citations/{id}:
+    get:
+      tags: [Evidence Citations]
+      summary: Get evidence citation by ID
+      operationId: getEvidenceCitation
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Evidence citation details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EvidenceCitation"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Evidence Citations]
+      summary: Update evidence citation
+      operationId: updateEvidenceCitation
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EvidenceCitationUpdate"
+      responses:
+        "200":
+          description: Evidence citation updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EvidenceCitation"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Evidence Citations]
+      summary: Delete evidence citation
+      operationId: deleteEvidenceCitation
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Evidence citation deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ========================================================================
+  # 14. EVIDENCE REVIEW
+  # ========================================================================
+  /evidence-reviews:
+    get:
+      tags: [Evidence Reviews]
+      summary: List evidence reviews
+      operationId: listEvidenceReviews
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: gradeLevel
+          in: query
+          schema:
+            type: string
+            enum: [high, moderate, low, very-low]
+      responses:
+        "200":
+          description: List of evidence reviews
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EvidenceReview"
+
+    post:
+      tags: [Evidence Reviews]
+      summary: Create evidence review
+      operationId: createEvidenceReview
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EvidenceReviewInput"
+      responses:
+        "201":
+          description: Evidence review created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EvidenceReview"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /evidence-reviews/{id}:
+    get:
+      tags: [Evidence Reviews]
+      summary: Get evidence review by ID
+      operationId: getEvidenceReview
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Evidence review details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EvidenceReview"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Evidence Reviews]
+      summary: Update evidence review
+      operationId: updateEvidenceReview
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EvidenceReviewUpdate"
+      responses:
+        "200":
+          description: Evidence review updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EvidenceReview"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Evidence Reviews]
+      summary: Delete evidence review
+      operationId: deleteEvidenceReview
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Evidence review deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ========================================================================
+  # 15. KNOWLEDGE PACKAGE
+  # ========================================================================
+  /knowledge-packages:
+    get:
+      tags: [Knowledge Packages]
+      summary: List knowledge packages
+      operationId: listKnowledgePackages
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: useCase
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [draft, active, deprecated]
+      responses:
+        "200":
+          description: List of knowledge packages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/KnowledgePackage"
+
+    post:
+      tags: [Knowledge Packages]
+      summary: Create knowledge package
+      operationId: createKnowledgePackage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KnowledgePackageInput"
+      responses:
+        "201":
+          description: Knowledge package created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KnowledgePackage"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /knowledge-packages/{id}:
+    get:
+      tags: [Knowledge Packages]
+      summary: Get knowledge package by ID
+      operationId: getKnowledgePackage
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Knowledge package details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KnowledgePackage"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Knowledge Packages]
+      summary: Update knowledge package
+      operationId: updateKnowledgePackage
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KnowledgePackageUpdate"
+      responses:
+        "200":
+          description: Knowledge package updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KnowledgePackage"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Knowledge Packages]
+      summary: Delete knowledge package
+      operationId: deleteKnowledgePackage
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Knowledge package deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /knowledge-packages/{id}/clinical-rules:
+    get:
+      tags: [Knowledge Packages]
+      summary: List knowledge package clinical rules
+      operationId: listKnowledgePackageClinicalRules
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of clinical rules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClinicalRule"
+
+  /knowledge-packages/{id}/model-definitions:
+    get:
+      tags: [Knowledge Packages]
+      summary: List knowledge package model definitions
+      operationId: listKnowledgePackageModelDefinitions
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of model definitions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ModelDefinition"
+
+  /knowledge-packages/{id}/value-sets:
+    get:
+      tags: [Knowledge Packages]
+      summary: List knowledge package value sets
+      operationId: listKnowledgePackageValueSets
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of value sets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ValueSet"
+
+components:
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: Resource identifier
+      schema:
+        type: string
+        pattern: "^[a-zA-Z0-9_-]+$"
+        example: "rule_1234567890"
+
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-based)
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+
+    LimitParam:
+      name: limit
+      in: query
+      description: Items per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+        example: 20
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+  schemas:
+    Error:
+      type: object
+      required: [error, message]
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+
+    Timestamps:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Clinical Rule schemas
+    ClinicalRule:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name, ruleType]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            ruleType:
+              type: string
+              enum: [alert, recommendation, calculation, workflow]
+            condition:
+              type: object
+              description: Rule condition logic (JSON structure)
+            action:
+              type: object
+              description: Rule action to execute
+            priority:
+              type: integer
+              minimum: 1
+              maximum: 10
+            enabled:
+              type: boolean
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+
+    ClinicalRuleInput:
+      type: object
+      required: [name, ruleType, condition, action]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        ruleType:
+          type: string
+          enum: [alert, recommendation, calculation, workflow]
+        condition:
+          type: object
+        action:
+          type: object
+        priority:
+          type: integer
+          minimum: 1
+          maximum: 10
+        enabled:
+          type: boolean
+          default: true
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ClinicalRuleUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        condition:
+          type: object
+        action:
+          type: object
+        priority:
+          type: integer
+          minimum: 1
+          maximum: 10
+        enabled:
+          type: boolean
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ClinicalRuleVersion:
+      type: object
+      properties:
+        id:
+          type: string
+        clinicalRuleId:
+          type: string
+        version:
+          type: string
+        condition:
+          type: object
+        action:
+          type: object
+        effectiveDate:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    RuleTest:
+      type: object
+      properties:
+        id:
+          type: string
+        clinicalRuleId:
+          type: string
+        name:
+          type: string
+        testData:
+          type: object
+        expectedResult:
+          type: object
+        actualResult:
+          type: object
+        passed:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Rule Set schemas
+    RuleSet:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            category:
+              type: string
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+
+    RuleSetInput:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    RuleSetUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    # Clinical Guideline schemas
+    ClinicalGuideline:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, title, organization]
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            description:
+              type: string
+            organization:
+              type: string
+            publicationDate:
+              type: string
+              format: date
+            effectiveDate:
+              type: string
+              format: date
+            version:
+              type: string
+            url:
+              type: string
+              format: uri
+            category:
+              type: string
+            keywords:
+              type: array
+              items:
+                type: string
+            content:
+              type: object
+              description: Structured guideline content
+            metadata:
+              type: object
+              additionalProperties: true
+
+    ClinicalGuidelineInput:
+      type: object
+      required: [title, organization]
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        organization:
+          type: string
+        publicationDate:
+          type: string
+          format: date
+        effectiveDate:
+          type: string
+          format: date
+        version:
+          type: string
+        url:
+          type: string
+          format: uri
+        category:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        content:
+          type: object
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ClinicalGuidelineUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        effectiveDate:
+          type: string
+          format: date
+        version:
+          type: string
+        url:
+          type: string
+          format: uri
+        category:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        content:
+          type: object
+        metadata:
+          type: object
+          additionalProperties: true
+
+    GuidelineSection:
+      type: object
+      properties:
+        id:
+          type: string
+        guidelineId:
+          type: string
+        title:
+          type: string
+        order:
+          type: integer
+        content:
+          type: object
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Care Protocol Template schemas
+    CareProtocolTemplate:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            category:
+              type: string
+            status:
+              type: string
+              enum: [draft, active, deprecated]
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+
+    CareProtocolTemplateInput:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        status:
+          type: string
+          enum: [draft, active, deprecated]
+          default: draft
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    CareProtocolTemplateUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        status:
+          type: string
+          enum: [draft, active, deprecated]
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ProtocolStep:
+      type: object
+      properties:
+        id:
+          type: string
+        careProtocolId:
+          type: string
+        stepNumber:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        order:
+          type: integer
+        conditions:
+          type: object
+        actions:
+          type: array
+          items:
+            type: object
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Order Set Template schemas
+    OrderSetTemplate:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            category:
+              type: string
+            status:
+              type: string
+              enum: [draft, active, deprecated]
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+
+    OrderSetTemplateInput:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        status:
+          type: string
+          enum: [draft, active, deprecated]
+          default: draft
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    OrderSetTemplateUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        status:
+          type: string
+          enum: [draft, active, deprecated]
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    OrderSetItem:
+      type: object
+      properties:
+        id:
+          type: string
+        orderSetTemplateId:
+          type: string
+        itemType:
+          type: string
+          enum: [medication, lab, imaging, procedure, other]
+        code:
+          $ref: "#/components/schemas/CodeableConcept"
+        required:
+          type: boolean
+        default:
+          type: boolean
+        order:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Model Definition schemas
+    ModelDefinition:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name, modelType]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            modelType:
+              type: string
+              enum: [diagnostic, prognostic, treatment, risk-assessment, other]
+            algorithm:
+              type: string
+            framework:
+              type: string
+            currentVersion:
+              type: string
+            status:
+              type: string
+              enum: [draft, active, deprecated, archived]
+            metadata:
+              type: object
+              additionalProperties: true
+
+    ModelDefinitionInput:
+      type: object
+      required: [name, modelType]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        modelType:
+          type: string
+          enum: [diagnostic, prognostic, treatment, risk-assessment, other]
+        algorithm:
+          type: string
+        framework:
+          type: string
+        currentVersion:
+          type: string
+        status:
+          type: string
+          enum: [draft, active, deprecated, archived]
+          default: draft
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ModelDefinitionUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        currentVersion:
+          type: string
+        status:
+          type: string
+          enum: [draft, active, deprecated, archived]
+        metadata:
+          type: object
+          additionalProperties: true
+
+    # Model Version schemas
+    ModelVersion:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, modelDefinitionId, version]
+          properties:
+            id:
+              type: string
+            modelDefinitionId:
+              type: string
+            version:
+              type: string
+            artifactUrl:
+              type: string
+              format: uri
+            performanceMetrics:
+              type: object
+            trainingDate:
+              type: string
+              format: date-time
+            status:
+              type: string
+              enum: [training, validated, deployed, deprecated]
+            metadata:
+              type: object
+              additionalProperties: true
+
+    ModelVersionInput:
+      type: object
+      required: [modelDefinitionId, version]
+      properties:
+        modelDefinitionId:
+          type: string
+        version:
+          type: string
+        artifactUrl:
+          type: string
+          format: uri
+        performanceMetrics:
+          type: object
+        trainingDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [training, validated, deployed, deprecated]
+          default: training
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ModelVersionUpdate:
+      type: object
+      properties:
+        artifactUrl:
+          type: string
+          format: uri
+        performanceMetrics:
+          type: object
+        status:
+          type: string
+          enum: [training, validated, deployed, deprecated]
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ModelTest:
+      type: object
+      properties:
+        id:
+          type: string
+        modelVersionId:
+          type: string
+        testType:
+          type: string
+          enum: [unit, integration, validation, performance]
+        testData:
+          type: object
+        results:
+          type: object
+        passed:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    FeatureDefinition:
+      type: object
+      properties:
+        id:
+          type: string
+        modelVersionId:
+          type: string
+        name:
+          type: string
+        dataType:
+          type: string
+        required:
+          type: boolean
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    PerformanceMetric:
+      type: object
+      properties:
+        id:
+          type: string
+        modelDefinitionId:
+          type: string
+        metricType:
+          type: string
+          enum: [accuracy, precision, recall, f1-score, auc-roc, other]
+        value:
+          type: number
+        date:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Ontology Term schemas (read-only)
+    OntologyTerm:
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        system:
+          type: string
+          description: Coding system (SNOMED-CT, LOINC, ICD-10, RxNorm)
+        parentId:
+          type: string
+        level:
+          type: integer
+        metadata:
+          type: object
+          additionalProperties: true
+
+    TermMapping:
+      type: object
+      properties:
+        id:
+          type: string
+        sourceTermId:
+          type: string
+        targetTermId:
+          type: string
+        targetSystem:
+          type: string
+        equivalence:
+          type: string
+          enum: [related-to, equivalent, wider, narrower, specializes, generalizes]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Value Set schemas
+    ValueSet:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            category:
+              type: string
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+
+    ValueSetInput:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ValueSetUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ValueSetCode:
+      type: object
+      properties:
+        id:
+          type: string
+        valueSetId:
+          type: string
+        code:
+          type: string
+        system:
+          type: string
+        display:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Concept Map schemas
+    ConceptMap:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name, sourceSystem, targetSystem]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            sourceSystem:
+              type: string
+            targetSystem:
+              type: string
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+
+    ConceptMapInput:
+      type: object
+      required: [name, sourceSystem, targetSystem]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        sourceSystem:
+          type: string
+        targetSystem:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ConceptMapUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ConceptMapping:
+      type: object
+      properties:
+        id:
+          type: string
+        conceptMapId:
+          type: string
+        sourceCode:
+          type: string
+        targetCode:
+          type: string
+        equivalence:
+          type: string
+          enum: [related-to, equivalent, wider, narrower, specializes, generalizes]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Scoring Template schemas
+    ScoringTemplate:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            category:
+              type: string
+            calculationFormula:
+              type: string
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+
+    ScoringTemplateInput:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        calculationFormula:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ScoringTemplateUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        calculationFormula:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    ScoringItem:
+      type: object
+      properties:
+        id:
+          type: string
+        scoringTemplateId:
+          type: string
+        name:
+          type: string
+        code:
+          $ref: "#/components/schemas/CodeableConcept"
+        weight:
+          type: number
+        order:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Questionnaire Template schemas
+    QuestionnaireTemplate:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            category:
+              type: string
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+
+    QuestionnaireTemplateInput:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    QuestionnaireTemplateUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    QuestionnaireQuestion:
+      type: object
+      properties:
+        id:
+          type: string
+        questionnaireTemplateId:
+          type: string
+        questionText:
+          type: string
+        questionType:
+          type: string
+          enum: [boolean, choice, date, decimal, integer, string, text]
+        required:
+          type: boolean
+        order:
+          type: integer
+        options:
+          type: array
+          items:
+            type: object
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    # Evidence Citation schemas
+    EvidenceCitation:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, citationType, title]
+          properties:
+            id:
+              type: string
+            citationType:
+              type: string
+              enum: [paper, guideline, trial, systematic-review, other]
+            title:
+              type: string
+            authors:
+              type: array
+              items:
+                type: string
+            publicationDate:
+              type: string
+              format: date
+            journal:
+              type: string
+            url:
+              type: string
+              format: uri
+            doi:
+              type: string
+            pmid:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+
+    EvidenceCitationInput:
+      type: object
+      required: [citationType, title]
+      properties:
+        citationType:
+          type: string
+          enum: [paper, guideline, trial, systematic-review, other]
+        title:
+          type: string
+        authors:
+          type: array
+          items:
+            type: string
+        publicationDate:
+          type: string
+          format: date
+        journal:
+          type: string
+        url:
+          type: string
+          format: uri
+        doi:
+          type: string
+        pmid:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    EvidenceCitationUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        authors:
+          type: array
+          items:
+            type: string
+        publicationDate:
+          type: string
+          format: date
+        journal:
+          type: string
+        url:
+          type: string
+          format: uri
+        doi:
+          type: string
+        pmid:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    # Evidence Review schemas
+    EvidenceReview:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id]
+          properties:
+            id:
+              type: string
+            evidenceCitationId:
+              type: string
+            gradeLevel:
+              type: string
+              enum: [high, moderate, low, very-low]
+            strengthOfRecommendation:
+              type: string
+              enum: [strong, weak, conditional]
+            notes:
+              type: string
+            reviewedBy:
+              type: string
+            reviewDate:
+              type: string
+              format: date-time
+            metadata:
+              type: object
+              additionalProperties: true
+
+    EvidenceReviewInput:
+      type: object
+      properties:
+        evidenceCitationId:
+          type: string
+        gradeLevel:
+          type: string
+          enum: [high, moderate, low, very-low]
+        strengthOfRecommendation:
+          type: string
+          enum: [strong, weak, conditional]
+        notes:
+          type: string
+        reviewedBy:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    EvidenceReviewUpdate:
+      type: object
+      properties:
+        gradeLevel:
+          type: string
+          enum: [high, moderate, low, very-low]
+        strengthOfRecommendation:
+          type: string
+          enum: [strong, weak, conditional]
+        notes:
+          type: string
+        reviewedBy:
+          type: string
+        reviewDate:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+
+    # Knowledge Package schemas
+    KnowledgePackage:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            useCase:
+              type: string
+            status:
+              type: string
+              enum: [draft, active, deprecated]
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+
+    KnowledgePackageInput:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        useCase:
+          type: string
+        status:
+          type: string
+          enum: [draft, active, deprecated]
+          default: draft
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    KnowledgePackageUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        useCase:
+          type: string
+        status:
+          type: string
+          enum: [draft, active, deprecated]
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+
+    # Common schemas
+    CodeableConcept:
+      type: object
+      properties:
+        coding:
+          type: array
+          items:
+            $ref: "#/components/schemas/Coding"
+        text:
+          type: string
+
+    Coding:
+      type: object
+      properties:
+        system:
+          type: string
+        code:
+          type: string
+        display:
+          type: string
+        version:
+          type: string
+
+security:
+  - BearerAuth: []
+  - OAuth2: []

@@ -1,0 +1,3039 @@
+openapi: 3.1.0
+info:
+  title: Clinical Decision Engine - Integration & Interoperability Domain API
+  version: 1.0.0
+  description: |
+    Integration & Interoperability Domain API for the Clinical Decision Engine.
+    Part of the CuurAI MCP ecosystem.
+
+    ## REST Pattern
+    - **GET /entity** → List resources
+    - **GET /entity/:id** → Get resource detail
+    - **POST /entity** → Create resource
+    - **PATCH /entity/:id** → Update resource
+    - **DELETE /entity/:id** → Delete resource
+    - **GET /entity/:id/sub-entity** → List child resources
+  contact:
+    name: CuurAI MCP Team
+  license:
+    name: Proprietary
+
+servers:
+  - url: https://api.cuurai.com/api/v1
+    description: Production
+  - url: http://localhost:8000/api/v1
+    description: Local development
+
+tags:
+  - name: External Systems
+    description: External clinical/operational systems we integrate with
+  - name: Connections
+    description: Concrete connection profiles to external systems
+  - name: FHIR Bundles
+    description: FHIR Bundle payloads received from or sent to external systems
+  - name: FHIR Mapping Profiles
+    description: Mapping rules between external FHIR profiles and internal canonical model
+  - name: HL7 Messages
+    description: Raw HL7 v2 messages (ADT, ORU, ORM, etc.)
+  - name: HL7 Mapping Profiles
+    description: Mapping between HL7 segments/fields and internal canonical entities
+  - name: Integration Jobs
+    description: Units of work for sync/import/export operations
+  - name: Integration Runs
+    description: Execution instances of integration jobs
+  - name: Data Import Batches
+    description: Batch imports of external data into canonical store
+  - name: Data Export Batches
+    description: Batch exports of data to target systems
+  - name: Event Subscriptions
+    description: Subscriptions to internal events for push to external systems
+  - name: Event Deliveries
+    description: Delivery attempts of events to external webhooks/endpoints
+  - name: API Clients
+    description: Clients/applications consuming APIs
+  - name: API Credentials
+    description: Credential records (keys, secrets, certificates) for API clients
+  - name: Interface Errors
+    description: Individual errors or validation failures during integration
+  - name: Interface Health Checks
+    description: Health status snapshots of integrations/connections
+
+paths:
+  # ========================================================================
+  # 1. EXTERNAL SYSTEM
+  # ========================================================================
+  /external-systems:
+    get:
+      tags: [External Systems]
+      summary: List external systems
+      operationId: listExternalSystems
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: systemType
+          in: query
+          schema:
+            type: string
+            enum: [ehr, lis, ris, pms, hie, payer, other]
+      responses:
+        "200":
+          description: List of external systems
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ExternalSystem"
+    post:
+      tags: [External Systems]
+      summary: Create external system
+      operationId: createExternalSystem
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExternalSystemInput"
+      responses:
+        "201":
+          description: External system created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExternalSystem"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /external-systems/{id}:
+    get:
+      tags: [External Systems]
+      summary: Get external system by ID
+      operationId: getExternalSystem
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: External system details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExternalSystem"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [External Systems]
+      summary: Update external system
+      operationId: updateExternalSystem
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExternalSystemUpdate"
+      responses:
+        "200":
+          description: External system updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExternalSystem"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [External Systems]
+      summary: Delete external system
+      operationId: deleteExternalSystem
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: External system deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /external-systems/{id}/endpoints:
+    get:
+      tags: [External Systems]
+      summary: List external system endpoints
+      operationId: listExternalSystemEndpoints
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of endpoints
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SystemEndpoint"
+  /external-systems/{id}/connections:
+    get:
+      tags: [External Systems]
+      summary: List external system connections
+      operationId: listExternalSystemConnections
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of connections
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Connection"
+  /external-systems/{id}/integration-jobs:
+    get:
+      tags: [External Systems]
+      summary: List external system integration jobs
+      operationId: listExternalSystemIntegrationJobs
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of integration jobs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IntegrationJob"
+
+  # ========================================================================
+  # 2. CONNECTION
+  # ========================================================================
+  /connections:
+    get:
+      tags: [Connections]
+      summary: List connections
+      operationId: listConnections
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: externalSystemId
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, inactive, error]
+      responses:
+        "200":
+          description: List of connections
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Connection"
+    post:
+      tags: [Connections]
+      summary: Create connection
+      operationId: createConnection
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConnectionInput"
+      responses:
+        "201":
+          description: Connection created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Connection"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /connections/{id}:
+    get:
+      tags: [Connections]
+      summary: Get connection by ID
+      operationId: getConnection
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Connection details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Connection"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [Connections]
+      summary: Update connection
+      operationId: updateConnection
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConnectionUpdate"
+      responses:
+        "200":
+          description: Connection updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Connection"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [Connections]
+      summary: Delete connection
+      operationId: deleteConnection
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Connection deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /connections/{id}/health-checks:
+    get:
+      tags: [Connections]
+      summary: List connection health checks
+      operationId: listConnectionHealthChecks
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of health checks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InterfaceHealthCheck"
+  /connections/{id}/integration-jobs:
+    get:
+      tags: [Connections]
+      summary: List connection integration jobs
+      operationId: listConnectionIntegrationJobs
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of integration jobs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IntegrationJob"
+
+  # ========================================================================
+  # 3. FHIR BUNDLE
+  # ========================================================================
+  /fhir-bundles:
+    get:
+      tags: [FHIR Bundles]
+      summary: List FHIR bundles
+      operationId: listFHIRBundles
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: bundleType
+          in: query
+          schema:
+            type: string
+            enum: [document, message, transaction, transaction-response, batch, batch-response, history, searchset, collection]
+        - name: direction
+          in: query
+          schema:
+            type: string
+            enum: [inbound, outbound]
+      responses:
+        "200":
+          description: List of FHIR bundles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FHIRBundle"
+    post:
+      tags: [FHIR Bundles]
+      summary: Create FHIR bundle (ingest or send)
+      operationId: createFHIRBundle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FHIRBundleInput"
+          application/fhir+json:
+            schema:
+              $ref: "#/components/schemas/FHIRBundleInput"
+      responses:
+        "201":
+          description: FHIR bundle created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FHIRBundle"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /fhir-bundles/{id}:
+    get:
+      tags: [FHIR Bundles]
+      summary: Get FHIR bundle by ID
+      operationId: getFHIRBundle
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: FHIR bundle details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FHIRBundle"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [FHIR Bundles]
+      summary: Delete FHIR bundle
+      operationId: deleteFHIRBundle
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: FHIR bundle deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /fhir-bundles/{id}/resources:
+    get:
+      tags: [FHIR Bundles]
+      summary: List FHIR bundle resources
+      operationId: listFHIRBundleResources
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of FHIR resources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+
+  # ========================================================================
+  # 4. FHIR MAPPING PROFILE
+  # ========================================================================
+  /fhir-mapping-profiles:
+    get:
+      tags: [FHIR Mapping Profiles]
+      summary: List FHIR mapping profiles
+      operationId: listFHIRMappingProfiles
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: externalSystemId
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of FHIR mapping profiles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FHIRMappingProfile"
+    post:
+      tags: [FHIR Mapping Profiles]
+      summary: Create FHIR mapping profile
+      operationId: createFHIRMappingProfile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FHIRMappingProfileInput"
+      responses:
+        "201":
+          description: FHIR mapping profile created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FHIRMappingProfile"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /fhir-mapping-profiles/{id}:
+    get:
+      tags: [FHIR Mapping Profiles]
+      summary: Get FHIR mapping profile by ID
+      operationId: getFHIRMappingProfile
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: FHIR mapping profile details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FHIRMappingProfile"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [FHIR Mapping Profiles]
+      summary: Update FHIR mapping profile
+      operationId: updateFHIRMappingProfile
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FHIRMappingProfileUpdate"
+      responses:
+        "200":
+          description: FHIR mapping profile updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FHIRMappingProfile"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [FHIR Mapping Profiles]
+      summary: Delete FHIR mapping profile
+      operationId: deleteFHIRMappingProfile
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: FHIR mapping profile deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /fhir-mapping-profiles/{id}/rules:
+    get:
+      tags: [FHIR Mapping Profiles]
+      summary: List FHIR mapping profile rules
+      operationId: listFHIRMappingProfileRules
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of mapping rules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MappingRule"
+
+  # ========================================================================
+  # 5. HL7 MESSAGE
+  # ========================================================================
+  /hl7-messages:
+    get:
+      tags: [HL7 Messages]
+      summary: List HL7 messages
+      operationId: listHL7Messages
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: messageType
+          in: query
+          schema:
+            type: string
+            description: HL7 message type (e.g., ADT^A01)
+        - name: direction
+          in: query
+          schema:
+            type: string
+            enum: [inbound, outbound]
+      responses:
+        "200":
+          description: List of HL7 messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HL7Message"
+    post:
+      tags: [HL7 Messages]
+      summary: Create HL7 message (ingest)
+      operationId: createHL7Message
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              description: Raw HL7 v2 message text
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HL7MessageInput"
+      responses:
+        "201":
+          description: HL7 message created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HL7Message"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /hl7-messages/{id}:
+    get:
+      tags: [HL7 Messages]
+      summary: Get HL7 message by ID
+      operationId: getHL7Message
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: HL7 message details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HL7Message"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [HL7 Messages]
+      summary: Delete HL7 message
+      operationId: deleteHL7Message
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: HL7 message deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /hl7-messages/{id}/segments:
+    get:
+      tags: [HL7 Messages]
+      summary: List HL7 message segments
+      operationId: listHL7MessageSegments
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of HL7 segments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HL7Segment"
+  /hl7-messages/{id}/mapping-results:
+    get:
+      tags: [HL7 Messages]
+      summary: List HL7 message mapping results
+      operationId: listHL7MessageMappingResults
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of mapping results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MappingResult"
+
+  # ========================================================================
+  # 6. HL7 MAPPING PROFILE
+  # ========================================================================
+  /hl7-mapping-profiles:
+    get:
+      tags: [HL7 Mapping Profiles]
+      summary: List HL7 mapping profiles
+      operationId: listHL7MappingProfiles
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: externalSystemId
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of HL7 mapping profiles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HL7MappingProfile"
+    post:
+      tags: [HL7 Mapping Profiles]
+      summary: Create HL7 mapping profile
+      operationId: createHL7MappingProfile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HL7MappingProfileInput"
+      responses:
+        "201":
+          description: HL7 mapping profile created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HL7MappingProfile"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /hl7-mapping-profiles/{id}:
+    get:
+      tags: [HL7 Mapping Profiles]
+      summary: Get HL7 mapping profile by ID
+      operationId: getHL7MappingProfile
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: HL7 mapping profile details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HL7MappingProfile"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [HL7 Mapping Profiles]
+      summary: Update HL7 mapping profile
+      operationId: updateHL7MappingProfile
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HL7MappingProfileUpdate"
+      responses:
+        "200":
+          description: HL7 mapping profile updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HL7MappingProfile"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [HL7 Mapping Profiles]
+      summary: Delete HL7 mapping profile
+      operationId: deleteHL7MappingProfile
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: HL7 mapping profile deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /hl7-mapping-profiles/{id}/rules:
+    get:
+      tags: [HL7 Mapping Profiles]
+      summary: List HL7 mapping profile rules
+      operationId: listHL7MappingProfileRules
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of mapping rules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MappingRule"
+
+  # ========================================================================
+  # 7. INTEGRATION JOB
+  # ========================================================================
+  /integration-jobs:
+    get:
+      tags: [Integration Jobs]
+      summary: List integration jobs
+      operationId: listIntegrationJobs
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: externalSystemId
+          in: query
+          schema:
+            type: string
+        - name: connectionId
+          in: query
+          schema:
+            type: string
+        - name: jobType
+          in: query
+          schema:
+            type: string
+            enum: [sync, import, export, scheduled, manual]
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, running, completed, failed, cancelled]
+      responses:
+        "200":
+          description: List of integration jobs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IntegrationJob"
+    post:
+      tags: [Integration Jobs]
+      summary: Create integration job
+      operationId: createIntegrationJob
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IntegrationJobInput"
+      responses:
+        "201":
+          description: Integration job created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IntegrationJob"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /integration-jobs/{id}:
+    get:
+      tags: [Integration Jobs]
+      summary: Get integration job by ID
+      operationId: getIntegrationJob
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Integration job details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IntegrationJob"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [Integration Jobs]
+      summary: Update integration job
+      operationId: updateIntegrationJob
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IntegrationJobUpdate"
+      responses:
+        "200":
+          description: Integration job updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IntegrationJob"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [Integration Jobs]
+      summary: Delete integration job
+      operationId: deleteIntegrationJob
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Integration job deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /integration-jobs/{id}/runs:
+    get:
+      tags: [Integration Jobs]
+      summary: List integration job runs
+      operationId: listIntegrationJobRuns
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of integration runs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IntegrationRun"
+
+  # ========================================================================
+  # 8. INTEGRATION RUN (Immutable - POST only)
+  # ========================================================================
+  /integration-runs:
+    get:
+      tags: [Integration Runs]
+      summary: List integration runs
+      operationId: listIntegrationRuns
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: integrationJobId
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [running, completed, failed]
+      responses:
+        "200":
+          description: List of integration runs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IntegrationRun"
+    post:
+      tags: [Integration Runs]
+      summary: Create integration run (immutable)
+      operationId: createIntegrationRun
+      description: |
+        Creates an immutable integration run record. Once created, runs cannot be
+        modified to ensure audit trail integrity.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IntegrationRunInput"
+      responses:
+        "201":
+          description: Integration run created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IntegrationRun"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /integration-runs/{id}:
+    get:
+      tags: [Integration Runs]
+      summary: Get integration run by ID
+      operationId: getIntegrationRun
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Integration run details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IntegrationRun"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /integration-runs/{id}/logs:
+    get:
+      tags: [Integration Runs]
+      summary: List integration run logs
+      operationId: listIntegrationRunLogs
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/IntegrationLog"
+  /integration-runs/{id}/errors:
+    get:
+      tags: [Integration Runs]
+      summary: List integration run errors
+      operationId: listIntegrationRunErrors
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of errors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InterfaceError"
+
+  # ========================================================================
+  # 9. DATA IMPORT BATCH
+  # ========================================================================
+  /data-import-batches:
+    get:
+      tags: [Data Import Batches]
+      summary: List data import batches
+      operationId: listDataImportBatches
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, processing, completed, failed]
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [csv, ndjson, fhir-bulk, other]
+      responses:
+        "200":
+          description: List of data import batches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DataImportBatch"
+    post:
+      tags: [Data Import Batches]
+      summary: Create data import batch
+      operationId: createDataImportBatch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DataImportBatchInput"
+      responses:
+        "201":
+          description: Data import batch created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataImportBatch"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /data-import-batches/{id}:
+    get:
+      tags: [Data Import Batches]
+      summary: Get data import batch by ID
+      operationId: getDataImportBatch
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Data import batch details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataImportBatch"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [Data Import Batches]
+      summary: Update data import batch
+      operationId: updateDataImportBatch
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DataImportBatchUpdate"
+      responses:
+        "200":
+          description: Data import batch updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataImportBatch"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [Data Import Batches]
+      summary: Delete data import batch
+      operationId: deleteDataImportBatch
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Data import batch deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /data-import-batches/{id}/records:
+    get:
+      tags: [Data Import Batches]
+      summary: List data import batch records
+      operationId: listDataImportBatchRecords
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of import records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ImportRecord"
+  /data-import-batches/{id}/errors:
+    get:
+      tags: [Data Import Batches]
+      summary: List data import batch errors
+      operationId: listDataImportBatchErrors
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of errors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InterfaceError"
+
+  # ========================================================================
+  # 10. DATA EXPORT BATCH
+  # ========================================================================
+  /data-export-batches:
+    get:
+      tags: [Data Export Batches]
+      summary: List data export batches
+      operationId: listDataExportBatches
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, processing, completed, failed]
+        - name: targetSystemId
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of data export batches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DataExportBatch"
+    post:
+      tags: [Data Export Batches]
+      summary: Create data export batch
+      operationId: createDataExportBatch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DataExportBatchInput"
+      responses:
+        "201":
+          description: Data export batch created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataExportBatch"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /data-export-batches/{id}:
+    get:
+      tags: [Data Export Batches]
+      summary: Get data export batch by ID
+      operationId: getDataExportBatch
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Data export batch details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataExportBatch"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [Data Export Batches]
+      summary: Update data export batch
+      operationId: updateDataExportBatch
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DataExportBatchUpdate"
+      responses:
+        "200":
+          description: Data export batch updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DataExportBatch"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [Data Export Batches]
+      summary: Delete data export batch
+      operationId: deleteDataExportBatch
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Data export batch deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /data-export-batches/{id}/files:
+    get:
+      tags: [Data Export Batches]
+      summary: List data export batch files
+      operationId: listDataExportBatchFiles
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of export files
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ExportFile"
+  /data-export-batches/{id}/errors:
+    get:
+      tags: [Data Export Batches]
+      summary: List data export batch errors
+      operationId: listDataExportBatchErrors
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of errors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InterfaceError"
+
+  # ========================================================================
+  # 11. EVENT SUBSCRIPTION
+  # ========================================================================
+  /event-subscriptions:
+    get:
+      tags: [Event Subscriptions]
+      summary: List event subscriptions
+      operationId: listEventSubscriptions
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: eventType
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, inactive, paused]
+      responses:
+        "200":
+          description: List of event subscriptions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventSubscription"
+    post:
+      tags: [Event Subscriptions]
+      summary: Create event subscription
+      operationId: createEventSubscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventSubscriptionInput"
+      responses:
+        "201":
+          description: Event subscription created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventSubscription"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /event-subscriptions/{id}:
+    get:
+      tags: [Event Subscriptions]
+      summary: Get event subscription by ID
+      operationId: getEventSubscription
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Event subscription details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventSubscription"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [Event Subscriptions]
+      summary: Update event subscription
+      operationId: updateEventSubscription
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventSubscriptionUpdate"
+      responses:
+        "200":
+          description: Event subscription updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventSubscription"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [Event Subscriptions]
+      summary: Delete event subscription
+      operationId: deleteEventSubscription
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: Event subscription deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /event-subscriptions/{id}/deliveries:
+    get:
+      tags: [Event Subscriptions]
+      summary: List event subscription deliveries
+      operationId: listEventSubscriptionDeliveries
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of event deliveries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventDelivery"
+
+  # ========================================================================
+  # 12. EVENT DELIVERY
+  # ========================================================================
+  /event-deliveries:
+    get:
+      tags: [Event Deliveries]
+      summary: List event deliveries
+      operationId: listEventDeliveries
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: eventSubscriptionId
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, delivered, failed, retrying]
+      responses:
+        "200":
+          description: List of event deliveries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventDelivery"
+    post:
+      tags: [Event Deliveries]
+      summary: Create event delivery
+      operationId: createEventDelivery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventDeliveryInput"
+      responses:
+        "201":
+          description: Event delivery created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventDelivery"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /event-deliveries/{id}:
+    get:
+      tags: [Event Deliveries]
+      summary: Get event delivery by ID
+      operationId: getEventDelivery
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Event delivery details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventDelivery"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [Event Deliveries]
+      summary: Update event delivery
+      operationId: updateEventDelivery
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventDeliveryUpdate"
+      responses:
+        "200":
+          description: Event delivery updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventDelivery"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ========================================================================
+  # 13. API CLIENT
+  # ========================================================================
+  /api-clients:
+    get:
+      tags: [API Clients]
+      summary: List API clients
+      operationId: listAPIClients
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, inactive, suspended]
+      responses:
+        "200":
+          description: List of API clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/APIClient"
+    post:
+      tags: [API Clients]
+      summary: Create API client
+      operationId: createAPIClient
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/APIClientInput"
+      responses:
+        "201":
+          description: API client created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIClient"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /api-clients/{id}:
+    get:
+      tags: [API Clients]
+      summary: Get API client by ID
+      operationId: getAPIClient
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: API client details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIClient"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [API Clients]
+      summary: Update API client
+      operationId: updateAPIClient
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/APIClientUpdate"
+      responses:
+        "200":
+          description: API client updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIClient"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [API Clients]
+      summary: Delete API client
+      operationId: deleteAPIClient
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: API client deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api-clients/{id}/credentials:
+    get:
+      tags: [API Clients]
+      summary: List API client credentials
+      operationId: listAPIClientCredentials
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of credentials
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/APICredential"
+  /api-clients/{id}/usage-metrics:
+    get:
+      tags: [API Clients]
+      summary: List API client usage metrics
+      operationId: listAPIClientUsageMetrics
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: List of usage metrics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UsageMetric"
+
+  # ========================================================================
+  # 14. API CREDENTIAL
+  # ========================================================================
+  /api-credentials:
+    get:
+      tags: [API Credentials]
+      summary: List API credentials
+      operationId: listAPICredentials
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: apiClientId
+          in: query
+          schema:
+            type: string
+        - name: credentialType
+          in: query
+          schema:
+            type: string
+            enum: [api-key, oauth-client, certificate]
+      responses:
+        "200":
+          description: List of API credentials
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/APICredential"
+    post:
+      tags: [API Credentials]
+      summary: Create API credential
+      operationId: createAPICredential
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/APICredentialInput"
+      responses:
+        "201":
+          description: API credential created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APICredential"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /api-credentials/{id}:
+    get:
+      tags: [API Credentials]
+      summary: Get API credential by ID
+      operationId: getAPICredential
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: API credential details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APICredential"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [API Credentials]
+      summary: Update API credential
+      operationId: updateAPICredential
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/APICredentialUpdate"
+      responses:
+        "200":
+          description: API credential updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APICredential"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      tags: [API Credentials]
+      summary: Delete API credential
+      operationId: deleteAPICredential
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "204":
+          description: API credential deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ========================================================================
+  # 15. INTERFACE ERROR
+  # ========================================================================
+  /interface-errors:
+    get:
+      tags: [Interface Errors]
+      summary: List interface errors
+      operationId: listInterfaceErrors
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: errorType
+          in: query
+          schema:
+            type: string
+            enum: [message-level, record-level, validation, connection, other]
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [open, resolved, ignored, reprocessed]
+      responses:
+        "200":
+          description: List of interface errors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InterfaceError"
+    post:
+      tags: [Interface Errors]
+      summary: Create interface error
+      operationId: createInterfaceError
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InterfaceErrorInput"
+      responses:
+        "201":
+          description: Interface error created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InterfaceError"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /interface-errors/{id}:
+    get:
+      tags: [Interface Errors]
+      summary: Get interface error by ID
+      operationId: getInterfaceError
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Interface error details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InterfaceError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    patch:
+      tags: [Interface Errors]
+      summary: Update interface error
+      operationId: updateInterfaceError
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InterfaceErrorUpdate"
+      responses:
+        "200":
+          description: Interface error updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InterfaceError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ========================================================================
+  # 16. INTERFACE HEALTH CHECK (Immutable - POST only)
+  # ========================================================================
+  /interface-health-checks:
+    get:
+      tags: [Interface Health Checks]
+      summary: List interface health checks
+      operationId: listInterfaceHealthChecks
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: connectionId
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [healthy, degraded, down]
+      responses:
+        "200":
+          description: List of interface health checks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InterfaceHealthCheck"
+    post:
+      tags: [Interface Health Checks]
+      summary: Create interface health check (immutable)
+      operationId: createInterfaceHealthCheck
+      description: |
+        Creates an immutable interface health check snapshot. Once created, health checks cannot be
+        modified to ensure historical accuracy.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InterfaceHealthCheckInput"
+      responses:
+        "201":
+          description: Interface health check created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InterfaceHealthCheck"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+  /interface-health-checks/{id}:
+    get:
+      tags: [Interface Health Checks]
+      summary: Get interface health check by ID
+      operationId: getInterfaceHealthCheck
+      parameters:
+        - $ref: "#/components/parameters/IdParam"
+      responses:
+        "200":
+          description: Interface health check details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InterfaceHealthCheck"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+components:
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      description: Resource identifier
+      schema:
+        type: string
+        pattern: "^[a-zA-Z0-9_-]+$"
+        example: "ext_1234567890"
+    PageParam:
+      name: page
+      in: query
+      description: Page number (1-based)
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    LimitParam:
+      name: limit
+      in: query
+      description: Items per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+        example: 20
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+  schemas:
+    Error:
+      type: object
+      required: [error, message]
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+    Timestamps:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    # External System schemas
+    ExternalSystem:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name, systemType]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            systemType:
+              type: string
+              enum: [ehr, lis, ris, pms, hie, payer, other]
+            vendor:
+              type: string
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+    ExternalSystemInput:
+      type: object
+      required: [name, systemType]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        systemType:
+          type: string
+          enum: [ehr, lis, ris, pms, hie, payer, other]
+        vendor:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    ExternalSystemUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        vendor:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    SystemEndpoint:
+      type: object
+      properties:
+        id:
+          type: string
+        externalSystemId:
+          type: string
+        endpointType:
+          type: string
+          enum: [fhir, hl7, rest, soap, other]
+        url:
+          type: string
+          format: uri
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    # Connection schemas
+    Connection:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, externalSystemId, name]
+          properties:
+            id:
+              type: string
+            externalSystemId:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            baseUrl:
+              type: string
+              format: uri
+            protocol:
+              type: string
+              enum: [fhir, hl7, rest, soap, other]
+            profile:
+              type: string
+              description: FHIR/HL7 profile
+            credentials:
+              type: object
+              description: Connection credentials (encrypted)
+            status:
+              type: string
+              enum: [active, inactive, error]
+            lastSyncAt:
+              type: string
+              format: date-time
+            metadata:
+              type: object
+              additionalProperties: true
+    ConnectionInput:
+      type: object
+      required: [externalSystemId, name, baseUrl, protocol]
+      properties:
+        externalSystemId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        baseUrl:
+          type: string
+          format: uri
+        protocol:
+          type: string
+          enum: [fhir, hl7, rest, soap, other]
+        profile:
+          type: string
+        credentials:
+          type: object
+        status:
+          type: string
+          enum: [active, inactive, error]
+          default: active
+        metadata:
+          type: object
+          additionalProperties: true
+    ConnectionUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        baseUrl:
+          type: string
+          format: uri
+        credentials:
+          type: object
+        status:
+          type: string
+          enum: [active, inactive, error]
+        metadata:
+          type: object
+          additionalProperties: true
+    # FHIR Bundle schemas
+    FHIRBundle:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, bundleType]
+          properties:
+            id:
+              type: string
+            bundleType:
+              type: string
+              enum: [document, message, transaction, transaction-response, batch, batch-response, history, searchset, collection]
+            resources:
+              type: array
+              items:
+                type: object
+            direction:
+              type: string
+              enum: [inbound, outbound]
+            connectionId:
+              type: string
+            status:
+              type: string
+              enum: [received, processing, completed, failed]
+            metadata:
+              type: object
+              additionalProperties: true
+    FHIRBundleInput:
+      type: object
+      required: [bundleType, resources]
+      properties:
+        bundleType:
+          type: string
+          enum: [document, message, transaction, transaction-response, batch, batch-response, history, searchset, collection]
+        resources:
+          type: array
+          items:
+            type: object
+        direction:
+          type: string
+          enum: [inbound, outbound]
+          default: inbound
+        connectionId:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    # FHIR Mapping Profile schemas
+    FHIRMappingProfile:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name, externalSystemId]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            externalSystemId:
+              type: string
+            sourceProfile:
+              type: string
+            targetProfile:
+              type: string
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+    FHIRMappingProfileInput:
+      type: object
+      required: [name, externalSystemId]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        externalSystemId:
+          type: string
+        sourceProfile:
+          type: string
+        targetProfile:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    FHIRMappingProfileUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        sourceProfile:
+          type: string
+        targetProfile:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    MappingRule:
+      type: object
+      properties:
+        id:
+          type: string
+        mappingProfileId:
+          type: string
+        sourcePath:
+          type: string
+        targetPath:
+          type: string
+        transformation:
+          type: object
+        order:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    # HL7 Message schemas
+    HL7Message:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, messageType]
+          properties:
+            id:
+              type: string
+            messageType:
+              type: string
+              description: HL7 message type (e.g., ADT^A01)
+            rawMessage:
+              type: string
+            parsedMessage:
+              type: object
+            direction:
+              type: string
+              enum: [inbound, outbound]
+            connectionId:
+              type: string
+            status:
+              type: string
+              enum: [received, parsed, processed, failed]
+            metadata:
+              type: object
+              additionalProperties: true
+    HL7MessageInput:
+      type: object
+      required: [rawMessage]
+      properties:
+        rawMessage:
+          type: string
+          description: Raw HL7 v2 message text
+        messageType:
+          type: string
+        direction:
+          type: string
+          enum: [inbound, outbound]
+          default: inbound
+        connectionId:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    HL7Segment:
+      type: object
+      properties:
+        id:
+          type: string
+        hl7MessageId:
+          type: string
+        segmentType:
+          type: string
+        segmentData:
+          type: object
+        order:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    MappingResult:
+      type: object
+      properties:
+        id:
+          type: string
+        hl7MessageId:
+          type: string
+        mappingProfileId:
+          type: string
+        result:
+          type: object
+        success:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    # HL7 Mapping Profile schemas
+    HL7MappingProfile:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name, externalSystemId]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            externalSystemId:
+              type: string
+            messageType:
+              type: string
+            version:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+    HL7MappingProfileInput:
+      type: object
+      required: [name, externalSystemId]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        externalSystemId:
+          type: string
+        messageType:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    HL7MappingProfileUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        messageType:
+          type: string
+        version:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    # Integration Job schemas
+    IntegrationJob:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name, jobType]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            externalSystemId:
+              type: string
+            connectionId:
+              type: string
+            jobType:
+              type: string
+              enum: [sync, import, export, scheduled, manual]
+            schedule:
+              type: object
+            status:
+              type: string
+              enum: [pending, running, completed, failed, cancelled]
+            lastRunAt:
+              type: string
+              format: date-time
+            metadata:
+              type: object
+              additionalProperties: true
+    IntegrationJobInput:
+      type: object
+      required: [name, jobType]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        externalSystemId:
+          type: string
+        connectionId:
+          type: string
+        jobType:
+          type: string
+          enum: [sync, import, export, scheduled, manual]
+        schedule:
+          type: object
+        status:
+          type: string
+          enum: [pending, running, completed, failed, cancelled]
+          default: pending
+        metadata:
+          type: object
+          additionalProperties: true
+    IntegrationJobUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        schedule:
+          type: object
+        status:
+          type: string
+          enum: [pending, running, completed, failed, cancelled]
+        lastRunAt:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+    # Integration Run schemas (Immutable)
+    IntegrationRun:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, integrationJobId]
+          properties:
+            id:
+              type: string
+            integrationJobId:
+              type: string
+            status:
+              type: string
+              enum: [running, completed, failed]
+            startedAt:
+              type: string
+              format: date-time
+            completedAt:
+              type: string
+              format: date-time
+            recordsProcessed:
+              type: integer
+            recordsTotal:
+              type: integer
+            errorCount:
+              type: integer
+            executionTime:
+              type: number
+              format: float
+            metadata:
+              type: object
+              additionalProperties: true
+    IntegrationRunInput:
+      type: object
+      required: [integrationJobId]
+      properties:
+        integrationJobId:
+          type: string
+        status:
+          type: string
+          enum: [running, completed, failed]
+          default: running
+        startedAt:
+          type: string
+          format: date-time
+        recordsProcessed:
+          type: integer
+        recordsTotal:
+          type: integer
+        errorCount:
+          type: integer
+        executionTime:
+          type: number
+          format: float
+        metadata:
+          type: object
+          additionalProperties: true
+    IntegrationLog:
+      type: object
+      properties:
+        id:
+          type: string
+        integrationRunId:
+          type: string
+        logLevel:
+          type: string
+          enum: [debug, info, warn, error]
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    # Data Import Batch schemas
+    DataImportBatch:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name, format]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            format:
+              type: string
+              enum: [csv, ndjson, fhir-bulk, other]
+            sourceUrl:
+              type: string
+              format: uri
+            status:
+              type: string
+              enum: [pending, processing, completed, failed]
+            recordsTotal:
+              type: integer
+            recordsProcessed:
+              type: integer
+            recordsFailed:
+              type: integer
+            startedAt:
+              type: string
+              format: date-time
+            completedAt:
+              type: string
+              format: date-time
+            metadata:
+              type: object
+              additionalProperties: true
+    DataImportBatchInput:
+      type: object
+      required: [name, format]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        format:
+          type: string
+          enum: [csv, ndjson, fhir-bulk, other]
+        sourceUrl:
+          type: string
+          format: uri
+        status:
+          type: string
+          enum: [pending, processing, completed, failed]
+          default: pending
+        metadata:
+          type: object
+          additionalProperties: true
+    DataImportBatchUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [pending, processing, completed, failed]
+        recordsProcessed:
+          type: integer
+        recordsFailed:
+          type: integer
+        completedAt:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+    ImportRecord:
+      type: object
+      properties:
+        id:
+          type: string
+        dataImportBatchId:
+          type: string
+        recordNumber:
+          type: integer
+        recordData:
+          type: object
+        status:
+          type: string
+          enum: [pending, processed, failed]
+        errorMessage:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    # Data Export Batch schemas
+    DataExportBatch:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name, targetSystemId]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            targetSystemId:
+              type: string
+            format:
+              type: string
+            status:
+              type: string
+              enum: [pending, processing, completed, failed]
+            recordsTotal:
+              type: integer
+            filesGenerated:
+              type: integer
+            startedAt:
+              type: string
+              format: date-time
+            completedAt:
+              type: string
+              format: date-time
+            metadata:
+              type: object
+              additionalProperties: true
+    DataExportBatchInput:
+      type: object
+      required: [name, targetSystemId]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        targetSystemId:
+          type: string
+        format:
+          type: string
+        status:
+          type: string
+          enum: [pending, processing, completed, failed]
+          default: pending
+        metadata:
+          type: object
+          additionalProperties: true
+    DataExportBatchUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [pending, processing, completed, failed]
+        filesGenerated:
+          type: integer
+        completedAt:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+    ExportFile:
+      type: object
+      properties:
+        id:
+          type: string
+        dataExportBatchId:
+          type: string
+        fileName:
+          type: string
+        fileUrl:
+          type: string
+          format: uri
+        fileSize:
+          type: integer
+        recordCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    # Event Subscription schemas
+    EventSubscription:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, eventType, webhookUrl]
+          properties:
+            id:
+              type: string
+            eventType:
+              type: string
+            webhookUrl:
+              type: string
+              format: uri
+            externalSystemId:
+              type: string
+            filters:
+              type: object
+            status:
+              type: string
+              enum: [active, inactive, paused]
+            metadata:
+              type: object
+              additionalProperties: true
+    EventSubscriptionInput:
+      type: object
+      required: [eventType, webhookUrl]
+      properties:
+        eventType:
+          type: string
+        webhookUrl:
+          type: string
+          format: uri
+        externalSystemId:
+          type: string
+        filters:
+          type: object
+        status:
+          type: string
+          enum: [active, inactive, paused]
+          default: active
+        metadata:
+          type: object
+          additionalProperties: true
+    EventSubscriptionUpdate:
+      type: object
+      properties:
+        webhookUrl:
+          type: string
+          format: uri
+        filters:
+          type: object
+        status:
+          type: string
+          enum: [active, inactive, paused]
+        metadata:
+          type: object
+          additionalProperties: true
+    # Event Delivery schemas
+    EventDelivery:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, eventSubscriptionId]
+          properties:
+            id:
+              type: string
+            eventSubscriptionId:
+              type: string
+            eventData:
+              type: object
+            status:
+              type: string
+              enum: [pending, delivered, failed, retrying]
+            deliveredAt:
+              type: string
+              format: date-time
+            retryCount:
+              type: integer
+            errorMessage:
+              type: string
+            metadata:
+              type: object
+              additionalProperties: true
+    EventDeliveryInput:
+      type: object
+      required: [eventSubscriptionId, eventData]
+      properties:
+        eventSubscriptionId:
+          type: string
+        eventData:
+          type: object
+        status:
+          type: string
+          enum: [pending, delivered, failed, retrying]
+          default: pending
+        metadata:
+          type: object
+          additionalProperties: true
+    EventDeliveryUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, delivered, failed, retrying]
+        deliveredAt:
+          type: string
+          format: date-time
+        retryCount:
+          type: integer
+        errorMessage:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    # API Client schemas
+    APIClient:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, name]
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            status:
+              type: string
+              enum: [active, inactive, suspended]
+            rateLimit:
+              type: integer
+            metadata:
+              type: object
+              additionalProperties: true
+    APIClientInput:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [active, inactive, suspended]
+          default: active
+        rateLimit:
+          type: integer
+        metadata:
+          type: object
+          additionalProperties: true
+    APIClientUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [active, inactive, suspended]
+        rateLimit:
+          type: integer
+        metadata:
+          type: object
+          additionalProperties: true
+    UsageMetric:
+      type: object
+      properties:
+        id:
+          type: string
+        apiClientId:
+          type: string
+        metricType:
+          type: string
+          enum: [request-count, error-count, latency, throttle-count]
+        value:
+          type: number
+        period:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    # API Credential schemas
+    APICredential:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, apiClientId, credentialType]
+          properties:
+            id:
+              type: string
+            apiClientId:
+              type: string
+            credentialType:
+              type: string
+              enum: [api-key, oauth-client, certificate]
+            keyId:
+              type: string
+            secretHash:
+              type: string
+            expiresAt:
+              type: string
+              format: date-time
+            metadata:
+              type: object
+              additionalProperties: true
+    APICredentialInput:
+      type: object
+      required: [apiClientId, credentialType]
+      properties:
+        apiClientId:
+          type: string
+        credentialType:
+          type: string
+          enum: [api-key, oauth-client, certificate]
+        keyId:
+          type: string
+        secret:
+          type: string
+        expiresAt:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+    APICredentialUpdate:
+      type: object
+      properties:
+        expiresAt:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+    # Interface Error schemas
+    InterfaceError:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, errorType, message]
+          properties:
+            id:
+              type: string
+            errorType:
+              type: string
+              enum: [message-level, record-level, validation, connection, other]
+            message:
+              type: string
+            entityType:
+              type: string
+            entityId:
+              type: string
+            connectionId:
+              type: string
+            status:
+              type: string
+              enum: [open, resolved, ignored, reprocessed]
+            resolvedAt:
+              type: string
+              format: date-time
+            metadata:
+              type: object
+              additionalProperties: true
+    InterfaceErrorInput:
+      type: object
+      required: [errorType, message]
+      properties:
+        errorType:
+          type: string
+          enum: [message-level, record-level, validation, connection, other]
+        message:
+          type: string
+        entityType:
+          type: string
+        entityId:
+          type: string
+        connectionId:
+          type: string
+        status:
+          type: string
+          enum: [open, resolved, ignored, reprocessed]
+          default: open
+        metadata:
+          type: object
+          additionalProperties: true
+    InterfaceErrorUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [open, resolved, ignored, reprocessed]
+        resolvedAt:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+          additionalProperties: true
+    # Interface Health Check schemas (Immutable)
+    InterfaceHealthCheck:
+      allOf:
+        - $ref: "#/components/schemas/Timestamps"
+        - type: object
+          required: [id, connectionId, status]
+          properties:
+            id:
+              type: string
+            connectionId:
+              type: string
+            status:
+              type: string
+              enum: [healthy, degraded, down]
+            latency:
+              type: number
+              format: float
+            lastSuccessAt:
+              type: string
+              format: date-time
+            lastFailureAt:
+              type: string
+              format: date-time
+            availability:
+              type: number
+              format: float
+            metadata:
+              type: object
+              additionalProperties: true
+    InterfaceHealthCheckInput:
+      type: object
+      required: [connectionId, status]
+      properties:
+        connectionId:
+          type: string
+        status:
+          type: string
+          enum: [healthy, degraded, down]
+        latency:
+          type: number
+          format: float
+        lastSuccessAt:
+          type: string
+          format: date-time
+        lastFailureAt:
+          type: string
+          format: date-time
+        availability:
+          type: number
+          format: float
+        metadata:
+          type: object
+          additionalProperties: true
+
+security:
+  - BearerAuth: []
+  - OAuth2: []
