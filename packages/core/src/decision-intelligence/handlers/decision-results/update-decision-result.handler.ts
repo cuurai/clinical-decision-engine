@@ -5,41 +5,41 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { DecisionResultUpdate, UpdateDecisionResultResponse } from "../../types/index.js";
-// TODO: Uncomment when implementing handler logic
-// import { decTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// // TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/decision-intelligence-converters.js";
+import type { UpdateDecisionResultResponse } from "../../types/index.js";
+import type { DecisionResultRepository } from "../../repositories/index.js";
+import { diTransactionId } from "../../../shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
- * TODO: Uncomment when implementing handler logic that uses validated input
  */
-// function mapInputToValidated(input: DecisionResultUpdate): DecisionResultUpdate {
-//   // Note: Request body validation is handled by service layer schemas
-//   // Handlers accept validated input and focus on business logic
-//   return input;
-// }
+function mapInputToValidated(input: unknown): any {
+  // Note: Request body validation is handled by service layer schemas
+  // Handlers accept validated input and focus on business logic
+  return input;
+}
 
 
 /**
  * Update decision result
  */
 export async function updateDecisionResult(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string,
-    // TODO: Use input when implementing handler logic,
-    _input: DecisionResultUpdate
+    repo: DecisionResultRepository,
+    orgId: string,
+    id: string,
+    input: unknown
 ): Promise<UpdateDecisionResultResponse> {
   // 1. Validate input
-  // TODO: Use validated input when implementing business logic
-  // const validated = mapInputToValidated(input);
+  const validated = mapInputToValidated(input);
 
-  // 2. Operation returns a Response DTO (not an entity) - implement business logic here
-  // TODO: Implement operation logic (e.g., authentication, authorization, evaluation)
+  // 2. Domain input → Repository call (update operation)
+  const decisionResult = await repo.update(orgId, id, validated);
 
-  throw new Error("Operation not yet implemented - requires business logic integration");
+  // 3. Repository result → response envelope
+  return {
+    data: decisionResult,
+    meta: {
+      correlationId: diTransactionId(),
+      timestamp: new Date().toISOString(),
+    },
+  };
 
 }

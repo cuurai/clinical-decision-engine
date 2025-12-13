@@ -1,5 +1,19 @@
 import { z, type ZodTypeAny } from "zod";
 
+const WorApiMeta = z
+  .object({
+    correlationId: z.string(),
+    timestamp: z.string().datetime({ offset: true }),
+    totalCount: z.number().int(),
+    pageSize: z.number().int(),
+    pageNumber: z.number().int(),
+  })
+  .partial()
+  .passthrough();
+const WorApiListResponse = z
+  .object({ data: z.array(z.any()), meta: WorApiMeta })
+  .partial()
+  .passthrough();
 const Timestamps = z
   .object({
     createdAt: z.string().datetime({ offset: true }),
@@ -19,6 +33,10 @@ const WorkflowDefinition = Timestamps.and(
     })
     .passthrough()
 );
+const WorApiResponse = z
+  .object({ data: z.object({}).partial().passthrough(), meta: WorApiMeta })
+  .partial()
+  .passthrough();
 const WorkflowDefinitionInput = z
   .object({
     name: z.string(),
@@ -28,6 +46,9 @@ const WorkflowDefinitionInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createWorkflowDefinition_Body = WorApiResponse.and(
+  z.object({ data: WorkflowDefinitionInput }).partial().passthrough()
+);
 const Error = z
   .object({
     error: z.string(),
@@ -45,6 +66,9 @@ const WorkflowDefinitionUpdate = z
   })
   .partial()
   .passthrough();
+const updateWorkflowDefinition_Body = WorApiResponse.and(
+  z.object({ data: WorkflowDefinitionUpdate }).partial().passthrough()
+);
 const WorkflowState = z
   .object({
     id: z.string(),
@@ -97,6 +121,9 @@ const WorkflowInstanceInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createWorkflowInstance_Body = WorApiResponse.and(
+  z.object({ data: WorkflowInstanceInput }).partial().passthrough()
+);
 const WorkflowInstanceUpdate = z
   .object({
     currentState: z.string(),
@@ -106,6 +133,9 @@ const WorkflowInstanceUpdate = z
   })
   .partial()
   .passthrough();
+const updateWorkflowInstance_Body = WorApiResponse.and(
+  z.object({ data: WorkflowInstanceUpdate }).partial().passthrough()
+);
 const Task = Timestamps.and(
   z
     .object({
@@ -181,6 +211,9 @@ const CarePathwayTemplateInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createCarePathwayTemplate_Body = WorApiResponse.and(
+  z.object({ data: CarePathwayTemplateInput }).partial().passthrough()
+);
 const CarePathwayTemplateUpdate = z
   .object({
     name: z.string(),
@@ -191,6 +224,9 @@ const CarePathwayTemplateUpdate = z
   })
   .partial()
   .passthrough();
+const updateCarePathwayTemplate_Body = WorApiResponse.and(
+  z.object({ data: CarePathwayTemplateUpdate }).partial().passthrough()
+);
 const PathwayStep = z
   .object({
     id: z.string(),
@@ -245,6 +281,9 @@ const CarePlanInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createCarePlan_Body = WorApiResponse.and(
+  z.object({ data: CarePlanInput }).partial().passthrough()
+);
 const CarePlanUpdate = z
   .object({
     title: z.string(),
@@ -255,6 +294,9 @@ const CarePlanUpdate = z
   })
   .partial()
   .passthrough();
+const updateCarePlan_Body = WorApiResponse.and(
+  z.object({ data: CarePlanUpdate }).partial().passthrough()
+);
 const CarePlanGoal = z
   .object({
     id: z.string(),
@@ -303,6 +345,9 @@ const EpisodeOfCareInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createEpisodeOfCare_Body = WorApiResponse.and(
+  z.object({ data: EpisodeOfCareInput }).partial().passthrough()
+);
 const EpisodeOfCareUpdate = z
   .object({
     status: z.enum(["active", "completed", "cancelled"]),
@@ -312,6 +357,9 @@ const EpisodeOfCareUpdate = z
   })
   .partial()
   .passthrough();
+const updateEpisodeOfCare_Body = WorApiResponse.and(
+  z.object({ data: EpisodeOfCareUpdate }).partial().passthrough()
+);
 const Encounter = z
   .object({
     id: z.string(),
@@ -339,6 +387,7 @@ const TaskInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createTask_Body = WorApiResponse.and(z.object({ data: TaskInput }).partial().passthrough());
 const TaskUpdate = z
   .object({
     title: z.string(),
@@ -352,6 +401,7 @@ const TaskUpdate = z
   })
   .partial()
   .passthrough();
+const updateTask_Body = WorApiResponse.and(z.object({ data: TaskUpdate }).partial().passthrough());
 const TaskComment = z
   .object({
     id: z.string(),
@@ -383,6 +433,9 @@ const TaskAssignmentInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createTaskAssignment_Body = WorApiResponse.and(
+  z.object({ data: TaskAssignmentInput }).partial().passthrough()
+);
 const TaskAssignmentUpdate = z
   .object({
     assignedTo: z.string(),
@@ -391,6 +444,9 @@ const TaskAssignmentUpdate = z
   })
   .partial()
   .passthrough();
+const updateTaskAssignment_Body = WorApiResponse.and(
+  z.object({ data: TaskAssignmentUpdate }).partial().passthrough()
+);
 const Alert = Timestamps.and(
   z
     .object({
@@ -430,6 +486,7 @@ const AlertInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createAlert_Body = WorApiResponse.and(z.object({ data: AlertInput }).partial().passthrough());
 const AlertUpdate = z
   .object({
     status: z.enum(["active", "acknowledged", "overridden", "snoozed", "resolved", "dismissed"]),
@@ -440,6 +497,9 @@ const AlertUpdate = z
   })
   .partial()
   .passthrough();
+const updateAlert_Body = WorApiResponse.and(
+  z.object({ data: AlertUpdate }).partial().passthrough()
+);
 const Explanation = z
   .object({
     id: z.string(),
@@ -477,6 +537,9 @@ const HandoffInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createHandoff_Body = WorApiResponse.and(
+  z.object({ data: HandoffInput }).partial().passthrough()
+);
 const HandoffUpdate = z
   .object({
     handoffType: z.string(),
@@ -487,6 +550,9 @@ const HandoffUpdate = z
   })
   .partial()
   .passthrough();
+const updateHandoff_Body = WorApiResponse.and(
+  z.object({ data: HandoffUpdate }).partial().passthrough()
+);
 const ChecklistTemplate = Timestamps.and(
   z
     .object({
@@ -508,6 +574,9 @@ const ChecklistTemplateInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createChecklistTemplate_Body = WorApiResponse.and(
+  z.object({ data: ChecklistTemplateInput }).partial().passthrough()
+);
 const ChecklistTemplateUpdate = z
   .object({
     name: z.string(),
@@ -518,6 +587,9 @@ const ChecklistTemplateUpdate = z
   })
   .partial()
   .passthrough();
+const updateChecklistTemplate_Body = WorApiResponse.and(
+  z.object({ data: ChecklistTemplateUpdate }).partial().passthrough()
+);
 const ChecklistItem = z
   .object({
     id: z.string(),
@@ -539,6 +611,9 @@ const ChecklistInstanceInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createChecklistInstance_Body = WorApiResponse.and(
+  z.object({ data: ChecklistInstanceInput }).partial().passthrough()
+);
 const ChecklistInstanceUpdate = z
   .object({
     status: z.enum(["in-progress", "completed", "cancelled"]),
@@ -547,6 +622,9 @@ const ChecklistInstanceUpdate = z
   })
   .partial()
   .passthrough();
+const updateChecklistInstance_Body = WorApiResponse.and(
+  z.object({ data: ChecklistInstanceUpdate }).partial().passthrough()
+);
 const ChecklistItemInstance = z
   .object({
     id: z.string(),
@@ -581,6 +659,9 @@ const EscalationPolicyInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createEscalationPolicy_Body = WorApiResponse.and(
+  z.object({ data: EscalationPolicyInput }).partial().passthrough()
+);
 const EscalationPolicyUpdate = z
   .object({
     name: z.string(),
@@ -591,6 +672,9 @@ const EscalationPolicyUpdate = z
   })
   .partial()
   .passthrough();
+const updateEscalationPolicy_Body = WorApiResponse.and(
+  z.object({ data: EscalationPolicyUpdate }).partial().passthrough()
+);
 const EscalationRule = z
   .object({
     id: z.string(),
@@ -633,6 +717,9 @@ const RoutingRuleInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createRoutingRule_Body = WorApiResponse.and(
+  z.object({ data: RoutingRuleInput }).partial().passthrough()
+);
 const RoutingRuleUpdate = z
   .object({
     name: z.string(),
@@ -647,6 +734,9 @@ const RoutingRuleUpdate = z
   })
   .partial()
   .passthrough();
+const updateRoutingRule_Body = WorApiResponse.and(
+  z.object({ data: RoutingRuleUpdate }).partial().passthrough()
+);
 const ScheduleTemplate = Timestamps.and(
   z
     .object({
@@ -668,6 +758,9 @@ const ScheduleTemplateInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createScheduleTemplate_Body = WorApiResponse.and(
+  z.object({ data: ScheduleTemplateInput }).partial().passthrough()
+);
 const ScheduleTemplateUpdate = z
   .object({
     name: z.string(),
@@ -678,6 +771,9 @@ const ScheduleTemplateUpdate = z
   })
   .partial()
   .passthrough();
+const updateScheduleTemplate_Body = WorApiResponse.and(
+  z.object({ data: ScheduleTemplateUpdate }).partial().passthrough()
+);
 const WorkQueue = Timestamps.and(
   z
     .object({
@@ -701,6 +797,9 @@ const WorkQueueInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createWorkQueue_Body = WorApiResponse.and(
+  z.object({ data: WorkQueueInput }).partial().passthrough()
+);
 const WorkQueueUpdate = z
   .object({
     name: z.string(),
@@ -712,68 +811,104 @@ const WorkQueueUpdate = z
   })
   .partial()
   .passthrough();
+const updateWorkQueue_Body = WorApiResponse.and(
+  z.object({ data: WorkQueueUpdate }).partial().passthrough()
+);
 
 export const schemas: Record<string, ZodTypeAny> = {
+  WorApiMeta,
+  WorApiListResponse,
   Timestamps,
   WorkflowDefinition,
+  WorApiResponse,
   WorkflowDefinitionInput,
+  createWorkflowDefinition_Body,
   Error,
   WorkflowDefinitionUpdate,
+  updateWorkflowDefinition_Body,
   WorkflowState,
   WorkflowTransition,
   WorkflowInstance,
   WorkflowInstanceInput,
+  createWorkflowInstance_Body,
   WorkflowInstanceUpdate,
+  updateWorkflowInstance_Body,
   Task,
   WorkflowEvent,
   AuditEvent,
   CarePathwayTemplate,
   CarePathwayTemplateInput,
+  createCarePathwayTemplate_Body,
   CarePathwayTemplateUpdate,
+  updateCarePathwayTemplate_Body,
   PathwayStep,
   OrderSetTemplate,
   CarePlan,
   CarePlanInput,
+  createCarePlan_Body,
   CarePlanUpdate,
+  updateCarePlan_Body,
   CarePlanGoal,
   ChecklistInstance,
   EpisodeOfCare,
   EpisodeOfCareInput,
+  createEpisodeOfCare_Body,
   EpisodeOfCareUpdate,
+  updateEpisodeOfCare_Body,
   Encounter,
   TaskInput,
+  createTask_Body,
   TaskUpdate,
+  updateTask_Body,
   TaskComment,
   TaskAssignment,
   TaskAssignmentInput,
+  createTaskAssignment_Body,
   TaskAssignmentUpdate,
+  updateTaskAssignment_Body,
   Alert,
   AlertInput,
+  createAlert_Body,
   AlertUpdate,
+  updateAlert_Body,
   Explanation,
   Handoff,
   HandoffInput,
+  createHandoff_Body,
   HandoffUpdate,
+  updateHandoff_Body,
   ChecklistTemplate,
   ChecklistTemplateInput,
+  createChecklistTemplate_Body,
   ChecklistTemplateUpdate,
+  updateChecklistTemplate_Body,
   ChecklistItem,
   ChecklistInstanceInput,
+  createChecklistInstance_Body,
   ChecklistInstanceUpdate,
+  updateChecklistInstance_Body,
   ChecklistItemInstance,
   EscalationPolicy,
   EscalationPolicyInput,
+  createEscalationPolicy_Body,
   EscalationPolicyUpdate,
+  updateEscalationPolicy_Body,
   EscalationRule,
   RoutingRule,
   RoutingRuleInput,
+  createRoutingRule_Body,
   RoutingRuleUpdate,
+  updateRoutingRule_Body,
   ScheduleTemplate,
   ScheduleTemplateInput,
+  createScheduleTemplate_Body,
   ScheduleTemplateUpdate,
+  updateScheduleTemplate_Body,
   WorkQueue,
   WorkQueueInput,
+  createWorkQueue_Body,
   WorkQueueUpdate,
+  updateWorkQueue_Body,
 };
 
 

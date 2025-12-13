@@ -5,39 +5,40 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { CreateWorkflowDefinitionResponse, WorkflowDefinitionInput } from "../../types/index.js";
-// TODO: Uncomment when implementing handler logic
-// import { wcTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// // TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/workflow-care-pathways-converters.js";
+import type { CreateWorkflowDefinitionResponse } from "../../types/index.js";
+import type { WorkflowDefinitionRepository } from "../../repositories/index.js";
+import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
- * TODO: Uncomment when implementing handler logic that uses validated input
  */
-// function mapInputToValidated(input: WorkflowDefinitionInput): WorkflowDefinitionInput {
-//   // Note: Request body validation is handled by service layer schemas
-//   // Handlers accept validated input and focus on business logic
-//   return input;
-// }
+function mapInputToValidated(input: unknown): any {
+  // Note: Request body validation is handled by service layer schemas
+  // Handlers accept validated input and focus on business logic
+  return input;
+}
 
 
 /**
  * Create workflow definition
  */
 export async function createWorkflowDefinition(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use input when implementing handler logic,
-    _input: WorkflowDefinitionInput
+    repo: WorkflowDefinitionRepository,
+    orgId: string,
+    input: unknown
 ): Promise<CreateWorkflowDefinitionResponse> {
   // 1. Validate input
-  // TODO: Use validated input when implementing business logic
-  // const validated = mapInputToValidated(input);
+  const validated = mapInputToValidated(input);
 
-  // 2. Operation returns a Response DTO (not an entity) - implement business logic here
-  // TODO: Implement operation logic (e.g., authentication, authorization, evaluation)
+  // 2. Domain input → Repository call
+  const workflowDefinition = await repo.create(orgId, validated);
 
-  throw new Error("Operation not yet implemented - requires business logic integration");
+  // 3. Repository result → response envelope
+  return {
+    data: workflowDefinition,
+    meta: {
+      correlationId: wcTransactionId(),
+      timestamp: new Date().toISOString(),
+    },
+  };
 
 }

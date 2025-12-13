@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ImagingStudy,
   ListImagingStudiesParams,
-  ImagingStudyInput,
-  ImagingStudyUpdate
+  UpdateImagingStudyRequest
 } from "../types/index.js";
 /**
  * ImagingStudyRepository Interface
  */
-export interface ImagingStudyRepository extends CrudRepository<Timestamps, ImagingStudyInput, ImagingStudyUpdate, string, ListImagingStudiesParams> {
+export interface ImagingStudyRepository extends CrudRepository<ImagingStudy, ImagingStudy, UpdateImagingStudyRequest, string, ListImagingStudiesParams> {
 
 }

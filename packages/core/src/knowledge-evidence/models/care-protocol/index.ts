@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/care-protocol.entity";
 export * from "./dto/list-care-protocol.dto";
-export * from "./dto/create-care-protocol.dto";
 export * from "./dto/get-care-protocol.dto";
-export * from "./dto/update-care-protocol.dto";
 export * from "./dto/delete-care-protocol.dto";

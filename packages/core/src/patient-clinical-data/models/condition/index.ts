@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/condition.entity";
 export * from "./dto/list-condition.dto";
-export * from "./dto/create-condition.dto";
 export * from "./dto/get-condition.dto";
-export * from "./dto/update-condition.dto";
 export * from "./dto/delete-condition.dto";

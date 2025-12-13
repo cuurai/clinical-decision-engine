@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  EventDelivery,
   ListEventDeliveriesParams,
-  EventDeliveryInput,
-  EventDeliveryUpdate
+  UpdateEventDeliveryRequest
 } from "../types/index.js";
 /**
  * EventDeliveryRepository Interface
  */
-export interface EventDeliveryRepository extends CreateUpdateReadRepository<Timestamps, EventDeliveryInput, EventDeliveryUpdate, string, ListEventDeliveriesParams> {
+export interface EventDeliveryRepository extends CreateUpdateReadRepository<EventDelivery, EventDelivery, UpdateEventDeliveryRequest, string, ListEventDeliveriesParams> {
 
 }

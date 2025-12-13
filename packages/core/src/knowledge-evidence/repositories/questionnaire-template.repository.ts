@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  QuestionnaireTemplate,
   ListQuestionnaireTemplatesParams,
-  QuestionnaireTemplateInput,
-  QuestionnaireTemplateUpdate
+  UpdateQuestionnaireTemplateRequest
 } from "../types/index.js";
 /**
  * QuestionnaireTemplateRepository Interface
  */
-export interface QuestionnaireTemplateRepository extends CrudRepository<Timestamps, QuestionnaireTemplateInput, QuestionnaireTemplateUpdate, string, ListQuestionnaireTemplatesParams> {
+export interface QuestionnaireTemplateRepository extends CrudRepository<QuestionnaireTemplate, QuestionnaireTemplate, UpdateQuestionnaireTemplateRequest, string, ListQuestionnaireTemplatesParams> {
 
 }

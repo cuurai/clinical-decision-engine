@@ -6,7 +6,7 @@
  */
 
 import type { EventSubscriptionRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../../shared/helpers";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete event subscription
@@ -22,7 +22,7 @@ export async function deleteEventSubscription(
   return {
     data: { success: true },
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

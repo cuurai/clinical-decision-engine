@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/medication-order.entity";
 export * from "./dto/list-medication-order.dto";
-export * from "./dto/create-medication-order.dto";
 export * from "./dto/get-medication-order.dto";
-export * from "./dto/update-medication-order.dto";
 export * from "./dto/delete-medication-order.dto";

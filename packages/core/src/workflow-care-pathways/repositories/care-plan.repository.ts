@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  CarePlan,
   ListCarePlansParams,
-  CarePlanInput,
-  CarePlanUpdate
+  UpdateCarePlanRequest
 } from "../types/index.js";
 /**
  * CarePlanRepository Interface
  */
-export interface CarePlanRepository extends CrudRepository<Timestamps, CarePlanInput, CarePlanUpdate, string, ListCarePlansParams> {
+export interface CarePlanRepository extends CrudRepository<CarePlan, CarePlan, UpdateCarePlanRequest, string, ListCarePlansParams> {
 
 }

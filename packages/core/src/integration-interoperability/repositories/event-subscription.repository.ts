@@ -16,12 +16,11 @@ import type {
 import type {
   EventSubscription,
   ListEventSubscriptionsParams,
-  EventSubscriptionInput,
-  EventSubscriptionUpdate
+  UpdateEventSubscriptionRequest
 } from "../types/index.js";
 /**
  * EventSubscriptionRepository Interface
  */
-export interface EventSubscriptionRepository extends CrudRepository<EventSubscription, EventSubscriptionInput, EventSubscriptionUpdate, string, ListEventSubscriptionsParams> {
+export interface EventSubscriptionRepository extends CrudRepository<EventSubscription, EventSubscription, UpdateEventSubscriptionRequest, string, ListEventSubscriptionsParams> {
 
 }

@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/evidence-citation.entity";
 export * from "./dto/list-evidence-citation.dto";
-export * from "./dto/create-evidence-citation.dto";
 export * from "./dto/get-evidence-citation.dto";
-export * from "./dto/update-evidence-citation.dto";
 export * from "./dto/delete-evidence-citation.dto";

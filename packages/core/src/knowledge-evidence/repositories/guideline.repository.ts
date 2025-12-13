@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ClinicalGuideline,
   ListGuidelinesParams,
-  ClinicalGuidelineInput,
-  ClinicalGuidelineUpdate
+  UpdateClinicalGuidelineRequest
 } from "../types/index.js";
 /**
  * GuidelineRepository Interface
  */
-export interface GuidelineRepository extends CrudRepository<Timestamps, ClinicalGuidelineInput, ClinicalGuidelineUpdate, string, ListGuidelinesParams> {
+export interface GuidelineRepository extends CrudRepository<ClinicalGuideline, ClinicalGuideline, UpdateClinicalGuidelineRequest, string, ListGuidelinesParams> {
 
 }

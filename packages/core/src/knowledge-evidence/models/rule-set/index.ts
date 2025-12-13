@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/rule-set.entity";
 export * from "./dto/list-rule-set.dto";
-export * from "./dto/create-rule-set.dto";
 export * from "./dto/get-rule-set.dto";
-export * from "./dto/update-rule-set.dto";
 export * from "./dto/delete-rule-set.dto";

@@ -7,7 +7,7 @@
 
 import type { GetPatientSummaryResponse } from "../../types/index.js";
 import type { PatientSummaryRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get patient summary

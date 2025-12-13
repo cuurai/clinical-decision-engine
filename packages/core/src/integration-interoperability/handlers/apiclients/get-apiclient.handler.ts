@@ -6,33 +6,26 @@
  */
 
 import type { GetAPIClientResponse } from "../../types/index.js";
-import { intTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
+import type { APIClientRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get API client by ID
  */
 export async function getAPIClient(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: APIClientRepository,
+    orgId: string,
+    id: string
 ): Promise<GetAPIClientResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const aPIClient = await repo.findById(orgId, id);
+  if (!aPIClient) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: aPIClient,
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

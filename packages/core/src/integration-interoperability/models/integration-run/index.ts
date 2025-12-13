@@ -12,5 +12,4 @@
 // Auto-generated barrel export
 export * from "./entity/integration-run.entity";
 export * from "./dto/list-integration-run.dto";
-export * from "./dto/create-integration-run.dto";
 export * from "./dto/get-integration-run.dto";

@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/knowledge-package.entity";
 export * from "./dto/list-knowledge-package.dto";
-export * from "./dto/create-knowledge-package.dto";
 export * from "./dto/get-knowledge-package.dto";
-export * from "./dto/update-knowledge-package.dto";
 export * from "./dto/delete-knowledge-package.dto";

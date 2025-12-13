@@ -1,6 +1,20 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 
+const PatApiMeta = z
+  .object({
+    correlationId: z.string(),
+    timestamp: z.string().datetime({ offset: true }),
+    totalCount: z.number().int(),
+    pageSize: z.number().int(),
+    pageNumber: z.number().int(),
+  })
+  .partial()
+  .passthrough();
+const PatApiResponse = z
+  .object({ data: z.object({}).partial().passthrough(), meta: PatApiMeta })
+  .partial()
+  .passthrough();
 const Timestamps = z
   .object({
     createdAt: z.string().datetime({ offset: true }),
@@ -91,6 +105,9 @@ const PatientInput = z
     telecom: z.array(ContactPoint).optional(),
   })
   .passthrough();
+const createPatient_Body = PatApiResponse.and(
+  z.object({ data: PatientInput }).partial().passthrough()
+);
 const Error = z
   .object({
     error: z.string(),
@@ -107,6 +124,9 @@ const PatientUpdate = z
   })
   .partial()
   .passthrough();
+const updatePatient_Body = PatApiResponse.and(
+  z.object({ data: PatientUpdate }).partial().passthrough()
+);
 const PatientSummary = z
   .object({
     patient: Patient,
@@ -366,6 +386,10 @@ const DocumentReference = Timestamps.and(
     })
     .passthrough()
 );
+const PatApiListResponse = z
+  .object({ data: z.array(z.any()), meta: PatApiMeta })
+  .partial()
+  .passthrough();
 const EncounterInput = z
   .object({
     patientId: z.string(),
@@ -383,6 +407,9 @@ const EncounterInput = z
     period: Period.optional(),
   })
   .passthrough();
+const createEncounter_Body = PatApiResponse.and(
+  z.object({ data: EncounterInput }).partial().passthrough()
+);
 const EncounterUpdate = z
   .object({
     status: z.enum([
@@ -398,6 +425,9 @@ const EncounterUpdate = z
   })
   .partial()
   .passthrough();
+const updateEncounter_Body = PatApiResponse.and(
+  z.object({ data: EncounterUpdate }).partial().passthrough()
+);
 const ConditionInput = z
   .object({
     patientId: z.string(),
@@ -411,6 +441,9 @@ const ConditionInput = z
       .default("active"),
   })
   .passthrough();
+const createCondition_Body = PatApiResponse.and(
+  z.object({ data: ConditionInput }).partial().passthrough()
+);
 const ConditionUpdate = z
   .object({
     code: CodeableConcept,
@@ -420,6 +453,9 @@ const ConditionUpdate = z
   })
   .partial()
   .passthrough();
+const updateCondition_Body = PatApiResponse.and(
+  z.object({ data: ConditionUpdate }).partial().passthrough()
+);
 const AllergyInput = z
   .object({
     patientId: z.string(),
@@ -429,6 +465,9 @@ const AllergyInput = z
     status: z.enum(["active", "inactive", "resolved"]).optional().default("active"),
   })
   .passthrough();
+const createAllergy_Body = PatApiResponse.and(
+  z.object({ data: AllergyInput }).partial().passthrough()
+);
 const AllergyUpdate = z
   .object({
     reaction: z.array(AllergyReaction),
@@ -437,6 +476,9 @@ const AllergyUpdate = z
   })
   .partial()
   .passthrough();
+const updateAllergy_Body = PatApiResponse.and(
+  z.object({ data: AllergyUpdate }).partial().passthrough()
+);
 const MedicationStatementInput = z
   .object({
     patientId: z.string(),
@@ -457,6 +499,9 @@ const MedicationStatementInput = z
       .default("active"),
   })
   .passthrough();
+const createMedicationStatement_Body = PatApiResponse.and(
+  z.object({ data: MedicationStatementInput }).partial().passthrough()
+);
 const MedicationStatementUpdate = z
   .object({
     effectivePeriod: Period,
@@ -473,6 +518,9 @@ const MedicationStatementUpdate = z
   })
   .partial()
   .passthrough();
+const updateMedicationStatement_Body = PatApiResponse.and(
+  z.object({ data: MedicationStatementUpdate }).partial().passthrough()
+);
 const MedicationOrder = Timestamps.and(
   z
     .object({
@@ -518,6 +566,9 @@ const MedicationOrderInput = z
       .default("draft"),
   })
   .passthrough();
+const createMedicationOrder_Body = PatApiResponse.and(
+  z.object({ data: MedicationOrderInput }).partial().passthrough()
+);
 const MedicationOrderUpdate = z
   .object({
     dosageInstruction: z.array(Dosage),
@@ -534,6 +585,9 @@ const MedicationOrderUpdate = z
   })
   .partial()
   .passthrough();
+const updateMedicationOrder_Body = PatApiResponse.and(
+  z.object({ data: MedicationOrderUpdate }).partial().passthrough()
+);
 const MedicationAdministration = Timestamps.and(
   z
     .object({
@@ -565,6 +619,9 @@ const ImmunizationInput = z
     status: z.enum(["completed", "entered-in-error", "not-done"]).optional().default("completed"),
   })
   .passthrough();
+const createImmunization_Body = PatApiResponse.and(
+  z.object({ data: ImmunizationInput }).partial().passthrough()
+);
 const ImmunizationUpdate = z
   .object({
     occurrenceDateTime: z.string().datetime({ offset: true }),
@@ -573,6 +630,9 @@ const ImmunizationUpdate = z
   })
   .partial()
   .passthrough();
+const updateImmunization_Body = PatApiResponse.and(
+  z.object({ data: ImmunizationUpdate }).partial().passthrough()
+);
 const ObservationInput = z
   .object({
     patientId: z.string(),
@@ -599,6 +659,9 @@ const ObservationInput = z
       .default("preliminary"),
   })
   .passthrough();
+const createObservation_Body = PatApiResponse.and(
+  z.object({ data: ObservationInput }).partial().passthrough()
+);
 const ObservationUpdate = z
   .object({
     valueQuantity: Quantity,
@@ -618,6 +681,9 @@ const ObservationUpdate = z
   })
   .partial()
   .passthrough();
+const updateObservation_Body = PatApiResponse.and(
+  z.object({ data: ObservationUpdate }).partial().passthrough()
+);
 const DiagnosticReportInput = z
   .object({
     patientId: z.string(),
@@ -642,6 +708,9 @@ const DiagnosticReportInput = z
     conclusion: z.string().optional(),
   })
   .passthrough();
+const createDiagnosticReport_Body = PatApiResponse.and(
+  z.object({ data: DiagnosticReportInput }).partial().passthrough()
+);
 const DiagnosticReportUpdate = z
   .object({
     conclusion: z.string(),
@@ -660,6 +729,9 @@ const DiagnosticReportUpdate = z
   })
   .partial()
   .passthrough();
+const updateDiagnosticReport_Body = PatApiResponse.and(
+  z.object({ data: DiagnosticReportUpdate }).partial().passthrough()
+);
 const ImagingStudy = Timestamps.and(
   z
     .object({
@@ -686,12 +758,18 @@ const ImagingStudyInput = z
       .default("registered"),
   })
   .passthrough();
+const createImagingStudy_Body = PatApiResponse.and(
+  z.object({ data: ImagingStudyInput }).partial().passthrough()
+);
 const ImagingStudyUpdate = z
   .object({
     status: z.enum(["registered", "available", "cancelled", "entered-in-error", "unknown"]),
   })
   .partial()
   .passthrough();
+const updateImagingStudy_Body = PatApiResponse.and(
+  z.object({ data: ImagingStudyUpdate }).partial().passthrough()
+);
 const ImagingSeries = z
   .object({
     id: z.string(),
@@ -724,6 +802,9 @@ const ProcedureInput = z
       .default("preparation"),
   })
   .passthrough();
+const createProcedure_Body = PatApiResponse.and(
+  z.object({ data: ProcedureInput }).partial().passthrough()
+);
 const ProcedureUpdate = z
   .object({
     performedPeriod: Period,
@@ -740,6 +821,9 @@ const ProcedureUpdate = z
   })
   .partial()
   .passthrough();
+const updateProcedure_Body = PatApiResponse.and(
+  z.object({ data: ProcedureUpdate }).partial().passthrough()
+);
 const ClinicalNoteInput = z
   .object({
     patientId: z.string(),
@@ -757,6 +841,9 @@ const ClinicalNoteInput = z
     title: z.string().optional(),
   })
   .passthrough();
+const createNote_Body = PatApiResponse.and(
+  z.object({ data: ClinicalNoteInput }).partial().passthrough()
+);
 const ClinicalNoteUpdate = z
   .object({
     content: z.string(),
@@ -772,6 +859,9 @@ const ClinicalNoteUpdate = z
   })
   .partial()
   .passthrough();
+const updateNote_Body = PatApiResponse.and(
+  z.object({ data: ClinicalNoteUpdate }).partial().passthrough()
+);
 const CareTeamParticipant = z
   .object({ role: CodeableConcept, member: z.string() })
   .partial()
@@ -800,6 +890,9 @@ const CareTeamInput = z
     period: Period.optional(),
   })
   .passthrough();
+const createCareTeam_Body = PatApiResponse.and(
+  z.object({ data: CareTeamInput }).partial().passthrough()
+);
 const CareTeamUpdate = z
   .object({
     participant: z.array(CareTeamParticipant),
@@ -808,6 +901,9 @@ const CareTeamUpdate = z
   })
   .partial()
   .passthrough();
+const updateCareTeam_Body = PatApiResponse.and(
+  z.object({ data: CareTeamUpdate }).partial().passthrough()
+);
 const DocumentReferenceInput = z
   .object({
     patientId: z.string(),
@@ -817,6 +913,9 @@ const DocumentReferenceInput = z
     status: z.enum(["current", "superseded", "entered-in-error"]).optional().default("current"),
   })
   .passthrough();
+const createDocument_Body = PatApiResponse.and(
+  z.object({ data: DocumentReferenceInput }).partial().passthrough()
+);
 const DocumentReferenceUpdate = z
   .object({
     status: z.enum(["current", "superseded", "entered-in-error"]),
@@ -824,8 +923,13 @@ const DocumentReferenceUpdate = z
   })
   .partial()
   .passthrough();
+const updateDocument_Body = PatApiResponse.and(
+  z.object({ data: DocumentReferenceUpdate }).partial().passthrough()
+);
 
 export const schemas = {
+  PatApiMeta,
+  PatApiResponse,
   Timestamps,
   Coding,
   CodeableConcept,
@@ -837,8 +941,10 @@ export const schemas = {
   Pagination,
   PatientList,
   PatientInput,
+  createPatient_Body,
   Error,
   PatientUpdate,
+  updatePatient_Body,
   PatientSummary,
   Period,
   Duration,
@@ -858,38 +964,65 @@ export const schemas = {
   Attachment,
   DocumentContent,
   DocumentReference,
+  PatApiListResponse,
   EncounterInput,
+  createEncounter_Body,
   EncounterUpdate,
+  updateEncounter_Body,
   ConditionInput,
+  createCondition_Body,
   ConditionUpdate,
+  updateCondition_Body,
   AllergyInput,
+  createAllergy_Body,
   AllergyUpdate,
+  updateAllergy_Body,
   MedicationStatementInput,
+  createMedicationStatement_Body,
   MedicationStatementUpdate,
+  updateMedicationStatement_Body,
   MedicationOrder,
   MedicationOrderInput,
+  createMedicationOrder_Body,
   MedicationOrderUpdate,
+  updateMedicationOrder_Body,
   MedicationAdministration,
   ImmunizationInput,
+  createImmunization_Body,
   ImmunizationUpdate,
+  updateImmunization_Body,
   ObservationInput,
+  createObservation_Body,
   ObservationUpdate,
+  updateObservation_Body,
   DiagnosticReportInput,
+  createDiagnosticReport_Body,
   DiagnosticReportUpdate,
+  updateDiagnosticReport_Body,
   ImagingStudy,
   ImagingStudyInput,
+  createImagingStudy_Body,
   ImagingStudyUpdate,
+  updateImagingStudy_Body,
   ImagingSeries,
   ProcedureInput,
+  createProcedure_Body,
   ProcedureUpdate,
+  updateProcedure_Body,
   ClinicalNoteInput,
+  createNote_Body,
   ClinicalNoteUpdate,
+  updateNote_Body,
   CareTeamParticipant,
   CareTeam,
   CareTeamInput,
+  createCareTeam_Body,
   CareTeamUpdate,
+  updateCareTeam_Body,
   DocumentReferenceInput,
+  createDocument_Body,
   DocumentReferenceUpdate,
+  updateDocument_Body,
 };
 
 const endpoints = makeApi([
@@ -920,7 +1053,12 @@ const endpoints = makeApi([
         schema: z.enum(["active", "inactive", "resolved"]).optional(),
       },
     ],
-    response: z.array(Allergy),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(Allergy) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -931,15 +1069,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: AllergyInput,
+        schema: createAllergy_Body,
       },
     ],
-    response: Allergy,
+    response: PatApiResponse.and(z.object({ data: Allergy }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -955,12 +1093,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Allergy,
+    response: PatApiResponse.and(z.object({ data: Allergy }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -973,7 +1111,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: AllergyUpdate,
+        schema: updateAllergy_Body,
       },
       {
         name: "id",
@@ -981,12 +1119,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Allergy,
+    response: PatApiResponse.and(z.object({ data: Allergy }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1007,7 +1145,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1045,7 +1183,12 @@ const endpoints = makeApi([
           .optional(),
       },
     ],
-    response: z.array(CareTeam),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(CareTeam) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1056,15 +1199,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: CareTeamInput,
+        schema: createCareTeam_Body,
       },
     ],
-    response: CareTeam,
+    response: PatApiResponse.and(z.object({ data: CareTeam }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1080,12 +1223,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: CareTeam,
+    response: PatApiResponse.and(z.object({ data: CareTeam }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1098,7 +1241,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: CareTeamUpdate,
+        schema: updateCareTeam_Body,
       },
       {
         name: "id",
@@ -1106,12 +1249,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: CareTeam,
+    response: PatApiResponse.and(z.object({ data: CareTeam }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1132,7 +1275,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1165,7 +1308,12 @@ const endpoints = makeApi([
           .optional(),
       },
     ],
-    response: z.array(Condition),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(Condition) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1176,15 +1324,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ConditionInput,
+        schema: createCondition_Body,
       },
     ],
-    response: Condition,
+    response: PatApiResponse.and(z.object({ data: Condition }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1200,12 +1348,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Condition,
+    response: PatApiResponse.and(z.object({ data: Condition }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1218,7 +1366,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ConditionUpdate,
+        schema: updateCondition_Body,
       },
       {
         name: "id",
@@ -1226,12 +1374,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Condition,
+    response: PatApiResponse.and(z.object({ data: Condition }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1252,7 +1400,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1325,7 +1473,12 @@ const endpoints = makeApi([
           .optional(),
       },
     ],
-    response: z.array(DiagnosticReport),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(DiagnosticReport) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1336,15 +1489,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: DiagnosticReportInput,
+        schema: createDiagnosticReport_Body,
       },
     ],
-    response: DiagnosticReport,
+    response: PatApiResponse.and(z.object({ data: DiagnosticReport }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1360,12 +1513,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DiagnosticReport,
+    response: PatApiResponse.and(z.object({ data: DiagnosticReport }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1378,7 +1531,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: DiagnosticReportUpdate,
+        schema: updateDiagnosticReport_Body,
       },
       {
         name: "id",
@@ -1386,12 +1539,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DiagnosticReport,
+    response: PatApiResponse.and(z.object({ data: DiagnosticReport }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1412,7 +1565,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1496,7 +1649,12 @@ const endpoints = makeApi([
         schema: z.enum(["current", "superseded", "entered-in-error"]).optional(),
       },
     ],
-    response: z.array(DocumentReference),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(DocumentReference) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1507,15 +1665,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: DocumentReferenceInput,
+        schema: createDocument_Body,
       },
     ],
-    response: DocumentReference,
+    response: PatApiResponse.and(z.object({ data: DocumentReference }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1531,12 +1689,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DocumentReference,
+    response: PatApiResponse.and(z.object({ data: DocumentReference }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1549,7 +1707,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: DocumentReferenceUpdate,
+        schema: updateDocument_Body,
       },
       {
         name: "id",
@@ -1557,12 +1715,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DocumentReference,
+    response: PatApiResponse.and(z.object({ data: DocumentReference }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1583,7 +1741,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1624,7 +1782,12 @@ const endpoints = makeApi([
           .optional(),
       },
     ],
-    response: z.array(Encounter),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(Encounter) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1635,15 +1798,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EncounterInput,
+        schema: createEncounter_Body,
       },
     ],
-    response: Encounter,
+    response: PatApiResponse.and(z.object({ data: Encounter }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1659,12 +1822,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Encounter,
+    response: PatApiResponse.and(z.object({ data: Encounter }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1677,7 +1840,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EncounterUpdate,
+        schema: updateEncounter_Body,
       },
       {
         name: "id",
@@ -1685,12 +1848,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Encounter,
+    response: PatApiResponse.and(z.object({ data: Encounter }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1711,7 +1874,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1862,7 +2025,12 @@ const endpoints = makeApi([
         schema: z.enum(["CR", "CT", "MR", "US", "MG", "PT", "NM", "XR", "DX", "OT"]).optional(),
       },
     ],
-    response: z.array(ImagingStudy),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(ImagingStudy) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1873,15 +2041,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ImagingStudyInput,
+        schema: createImagingStudy_Body,
       },
     ],
-    response: ImagingStudy,
+    response: PatApiResponse.and(z.object({ data: ImagingStudy }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1897,12 +2065,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ImagingStudy,
+    response: PatApiResponse.and(z.object({ data: ImagingStudy }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1915,7 +2083,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ImagingStudyUpdate,
+        schema: updateImagingStudy_Body,
       },
       {
         name: "id",
@@ -1923,12 +2091,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ImagingStudy,
+    response: PatApiResponse.and(z.object({ data: ImagingStudy }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1949,7 +2117,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2004,7 +2172,12 @@ const endpoints = makeApi([
         schema: z.enum(["completed", "entered-in-error", "not-done"]).optional(),
       },
     ],
-    response: z.array(Immunization),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(Immunization) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2015,15 +2188,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ImmunizationInput,
+        schema: createImmunization_Body,
       },
     ],
-    response: Immunization,
+    response: PatApiResponse.and(z.object({ data: Immunization }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2039,12 +2212,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Immunization,
+    response: PatApiResponse.and(z.object({ data: Immunization }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2057,7 +2230,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ImmunizationUpdate,
+        schema: updateImmunization_Body,
       },
       {
         name: "id",
@@ -2065,12 +2238,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Immunization,
+    response: PatApiResponse.and(z.object({ data: Immunization }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2091,7 +2264,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2133,7 +2306,12 @@ const endpoints = makeApi([
           .optional(),
       },
     ],
-    response: z.array(MedicationOrder),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(MedicationOrder) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2144,15 +2322,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: MedicationOrderInput,
+        schema: createMedicationOrder_Body,
       },
     ],
-    response: MedicationOrder,
+    response: PatApiResponse.and(z.object({ data: MedicationOrder }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2168,12 +2346,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: MedicationOrder,
+    response: PatApiResponse.and(z.object({ data: MedicationOrder }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2186,7 +2364,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: MedicationOrderUpdate,
+        schema: updateMedicationOrder_Body,
       },
       {
         name: "id",
@@ -2194,12 +2372,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: MedicationOrder,
+    response: PatApiResponse.and(z.object({ data: MedicationOrder }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2220,7 +2398,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2285,7 +2463,12 @@ const endpoints = makeApi([
           .optional(),
       },
     ],
-    response: z.array(MedicationStatement),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(MedicationStatement) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2296,15 +2479,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: MedicationStatementInput,
+        schema: createMedicationStatement_Body,
       },
     ],
-    response: MedicationStatement,
+    response: PatApiResponse.and(z.object({ data: MedicationStatement }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2320,12 +2503,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: MedicationStatement,
+    response: PatApiResponse.and(z.object({ data: MedicationStatement }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2338,7 +2521,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: MedicationStatementUpdate,
+        schema: updateMedicationStatement_Body,
       },
       {
         name: "id",
@@ -2346,12 +2529,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: MedicationStatement,
+    response: PatApiResponse.and(z.object({ data: MedicationStatement }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2372,7 +2555,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2410,7 +2593,12 @@ const endpoints = makeApi([
           .optional(),
       },
     ],
-    response: z.array(ClinicalNote),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(ClinicalNote) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2421,15 +2609,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ClinicalNoteInput,
+        schema: createNote_Body,
       },
     ],
-    response: ClinicalNote,
+    response: PatApiResponse.and(z.object({ data: ClinicalNote }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2445,12 +2633,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ClinicalNote,
+    response: PatApiResponse.and(z.object({ data: ClinicalNote }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2463,7 +2651,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ClinicalNoteUpdate,
+        schema: updateNote_Body,
       },
       {
         name: "id",
@@ -2471,12 +2659,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ClinicalNote,
+    response: PatApiResponse.and(z.object({ data: ClinicalNote }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2497,7 +2685,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2538,7 +2726,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(Observation),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(Observation) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2549,15 +2742,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ObservationInput,
+        schema: createObservation_Body,
       },
     ],
-    response: Observation,
+    response: PatApiResponse.and(z.object({ data: Observation }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2573,12 +2766,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Observation,
+    response: PatApiResponse.and(z.object({ data: Observation }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2591,7 +2784,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ObservationUpdate,
+        schema: updateObservation_Body,
       },
       {
         name: "id",
@@ -2599,12 +2792,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Observation,
+    response: PatApiResponse.and(z.object({ data: Observation }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2625,7 +2818,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2651,7 +2844,7 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: PatientList,
+    response: PatApiResponse.and(z.object({ data: PatientList }).partial().passthrough()),
   },
   {
     method: "post",
@@ -2662,15 +2855,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: PatientInput,
+        schema: createPatient_Body,
       },
     ],
-    response: Patient,
+    response: PatApiResponse.and(z.object({ data: Patient }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2686,12 +2879,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Patient,
+    response: PatApiResponse.and(z.object({ data: Patient }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2704,7 +2897,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: PatientUpdate,
+        schema: updatePatient_Body,
       },
       {
         name: "id",
@@ -2712,12 +2905,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Patient,
+    response: PatApiResponse.and(z.object({ data: Patient }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2738,7 +2931,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -3071,12 +3264,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: PatientSummary,
+    response: PatApiResponse.and(z.object({ data: PatientSummary }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -3118,7 +3311,12 @@ const endpoints = makeApi([
           .optional(),
       },
     ],
-    response: z.array(Procedure),
+    response: PatApiListResponse.and(
+      z
+        .object({ data: z.array(Procedure) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -3129,15 +3327,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ProcedureInput,
+        schema: createProcedure_Body,
       },
     ],
-    response: Procedure,
+    response: PatApiResponse.and(z.object({ data: Procedure }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -3153,12 +3351,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Procedure,
+    response: PatApiResponse.and(z.object({ data: Procedure }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -3171,7 +3369,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ProcedureUpdate,
+        schema: updateProcedure_Body,
       },
       {
         name: "id",
@@ -3179,12 +3377,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Procedure,
+    response: PatApiResponse.and(z.object({ data: Procedure }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -3205,7 +3403,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: PatApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },

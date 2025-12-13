@@ -6,31 +6,24 @@
  */
 
 import type { GetPatientResponse } from "../../types/index.js";
-import { pcTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/patient-clinical-data-converters.js";
+import type { PatientRepository } from "../../repositories/index.js";
+import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get patient by ID
  */
 export async function getPatient(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: PatientRepository,
+    orgId: string,
+    id: string
 ): Promise<GetPatientResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const patient = await repo.findById(orgId, id);
+  if (!patient) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: patient,
     meta: {
       correlationId: pcTransactionId(),
       timestamp: new Date().toISOString(),

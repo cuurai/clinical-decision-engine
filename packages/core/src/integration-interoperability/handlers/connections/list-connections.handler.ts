@@ -7,7 +7,7 @@
 
 import type { ListConnectionsParams, ListConnectionsResponse } from "../../types/index.js";
 import type { ConnectionRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../../shared/helpers";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * List connections
@@ -24,13 +24,17 @@ export async function listConnections(
   // Return paginated response matching OpenAPI response type
   // Structure matches ProviderAccountListResponse: { data: { items: [...] }, meta: { ... } }
   return {
-    data: result.items,
+    data: {
+      items: result.items,
+    },
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
-      totalCount: result.total ?? result.items.length,
-      pageSize: result.items.length,
-      pageNumber: 1,
+      pagination: {
+        nextCursor: result.nextCursor ?? null,
+        prevCursor: result.prevCursor ?? null,
+        limit: result.items.length,
+      },
     },
   };
 

@@ -6,31 +6,24 @@
  */
 
 import type { GetDiagnosticReportResponse } from "../../types/index.js";
-import { pcTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/patient-clinical-data-converters.js";
+import type { DiagnosticReportRepository } from "../../repositories/index.js";
+import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get diagnostic report by ID
  */
 export async function getDiagnosticReport(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: DiagnosticReportRepository,
+    orgId: string,
+    id: string
 ): Promise<GetDiagnosticReportResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const diagnosticReport = await repo.findById(orgId, id);
+  if (!diagnosticReport) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: diagnosticReport,
     meta: {
       correlationId: pcTransactionId(),
       timestamp: new Date().toISOString(),

@@ -12,6 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/hl7message.entity";
 export * from "./dto/list-hl7message.dto";
-export * from "./dto/create-hl7message.dto";
 export * from "./dto/get-hl7message.dto";
 export * from "./dto/delete-hl7message.dto";

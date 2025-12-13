@@ -12,5 +12,4 @@
 // Auto-generated barrel export
 export * from "./entity/interface-health-check.entity";
 export * from "./dto/list-interface-health-check.dto";
-export * from "./dto/create-interface-health-check.dto";
 export * from "./dto/get-interface-health-check.dto";

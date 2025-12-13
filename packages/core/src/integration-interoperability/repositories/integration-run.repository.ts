@@ -14,13 +14,12 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
-  ListIntegrationRunsParams,
-  IntegrationRunInput
+  IntegrationRun,
+  ListIntegrationRunsParams
 } from "../types/index.js";
 /**
  * IntegrationRunRepository Interface
  */
-export interface IntegrationRunRepository extends CreateReadRepository<Timestamps, IntegrationRunInput, string, ListIntegrationRunsParams> {
+export interface IntegrationRunRepository extends CreateReadRepository<IntegrationRun, IntegrationRun, string, ListIntegrationRunsParams> {
 
 }

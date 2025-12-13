@@ -6,33 +6,26 @@
  */
 
 import type { GetConnectionResponse } from "../../types/index.js";
-import { intTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
+import type { ConnectionRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get connection by ID
  */
 export async function getConnection(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: ConnectionRepository,
+    orgId: string,
+    id: string
 ): Promise<GetConnectionResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const connection = await repo.findById(orgId, id);
+  if (!connection) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: connection,
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

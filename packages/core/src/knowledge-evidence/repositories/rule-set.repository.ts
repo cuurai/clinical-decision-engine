@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  RuleSet,
   ListRuleSetsParams,
-  RuleSetInput,
-  RuleSetUpdate
+  UpdateRuleSetRequest
 } from "../types/index.js";
 /**
  * RuleSetRepository Interface
  */
-export interface RuleSetRepository extends CrudRepository<Timestamps, RuleSetInput, RuleSetUpdate, string, ListRuleSetsParams> {
+export interface RuleSetRepository extends CrudRepository<RuleSet, RuleSet, UpdateRuleSetRequest, string, ListRuleSetsParams> {
 
 }

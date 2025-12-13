@@ -912,9 +912,19 @@ export interface components {
             meta?: components["schemas"]["DecApiMeta"];
         };
         DecApiListResponse: {
-            /** @description List of items */
-            data?: unknown[];
-            meta?: components["schemas"]["DecApiMeta"];
+            /** @description Paginated data container */
+            data?: {
+                /** @description List of items */
+                items?: unknown[];
+            };
+            meta?: components["schemas"]["DecApiMeta"] & {
+                /** @description Pagination metadata */
+                pagination?: {
+                    nextCursor?: string | null;
+                    prevCursor?: string | null;
+                    limit?: number;
+                };
+            };
         };
         Timestamps: {
             /** Format: date-time */
@@ -1475,7 +1485,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                "application/json": components["schemas"]["Error"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["Error"];
+                };
             };
         };
         /** @description Resource not found */
@@ -1484,7 +1496,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                "application/json": components["schemas"]["Error"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["Error"];
+                };
             };
         };
     };
@@ -1541,7 +1555,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DecisionSessionInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["DecisionSessionInput"];
+                };
             };
         };
         responses: {
@@ -1551,7 +1567,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionSession"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionSession"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -1575,7 +1593,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionSession"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionSession"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1615,7 +1635,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DecisionSessionUpdate"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["DecisionSessionUpdate"];
+                };
             };
         };
         responses: {
@@ -1625,7 +1647,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionSession"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionSession"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1654,9 +1678,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["DecisionRequest"][];
-                    };
+                    "application/json": components["schemas"]["DecisionRequest"][];
                 };
             };
         };
@@ -1684,9 +1706,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["DecisionResult"][];
-                    };
+                    "application/json": components["schemas"]["DecisionResult"][];
                 };
             };
         };
@@ -1714,9 +1734,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["RiskAssessment"][];
-                    };
+                    "application/json": components["schemas"]["RiskAssessment"][];
                 };
             };
         };
@@ -1744,9 +1762,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["AlertEvaluation"][];
-                    };
+                    "application/json": components["schemas"]["AlertEvaluation"][];
                 };
             };
         };
@@ -1774,9 +1790,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["Explanation"][];
-                    };
+                    "application/json": components["schemas"]["Explanation"][];
                 };
             };
         };
@@ -1820,7 +1834,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DecisionRequestInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["DecisionRequestInput"];
+                };
             };
         };
         responses: {
@@ -1830,7 +1846,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionRequest"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionRequest"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -1854,7 +1872,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionRequest"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionRequest"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1883,9 +1903,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["DecisionResult"][];
-                    };
+                    "application/json": components["schemas"]["DecisionResult"][];
                 };
             };
         };
@@ -1913,9 +1931,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["Explanation"][];
-                    };
+                    "application/json": components["schemas"]["Explanation"][];
                 };
             };
         };
@@ -1959,7 +1975,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DecisionResultInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["DecisionResultInput"];
+                };
             };
         };
         responses: {
@@ -1969,7 +1987,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionResult"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionResult"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -1993,7 +2013,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionResult"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionResult"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2033,7 +2055,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DecisionResultUpdate"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["DecisionResultUpdate"];
+                };
             };
         };
         responses: {
@@ -2043,7 +2067,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionResult"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionResult"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2072,9 +2098,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["Recommendation"][];
-                    };
+                    "application/json": components["schemas"]["Recommendation"][];
                 };
             };
         };
@@ -2102,9 +2126,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["RiskAssessment"][];
-                    };
+                    "application/json": components["schemas"]["RiskAssessment"][];
                 };
             };
         };
@@ -2132,9 +2154,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["Explanation"][];
-                    };
+                    "application/json": components["schemas"]["Explanation"][];
                 };
             };
         };
@@ -2177,7 +2197,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["RiskAssessmentInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["RiskAssessmentInput"];
+                };
             };
         };
         responses: {
@@ -2187,7 +2209,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RiskAssessment"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["RiskAssessment"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2211,7 +2235,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RiskAssessment"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["RiskAssessment"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2251,7 +2277,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["RiskAssessmentUpdate"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["RiskAssessmentUpdate"];
+                };
             };
         };
         responses: {
@@ -2261,7 +2289,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RiskAssessment"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["RiskAssessment"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2290,9 +2320,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["Explanation"][];
-                    };
+                    "application/json": components["schemas"]["Explanation"][];
                 };
             };
         };
@@ -2336,7 +2364,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["RecommendationInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["RecommendationInput"];
+                };
             };
         };
         responses: {
@@ -2346,7 +2376,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Recommendation"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["Recommendation"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2370,7 +2402,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Recommendation"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["Recommendation"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2410,7 +2444,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["RecommendationUpdate"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["RecommendationUpdate"];
+                };
             };
         };
         responses: {
@@ -2420,7 +2456,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Recommendation"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["Recommendation"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2449,9 +2487,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["Explanation"][];
-                    };
+                    "application/json": components["schemas"]["Explanation"][];
                 };
             };
         };
@@ -2495,7 +2531,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["AlertEvaluationInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["AlertEvaluationInput"];
+                };
             };
         };
         responses: {
@@ -2505,7 +2543,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AlertEvaluation"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["AlertEvaluation"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2529,7 +2569,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AlertEvaluation"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["AlertEvaluation"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2569,7 +2611,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["AlertEvaluationUpdate"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["AlertEvaluationUpdate"];
+                };
             };
         };
         responses: {
@@ -2579,7 +2623,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AlertEvaluation"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["AlertEvaluation"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2622,7 +2668,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ExplanationInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["ExplanationInput"];
+                };
             };
         };
         responses: {
@@ -2632,7 +2680,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Explanation"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["Explanation"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2656,7 +2706,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Explanation"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["Explanation"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2685,9 +2737,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["FeatureAttribution"][];
-                    };
+                    "application/json": components["schemas"]["FeatureAttribution"][];
                 };
             };
         };
@@ -2715,9 +2765,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["RuleTrace"][];
-                    };
+                    "application/json": components["schemas"]["RuleTrace"][];
                 };
             };
         };
@@ -2760,7 +2808,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ModelInvocationInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["ModelInvocationInput"];
+                };
             };
         };
         responses: {
@@ -2770,7 +2820,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelInvocation"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["ModelInvocation"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2794,7 +2846,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelInvocation"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["ModelInvocation"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2823,9 +2877,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["Explanation"][];
-                    };
+                    "application/json": components["schemas"]["Explanation"][];
                 };
             };
         };
@@ -2868,7 +2920,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["SimulationScenarioInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["SimulationScenarioInput"];
+                };
             };
         };
         responses: {
@@ -2878,7 +2932,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SimulationScenario"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["SimulationScenario"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2902,7 +2958,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SimulationScenario"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["SimulationScenario"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2942,7 +3000,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["SimulationScenarioUpdate"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["SimulationScenarioUpdate"];
+                };
             };
         };
         responses: {
@@ -2952,7 +3012,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SimulationScenario"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["SimulationScenario"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2981,9 +3043,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["SimulationRun"][];
-                    };
+                    "application/json": components["schemas"]["SimulationRun"][];
                 };
             };
         };
@@ -3026,7 +3086,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["SimulationRunInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["SimulationRunInput"];
+                };
             };
         };
         responses: {
@@ -3036,7 +3098,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SimulationRun"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["SimulationRun"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3060,7 +3124,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SimulationRun"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["SimulationRun"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3089,9 +3155,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["DecisionResult"][];
-                    };
+                    "application/json": components["schemas"]["DecisionResult"][];
                 };
             };
         };
@@ -3119,9 +3183,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["SimulationMetric"][];
-                    };
+                    "application/json": components["schemas"]["SimulationMetric"][];
                 };
             };
         };
@@ -3163,7 +3225,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DecisionPolicyInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["DecisionPolicyInput"];
+                };
             };
         };
         responses: {
@@ -3173,7 +3237,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionPolicy"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionPolicy"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3197,7 +3263,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionPolicy"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionPolicy"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3237,7 +3305,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DecisionPolicyUpdate"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["DecisionPolicyUpdate"];
+                };
             };
         };
         responses: {
@@ -3247,7 +3317,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionPolicy"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionPolicy"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3276,9 +3348,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["ThresholdProfile"][];
-                    };
+                    "application/json": components["schemas"]["ThresholdProfile"][];
                 };
             };
         };
@@ -3320,7 +3390,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ThresholdProfileInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["ThresholdProfileInput"];
+                };
             };
         };
         responses: {
@@ -3330,7 +3402,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ThresholdProfile"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["ThresholdProfile"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3354,7 +3428,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ThresholdProfile"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["ThresholdProfile"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3394,7 +3470,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ThresholdProfileUpdate"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["ThresholdProfileUpdate"];
+                };
             };
         };
         responses: {
@@ -3404,7 +3482,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ThresholdProfile"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["ThresholdProfile"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3448,7 +3528,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DecisionMetricSnapshotInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["DecisionMetricSnapshotInput"];
+                };
             };
         };
         responses: {
@@ -3458,7 +3540,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionMetricSnapshot"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionMetricSnapshot"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3482,7 +3566,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecisionMetricSnapshot"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["DecisionMetricSnapshot"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3525,7 +3611,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ExperimentInput"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["ExperimentInput"];
+                };
             };
         };
         responses: {
@@ -3535,7 +3623,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Experiment"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["Experiment"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3559,7 +3649,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Experiment"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["Experiment"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3599,7 +3691,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ExperimentUpdate"];
+                "application/json": components["schemas"]["DecApiResponse"] & {
+                    data?: components["schemas"]["ExperimentUpdate"];
+                };
             };
         };
         responses: {
@@ -3609,7 +3703,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Experiment"];
+                    "application/json": components["schemas"]["DecApiResponse"] & {
+                        data?: components["schemas"]["Experiment"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3638,9 +3734,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["ExperimentArm"][];
-                    };
+                    "application/json": components["schemas"]["ExperimentArm"][];
                 };
             };
         };
@@ -3668,9 +3762,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["ExperimentResult"][];
-                    };
+                    "application/json": components["schemas"]["ExperimentResult"][];
                 };
             };
         };

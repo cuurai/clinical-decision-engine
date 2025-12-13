@@ -14,13 +14,12 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
-  ListSimulationRunsParams,
-  SimulationRunInput
+  SimulationRun,
+  ListSimulationRunsParams
 } from "../types/index.js";
 /**
  * SimulationRunRepository Interface
  */
-export interface SimulationRunRepository extends CreateReadRepository<Timestamps, SimulationRunInput, string, ListSimulationRunsParams> {
+export interface SimulationRunRepository extends CreateReadRepository<SimulationRun, SimulationRun, string, ListSimulationRunsParams> {
 
 }

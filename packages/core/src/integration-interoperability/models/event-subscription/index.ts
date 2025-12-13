@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/event-subscription.entity";
 export * from "./dto/list-event-subscription.dto";
-export * from "./dto/create-event-subscription.dto";
 export * from "./dto/get-event-subscription.dto";
-export * from "./dto/update-event-subscription.dto";
 export * from "./dto/delete-event-subscription.dto";

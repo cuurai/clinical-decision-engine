@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  Allergy,
   ListAllergiesParams,
-  AllergyInput,
-  AllergyUpdate
+  UpdateAllergyRequest
 } from "../types/index.js";
 /**
  * AllergyRepository Interface
  */
-export interface AllergyRepository extends CrudRepository<Timestamps, AllergyInput, AllergyUpdate, string, ListAllergiesParams> {
+export interface AllergyRepository extends CrudRepository<Allergy, Allergy, UpdateAllergyRequest, string, ListAllergiesParams> {
 
 }

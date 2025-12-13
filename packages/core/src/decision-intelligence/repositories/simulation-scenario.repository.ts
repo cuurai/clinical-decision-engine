@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  SimulationScenario,
   ListSimulationScenariosParams,
-  SimulationScenarioInput,
-  SimulationScenarioUpdate
+  UpdateSimulationScenarioRequest
 } from "../types/index.js";
 /**
  * SimulationScenarioRepository Interface
  */
-export interface SimulationScenarioRepository extends CrudRepository<Timestamps, SimulationScenarioInput, SimulationScenarioUpdate, string, ListSimulationScenariosParams> {
+export interface SimulationScenarioRepository extends CrudRepository<SimulationScenario, SimulationScenario, UpdateSimulationScenarioRequest, string, ListSimulationScenariosParams> {
 
 }

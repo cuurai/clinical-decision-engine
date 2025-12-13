@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  InterfaceError,
   ListInterfaceErrorsParams,
-  InterfaceErrorInput,
-  InterfaceErrorUpdate
+  UpdateInterfaceErrorRequest
 } from "../types/index.js";
 /**
  * InterfaceErrorRepository Interface
  */
-export interface InterfaceErrorRepository extends CreateUpdateReadRepository<Timestamps, InterfaceErrorInput, InterfaceErrorUpdate, string, ListInterfaceErrorsParams> {
+export interface InterfaceErrorRepository extends CreateUpdateReadRepository<InterfaceError, InterfaceError, UpdateInterfaceErrorRequest, string, ListInterfaceErrorsParams> {
 
 }

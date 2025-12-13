@@ -6,33 +6,26 @@
  */
 
 import type { GetModelVersionResponse } from "../../types/index.js";
-import { knoTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/knowledge-evidence-converters.js";
+import type { ModelVersionRepository } from "../../repositories/index.js";
+import { keTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get model version by ID
  */
 export async function getModelVersion(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: ModelVersionRepository,
+    orgId: string,
+    id: string
 ): Promise<GetModelVersionResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const modelVersion = await repo.findById(orgId, id);
+  if (!modelVersion) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: modelVersion,
     meta: {
-      correlationId: knoTransactionId(),
+      correlationId: keTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

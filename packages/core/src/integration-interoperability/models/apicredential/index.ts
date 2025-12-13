@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/apicredential.entity";
 export * from "./dto/list-apicredential.dto";
-export * from "./dto/create-apicredential.dto";
 export * from "./dto/get-apicredential.dto";
-export * from "./dto/update-apicredential.dto";
 export * from "./dto/delete-apicredential.dto";

@@ -14,12 +14,12 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  EpisodesOfCare,
+  EpisodeOfCare,
   ListEpisodesOfCareParams
 } from "../types/index.js";
 /**
  * EpisodesOfCareRepository Interface
  */
-export interface EpisodesOfCareRepository extends ReadRepository<EpisodesOfCare, string, ListEpisodesOfCareParams> {
+export interface EpisodesOfCareRepository extends ReadRepository<EpisodeOfCare, string, ListEpisodesOfCareParams> {
 
 }

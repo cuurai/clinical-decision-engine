@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/document.entity";
 export * from "./dto/list-document.dto";
-export * from "./dto/create-document.dto";
 export * from "./dto/get-document.dto";
-export * from "./dto/update-document.dto";
 export * from "./dto/delete-document.dto";

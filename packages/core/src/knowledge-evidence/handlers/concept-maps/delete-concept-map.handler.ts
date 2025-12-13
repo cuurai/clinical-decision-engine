@@ -6,7 +6,7 @@
  */
 
 import type { ConceptMapRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../../shared/helpers";
+import { keTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete concept map
@@ -22,7 +22,7 @@ export async function deleteConceptMap(
   return {
     data: { success: true },
     meta: {
-      correlationId: knoTransactionId(),
+      correlationId: keTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

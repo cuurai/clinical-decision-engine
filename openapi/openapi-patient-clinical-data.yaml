@@ -77,17 +77,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/PatientList"
 
     post:
@@ -99,17 +95,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/PatientInput"
       responses:
         "201":
@@ -117,17 +109,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Patient"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -145,17 +133,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Patient"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -171,17 +155,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/PatientUpdate"
       responses:
         "200":
@@ -189,17 +169,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Patient"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -229,17 +205,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/PatientSummary"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -515,37 +487,23 @@ paths:
           in: query
           schema:
             type: string
-            enum:
-              [
-                planned,
-                arrived,
-                triaged,
-                in-progress,
-                onleave,
-                finished,
-                cancelled,
-              ]
+            enum: [planned, arrived, triaged, in-progress, onleave, finished, cancelled]
       responses:
         "200":
           description: List of encounters
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/Encounter"
 
     post:
@@ -557,17 +515,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/EncounterInput"
       responses:
         "201":
@@ -575,17 +529,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Encounter"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -603,17 +553,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Encounter"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -629,17 +575,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/EncounterUpdate"
       responses:
         "200":
@@ -647,17 +589,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Encounter"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -795,21 +733,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/Condition"
 
     post:
@@ -821,17 +754,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ConditionInput"
       responses:
         "201":
@@ -839,17 +768,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Condition"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -867,17 +792,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Condition"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -893,17 +814,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ConditionUpdate"
       responses:
         "200":
@@ -911,17 +828,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Condition"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -983,21 +896,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/Allergy"
 
     post:
@@ -1009,17 +917,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/AllergyInput"
       responses:
         "201":
@@ -1027,17 +931,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Allergy"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1055,17 +955,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Allergy"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1081,17 +977,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/AllergyUpdate"
       responses:
         "200":
@@ -1099,17 +991,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Allergy"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1145,37 +1033,23 @@ paths:
           in: query
           schema:
             type: string
-            enum:
-              [
-                active,
-                completed,
-                entered-in-error,
-                intended,
-                stopped,
-                on-hold,
-                unknown,
-              ]
+            enum: [active, completed, entered-in-error, intended, stopped, on-hold, unknown]
       responses:
         "200":
           description: List of medication statements
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/MedicationStatement"
 
     post:
@@ -1187,17 +1061,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/MedicationStatementInput"
       responses:
         "201":
@@ -1205,17 +1075,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/MedicationStatement"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1233,17 +1099,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/MedicationStatement"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1259,17 +1121,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/MedicationStatementUpdate"
       responses:
         "200":
@@ -1277,17 +1135,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/MedicationStatement"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1323,38 +1177,23 @@ paths:
           in: query
           schema:
             type: string
-            enum:
-              [
-                active,
-                on-hold,
-                cancelled,
-                completed,
-                entered-in-error,
-                stopped,
-                draft,
-                unknown,
-              ]
+            enum: [active, on-hold, cancelled, completed, entered-in-error, stopped, draft, unknown]
       responses:
         "200":
           description: List of medication orders
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/MedicationOrder"
 
     post:
@@ -1366,17 +1205,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/MedicationOrderInput"
       responses:
         "201":
@@ -1384,17 +1219,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/MedicationOrder"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1412,17 +1243,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/MedicationOrder"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1438,17 +1265,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/MedicationOrderUpdate"
       responses:
         "200":
@@ -1456,17 +1279,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/MedicationOrder"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1528,21 +1347,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/Immunization"
 
     post:
@@ -1554,17 +1368,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ImmunizationInput"
       responses:
         "201":
@@ -1572,17 +1382,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Immunization"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1600,17 +1406,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Immunization"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1626,17 +1428,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ImmunizationUpdate"
       responses:
         "200":
@@ -1644,17 +1442,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Immunization"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1706,21 +1500,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/Observation"
 
     post:
@@ -1732,17 +1521,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ObservationInput"
       responses:
         "201":
@@ -1750,17 +1535,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Observation"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1778,17 +1559,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Observation"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1804,17 +1581,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ObservationUpdate"
       responses:
         "200":
@@ -1822,17 +1595,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Observation"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1891,21 +1660,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/DiagnosticReport"
 
     post:
@@ -1917,17 +1681,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/DiagnosticReportInput"
       responses:
         "201":
@@ -1935,17 +1695,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DiagnosticReport"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1963,17 +1719,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DiagnosticReport"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1989,17 +1741,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/DiagnosticReportUpdate"
       responses:
         "200":
@@ -2007,17 +1755,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DiagnosticReport"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2098,21 +1842,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/ImagingStudy"
 
     post:
@@ -2124,17 +1863,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ImagingStudyInput"
       responses:
         "201":
@@ -2142,17 +1877,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ImagingStudy"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2170,17 +1901,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ImagingStudy"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2196,17 +1923,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ImagingStudyUpdate"
       responses:
         "200":
@@ -2214,17 +1937,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ImagingStudy"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2296,21 +2015,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/Procedure"
 
     post:
@@ -2322,17 +2036,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ProcedureInput"
       responses:
         "201":
@@ -2340,17 +2050,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Procedure"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2368,17 +2074,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Procedure"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2394,17 +2096,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ProcedureUpdate"
       responses:
         "200":
@@ -2412,17 +2110,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Procedure"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2462,36 +2156,23 @@ paths:
           in: query
           schema:
             type: string
-            enum:
-              [
-                history-physical,
-                progress,
-                discharge,
-                consultation,
-                procedure,
-                other,
-              ]
+            enum: [history-physical, progress, discharge, consultation, procedure, other]
       responses:
         "200":
           description: List of clinical notes
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/ClinicalNote"
 
     post:
@@ -2503,17 +2184,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ClinicalNoteInput"
       responses:
         "201":
@@ -2521,17 +2198,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ClinicalNote"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2549,17 +2222,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ClinicalNote"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2575,17 +2244,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ClinicalNoteUpdate"
       responses:
         "200":
@@ -2593,17 +2258,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ClinicalNote"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2650,21 +2311,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/CareTeam"
 
     post:
@@ -2676,17 +2332,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/CareTeamInput"
       responses:
         "201":
@@ -2694,17 +2346,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/CareTeam"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2722,17 +2370,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/CareTeam"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2748,17 +2392,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/CareTeamUpdate"
       responses:
         "200":
@@ -2766,17 +2406,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/CareTeam"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2823,21 +2459,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/DocumentReference"
 
     post:
@@ -2849,17 +2480,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/DocumentReferenceInput"
       responses:
         "201":
@@ -2867,17 +2494,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DocumentReference"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2895,17 +2518,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DocumentReference"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2921,17 +2540,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/PatApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/DocumentReferenceUpdate"
       responses:
         "200":
@@ -2939,17 +2554,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/PatApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DocumentReference"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -3005,17 +2616,13 @@ components:
       content:
         application/json:
           schema:
-
             allOf:
-
               - $ref: "#/components/schemas/PatApiResponse"
 
               - type: object
 
                 properties:
-
                   data:
-
                     $ref: "#/components/schemas/Error"
 
     NotFound:
@@ -3023,17 +2630,13 @@ components:
       content:
         application/json:
           schema:
-
             allOf:
-
               - $ref: "#/components/schemas/PatApiResponse"
 
               - type: object
 
                 properties:
-
                   data:
-
                     $ref: "#/components/schemas/Error"
 
   schemas:
@@ -3082,10 +2685,30 @@ components:
       type: object
       properties:
         data:
-          type: array
-          description: List of items
+          type: object
+          description: Paginated data container
+          properties:
+            items:
+              type: array
+              description: List of items
+              items: {}
         meta:
-          $ref: "#/components/schemas/PatApiMeta"
+          allOf:
+            - $ref: "#/components/schemas/PatApiMeta"
+            - type: object
+              properties:
+                pagination:
+                  type: object
+                  description: Pagination metadata
+                  properties:
+                    nextCursor:
+                      type: string
+                      nullable: true
+                    prevCursor:
+                      type: string
+                      nullable: true
+                    limit:
+                      type: integer
 
     Timestamps:
       type: object
@@ -3219,16 +2842,7 @@ components:
               type: string
             status:
               type: string
-              enum:
-                [
-                  planned,
-                  arrived,
-                  triaged,
-                  in-progress,
-                  onleave,
-                  finished,
-                  cancelled,
-                ]
+              enum: [planned, arrived, triaged, in-progress, onleave, finished, cancelled]
             class:
               type: string
               enum: [inpatient, outpatient, emergency, ambulatory, virtual]
@@ -3249,16 +2863,7 @@ components:
           type: string
         status:
           type: string
-          enum:
-            [
-              planned,
-              arrived,
-              triaged,
-              in-progress,
-              onleave,
-              finished,
-              cancelled,
-            ]
+          enum: [planned, arrived, triaged, in-progress, onleave, finished, cancelled]
         class:
           type: string
           enum: [inpatient, outpatient, emergency, ambulatory, virtual]
@@ -3274,16 +2879,7 @@ components:
       properties:
         status:
           type: string
-          enum:
-            [
-              planned,
-              arrived,
-              triaged,
-              in-progress,
-              onleave,
-              finished,
-              cancelled,
-            ]
+          enum: [planned, arrived, triaged, in-progress, onleave, finished, cancelled]
         period:
           $ref: "#/components/schemas/Period"
 
@@ -3446,16 +3042,7 @@ components:
                 $ref: "#/components/schemas/Dosage"
             status:
               type: string
-              enum:
-                [
-                  active,
-                  completed,
-                  entered-in-error,
-                  intended,
-                  stopped,
-                  on-hold,
-                  unknown,
-                ]
+              enum: [active, completed, entered-in-error, intended, stopped, on-hold, unknown]
 
     MedicationStatementInput:
       type: object
@@ -3473,16 +3060,7 @@ components:
             $ref: "#/components/schemas/Dosage"
         status:
           type: string
-          enum:
-            [
-              active,
-              completed,
-              entered-in-error,
-              intended,
-              stopped,
-              on-hold,
-              unknown,
-            ]
+          enum: [active, completed, entered-in-error, intended, stopped, on-hold, unknown]
           default: active
 
     MedicationStatementUpdate:
@@ -3496,16 +3074,7 @@ components:
             $ref: "#/components/schemas/Dosage"
         status:
           type: string
-          enum:
-            [
-              active,
-              completed,
-              entered-in-error,
-              intended,
-              stopped,
-              on-hold,
-              unknown,
-            ]
+          enum: [active, completed, entered-in-error, intended, stopped, on-hold, unknown]
 
     # Medication Order schemas
     MedicationOrder:
@@ -3532,16 +3101,7 @@ components:
             status:
               type: string
               enum:
-                [
-                  active,
-                  on-hold,
-                  cancelled,
-                  completed,
-                  entered-in-error,
-                  stopped,
-                  draft,
-                  unknown,
-                ]
+                [active, on-hold, cancelled, completed, entered-in-error, stopped, draft, unknown]
 
     MedicationOrderInput:
       type: object
@@ -3559,17 +3119,7 @@ components:
             $ref: "#/components/schemas/Dosage"
         status:
           type: string
-          enum:
-            [
-              active,
-              on-hold,
-              cancelled,
-              completed,
-              entered-in-error,
-              stopped,
-              draft,
-              unknown,
-            ]
+          enum: [active, on-hold, cancelled, completed, entered-in-error, stopped, draft, unknown]
           default: draft
 
     MedicationOrderUpdate:
@@ -3581,17 +3131,7 @@ components:
             $ref: "#/components/schemas/Dosage"
         status:
           type: string
-          enum:
-            [
-              active,
-              on-hold,
-              cancelled,
-              completed,
-              entered-in-error,
-              stopped,
-              draft,
-              unknown,
-            ]
+          enum: [active, on-hold, cancelled, completed, entered-in-error, stopped, draft, unknown]
 
     MedicationAdministration:
       allOf:
@@ -3605,16 +3145,7 @@ components:
               type: string
             status:
               type: string
-              enum:
-                [
-                  in-progress,
-                  not-done,
-                  on-hold,
-                  completed,
-                  entered-in-error,
-                  stopped,
-                  unknown,
-                ]
+              enum: [in-progress, not-done, on-hold, completed, entered-in-error, stopped, unknown]
             effectiveDateTime:
               type: string
               format: date-time
@@ -3908,8 +3439,7 @@ components:
               format: date-time
             status:
               type: string
-              enum:
-                [registered, available, cancelled, entered-in-error, unknown]
+              enum: [registered, available, cancelled, entered-in-error, unknown]
             numberOfSeries:
               type: integer
             numberOfInstances:
@@ -4051,15 +3581,7 @@ components:
               type: string
             noteType:
               type: string
-              enum:
-                [
-                  history-physical,
-                  progress,
-                  discharge,
-                  consultation,
-                  procedure,
-                  other,
-                ]
+              enum: [history-physical, progress, discharge, consultation, procedure, other]
             author:
               type: string
             authored:
@@ -4080,15 +3602,7 @@ components:
           type: string
         noteType:
           type: string
-          enum:
-            [
-              history-physical,
-              progress,
-              discharge,
-              consultation,
-              procedure,
-              other,
-            ]
+          enum: [history-physical, progress, discharge, consultation, procedure, other]
         author:
           type: string
         content:
@@ -4105,15 +3619,7 @@ components:
           type: string
         noteType:
           type: string
-          enum:
-            [
-              history-physical,
-              progress,
-              discharge,
-              consultation,
-              procedure,
-              other,
-            ]
+          enum: [history-physical, progress, discharge, consultation, procedure, other]
 
     # Care Team schemas
     CareTeam:

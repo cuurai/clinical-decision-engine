@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/concept-map.entity";
 export * from "./dto/list-concept-map.dto";
-export * from "./dto/create-concept-map.dto";
 export * from "./dto/get-concept-map.dto";
-export * from "./dto/update-concept-map.dto";
 export * from "./dto/delete-concept-map.dto";

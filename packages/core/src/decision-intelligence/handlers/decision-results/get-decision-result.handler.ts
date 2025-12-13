@@ -6,33 +6,26 @@
  */
 
 import type { GetDecisionResultResponse } from "../../types/index.js";
-import { decTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/decision-intelligence-converters.js";
+import type { DecisionResultRepository } from "../../repositories/index.js";
+import { diTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get decision result by ID
  */
 export async function getDecisionResult(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: DecisionResultRepository,
+    orgId: string,
+    id: string
 ): Promise<GetDecisionResultResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const decisionResult = await repo.findById(orgId, id);
+  if (!decisionResult) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: decisionResult,
     meta: {
-      correlationId: decTransactionId(),
+      correlationId: diTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

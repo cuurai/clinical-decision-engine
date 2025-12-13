@@ -16,12 +16,11 @@ import type {
 import type {
   APIClient,
   ListAPIClientsParams,
-  APIClientInput,
-  APIClientUpdate
+  UpdateAPIClientRequest
 } from "../types/index.js";
 /**
  * APIClientRepository Interface
  */
-export interface APIClientRepository extends CrudRepository<APIClient, APIClientInput, APIClientUpdate, string, ListAPIClientsParams> {
+export interface APIClientRepository extends CrudRepository<APIClient, APIClient, UpdateAPIClientRequest, string, ListAPIClientsParams> {
 
 }

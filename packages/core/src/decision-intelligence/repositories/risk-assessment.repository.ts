@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  RiskAssessment,
   ListRiskAssessmentsParams,
-  RiskAssessmentInput,
-  RiskAssessmentUpdate
+  UpdateRiskAssessmentRequest
 } from "../types/index.js";
 /**
  * RiskAssessmentRepository Interface
  */
-export interface RiskAssessmentRepository extends CrudRepository<Timestamps, RiskAssessmentInput, RiskAssessmentUpdate, string, ListRiskAssessmentsParams> {
+export interface RiskAssessmentRepository extends CrudRepository<RiskAssessment, RiskAssessment, UpdateRiskAssessmentRequest, string, ListRiskAssessmentsParams> {
 
 }

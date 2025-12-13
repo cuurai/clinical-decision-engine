@@ -1,6 +1,20 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 
+const IntApiMeta = z
+  .object({
+    correlationId: z.string(),
+    timestamp: z.string().datetime({ offset: true }),
+    totalCount: z.number().int(),
+    pageSize: z.number().int(),
+    pageNumber: z.number().int(),
+  })
+  .partial()
+  .passthrough();
+const IntApiListResponse = z
+  .object({ data: z.array(z.any()), meta: IntApiMeta })
+  .partial()
+  .passthrough();
 const Timestamps = z
   .object({
     createdAt: z.string().datetime({ offset: true }),
@@ -21,6 +35,10 @@ const ExternalSystem = Timestamps.and(
     })
     .passthrough()
 );
+const IntApiResponse = z
+  .object({ data: z.object({}).partial().passthrough(), meta: IntApiMeta })
+  .partial()
+  .passthrough();
 const ExternalSystemInput = z
   .object({
     name: z.string(),
@@ -31,6 +49,9 @@ const ExternalSystemInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createExternalSystem_Body = IntApiResponse.and(
+  z.object({ data: ExternalSystemInput }).partial().passthrough()
+);
 const Error = z
   .object({
     error: z.string(),
@@ -48,6 +69,9 @@ const ExternalSystemUpdate = z
   })
   .partial()
   .passthrough();
+const updateExternalSystem_Body = IntApiResponse.and(
+  z.object({ data: ExternalSystemUpdate }).partial().passthrough()
+);
 const SystemEndpoint = z
   .object({
     id: z.string(),
@@ -106,6 +130,9 @@ const ConnectionInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createConnection_Body = IntApiResponse.and(
+  z.object({ data: ConnectionInput }).partial().passthrough()
+);
 const ConnectionUpdate = z
   .object({
     name: z.string(),
@@ -117,6 +144,9 @@ const ConnectionUpdate = z
   })
   .partial()
   .passthrough();
+const updateConnection_Body = IntApiResponse.and(
+  z.object({ data: ConnectionUpdate }).partial().passthrough()
+);
 const InterfaceHealthCheck = Timestamps.and(
   z
     .object({
@@ -198,6 +228,9 @@ const FHIRMappingProfileInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createFHIRMappingProfile_Body = IntApiResponse.and(
+  z.object({ data: FHIRMappingProfileInput }).partial().passthrough()
+);
 const FHIRMappingProfileUpdate = z
   .object({
     name: z.string(),
@@ -209,6 +242,9 @@ const FHIRMappingProfileUpdate = z
   })
   .partial()
   .passthrough();
+const updateFHIRMappingProfile_Body = IntApiResponse.and(
+  z.object({ data: FHIRMappingProfileUpdate }).partial().passthrough()
+);
 const MappingRule = z
   .object({
     id: z.string(),
@@ -283,6 +319,9 @@ const HL7MappingProfileInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createHL7MappingProfile_Body = IntApiResponse.and(
+  z.object({ data: HL7MappingProfileInput }).partial().passthrough()
+);
 const HL7MappingProfileUpdate = z
   .object({
     name: z.string(),
@@ -293,6 +332,9 @@ const HL7MappingProfileUpdate = z
   })
   .partial()
   .passthrough();
+const updateHL7MappingProfile_Body = IntApiResponse.and(
+  z.object({ data: HL7MappingProfileUpdate }).partial().passthrough()
+);
 const IntegrationJobInput = z
   .object({
     name: z.string(),
@@ -308,6 +350,9 @@ const IntegrationJobInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createIntegrationJob_Body = IntApiResponse.and(
+  z.object({ data: IntegrationJobInput }).partial().passthrough()
+);
 const IntegrationJobUpdate = z
   .object({
     name: z.string(),
@@ -319,6 +364,9 @@ const IntegrationJobUpdate = z
   })
   .partial()
   .passthrough();
+const updateIntegrationJob_Body = IntApiResponse.and(
+  z.object({ data: IntegrationJobUpdate }).partial().passthrough()
+);
 const IntegrationRun = Timestamps.and(
   z
     .object({
@@ -347,6 +395,9 @@ const IntegrationRunInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createIntegrationRun_Body = IntApiResponse.and(
+  z.object({ data: IntegrationRunInput }).partial().passthrough()
+);
 const IntegrationLog = z
   .object({
     id: z.string(),
@@ -402,6 +453,9 @@ const DataImportBatchInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createDataImportBatch_Body = IntApiResponse.and(
+  z.object({ data: DataImportBatchInput }).partial().passthrough()
+);
 const DataImportBatchUpdate = z
   .object({
     name: z.string(),
@@ -414,6 +468,9 @@ const DataImportBatchUpdate = z
   })
   .partial()
   .passthrough();
+const updateDataImportBatch_Body = IntApiResponse.and(
+  z.object({ data: DataImportBatchUpdate }).partial().passthrough()
+);
 const ImportRecord = z
   .object({
     id: z.string(),
@@ -454,6 +511,9 @@ const DataExportBatchInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createDataExportBatch_Body = IntApiResponse.and(
+  z.object({ data: DataExportBatchInput }).partial().passthrough()
+);
 const DataExportBatchUpdate = z
   .object({
     name: z.string(),
@@ -465,6 +525,9 @@ const DataExportBatchUpdate = z
   })
   .partial()
   .passthrough();
+const updateDataExportBatch_Body = IntApiResponse.and(
+  z.object({ data: DataExportBatchUpdate }).partial().passthrough()
+);
 const ExportFile = z
   .object({
     id: z.string(),
@@ -501,6 +564,9 @@ const EventSubscriptionInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createEventSubscription_Body = IntApiResponse.and(
+  z.object({ data: EventSubscriptionInput }).partial().passthrough()
+);
 const EventSubscriptionUpdate = z
   .object({
     webhookUrl: z.string().url(),
@@ -510,6 +576,9 @@ const EventSubscriptionUpdate = z
   })
   .partial()
   .passthrough();
+const updateEventSubscription_Body = IntApiResponse.and(
+  z.object({ data: EventSubscriptionUpdate }).partial().passthrough()
+);
 const EventDelivery = Timestamps.and(
   z
     .object({
@@ -532,6 +601,9 @@ const EventDeliveryInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createEventDelivery_Body = IntApiResponse.and(
+  z.object({ data: EventDeliveryInput }).partial().passthrough()
+);
 const EventDeliveryUpdate = z
   .object({
     status: z.enum(["pending", "delivered", "failed", "retrying"]),
@@ -542,6 +614,9 @@ const EventDeliveryUpdate = z
   })
   .partial()
   .passthrough();
+const updateEventDelivery_Body = IntApiResponse.and(
+  z.object({ data: EventDeliveryUpdate }).partial().passthrough()
+);
 const APIClient = Timestamps.and(
   z
     .object({
@@ -563,6 +638,9 @@ const APIClientInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createAPIClient_Body = IntApiResponse.and(
+  z.object({ data: APIClientInput }).partial().passthrough()
+);
 const APIClientUpdate = z
   .object({
     name: z.string(),
@@ -573,6 +651,9 @@ const APIClientUpdate = z
   })
   .partial()
   .passthrough();
+const updateAPIClient_Body = IntApiResponse.and(
+  z.object({ data: APIClientUpdate }).partial().passthrough()
+);
 const APICredential = Timestamps.and(
   z
     .object({
@@ -608,6 +689,9 @@ const APICredentialInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createAPICredential_Body = IntApiResponse.and(
+  z.object({ data: APICredentialInput }).partial().passthrough()
+);
 const APICredentialUpdate = z
   .object({
     expiresAt: z.string().datetime({ offset: true }),
@@ -615,6 +699,9 @@ const APICredentialUpdate = z
   })
   .partial()
   .passthrough();
+const updateAPICredential_Body = IntApiResponse.and(
+  z.object({ data: APICredentialUpdate }).partial().passthrough()
+);
 const InterfaceErrorInput = z
   .object({
     errorType: z.enum(["message-level", "record-level", "validation", "connection", "other"]),
@@ -626,6 +713,9 @@ const InterfaceErrorInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createInterfaceError_Body = IntApiResponse.and(
+  z.object({ data: InterfaceErrorInput }).partial().passthrough()
+);
 const InterfaceErrorUpdate = z
   .object({
     status: z.enum(["open", "resolved", "ignored", "reprocessed"]),
@@ -634,6 +724,9 @@ const InterfaceErrorUpdate = z
   })
   .partial()
   .passthrough();
+const updateInterfaceError_Body = IntApiResponse.and(
+  z.object({ data: InterfaceErrorUpdate }).partial().passthrough()
+);
 const InterfaceHealthCheckInput = z
   .object({
     connectionId: z.string(),
@@ -645,61 +738,93 @@ const InterfaceHealthCheckInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createInterfaceHealthCheck_Body = IntApiResponse.and(
+  z.object({ data: InterfaceHealthCheckInput }).partial().passthrough()
+);
 
 export const schemas = {
+  IntApiMeta,
+  IntApiListResponse,
   Timestamps,
   ExternalSystem,
+  IntApiResponse,
   ExternalSystemInput,
+  createExternalSystem_Body,
   Error,
   ExternalSystemUpdate,
+  updateExternalSystem_Body,
   SystemEndpoint,
   Connection,
   IntegrationJob,
   ConnectionInput,
+  createConnection_Body,
   ConnectionUpdate,
+  updateConnection_Body,
   InterfaceHealthCheck,
   FHIRBundle,
   FHIRBundleInput,
   FHIRMappingProfile,
   FHIRMappingProfileInput,
+  createFHIRMappingProfile_Body,
   FHIRMappingProfileUpdate,
+  updateFHIRMappingProfile_Body,
   MappingRule,
   HL7Message,
   HL7Segment,
   MappingResult,
   HL7MappingProfile,
   HL7MappingProfileInput,
+  createHL7MappingProfile_Body,
   HL7MappingProfileUpdate,
+  updateHL7MappingProfile_Body,
   IntegrationJobInput,
+  createIntegrationJob_Body,
   IntegrationJobUpdate,
+  updateIntegrationJob_Body,
   IntegrationRun,
   IntegrationRunInput,
+  createIntegrationRun_Body,
   IntegrationLog,
   InterfaceError,
   DataImportBatch,
   DataImportBatchInput,
+  createDataImportBatch_Body,
   DataImportBatchUpdate,
+  updateDataImportBatch_Body,
   ImportRecord,
   DataExportBatch,
   DataExportBatchInput,
+  createDataExportBatch_Body,
   DataExportBatchUpdate,
+  updateDataExportBatch_Body,
   ExportFile,
   EventSubscription,
   EventSubscriptionInput,
+  createEventSubscription_Body,
   EventSubscriptionUpdate,
+  updateEventSubscription_Body,
   EventDelivery,
   EventDeliveryInput,
+  createEventDelivery_Body,
   EventDeliveryUpdate,
+  updateEventDelivery_Body,
   APIClient,
   APIClientInput,
+  createAPIClient_Body,
   APIClientUpdate,
+  updateAPIClient_Body,
   APICredential,
   UsageMetric,
   APICredentialInput,
+  createAPICredential_Body,
   APICredentialUpdate,
+  updateAPICredential_Body,
   InterfaceErrorInput,
+  createInterfaceError_Body,
   InterfaceErrorUpdate,
+  updateInterfaceError_Body,
   InterfaceHealthCheckInput,
+  createInterfaceHealthCheck_Body,
 };
 
 const endpoints = makeApi([
@@ -725,7 +850,12 @@ const endpoints = makeApi([
         schema: z.enum(["active", "inactive", "suspended"]).optional(),
       },
     ],
-    response: z.array(APIClient),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(APIClient) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -736,15 +866,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: APIClientInput,
+        schema: createAPIClient_Body,
       },
     ],
-    response: APIClient,
+    response: IntApiResponse.and(z.object({ data: APIClient }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -760,12 +890,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: APIClient,
+    response: IntApiResponse.and(z.object({ data: APIClient }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -778,7 +908,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: APIClientUpdate,
+        schema: updateAPIClient_Body,
       },
       {
         name: "id",
@@ -786,12 +916,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: APIClient,
+    response: IntApiResponse.and(z.object({ data: APIClient }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -812,7 +942,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -891,7 +1021,12 @@ const endpoints = makeApi([
         schema: z.enum(["api-key", "oauth-client", "certificate"]).optional(),
       },
     ],
-    response: z.array(APICredential),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(APICredential) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -902,15 +1037,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: APICredentialInput,
+        schema: createAPICredential_Body,
       },
     ],
-    response: APICredential,
+    response: IntApiResponse.and(z.object({ data: APICredential }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -926,12 +1061,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: APICredential,
+    response: IntApiResponse.and(z.object({ data: APICredential }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -944,7 +1079,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: APICredentialUpdate,
+        schema: updateAPICredential_Body,
       },
       {
         name: "id",
@@ -952,12 +1087,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: APICredential,
+    response: IntApiResponse.and(z.object({ data: APICredential }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -978,7 +1113,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1009,7 +1144,12 @@ const endpoints = makeApi([
         schema: z.enum(["active", "inactive", "error"]).optional(),
       },
     ],
-    response: z.array(Connection),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(Connection) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1020,15 +1160,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ConnectionInput,
+        schema: createConnection_Body,
       },
     ],
-    response: Connection,
+    response: IntApiResponse.and(z.object({ data: Connection }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1044,12 +1184,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Connection,
+    response: IntApiResponse.and(z.object({ data: Connection }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1062,7 +1202,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ConnectionUpdate,
+        schema: updateConnection_Body,
       },
       {
         name: "id",
@@ -1070,12 +1210,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Connection,
+    response: IntApiResponse.and(z.object({ data: Connection }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1096,7 +1236,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1175,7 +1315,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(DataExportBatch),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(DataExportBatch) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1186,15 +1331,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: DataExportBatchInput,
+        schema: createDataExportBatch_Body,
       },
     ],
-    response: DataExportBatch,
+    response: IntApiResponse.and(z.object({ data: DataExportBatch }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1210,12 +1355,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DataExportBatch,
+    response: IntApiResponse.and(z.object({ data: DataExportBatch }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1228,7 +1373,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: DataExportBatchUpdate,
+        schema: updateDataExportBatch_Body,
       },
       {
         name: "id",
@@ -1236,12 +1381,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DataExportBatch,
+    response: IntApiResponse.and(z.object({ data: DataExportBatch }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1262,7 +1407,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1341,7 +1486,12 @@ const endpoints = makeApi([
         schema: z.enum(["csv", "ndjson", "fhir-bulk", "other"]).optional(),
       },
     ],
-    response: z.array(DataImportBatch),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(DataImportBatch) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1352,15 +1502,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: DataImportBatchInput,
+        schema: createDataImportBatch_Body,
       },
     ],
-    response: DataImportBatch,
+    response: IntApiResponse.and(z.object({ data: DataImportBatch }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1376,12 +1526,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DataImportBatch,
+    response: IntApiResponse.and(z.object({ data: DataImportBatch }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1394,7 +1544,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: DataImportBatchUpdate,
+        schema: updateDataImportBatch_Body,
       },
       {
         name: "id",
@@ -1402,12 +1552,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DataImportBatch,
+    response: IntApiResponse.and(z.object({ data: DataImportBatch }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1428,7 +1578,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1507,7 +1657,12 @@ const endpoints = makeApi([
         schema: z.enum(["pending", "delivered", "failed", "retrying"]).optional(),
       },
     ],
-    response: z.array(EventDelivery),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(EventDelivery) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1518,15 +1673,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EventDeliveryInput,
+        schema: createEventDelivery_Body,
       },
     ],
-    response: EventDelivery,
+    response: IntApiResponse.and(z.object({ data: EventDelivery }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1542,12 +1697,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EventDelivery,
+    response: IntApiResponse.and(z.object({ data: EventDelivery }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1560,7 +1715,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EventDeliveryUpdate,
+        schema: updateEventDelivery_Body,
       },
       {
         name: "id",
@@ -1568,12 +1723,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EventDelivery,
+    response: IntApiResponse.and(z.object({ data: EventDelivery }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1604,7 +1759,12 @@ const endpoints = makeApi([
         schema: z.enum(["active", "inactive", "paused"]).optional(),
       },
     ],
-    response: z.array(EventSubscription),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(EventSubscription) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1615,15 +1775,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EventSubscriptionInput,
+        schema: createEventSubscription_Body,
       },
     ],
-    response: EventSubscription,
+    response: IntApiResponse.and(z.object({ data: EventSubscription }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1639,12 +1799,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EventSubscription,
+    response: IntApiResponse.and(z.object({ data: EventSubscription }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1657,7 +1817,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EventSubscriptionUpdate,
+        schema: updateEventSubscription_Body,
       },
       {
         name: "id",
@@ -1665,12 +1825,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EventSubscription,
+    response: IntApiResponse.and(z.object({ data: EventSubscription }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1691,7 +1851,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1741,7 +1901,12 @@ const endpoints = makeApi([
         schema: z.enum(["ehr", "lis", "ris", "pms", "hie", "payer", "other"]).optional(),
       },
     ],
-    response: z.array(ExternalSystem),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(ExternalSystem) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1752,15 +1917,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ExternalSystemInput,
+        schema: createExternalSystem_Body,
       },
     ],
-    response: ExternalSystem,
+    response: IntApiResponse.and(z.object({ data: ExternalSystem }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1776,12 +1941,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ExternalSystem,
+    response: IntApiResponse.and(z.object({ data: ExternalSystem }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1794,7 +1959,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ExternalSystemUpdate,
+        schema: updateExternalSystem_Body,
       },
       {
         name: "id",
@@ -1802,12 +1967,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ExternalSystem,
+    response: IntApiResponse.and(z.object({ data: ExternalSystem }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1828,7 +1993,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1943,7 +2108,12 @@ const endpoints = makeApi([
         schema: z.enum(["inbound", "outbound"]).optional(),
       },
     ],
-    response: z.array(FHIRBundle),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(FHIRBundle) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1957,12 +2127,12 @@ const endpoints = makeApi([
         schema: FHIRBundleInput,
       },
     ],
-    response: FHIRBundle,
+    response: IntApiResponse.and(z.object({ data: FHIRBundle }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1978,12 +2148,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: FHIRBundle,
+    response: IntApiResponse.and(z.object({ data: FHIRBundle }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2004,7 +2174,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2054,7 +2224,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(FHIRMappingProfile),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(FHIRMappingProfile) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2065,15 +2240,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: FHIRMappingProfileInput,
+        schema: createFHIRMappingProfile_Body,
       },
     ],
-    response: FHIRMappingProfile,
+    response: IntApiResponse.and(z.object({ data: FHIRMappingProfile }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2089,12 +2264,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: FHIRMappingProfile,
+    response: IntApiResponse.and(z.object({ data: FHIRMappingProfile }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2107,7 +2282,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: FHIRMappingProfileUpdate,
+        schema: updateFHIRMappingProfile_Body,
       },
       {
         name: "id",
@@ -2115,12 +2290,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: FHIRMappingProfile,
+    response: IntApiResponse.and(z.object({ data: FHIRMappingProfile }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2141,7 +2316,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2191,7 +2366,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(HL7MappingProfile),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(HL7MappingProfile) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2202,15 +2382,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: HL7MappingProfileInput,
+        schema: createHL7MappingProfile_Body,
       },
     ],
-    response: HL7MappingProfile,
+    response: IntApiResponse.and(z.object({ data: HL7MappingProfile }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2226,12 +2406,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: HL7MappingProfile,
+    response: IntApiResponse.and(z.object({ data: HL7MappingProfile }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2244,7 +2424,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: HL7MappingProfileUpdate,
+        schema: updateHL7MappingProfile_Body,
       },
       {
         name: "id",
@@ -2252,12 +2432,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: HL7MappingProfile,
+    response: IntApiResponse.and(z.object({ data: HL7MappingProfile }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2278,7 +2458,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2333,7 +2513,12 @@ const endpoints = makeApi([
         schema: z.enum(["inbound", "outbound"]).optional(),
       },
     ],
-    response: z.array(HL7Message),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(HL7Message) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2347,12 +2532,12 @@ const endpoints = makeApi([
         schema: z.string(),
       },
     ],
-    response: HL7Message,
+    response: IntApiResponse.and(z.object({ data: HL7Message }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2368,12 +2553,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: HL7Message,
+    response: IntApiResponse.and(z.object({ data: HL7Message }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2394,7 +2579,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2483,7 +2668,12 @@ const endpoints = makeApi([
         schema: z.enum(["pending", "running", "completed", "failed", "cancelled"]).optional(),
       },
     ],
-    response: z.array(IntegrationJob),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(IntegrationJob) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2494,15 +2684,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: IntegrationJobInput,
+        schema: createIntegrationJob_Body,
       },
     ],
-    response: IntegrationJob,
+    response: IntApiResponse.and(z.object({ data: IntegrationJob }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2518,12 +2708,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: IntegrationJob,
+    response: IntApiResponse.and(z.object({ data: IntegrationJob }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2536,7 +2726,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: IntegrationJobUpdate,
+        schema: updateIntegrationJob_Body,
       },
       {
         name: "id",
@@ -2544,12 +2734,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: IntegrationJob,
+    response: IntApiResponse.and(z.object({ data: IntegrationJob }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2570,7 +2760,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2625,7 +2815,12 @@ const endpoints = makeApi([
         schema: z.enum(["running", "completed", "failed"]).optional(),
       },
     ],
-    response: z.array(IntegrationRun),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(IntegrationRun) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2639,15 +2834,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: IntegrationRunInput,
+        schema: createIntegrationRun_Body,
       },
     ],
-    response: IntegrationRun,
+    response: IntApiResponse.and(z.object({ data: IntegrationRun }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2663,12 +2858,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: IntegrationRun,
+    response: IntApiResponse.and(z.object({ data: IntegrationRun }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2749,7 +2944,12 @@ modified to ensure audit trail integrity.
         schema: z.enum(["open", "resolved", "ignored", "reprocessed"]).optional(),
       },
     ],
-    response: z.array(InterfaceError),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(InterfaceError) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2760,15 +2960,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: InterfaceErrorInput,
+        schema: createInterfaceError_Body,
       },
     ],
-    response: InterfaceError,
+    response: IntApiResponse.and(z.object({ data: InterfaceError }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2784,12 +2984,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: InterfaceError,
+    response: IntApiResponse.and(z.object({ data: InterfaceError }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2802,7 +3002,7 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: InterfaceErrorUpdate,
+        schema: updateInterfaceError_Body,
       },
       {
         name: "id",
@@ -2810,12 +3010,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: InterfaceError,
+    response: IntApiResponse.and(z.object({ data: InterfaceError }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2846,7 +3046,12 @@ modified to ensure audit trail integrity.
         schema: z.enum(["healthy", "degraded", "down"]).optional(),
       },
     ],
-    response: z.array(InterfaceHealthCheck),
+    response: IntApiListResponse.and(
+      z
+        .object({ data: z.array(InterfaceHealthCheck) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2860,15 +3065,15 @@ modified to ensure historical accuracy.
       {
         name: "body",
         type: "Body",
-        schema: InterfaceHealthCheckInput,
+        schema: createInterfaceHealthCheck_Body,
       },
     ],
-    response: InterfaceHealthCheck,
+    response: IntApiResponse.and(z.object({ data: InterfaceHealthCheck }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2884,12 +3089,12 @@ modified to ensure historical accuracy.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: InterfaceHealthCheck,
+    response: IntApiResponse.and(z.object({ data: InterfaceHealthCheck }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: IntApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },

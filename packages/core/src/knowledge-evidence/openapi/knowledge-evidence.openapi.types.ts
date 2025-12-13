@@ -961,9 +961,19 @@ export interface components {
             meta?: components["schemas"]["KnoApiMeta"];
         };
         KnoApiListResponse: {
-            /** @description List of items */
-            data?: unknown[];
-            meta?: components["schemas"]["KnoApiMeta"];
+            /** @description Paginated data container */
+            data?: {
+                /** @description List of items */
+                items?: unknown[];
+            };
+            meta?: components["schemas"]["KnoApiMeta"] & {
+                /** @description Pagination metadata */
+                pagination?: {
+                    nextCursor?: string | null;
+                    prevCursor?: string | null;
+                    limit?: number;
+                };
+            };
         };
         Timestamps: {
             /** Format: date-time */
@@ -1688,7 +1698,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                "application/json": components["schemas"]["Error"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["Error"];
+                };
             };
         };
         /** @description Resource not found */
@@ -1697,7 +1709,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                "application/json": components["schemas"]["Error"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["Error"];
+                };
             };
         };
     };
@@ -1753,7 +1767,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ClinicalRuleInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ClinicalRuleInput"];
+                };
             };
         };
         responses: {
@@ -1763,7 +1779,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalRule"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ClinicalRule"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -1787,7 +1805,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalRule"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ClinicalRule"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1827,7 +1847,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ClinicalRuleUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ClinicalRuleUpdate"];
+                };
             };
         };
         responses: {
@@ -1837,7 +1859,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalRule"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ClinicalRule"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1866,9 +1890,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ClinicalRuleVersion"][];
-                    };
+                    "application/json": components["schemas"]["ClinicalRuleVersion"][];
                 };
             };
         };
@@ -1896,9 +1918,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["RuleTest"][];
-                    };
+                    "application/json": components["schemas"]["RuleTest"][];
                 };
             };
         };
@@ -1940,7 +1960,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["RuleSetInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["RuleSetInput"];
+                };
             };
         };
         responses: {
@@ -1950,7 +1972,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RuleSet"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["RuleSet"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -1974,7 +1998,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RuleSet"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["RuleSet"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2014,7 +2040,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["RuleSetUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["RuleSetUpdate"];
+                };
             };
         };
         responses: {
@@ -2024,7 +2052,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RuleSet"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["RuleSet"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2053,9 +2083,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ClinicalRule"][];
-                    };
+                    "application/json": components["schemas"]["ClinicalRule"][];
                 };
             };
         };
@@ -2098,7 +2126,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ClinicalGuidelineInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ClinicalGuidelineInput"];
+                };
             };
         };
         responses: {
@@ -2108,7 +2138,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalGuideline"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ClinicalGuideline"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2132,7 +2164,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalGuideline"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ClinicalGuideline"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2172,7 +2206,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ClinicalGuidelineUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ClinicalGuidelineUpdate"];
+                };
             };
         };
         responses: {
@@ -2182,7 +2218,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalGuideline"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ClinicalGuideline"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2211,9 +2249,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["GuidelineSection"][];
-                    };
+                    "application/json": components["schemas"]["GuidelineSection"][];
                 };
             };
         };
@@ -2241,9 +2277,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["EvidenceCitation"][];
-                    };
+                    "application/json": components["schemas"]["EvidenceCitation"][];
                 };
             };
         };
@@ -2286,7 +2320,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CareProtocolTemplateInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["CareProtocolTemplateInput"];
+                };
             };
         };
         responses: {
@@ -2296,7 +2332,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CareProtocolTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["CareProtocolTemplate"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2320,7 +2358,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CareProtocolTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["CareProtocolTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2360,7 +2400,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CareProtocolTemplateUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["CareProtocolTemplateUpdate"];
+                };
             };
         };
         responses: {
@@ -2370,7 +2412,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CareProtocolTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["CareProtocolTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2399,9 +2443,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ProtocolStep"][];
-                    };
+                    "application/json": components["schemas"]["ProtocolStep"][];
                 };
             };
         };
@@ -2429,9 +2471,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["OrderSetTemplate"][];
-                    };
+                    "application/json": components["schemas"]["OrderSetTemplate"][];
                 };
             };
         };
@@ -2474,7 +2514,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["OrderSetTemplateInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["OrderSetTemplateInput"];
+                };
             };
         };
         responses: {
@@ -2484,7 +2526,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OrderSetTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["OrderSetTemplate"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2508,7 +2552,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OrderSetTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["OrderSetTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2548,7 +2594,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["OrderSetTemplateUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["OrderSetTemplateUpdate"];
+                };
             };
         };
         responses: {
@@ -2558,7 +2606,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OrderSetTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["OrderSetTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2587,9 +2637,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["OrderSetItem"][];
-                    };
+                    "application/json": components["schemas"]["OrderSetItem"][];
                 };
             };
         };
@@ -2632,7 +2680,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ModelDefinitionInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ModelDefinitionInput"];
+                };
             };
         };
         responses: {
@@ -2642,7 +2692,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelDefinition"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ModelDefinition"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2666,7 +2718,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelDefinition"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ModelDefinition"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2706,7 +2760,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ModelDefinitionUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ModelDefinitionUpdate"];
+                };
             };
         };
         responses: {
@@ -2716,7 +2772,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelDefinition"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ModelDefinition"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2745,9 +2803,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ModelVersion"][];
-                    };
+                    "application/json": components["schemas"]["ModelVersion"][];
                 };
             };
         };
@@ -2775,9 +2831,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["PerformanceMetric"][];
-                    };
+                    "application/json": components["schemas"]["PerformanceMetric"][];
                 };
             };
         };
@@ -2820,7 +2874,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ModelVersionInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ModelVersionInput"];
+                };
             };
         };
         responses: {
@@ -2830,7 +2886,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelVersion"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ModelVersion"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2854,7 +2912,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelVersion"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ModelVersion"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2894,7 +2954,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ModelVersionUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ModelVersionUpdate"];
+                };
             };
         };
         responses: {
@@ -2904,7 +2966,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelVersion"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ModelVersion"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2933,9 +2997,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ModelTest"][];
-                    };
+                    "application/json": components["schemas"]["ModelTest"][];
                 };
             };
         };
@@ -2963,9 +3025,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["FeatureDefinition"][];
-                    };
+                    "application/json": components["schemas"]["FeatureDefinition"][];
                 };
             };
         };
@@ -2993,9 +3053,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["OntologyTerm"][];
-                    };
+                    "application/json": components["schemas"]["OntologyTerm"][];
                 };
             };
         };
@@ -3018,7 +3076,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OntologyTerm"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["OntologyTerm"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3047,9 +3107,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["OntologyTerm"][];
-                    };
+                    "application/json": components["schemas"]["OntologyTerm"][];
                 };
             };
         };
@@ -3077,9 +3135,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["OntologyTerm"][];
-                    };
+                    "application/json": components["schemas"]["OntologyTerm"][];
                 };
             };
         };
@@ -3107,9 +3163,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["TermMapping"][];
-                    };
+                    "application/json": components["schemas"]["TermMapping"][];
                 };
             };
         };
@@ -3151,7 +3205,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ValueSetInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ValueSetInput"];
+                };
             };
         };
         responses: {
@@ -3161,7 +3217,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ValueSet"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ValueSet"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3185,7 +3243,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ValueSet"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ValueSet"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3225,7 +3285,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ValueSetUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ValueSetUpdate"];
+                };
             };
         };
         responses: {
@@ -3235,7 +3297,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ValueSet"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ValueSet"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3264,9 +3328,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ValueSetCode"][];
-                    };
+                    "application/json": components["schemas"]["ValueSetCode"][];
                 };
             };
         };
@@ -3309,7 +3371,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ConceptMapInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ConceptMapInput"];
+                };
             };
         };
         responses: {
@@ -3319,7 +3383,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ConceptMap"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ConceptMap"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3343,7 +3409,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ConceptMap"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ConceptMap"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3383,7 +3451,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ConceptMapUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ConceptMapUpdate"];
+                };
             };
         };
         responses: {
@@ -3393,7 +3463,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ConceptMap"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ConceptMap"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3422,9 +3494,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ConceptMapping"][];
-                    };
+                    "application/json": components["schemas"]["ConceptMapping"][];
                 };
             };
         };
@@ -3466,7 +3536,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ScoringTemplateInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ScoringTemplateInput"];
+                };
             };
         };
         responses: {
@@ -3476,7 +3548,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ScoringTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ScoringTemplate"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3500,7 +3574,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ScoringTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ScoringTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3540,7 +3616,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ScoringTemplateUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["ScoringTemplateUpdate"];
+                };
             };
         };
         responses: {
@@ -3550,7 +3628,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ScoringTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["ScoringTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3579,9 +3659,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ScoringItem"][];
-                    };
+                    "application/json": components["schemas"]["ScoringItem"][];
                 };
             };
         };
@@ -3623,7 +3701,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["QuestionnaireTemplateInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["QuestionnaireTemplateInput"];
+                };
             };
         };
         responses: {
@@ -3633,7 +3713,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["QuestionnaireTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["QuestionnaireTemplate"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3657,7 +3739,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["QuestionnaireTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["QuestionnaireTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3697,7 +3781,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["QuestionnaireTemplateUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["QuestionnaireTemplateUpdate"];
+                };
             };
         };
         responses: {
@@ -3707,7 +3793,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["QuestionnaireTemplate"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["QuestionnaireTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3736,9 +3824,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["QuestionnaireQuestion"][];
-                    };
+                    "application/json": components["schemas"]["QuestionnaireQuestion"][];
                 };
             };
         };
@@ -3780,7 +3866,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EvidenceCitationInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["EvidenceCitationInput"];
+                };
             };
         };
         responses: {
@@ -3790,7 +3878,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EvidenceCitation"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["EvidenceCitation"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3814,7 +3904,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EvidenceCitation"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["EvidenceCitation"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3854,7 +3946,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EvidenceCitationUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["EvidenceCitationUpdate"];
+                };
             };
         };
         responses: {
@@ -3864,7 +3958,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EvidenceCitation"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["EvidenceCitation"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3907,7 +4003,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EvidenceReviewInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["EvidenceReviewInput"];
+                };
             };
         };
         responses: {
@@ -3917,7 +4015,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EvidenceReview"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["EvidenceReview"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3941,7 +4041,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EvidenceReview"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["EvidenceReview"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3981,7 +4083,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EvidenceReviewUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["EvidenceReviewUpdate"];
+                };
             };
         };
         responses: {
@@ -3991,7 +4095,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EvidenceReview"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["EvidenceReview"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -4035,7 +4141,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["KnowledgePackageInput"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["KnowledgePackageInput"];
+                };
             };
         };
         responses: {
@@ -4045,7 +4153,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnowledgePackage"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["KnowledgePackage"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -4069,7 +4179,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnowledgePackage"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["KnowledgePackage"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -4109,7 +4221,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["KnowledgePackageUpdate"];
+                "application/json": components["schemas"]["KnoApiResponse"] & {
+                    data?: components["schemas"]["KnowledgePackageUpdate"];
+                };
             };
         };
         responses: {
@@ -4119,7 +4233,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnowledgePackage"];
+                    "application/json": components["schemas"]["KnoApiResponse"] & {
+                        data?: components["schemas"]["KnowledgePackage"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -4148,9 +4264,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ClinicalRule"][];
-                    };
+                    "application/json": components["schemas"]["ClinicalRule"][];
                 };
             };
         };
@@ -4178,9 +4292,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ModelDefinition"][];
-                    };
+                    "application/json": components["schemas"]["ModelDefinition"][];
                 };
             };
         };
@@ -4208,9 +4320,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ValueSet"][];
-                    };
+                    "application/json": components["schemas"]["ValueSet"][];
                 };
             };
         };

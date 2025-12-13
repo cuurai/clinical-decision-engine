@@ -6,7 +6,7 @@
  */
 
 import type { ThresholdProfileRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../../shared/helpers";
+import { diTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete threshold profile
@@ -22,7 +22,7 @@ export async function deleteThresholdProfile(
   return {
     data: { success: true },
     meta: {
-      correlationId: decTransactionId(),
+      correlationId: diTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

@@ -14,13 +14,12 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
-  ListModelInvocationsParams,
-  ModelInvocationInput
+  ModelInvocation,
+  ListModelInvocationsParams
 } from "../types/index.js";
 /**
  * ModelInvocationRepository Interface
  */
-export interface ModelInvocationRepository extends CreateReadRepository<Timestamps, ModelInvocationInput, string, ListModelInvocationsParams> {
+export interface ModelInvocationRepository extends CreateReadRepository<ModelInvocation, ModelInvocation, string, ListModelInvocationsParams> {
 
 }

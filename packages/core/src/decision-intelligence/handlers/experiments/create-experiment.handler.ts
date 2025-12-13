@@ -5,39 +5,40 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { CreateExperimentResponse, ExperimentInput } from "../../types/index.js";
-// TODO: Uncomment when implementing handler logic
-// import { decTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// // TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/decision-intelligence-converters.js";
+import type { CreateExperimentResponse } from "../../types/index.js";
+import type { ExperimentRepository } from "../../repositories/index.js";
+import { diTransactionId } from "../../../shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
- * TODO: Uncomment when implementing handler logic that uses validated input
  */
-// function mapInputToValidated(input: ExperimentInput): ExperimentInput {
-//   // Note: Request body validation is handled by service layer schemas
-//   // Handlers accept validated input and focus on business logic
-//   return input;
-// }
+function mapInputToValidated(input: unknown): any {
+  // Note: Request body validation is handled by service layer schemas
+  // Handlers accept validated input and focus on business logic
+  return input;
+}
 
 
 /**
  * Create experiment
  */
 export async function createExperiment(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use input when implementing handler logic,
-    _input: ExperimentInput
+    repo: ExperimentRepository,
+    orgId: string,
+    input: unknown
 ): Promise<CreateExperimentResponse> {
   // 1. Validate input
-  // TODO: Use validated input when implementing business logic
-  // const validated = mapInputToValidated(input);
+  const validated = mapInputToValidated(input);
 
-  // 2. Operation returns a Response DTO (not an entity) - implement business logic here
-  // TODO: Implement operation logic (e.g., authentication, authorization, evaluation)
+  // 2. Domain input → Repository call
+  const experiment = await repo.create(orgId, validated);
 
-  throw new Error("Operation not yet implemented - requires business logic integration");
+  // 3. Repository result → response envelope
+  return {
+    data: experiment,
+    meta: {
+      correlationId: diTransactionId(),
+      timestamp: new Date().toISOString(),
+    },
+  };
 
 }

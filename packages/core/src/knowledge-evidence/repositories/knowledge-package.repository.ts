@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  KnowledgePackage,
   ListKnowledgePackagesParams,
-  KnowledgePackageInput,
-  KnowledgePackageUpdate
+  UpdateKnowledgePackageRequest
 } from "../types/index.js";
 /**
  * KnowledgePackageRepository Interface
  */
-export interface KnowledgePackageRepository extends CrudRepository<Timestamps, KnowledgePackageInput, KnowledgePackageUpdate, string, ListKnowledgePackagesParams> {
+export interface KnowledgePackageRepository extends CrudRepository<KnowledgePackage, KnowledgePackage, UpdateKnowledgePackageRequest, string, ListKnowledgePackagesParams> {
 
 }

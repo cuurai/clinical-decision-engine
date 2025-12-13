@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/recommendation.entity";
 export * from "./dto/list-recommendation.dto";
-export * from "./dto/create-recommendation.dto";
 export * from "./dto/get-recommendation.dto";
-export * from "./dto/update-recommendation.dto";
 export * from "./dto/delete-recommendation.dto";

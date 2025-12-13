@@ -14,13 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  FHIRBundle,
   ListFHIRBundlesParams,
   FHIRBundleInput
 } from "../types/index.js";
 /**
  * FHIRBundleRepository Interface
  */
-export interface FHIRBundleRepository extends CreateDeleteReadRepository<Timestamps, FHIRBundleInput, string, ListFHIRBundlesParams> {
+export interface FHIRBundleRepository extends CreateDeleteReadRepository<FHIRBundle, FHIRBundleInput, string, ListFHIRBundlesParams> {
 
 }

@@ -1,0 +1,2050 @@
+openapi: 3.1.0
+info:
+  title: Quub Exchange - Exchange Core API Domain Service
+  version: 0.0.4
+  x-quub-domain: exchange
+  x-quub-domain-prefix: EX # Used for correlation IDs (format: EX_ULID). DO NOT MODIFY.
+  license:
+    name: Proprietary
+    identifier: Proprietary
+  description: |
+    Core matching engine, markets, orders, trades, positions, and halts.
+
+servers:
+  - url: https://api.quub.exchange/v0
+    description: Production API
+  - url: https://api.sandbox.quub.exchange/v0
+    description: Sandbox API
+
+tags:
+  - name: Markets
+    description: Market creation, configuration, and lifecycle management.
+  - name: Orders
+    description: Order placement, modification, and cancellation.
+  - name: Trades
+    description: Trade execution and retrieval.
+  - name: Positions
+    description: Realized and unrealized P/L and balances.
+  - name: MarketMakerQuotes
+    description: Continuous liquidity provision and spread management.
+  - name: Halts
+    description: Market halts and circuit breaker events.
+
+paths:
+  /orgs/{orgId}/markets:
+    get:
+      tags:
+        - Markets
+      summary: List markets for organization
+      operationId: listMarkets
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - $ref: ./common/pagination.yaml#/components/parameters/cursor
+        - $ref: ./common/pagination.yaml#/components/parameters/limit
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - OPEN
+              - HALTED
+              - CLOSED
+              - SETTLED
+        - name: quoteCcy
+          in: query
+          description: Filter markets by quote currency
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved list of markets
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListMarketsResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    post:
+      tags:
+        - Markets
+      summary: Create a new market
+      operationId: createMarket
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      requestBody:
+        $ref: "#/components/requestBodies/CreateMarketRequestBody"
+      responses:
+        "201":
+          description: Market created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateMarketResponse"
+              examples:
+                ok:
+                  value:
+                    data:
+                      id: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      orgId: ID_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      instrumentId: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      name: Gold Spot Market
+                      displaySymbol: GOLD/USD
+                      baseCcy: GOLD
+                      quoteCcy: USD
+                      marketType: SPOT
+                      status: OPEN
+                      createdAt: "2025-11-10T12:34:56.789Z"
+                    meta:
+                      correlationId: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      timestamp: "2025-11-10T12:34:56.789Z"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "409":
+          $ref: ./common/responses.yaml#/components/responses/Conflict
+        "422":
+          $ref: ./common/responses.yaml#/components/responses/ValidationError
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+  /orgs/{orgId}/markets/{marketId}:
+    get:
+      tags:
+        - Markets
+      summary: Get market details
+      description: |
+        Retrieve market details by ID.
+        Returns 200 OK with data=null if market does not exist (Nullable Data Envelope convention).
+      operationId: getMarket
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: marketId
+          in: path
+          required: true
+          description: Market identifier
+          schema:
+            $ref: "#/components/schemas/MarketId"
+      responses:
+        "200":
+          description: |
+            Successfully retrieved market details.
+            Returns data=null if market does not exist (follows Nullable Data Envelope convention).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetMarketResponse"
+              examples:
+                found:
+                  summary: Market found
+                  value:
+                    data:
+                      id: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      orgId: ID_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      instrumentId: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      name: Gold Spot Market
+                      displaySymbol: GOLD/USD
+                      baseCcy: GOLD
+                      quoteCcy: USD
+                      marketType: SPOT
+                      status: OPEN
+                      createdAt: "2025-11-10T12:00:00Z"
+                    meta:
+                      correlationId: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      timestamp: "2025-11-10T12:34:56.789Z"
+                notFound:
+                  summary: Market not found
+                  value:
+                    data: null
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    patch:
+      tags:
+        - Markets
+      summary: Update market state or parameters
+      operationId: updateMarket
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: marketId
+          in: path
+          required: true
+          description: Market identifier
+          schema:
+            $ref: "#/components/schemas/MarketId"
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateMarketRequestBody"
+      responses:
+        "200":
+          description: Market updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateMarketResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "404":
+          $ref: ./common/responses.yaml#/components/responses/NotFound
+        "422":
+          $ref: ./common/responses.yaml#/components/responses/ValidationError
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    delete:
+      tags:
+        - Markets
+      summary: Delete market
+      description: Permanently delete a market. Implementations may enforce domain rules and instead mark the market as CLOSED/SETTLED.
+      operationId: deleteMarket
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: marketId
+          in: path
+          required: true
+          description: Market identifier
+          schema:
+            $ref: "#/components/schemas/MarketId"
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      responses:
+        "204":
+          $ref: ./common/responses.yaml#/components/responses/NoContentResponse
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "404":
+          $ref: ./common/responses.yaml#/components/responses/NotFound
+        "409":
+          $ref: ./common/responses.yaml#/components/responses/Conflict
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+  /orgs/{orgId}/orders:
+    get:
+      tags:
+        - Orders
+      summary: List orders
+      operationId: listOrders
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - $ref: ./common/pagination.yaml#/components/parameters/cursor
+        - $ref: ./common/pagination.yaml#/components/parameters/limit
+        - name: accountId
+          in: query
+          schema:
+            type: string
+        - name: marketId
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - OPEN
+              - FILLED
+              - PARTIAL
+              - CANCELLED
+      responses:
+        "200":
+          description: Successfully retrieved list of orders
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListOrdersResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    post:
+      tags:
+        - Orders
+      summary: Place a new order
+      operationId: createOrder
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      requestBody:
+        $ref: "#/components/requestBodies/CreateOrderRequestBody"
+      responses:
+        "201":
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateOrderResponse"
+              examples:
+                ok:
+                  value:
+                    data:
+                      id: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      orgId: ID_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      accountId: ID_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      marketId: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      side: BUY
+                      type: LIMIT
+                      qty: 10.0
+                      px: 100.5
+                      tif: GTC
+                      status: OPEN
+                      createdAt: "2025-11-10T12:34:56.789Z"
+                    meta:
+                      correlationId: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      timestamp: "2025-11-10T12:34:56.789Z"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "409":
+          $ref: ./common/responses.yaml#/components/responses/Conflict
+        "422":
+          $ref: ./common/responses.yaml#/components/responses/ValidationError
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+  /orgs/{orgId}/orders/{orderId}:
+    get:
+      tags:
+        - Orders
+      summary: Get order details
+      description: |
+        Retrieve order details by ID.
+        Returns 200 OK with data=null if order does not exist (Nullable Data Envelope convention).
+      operationId: getOrder
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: orderId
+          in: path
+          required: true
+          description: Order identifier
+          schema:
+            $ref: "#/components/schemas/OrderId"
+      responses:
+        "200":
+          description: |
+            Successfully retrieved order details.
+            Returns data=null if order does not exist (follows Nullable Data Envelope convention).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetOrderResponse"
+              examples:
+                found:
+                  summary: Order found
+                  value:
+                    data:
+                      id: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      orgId: ID_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      accountId: ID_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      marketId: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      side: BUY
+                      type: LIMIT
+                      qty: 10.0
+                      px: 100.5
+                      tif: GTC
+                      status: OPEN
+                      createdAt: "2025-11-10T12:00:00Z"
+                    meta:
+                      correlationId: EX_01HQZX3K8PQRS7VN6M9TW1ABJZ
+                      timestamp: "2025-11-10T12:34:56.789Z"
+                notFound:
+                  summary: Order not found
+                  value:
+                    data: null
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    patch:
+      tags:
+        - Orders
+      summary: Update order parameters
+      description: |
+        Partially update mutable order fields (e.g., reduce quantity, update client reference).
+        Implementations must enforce exchange rules for what can be updated given current order state.
+      operationId: updateOrder
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: orderId
+          in: path
+          required: true
+          description: Order identifier
+          schema:
+            $ref: "#/components/schemas/OrderId"
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateOrderRequestBody"
+      responses:
+        "200":
+          description: Order updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateOrderResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "404":
+          $ref: ./common/responses.yaml#/components/responses/NotFound
+        "409":
+          $ref: ./common/responses.yaml#/components/responses/Conflict
+        "422":
+          $ref: ./common/responses.yaml#/components/responses/ValidationError
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    delete:
+      tags:
+        - Orders
+      summary: Cancel order
+      operationId: deleteOrder
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: orderId
+          in: path
+          required: true
+          description: Order identifier
+          schema:
+            $ref: "#/components/schemas/OrderId"
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      responses:
+        "204":
+          $ref: ./common/responses.yaml#/components/responses/NoContentResponse
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "404":
+          $ref: ./common/responses.yaml#/components/responses/NotFound
+        "409":
+          $ref: ./common/responses.yaml#/components/responses/Conflict
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+  /orgs/{orgId}/trades:
+    get:
+      tags:
+        - Trades
+      summary: List trades
+      operationId: listTrades
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - $ref: ./common/pagination.yaml#/components/parameters/cursor
+        - $ref: ./common/pagination.yaml#/components/parameters/limit
+        - name: marketId
+          in: query
+          schema:
+            type: string
+        - name: accountId
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved list of trades
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListTradesResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+  /orgs/{orgId}/trades/{tradeId}:
+    get:
+      tags:
+        - Trades
+      summary: Get trade details
+      description: |
+        Retrieve trade details by ID.
+        Returns 200 OK with data=null if trade does not exist (Nullable Data Envelope convention).
+      operationId: getTrade
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: tradeId
+          in: path
+          required: true
+          description: Trade identifier
+          schema:
+            $ref: "#/components/schemas/TradeId"
+      responses:
+        "200":
+          description: Trade details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetTradeResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+  /orgs/{orgId}/positions:
+    get:
+      tags:
+        - Positions
+      summary: List positions
+      operationId: listPositions
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - $ref: ./common/pagination.yaml#/components/parameters/cursor
+        - $ref: ./common/pagination.yaml#/components/parameters/limit
+        - name: accountId
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved list of positions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListPositionsResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+  /orgs/{orgId}/positions/{positionId}:
+    get:
+      tags:
+        - Positions
+      summary: Get position details
+      description: |
+        Retrieve position details by ID.
+        Returns 200 OK with data=null if position does not exist (Nullable Data Envelope convention).
+      operationId: getPosition
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: positionId
+          in: path
+          required: true
+          description: Position identifier
+          schema:
+            $ref: "#/components/schemas/PositionId"
+      responses:
+        "200":
+          description: Position details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetPositionResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+  /orgs/{orgId}/market-maker-quotes:
+    get:
+      tags:
+        - MarketMakerQuotes
+      summary: List market maker quotes
+      operationId: listMarketMakerQuotes
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - $ref: ./common/pagination.yaml#/components/parameters/cursor
+        - $ref: ./common/pagination.yaml#/components/parameters/limit
+        - name: marketId
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved list of MM quotes
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListMarketMakerQuotesResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    post:
+      tags:
+        - MarketMakerQuotes
+      summary: Create Market Maker Quote
+      operationId: createMarketMakerQuote
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      requestBody:
+        $ref: "#/components/requestBodies/CreateMarketMakerQuoteRequestBody"
+      responses:
+        "201":
+          description: Market maker quote created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateMarketMakerQuoteResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "409":
+          $ref: ./common/responses.yaml#/components/responses/Conflict
+        "422":
+          $ref: ./common/responses.yaml#/components/responses/ValidationError
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+  /orgs/{orgId}/market-maker-quotes/{marketMakerQuoteId}:
+    get:
+      tags:
+        - MarketMakerQuotes
+      summary: Get market maker quote details
+      description: |
+        Retrieve market maker quote details by ID.
+        Returns 200 OK with data=null if quote does not exist (Nullable Data Envelope convention).
+      operationId: getMarketMakerQuote
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: marketMakerQuoteId
+          in: path
+          required: true
+          description: Market maker quote identifier
+          schema:
+            $ref: "#/components/schemas/MarketMakerQuoteId"
+      responses:
+        "200":
+          description: Market maker quote details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetMarketMakerQuoteResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    patch:
+      tags:
+        - MarketMakerQuotes
+      summary: Update Market Maker Quote
+      operationId: updateMarketMakerQuote
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: marketMakerQuoteId
+          in: path
+          required: true
+          description: Market Maker Quote identifier
+          schema:
+            $ref: "#/components/schemas/MarketMakerQuoteId"
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateMarketMakerQuoteRequestBody"
+      responses:
+        "200":
+          description: Market maker quote updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateMarketMakerQuoteResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "404":
+          $ref: ./common/responses.yaml#/components/responses/NotFound
+        "422":
+          $ref: ./common/responses.yaml#/components/responses/ValidationError
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    delete:
+      tags:
+        - MarketMakerQuotes
+      summary: Delete Market Maker Quote
+      operationId: deleteMarketMakerQuote
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: marketMakerQuoteId
+          in: path
+          required: true
+          description: Market Maker Quote identifier
+          schema:
+            $ref: "#/components/schemas/MarketMakerQuoteId"
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      responses:
+        "204":
+          $ref: ./common/responses.yaml#/components/responses/NoContentResponse
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "404":
+          $ref: ./common/responses.yaml#/components/responses/NotFound
+        "409":
+          $ref: ./common/responses.yaml#/components/responses/Conflict
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+  /orgs/{orgId}/halts:
+    get:
+      tags:
+        - Halts
+      summary: List halts
+      operationId: listHalts
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - $ref: ./common/pagination.yaml#/components/parameters/cursor
+        - $ref: ./common/pagination.yaml#/components/parameters/limit
+        - name: marketId
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved list of halts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListHaltsResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    post:
+      tags:
+        - Halts
+      summary: Trigger market halt
+      operationId: createHalt
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      requestBody:
+        $ref: "#/components/requestBodies/CreateHaltRequestBody"
+      responses:
+        "201":
+          description: Halt created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateHaltResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "409":
+          $ref: ./common/responses.yaml#/components/responses/Conflict
+        "422":
+          $ref: ./common/responses.yaml#/components/responses/ValidationError
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+  /orgs/{orgId}/halts/{haltId}:
+    get:
+      tags:
+        - Halts
+      summary: Get halt details
+      description: |
+        Retrieve halt details by ID.
+        Returns 200 OK with data=null if halt does not exist (Nullable Data Envelope convention).
+      operationId: getHalt
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: haltId
+          in: path
+          required: true
+          description: Halt identifier
+          schema:
+            $ref: "#/components/schemas/HaltId"
+      responses:
+        "200":
+          description: Halt details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetHaltResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    patch:
+      tags:
+        - Halts
+      summary: Update halt details
+      description: Update halt metadata such as severity, notes, or resolution notes.
+      operationId: updateHalt
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: haltId
+          in: path
+          required: true
+          description: Halt identifier
+          schema:
+            $ref: "#/components/schemas/HaltId"
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      requestBody:
+        $ref: "#/components/requestBodies/UpdateHaltRequestBody"
+      responses:
+        "200":
+          description: Halt updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateHaltResponse"
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "404":
+          $ref: ./common/responses.yaml#/components/responses/NotFound
+        "422":
+          $ref: ./common/responses.yaml#/components/responses/ValidationError
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+    delete:
+      tags:
+        - Halts
+      summary: Delete halt
+      description: Permanently delete a halt record. Implementations may restrict deletion for regulatory reasons.
+      operationId: deleteHalt
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: ./common/components.yaml#/components/parameters/orgId
+        - $ref: ./common/components.yaml#/components/parameters/orgIdHeader
+        - name: haltId
+          in: path
+          required: true
+          description: Halt identifier
+          schema:
+            $ref: "#/components/schemas/HaltId"
+        - $ref: ./common/components.yaml#/components/parameters/idempotencyKey
+      responses:
+        "204":
+          $ref: ./common/responses.yaml#/components/responses/NoContentResponse
+        "400":
+          $ref: ./common/responses.yaml#/components/responses/BadRequest
+        "401":
+          $ref: ./common/responses.yaml#/components/responses/Unauthorized
+        "403":
+          $ref: ./common/responses.yaml#/components/responses/Forbidden
+        "404":
+          $ref: ./common/responses.yaml#/components/responses/NotFound
+        "409":
+          $ref: ./common/responses.yaml#/components/responses/Conflict
+        "429":
+          $ref: ./common/responses.yaml#/components/responses/TooManyRequests
+        "500":
+          $ref: ./common/responses.yaml#/components/responses/InternalServerError
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token in Authorization header
+    oauth2:
+      $ref: ./common/components.yaml#/components/securitySchemes/oauth2
+      x-scopes:
+        read:exchange: Read ATS data
+        write:exchange: Write ATS resources
+        admin:exchange: Administrative actions
+    apiKey:
+      $ref: ./common/components.yaml#/components/securitySchemes/apiKey
+
+  requestBodies:
+    CreateMarketRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateMarketRequest"
+
+    UpdateMarketRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateMarketRequest"
+
+    CreateOrderRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateOrderRequest"
+
+    UpdateOrderRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateOrderRequest"
+
+    CreateMarketMakerQuoteRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateMarketMakerQuoteRequest"
+
+    UpdateMarketMakerQuoteRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateMarketMakerQuoteRequest"
+
+    CreateHaltRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CreateHaltRequest"
+
+    UpdateHaltRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UpdateHaltRequest"
+
+  schemas:
+    MarketId:
+      type: string
+      description: Market identifier (prefixed ULID)
+      pattern: "^EX_[0-9A-HJKMNPQRSTVWXYZ]{26}$"
+      example: "EX_01HQZX3K8PQRS7VN6M9TW1ABJZ"
+    OrderId:
+      type: string
+      description: Order identifier (prefixed ULID)
+      pattern: "^EX_[0-9A-HJKMNPQRSTVWXYZ]{26}$"
+      example: "EX_01HQZX3K8PQRS7VN6M9TW1ABJZ"
+    TradeId:
+      type: string
+      description: Trade identifier (prefixed ULID)
+      pattern: "^EX_[0-9A-HJKMNPQRSTVWXYZ]{26}$"
+      example: "EX_01HQZX3K8PQRS7VN6M9TW1ABJZ"
+    PositionId:
+      type: string
+      description: Position identifier (prefixed ULID)
+      pattern: "^EX_[0-9A-HJKMNPQRSTVWXYZ]{26}$"
+      example: "EX_01HQZX3K8PQRS7VN6M9TW1ABJZ"
+    MarketMakerQuoteId:
+      type: string
+      description: Market Maker Quote identifier (prefixed ULID)
+      pattern: "^EX_[0-9A-HJKMNPQRSTVWXYZ]{26}$"
+      example: "EX_01HQZX3K8PQRS7VN6M9TW1ABJZ"
+    HaltId:
+      type: string
+      description: Halt identifier (prefixed ULID)
+      pattern: "^EX_[0-9A-HJKMNPQRSTVWXYZ]{26}$"
+      example: "EX_01HQZX3K8PQRS7VN6M9TW1ABJZ"
+    InstrumentId:
+      type: string
+      description: Instrument identifier (prefixed ULID)
+      pattern: "^EX_[0-9A-HJKMNPQRSTVWXYZ]{26}$"
+      example: "EX_01HQZX3K8PQRS7VN6M9TW1ABJZ"
+    Market:
+      type: object
+      description: Market metadata and configuration.
+      required:
+        - id
+        - orgId
+        - instrumentId
+        - name
+        - baseCcy
+        - quoteCcy
+        - marketType
+        - status
+        - createdAt
+      properties:
+        id:
+          $ref: "#/components/schemas/MarketId"
+        orgId:
+          $ref: ./common/primitives.yaml#/components/schemas/OrgId
+        instrumentId:
+          $ref: "#/components/schemas/InstrumentId"
+        name:
+          type: string
+          description: Human-readable market name
+          example: Gold Spot Market
+        description:
+          type: ["string", "null"]
+          description: Detailed market description
+        displaySymbol:
+          type: string
+          description: Trading pair symbol for display
+          example: GOLD/USD
+        baseCcy:
+          type: string
+          description: Base currency or asset identifier
+          pattern: "^[A-Z0-9]{2,10}$"
+          example: GOLD
+        quoteCcy:
+          type: string
+          description: Quote currency
+          pattern: "^[A-Z0-9]{2,10}$"
+          example: USD
+        chainId:
+          type: ["integer", "null"]
+          description: Standard EVM chain ID (for tokenized assets)
+        priceDecimals:
+          type: integer
+          description: Number of decimal places for prices
+          minimum: 0
+          example: 2
+        qtyDecimals:
+          type: integer
+          description: Number of decimal places for quantities
+          minimum: 0
+          example: 3
+        tickSize:
+          type: number
+          description: Minimum price increment
+          multipleOf: 0.01
+          example: 0.01
+        stepSize:
+          type: number
+          description: Minimum quantity increment
+          multipleOf: 0.001
+          example: 0.001
+        priceBandPct:
+          type: ["number", "null"]
+          description: Price collar band in percentage
+        lotSize:
+          type: integer
+          description: Lot/contract size (for derivatives)
+          minimum: 1
+        minOrderValue:
+          type: number
+          description: Minimum order value in quote currency
+        maxOrderValue:
+          type: number
+          description: Maximum order value in quote currency
+        marketType:
+          type: string
+          enum:
+            - SPOT
+            - TOKENIZED_RWA
+            - DERIVATIVE
+        status:
+          type: string
+          enum:
+            - OPEN
+            - HALTED
+            - CLOSED
+            - SETTLED
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: ["string", "null"]
+          format: date-time
+    Order:
+      type: object
+      description: Order entity in the matching engine.
+      required:
+        - id
+        - orgId
+        - accountId
+        - marketId
+        - side
+        - type
+        - qty
+        - tif
+        - status
+        - createdAt
+      properties:
+        id:
+          $ref: "#/components/schemas/OrderId"
+        orgId:
+          $ref: ./common/primitives.yaml#/components/schemas/OrgId
+        accountId:
+          $ref: ./common/primitives.yaml#/components/schemas/AccountId
+        marketId:
+          $ref: "#/components/schemas/MarketId"
+        side:
+          type: string
+          enum:
+            - BUY
+            - SELL
+        type:
+          type: string
+          enum:
+            - LIMIT
+            - MARKET
+            - STOP_LIMIT
+          description: Order type (IOC is a time-in-force, not an order type)
+        qty:
+          type: number
+          multipleOf: 0.001
+          minimum: 0.001
+          description: Order quantity
+        px:
+          type: ["number", "null"]
+          multipleOf: 0.01
+          description: Limit price (required for LIMIT orders)
+        stopPx:
+          type: ["number", "null"]
+          multipleOf: 0.01
+          description: Stop price for STOP_LIMIT orders
+        tif:
+          type: string
+          enum:
+            - GTC
+            - FOK
+            - IOC
+          description: Time-in-force (GTC=Good-Till-Cancel, FOK=Fill-Or-Kill, IOC=Immediate-Or-Cancel)
+        status:
+          type: string
+          enum:
+            - OPEN
+            - FILLED
+            - PARTIAL
+            - CANCELLED
+        rejectReason:
+          type: ["string", "null"]
+          description: Reason for cancellation or rejection
+        filledQty:
+          type: number
+          description: Quantity filled
+          multipleOf: 0.001
+        avgFilledPx:
+          type: ["number", "null"]
+          description: Average price of filled portion
+        totalFillValue:
+          type: ["number", "null"]
+          description: Total value of filled portion
+        timeInForceExpiry:
+          type: ["string", "null"]
+          format: date-time
+          description: Expiry time for time-limited orders
+        clientRef:
+          type: ["string", "null"]
+          description: Client-provided reference for idempotency and reconciliation
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: ["string", "null"]
+          format: date-time
+    Trade:
+      type: object
+      description: Trade execution record.
+      required:
+        - id
+        - orgId
+        - marketId
+        - buyOrderId
+        - sellOrderId
+        - buyAccountId
+        - sellAccountId
+        - qty
+        - px
+        - executedAt
+      properties:
+        id:
+          $ref: "#/components/schemas/TradeId"
+        orgId:
+          $ref: ./common/primitives.yaml#/components/schemas/OrgId
+        marketId:
+          $ref: "#/components/schemas/MarketId"
+        buyOrderId:
+          $ref: "#/components/schemas/OrderId"
+        sellOrderId:
+          $ref: "#/components/schemas/OrderId"
+        buyAccountId:
+          $ref: ./common/primitives.yaml#/components/schemas/AccountId
+        sellAccountId:
+          $ref: ./common/primitives.yaml#/components/schemas/AccountId
+        qty:
+          type: number
+          description: Traded quantity
+        px:
+          type: number
+          description: Trade price
+        tradeSequence:
+          type: integer
+          description: Sequential trade number within the market
+          minimum: 1
+        makerFee:
+          type: ["number", "null"]
+          description: Maker fee (basis points)
+        takerFee:
+          type: ["number", "null"]
+          description: Taker fee (basis points)
+        executedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: ["string", "null"]
+          format: date-time
+    Position:
+      type: object
+      description: Account position and P/L summary.
+      required:
+        - id
+        - orgId
+        - accountId
+        - instrumentId
+        - qty
+        - avgPx
+      properties:
+        id:
+          $ref: "#/components/schemas/PositionId"
+        orgId:
+          $ref: ./common/primitives.yaml#/components/schemas/OrgId
+        accountId:
+          $ref: ./common/primitives.yaml#/components/schemas/AccountId
+        instrumentId:
+          $ref: "#/components/schemas/InstrumentId"
+        qty:
+          type: number
+          description: Current quantity held
+        avgPx:
+          type: number
+          description: Average acquisition price
+        realizedPnL:
+          type: number
+          description: Realized profit/loss from closed positions
+        unrealizedPnL:
+          type: number
+          description: Unrealized profit/loss from open positions
+        currentValue:
+          type: ["number", "null"]
+          description: Current market value of the position
+        marketPrice:
+          type: ["number", "null"]
+          description: Current market price used for valuation
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: ["string", "null"]
+          format: date-time
+    MarketMakerQuote:
+      type: object
+      description: Market maker quote object.
+      required:
+        - id
+        - orgId
+        - marketId
+        - providerId
+        - bidPx
+        - bidQty
+        - askPx
+        - askQty
+        - status
+      properties:
+        id:
+          $ref: "#/components/schemas/MarketMakerQuoteId"
+        orgId:
+          $ref: ./common/primitives.yaml#/components/schemas/OrgId
+        marketId:
+          $ref: "#/components/schemas/MarketId"
+        providerId:
+          $ref: ./common/primitives.yaml#/components/schemas/AccountId
+        bidPx:
+          type: number
+          multipleOf: 0.01
+        bidQty:
+          type: number
+          multipleOf: 0.001
+        askPx:
+          type: number
+          multipleOf: 0.01
+        askQty:
+          type: number
+          multipleOf: 0.001
+        spreadBps:
+          type: number
+          description: Bid-ask spread in basis points (calculated, read-only)
+          readOnly: true
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - STALE
+            - EXPIRED
+            - CANCELLED
+          description: Current status of the quote
+        isStale:
+          type: boolean
+          description: Whether the quote has expired (helper field)
+          readOnly: true
+        validUntil:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: ["string", "null"]
+          format: date-time
+    Halt:
+      type: object
+      description: Market halt event record.
+      required:
+        - id
+        - orgId
+        - marketId
+        - reason
+        - severity
+        - triggeredBy
+        - createdAt
+      properties:
+        id:
+          $ref: "#/components/schemas/HaltId"
+        orgId:
+          $ref: ./common/primitives.yaml#/components/schemas/OrgId
+        marketId:
+          $ref: "#/components/schemas/MarketId"
+        reason:
+          type: string
+          enum:
+            - MANUAL
+            - PRICE_COLLAR
+            - VOLATILITY
+            - REGULATORY
+            - OTHER
+        severity:
+          type: string
+          enum:
+            - LOW
+            - MEDIUM
+            - HIGH
+            - CRITICAL
+          description: Severity level of the halt
+        triggeredBy:
+          type: string
+          description: User or system that triggered the halt
+        endedBy:
+          type: ["string", "null"]
+          description: User or system that resolved the halt
+        notes:
+          type: ["string", "null"]
+          description: Additional notes or comments about the halt
+        resolutionNotes:
+          type: ["string", "null"]
+          description: Notes regarding the resolution of the halt
+        createdAt:
+          type: string
+          format: date-time
+        endedAt:
+          type: ["string", "null"]
+          format: date-time
+          description: When the halt was lifted (null if still active)
+        updatedAt:
+          type: ["string", "null"]
+          format: date-time
+    CreateMarketRequest:
+      type: object
+      required:
+        - instrumentId
+        - baseCcy
+        - quoteCcy
+        - marketType
+      properties:
+        instrumentId:
+          $ref: "#/components/schemas/InstrumentId"
+        name:
+          type: string
+          description: Human-readable market name
+        description:
+          type: string
+          description: Detailed market description
+        displaySymbol:
+          type: string
+          description: Trading pair symbol (e.g., GOLD/USD)
+        baseCcy:
+          type: string
+          description: Base currency or asset identifier
+          pattern: "^[A-Z0-9]{2,10}$"
+        quoteCcy:
+          type: string
+          description: Quote currency
+          pattern: "^[A-Z0-9]{2,10}$"
+        chainId:
+          type: ["integer", "null"]
+          description: Blockchain chain reference (for tokenized assets)
+        priceDecimals:
+          type: integer
+          description: Number of decimal places for prices
+          minimum: 0
+        qtyDecimals:
+          type: integer
+          description: Number of decimal places for quantities
+          minimum: 0
+        tickSize:
+          type: number
+          description: Minimum price increment
+          multipleOf: 0.01
+        stepSize:
+          type: number
+          description: Minimum quantity increment
+          multipleOf: 0.001
+        priceBandPct:
+          type: number
+        lotSize:
+          type: integer
+          minimum: 1
+        minOrderValue:
+          type: number
+          description: Minimum order value
+        maxOrderValue:
+          type: number
+          description: Maximum order value
+        marketType:
+          type: string
+          enum:
+            - SPOT
+            - TOKENIZED_RWA
+            - DERIVATIVE
+    UpdateMarketRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - OPEN
+            - HALTED
+            - CLOSED
+            - SETTLED
+        priceBandPct:
+          type: number
+    CreateOrderRequest:
+      type: object
+      required:
+        - accountId
+        - marketId
+        - side
+        - type
+        - qty
+        - tif
+      properties:
+        accountId:
+          type: string
+        marketId:
+          type: string
+          description: Market ID for the order
+        side:
+          type: string
+          enum:
+            - BUY
+            - SELL
+        type:
+          type: string
+          enum:
+            - LIMIT
+            - MARKET
+            - STOP_LIMIT
+          description: Order type
+        qty:
+          type: number
+          multipleOf: 0.001
+          minimum: 0.001
+        px:
+          type: ["number", "null"]
+          multipleOf: 0.01
+          description: Required for LIMIT orders
+        stopPx:
+          type: ["number", "null"]
+          multipleOf: 0.01
+          description: Stop price for STOP_LIMIT orders
+        tif:
+          type: string
+          enum:
+            - GTC
+            - FOK
+            - IOC
+          description: Time-in-force
+        clientRef:
+          type: ["string", "null"]
+          description: Client reference for idempotency
+    UpdateOrderRequest:
+      type: object
+      description: |
+        Fields that may be updated on an existing order, subject to exchange rules.
+        Implementations should restrict updates for orders in terminal states.
+      properties:
+        qty:
+          type: number
+          multipleOf: 0.001
+          minimum: 0.001
+          description: Updated order quantity (e.g., reduce-only)
+        px:
+          type: ["number", "null"]
+          multipleOf: 0.01
+          description: Updated limit price
+        stopPx:
+          type: ["number", "null"]
+          multipleOf: 0.01
+          description: Updated stop price for STOP_LIMIT orders
+        tif:
+          type: string
+          enum:
+            - GTC
+            - FOK
+            - IOC
+          description: Updated time-in-force
+        clientRef:
+          type: ["string", "null"]
+          description: Updated client reference for idempotency
+    CreateMarketMakerQuoteRequest:
+      type: object
+      required:
+        - marketId
+        - bidPx
+        - bidQty
+        - askPx
+        - askQty
+        - validUntil
+      properties:
+        marketId:
+          $ref: "#/components/schemas/MarketId"
+        providerId:
+          type: string
+          description: Market maker provider account ID
+        bidPx:
+          type: number
+          multipleOf: 0.01
+        bidQty:
+          type: number
+          multipleOf: 0.001
+        askPx:
+          type: number
+          multipleOf: 0.01
+        askQty:
+          type: number
+          multipleOf: 0.001
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - STALE
+            - EXPIRED
+            - CANCELLED
+          description: Quote status
+        validUntil:
+          type: string
+          format: date-time
+    UpdateMarketMakerQuoteRequest:
+      type: object
+      properties:
+        bidPx:
+          type: number
+          multipleOf: 0.01
+        bidQty:
+          type: number
+          multipleOf: 0.001
+        askPx:
+          type: number
+          multipleOf: 0.01
+        askQty:
+          type: number
+          multipleOf: 0.001
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - STALE
+            - EXPIRED
+            - CANCELLED
+          description: Quote status
+        validUntil:
+          type: string
+          format: date-time
+    CreateHaltRequest:
+      type: object
+      required:
+        - marketId
+        - reason
+        - severity
+      properties:
+        marketId:
+          $ref: "#/components/schemas/MarketId"
+        reason:
+          type: string
+          enum:
+            - MANUAL
+            - PRICE_COLLAR
+            - VOLATILITY
+            - REGULATORY
+            - OTHER
+        severity:
+          type: string
+          enum:
+            - LOW
+            - MEDIUM
+            - HIGH
+            - CRITICAL
+          description: Severity level of the halt
+        notes:
+          type: string
+          description: Additional notes about the halt
+    UpdateHaltRequest:
+      type: object
+      description: Fields that may be updated on an existing halt.
+      properties:
+        severity:
+          type: string
+          enum:
+            - LOW
+            - MEDIUM
+            - HIGH
+            - CRITICAL
+          description: Updated severity level of the halt
+        endedBy:
+          type: ["string", "null"]
+          description: User or system that resolved the halt
+        notes:
+          type: ["string", "null"]
+          description: Updated notes about the halt
+        resolutionNotes:
+          type: ["string", "null"]
+          description: Notes regarding the resolution of the halt
+        endedAt:
+          type: ["string", "null"]
+          format: date-time
+          description: When the halt was lifted (null if still active)
+
+    # Response Schemas
+    ListMarketsResponse:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          type: object
+          required:
+            - items
+          properties:
+            items:
+              type: array
+              items:
+                $ref: "#/components/schemas/Market"
+        meta:
+          allOf:
+            - $ref: ./common/responses.yaml#/components/schemas/ResponseMeta
+            - type: object
+              required:
+                - pagination
+              properties:
+                pagination:
+                  $ref: ./common/pagination.yaml#/components/schemas/PageInfo
+
+    CreateMarketResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Market"
+
+    GetMarketResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Market"
+
+    UpdateMarketResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Market"
+
+    ListOrdersResponse:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          type: object
+          required:
+            - items
+          properties:
+            items:
+              type: array
+              items:
+                $ref: "#/components/schemas/Order"
+        meta:
+          allOf:
+            - $ref: ./common/responses.yaml#/components/schemas/ResponseMeta
+            - type: object
+              required:
+                - pagination
+              properties:
+                pagination:
+                  $ref: ./common/pagination.yaml#/components/schemas/PageInfo
+
+    CreateOrderResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Order"
+
+    GetOrderResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Order"
+
+    UpdateOrderResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Order"
+
+    ListTradesResponse:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          type: object
+          required:
+            - items
+          properties:
+            items:
+              type: array
+              items:
+                $ref: "#/components/schemas/Trade"
+        meta:
+          allOf:
+            - $ref: ./common/responses.yaml#/components/schemas/ResponseMeta
+            - type: object
+              required:
+                - pagination
+              properties:
+                pagination:
+                  $ref: ./common/pagination.yaml#/components/schemas/PageInfo
+
+    GetTradeResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Trade"
+
+    ListPositionsResponse:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          type: object
+          required:
+            - items
+          properties:
+            items:
+              type: array
+              items:
+                $ref: "#/components/schemas/Position"
+        meta:
+          allOf:
+            - $ref: ./common/responses.yaml#/components/schemas/ResponseMeta
+            - type: object
+              required:
+                - pagination
+              properties:
+                pagination:
+                  $ref: ./common/pagination.yaml#/components/schemas/PageInfo
+
+    GetPositionResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Position"
+
+    ListMarketMakerQuotesResponse:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          type: object
+          required:
+            - items
+          properties:
+            items:
+              type: array
+              items:
+                $ref: "#/components/schemas/MarketMakerQuote"
+        meta:
+          allOf:
+            - $ref: ./common/responses.yaml#/components/schemas/ResponseMeta
+            - type: object
+              required:
+                - pagination
+              properties:
+                pagination:
+                  $ref: ./common/pagination.yaml#/components/schemas/PageInfo
+
+    CreateMarketMakerQuoteResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/MarketMakerQuote"
+
+    GetMarketMakerQuoteResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/MarketMakerQuote"
+
+    UpdateMarketMakerQuoteResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/MarketMakerQuote"
+
+    ListHaltsResponse:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          type: object
+          required:
+            - items
+          properties:
+            items:
+              type: array
+              items:
+                $ref: "#/components/schemas/Halt"
+        meta:
+          allOf:
+            - $ref: ./common/responses.yaml#/components/schemas/ResponseMeta
+            - type: object
+              required:
+                - pagination
+              properties:
+                pagination:
+                  $ref: ./common/pagination.yaml#/components/schemas/PageInfo
+
+    CreateHaltResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Halt"
+
+    GetHaltResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Halt"
+
+    UpdateHaltResponse:
+      allOf:
+        - $ref: ./common/responses.yaml#/components/schemas/DataEnvelope
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Halt"

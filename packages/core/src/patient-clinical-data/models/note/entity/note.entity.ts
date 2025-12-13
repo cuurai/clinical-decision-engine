@@ -15,7 +15,7 @@ import { schemas } from "../../../schemas/patient-clinical-data.schemas";
 /**
  * Entity: NoteEntity
  * Description: Represents the Note domain model.
- * Source: schemas.Timestamps
+ * Source: schemas.Note
  */
-export const ZNoteEntitySchema = schemas.Timestamps;
+export const ZNoteEntitySchema = schemas.Note;
 export type NoteEntity = z.infer<typeof ZNoteEntitySchema>;

@@ -14,13 +14,12 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
-  ListExplanationsParams,
-  ExplanationInput
+  Explanation,
+  ListExplanationsParams
 } from "../types/index.js";
 /**
  * ExplanationRepository Interface
  */
-export interface ExplanationRepository extends CreateReadRepository<Timestamps, ExplanationInput, string, ListExplanationsParams> {
+export interface ExplanationRepository extends CreateReadRepository<Explanation, Explanation, string, ListExplanationsParams> {
 
 }

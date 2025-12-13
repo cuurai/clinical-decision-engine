@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/questionnaire-template.entity";
 export * from "./dto/list-questionnaire-template.dto";
-export * from "./dto/create-questionnaire-template.dto";
 export * from "./dto/get-questionnaire-template.dto";
-export * from "./dto/update-questionnaire-template.dto";
 export * from "./dto/delete-questionnaire-template.dto";

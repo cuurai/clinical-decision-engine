@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  Condition,
   ListConditionsParams,
-  ConditionInput,
-  ConditionUpdate
+  UpdateConditionRequest
 } from "../types/index.js";
 /**
  * ConditionRepository Interface
  */
-export interface ConditionRepository extends CrudRepository<Timestamps, ConditionInput, ConditionUpdate, string, ListConditionsParams> {
+export interface ConditionRepository extends CrudRepository<Condition, Condition, UpdateConditionRequest, string, ListConditionsParams> {
 
 }

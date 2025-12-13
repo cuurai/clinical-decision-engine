@@ -6,7 +6,7 @@
  */
 
 import type { TaskAssignmentRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete task assignment

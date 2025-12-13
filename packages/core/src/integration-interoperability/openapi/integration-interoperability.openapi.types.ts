@@ -945,6 +945,42 @@ export interface components {
             message: string;
             details?: Record<string, never>;
         };
+        /** @description Response metadata with correlation tracking */
+        IntApiMeta: {
+            /** @description Unique identifier for request-response correlation */
+            correlationId?: string;
+            /**
+             * Format: date-time
+             * @description Response timestamp
+             */
+            timestamp?: string;
+            /** @description Total count of items (for list responses) */
+            totalCount?: number;
+            /** @description Number of items per page */
+            pageSize?: number;
+            /** @description Current page number */
+            pageNumber?: number;
+        };
+        IntApiResponse: {
+            /** @description Response payload */
+            data?: Record<string, never>;
+            meta?: components["schemas"]["IntApiMeta"];
+        };
+        IntApiListResponse: {
+            /** @description Paginated data container */
+            data?: {
+                /** @description List of items */
+                items?: unknown[];
+            };
+            meta?: components["schemas"]["IntApiMeta"] & {
+                /** @description Pagination metadata */
+                pagination?: {
+                    nextCursor?: string | null;
+                    prevCursor?: string | null;
+                    limit?: number;
+                };
+            };
+        };
         Timestamps: {
             /** Format: date-time */
             createdAt?: string;
@@ -1652,7 +1688,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                "application/json": components["schemas"]["Error"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["Error"];
+                };
             };
         };
         /** @description Resource not found */
@@ -1661,7 +1699,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                "application/json": components["schemas"]["Error"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["Error"];
+                };
             };
         };
     };
@@ -1700,7 +1740,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ExternalSystem"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["ExternalSystem"][];
+                    };
                 };
             };
         };
@@ -1714,7 +1756,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ExternalSystemInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["ExternalSystemInput"];
+                };
             };
         };
         responses: {
@@ -1724,7 +1768,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ExternalSystem"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["ExternalSystem"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -1748,7 +1794,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ExternalSystem"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["ExternalSystem"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1788,7 +1836,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ExternalSystemUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["ExternalSystemUpdate"];
+                };
             };
         };
         responses: {
@@ -1798,7 +1848,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ExternalSystem"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["ExternalSystem"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1910,7 +1962,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Connection"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["Connection"][];
+                    };
                 };
             };
         };
@@ -1924,7 +1978,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ConnectionInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["ConnectionInput"];
+                };
             };
         };
         responses: {
@@ -1934,7 +1990,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Connection"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["Connection"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -1958,7 +2016,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Connection"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["Connection"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1998,7 +2058,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ConnectionUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["ConnectionUpdate"];
+                };
             };
         };
         responses: {
@@ -2008,7 +2070,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Connection"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["Connection"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2092,7 +2156,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FHIRBundle"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["FHIRBundle"][];
+                    };
                 };
             };
         };
@@ -2107,7 +2173,9 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["FHIRBundleInput"];
-                "application/fhir+json": components["schemas"]["FHIRBundleInput"];
+                "application/fhir+json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["FHIRBundleInput"];
+                };
             };
         };
         responses: {
@@ -2117,7 +2185,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FHIRBundle"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["FHIRBundle"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2141,7 +2211,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FHIRBundle"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["FHIRBundle"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2218,7 +2290,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FHIRMappingProfile"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["FHIRMappingProfile"][];
+                    };
                 };
             };
         };
@@ -2232,7 +2306,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["FHIRMappingProfileInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["FHIRMappingProfileInput"];
+                };
             };
         };
         responses: {
@@ -2242,7 +2318,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FHIRMappingProfile"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["FHIRMappingProfile"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2266,7 +2344,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FHIRMappingProfile"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["FHIRMappingProfile"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2306,7 +2386,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["FHIRMappingProfileUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["FHIRMappingProfileUpdate"];
+                };
             };
         };
         responses: {
@@ -2316,7 +2398,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FHIRMappingProfile"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["FHIRMappingProfile"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2372,7 +2456,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["HL7Message"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["HL7Message"][];
+                    };
                 };
             };
         };
@@ -2387,7 +2473,9 @@ export interface operations {
         requestBody: {
             content: {
                 "text/plain": string;
-                "application/json": components["schemas"]["HL7MessageInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["HL7MessageInput"];
+                };
             };
         };
         responses: {
@@ -2397,7 +2485,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["HL7Message"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["HL7Message"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2421,7 +2511,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["HL7Message"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["HL7Message"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2526,7 +2618,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["HL7MappingProfile"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["HL7MappingProfile"][];
+                    };
                 };
             };
         };
@@ -2540,7 +2634,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["HL7MappingProfileInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["HL7MappingProfileInput"];
+                };
             };
         };
         responses: {
@@ -2550,7 +2646,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["HL7MappingProfile"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["HL7MappingProfile"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2574,7 +2672,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["HL7MappingProfile"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["HL7MappingProfile"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2614,7 +2714,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["HL7MappingProfileUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["HL7MappingProfileUpdate"];
+                };
             };
         };
         responses: {
@@ -2624,7 +2726,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["HL7MappingProfile"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["HL7MappingProfile"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2682,7 +2786,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IntegrationJob"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["IntegrationJob"][];
+                    };
                 };
             };
         };
@@ -2696,7 +2802,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["IntegrationJobInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["IntegrationJobInput"];
+                };
             };
         };
         responses: {
@@ -2706,7 +2814,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IntegrationJob"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["IntegrationJob"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2730,7 +2840,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IntegrationJob"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["IntegrationJob"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2770,7 +2882,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["IntegrationJobUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["IntegrationJobUpdate"];
+                };
             };
         };
         responses: {
@@ -2780,7 +2894,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IntegrationJob"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["IntegrationJob"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2836,7 +2952,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IntegrationRun"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["IntegrationRun"][];
+                    };
                 };
             };
         };
@@ -2850,7 +2968,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["IntegrationRunInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["IntegrationRunInput"];
+                };
             };
         };
         responses: {
@@ -2860,7 +2980,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IntegrationRun"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["IntegrationRun"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2884,7 +3006,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IntegrationRun"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["IntegrationRun"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2968,7 +3092,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DataImportBatch"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["DataImportBatch"][];
+                    };
                 };
             };
         };
@@ -2982,7 +3108,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DataImportBatchInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["DataImportBatchInput"];
+                };
             };
         };
         responses: {
@@ -2992,7 +3120,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DataImportBatch"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["DataImportBatch"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3016,7 +3146,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DataImportBatch"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["DataImportBatch"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3056,7 +3188,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DataImportBatchUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["DataImportBatchUpdate"];
+                };
             };
         };
         responses: {
@@ -3066,7 +3200,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DataImportBatch"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["DataImportBatch"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3150,7 +3286,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DataExportBatch"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["DataExportBatch"][];
+                    };
                 };
             };
         };
@@ -3164,7 +3302,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DataExportBatchInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["DataExportBatchInput"];
+                };
             };
         };
         responses: {
@@ -3174,7 +3314,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DataExportBatch"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["DataExportBatch"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3198,7 +3340,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DataExportBatch"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["DataExportBatch"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3238,7 +3382,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DataExportBatchUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["DataExportBatchUpdate"];
+                };
             };
         };
         responses: {
@@ -3248,7 +3394,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DataExportBatch"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["DataExportBatch"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3332,7 +3480,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EventSubscription"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["EventSubscription"][];
+                    };
                 };
             };
         };
@@ -3346,7 +3496,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EventSubscriptionInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["EventSubscriptionInput"];
+                };
             };
         };
         responses: {
@@ -3356,7 +3508,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EventSubscription"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["EventSubscription"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3380,7 +3534,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EventSubscription"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["EventSubscription"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3420,7 +3576,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EventSubscriptionUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["EventSubscriptionUpdate"];
+                };
             };
         };
         responses: {
@@ -3430,7 +3588,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EventSubscription"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["EventSubscription"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3486,7 +3646,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EventDelivery"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["EventDelivery"][];
+                    };
                 };
             };
         };
@@ -3500,7 +3662,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EventDeliveryInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["EventDeliveryInput"];
+                };
             };
         };
         responses: {
@@ -3510,7 +3674,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EventDelivery"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["EventDelivery"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3534,7 +3700,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EventDelivery"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["EventDelivery"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3552,7 +3720,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EventDeliveryUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["EventDeliveryUpdate"];
+                };
             };
         };
         responses: {
@@ -3562,7 +3732,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EventDelivery"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["EventDelivery"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3589,7 +3761,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["APIClient"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["APIClient"][];
+                    };
                 };
             };
         };
@@ -3603,7 +3777,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["APIClientInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["APIClientInput"];
+                };
             };
         };
         responses: {
@@ -3613,7 +3789,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["APIClient"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["APIClient"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3637,7 +3815,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["APIClient"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["APIClient"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3677,7 +3857,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["APIClientUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["APIClientUpdate"];
+                };
             };
         };
         responses: {
@@ -3687,7 +3869,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["APIClient"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["APIClient"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3771,7 +3955,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["APICredential"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["APICredential"][];
+                    };
                 };
             };
         };
@@ -3785,7 +3971,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["APICredentialInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["APICredentialInput"];
+                };
             };
         };
         responses: {
@@ -3795,7 +3983,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["APICredential"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["APICredential"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3819,7 +4009,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["APICredential"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["APICredential"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3859,7 +4051,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["APICredentialUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["APICredentialUpdate"];
+                };
             };
         };
         responses: {
@@ -3869,7 +4063,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["APICredential"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["APICredential"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3897,7 +4093,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InterfaceError"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["InterfaceError"][];
+                    };
                 };
             };
         };
@@ -3911,7 +4109,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["InterfaceErrorInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["InterfaceErrorInput"];
+                };
             };
         };
         responses: {
@@ -3921,7 +4121,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InterfaceError"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["InterfaceError"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3945,7 +4147,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InterfaceError"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["InterfaceError"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3963,7 +4167,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["InterfaceErrorUpdate"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["InterfaceErrorUpdate"];
+                };
             };
         };
         responses: {
@@ -3973,7 +4179,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InterfaceError"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["InterfaceError"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -4001,7 +4209,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InterfaceHealthCheck"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: components["schemas"]["InterfaceHealthCheck"][];
+                    };
                 };
             };
         };
@@ -4015,7 +4225,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["InterfaceHealthCheckInput"];
+                "application/json": components["schemas"]["IntApiResponse"] & {
+                    data?: components["schemas"]["InterfaceHealthCheckInput"];
+                };
             };
         };
         responses: {
@@ -4025,7 +4237,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InterfaceHealthCheck"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["InterfaceHealthCheck"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -4049,7 +4263,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InterfaceHealthCheck"];
+                    "application/json": components["schemas"]["IntApiResponse"] & {
+                        data?: components["schemas"]["InterfaceHealthCheck"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];

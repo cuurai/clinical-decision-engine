@@ -6,7 +6,7 @@
  */
 
 import type { KnowledgePackageRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../../shared/helpers";
+import { keTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete knowledge package
@@ -22,7 +22,7 @@ export async function deleteKnowledgePackage(
   return {
     data: { success: true },
     meta: {
-      correlationId: knoTransactionId(),
+      correlationId: keTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

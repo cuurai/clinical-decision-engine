@@ -5,41 +5,41 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { HL7MappingProfileUpdate, UpdateHLMappingProfileResponse } from "../../types/index.js";
-// TODO: Uncomment when implementing handler logic
-// import { intTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// // TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
+import type { UpdateHLMappingProfileResponse } from "../../types/index.js";
+import type { HL7MappingProfileRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
- * TODO: Uncomment when implementing handler logic that uses validated input
  */
-// function mapInputToValidated(input: HL7MappingProfileUpdate): HL7MappingProfileUpdate {
-//   // Note: Request body validation is handled by service layer schemas
-//   // Handlers accept validated input and focus on business logic
-//   return input;
-// }
+function mapInputToValidated(input: unknown): any {
+  // Note: Request body validation is handled by service layer schemas
+  // Handlers accept validated input and focus on business logic
+  return input;
+}
 
 
 /**
  * Update HL7 mapping profile
  */
 export async function updateHL7MappingProfile(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string,
-    // TODO: Use input when implementing handler logic,
-    _input: HL7MappingProfileUpdate
+    repo: HL7MappingProfileRepository,
+    orgId: string,
+    id: string,
+    input: unknown
 ): Promise<UpdateHLMappingProfileResponse> {
   // 1. Validate input
-  // TODO: Use validated input when implementing business logic
-  // const validated = mapInputToValidated(input);
+  const validated = mapInputToValidated(input);
 
-  // 2. Operation returns a Response DTO (not an entity) - implement business logic here
-  // TODO: Implement operation logic (e.g., authentication, authorization, evaluation)
+  // 2. Domain input → Repository call (update operation)
+  const hLMappingProfile = await repo.update(orgId, id, validated);
 
-  throw new Error("Operation not yet implemented - requires business logic integration");
+  // 3. Repository result → response envelope
+  return {
+    data: hLMappingProfile,
+    meta: {
+      correlationId: iiTransactionId(),
+      timestamp: new Date().toISOString(),
+    },
+  };
 
 }

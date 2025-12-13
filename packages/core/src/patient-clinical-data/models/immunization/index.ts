@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/immunization.entity";
 export * from "./dto/list-immunization.dto";
-export * from "./dto/create-immunization.dto";
 export * from "./dto/get-immunization.dto";
-export * from "./dto/update-immunization.dto";
 export * from "./dto/delete-immunization.dto";

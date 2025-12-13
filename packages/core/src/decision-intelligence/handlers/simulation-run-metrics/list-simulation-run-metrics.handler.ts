@@ -7,7 +7,7 @@
 
 import type { ListSimulationRunMetricsResponse } from "../../types/index.js";
 import type { SimulationRunMetricRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../../shared/helpers";
+import { diTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * List simulation run metrics
@@ -23,13 +23,17 @@ export async function listSimulationRunMetrics(
   // Return paginated response matching OpenAPI response type
   // Structure matches ProviderAccountListResponse: { data: { items: [...] }, meta: { ... } }
   return {
-    data: result.items,
+    data: {
+      items: result.items,
+    },
     meta: {
-      correlationId: decTransactionId(),
+      correlationId: diTransactionId(),
       timestamp: new Date().toISOString(),
-      totalCount: result.total ?? result.items.length,
-      pageSize: result.items.length,
-      pageNumber: 1,
+      pagination: {
+        nextCursor: result.nextCursor ?? null,
+        prevCursor: result.prevCursor ?? null,
+        limit: result.items.length,
+      },
     },
   };
 

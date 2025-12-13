@@ -15,7 +15,7 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 /**
  * Entity: CareProtocolEntity
  * Description: Represents the CareProtocol domain model.
- * Source: schemas.Timestamps
+ * Source: schemas.CareProtocol
  */
-export const ZCareProtocolEntitySchema = schemas.Timestamps;
+export const ZCareProtocolEntitySchema = schemas.CareProtocol;
 export type CareProtocolEntity = z.infer<typeof ZCareProtocolEntitySchema>;

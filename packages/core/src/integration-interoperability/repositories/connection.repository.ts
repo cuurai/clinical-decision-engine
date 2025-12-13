@@ -16,12 +16,11 @@ import type {
 import type {
   Connection,
   ListConnectionsParams,
-  ConnectionInput,
-  ConnectionUpdate
+  UpdateConnectionRequest
 } from "../types/index.js";
 /**
  * ConnectionRepository Interface
  */
-export interface ConnectionRepository extends CrudRepository<Connection, ConnectionInput, ConnectionUpdate, string, ListConnectionsParams> {
+export interface ConnectionRepository extends CrudRepository<Connection, Connection, UpdateConnectionRequest, string, ListConnectionsParams> {
 
 }

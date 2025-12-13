@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ClinicalRule,
   ListClinicalRulesParams,
-  ClinicalRuleInput,
-  ClinicalRuleUpdate
+  UpdateClinicalRuleRequest
 } from "../types/index.js";
 /**
  * ClinicalRuleRepository Interface
  */
-export interface ClinicalRuleRepository extends CrudRepository<Timestamps, ClinicalRuleInput, ClinicalRuleUpdate, string, ListClinicalRulesParams> {
+export interface ClinicalRuleRepository extends CrudRepository<ClinicalRule, ClinicalRule, UpdateClinicalRuleRequest, string, ListClinicalRulesParams> {
 
 }

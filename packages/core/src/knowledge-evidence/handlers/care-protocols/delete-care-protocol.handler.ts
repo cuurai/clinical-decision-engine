@@ -6,7 +6,7 @@
  */
 
 import type { CareProtocolRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../../shared/helpers";
+import { keTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete care protocol template
@@ -22,7 +22,7 @@ export async function deleteCareProtocol(
   return {
     data: { success: true },
     meta: {
-      correlationId: knoTransactionId(),
+      correlationId: keTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

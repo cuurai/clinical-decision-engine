@@ -16,12 +16,11 @@ import type {
 import type {
   FHIRMappingProfile,
   ListFHIRMappingProfilesParams,
-  FHIRMappingProfileInput,
-  FHIRMappingProfileUpdate
+  UpdateFHIRMappingProfileRequest
 } from "../types/index.js";
 /**
  * FHIRMappingProfileRepository Interface
  */
-export interface FHIRMappingProfileRepository extends CrudRepository<FHIRMappingProfile, FHIRMappingProfileInput, FHIRMappingProfileUpdate, string, ListFHIRMappingProfilesParams> {
+export interface FHIRMappingProfileRepository extends CrudRepository<FHIRMappingProfile, FHIRMappingProfile, UpdateFHIRMappingProfileRequest, string, ListFHIRMappingProfilesParams> {
 
 }

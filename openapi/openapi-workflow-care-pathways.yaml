@@ -78,21 +78,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/WorkflowDefinition"
     post:
       tags: [Workflow Definitions]
@@ -103,17 +98,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/WorkflowDefinitionInput"
       responses:
         "201":
@@ -121,17 +112,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/WorkflowDefinition"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -148,17 +135,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/WorkflowDefinition"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -173,17 +156,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/WorkflowDefinitionUpdate"
       responses:
         "200":
@@ -191,17 +170,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/WorkflowDefinition"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -283,21 +258,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/WorkflowInstance"
     post:
       tags: [Workflow Instances]
@@ -308,17 +278,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/WorkflowInstanceInput"
       responses:
         "201":
@@ -326,17 +292,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/WorkflowInstance"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -353,17 +315,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/WorkflowInstance"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -378,17 +336,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/WorkflowInstanceUpdate"
       responses:
         "200":
@@ -396,17 +350,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/WorkflowInstance"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -497,21 +447,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/CarePathwayTemplate"
     post:
       tags: [Care Pathway Templates]
@@ -522,17 +467,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/CarePathwayTemplateInput"
       responses:
         "201":
@@ -540,17 +481,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/CarePathwayTemplate"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -567,17 +504,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/CarePathwayTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -592,17 +525,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/CarePathwayTemplateUpdate"
       responses:
         "200":
@@ -610,17 +539,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/CarePathwayTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -698,21 +623,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/CarePlan"
     post:
       tags: [Care Plans]
@@ -723,17 +643,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/CarePlanInput"
       responses:
         "201":
@@ -741,17 +657,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/CarePlan"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -768,17 +680,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/CarePlan"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -793,17 +701,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/CarePlanUpdate"
       responses:
         "200":
@@ -811,17 +715,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/CarePlan"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -917,21 +817,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/EpisodeOfCare"
     post:
       tags: [Episodes of Care]
@@ -942,17 +837,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/EpisodeOfCareInput"
       responses:
         "201":
@@ -960,17 +851,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EpisodeOfCare"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -987,17 +874,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EpisodeOfCare"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1012,17 +895,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/EpisodeOfCareUpdate"
       responses:
         "200":
@@ -1030,17 +909,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EpisodeOfCare"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1140,21 +1015,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/Task"
     post:
       tags: [Tasks]
@@ -1165,17 +1035,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/TaskInput"
       responses:
         "201":
@@ -1183,17 +1049,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Task"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1210,17 +1072,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Task"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1235,17 +1093,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/TaskUpdate"
       responses:
         "200":
@@ -1253,17 +1107,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Task"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1340,21 +1190,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/TaskAssignment"
     post:
       tags: [Task Assignments]
@@ -1365,17 +1210,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/TaskAssignmentInput"
       responses:
         "201":
@@ -1383,17 +1224,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/TaskAssignment"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1410,17 +1247,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/TaskAssignment"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1435,17 +1268,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/TaskAssignmentUpdate"
       responses:
         "200":
@@ -1453,17 +1282,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/TaskAssignment"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1503,29 +1328,23 @@ paths:
           in: query
           schema:
             type: string
-            enum:
-              [active, acknowledged, overridden, snoozed, resolved, dismissed]
+            enum: [active, acknowledged, overridden, snoozed, resolved, dismissed]
       responses:
         "200":
           description: List of alerts
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/Alert"
     post:
       tags: [Alerts]
@@ -1536,17 +1355,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/AlertInput"
       responses:
         "201":
@@ -1554,17 +1369,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Alert"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1581,17 +1392,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Alert"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1606,17 +1413,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/AlertUpdate"
       responses:
         "200":
@@ -1624,17 +1427,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Alert"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1715,21 +1514,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/Handoff"
     post:
       tags: [Handoffs]
@@ -1740,17 +1534,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/HandoffInput"
       responses:
         "201":
@@ -1758,17 +1548,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Handoff"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1785,17 +1571,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Handoff"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1810,17 +1592,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/HandoffUpdate"
       responses:
         "200":
@@ -1828,17 +1606,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Handoff"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1893,21 +1667,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/ChecklistTemplate"
     post:
       tags: [Checklist Templates]
@@ -1918,17 +1687,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ChecklistTemplateInput"
       responses:
         "201":
@@ -1936,17 +1701,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ChecklistTemplate"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1963,17 +1724,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ChecklistTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1988,17 +1745,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ChecklistTemplateUpdate"
       responses:
         "200":
@@ -2006,17 +1759,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ChecklistTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2080,21 +1829,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/ChecklistInstance"
     post:
       tags: [Checklist Instances]
@@ -2105,17 +1849,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ChecklistInstanceInput"
       responses:
         "201":
@@ -2123,17 +1863,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ChecklistInstance"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2150,17 +1886,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ChecklistInstance"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2175,17 +1907,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ChecklistInstanceUpdate"
       responses:
         "200":
@@ -2193,17 +1921,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ChecklistInstance"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2258,21 +1982,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/EscalationPolicy"
     post:
       tags: [Escalation Policies]
@@ -2283,17 +2002,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/EscalationPolicyInput"
       responses:
         "201":
@@ -2301,17 +2016,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EscalationPolicy"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2328,17 +2039,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EscalationPolicy"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2353,17 +2060,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/EscalationPolicyUpdate"
       responses:
         "200":
@@ -2371,17 +2074,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EscalationPolicy"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2436,21 +2135,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/RoutingRule"
     post:
       tags: [Routing Rules]
@@ -2461,17 +2155,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/RoutingRuleInput"
       responses:
         "201":
@@ -2479,17 +2169,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/RoutingRule"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2506,17 +2192,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/RoutingRule"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2531,17 +2213,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/RoutingRuleUpdate"
       responses:
         "200":
@@ -2549,17 +2227,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/RoutingRule"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2596,21 +2270,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/ScheduleTemplate"
     post:
       tags: [Schedule Templates]
@@ -2621,17 +2290,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ScheduleTemplateInput"
       responses:
         "201":
@@ -2639,17 +2304,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ScheduleTemplate"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2666,17 +2327,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ScheduleTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2691,17 +2348,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ScheduleTemplateUpdate"
       responses:
         "200":
@@ -2709,17 +2362,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ScheduleTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2760,21 +2409,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/WorkQueue"
     post:
       tags: [Work Queues]
@@ -2785,17 +2429,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/WorkQueueInput"
       responses:
         "201":
@@ -2803,17 +2443,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/WorkQueue"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2830,17 +2466,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/WorkQueue"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2855,17 +2487,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/WorApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/WorkQueueUpdate"
       responses:
         "200":
@@ -2873,17 +2501,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/WorApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/WorkQueue"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2971,34 +2595,26 @@ components:
       content:
         application/json:
           schema:
-
             allOf:
-
               - $ref: "#/components/schemas/WorApiResponse"
 
               - type: object
 
                 properties:
-
                   data:
-
                     $ref: "#/components/schemas/Error"
     NotFound:
       description: Resource not found
       content:
         application/json:
           schema:
-
             allOf:
-
               - $ref: "#/components/schemas/WorApiResponse"
 
               - type: object
 
                 properties:
-
                   data:
-
                     $ref: "#/components/schemas/Error"
   schemas:
     Error:
@@ -3045,10 +2661,30 @@ components:
       type: object
       properties:
         data:
-          type: array
-          description: List of items
+          type: object
+          description: Paginated data container
+          properties:
+            items:
+              type: array
+              description: List of items
+              items: {}
         meta:
-          $ref: "#/components/schemas/WorApiMeta"
+          allOf:
+            - $ref: "#/components/schemas/WorApiMeta"
+            - type: object
+              properties:
+                pagination:
+                  type: object
+                  description: Pagination metadata
+                  properties:
+                    nextCursor:
+                      type: string
+                      nullable: true
+                    prevCursor:
+                      type: string
+                      nullable: true
+                    limit:
+                      type: integer
 
     Timestamps:
       type: object
@@ -3502,15 +3138,7 @@ components:
               type: string
             taskType:
               type: string
-              enum:
-                [
-                  medication,
-                  procedure,
-                  lab-order,
-                  appointment,
-                  education,
-                  other,
-                ]
+              enum: [medication, procedure, lab-order, appointment, education, other]
             status:
               type: string
               enum: [draft, ready, in-progress, on-hold, completed, cancelled]
@@ -3544,8 +3172,7 @@ components:
           type: string
         taskType:
           type: string
-          enum:
-            [medication, procedure, lab-order, appointment, education, other]
+          enum: [medication, procedure, lab-order, appointment, education, other]
         status:
           type: string
           enum: [draft, ready, in-progress, on-hold, completed, cancelled]
@@ -3687,14 +3314,7 @@ components:
               type: string
             alertType:
               type: string
-              enum:
-                [
-                  drug-interaction,
-                  allergy,
-                  critical-value,
-                  clinical-rule,
-                  other,
-                ]
+              enum: [drug-interaction, allergy, critical-value, clinical-rule, other]
             severity:
               type: string
               enum: [low, medium, high, critical]
@@ -3704,8 +3324,7 @@ components:
               type: string
             status:
               type: string
-              enum:
-                [active, acknowledged, overridden, snoozed, resolved, dismissed]
+              enum: [active, acknowledged, overridden, snoozed, resolved, dismissed]
             acknowledgedBy:
               type: string
             acknowledgedAt:
@@ -3725,8 +3344,7 @@ components:
           type: string
         alertType:
           type: string
-          enum:
-            [drug-interaction, allergy, critical-value, clinical-rule, other]
+          enum: [drug-interaction, allergy, critical-value, clinical-rule, other]
         severity:
           type: string
           enum: [low, medium, high, critical]

@@ -6,31 +6,24 @@
  */
 
 import type { GetWorkflowInstanceResponse } from "../../types/index.js";
-import { wcTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/workflow-care-pathways-converters.js";
+import type { WorkflowInstanceRepository } from "../../repositories/index.js";
+import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get workflow instance by ID
  */
 export async function getWorkflowInstance(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: WorkflowInstanceRepository,
+    orgId: string,
+    id: string
 ): Promise<GetWorkflowInstanceResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const workflowInstance = await repo.findById(orgId, id);
+  if (!workflowInstance) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: workflowInstance,
     meta: {
       correlationId: wcTransactionId(),
       timestamp: new Date().toISOString(),

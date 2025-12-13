@@ -6,33 +6,26 @@
  */
 
 import type { GetHLMappingProfileResponse } from "../../types/index.js";
-import { intTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
+import type { HL7MappingProfileRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get HL7 mapping profile by ID
  */
 export async function getHL7MappingProfile(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: HL7MappingProfileRepository,
+    orgId: string,
+    id: string
 ): Promise<GetHLMappingProfileResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const hLMappingProfile = await repo.findById(orgId, id);
+  if (!hLMappingProfile) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: hLMappingProfile,
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

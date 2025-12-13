@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  Observation,
   ListObservationsParams,
-  ObservationInput,
-  ObservationUpdate
+  UpdateObservationRequest
 } from "../types/index.js";
 /**
  * ObservationRepository Interface
  */
-export interface ObservationRepository extends CrudRepository<Timestamps, ObservationInput, ObservationUpdate, string, ListObservationsParams> {
+export interface ObservationRepository extends CrudRepository<Observation, Observation, UpdateObservationRequest, string, ListObservationsParams> {
 
 }

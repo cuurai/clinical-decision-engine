@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/evidence-review.entity";
 export * from "./dto/list-evidence-review.dto";
-export * from "./dto/create-evidence-review.dto";
 export * from "./dto/get-evidence-review.dto";
-export * from "./dto/update-evidence-review.dto";
 export * from "./dto/delete-evidence-review.dto";

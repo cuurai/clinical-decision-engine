@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  EscalationPolicy,
   ListEscalationPoliciesParams,
-  EscalationPolicyInput,
-  EscalationPolicyUpdate
+  UpdateEscalationPolicyRequest
 } from "../types/index.js";
 /**
  * EscalationPolicyRepository Interface
  */
-export interface EscalationPolicyRepository extends CrudRepository<Timestamps, EscalationPolicyInput, EscalationPolicyUpdate, string, ListEscalationPoliciesParams> {
+export interface EscalationPolicyRepository extends CrudRepository<EscalationPolicy, EscalationPolicy, UpdateEscalationPolicyRequest, string, ListEscalationPoliciesParams> {
 
 }

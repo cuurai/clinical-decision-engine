@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  DocumentReference,
   ListDocumentsParams,
-  DocumentReferenceInput,
-  DocumentReferenceUpdate
+  UpdateDocumentReferenceRequest
 } from "../types/index.js";
 /**
  * DocumentRepository Interface
  */
-export interface DocumentRepository extends CrudRepository<Timestamps, DocumentReferenceInput, DocumentReferenceUpdate, string, ListDocumentsParams> {
+export interface DocumentRepository extends CrudRepository<DocumentReference, DocumentReference, UpdateDocumentReferenceRequest, string, ListDocumentsParams> {
 
 }

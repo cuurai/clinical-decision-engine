@@ -16,12 +16,11 @@ import type {
 import type {
   APICredential,
   ListAPICredentialsParams,
-  APICredentialInput,
-  APICredentialUpdate
+  UpdateAPICredentialRequest
 } from "../types/index.js";
 /**
  * APICredentialRepository Interface
  */
-export interface APICredentialRepository extends CrudRepository<APICredential, APICredentialInput, APICredentialUpdate, string, ListAPICredentialsParams> {
+export interface APICredentialRepository extends CrudRepository<APICredential, APICredential, UpdateAPICredentialRequest, string, ListAPICredentialsParams> {
 
 }

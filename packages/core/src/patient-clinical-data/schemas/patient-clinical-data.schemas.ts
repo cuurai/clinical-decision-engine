@@ -1,5 +1,19 @@
 import { z, type ZodTypeAny } from "zod";
 
+const PatApiMeta = z
+  .object({
+    correlationId: z.string(),
+    timestamp: z.string().datetime({ offset: true }),
+    totalCount: z.number().int(),
+    pageSize: z.number().int(),
+    pageNumber: z.number().int(),
+  })
+  .partial()
+  .passthrough();
+const PatApiResponse = z
+  .object({ data: z.object({}).partial().passthrough(), meta: PatApiMeta })
+  .partial()
+  .passthrough();
 const Timestamps = z
   .object({
     createdAt: z.string().datetime({ offset: true }),
@@ -90,6 +104,9 @@ const PatientInput = z
     telecom: z.array(ContactPoint).optional(),
   })
   .passthrough();
+const createPatient_Body = PatApiResponse.and(
+  z.object({ data: PatientInput }).partial().passthrough()
+);
 const Error = z
   .object({
     error: z.string(),
@@ -106,6 +123,9 @@ const PatientUpdate = z
   })
   .partial()
   .passthrough();
+const updatePatient_Body = PatApiResponse.and(
+  z.object({ data: PatientUpdate }).partial().passthrough()
+);
 const PatientSummary = z
   .object({
     patient: Patient,
@@ -365,6 +385,10 @@ const DocumentReference = Timestamps.and(
     })
     .passthrough()
 );
+const PatApiListResponse = z
+  .object({ data: z.array(z.any()), meta: PatApiMeta })
+  .partial()
+  .passthrough();
 const EncounterInput = z
   .object({
     patientId: z.string(),
@@ -382,6 +406,9 @@ const EncounterInput = z
     period: Period.optional(),
   })
   .passthrough();
+const createEncounter_Body = PatApiResponse.and(
+  z.object({ data: EncounterInput }).partial().passthrough()
+);
 const EncounterUpdate = z
   .object({
     status: z.enum([
@@ -397,6 +424,9 @@ const EncounterUpdate = z
   })
   .partial()
   .passthrough();
+const updateEncounter_Body = PatApiResponse.and(
+  z.object({ data: EncounterUpdate }).partial().passthrough()
+);
 const ConditionInput = z
   .object({
     patientId: z.string(),
@@ -410,6 +440,9 @@ const ConditionInput = z
       .default("active"),
   })
   .passthrough();
+const createCondition_Body = PatApiResponse.and(
+  z.object({ data: ConditionInput }).partial().passthrough()
+);
 const ConditionUpdate = z
   .object({
     code: CodeableConcept,
@@ -419,6 +452,9 @@ const ConditionUpdate = z
   })
   .partial()
   .passthrough();
+const updateCondition_Body = PatApiResponse.and(
+  z.object({ data: ConditionUpdate }).partial().passthrough()
+);
 const AllergyInput = z
   .object({
     patientId: z.string(),
@@ -428,6 +464,9 @@ const AllergyInput = z
     status: z.enum(["active", "inactive", "resolved"]).optional().default("active"),
   })
   .passthrough();
+const createAllergy_Body = PatApiResponse.and(
+  z.object({ data: AllergyInput }).partial().passthrough()
+);
 const AllergyUpdate = z
   .object({
     reaction: z.array(AllergyReaction),
@@ -436,6 +475,9 @@ const AllergyUpdate = z
   })
   .partial()
   .passthrough();
+const updateAllergy_Body = PatApiResponse.and(
+  z.object({ data: AllergyUpdate }).partial().passthrough()
+);
 const MedicationStatementInput = z
   .object({
     patientId: z.string(),
@@ -456,6 +498,9 @@ const MedicationStatementInput = z
       .default("active"),
   })
   .passthrough();
+const createMedicationStatement_Body = PatApiResponse.and(
+  z.object({ data: MedicationStatementInput }).partial().passthrough()
+);
 const MedicationStatementUpdate = z
   .object({
     effectivePeriod: Period,
@@ -472,6 +517,9 @@ const MedicationStatementUpdate = z
   })
   .partial()
   .passthrough();
+const updateMedicationStatement_Body = PatApiResponse.and(
+  z.object({ data: MedicationStatementUpdate }).partial().passthrough()
+);
 const MedicationOrder = Timestamps.and(
   z
     .object({
@@ -517,6 +565,9 @@ const MedicationOrderInput = z
       .default("draft"),
   })
   .passthrough();
+const createMedicationOrder_Body = PatApiResponse.and(
+  z.object({ data: MedicationOrderInput }).partial().passthrough()
+);
 const MedicationOrderUpdate = z
   .object({
     dosageInstruction: z.array(Dosage),
@@ -533,6 +584,9 @@ const MedicationOrderUpdate = z
   })
   .partial()
   .passthrough();
+const updateMedicationOrder_Body = PatApiResponse.and(
+  z.object({ data: MedicationOrderUpdate }).partial().passthrough()
+);
 const MedicationAdministration = Timestamps.and(
   z
     .object({
@@ -564,6 +618,9 @@ const ImmunizationInput = z
     status: z.enum(["completed", "entered-in-error", "not-done"]).optional().default("completed"),
   })
   .passthrough();
+const createImmunization_Body = PatApiResponse.and(
+  z.object({ data: ImmunizationInput }).partial().passthrough()
+);
 const ImmunizationUpdate = z
   .object({
     occurrenceDateTime: z.string().datetime({ offset: true }),
@@ -572,6 +629,9 @@ const ImmunizationUpdate = z
   })
   .partial()
   .passthrough();
+const updateImmunization_Body = PatApiResponse.and(
+  z.object({ data: ImmunizationUpdate }).partial().passthrough()
+);
 const ObservationInput = z
   .object({
     patientId: z.string(),
@@ -598,6 +658,9 @@ const ObservationInput = z
       .default("preliminary"),
   })
   .passthrough();
+const createObservation_Body = PatApiResponse.and(
+  z.object({ data: ObservationInput }).partial().passthrough()
+);
 const ObservationUpdate = z
   .object({
     valueQuantity: Quantity,
@@ -617,6 +680,9 @@ const ObservationUpdate = z
   })
   .partial()
   .passthrough();
+const updateObservation_Body = PatApiResponse.and(
+  z.object({ data: ObservationUpdate }).partial().passthrough()
+);
 const DiagnosticReportInput = z
   .object({
     patientId: z.string(),
@@ -641,6 +707,9 @@ const DiagnosticReportInput = z
     conclusion: z.string().optional(),
   })
   .passthrough();
+const createDiagnosticReport_Body = PatApiResponse.and(
+  z.object({ data: DiagnosticReportInput }).partial().passthrough()
+);
 const DiagnosticReportUpdate = z
   .object({
     conclusion: z.string(),
@@ -659,6 +728,9 @@ const DiagnosticReportUpdate = z
   })
   .partial()
   .passthrough();
+const updateDiagnosticReport_Body = PatApiResponse.and(
+  z.object({ data: DiagnosticReportUpdate }).partial().passthrough()
+);
 const ImagingStudy = Timestamps.and(
   z
     .object({
@@ -685,12 +757,18 @@ const ImagingStudyInput = z
       .default("registered"),
   })
   .passthrough();
+const createImagingStudy_Body = PatApiResponse.and(
+  z.object({ data: ImagingStudyInput }).partial().passthrough()
+);
 const ImagingStudyUpdate = z
   .object({
     status: z.enum(["registered", "available", "cancelled", "entered-in-error", "unknown"]),
   })
   .partial()
   .passthrough();
+const updateImagingStudy_Body = PatApiResponse.and(
+  z.object({ data: ImagingStudyUpdate }).partial().passthrough()
+);
 const ImagingSeries = z
   .object({
     id: z.string(),
@@ -723,6 +801,9 @@ const ProcedureInput = z
       .default("preparation"),
   })
   .passthrough();
+const createProcedure_Body = PatApiResponse.and(
+  z.object({ data: ProcedureInput }).partial().passthrough()
+);
 const ProcedureUpdate = z
   .object({
     performedPeriod: Period,
@@ -739,6 +820,9 @@ const ProcedureUpdate = z
   })
   .partial()
   .passthrough();
+const updateProcedure_Body = PatApiResponse.and(
+  z.object({ data: ProcedureUpdate }).partial().passthrough()
+);
 const ClinicalNoteInput = z
   .object({
     patientId: z.string(),
@@ -756,6 +840,9 @@ const ClinicalNoteInput = z
     title: z.string().optional(),
   })
   .passthrough();
+const createNote_Body = PatApiResponse.and(
+  z.object({ data: ClinicalNoteInput }).partial().passthrough()
+);
 const ClinicalNoteUpdate = z
   .object({
     content: z.string(),
@@ -771,6 +858,9 @@ const ClinicalNoteUpdate = z
   })
   .partial()
   .passthrough();
+const updateNote_Body = PatApiResponse.and(
+  z.object({ data: ClinicalNoteUpdate }).partial().passthrough()
+);
 const CareTeamParticipant = z
   .object({ role: CodeableConcept, member: z.string() })
   .partial()
@@ -799,6 +889,9 @@ const CareTeamInput = z
     period: Period.optional(),
   })
   .passthrough();
+const createCareTeam_Body = PatApiResponse.and(
+  z.object({ data: CareTeamInput }).partial().passthrough()
+);
 const CareTeamUpdate = z
   .object({
     participant: z.array(CareTeamParticipant),
@@ -807,6 +900,9 @@ const CareTeamUpdate = z
   })
   .partial()
   .passthrough();
+const updateCareTeam_Body = PatApiResponse.and(
+  z.object({ data: CareTeamUpdate }).partial().passthrough()
+);
 const DocumentReferenceInput = z
   .object({
     patientId: z.string(),
@@ -816,6 +912,9 @@ const DocumentReferenceInput = z
     status: z.enum(["current", "superseded", "entered-in-error"]).optional().default("current"),
   })
   .passthrough();
+const createDocument_Body = PatApiResponse.and(
+  z.object({ data: DocumentReferenceInput }).partial().passthrough()
+);
 const DocumentReferenceUpdate = z
   .object({
     status: z.enum(["current", "superseded", "entered-in-error"]),
@@ -823,8 +922,13 @@ const DocumentReferenceUpdate = z
   })
   .partial()
   .passthrough();
+const updateDocument_Body = PatApiResponse.and(
+  z.object({ data: DocumentReferenceUpdate }).partial().passthrough()
+);
 
 export const schemas: Record<string, ZodTypeAny> = {
+  PatApiMeta,
+  PatApiResponse,
   Timestamps,
   Coding,
   CodeableConcept,
@@ -836,8 +940,10 @@ export const schemas: Record<string, ZodTypeAny> = {
   Pagination,
   PatientList,
   PatientInput,
+  createPatient_Body,
   Error,
   PatientUpdate,
+  updatePatient_Body,
   PatientSummary,
   Period,
   Duration,
@@ -857,38 +963,65 @@ export const schemas: Record<string, ZodTypeAny> = {
   Attachment,
   DocumentContent,
   DocumentReference,
+  PatApiListResponse,
   EncounterInput,
+  createEncounter_Body,
   EncounterUpdate,
+  updateEncounter_Body,
   ConditionInput,
+  createCondition_Body,
   ConditionUpdate,
+  updateCondition_Body,
   AllergyInput,
+  createAllergy_Body,
   AllergyUpdate,
+  updateAllergy_Body,
   MedicationStatementInput,
+  createMedicationStatement_Body,
   MedicationStatementUpdate,
+  updateMedicationStatement_Body,
   MedicationOrder,
   MedicationOrderInput,
+  createMedicationOrder_Body,
   MedicationOrderUpdate,
+  updateMedicationOrder_Body,
   MedicationAdministration,
   ImmunizationInput,
+  createImmunization_Body,
   ImmunizationUpdate,
+  updateImmunization_Body,
   ObservationInput,
+  createObservation_Body,
   ObservationUpdate,
+  updateObservation_Body,
   DiagnosticReportInput,
+  createDiagnosticReport_Body,
   DiagnosticReportUpdate,
+  updateDiagnosticReport_Body,
   ImagingStudy,
   ImagingStudyInput,
+  createImagingStudy_Body,
   ImagingStudyUpdate,
+  updateImagingStudy_Body,
   ImagingSeries,
   ProcedureInput,
+  createProcedure_Body,
   ProcedureUpdate,
+  updateProcedure_Body,
   ClinicalNoteInput,
+  createNote_Body,
   ClinicalNoteUpdate,
+  updateNote_Body,
   CareTeamParticipant,
   CareTeam,
   CareTeamInput,
+  createCareTeam_Body,
   CareTeamUpdate,
+  updateCareTeam_Body,
   DocumentReferenceInput,
+  createDocument_Body,
   DocumentReferenceUpdate,
+  updateDocument_Body,
 };
 
 

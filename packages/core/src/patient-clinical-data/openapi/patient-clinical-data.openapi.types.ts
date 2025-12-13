@@ -961,9 +961,19 @@ export interface components {
             meta?: components["schemas"]["PatApiMeta"];
         };
         PatApiListResponse: {
-            /** @description List of items */
-            data?: unknown[];
-            meta?: components["schemas"]["PatApiMeta"];
+            /** @description Paginated data container */
+            data?: {
+                /** @description List of items */
+                items?: unknown[];
+            };
+            meta?: components["schemas"]["PatApiMeta"] & {
+                /** @description Pagination metadata */
+                pagination?: {
+                    nextCursor?: string | null;
+                    prevCursor?: string | null;
+                    limit?: number;
+                };
+            };
         };
         Timestamps: {
             /** Format: date-time */
@@ -1530,7 +1540,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                "application/json": components["schemas"]["Error"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["Error"];
+                };
             };
         };
         /** @description Resource not found */
@@ -1539,7 +1551,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                "application/json": components["schemas"]["Error"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["Error"];
+                };
             };
         };
     };
@@ -1579,7 +1593,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatientList"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["PatientList"];
+                    };
                 };
             };
         };
@@ -1593,7 +1609,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["PatientInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["PatientInput"];
+                };
             };
         };
         responses: {
@@ -1603,7 +1621,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Patient"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Patient"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -1627,7 +1647,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Patient"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Patient"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1667,7 +1689,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["PatientUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["PatientUpdate"];
+                };
             };
         };
         responses: {
@@ -1677,7 +1701,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Patient"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Patient"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1701,7 +1727,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatientSummary"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["PatientSummary"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1730,9 +1758,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Encounter"][];
-                    };
+                    "application/json": components["schemas"]["Encounter"][];
                 };
             };
         };
@@ -1760,9 +1786,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Condition"][];
-                    };
+                    "application/json": components["schemas"]["Condition"][];
                 };
             };
         };
@@ -1790,9 +1814,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Allergy"][];
-                    };
+                    "application/json": components["schemas"]["Allergy"][];
                 };
             };
         };
@@ -1820,9 +1842,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["MedicationStatement"][];
-                    };
+                    "application/json": components["schemas"]["MedicationStatement"][];
                 };
             };
         };
@@ -1850,9 +1870,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Immunization"][];
-                    };
+                    "application/json": components["schemas"]["Immunization"][];
                 };
             };
         };
@@ -1881,9 +1899,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Observation"][];
-                    };
+                    "application/json": components["schemas"]["Observation"][];
                 };
             };
         };
@@ -1911,9 +1927,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Observation"][];
-                    };
+                    "application/json": components["schemas"]["Observation"][];
                 };
             };
         };
@@ -1941,9 +1955,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Observation"][];
-                    };
+                    "application/json": components["schemas"]["Observation"][];
                 };
             };
         };
@@ -1971,9 +1983,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["DiagnosticReport"][];
-                    };
+                    "application/json": components["schemas"]["DiagnosticReport"][];
                 };
             };
         };
@@ -2001,9 +2011,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Procedure"][];
-                    };
+                    "application/json": components["schemas"]["Procedure"][];
                 };
             };
         };
@@ -2031,9 +2039,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["ClinicalNote"][];
-                    };
+                    "application/json": components["schemas"]["ClinicalNote"][];
                 };
             };
         };
@@ -2061,9 +2067,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["CareTeamMember"][];
-                    };
+                    "application/json": components["schemas"]["CareTeamMember"][];
                 };
             };
         };
@@ -2091,9 +2095,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["DocumentReference"][];
-                    };
+                    "application/json": components["schemas"]["DocumentReference"][];
                 };
             };
         };
@@ -2136,7 +2138,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EncounterInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["EncounterInput"];
+                };
             };
         };
         responses: {
@@ -2146,7 +2150,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Encounter"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Encounter"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2170,7 +2176,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Encounter"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Encounter"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2210,7 +2218,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EncounterUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["EncounterUpdate"];
+                };
             };
         };
         responses: {
@@ -2220,7 +2230,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Encounter"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Encounter"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2249,9 +2261,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Condition"][];
-                    };
+                    "application/json": components["schemas"]["Condition"][];
                 };
             };
         };
@@ -2279,9 +2289,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Observation"][];
-                    };
+                    "application/json": components["schemas"]["Observation"][];
                 };
             };
         };
@@ -2309,9 +2317,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["DiagnosticReport"][];
-                    };
+                    "application/json": components["schemas"]["DiagnosticReport"][];
                 };
             };
         };
@@ -2339,9 +2345,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Procedure"][];
-                    };
+                    "application/json": components["schemas"]["Procedure"][];
                 };
             };
         };
@@ -2369,9 +2373,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["ClinicalNote"][];
-                    };
+                    "application/json": components["schemas"]["ClinicalNote"][];
                 };
             };
         };
@@ -2414,7 +2416,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ConditionInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ConditionInput"];
+                };
             };
         };
         responses: {
@@ -2424,7 +2428,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Condition"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Condition"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2448,7 +2454,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Condition"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Condition"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2488,7 +2496,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ConditionUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ConditionUpdate"];
+                };
             };
         };
         responses: {
@@ -2498,7 +2508,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Condition"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Condition"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2527,9 +2539,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["ClinicalNote"][];
-                    };
+                    "application/json": components["schemas"]["ClinicalNote"][];
                 };
             };
         };
@@ -2572,7 +2582,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["AllergyInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["AllergyInput"];
+                };
             };
         };
         responses: {
@@ -2582,7 +2594,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Allergy"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Allergy"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2606,7 +2620,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Allergy"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Allergy"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2646,7 +2662,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["AllergyUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["AllergyUpdate"];
+                };
             };
         };
         responses: {
@@ -2656,7 +2674,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Allergy"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Allergy"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2700,7 +2720,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["MedicationStatementInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["MedicationStatementInput"];
+                };
             };
         };
         responses: {
@@ -2710,7 +2732,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MedicationStatement"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["MedicationStatement"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2734,7 +2758,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MedicationStatement"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["MedicationStatement"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2774,7 +2800,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["MedicationStatementUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["MedicationStatementUpdate"];
+                };
             };
         };
         responses: {
@@ -2784,7 +2812,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MedicationStatement"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["MedicationStatement"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2828,7 +2858,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["MedicationOrderInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["MedicationOrderInput"];
+                };
             };
         };
         responses: {
@@ -2838,7 +2870,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MedicationOrder"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["MedicationOrder"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2862,7 +2896,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MedicationOrder"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["MedicationOrder"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2902,7 +2938,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["MedicationOrderUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["MedicationOrderUpdate"];
+                };
             };
         };
         responses: {
@@ -2912,7 +2950,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MedicationOrder"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["MedicationOrder"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2941,9 +2981,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["MedicationAdministration"][];
-                    };
+                    "application/json": components["schemas"]["MedicationAdministration"][];
                 };
             };
         };
@@ -2986,7 +3024,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ImmunizationInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ImmunizationInput"];
+                };
             };
         };
         responses: {
@@ -2996,7 +3036,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Immunization"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Immunization"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3020,7 +3062,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Immunization"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Immunization"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3060,7 +3104,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ImmunizationUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ImmunizationUpdate"];
+                };
             };
         };
         responses: {
@@ -3070,7 +3116,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Immunization"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Immunization"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3116,7 +3164,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ObservationInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ObservationInput"];
+                };
             };
         };
         responses: {
@@ -3126,7 +3176,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Observation"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Observation"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3150,7 +3202,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Observation"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Observation"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3190,7 +3244,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ObservationUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ObservationUpdate"];
+                };
             };
         };
         responses: {
@@ -3200,7 +3256,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Observation"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Observation"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3245,7 +3303,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DiagnosticReportInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["DiagnosticReportInput"];
+                };
             };
         };
         responses: {
@@ -3255,7 +3315,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DiagnosticReport"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["DiagnosticReport"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3279,7 +3341,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DiagnosticReport"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["DiagnosticReport"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3319,7 +3383,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DiagnosticReportUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["DiagnosticReportUpdate"];
+                };
             };
         };
         responses: {
@@ -3329,7 +3395,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DiagnosticReport"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["DiagnosticReport"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3358,9 +3426,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["Observation"][];
-                    };
+                    "application/json": components["schemas"]["Observation"][];
                 };
             };
         };
@@ -3388,9 +3454,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["ImagingStudy"][];
-                    };
+                    "application/json": components["schemas"]["ImagingStudy"][];
                 };
             };
         };
@@ -3433,7 +3497,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ImagingStudyInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ImagingStudyInput"];
+                };
             };
         };
         responses: {
@@ -3443,7 +3509,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ImagingStudy"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["ImagingStudy"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3467,7 +3535,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ImagingStudy"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["ImagingStudy"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3507,7 +3577,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ImagingStudyUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ImagingStudyUpdate"];
+                };
             };
         };
         responses: {
@@ -3517,7 +3589,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ImagingStudy"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["ImagingStudy"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3546,9 +3620,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PatApiListResponse"] & {
-                        data?: components["schemas"]["ImagingSeries"][];
-                    };
+                    "application/json": components["schemas"]["ImagingSeries"][];
                 };
             };
         };
@@ -3591,7 +3663,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ProcedureInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ProcedureInput"];
+                };
             };
         };
         responses: {
@@ -3601,7 +3675,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Procedure"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Procedure"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3625,7 +3701,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Procedure"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Procedure"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3665,7 +3743,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ProcedureUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ProcedureUpdate"];
+                };
             };
         };
         responses: {
@@ -3675,7 +3755,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Procedure"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["Procedure"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3720,7 +3802,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ClinicalNoteInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ClinicalNoteInput"];
+                };
             };
         };
         responses: {
@@ -3730,7 +3814,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalNote"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["ClinicalNote"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3754,7 +3840,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalNote"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["ClinicalNote"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3794,7 +3882,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ClinicalNoteUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["ClinicalNoteUpdate"];
+                };
             };
         };
         responses: {
@@ -3804,7 +3894,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalNote"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["ClinicalNote"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3849,7 +3941,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CareTeamInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["CareTeamInput"];
+                };
             };
         };
         responses: {
@@ -3859,7 +3953,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CareTeam"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["CareTeam"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3883,7 +3979,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CareTeam"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["CareTeam"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3923,7 +4021,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CareTeamUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["CareTeamUpdate"];
+                };
             };
         };
         responses: {
@@ -3933,7 +4033,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CareTeam"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["CareTeam"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3978,7 +4080,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DocumentReferenceInput"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["DocumentReferenceInput"];
+                };
             };
         };
         responses: {
@@ -3988,7 +4092,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DocumentReference"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["DocumentReference"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -4012,7 +4118,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DocumentReference"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["DocumentReference"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -4052,7 +4160,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["DocumentReferenceUpdate"];
+                "application/json": components["schemas"]["PatApiResponse"] & {
+                    data?: components["schemas"]["DocumentReferenceUpdate"];
+                };
             };
         };
         responses: {
@@ -4062,7 +4172,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DocumentReference"];
+                    "application/json": components["schemas"]["PatApiResponse"] & {
+                        data?: components["schemas"]["DocumentReference"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];

@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/routing-rule.entity";
 export * from "./dto/list-routing-rule.dto";
-export * from "./dto/create-routing-rule.dto";
 export * from "./dto/get-routing-rule.dto";
-export * from "./dto/update-routing-rule.dto";
 export * from "./dto/delete-routing-rule.dto";

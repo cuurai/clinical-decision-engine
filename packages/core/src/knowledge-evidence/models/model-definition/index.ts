@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/model-definition.entity";
 export * from "./dto/list-model-definition.dto";
-export * from "./dto/create-model-definition.dto";
 export * from "./dto/get-model-definition.dto";
-export * from "./dto/update-model-definition.dto";
 export * from "./dto/delete-model-definition.dto";

@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/workflow-instance.entity";
 export * from "./dto/list-workflow-instance.dto";
-export * from "./dto/create-workflow-instance.dto";
 export * from "./dto/get-workflow-instance.dto";
-export * from "./dto/update-workflow-instance.dto";
 export * from "./dto/delete-workflow-instance.dto";

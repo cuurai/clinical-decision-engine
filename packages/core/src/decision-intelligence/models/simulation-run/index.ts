@@ -12,5 +12,4 @@
 // Auto-generated barrel export
 export * from "./entity/simulation-run.entity";
 export * from "./dto/list-simulation-run.dto";
-export * from "./dto/create-simulation-run.dto";
 export * from "./dto/get-simulation-run.dto";

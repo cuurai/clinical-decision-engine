@@ -6,7 +6,7 @@
  */
 
 import type { HL7MappingProfileRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../../shared/helpers";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete HL7 mapping profile
@@ -22,7 +22,7 @@ export async function deleteHL7MappingProfile(
   return {
     data: { success: true },
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

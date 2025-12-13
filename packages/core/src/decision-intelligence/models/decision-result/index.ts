@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/decision-result.entity";
 export * from "./dto/list-decision-result.dto";
-export * from "./dto/create-decision-result.dto";
 export * from "./dto/get-decision-result.dto";
-export * from "./dto/update-decision-result.dto";
 export * from "./dto/delete-decision-result.dto";

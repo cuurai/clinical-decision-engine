@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ScoringTemplate,
   ListScoringTemplatesParams,
-  ScoringTemplateInput,
-  ScoringTemplateUpdate
+  UpdateScoringTemplateRequest
 } from "../types/index.js";
 /**
  * ScoringTemplateRepository Interface
  */
-export interface ScoringTemplateRepository extends CrudRepository<Timestamps, ScoringTemplateInput, ScoringTemplateUpdate, string, ListScoringTemplatesParams> {
+export interface ScoringTemplateRepository extends CrudRepository<ScoringTemplate, ScoringTemplate, UpdateScoringTemplateRequest, string, ListScoringTemplatesParams> {
 
 }

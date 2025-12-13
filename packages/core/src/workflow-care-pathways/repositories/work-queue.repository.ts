@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  WorkQueue,
   ListWorkQueuesParams,
-  WorkQueueInput,
-  WorkQueueUpdate
+  UpdateWorkQueueRequest
 } from "../types/index.js";
 /**
  * WorkQueueRepository Interface
  */
-export interface WorkQueueRepository extends CrudRepository<Timestamps, WorkQueueInput, WorkQueueUpdate, string, ListWorkQueuesParams> {
+export interface WorkQueueRepository extends CrudRepository<WorkQueue, WorkQueue, UpdateWorkQueueRequest, string, ListWorkQueuesParams> {
 
 }

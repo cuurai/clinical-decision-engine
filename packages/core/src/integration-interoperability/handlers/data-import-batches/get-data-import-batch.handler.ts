@@ -6,33 +6,26 @@
  */
 
 import type { GetDataImportBatchResponse } from "../../types/index.js";
-import { intTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
+import type { DataImportBatchRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get data import batch by ID
  */
 export async function getDataImportBatch(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: DataImportBatchRepository,
+    orgId: string,
+    id: string
 ): Promise<GetDataImportBatchResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const dataImportBatch = await repo.findById(orgId, id);
+  if (!dataImportBatch) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: dataImportBatch,
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

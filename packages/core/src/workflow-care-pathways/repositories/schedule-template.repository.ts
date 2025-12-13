@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ScheduleTemplate,
   ListScheduleTemplatesParams,
-  ScheduleTemplateInput,
-  ScheduleTemplateUpdate
+  UpdateScheduleTemplateRequest
 } from "../types/index.js";
 /**
  * ScheduleTemplateRepository Interface
  */
-export interface ScheduleTemplateRepository extends CrudRepository<Timestamps, ScheduleTemplateInput, ScheduleTemplateUpdate, string, ListScheduleTemplatesParams> {
+export interface ScheduleTemplateRepository extends CrudRepository<ScheduleTemplate, ScheduleTemplate, UpdateScheduleTemplateRequest, string, ListScheduleTemplatesParams> {
 
 }

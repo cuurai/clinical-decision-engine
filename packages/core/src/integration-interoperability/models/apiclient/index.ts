@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/apiclient.entity";
 export * from "./dto/list-apiclient.dto";
-export * from "./dto/create-apiclient.dto";
 export * from "./dto/get-apiclient.dto";
-export * from "./dto/update-apiclient.dto";
 export * from "./dto/delete-apiclient.dto";

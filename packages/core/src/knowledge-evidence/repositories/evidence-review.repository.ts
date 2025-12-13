@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  EvidenceReview,
   ListEvidenceReviewsParams,
-  EvidenceReviewInput,
-  EvidenceReviewUpdate
+  UpdateEvidenceReviewRequest
 } from "../types/index.js";
 /**
  * EvidenceReviewRepository Interface
  */
-export interface EvidenceReviewRepository extends CrudRepository<Timestamps, EvidenceReviewInput, EvidenceReviewUpdate, string, ListEvidenceReviewsParams> {
+export interface EvidenceReviewRepository extends CrudRepository<EvidenceReview, EvidenceReview, UpdateEvidenceReviewRequest, string, ListEvidenceReviewsParams> {
 
 }

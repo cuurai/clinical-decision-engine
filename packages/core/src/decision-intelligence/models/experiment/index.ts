@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/experiment.entity";
 export * from "./dto/list-experiment.dto";
-export * from "./dto/create-experiment.dto";
 export * from "./dto/get-experiment.dto";
-export * from "./dto/update-experiment.dto";
 export * from "./dto/delete-experiment.dto";

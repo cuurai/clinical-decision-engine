@@ -12,6 +12,4 @@
 // Auto-generated barrel export
 export * from "./entity/interface-error.entity";
 export * from "./dto/list-interface-error.dto";
-export * from "./dto/create-interface-error.dto";
 export * from "./dto/get-interface-error.dto";
-export * from "./dto/update-interface-error.dto";

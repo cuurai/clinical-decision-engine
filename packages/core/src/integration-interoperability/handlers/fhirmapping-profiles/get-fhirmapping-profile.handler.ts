@@ -6,33 +6,26 @@
  */
 
 import type { GetFHIRMappingProfileResponse } from "../../types/index.js";
-import { intTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
+import type { FHIRMappingProfileRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get FHIR mapping profile by ID
  */
 export async function getFHIRMappingProfile(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: FHIRMappingProfileRepository,
+    orgId: string,
+    id: string
 ): Promise<GetFHIRMappingProfileResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const fHIRMappingProfile = await repo.findById(orgId, id);
+  if (!fHIRMappingProfile) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: fHIRMappingProfile,
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

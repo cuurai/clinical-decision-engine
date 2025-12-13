@@ -12,6 +12,4 @@
 // Auto-generated barrel export
 export * from "./entity/event-delivery.entity";
 export * from "./dto/list-event-delivery.dto";
-export * from "./dto/create-event-delivery.dto";
 export * from "./dto/get-event-delivery.dto";
-export * from "./dto/update-event-delivery.dto";

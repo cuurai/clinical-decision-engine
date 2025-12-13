@@ -16,12 +16,11 @@ import type {
 import type {
   HL7MappingProfile,
   ListHLMappingProfilesParams,
-  HL7MappingProfileInput,
-  HL7MappingProfileUpdate
+  UpdateHL7MappingProfileRequest
 } from "../types/index.js";
 /**
  * HL7MappingProfileRepository Interface
  */
-export interface HL7MappingProfileRepository extends CrudRepository<HL7MappingProfile, HL7MappingProfileInput, HL7MappingProfileUpdate, string, ListHLMappingProfilesParams> {
+export interface HL7MappingProfileRepository extends CrudRepository<HL7MappingProfile, HL7MappingProfile, UpdateHL7MappingProfileRequest, string, ListHLMappingProfilesParams> {
 
 }

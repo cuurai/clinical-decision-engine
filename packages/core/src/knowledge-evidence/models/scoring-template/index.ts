@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/scoring-template.entity";
 export * from "./dto/list-scoring-template.dto";
-export * from "./dto/create-scoring-template.dto";
 export * from "./dto/get-scoring-template.dto";
-export * from "./dto/update-scoring-template.dto";
 export * from "./dto/delete-scoring-template.dto";

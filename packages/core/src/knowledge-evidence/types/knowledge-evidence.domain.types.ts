@@ -111,34 +111,34 @@ export type KnowledgePackageValueSet = operations["listKnowledgePackageValueSets
 
 // These types represent the input data for create/update operations
 
-export type ClinicalRuleInputInput = NonNullable<operations["createClinicalRule"]["requestBody"]>["content"]["application/json"];
-export type ClinicalRuleUpdateInput = NonNullable<operations["updateClinicalRule"]["requestBody"]>["content"]["application/json"];
-export type RuleSetInputInput = NonNullable<operations["createRuleSet"]["requestBody"]>["content"]["application/json"];
-export type RuleSetUpdateInput = NonNullable<operations["updateRuleSet"]["requestBody"]>["content"]["application/json"];
-export type ClinicalGuidelineInputInput = NonNullable<operations["createGuideline"]["requestBody"]>["content"]["application/json"];
-export type ClinicalGuidelineUpdateInput = NonNullable<operations["updateGuideline"]["requestBody"]>["content"]["application/json"];
-export type CareProtocolTemplateInputInput = NonNullable<operations["createCareProtocol"]["requestBody"]>["content"]["application/json"];
-export type CareProtocolTemplateUpdateInput = NonNullable<operations["updateCareProtocol"]["requestBody"]>["content"]["application/json"];
-export type OrderSetTemplateInputInput = NonNullable<operations["createOrderSetTemplate"]["requestBody"]>["content"]["application/json"];
-export type OrderSetTemplateUpdateInput = NonNullable<operations["updateOrderSetTemplate"]["requestBody"]>["content"]["application/json"];
-export type ModelDefinitionInputInput = NonNullable<operations["createModelDefinition"]["requestBody"]>["content"]["application/json"];
-export type ModelDefinitionUpdateInput = NonNullable<operations["updateModelDefinition"]["requestBody"]>["content"]["application/json"];
-export type ModelVersionInputInput = NonNullable<operations["createModelVersion"]["requestBody"]>["content"]["application/json"];
-export type ModelVersionUpdateInput = NonNullable<operations["updateModelVersion"]["requestBody"]>["content"]["application/json"];
-export type ValueSetInputInput = NonNullable<operations["createValueSet"]["requestBody"]>["content"]["application/json"];
-export type ValueSetUpdateInput = NonNullable<operations["updateValueSet"]["requestBody"]>["content"]["application/json"];
-export type ConceptMapInputInput = NonNullable<operations["createConceptMap"]["requestBody"]>["content"]["application/json"];
-export type ConceptMapUpdateInput = NonNullable<operations["updateConceptMap"]["requestBody"]>["content"]["application/json"];
-export type ScoringTemplateInputInput = NonNullable<operations["createScoringTemplate"]["requestBody"]>["content"]["application/json"];
-export type ScoringTemplateUpdateInput = NonNullable<operations["updateScoringTemplate"]["requestBody"]>["content"]["application/json"];
-export type QuestionnaireTemplateInputInput = NonNullable<operations["createQuestionnaireTemplate"]["requestBody"]>["content"]["application/json"];
-export type QuestionnaireTemplateUpdateInput = NonNullable<operations["updateQuestionnaireTemplate"]["requestBody"]>["content"]["application/json"];
-export type EvidenceCitationInputInput = NonNullable<operations["createEvidenceCitation"]["requestBody"]>["content"]["application/json"];
-export type EvidenceCitationUpdateInput = NonNullable<operations["updateEvidenceCitation"]["requestBody"]>["content"]["application/json"];
-export type EvidenceReviewInputInput = NonNullable<operations["createEvidenceReview"]["requestBody"]>["content"]["application/json"];
-export type EvidenceReviewUpdateInput = NonNullable<operations["updateEvidenceReview"]["requestBody"]>["content"]["application/json"];
-export type KnowledgePackageInputInput = NonNullable<operations["createKnowledgePackage"]["requestBody"]>["content"]["application/json"];
-export type KnowledgePackageUpdateInput = NonNullable<operations["updateKnowledgePackage"]["requestBody"]>["content"]["application/json"];
+export type CreateClinicalRuleInput = NonNullable<operations["createClinicalRule"]["requestBody"]>["content"]["application/json"];
+export type UpdateClinicalRuleInput = NonNullable<operations["updateClinicalRule"]["requestBody"]>["content"]["application/json"];
+export type CreateRuleSetInput = NonNullable<operations["createRuleSet"]["requestBody"]>["content"]["application/json"];
+export type UpdateRuleSetInput = NonNullable<operations["updateRuleSet"]["requestBody"]>["content"]["application/json"];
+export type CreateGuidelineInput = NonNullable<operations["createGuideline"]["requestBody"]>["content"]["application/json"];
+export type UpdateGuidelineInput = NonNullable<operations["updateGuideline"]["requestBody"]>["content"]["application/json"];
+export type CreateCareProtocolInput = NonNullable<operations["createCareProtocol"]["requestBody"]>["content"]["application/json"];
+export type UpdateCareProtocolInput = NonNullable<operations["updateCareProtocol"]["requestBody"]>["content"]["application/json"];
+export type CreateOrderSetTemplateInput = NonNullable<operations["createOrderSetTemplate"]["requestBody"]>["content"]["application/json"];
+export type UpdateOrderSetTemplateInput = NonNullable<operations["updateOrderSetTemplate"]["requestBody"]>["content"]["application/json"];
+export type CreateModelDefinitionInput = NonNullable<operations["createModelDefinition"]["requestBody"]>["content"]["application/json"];
+export type UpdateModelDefinitionInput = NonNullable<operations["updateModelDefinition"]["requestBody"]>["content"]["application/json"];
+export type CreateModelVersionInput = NonNullable<operations["createModelVersion"]["requestBody"]>["content"]["application/json"];
+export type UpdateModelVersionInput = NonNullable<operations["updateModelVersion"]["requestBody"]>["content"]["application/json"];
+export type CreateValueSetInput = NonNullable<operations["createValueSet"]["requestBody"]>["content"]["application/json"];
+export type UpdateValueSetInput = NonNullable<operations["updateValueSet"]["requestBody"]>["content"]["application/json"];
+export type CreateConceptMapInput = NonNullable<operations["createConceptMap"]["requestBody"]>["content"]["application/json"];
+export type UpdateConceptMapInput = NonNullable<operations["updateConceptMap"]["requestBody"]>["content"]["application/json"];
+export type CreateScoringTemplateInput = NonNullable<operations["createScoringTemplate"]["requestBody"]>["content"]["application/json"];
+export type UpdateScoringTemplateInput = NonNullable<operations["updateScoringTemplate"]["requestBody"]>["content"]["application/json"];
+export type CreateQuestionnaireTemplateInput = NonNullable<operations["createQuestionnaireTemplate"]["requestBody"]>["content"]["application/json"];
+export type UpdateQuestionnaireTemplateInput = NonNullable<operations["updateQuestionnaireTemplate"]["requestBody"]>["content"]["application/json"];
+export type CreateEvidenceCitationInput = NonNullable<operations["createEvidenceCitation"]["requestBody"]>["content"]["application/json"];
+export type UpdateEvidenceCitationInput = NonNullable<operations["updateEvidenceCitation"]["requestBody"]>["content"]["application/json"];
+export type CreateEvidenceReviewInput = NonNullable<operations["createEvidenceReview"]["requestBody"]>["content"]["application/json"];
+export type UpdateEvidenceReviewInput = NonNullable<operations["updateEvidenceReview"]["requestBody"]>["content"]["application/json"];
+export type CreateKnowledgePackageInput = NonNullable<operations["createKnowledgePackage"]["requestBody"]>["content"]["application/json"];
+export type UpdateKnowledgePackageInput = NonNullable<operations["updateKnowledgePackage"]["requestBody"]>["content"]["application/json"];
 
 
 // ============================================================================

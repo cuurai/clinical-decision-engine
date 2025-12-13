@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  WorkflowDefinition,
   ListWorkflowDefinitionsParams,
-  WorkflowDefinitionInput,
-  WorkflowDefinitionUpdate
+  UpdateWorkflowDefinitionRequest
 } from "../types/index.js";
 /**
  * WorkflowDefinitionRepository Interface
  */
-export interface WorkflowDefinitionRepository extends CrudRepository<Timestamps, WorkflowDefinitionInput, WorkflowDefinitionUpdate, string, ListWorkflowDefinitionsParams> {
+export interface WorkflowDefinitionRepository extends CrudRepository<WorkflowDefinition, WorkflowDefinition, UpdateWorkflowDefinitionRequest, string, ListWorkflowDefinitionsParams> {
 
 }

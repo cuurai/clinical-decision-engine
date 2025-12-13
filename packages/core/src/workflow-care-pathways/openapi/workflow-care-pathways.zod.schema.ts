@@ -1,6 +1,20 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 
+const WorApiMeta = z
+  .object({
+    correlationId: z.string(),
+    timestamp: z.string().datetime({ offset: true }),
+    totalCount: z.number().int(),
+    pageSize: z.number().int(),
+    pageNumber: z.number().int(),
+  })
+  .partial()
+  .passthrough();
+const WorApiListResponse = z
+  .object({ data: z.array(z.any()), meta: WorApiMeta })
+  .partial()
+  .passthrough();
 const Timestamps = z
   .object({
     createdAt: z.string().datetime({ offset: true }),
@@ -20,6 +34,10 @@ const WorkflowDefinition = Timestamps.and(
     })
     .passthrough()
 );
+const WorApiResponse = z
+  .object({ data: z.object({}).partial().passthrough(), meta: WorApiMeta })
+  .partial()
+  .passthrough();
 const WorkflowDefinitionInput = z
   .object({
     name: z.string(),
@@ -29,6 +47,9 @@ const WorkflowDefinitionInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createWorkflowDefinition_Body = WorApiResponse.and(
+  z.object({ data: WorkflowDefinitionInput }).partial().passthrough()
+);
 const Error = z
   .object({
     error: z.string(),
@@ -46,6 +67,9 @@ const WorkflowDefinitionUpdate = z
   })
   .partial()
   .passthrough();
+const updateWorkflowDefinition_Body = WorApiResponse.and(
+  z.object({ data: WorkflowDefinitionUpdate }).partial().passthrough()
+);
 const WorkflowState = z
   .object({
     id: z.string(),
@@ -98,6 +122,9 @@ const WorkflowInstanceInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createWorkflowInstance_Body = WorApiResponse.and(
+  z.object({ data: WorkflowInstanceInput }).partial().passthrough()
+);
 const WorkflowInstanceUpdate = z
   .object({
     currentState: z.string(),
@@ -107,6 +134,9 @@ const WorkflowInstanceUpdate = z
   })
   .partial()
   .passthrough();
+const updateWorkflowInstance_Body = WorApiResponse.and(
+  z.object({ data: WorkflowInstanceUpdate }).partial().passthrough()
+);
 const Task = Timestamps.and(
   z
     .object({
@@ -182,6 +212,9 @@ const CarePathwayTemplateInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createCarePathwayTemplate_Body = WorApiResponse.and(
+  z.object({ data: CarePathwayTemplateInput }).partial().passthrough()
+);
 const CarePathwayTemplateUpdate = z
   .object({
     name: z.string(),
@@ -192,6 +225,9 @@ const CarePathwayTemplateUpdate = z
   })
   .partial()
   .passthrough();
+const updateCarePathwayTemplate_Body = WorApiResponse.and(
+  z.object({ data: CarePathwayTemplateUpdate }).partial().passthrough()
+);
 const PathwayStep = z
   .object({
     id: z.string(),
@@ -246,6 +282,9 @@ const CarePlanInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createCarePlan_Body = WorApiResponse.and(
+  z.object({ data: CarePlanInput }).partial().passthrough()
+);
 const CarePlanUpdate = z
   .object({
     title: z.string(),
@@ -256,6 +295,9 @@ const CarePlanUpdate = z
   })
   .partial()
   .passthrough();
+const updateCarePlan_Body = WorApiResponse.and(
+  z.object({ data: CarePlanUpdate }).partial().passthrough()
+);
 const CarePlanGoal = z
   .object({
     id: z.string(),
@@ -304,6 +346,9 @@ const EpisodeOfCareInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createEpisodeOfCare_Body = WorApiResponse.and(
+  z.object({ data: EpisodeOfCareInput }).partial().passthrough()
+);
 const EpisodeOfCareUpdate = z
   .object({
     status: z.enum(["active", "completed", "cancelled"]),
@@ -313,6 +358,9 @@ const EpisodeOfCareUpdate = z
   })
   .partial()
   .passthrough();
+const updateEpisodeOfCare_Body = WorApiResponse.and(
+  z.object({ data: EpisodeOfCareUpdate }).partial().passthrough()
+);
 const Encounter = z
   .object({
     id: z.string(),
@@ -340,6 +388,7 @@ const TaskInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createTask_Body = WorApiResponse.and(z.object({ data: TaskInput }).partial().passthrough());
 const TaskUpdate = z
   .object({
     title: z.string(),
@@ -353,6 +402,7 @@ const TaskUpdate = z
   })
   .partial()
   .passthrough();
+const updateTask_Body = WorApiResponse.and(z.object({ data: TaskUpdate }).partial().passthrough());
 const TaskComment = z
   .object({
     id: z.string(),
@@ -384,6 +434,9 @@ const TaskAssignmentInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createTaskAssignment_Body = WorApiResponse.and(
+  z.object({ data: TaskAssignmentInput }).partial().passthrough()
+);
 const TaskAssignmentUpdate = z
   .object({
     assignedTo: z.string(),
@@ -392,6 +445,9 @@ const TaskAssignmentUpdate = z
   })
   .partial()
   .passthrough();
+const updateTaskAssignment_Body = WorApiResponse.and(
+  z.object({ data: TaskAssignmentUpdate }).partial().passthrough()
+);
 const Alert = Timestamps.and(
   z
     .object({
@@ -431,6 +487,7 @@ const AlertInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createAlert_Body = WorApiResponse.and(z.object({ data: AlertInput }).partial().passthrough());
 const AlertUpdate = z
   .object({
     status: z.enum(["active", "acknowledged", "overridden", "snoozed", "resolved", "dismissed"]),
@@ -441,6 +498,9 @@ const AlertUpdate = z
   })
   .partial()
   .passthrough();
+const updateAlert_Body = WorApiResponse.and(
+  z.object({ data: AlertUpdate }).partial().passthrough()
+);
 const Explanation = z
   .object({
     id: z.string(),
@@ -478,6 +538,9 @@ const HandoffInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createHandoff_Body = WorApiResponse.and(
+  z.object({ data: HandoffInput }).partial().passthrough()
+);
 const HandoffUpdate = z
   .object({
     handoffType: z.string(),
@@ -488,6 +551,9 @@ const HandoffUpdate = z
   })
   .partial()
   .passthrough();
+const updateHandoff_Body = WorApiResponse.and(
+  z.object({ data: HandoffUpdate }).partial().passthrough()
+);
 const ChecklistTemplate = Timestamps.and(
   z
     .object({
@@ -509,6 +575,9 @@ const ChecklistTemplateInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createChecklistTemplate_Body = WorApiResponse.and(
+  z.object({ data: ChecklistTemplateInput }).partial().passthrough()
+);
 const ChecklistTemplateUpdate = z
   .object({
     name: z.string(),
@@ -519,6 +588,9 @@ const ChecklistTemplateUpdate = z
   })
   .partial()
   .passthrough();
+const updateChecklistTemplate_Body = WorApiResponse.and(
+  z.object({ data: ChecklistTemplateUpdate }).partial().passthrough()
+);
 const ChecklistItem = z
   .object({
     id: z.string(),
@@ -540,6 +612,9 @@ const ChecklistInstanceInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createChecklistInstance_Body = WorApiResponse.and(
+  z.object({ data: ChecklistInstanceInput }).partial().passthrough()
+);
 const ChecklistInstanceUpdate = z
   .object({
     status: z.enum(["in-progress", "completed", "cancelled"]),
@@ -548,6 +623,9 @@ const ChecklistInstanceUpdate = z
   })
   .partial()
   .passthrough();
+const updateChecklistInstance_Body = WorApiResponse.and(
+  z.object({ data: ChecklistInstanceUpdate }).partial().passthrough()
+);
 const ChecklistItemInstance = z
   .object({
     id: z.string(),
@@ -582,6 +660,9 @@ const EscalationPolicyInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createEscalationPolicy_Body = WorApiResponse.and(
+  z.object({ data: EscalationPolicyInput }).partial().passthrough()
+);
 const EscalationPolicyUpdate = z
   .object({
     name: z.string(),
@@ -592,6 +673,9 @@ const EscalationPolicyUpdate = z
   })
   .partial()
   .passthrough();
+const updateEscalationPolicy_Body = WorApiResponse.and(
+  z.object({ data: EscalationPolicyUpdate }).partial().passthrough()
+);
 const EscalationRule = z
   .object({
     id: z.string(),
@@ -634,6 +718,9 @@ const RoutingRuleInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createRoutingRule_Body = WorApiResponse.and(
+  z.object({ data: RoutingRuleInput }).partial().passthrough()
+);
 const RoutingRuleUpdate = z
   .object({
     name: z.string(),
@@ -648,6 +735,9 @@ const RoutingRuleUpdate = z
   })
   .partial()
   .passthrough();
+const updateRoutingRule_Body = WorApiResponse.and(
+  z.object({ data: RoutingRuleUpdate }).partial().passthrough()
+);
 const ScheduleTemplate = Timestamps.and(
   z
     .object({
@@ -669,6 +759,9 @@ const ScheduleTemplateInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createScheduleTemplate_Body = WorApiResponse.and(
+  z.object({ data: ScheduleTemplateInput }).partial().passthrough()
+);
 const ScheduleTemplateUpdate = z
   .object({
     name: z.string(),
@@ -679,6 +772,9 @@ const ScheduleTemplateUpdate = z
   })
   .partial()
   .passthrough();
+const updateScheduleTemplate_Body = WorApiResponse.and(
+  z.object({ data: ScheduleTemplateUpdate }).partial().passthrough()
+);
 const WorkQueue = Timestamps.and(
   z
     .object({
@@ -702,6 +798,9 @@ const WorkQueueInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createWorkQueue_Body = WorApiResponse.and(
+  z.object({ data: WorkQueueInput }).partial().passthrough()
+);
 const WorkQueueUpdate = z
   .object({
     name: z.string(),
@@ -713,68 +812,104 @@ const WorkQueueUpdate = z
   })
   .partial()
   .passthrough();
+const updateWorkQueue_Body = WorApiResponse.and(
+  z.object({ data: WorkQueueUpdate }).partial().passthrough()
+);
 
 export const schemas = {
+  WorApiMeta,
+  WorApiListResponse,
   Timestamps,
   WorkflowDefinition,
+  WorApiResponse,
   WorkflowDefinitionInput,
+  createWorkflowDefinition_Body,
   Error,
   WorkflowDefinitionUpdate,
+  updateWorkflowDefinition_Body,
   WorkflowState,
   WorkflowTransition,
   WorkflowInstance,
   WorkflowInstanceInput,
+  createWorkflowInstance_Body,
   WorkflowInstanceUpdate,
+  updateWorkflowInstance_Body,
   Task,
   WorkflowEvent,
   AuditEvent,
   CarePathwayTemplate,
   CarePathwayTemplateInput,
+  createCarePathwayTemplate_Body,
   CarePathwayTemplateUpdate,
+  updateCarePathwayTemplate_Body,
   PathwayStep,
   OrderSetTemplate,
   CarePlan,
   CarePlanInput,
+  createCarePlan_Body,
   CarePlanUpdate,
+  updateCarePlan_Body,
   CarePlanGoal,
   ChecklistInstance,
   EpisodeOfCare,
   EpisodeOfCareInput,
+  createEpisodeOfCare_Body,
   EpisodeOfCareUpdate,
+  updateEpisodeOfCare_Body,
   Encounter,
   TaskInput,
+  createTask_Body,
   TaskUpdate,
+  updateTask_Body,
   TaskComment,
   TaskAssignment,
   TaskAssignmentInput,
+  createTaskAssignment_Body,
   TaskAssignmentUpdate,
+  updateTaskAssignment_Body,
   Alert,
   AlertInput,
+  createAlert_Body,
   AlertUpdate,
+  updateAlert_Body,
   Explanation,
   Handoff,
   HandoffInput,
+  createHandoff_Body,
   HandoffUpdate,
+  updateHandoff_Body,
   ChecklistTemplate,
   ChecklistTemplateInput,
+  createChecklistTemplate_Body,
   ChecklistTemplateUpdate,
+  updateChecklistTemplate_Body,
   ChecklistItem,
   ChecklistInstanceInput,
+  createChecklistInstance_Body,
   ChecklistInstanceUpdate,
+  updateChecklistInstance_Body,
   ChecklistItemInstance,
   EscalationPolicy,
   EscalationPolicyInput,
+  createEscalationPolicy_Body,
   EscalationPolicyUpdate,
+  updateEscalationPolicy_Body,
   EscalationRule,
   RoutingRule,
   RoutingRuleInput,
+  createRoutingRule_Body,
   RoutingRuleUpdate,
+  updateRoutingRule_Body,
   ScheduleTemplate,
   ScheduleTemplateInput,
+  createScheduleTemplate_Body,
   ScheduleTemplateUpdate,
+  updateScheduleTemplate_Body,
   WorkQueue,
   WorkQueueInput,
+  createWorkQueue_Body,
   WorkQueueUpdate,
+  updateWorkQueue_Body,
 };
 
 const endpoints = makeApi([
@@ -812,7 +947,12 @@ const endpoints = makeApi([
           .optional(),
       },
     ],
-    response: z.array(Alert),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(Alert) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -823,15 +963,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: AlertInput,
+        schema: createAlert_Body,
       },
     ],
-    response: Alert,
+    response: WorApiResponse.and(z.object({ data: Alert }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -847,12 +987,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Alert,
+    response: WorApiResponse.and(z.object({ data: Alert }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -865,7 +1005,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: AlertUpdate,
+        schema: updateAlert_Body,
       },
       {
         name: "id",
@@ -873,12 +1013,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Alert,
+    response: WorApiResponse.and(z.object({ data: Alert }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -899,7 +1039,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -973,7 +1113,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(CarePathwayTemplate),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(CarePathwayTemplate) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -984,15 +1129,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: CarePathwayTemplateInput,
+        schema: createCarePathwayTemplate_Body,
       },
     ],
-    response: CarePathwayTemplate,
+    response: WorApiResponse.and(z.object({ data: CarePathwayTemplate }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1008,12 +1153,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: CarePathwayTemplate,
+    response: WorApiResponse.and(z.object({ data: CarePathwayTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1026,7 +1171,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: CarePathwayTemplateUpdate,
+        schema: updateCarePathwayTemplate_Body,
       },
       {
         name: "id",
@@ -1034,12 +1179,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: CarePathwayTemplate,
+    response: WorApiResponse.and(z.object({ data: CarePathwayTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1060,7 +1205,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1139,7 +1284,12 @@ const endpoints = makeApi([
         schema: z.enum(["draft", "active", "suspended", "completed", "cancelled"]).optional(),
       },
     ],
-    response: z.array(CarePlan),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(CarePlan) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1150,15 +1300,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: CarePlanInput,
+        schema: createCarePlan_Body,
       },
     ],
-    response: CarePlan,
+    response: WorApiResponse.and(z.object({ data: CarePlan }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1174,12 +1324,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: CarePlan,
+    response: WorApiResponse.and(z.object({ data: CarePlan }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1192,7 +1342,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: CarePlanUpdate,
+        schema: updateCarePlan_Body,
       },
       {
         name: "id",
@@ -1200,12 +1350,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: CarePlan,
+    response: WorApiResponse.and(z.object({ data: CarePlan }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1226,7 +1376,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1334,7 +1484,12 @@ const endpoints = makeApi([
         schema: z.enum(["in-progress", "completed", "cancelled"]).optional(),
       },
     ],
-    response: z.array(ChecklistInstance),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(ChecklistInstance) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1345,15 +1500,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ChecklistInstanceInput,
+        schema: createChecklistInstance_Body,
       },
     ],
-    response: ChecklistInstance,
+    response: WorApiResponse.and(z.object({ data: ChecklistInstance }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1369,12 +1524,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ChecklistInstance,
+    response: WorApiResponse.and(z.object({ data: ChecklistInstance }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1387,7 +1542,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ChecklistInstanceUpdate,
+        schema: updateChecklistInstance_Body,
       },
       {
         name: "id",
@@ -1395,12 +1550,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ChecklistInstance,
+    response: WorApiResponse.and(z.object({ data: ChecklistInstance }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1421,7 +1576,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1471,7 +1626,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(ChecklistTemplate),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(ChecklistTemplate) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1482,15 +1642,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ChecklistTemplateInput,
+        schema: createChecklistTemplate_Body,
       },
     ],
-    response: ChecklistTemplate,
+    response: WorApiResponse.and(z.object({ data: ChecklistTemplate }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1506,12 +1666,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ChecklistTemplate,
+    response: WorApiResponse.and(z.object({ data: ChecklistTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1524,7 +1684,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ChecklistTemplateUpdate,
+        schema: updateChecklistTemplate_Body,
       },
       {
         name: "id",
@@ -1532,12 +1692,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ChecklistTemplate,
+    response: WorApiResponse.and(z.object({ data: ChecklistTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1558,7 +1718,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1613,7 +1773,12 @@ const endpoints = makeApi([
         schema: z.enum(["active", "completed", "cancelled"]).optional(),
       },
     ],
-    response: z.array(EpisodeOfCare),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(EpisodeOfCare) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1624,15 +1789,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EpisodeOfCareInput,
+        schema: createEpisodeOfCare_Body,
       },
     ],
-    response: EpisodeOfCare,
+    response: WorApiResponse.and(z.object({ data: EpisodeOfCare }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1648,12 +1813,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EpisodeOfCare,
+    response: WorApiResponse.and(z.object({ data: EpisodeOfCare }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1666,7 +1831,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EpisodeOfCareUpdate,
+        schema: updateEpisodeOfCare_Body,
       },
       {
         name: "id",
@@ -1674,12 +1839,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EpisodeOfCare,
+    response: WorApiResponse.and(z.object({ data: EpisodeOfCare }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1700,7 +1865,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1798,7 +1963,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(EscalationPolicy),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(EscalationPolicy) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1809,15 +1979,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EscalationPolicyInput,
+        schema: createEscalationPolicy_Body,
       },
     ],
-    response: EscalationPolicy,
+    response: WorApiResponse.and(z.object({ data: EscalationPolicy }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1833,12 +2003,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EscalationPolicy,
+    response: WorApiResponse.and(z.object({ data: EscalationPolicy }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1851,7 +2021,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EscalationPolicyUpdate,
+        schema: updateEscalationPolicy_Body,
       },
       {
         name: "id",
@@ -1859,12 +2029,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EscalationPolicy,
+    response: WorApiResponse.and(z.object({ data: EscalationPolicy }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1885,7 +2055,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1945,7 +2115,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(Handoff),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(Handoff) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1956,15 +2131,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: HandoffInput,
+        schema: createHandoff_Body,
       },
     ],
-    response: Handoff,
+    response: WorApiResponse.and(z.object({ data: Handoff }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1980,12 +2155,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Handoff,
+    response: WorApiResponse.and(z.object({ data: Handoff }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1998,7 +2173,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: HandoffUpdate,
+        schema: updateHandoff_Body,
       },
       {
         name: "id",
@@ -2006,12 +2181,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Handoff,
+    response: WorApiResponse.and(z.object({ data: Handoff }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2032,7 +2207,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2082,7 +2257,12 @@ const endpoints = makeApi([
         schema: z.boolean().optional(),
       },
     ],
-    response: z.array(RoutingRule),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(RoutingRule) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2093,15 +2273,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: RoutingRuleInput,
+        schema: createRoutingRule_Body,
       },
     ],
-    response: RoutingRule,
+    response: WorApiResponse.and(z.object({ data: RoutingRule }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2117,12 +2297,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: RoutingRule,
+    response: WorApiResponse.and(z.object({ data: RoutingRule }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2135,7 +2315,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: RoutingRuleUpdate,
+        schema: updateRoutingRule_Body,
       },
       {
         name: "id",
@@ -2143,12 +2323,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: RoutingRule,
+    response: WorApiResponse.and(z.object({ data: RoutingRule }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2169,7 +2349,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2195,7 +2375,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(ScheduleTemplate),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(ScheduleTemplate) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2206,15 +2391,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ScheduleTemplateInput,
+        schema: createScheduleTemplate_Body,
       },
     ],
-    response: ScheduleTemplate,
+    response: WorApiResponse.and(z.object({ data: ScheduleTemplate }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2230,12 +2415,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ScheduleTemplate,
+    response: WorApiResponse.and(z.object({ data: ScheduleTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2248,7 +2433,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ScheduleTemplateUpdate,
+        schema: updateScheduleTemplate_Body,
       },
       {
         name: "id",
@@ -2256,12 +2441,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ScheduleTemplate,
+    response: WorApiResponse.and(z.object({ data: ScheduleTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2282,7 +2467,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2313,7 +2498,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(TaskAssignment),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(TaskAssignment) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2324,15 +2514,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: TaskAssignmentInput,
+        schema: createTaskAssignment_Body,
       },
     ],
-    response: TaskAssignment,
+    response: WorApiResponse.and(z.object({ data: TaskAssignment }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2348,12 +2538,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: TaskAssignment,
+    response: WorApiResponse.and(z.object({ data: TaskAssignment }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2366,7 +2556,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: TaskAssignmentUpdate,
+        schema: updateTaskAssignment_Body,
       },
       {
         name: "id",
@@ -2374,12 +2564,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: TaskAssignment,
+    response: WorApiResponse.and(z.object({ data: TaskAssignment }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2400,7 +2590,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2438,7 +2628,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(Task),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(Task) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2449,15 +2644,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: TaskInput,
+        schema: createTask_Body,
       },
     ],
-    response: Task,
+    response: WorApiResponse.and(z.object({ data: Task }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2473,12 +2668,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Task,
+    response: WorApiResponse.and(z.object({ data: Task }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2491,7 +2686,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: TaskUpdate,
+        schema: updateTask_Body,
       },
       {
         name: "id",
@@ -2499,12 +2694,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Task,
+    response: WorApiResponse.and(z.object({ data: Task }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2525,7 +2720,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2604,7 +2799,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(WorkQueue),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(WorkQueue) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2615,15 +2815,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: WorkQueueInput,
+        schema: createWorkQueue_Body,
       },
     ],
-    response: WorkQueue,
+    response: WorApiResponse.and(z.object({ data: WorkQueue }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2639,12 +2839,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: WorkQueue,
+    response: WorApiResponse.and(z.object({ data: WorkQueue }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2657,7 +2857,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: WorkQueueUpdate,
+        schema: updateWorkQueue_Body,
       },
       {
         name: "id",
@@ -2665,12 +2865,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: WorkQueue,
+    response: WorApiResponse.and(z.object({ data: WorkQueue }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2691,7 +2891,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2765,7 +2965,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(WorkflowDefinition),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(WorkflowDefinition) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2776,15 +2981,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: WorkflowDefinitionInput,
+        schema: createWorkflowDefinition_Body,
       },
     ],
-    response: WorkflowDefinition,
+    response: WorApiResponse.and(z.object({ data: WorkflowDefinition }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2800,12 +3005,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: WorkflowDefinition,
+    response: WorApiResponse.and(z.object({ data: WorkflowDefinition }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2818,7 +3023,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: WorkflowDefinitionUpdate,
+        schema: updateWorkflowDefinition_Body,
       },
       {
         name: "id",
@@ -2826,12 +3031,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: WorkflowDefinition,
+    response: WorApiResponse.and(z.object({ data: WorkflowDefinition }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2852,7 +3057,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2936,7 +3141,12 @@ const endpoints = makeApi([
         schema: z.enum(["active", "paused", "completed", "cancelled"]).optional(),
       },
     ],
-    response: z.array(WorkflowInstance),
+    response: WorApiListResponse.and(
+      z
+        .object({ data: z.array(WorkflowInstance) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2947,15 +3157,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: WorkflowInstanceInput,
+        schema: createWorkflowInstance_Body,
       },
     ],
-    response: WorkflowInstance,
+    response: WorApiResponse.and(z.object({ data: WorkflowInstance }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2971,12 +3181,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: WorkflowInstance,
+    response: WorApiResponse.and(z.object({ data: WorkflowInstance }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2989,7 +3199,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: WorkflowInstanceUpdate,
+        schema: updateWorkflowInstance_Body,
       },
       {
         name: "id",
@@ -2997,12 +3207,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: WorkflowInstance,
+    response: WorApiResponse.and(z.object({ data: WorkflowInstance }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -3023,7 +3233,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: WorApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },

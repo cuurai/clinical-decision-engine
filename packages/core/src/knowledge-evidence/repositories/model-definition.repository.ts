@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ModelDefinition,
   ListModelDefinitionsParams,
-  ModelDefinitionInput,
-  ModelDefinitionUpdate
+  UpdateModelDefinitionRequest
 } from "../types/index.js";
 /**
  * ModelDefinitionRepository Interface
  */
-export interface ModelDefinitionRepository extends CrudRepository<Timestamps, ModelDefinitionInput, ModelDefinitionUpdate, string, ListModelDefinitionsParams> {
+export interface ModelDefinitionRepository extends CrudRepository<ModelDefinition, ModelDefinition, UpdateModelDefinitionRequest, string, ListModelDefinitionsParams> {
 
 }

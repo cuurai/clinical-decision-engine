@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  DecisionPolicy,
   ListDecisionPoliciesParams,
-  DecisionPolicyInput,
-  DecisionPolicyUpdate
+  UpdateDecisionPolicyRequest
 } from "../types/index.js";
 /**
  * DecisionPolicyRepository Interface
  */
-export interface DecisionPolicyRepository extends CrudRepository<Timestamps, DecisionPolicyInput, DecisionPolicyUpdate, string, ListDecisionPoliciesParams> {
+export interface DecisionPolicyRepository extends CrudRepository<DecisionPolicy, DecisionPolicy, UpdateDecisionPolicyRequest, string, ListDecisionPoliciesParams> {
 
 }

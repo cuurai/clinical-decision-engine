@@ -16,12 +16,11 @@ import type {
 import type {
   DataExportBatch,
   ListDataExportBatchesParams,
-  DataExportBatchInput,
-  DataExportBatchUpdate
+  UpdateDataExportBatchRequest
 } from "../types/index.js";
 /**
  * DataExportBatchRepository Interface
  */
-export interface DataExportBatchRepository extends CrudRepository<DataExportBatch, DataExportBatchInput, DataExportBatchUpdate, string, ListDataExportBatchesParams> {
+export interface DataExportBatchRepository extends CrudRepository<DataExportBatch, DataExportBatch, UpdateDataExportBatchRequest, string, ListDataExportBatchesParams> {
 
 }

@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  Encounter,
   ListEncountersParams,
-  EncounterInput,
-  EncounterUpdate
+  UpdateEncounterRequest
 } from "../types/index.js";
 /**
  * EncounterRepository Interface
  */
-export interface EncounterRepository extends CrudRepository<Timestamps, EncounterInput, EncounterUpdate, string, ListEncountersParams> {
+export interface EncounterRepository extends CrudRepository<Encounter, Encounter, UpdateEncounterRequest, string, ListEncountersParams> {
 
 }

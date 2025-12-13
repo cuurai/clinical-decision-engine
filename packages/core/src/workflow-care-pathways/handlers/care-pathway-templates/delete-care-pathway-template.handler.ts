@@ -6,7 +6,7 @@
  */
 
 import type { CarePathwayTemplateRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete care pathway template

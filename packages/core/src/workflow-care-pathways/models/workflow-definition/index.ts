@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/workflow-definition.entity";
 export * from "./dto/list-workflow-definition.dto";
-export * from "./dto/create-workflow-definition.dto";
 export * from "./dto/get-workflow-definition.dto";
-export * from "./dto/update-workflow-definition.dto";
 export * from "./dto/delete-workflow-definition.dto";

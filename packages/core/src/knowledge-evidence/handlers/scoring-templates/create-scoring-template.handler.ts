@@ -5,39 +5,40 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { CreateScoringTemplateResponse, ScoringTemplateInput } from "../../types/index.js";
-// TODO: Uncomment when implementing handler logic
-// import { knoTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// // TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/knowledge-evidence-converters.js";
+import type { CreateScoringTemplateResponse } from "../../types/index.js";
+import type { ScoringTemplateRepository } from "../../repositories/index.js";
+import { keTransactionId } from "../../../shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
- * TODO: Uncomment when implementing handler logic that uses validated input
  */
-// function mapInputToValidated(input: ScoringTemplateInput): ScoringTemplateInput {
-//   // Note: Request body validation is handled by service layer schemas
-//   // Handlers accept validated input and focus on business logic
-//   return input;
-// }
+function mapInputToValidated(input: unknown): any {
+  // Note: Request body validation is handled by service layer schemas
+  // Handlers accept validated input and focus on business logic
+  return input;
+}
 
 
 /**
  * Create scoring template
  */
 export async function createScoringTemplate(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use input when implementing handler logic,
-    _input: ScoringTemplateInput
+    repo: ScoringTemplateRepository,
+    orgId: string,
+    input: unknown
 ): Promise<CreateScoringTemplateResponse> {
   // 1. Validate input
-  // TODO: Use validated input when implementing business logic
-  // const validated = mapInputToValidated(input);
+  const validated = mapInputToValidated(input);
 
-  // 2. Operation returns a Response DTO (not an entity) - implement business logic here
-  // TODO: Implement operation logic (e.g., authentication, authorization, evaluation)
+  // 2. Domain input → Repository call
+  const scoringTemplate = await repo.create(orgId, validated);
 
-  throw new Error("Operation not yet implemented - requires business logic integration");
+  // 3. Repository result → response envelope
+  return {
+    data: scoringTemplate,
+    meta: {
+      correlationId: keTransactionId(),
+      timestamp: new Date().toISOString(),
+    },
+  };
 
 }

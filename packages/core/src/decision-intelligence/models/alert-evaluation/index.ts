@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/alert-evaluation.entity";
 export * from "./dto/list-alert-evaluation.dto";
-export * from "./dto/create-alert-evaluation.dto";
 export * from "./dto/get-alert-evaluation.dto";
-export * from "./dto/update-alert-evaluation.dto";
 export * from "./dto/delete-alert-evaluation.dto";

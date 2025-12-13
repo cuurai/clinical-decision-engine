@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/threshold-profile.entity";
 export * from "./dto/list-threshold-profile.dto";
-export * from "./dto/create-threshold-profile.dto";
 export * from "./dto/get-threshold-profile.dto";
-export * from "./dto/update-threshold-profile.dto";
 export * from "./dto/delete-threshold-profile.dto";

@@ -6,7 +6,7 @@
  */
 
 import type { OrderSetTemplateRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../../shared/helpers";
+import { keTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete order set template
@@ -22,7 +22,7 @@ export async function deleteOrderSetTemplate(
   return {
     data: { success: true },
     meta: {
-      correlationId: knoTransactionId(),
+      correlationId: keTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

@@ -81,21 +81,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/ExternalSystem"
     post:
       tags: [External Systems]
@@ -106,17 +101,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ExternalSystemInput"
       responses:
         "201":
@@ -124,17 +115,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ExternalSystem"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -151,17 +138,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ExternalSystem"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -176,17 +159,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ExternalSystemUpdate"
       responses:
         "200":
@@ -194,17 +173,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/ExternalSystem"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -300,21 +275,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/Connection"
     post:
       tags: [Connections]
@@ -325,17 +295,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ConnectionInput"
       responses:
         "201":
@@ -343,17 +309,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Connection"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -370,17 +332,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Connection"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -395,17 +353,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/ConnectionUpdate"
       responses:
         "200":
@@ -413,17 +367,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/Connection"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -490,7 +440,18 @@ paths:
           in: query
           schema:
             type: string
-            enum: [document, message, transaction, transaction-response, batch, batch-response, history, searchset, collection]
+            enum:
+              [
+                document,
+                message,
+                transaction,
+                transaction-response,
+                batch,
+                batch-response,
+                history,
+                searchset,
+                collection,
+              ]
         - name: direction
           in: query
           schema:
@@ -502,21 +463,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/FHIRBundle"
     post:
       tags: [FHIR Bundles]
@@ -530,17 +486,13 @@ paths:
               $ref: "#/components/schemas/FHIRBundleInput"
           application/fhir+json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/FHIRBundleInput"
       responses:
         "201":
@@ -548,17 +500,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/FHIRBundle"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -575,17 +523,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/FHIRBundle"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -640,21 +584,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/FHIRMappingProfile"
     post:
       tags: [FHIR Mapping Profiles]
@@ -665,17 +604,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/FHIRMappingProfileInput"
       responses:
         "201":
@@ -683,17 +618,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/FHIRMappingProfile"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -710,17 +641,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/FHIRMappingProfile"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -735,17 +662,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/FHIRMappingProfileUpdate"
       responses:
         "200":
@@ -753,17 +676,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/FHIRMappingProfile"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -824,21 +743,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/HL7Message"
     post:
       tags: [HL7 Messages]
@@ -853,17 +767,13 @@ paths:
               description: Raw HL7 v2 message text
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/HL7MessageInput"
       responses:
         "201":
@@ -871,17 +781,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/HL7Message"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -898,17 +804,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/HL7Message"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -981,21 +883,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/HL7MappingProfile"
     post:
       tags: [HL7 Mapping Profiles]
@@ -1006,17 +903,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/HL7MappingProfileInput"
       responses:
         "201":
@@ -1024,17 +917,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/HL7MappingProfile"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1051,17 +940,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/HL7MappingProfile"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1076,17 +961,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/HL7MappingProfileUpdate"
       responses:
         "200":
@@ -1094,17 +975,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/HL7MappingProfile"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1173,21 +1050,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/IntegrationJob"
     post:
       tags: [Integration Jobs]
@@ -1198,17 +1070,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/IntegrationJobInput"
       responses:
         "201":
@@ -1216,17 +1084,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/IntegrationJob"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1243,17 +1107,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/IntegrationJob"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1268,17 +1128,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/IntegrationJobUpdate"
       responses:
         "200":
@@ -1286,17 +1142,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/IntegrationJob"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1356,21 +1208,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/IntegrationRun"
     post:
       tags: [Integration Runs]
@@ -1384,17 +1231,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/IntegrationRunInput"
       responses:
         "201":
@@ -1402,17 +1245,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/IntegrationRun"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1429,17 +1268,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/IntegrationRun"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1507,21 +1342,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/DataImportBatch"
     post:
       tags: [Data Import Batches]
@@ -1532,17 +1362,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/DataImportBatchInput"
       responses:
         "201":
@@ -1550,17 +1376,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DataImportBatch"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1577,17 +1399,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DataImportBatch"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1602,17 +1420,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/DataImportBatchUpdate"
       responses:
         "200":
@@ -1620,17 +1434,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DataImportBatch"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1708,21 +1518,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/DataExportBatch"
     post:
       tags: [Data Export Batches]
@@ -1733,17 +1538,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/DataExportBatchInput"
       responses:
         "201":
@@ -1751,17 +1552,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DataExportBatch"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1778,17 +1575,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DataExportBatch"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1803,17 +1596,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/DataExportBatchUpdate"
       responses:
         "200":
@@ -1821,17 +1610,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/DataExportBatch"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -1909,21 +1694,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/EventSubscription"
     post:
       tags: [Event Subscriptions]
@@ -1934,17 +1714,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/EventSubscriptionInput"
       responses:
         "201":
@@ -1952,17 +1728,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EventSubscription"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -1979,17 +1751,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EventSubscription"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2004,17 +1772,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/EventSubscriptionUpdate"
       responses:
         "200":
@@ -2022,17 +1786,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EventSubscription"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2092,21 +1852,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/EventDelivery"
     post:
       tags: [Event Deliveries]
@@ -2117,17 +1872,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/EventDeliveryInput"
       responses:
         "201":
@@ -2135,17 +1886,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EventDelivery"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2162,17 +1909,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EventDelivery"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2187,17 +1930,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/EventDeliveryUpdate"
       responses:
         "200":
@@ -2205,17 +1944,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/EventDelivery"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2242,21 +1977,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/APIClient"
     post:
       tags: [API Clients]
@@ -2267,17 +1997,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/APIClientInput"
       responses:
         "201":
@@ -2285,17 +2011,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/APIClient"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2312,17 +2034,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/APIClient"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2337,17 +2055,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/APIClientUpdate"
       responses:
         "200":
@@ -2355,17 +2069,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/APIClient"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2443,21 +2153,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/APICredential"
     post:
       tags: [API Credentials]
@@ -2468,17 +2173,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/APICredentialInput"
       responses:
         "201":
@@ -2486,17 +2187,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/APICredential"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2513,17 +2210,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/APICredential"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2538,17 +2231,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/APICredentialUpdate"
       responses:
         "200":
@@ -2556,17 +2245,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/APICredential"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2609,21 +2294,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/InterfaceError"
     post:
       tags: [Interface Errors]
@@ -2634,17 +2314,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/InterfaceErrorInput"
       responses:
         "201":
@@ -2652,17 +2328,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/InterfaceError"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2679,17 +2351,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/InterfaceError"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2704,17 +2372,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/InterfaceErrorUpdate"
       responses:
         "200":
@@ -2722,17 +2386,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/InterfaceError"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2763,21 +2423,16 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiListResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         type: array
 
                         items:
-
                           $ref: "#/components/schemas/InterfaceHealthCheck"
     post:
       tags: [Interface Health Checks]
@@ -2791,17 +2446,13 @@ paths:
         content:
           application/json:
             schema:
-
               allOf:
-
                 - $ref: "#/components/schemas/IntApiResponse"
 
                 - type: object
 
                   properties:
-
                     data:
-
                       $ref: "#/components/schemas/InterfaceHealthCheckInput"
       responses:
         "201":
@@ -2809,17 +2460,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/InterfaceHealthCheck"
         "400":
           $ref: "#/components/responses/BadRequest"
@@ -2836,17 +2483,13 @@ paths:
           content:
             application/json:
               schema:
-
                 allOf:
-
                   - $ref: "#/components/schemas/IntApiResponse"
 
                   - type: object
 
                     properties:
-
                       data:
-
                         $ref: "#/components/schemas/InterfaceHealthCheck"
         "404":
           $ref: "#/components/responses/NotFound"
@@ -2887,34 +2530,26 @@ components:
       content:
         application/json:
           schema:
-
             allOf:
-
               - $ref: "#/components/schemas/IntApiResponse"
 
               - type: object
 
                 properties:
-
                   data:
-
                     $ref: "#/components/schemas/Error"
     NotFound:
       description: Resource not found
       content:
         application/json:
           schema:
-
             allOf:
-
               - $ref: "#/components/schemas/IntApiResponse"
 
               - type: object
 
                 properties:
-
                   data:
-
                     $ref: "#/components/schemas/Error"
   schemas:
     Error:
@@ -2961,10 +2596,30 @@ components:
       type: object
       properties:
         data:
-          type: array
-          description: List of items
+          type: object
+          description: Paginated data container
+          properties:
+            items:
+              type: array
+              description: List of items
+              items: {}
         meta:
-          $ref: "#/components/schemas/IntApiMeta"
+          allOf:
+            - $ref: "#/components/schemas/IntApiMeta"
+            - type: object
+              properties:
+                pagination:
+                  type: object
+                  description: Pagination metadata
+                  properties:
+                    nextCursor:
+                      type: string
+                      nullable: true
+                    prevCursor:
+                      type: string
+                      nullable: true
+                    limit:
+                      type: integer
 
     Timestamps:
       type: object
@@ -3143,7 +2798,18 @@ components:
               type: string
             bundleType:
               type: string
-              enum: [document, message, transaction, transaction-response, batch, batch-response, history, searchset, collection]
+              enum:
+                [
+                  document,
+                  message,
+                  transaction,
+                  transaction-response,
+                  batch,
+                  batch-response,
+                  history,
+                  searchset,
+                  collection,
+                ]
             resources:
               type: array
               items:
@@ -3165,7 +2831,18 @@ components:
       properties:
         bundleType:
           type: string
-          enum: [document, message, transaction, transaction-response, batch, batch-response, history, searchset, collection]
+          enum:
+            [
+              document,
+              message,
+              transaction,
+              transaction-response,
+              batch,
+              batch-response,
+              history,
+              searchset,
+              collection,
+            ]
         resources:
           type: array
           items:

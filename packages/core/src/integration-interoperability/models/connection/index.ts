@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/connection.entity";
 export * from "./dto/list-connection.dto";
-export * from "./dto/create-connection.dto";
 export * from "./dto/get-connection.dto";
-export * from "./dto/update-connection.dto";
 export * from "./dto/delete-connection.dto";

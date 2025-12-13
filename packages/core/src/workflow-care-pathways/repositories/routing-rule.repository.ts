@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  RoutingRule,
   ListRoutingRulesParams,
-  RoutingRuleInput,
-  RoutingRuleUpdate
+  UpdateRoutingRuleRequest
 } from "../types/index.js";
 /**
  * RoutingRuleRepository Interface
  */
-export interface RoutingRuleRepository extends CrudRepository<Timestamps, RoutingRuleInput, RoutingRuleUpdate, string, ListRoutingRulesParams> {
+export interface RoutingRuleRepository extends CrudRepository<RoutingRule, RoutingRule, UpdateRoutingRuleRequest, string, ListRoutingRulesParams> {
 
 }

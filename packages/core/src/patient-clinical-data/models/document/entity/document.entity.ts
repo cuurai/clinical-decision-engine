@@ -15,7 +15,7 @@ import { schemas } from "../../../schemas/patient-clinical-data.schemas";
 /**
  * Entity: DocumentEntity
  * Description: Represents the Document domain model.
- * Source: schemas.Timestamps
+ * Source: schemas.Document
  */
-export const ZDocumentEntitySchema = schemas.Timestamps;
+export const ZDocumentEntitySchema = schemas.Document;
 export type DocumentEntity = z.infer<typeof ZDocumentEntitySchema>;

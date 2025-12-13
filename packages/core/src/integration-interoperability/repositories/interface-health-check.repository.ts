@@ -14,13 +14,12 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
-  ListInterfaceHealthChecksParams,
-  InterfaceHealthCheckInput
+  InterfaceHealthCheck,
+  ListInterfaceHealthChecksParams
 } from "../types/index.js";
 /**
  * InterfaceHealthCheckRepository Interface
  */
-export interface InterfaceHealthCheckRepository extends CreateReadRepository<Timestamps, InterfaceHealthCheckInput, string, ListInterfaceHealthChecksParams> {
+export interface InterfaceHealthCheckRepository extends CreateReadRepository<InterfaceHealthCheck, InterfaceHealthCheck, string, ListInterfaceHealthChecksParams> {
 
 }

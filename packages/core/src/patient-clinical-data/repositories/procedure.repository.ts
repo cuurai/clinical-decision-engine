@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  Procedure,
   ListProceduresParams,
-  ProcedureInput,
-  ProcedureUpdate
+  UpdateProcedureRequest
 } from "../types/index.js";
 /**
  * ProcedureRepository Interface
  */
-export interface ProcedureRepository extends CrudRepository<Timestamps, ProcedureInput, ProcedureUpdate, string, ListProceduresParams> {
+export interface ProcedureRepository extends CrudRepository<Procedure, Procedure, UpdateProcedureRequest, string, ListProceduresParams> {
 
 }

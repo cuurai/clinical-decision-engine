@@ -16,12 +16,11 @@ import type {
 import type {
   IntegrationJob,
   ListIntegrationJobsParams,
-  IntegrationJobInput,
-  IntegrationJobUpdate
+  UpdateIntegrationJobRequest
 } from "../types/index.js";
 /**
  * IntegrationJobRepository Interface
  */
-export interface IntegrationJobRepository extends CrudRepository<IntegrationJob, IntegrationJobInput, IntegrationJobUpdate, string, ListIntegrationJobsParams> {
+export interface IntegrationJobRepository extends CrudRepository<IntegrationJob, IntegrationJob, UpdateIntegrationJobRequest, string, ListIntegrationJobsParams> {
 
 }

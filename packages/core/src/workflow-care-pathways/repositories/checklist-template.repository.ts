@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ChecklistTemplate,
   ListChecklistTemplatesParams,
-  ChecklistTemplateInput,
-  ChecklistTemplateUpdate
+  UpdateChecklistTemplateRequest
 } from "../types/index.js";
 /**
  * ChecklistTemplateRepository Interface
  */
-export interface ChecklistTemplateRepository extends CrudRepository<Timestamps, ChecklistTemplateInput, ChecklistTemplateUpdate, string, ListChecklistTemplatesParams> {
+export interface ChecklistTemplateRepository extends CrudRepository<ChecklistTemplate, ChecklistTemplate, UpdateChecklistTemplateRequest, string, ListChecklistTemplatesParams> {
 
 }

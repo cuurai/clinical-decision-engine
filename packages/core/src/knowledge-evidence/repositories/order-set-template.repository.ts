@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  OrderSetTemplate,
   ListOrderSetTemplatesParams,
-  OrderSetTemplateInput,
-  OrderSetTemplateUpdate
+  UpdateOrderSetTemplateRequest
 } from "../types/index.js";
 /**
  * OrderSetTemplateRepository Interface
  */
-export interface OrderSetTemplateRepository extends CrudRepository<Timestamps, OrderSetTemplateInput, OrderSetTemplateUpdate, string, ListOrderSetTemplatesParams> {
+export interface OrderSetTemplateRepository extends CrudRepository<OrderSetTemplate, OrderSetTemplate, UpdateOrderSetTemplateRequest, string, ListOrderSetTemplatesParams> {
 
 }

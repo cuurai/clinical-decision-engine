@@ -5,16 +5,14 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { ChecklistInstanceInput, CreateChecklistInstanceResponse } from "../../types/index.js";
+import type { CreateChecklistInstanceResponse } from "../../types/index.js";
 import type { ChecklistInstanceRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/workflow-care-pathways-converters.js";
+import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
  * TODO: Uncomment when implementing handler logic that uses validated input
  */
-// function mapInputToValidated(input: ChecklistInstanceInput): ChecklistInstanceInput {
+// function mapInputToValidated(input: unknown): any {
 //   // Note: Request body validation is handled by service layer schemas
 //   // Handlers accept validated input and focus on business logic
 //   return input;
@@ -30,7 +28,7 @@ export async function createChecklistInstance(
     // TODO: Use orgId when implementing handler logic,
     _orgId: string,
     // TODO: Use input when implementing handler logic,
-    _input: ChecklistInstanceInput
+    _input: unknown
 ): Promise<CreateChecklistInstanceResponse> {
   // 1. Validate input
   // TODO: Use validated input when implementing query logic

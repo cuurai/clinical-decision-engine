@@ -6,31 +6,24 @@
  */
 
 import type { GetProcedureResponse } from "../../types/index.js";
-import { pcTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/patient-clinical-data-converters.js";
+import type { ProcedureRepository } from "../../repositories/index.js";
+import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get procedure by ID
  */
 export async function getProcedure(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: ProcedureRepository,
+    orgId: string,
+    id: string
 ): Promise<GetProcedureResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const procedure = await repo.findById(orgId, id);
+  if (!procedure) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: procedure,
     meta: {
       correlationId: pcTransactionId(),
       timestamp: new Date().toISOString(),

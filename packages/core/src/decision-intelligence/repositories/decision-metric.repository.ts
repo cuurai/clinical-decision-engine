@@ -14,12 +14,12 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  DecisionMetric,
+  DecisionMetricSnapshot,
   ListDecisionMetricsParams
 } from "../types/index.js";
 /**
  * DecisionMetricRepository Interface
  */
-export interface DecisionMetricRepository extends ReadRepository<DecisionMetric, string, ListDecisionMetricsParams> {
+export interface DecisionMetricRepository extends ReadRepository<DecisionMetricSnapshot, string, ListDecisionMetricsParams> {
 
 }

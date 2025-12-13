@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ValueSet,
   ListValueSetsParams,
-  ValueSetInput,
-  ValueSetUpdate
+  UpdateValueSetRequest
 } from "../types/index.js";
 /**
  * ValueSetRepository Interface
  */
-export interface ValueSetRepository extends CrudRepository<Timestamps, ValueSetInput, ValueSetUpdate, string, ListValueSetsParams> {
+export interface ValueSetRepository extends CrudRepository<ValueSet, ValueSet, UpdateValueSetRequest, string, ListValueSetsParams> {
 
 }

@@ -7,7 +7,7 @@
 
 import type { ListCarePlanGoalsResponse } from "../../types/index.js";
 import type { CarePlanGoalRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * List care plan goals
@@ -23,13 +23,17 @@ export async function listCarePlanGoals(
   // Return paginated response matching OpenAPI response type
   // Structure matches ProviderAccountListResponse: { data: { items: [...] }, meta: { ... } }
   return {
-    data: result.items,
+    data: {
+      items: result.items,
+    },
     meta: {
-      correlationId: unknownTransactionId(),
+      correlationId: wcTransactionId(),
       timestamp: new Date().toISOString(),
-      totalCount: result.total ?? result.items.length,
-      pageSize: result.items.length,
-      pageNumber: 1,
+      pagination: {
+        nextCursor: result.nextCursor ?? null,
+        prevCursor: result.prevCursor ?? null,
+        limit: result.items.length,
+      },
     },
   };
 

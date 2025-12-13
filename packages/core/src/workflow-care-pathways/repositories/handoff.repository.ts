@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  Handoff,
   ListHandoffsParams,
-  HandoffInput,
-  HandoffUpdate
+  UpdateHandoffRequest
 } from "../types/index.js";
 /**
  * HandoffRepository Interface
  */
-export interface HandoffRepository extends CrudRepository<Timestamps, HandoffInput, HandoffUpdate, string, ListHandoffsParams> {
+export interface HandoffRepository extends CrudRepository<Handoff, Handoff, UpdateHandoffRequest, string, ListHandoffsParams> {
 
 }

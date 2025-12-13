@@ -5,16 +5,14 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { CreateInterfaceHealthCheckResponse, InterfaceHealthCheckInput } from "../../types/index.js";
+import type { CreateInterfaceHealthCheckResponse } from "../../types/index.js";
 import type { InterfaceHealthCheckRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
  * TODO: Uncomment when implementing handler logic that uses validated input
  */
-// function mapInputToValidated(input: InterfaceHealthCheckInput): InterfaceHealthCheckInput {
+// function mapInputToValidated(input: unknown): any {
 //   // Note: Request body validation is handled by service layer schemas
 //   // Handlers accept validated input and focus on business logic
 //   return input;
@@ -34,7 +32,7 @@ export async function createInterfaceHealthCheck(
     // TODO: Use orgId when implementing handler logic,
     _orgId: string,
     // TODO: Use input when implementing handler logic,
-    _input: InterfaceHealthCheckInput
+    _input: unknown
 ): Promise<CreateInterfaceHealthCheckResponse> {
   // 1. Validate input
   // TODO: Use validated input when implementing query logic
@@ -50,7 +48,7 @@ export async function createInterfaceHealthCheck(
       // TODO: Populate Response DTO properties based on repository reads
     },
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

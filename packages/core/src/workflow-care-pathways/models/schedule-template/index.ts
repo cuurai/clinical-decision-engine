@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/schedule-template.entity";
 export * from "./dto/list-schedule-template.dto";
-export * from "./dto/create-schedule-template.dto";
 export * from "./dto/get-schedule-template.dto";
-export * from "./dto/update-schedule-template.dto";
 export * from "./dto/delete-schedule-template.dto";

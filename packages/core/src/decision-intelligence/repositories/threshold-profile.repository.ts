@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ThresholdProfile,
   ListThresholdProfilesParams,
-  ThresholdProfileInput,
-  ThresholdProfileUpdate
+  UpdateThresholdProfileRequest
 } from "../types/index.js";
 /**
  * ThresholdProfileRepository Interface
  */
-export interface ThresholdProfileRepository extends CrudRepository<Timestamps, ThresholdProfileInput, ThresholdProfileUpdate, string, ListThresholdProfilesParams> {
+export interface ThresholdProfileRepository extends CrudRepository<ThresholdProfile, ThresholdProfile, UpdateThresholdProfileRequest, string, ListThresholdProfilesParams> {
 
 }

@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/care-plan.entity";
 export * from "./dto/list-care-plan.dto";
-export * from "./dto/create-care-plan.dto";
 export * from "./dto/get-care-plan.dto";
-export * from "./dto/update-care-plan.dto";
 export * from "./dto/delete-care-plan.dto";

@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/clinical-rule.entity";
 export * from "./dto/list-clinical-rule.dto";
-export * from "./dto/create-clinical-rule.dto";
 export * from "./dto/get-clinical-rule.dto";
-export * from "./dto/update-clinical-rule.dto";
 export * from "./dto/delete-clinical-rule.dto";

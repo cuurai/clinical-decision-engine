@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  MedicationOrder,
   ListMedicationOrdersParams,
-  MedicationOrderInput,
-  MedicationOrderUpdate
+  UpdateMedicationOrderRequest
 } from "../types/index.js";
 /**
  * MedicationOrderRepository Interface
  */
-export interface MedicationOrderRepository extends CrudRepository<Timestamps, MedicationOrderInput, MedicationOrderUpdate, string, ListMedicationOrdersParams> {
+export interface MedicationOrderRepository extends CrudRepository<MedicationOrder, MedicationOrder, UpdateMedicationOrderRequest, string, ListMedicationOrdersParams> {
 
 }

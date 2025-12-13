@@ -5,39 +5,40 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { ClinicalGuidelineInput, CreateGuidelineResponse } from "../../types/index.js";
-// TODO: Uncomment when implementing handler logic
-// import { knoTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// // TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/knowledge-evidence-converters.js";
+import type { CreateGuidelineResponse } from "../../types/index.js";
+import type { GuidelineRepository } from "../../repositories/index.js";
+import { keTransactionId } from "../../../shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
- * TODO: Uncomment when implementing handler logic that uses validated input
  */
-// function mapInputToValidated(input: ClinicalGuidelineInput): ClinicalGuidelineInput {
-//   // Note: Request body validation is handled by service layer schemas
-//   // Handlers accept validated input and focus on business logic
-//   return input;
-// }
+function mapInputToValidated(input: unknown): any {
+  // Note: Request body validation is handled by service layer schemas
+  // Handlers accept validated input and focus on business logic
+  return input;
+}
 
 
 /**
  * Create clinical guideline
  */
 export async function createGuideline(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use input when implementing handler logic,
-    _input: ClinicalGuidelineInput
+    repo: GuidelineRepository,
+    orgId: string,
+    input: unknown
 ): Promise<CreateGuidelineResponse> {
   // 1. Validate input
-  // TODO: Use validated input when implementing business logic
-  // const validated = mapInputToValidated(input);
+  const validated = mapInputToValidated(input);
 
-  // 2. Operation returns a Response DTO (not an entity) - implement business logic here
-  // TODO: Implement operation logic (e.g., authentication, authorization, evaluation)
+  // 2. Domain input → Repository call
+  const guideline = await repo.create(orgId, validated);
 
-  throw new Error("Operation not yet implemented - requires business logic integration");
+  // 3. Repository result → response envelope
+  return {
+    data: guideline,
+    meta: {
+      correlationId: keTransactionId(),
+      timestamp: new Date().toISOString(),
+    },
+  };
 
 }

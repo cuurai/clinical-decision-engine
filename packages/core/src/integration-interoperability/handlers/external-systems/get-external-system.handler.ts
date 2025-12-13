@@ -5,35 +5,29 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { GetExternalSystemResponseWrapped } from "../../types/index.js";
-import { intTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
+import type { GetExternalSystemResponse } from "../../types/index.js";
+import type { ExternalSystemRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get external system by ID
  */
 export async function getExternalSystem(
-  // TODO: Use orgId when implementing handler logic,
-  _orgId: string,
-  // TODO: Use id when implementing handler logic,
-  _id: string
-): Promise<GetExternalSystemResponseWrapped> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+    repo: ExternalSystemRepository,
+    orgId: string,
+    id: string
+): Promise<GetExternalSystemResponse> {
+  const externalSystem = await repo.findById(orgId, id);
+  if (!externalSystem) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: externalSystem,
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };
+
 }

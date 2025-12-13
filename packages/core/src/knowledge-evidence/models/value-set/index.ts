@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/value-set.entity";
 export * from "./dto/list-value-set.dto";
-export * from "./dto/create-value-set.dto";
 export * from "./dto/get-value-set.dto";
-export * from "./dto/update-value-set.dto";
 export * from "./dto/delete-value-set.dto";

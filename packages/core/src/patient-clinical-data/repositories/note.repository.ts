@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ClinicalNote,
   ListNotesParams,
-  ClinicalNoteInput,
-  ClinicalNoteUpdate
+  UpdateClinicalNoteRequest
 } from "../types/index.js";
 /**
  * NoteRepository Interface
  */
-export interface NoteRepository extends CrudRepository<Timestamps, ClinicalNoteInput, ClinicalNoteUpdate, string, ListNotesParams> {
+export interface NoteRepository extends CrudRepository<ClinicalNote, ClinicalNote, UpdateClinicalNoteRequest, string, ListNotesParams> {
 
 }

@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/procedure.entity";
 export * from "./dto/list-procedure.dto";
-export * from "./dto/create-procedure.dto";
 export * from "./dto/get-procedure.dto";
-export * from "./dto/update-procedure.dto";
 export * from "./dto/delete-procedure.dto";

@@ -15,7 +15,7 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 /**
  * Entity: GuidelineEntity
  * Description: Represents the Guideline domain model.
- * Source: schemas.Timestamps
+ * Source: schemas.Guideline
  */
-export const ZGuidelineEntitySchema = schemas.Timestamps;
+export const ZGuidelineEntitySchema = schemas.Guideline;
 export type GuidelineEntity = z.infer<typeof ZGuidelineEntitySchema>;

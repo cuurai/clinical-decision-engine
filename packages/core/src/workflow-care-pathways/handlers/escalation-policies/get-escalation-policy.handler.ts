@@ -6,31 +6,24 @@
  */
 
 import type { GetEscalationPolicyResponse } from "../../types/index.js";
-import { wcTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/workflow-care-pathways-converters.js";
+import type { EscalationPolicyRepository } from "../../repositories/index.js";
+import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get escalation policy by ID
  */
 export async function getEscalationPolicy(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: EscalationPolicyRepository,
+    orgId: string,
+    id: string
 ): Promise<GetEscalationPolicyResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const escalationPolicy = await repo.findById(orgId, id);
+  if (!escalationPolicy) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: escalationPolicy,
     meta: {
       correlationId: wcTransactionId(),
       timestamp: new Date().toISOString(),

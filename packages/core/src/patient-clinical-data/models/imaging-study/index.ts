@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/imaging-study.entity";
 export * from "./dto/list-imaging-study.dto";
-export * from "./dto/create-imaging-study.dto";
 export * from "./dto/get-imaging-study.dto";
-export * from "./dto/update-imaging-study.dto";
 export * from "./dto/delete-imaging-study.dto";

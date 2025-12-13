@@ -112,36 +112,36 @@ export type WorkQueueAlert = operations["listWorkQueueAlerts"]["responses"]["200
 
 // These types represent the input data for create/update operations
 
-export type WorkflowDefinitionInputInput = NonNullable<operations["createWorkflowDefinition"]["requestBody"]>["content"]["application/json"];
-export type WorkflowDefinitionUpdateInput = NonNullable<operations["updateWorkflowDefinition"]["requestBody"]>["content"]["application/json"];
-export type WorkflowInstanceInputInput = NonNullable<operations["createWorkflowInstance"]["requestBody"]>["content"]["application/json"];
-export type WorkflowInstanceUpdateInput = NonNullable<operations["updateWorkflowInstance"]["requestBody"]>["content"]["application/json"];
-export type CarePathwayTemplateInputInput = NonNullable<operations["createCarePathwayTemplate"]["requestBody"]>["content"]["application/json"];
-export type CarePathwayTemplateUpdateInput = NonNullable<operations["updateCarePathwayTemplate"]["requestBody"]>["content"]["application/json"];
-export type CarePlanInputInput = NonNullable<operations["createCarePlan"]["requestBody"]>["content"]["application/json"];
-export type CarePlanUpdateInput = NonNullable<operations["updateCarePlan"]["requestBody"]>["content"]["application/json"];
-export type EpisodeOfCareInputInput = NonNullable<operations["createEpisodeOfCare"]["requestBody"]>["content"]["application/json"];
-export type EpisodeOfCareUpdateInput = NonNullable<operations["updateEpisodeOfCare"]["requestBody"]>["content"]["application/json"];
-export type TaskInputInput = NonNullable<operations["createTask"]["requestBody"]>["content"]["application/json"];
-export type TaskUpdateInput = NonNullable<operations["updateTask"]["requestBody"]>["content"]["application/json"];
-export type TaskAssignmentInputInput = NonNullable<operations["createTaskAssignment"]["requestBody"]>["content"]["application/json"];
-export type TaskAssignmentUpdateInput = NonNullable<operations["updateTaskAssignment"]["requestBody"]>["content"]["application/json"];
-export type AlertInputInput = NonNullable<operations["createAlert"]["requestBody"]>["content"]["application/json"];
-export type AlertUpdateInput = NonNullable<operations["updateAlert"]["requestBody"]>["content"]["application/json"];
-export type HandoffInputInput = NonNullable<operations["createHandoff"]["requestBody"]>["content"]["application/json"];
-export type HandoffUpdateInput = NonNullable<operations["updateHandoff"]["requestBody"]>["content"]["application/json"];
-export type ChecklistTemplateInputInput = NonNullable<operations["createChecklistTemplate"]["requestBody"]>["content"]["application/json"];
-export type ChecklistTemplateUpdateInput = NonNullable<operations["updateChecklistTemplate"]["requestBody"]>["content"]["application/json"];
-export type ChecklistInstanceInputInput = NonNullable<operations["createChecklistInstance"]["requestBody"]>["content"]["application/json"];
-export type ChecklistInstanceUpdateInput = NonNullable<operations["updateChecklistInstance"]["requestBody"]>["content"]["application/json"];
-export type EscalationPolicyInputInput = NonNullable<operations["createEscalationPolicy"]["requestBody"]>["content"]["application/json"];
-export type EscalationPolicyUpdateInput = NonNullable<operations["updateEscalationPolicy"]["requestBody"]>["content"]["application/json"];
-export type RoutingRuleInputInput = NonNullable<operations["createRoutingRule"]["requestBody"]>["content"]["application/json"];
-export type RoutingRuleUpdateInput = NonNullable<operations["updateRoutingRule"]["requestBody"]>["content"]["application/json"];
-export type ScheduleTemplateInputInput = NonNullable<operations["createScheduleTemplate"]["requestBody"]>["content"]["application/json"];
-export type ScheduleTemplateUpdateInput = NonNullable<operations["updateScheduleTemplate"]["requestBody"]>["content"]["application/json"];
-export type WorkQueueInputInput = NonNullable<operations["createWorkQueue"]["requestBody"]>["content"]["application/json"];
-export type WorkQueueUpdateInput = NonNullable<operations["updateWorkQueue"]["requestBody"]>["content"]["application/json"];
+export type CreateWorkflowDefinitionInput = NonNullable<operations["createWorkflowDefinition"]["requestBody"]>["content"]["application/json"];
+export type UpdateWorkflowDefinitionInput = NonNullable<operations["updateWorkflowDefinition"]["requestBody"]>["content"]["application/json"];
+export type CreateWorkflowInstanceInput = NonNullable<operations["createWorkflowInstance"]["requestBody"]>["content"]["application/json"];
+export type UpdateWorkflowInstanceInput = NonNullable<operations["updateWorkflowInstance"]["requestBody"]>["content"]["application/json"];
+export type CreateCarePathwayTemplateInput = NonNullable<operations["createCarePathwayTemplate"]["requestBody"]>["content"]["application/json"];
+export type UpdateCarePathwayTemplateInput = NonNullable<operations["updateCarePathwayTemplate"]["requestBody"]>["content"]["application/json"];
+export type CreateCarePlanInput = NonNullable<operations["createCarePlan"]["requestBody"]>["content"]["application/json"];
+export type UpdateCarePlanInput = NonNullable<operations["updateCarePlan"]["requestBody"]>["content"]["application/json"];
+export type CreateEpisodeOfCareInput = NonNullable<operations["createEpisodeOfCare"]["requestBody"]>["content"]["application/json"];
+export type UpdateEpisodeOfCareInput = NonNullable<operations["updateEpisodeOfCare"]["requestBody"]>["content"]["application/json"];
+export type CreateTaskInput = NonNullable<operations["createTask"]["requestBody"]>["content"]["application/json"];
+export type UpdateTaskInput = NonNullable<operations["updateTask"]["requestBody"]>["content"]["application/json"];
+export type CreateTaskAssignmentInput = NonNullable<operations["createTaskAssignment"]["requestBody"]>["content"]["application/json"];
+export type UpdateTaskAssignmentInput = NonNullable<operations["updateTaskAssignment"]["requestBody"]>["content"]["application/json"];
+export type CreateAlertInput = NonNullable<operations["createAlert"]["requestBody"]>["content"]["application/json"];
+export type UpdateAlertInput = NonNullable<operations["updateAlert"]["requestBody"]>["content"]["application/json"];
+export type CreateHandoffInput = NonNullable<operations["createHandoff"]["requestBody"]>["content"]["application/json"];
+export type UpdateHandoffInput = NonNullable<operations["updateHandoff"]["requestBody"]>["content"]["application/json"];
+export type CreateChecklistTemplateInput = NonNullable<operations["createChecklistTemplate"]["requestBody"]>["content"]["application/json"];
+export type UpdateChecklistTemplateInput = NonNullable<operations["updateChecklistTemplate"]["requestBody"]>["content"]["application/json"];
+export type CreateChecklistInstanceInput = NonNullable<operations["createChecklistInstance"]["requestBody"]>["content"]["application/json"];
+export type UpdateChecklistInstanceInput = NonNullable<operations["updateChecklistInstance"]["requestBody"]>["content"]["application/json"];
+export type CreateEscalationPolicyInput = NonNullable<operations["createEscalationPolicy"]["requestBody"]>["content"]["application/json"];
+export type UpdateEscalationPolicyInput = NonNullable<operations["updateEscalationPolicy"]["requestBody"]>["content"]["application/json"];
+export type CreateRoutingRuleInput = NonNullable<operations["createRoutingRule"]["requestBody"]>["content"]["application/json"];
+export type UpdateRoutingRuleInput = NonNullable<operations["updateRoutingRule"]["requestBody"]>["content"]["application/json"];
+export type CreateScheduleTemplateInput = NonNullable<operations["createScheduleTemplate"]["requestBody"]>["content"]["application/json"];
+export type UpdateScheduleTemplateInput = NonNullable<operations["updateScheduleTemplate"]["requestBody"]>["content"]["application/json"];
+export type CreateWorkQueueInput = NonNullable<operations["createWorkQueue"]["requestBody"]>["content"]["application/json"];
+export type UpdateWorkQueueInput = NonNullable<operations["updateWorkQueue"]["requestBody"]>["content"]["application/json"];
 
 
 // ============================================================================

@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/diagnostic-report.entity";
 export * from "./dto/list-diagnostic-report.dto";
-export * from "./dto/create-diagnostic-report.dto";
 export * from "./dto/get-diagnostic-report.dto";
-export * from "./dto/update-diagnostic-report.dto";
 export * from "./dto/delete-diagnostic-report.dto";

@@ -1,6 +1,20 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 
+const KnoApiMeta = z
+  .object({
+    correlationId: z.string(),
+    timestamp: z.string().datetime({ offset: true }),
+    totalCount: z.number().int(),
+    pageSize: z.number().int(),
+    pageNumber: z.number().int(),
+  })
+  .partial()
+  .passthrough();
+const KnoApiListResponse = z
+  .object({ data: z.array(z.any()), meta: KnoApiMeta })
+  .partial()
+  .passthrough();
 const Timestamps = z
   .object({
     createdAt: z.string().datetime({ offset: true }),
@@ -24,6 +38,10 @@ const ClinicalRule = Timestamps.and(
     })
     .passthrough()
 );
+const KnoApiResponse = z
+  .object({ data: z.object({}).partial().passthrough(), meta: KnoApiMeta })
+  .partial()
+  .passthrough();
 const ClinicalRuleInput = z
   .object({
     name: z.string(),
@@ -37,6 +55,9 @@ const ClinicalRuleInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createClinicalRule_Body = KnoApiResponse.and(
+  z.object({ data: ClinicalRuleInput }).partial().passthrough()
+);
 const Error = z
   .object({
     error: z.string(),
@@ -57,6 +78,9 @@ const ClinicalRuleUpdate = z
   })
   .partial()
   .passthrough();
+const updateClinicalRule_Body = KnoApiResponse.and(
+  z.object({ data: ClinicalRuleUpdate }).partial().passthrough()
+);
 const ClinicalRuleVersion = z
   .object({
     id: z.string(),
@@ -105,6 +129,9 @@ const RuleSetInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createRuleSet_Body = KnoApiResponse.and(
+  z.object({ data: RuleSetInput }).partial().passthrough()
+);
 const RuleSetUpdate = z
   .object({
     name: z.string(),
@@ -115,6 +142,9 @@ const RuleSetUpdate = z
   })
   .partial()
   .passthrough();
+const updateRuleSet_Body = KnoApiResponse.and(
+  z.object({ data: RuleSetUpdate }).partial().passthrough()
+);
 const ClinicalGuideline = Timestamps.and(
   z
     .object({
@@ -148,6 +178,9 @@ const ClinicalGuidelineInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createGuideline_Body = KnoApiResponse.and(
+  z.object({ data: ClinicalGuidelineInput }).partial().passthrough()
+);
 const ClinicalGuidelineUpdate = z
   .object({
     title: z.string(),
@@ -162,6 +195,9 @@ const ClinicalGuidelineUpdate = z
   })
   .partial()
   .passthrough();
+const updateGuideline_Body = KnoApiResponse.and(
+  z.object({ data: ClinicalGuidelineUpdate }).partial().passthrough()
+);
 const GuidelineSection = z
   .object({
     id: z.string(),
@@ -213,6 +249,9 @@ const CareProtocolTemplateInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createCareProtocol_Body = KnoApiResponse.and(
+  z.object({ data: CareProtocolTemplateInput }).partial().passthrough()
+);
 const CareProtocolTemplateUpdate = z
   .object({
     name: z.string(),
@@ -224,6 +263,9 @@ const CareProtocolTemplateUpdate = z
   })
   .partial()
   .passthrough();
+const updateCareProtocol_Body = KnoApiResponse.and(
+  z.object({ data: CareProtocolTemplateUpdate }).partial().passthrough()
+);
 const ProtocolStep = z
   .object({
     id: z.string(),
@@ -262,6 +304,9 @@ const OrderSetTemplateInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createOrderSetTemplate_Body = KnoApiResponse.and(
+  z.object({ data: OrderSetTemplateInput }).partial().passthrough()
+);
 const OrderSetTemplateUpdate = z
   .object({
     name: z.string(),
@@ -273,6 +318,9 @@ const OrderSetTemplateUpdate = z
   })
   .partial()
   .passthrough();
+const updateOrderSetTemplate_Body = KnoApiResponse.and(
+  z.object({ data: OrderSetTemplateUpdate }).partial().passthrough()
+);
 const Coding = z
   .object({ system: z.string(), code: z.string(), display: z.string(), version: z.string() })
   .partial()
@@ -322,6 +370,9 @@ const ModelDefinitionInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createModelDefinition_Body = KnoApiResponse.and(
+  z.object({ data: ModelDefinitionInput }).partial().passthrough()
+);
 const ModelDefinitionUpdate = z
   .object({
     name: z.string(),
@@ -332,6 +383,9 @@ const ModelDefinitionUpdate = z
   })
   .partial()
   .passthrough();
+const updateModelDefinition_Body = KnoApiResponse.and(
+  z.object({ data: ModelDefinitionUpdate }).partial().passthrough()
+);
 const ModelVersion = Timestamps.and(
   z
     .object({
@@ -372,6 +426,9 @@ const ModelVersionInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createModelVersion_Body = KnoApiResponse.and(
+  z.object({ data: ModelVersionInput }).partial().passthrough()
+);
 const ModelVersionUpdate = z
   .object({
     artifactUrl: z.string().url(),
@@ -381,6 +438,9 @@ const ModelVersionUpdate = z
   })
   .partial()
   .passthrough();
+const updateModelVersion_Body = KnoApiResponse.and(
+  z.object({ data: ModelVersionUpdate }).partial().passthrough()
+);
 const ModelTest = z
   .object({
     id: z.string(),
@@ -459,6 +519,9 @@ const ValueSetInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createValueSet_Body = KnoApiResponse.and(
+  z.object({ data: ValueSetInput }).partial().passthrough()
+);
 const ValueSetUpdate = z
   .object({
     name: z.string(),
@@ -469,6 +532,9 @@ const ValueSetUpdate = z
   })
   .partial()
   .passthrough();
+const updateValueSet_Body = KnoApiResponse.and(
+  z.object({ data: ValueSetUpdate }).partial().passthrough()
+);
 const ValueSetCode = z
   .object({
     id: z.string(),
@@ -504,6 +570,9 @@ const ConceptMapInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createConceptMap_Body = KnoApiResponse.and(
+  z.object({ data: ConceptMapInput }).partial().passthrough()
+);
 const ConceptMapUpdate = z
   .object({
     name: z.string(),
@@ -513,6 +582,9 @@ const ConceptMapUpdate = z
   })
   .partial()
   .passthrough();
+const updateConceptMap_Body = KnoApiResponse.and(
+  z.object({ data: ConceptMapUpdate }).partial().passthrough()
+);
 const ConceptMapping = z
   .object({
     id: z.string(),
@@ -555,6 +627,9 @@ const ScoringTemplateInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createScoringTemplate_Body = KnoApiResponse.and(
+  z.object({ data: ScoringTemplateInput }).partial().passthrough()
+);
 const ScoringTemplateUpdate = z
   .object({
     name: z.string(),
@@ -566,6 +641,9 @@ const ScoringTemplateUpdate = z
   })
   .partial()
   .passthrough();
+const updateScoringTemplate_Body = KnoApiResponse.and(
+  z.object({ data: ScoringTemplateUpdate }).partial().passthrough()
+);
 const ScoringItem = z
   .object({
     id: z.string(),
@@ -600,6 +678,9 @@ const QuestionnaireTemplateInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createQuestionnaireTemplate_Body = KnoApiResponse.and(
+  z.object({ data: QuestionnaireTemplateInput }).partial().passthrough()
+);
 const QuestionnaireTemplateUpdate = z
   .object({
     name: z.string(),
@@ -610,6 +691,9 @@ const QuestionnaireTemplateUpdate = z
   })
   .partial()
   .passthrough();
+const updateQuestionnaireTemplate_Body = KnoApiResponse.and(
+  z.object({ data: QuestionnaireTemplateUpdate }).partial().passthrough()
+);
 const QuestionnaireQuestion = z
   .object({
     id: z.string(),
@@ -637,6 +721,9 @@ const EvidenceCitationInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createEvidenceCitation_Body = KnoApiResponse.and(
+  z.object({ data: EvidenceCitationInput }).partial().passthrough()
+);
 const EvidenceCitationUpdate = z
   .object({
     title: z.string(),
@@ -650,6 +737,9 @@ const EvidenceCitationUpdate = z
   })
   .partial()
   .passthrough();
+const updateEvidenceCitation_Body = KnoApiResponse.and(
+  z.object({ data: EvidenceCitationUpdate }).partial().passthrough()
+);
 const EvidenceReview = Timestamps.and(
   z
     .object({
@@ -675,6 +765,9 @@ const EvidenceReviewInput = z
   })
   .partial()
   .passthrough();
+const createEvidenceReview_Body = KnoApiResponse.and(
+  z.object({ data: EvidenceReviewInput }).partial().passthrough()
+);
 const EvidenceReviewUpdate = z
   .object({
     gradeLevel: z.enum(["high", "moderate", "low", "very-low"]),
@@ -686,6 +779,9 @@ const EvidenceReviewUpdate = z
   })
   .partial()
   .passthrough();
+const updateEvidenceReview_Body = KnoApiResponse.and(
+  z.object({ data: EvidenceReviewUpdate }).partial().passthrough()
+);
 const KnowledgePackage = Timestamps.and(
   z
     .object({
@@ -709,6 +805,9 @@ const KnowledgePackageInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createKnowledgePackage_Body = KnoApiResponse.and(
+  z.object({ data: KnowledgePackageInput }).partial().passthrough()
+);
 const KnowledgePackageUpdate = z
   .object({
     name: z.string(),
@@ -720,68 +819,102 @@ const KnowledgePackageUpdate = z
   })
   .partial()
   .passthrough();
+const updateKnowledgePackage_Body = KnoApiResponse.and(
+  z.object({ data: KnowledgePackageUpdate }).partial().passthrough()
+);
 
 export const schemas = {
+  KnoApiMeta,
+  KnoApiListResponse,
   Timestamps,
   ClinicalRule,
+  KnoApiResponse,
   ClinicalRuleInput,
+  createClinicalRule_Body,
   Error,
   ClinicalRuleUpdate,
+  updateClinicalRule_Body,
   ClinicalRuleVersion,
   RuleTest,
   RuleSet,
   RuleSetInput,
+  createRuleSet_Body,
   RuleSetUpdate,
+  updateRuleSet_Body,
   ClinicalGuideline,
   ClinicalGuidelineInput,
+  createGuideline_Body,
   ClinicalGuidelineUpdate,
+  updateGuideline_Body,
   GuidelineSection,
   EvidenceCitation,
   CareProtocolTemplate,
   CareProtocolTemplateInput,
+  createCareProtocol_Body,
   CareProtocolTemplateUpdate,
+  updateCareProtocol_Body,
   ProtocolStep,
   OrderSetTemplate,
   OrderSetTemplateInput,
+  createOrderSetTemplate_Body,
   OrderSetTemplateUpdate,
+  updateOrderSetTemplate_Body,
   Coding,
   CodeableConcept,
   OrderSetItem,
   ModelDefinition,
   ModelDefinitionInput,
+  createModelDefinition_Body,
   ModelDefinitionUpdate,
+  updateModelDefinition_Body,
   ModelVersion,
   PerformanceMetric,
   ModelVersionInput,
+  createModelVersion_Body,
   ModelVersionUpdate,
+  updateModelVersion_Body,
   ModelTest,
   FeatureDefinition,
   OntologyTerm,
   TermMapping,
   ValueSet,
   ValueSetInput,
+  createValueSet_Body,
   ValueSetUpdate,
+  updateValueSet_Body,
   ValueSetCode,
   ConceptMap,
   ConceptMapInput,
+  createConceptMap_Body,
   ConceptMapUpdate,
+  updateConceptMap_Body,
   ConceptMapping,
   ScoringTemplate,
   ScoringTemplateInput,
+  createScoringTemplate_Body,
   ScoringTemplateUpdate,
+  updateScoringTemplate_Body,
   ScoringItem,
   QuestionnaireTemplate,
   QuestionnaireTemplateInput,
+  createQuestionnaireTemplate_Body,
   QuestionnaireTemplateUpdate,
+  updateQuestionnaireTemplate_Body,
   QuestionnaireQuestion,
   EvidenceCitationInput,
+  createEvidenceCitation_Body,
   EvidenceCitationUpdate,
+  updateEvidenceCitation_Body,
   EvidenceReview,
   EvidenceReviewInput,
+  createEvidenceReview_Body,
   EvidenceReviewUpdate,
+  updateEvidenceReview_Body,
   KnowledgePackage,
   KnowledgePackageInput,
+  createKnowledgePackage_Body,
   KnowledgePackageUpdate,
+  updateKnowledgePackage_Body,
 };
 
 const endpoints = makeApi([
@@ -812,7 +945,12 @@ const endpoints = makeApi([
         schema: z.enum(["draft", "active", "deprecated"]).optional(),
       },
     ],
-    response: z.array(CareProtocolTemplate),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(CareProtocolTemplate) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -823,15 +961,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: CareProtocolTemplateInput,
+        schema: createCareProtocol_Body,
       },
     ],
-    response: CareProtocolTemplate,
+    response: KnoApiResponse.and(z.object({ data: CareProtocolTemplate }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -847,12 +985,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: CareProtocolTemplate,
+    response: KnoApiResponse.and(z.object({ data: CareProtocolTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -865,7 +1003,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: CareProtocolTemplateUpdate,
+        schema: updateCareProtocol_Body,
       },
       {
         name: "id",
@@ -873,12 +1011,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: CareProtocolTemplate,
+    response: KnoApiResponse.and(z.object({ data: CareProtocolTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -899,7 +1037,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -978,7 +1116,12 @@ const endpoints = makeApi([
         schema: z.boolean().optional(),
       },
     ],
-    response: z.array(ClinicalRule),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(ClinicalRule) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -989,15 +1132,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ClinicalRuleInput,
+        schema: createClinicalRule_Body,
       },
     ],
-    response: ClinicalRule,
+    response: KnoApiResponse.and(z.object({ data: ClinicalRule }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1013,12 +1156,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ClinicalRule,
+    response: KnoApiResponse.and(z.object({ data: ClinicalRule }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1031,7 +1174,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ClinicalRuleUpdate,
+        schema: updateClinicalRule_Body,
       },
       {
         name: "id",
@@ -1039,12 +1182,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ClinicalRule,
+    response: KnoApiResponse.and(z.object({ data: ClinicalRule }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1065,7 +1208,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1144,7 +1287,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(ConceptMap),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(ConceptMap) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1155,15 +1303,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ConceptMapInput,
+        schema: createConceptMap_Body,
       },
     ],
-    response: ConceptMap,
+    response: KnoApiResponse.and(z.object({ data: ConceptMap }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1179,12 +1327,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ConceptMap,
+    response: KnoApiResponse.and(z.object({ data: ConceptMap }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1197,7 +1345,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ConceptMapUpdate,
+        schema: updateConceptMap_Body,
       },
       {
         name: "id",
@@ -1205,12 +1353,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ConceptMap,
+    response: KnoApiResponse.and(z.object({ data: ConceptMap }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1231,7 +1379,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1281,7 +1429,12 @@ const endpoints = makeApi([
         schema: z.enum(["paper", "guideline", "trial", "systematic-review", "other"]).optional(),
       },
     ],
-    response: z.array(EvidenceCitation),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(EvidenceCitation) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1292,15 +1445,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EvidenceCitationInput,
+        schema: createEvidenceCitation_Body,
       },
     ],
-    response: EvidenceCitation,
+    response: KnoApiResponse.and(z.object({ data: EvidenceCitation }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1316,12 +1469,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EvidenceCitation,
+    response: KnoApiResponse.and(z.object({ data: EvidenceCitation }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1334,7 +1487,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EvidenceCitationUpdate,
+        schema: updateEvidenceCitation_Body,
       },
       {
         name: "id",
@@ -1342,12 +1495,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EvidenceCitation,
+    response: KnoApiResponse.and(z.object({ data: EvidenceCitation }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1368,7 +1521,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1394,7 +1547,12 @@ const endpoints = makeApi([
         schema: z.enum(["high", "moderate", "low", "very-low"]).optional(),
       },
     ],
-    response: z.array(EvidenceReview),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(EvidenceReview) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1405,15 +1563,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EvidenceReviewInput,
+        schema: createEvidenceReview_Body,
       },
     ],
-    response: EvidenceReview,
+    response: KnoApiResponse.and(z.object({ data: EvidenceReview }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1429,12 +1587,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EvidenceReview,
+    response: KnoApiResponse.and(z.object({ data: EvidenceReview }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1447,7 +1605,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: EvidenceReviewUpdate,
+        schema: updateEvidenceReview_Body,
       },
       {
         name: "id",
@@ -1455,12 +1613,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: EvidenceReview,
+    response: KnoApiResponse.and(z.object({ data: EvidenceReview }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1481,7 +1639,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1512,7 +1670,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(ClinicalGuideline),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(ClinicalGuideline) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1523,15 +1686,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ClinicalGuidelineInput,
+        schema: createGuideline_Body,
       },
     ],
-    response: ClinicalGuideline,
+    response: KnoApiResponse.and(z.object({ data: ClinicalGuideline }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1547,12 +1710,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ClinicalGuideline,
+    response: KnoApiResponse.and(z.object({ data: ClinicalGuideline }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1565,7 +1728,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ClinicalGuidelineUpdate,
+        schema: updateGuideline_Body,
       },
       {
         name: "id",
@@ -1573,12 +1736,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ClinicalGuideline,
+    response: KnoApiResponse.and(z.object({ data: ClinicalGuideline }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1599,7 +1762,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1678,7 +1841,12 @@ const endpoints = makeApi([
         schema: z.enum(["draft", "active", "deprecated"]).optional(),
       },
     ],
-    response: z.array(KnowledgePackage),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(KnowledgePackage) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1689,15 +1857,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: KnowledgePackageInput,
+        schema: createKnowledgePackage_Body,
       },
     ],
-    response: KnowledgePackage,
+    response: KnoApiResponse.and(z.object({ data: KnowledgePackage }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1713,12 +1881,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: KnowledgePackage,
+    response: KnoApiResponse.and(z.object({ data: KnowledgePackage }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1731,7 +1899,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: KnowledgePackageUpdate,
+        schema: updateKnowledgePackage_Body,
       },
       {
         name: "id",
@@ -1739,12 +1907,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: KnowledgePackage,
+    response: KnoApiResponse.and(z.object({ data: KnowledgePackage }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1765,7 +1933,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1870,7 +2038,12 @@ const endpoints = makeApi([
         schema: z.enum(["draft", "active", "deprecated", "archived"]).optional(),
       },
     ],
-    response: z.array(ModelDefinition),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(ModelDefinition) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1881,15 +2054,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ModelDefinitionInput,
+        schema: createModelDefinition_Body,
       },
     ],
-    response: ModelDefinition,
+    response: KnoApiResponse.and(z.object({ data: ModelDefinition }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1905,12 +2078,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ModelDefinition,
+    response: KnoApiResponse.and(z.object({ data: ModelDefinition }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1923,7 +2096,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ModelDefinitionUpdate,
+        schema: updateModelDefinition_Body,
       },
       {
         name: "id",
@@ -1931,12 +2104,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ModelDefinition,
+    response: KnoApiResponse.and(z.object({ data: ModelDefinition }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1957,7 +2130,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2036,7 +2209,12 @@ const endpoints = makeApi([
         schema: z.enum(["training", "validated", "deployed", "deprecated"]).optional(),
       },
     ],
-    response: z.array(ModelVersion),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(ModelVersion) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2047,15 +2225,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ModelVersionInput,
+        schema: createModelVersion_Body,
       },
     ],
-    response: ModelVersion,
+    response: KnoApiResponse.and(z.object({ data: ModelVersion }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2071,12 +2249,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ModelVersion,
+    response: KnoApiResponse.and(z.object({ data: ModelVersion }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2089,7 +2267,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ModelVersionUpdate,
+        schema: updateModelVersion_Body,
       },
       {
         name: "id",
@@ -2097,12 +2275,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ModelVersion,
+    response: KnoApiResponse.and(z.object({ data: ModelVersion }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2123,7 +2301,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2221,12 +2399,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: OntologyTerm,
+    response: KnoApiResponse.and(z.object({ data: OntologyTerm }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2329,7 +2507,12 @@ const endpoints = makeApi([
         schema: z.enum(["draft", "active", "deprecated"]).optional(),
       },
     ],
-    response: z.array(OrderSetTemplate),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(OrderSetTemplate) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2340,15 +2523,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: OrderSetTemplateInput,
+        schema: createOrderSetTemplate_Body,
       },
     ],
-    response: OrderSetTemplate,
+    response: KnoApiResponse.and(z.object({ data: OrderSetTemplate }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2364,12 +2547,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: OrderSetTemplate,
+    response: KnoApiResponse.and(z.object({ data: OrderSetTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2382,7 +2565,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: OrderSetTemplateUpdate,
+        schema: updateOrderSetTemplate_Body,
       },
       {
         name: "id",
@@ -2390,12 +2573,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: OrderSetTemplate,
+    response: KnoApiResponse.and(z.object({ data: OrderSetTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2416,7 +2599,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2466,7 +2649,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(QuestionnaireTemplate),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(QuestionnaireTemplate) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2477,15 +2665,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: QuestionnaireTemplateInput,
+        schema: createQuestionnaireTemplate_Body,
       },
     ],
-    response: QuestionnaireTemplate,
+    response: KnoApiResponse.and(z.object({ data: QuestionnaireTemplate }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2501,12 +2689,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: QuestionnaireTemplate,
+    response: KnoApiResponse.and(z.object({ data: QuestionnaireTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2519,7 +2707,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: QuestionnaireTemplateUpdate,
+        schema: updateQuestionnaireTemplate_Body,
       },
       {
         name: "id",
@@ -2527,12 +2715,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: QuestionnaireTemplate,
+    response: KnoApiResponse.and(z.object({ data: QuestionnaireTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2553,7 +2741,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2603,7 +2791,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(RuleSet),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(RuleSet) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2614,15 +2807,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: RuleSetInput,
+        schema: createRuleSet_Body,
       },
     ],
-    response: RuleSet,
+    response: KnoApiResponse.and(z.object({ data: RuleSet }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2638,12 +2831,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: RuleSet,
+    response: KnoApiResponse.and(z.object({ data: RuleSet }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2656,7 +2849,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: RuleSetUpdate,
+        schema: updateRuleSet_Body,
       },
       {
         name: "id",
@@ -2664,12 +2857,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: RuleSet,
+    response: KnoApiResponse.and(z.object({ data: RuleSet }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2690,7 +2883,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2740,7 +2933,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(ScoringTemplate),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(ScoringTemplate) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2751,15 +2949,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ScoringTemplateInput,
+        schema: createScoringTemplate_Body,
       },
     ],
-    response: ScoringTemplate,
+    response: KnoApiResponse.and(z.object({ data: ScoringTemplate }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2775,12 +2973,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ScoringTemplate,
+    response: KnoApiResponse.and(z.object({ data: ScoringTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2793,7 +2991,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ScoringTemplateUpdate,
+        schema: updateScoringTemplate_Body,
       },
       {
         name: "id",
@@ -2801,12 +2999,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ScoringTemplate,
+    response: KnoApiResponse.and(z.object({ data: ScoringTemplate }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2827,7 +3025,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2877,7 +3075,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(ValueSet),
+    response: KnoApiListResponse.and(
+      z
+        .object({ data: z.array(ValueSet) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2888,15 +3091,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ValueSetInput,
+        schema: createValueSet_Body,
       },
     ],
-    response: ValueSet,
+    response: KnoApiResponse.and(z.object({ data: ValueSet }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2912,12 +3115,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ValueSet,
+    response: KnoApiResponse.and(z.object({ data: ValueSet }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2930,7 +3133,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: ValueSetUpdate,
+        schema: updateValueSet_Body,
       },
       {
         name: "id",
@@ -2938,12 +3141,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ValueSet,
+    response: KnoApiResponse.and(z.object({ data: ValueSet }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2964,7 +3167,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: KnoApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },

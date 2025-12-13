@@ -6,7 +6,7 @@
  */
 
 import type { DiagnosticReportRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete diagnostic report

@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/care-team.entity";
 export * from "./dto/list-care-team.dto";
-export * from "./dto/create-care-team.dto";
 export * from "./dto/get-care-team.dto";
-export * from "./dto/update-care-team.dto";
 export * from "./dto/delete-care-team.dto";

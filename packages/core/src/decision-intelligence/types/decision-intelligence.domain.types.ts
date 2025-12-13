@@ -94,29 +94,29 @@ export type DecisionMetric = operations["listDecisionMetrics"]["responses"]["200
 
 // These types represent the input data for create/update operations
 
-export type DecisionSessionInputInput = NonNullable<operations["createDecisionSession"]["requestBody"]>["content"]["application/json"];
-export type DecisionSessionUpdateInput = NonNullable<operations["updateDecisionSession"]["requestBody"]>["content"]["application/json"];
-export type DecisionRequestInputInput = NonNullable<operations["createDecisionRequest"]["requestBody"]>["content"]["application/json"];
-export type DecisionResultInputInput = NonNullable<operations["createDecisionResult"]["requestBody"]>["content"]["application/json"];
-export type DecisionResultUpdateInput = NonNullable<operations["updateDecisionResult"]["requestBody"]>["content"]["application/json"];
-export type RiskAssessmentInputInput = NonNullable<operations["createRiskAssessment"]["requestBody"]>["content"]["application/json"];
-export type RiskAssessmentUpdateInput = NonNullable<operations["updateRiskAssessment"]["requestBody"]>["content"]["application/json"];
-export type RecommendationInputInput = NonNullable<operations["createRecommendation"]["requestBody"]>["content"]["application/json"];
-export type RecommendationUpdateInput = NonNullable<operations["updateRecommendation"]["requestBody"]>["content"]["application/json"];
-export type AlertEvaluationInputInput = NonNullable<operations["createAlertEvaluation"]["requestBody"]>["content"]["application/json"];
-export type AlertEvaluationUpdateInput = NonNullable<operations["updateAlertEvaluation"]["requestBody"]>["content"]["application/json"];
-export type ExplanationInputInput = NonNullable<operations["createExplanation"]["requestBody"]>["content"]["application/json"];
-export type ModelInvocationInputInput = NonNullable<operations["createModelInvocation"]["requestBody"]>["content"]["application/json"];
-export type SimulationScenarioInputInput = NonNullable<operations["createSimulationScenario"]["requestBody"]>["content"]["application/json"];
-export type SimulationScenarioUpdateInput = NonNullable<operations["updateSimulationScenario"]["requestBody"]>["content"]["application/json"];
-export type SimulationRunInputInput = NonNullable<operations["createSimulationRun"]["requestBody"]>["content"]["application/json"];
-export type DecisionPolicyInputInput = NonNullable<operations["createDecisionPolicy"]["requestBody"]>["content"]["application/json"];
-export type DecisionPolicyUpdateInput = NonNullable<operations["updateDecisionPolicy"]["requestBody"]>["content"]["application/json"];
-export type ThresholdProfileInputInput = NonNullable<operations["createThresholdProfile"]["requestBody"]>["content"]["application/json"];
-export type ThresholdProfileUpdateInput = NonNullable<operations["updateThresholdProfile"]["requestBody"]>["content"]["application/json"];
-export type DecisionMetricSnapshotInputInput = NonNullable<operations["createDecisionMetricSnapshot"]["requestBody"]>["content"]["application/json"];
-export type ExperimentInputInput = NonNullable<operations["createExperiment"]["requestBody"]>["content"]["application/json"];
-export type ExperimentUpdateInput = NonNullable<operations["updateExperiment"]["requestBody"]>["content"]["application/json"];
+export type CreateDecisionSessionInput = NonNullable<operations["createDecisionSession"]["requestBody"]>["content"]["application/json"];
+export type UpdateDecisionSessionInput = NonNullable<operations["updateDecisionSession"]["requestBody"]>["content"]["application/json"];
+export type CreateDecisionRequestInput = NonNullable<operations["createDecisionRequest"]["requestBody"]>["content"]["application/json"];
+export type CreateDecisionResultInput = NonNullable<operations["createDecisionResult"]["requestBody"]>["content"]["application/json"];
+export type UpdateDecisionResultInput = NonNullable<operations["updateDecisionResult"]["requestBody"]>["content"]["application/json"];
+export type CreateRiskAssessmentInput = NonNullable<operations["createRiskAssessment"]["requestBody"]>["content"]["application/json"];
+export type UpdateRiskAssessmentInput = NonNullable<operations["updateRiskAssessment"]["requestBody"]>["content"]["application/json"];
+export type CreateRecommendationInput = NonNullable<operations["createRecommendation"]["requestBody"]>["content"]["application/json"];
+export type UpdateRecommendationInput = NonNullable<operations["updateRecommendation"]["requestBody"]>["content"]["application/json"];
+export type CreateAlertEvaluationInput = NonNullable<operations["createAlertEvaluation"]["requestBody"]>["content"]["application/json"];
+export type UpdateAlertEvaluationInput = NonNullable<operations["updateAlertEvaluation"]["requestBody"]>["content"]["application/json"];
+export type CreateExplanationInput = NonNullable<operations["createExplanation"]["requestBody"]>["content"]["application/json"];
+export type CreateModelInvocationInput = NonNullable<operations["createModelInvocation"]["requestBody"]>["content"]["application/json"];
+export type CreateSimulationScenarioInput = NonNullable<operations["createSimulationScenario"]["requestBody"]>["content"]["application/json"];
+export type UpdateSimulationScenarioInput = NonNullable<operations["updateSimulationScenario"]["requestBody"]>["content"]["application/json"];
+export type CreateSimulationRunInput = NonNullable<operations["createSimulationRun"]["requestBody"]>["content"]["application/json"];
+export type CreateDecisionPolicyInput = NonNullable<operations["createDecisionPolicy"]["requestBody"]>["content"]["application/json"];
+export type UpdateDecisionPolicyInput = NonNullable<operations["updateDecisionPolicy"]["requestBody"]>["content"]["application/json"];
+export type CreateThresholdProfileInput = NonNullable<operations["createThresholdProfile"]["requestBody"]>["content"]["application/json"];
+export type UpdateThresholdProfileInput = NonNullable<operations["updateThresholdProfile"]["requestBody"]>["content"]["application/json"];
+export type CreateDecisionMetricSnapshotInput = NonNullable<operations["createDecisionMetricSnapshot"]["requestBody"]>["content"]["application/json"];
+export type CreateExperimentInput = NonNullable<operations["createExperiment"]["requestBody"]>["content"]["application/json"];
+export type UpdateExperimentInput = NonNullable<operations["updateExperiment"]["requestBody"]>["content"]["application/json"];
 
 
 // ============================================================================

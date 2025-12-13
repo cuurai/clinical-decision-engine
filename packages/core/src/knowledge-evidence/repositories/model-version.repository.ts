@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ModelVersion,
   ListModelVersionsParams,
-  ModelVersionInput,
-  ModelVersionUpdate
+  UpdateModelVersionRequest
 } from "../types/index.js";
 /**
  * ModelVersionRepository Interface
  */
-export interface ModelVersionRepository extends CrudRepository<Timestamps, ModelVersionInput, ModelVersionUpdate, string, ListModelVersionsParams> {
+export interface ModelVersionRepository extends CrudRepository<ModelVersion, ModelVersion, UpdateModelVersionRequest, string, ListModelVersionsParams> {
 
 }

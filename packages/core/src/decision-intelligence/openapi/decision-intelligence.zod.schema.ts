@@ -1,6 +1,20 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 
+const DecApiMeta = z
+  .object({
+    correlationId: z.string(),
+    timestamp: z.string().datetime({ offset: true }),
+    totalCount: z.number().int(),
+    pageSize: z.number().int(),
+    pageNumber: z.number().int(),
+  })
+  .partial()
+  .passthrough();
+const DecApiListResponse = z
+  .object({ data: z.array(z.any()), meta: DecApiMeta })
+  .partial()
+  .passthrough();
 const Timestamps = z
   .object({
     createdAt: z.string().datetime({ offset: true }),
@@ -21,6 +35,10 @@ const DecisionSession = Timestamps.and(
     })
     .passthrough()
 );
+const DecApiResponse = z
+  .object({ data: z.object({}).partial().passthrough(), meta: DecApiMeta })
+  .partial()
+  .passthrough();
 const DecisionSessionInput = z
   .object({
     patientId: z.string(),
@@ -29,6 +47,9 @@ const DecisionSessionInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createDecisionSession_Body = DecApiResponse.and(
+  z.object({ data: DecisionSessionInput }).partial().passthrough()
+);
 const Error = z
   .object({
     error: z.string(),
@@ -44,6 +65,9 @@ const DecisionSessionUpdate = z
   })
   .partial()
   .passthrough();
+const updateDecisionSession_Body = DecApiResponse.and(
+  z.object({ data: DecisionSessionUpdate }).partial().passthrough()
+);
 const DecisionRequest = Timestamps.and(
   z
     .object({
@@ -136,6 +160,9 @@ const DecisionRequestInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createDecisionRequest_Body = DecApiResponse.and(
+  z.object({ data: DecisionRequestInput }).partial().passthrough()
+);
 const DecisionResultInput = z
   .object({
     decisionRequestId: z.string(),
@@ -145,6 +172,9 @@ const DecisionResultInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createDecisionResult_Body = DecApiResponse.and(
+  z.object({ data: DecisionResultInput }).partial().passthrough()
+);
 const DecisionResultUpdate = z
   .object({
     status: z.enum(["pending", "completed", "failed"]),
@@ -153,6 +183,9 @@ const DecisionResultUpdate = z
   })
   .partial()
   .passthrough();
+const updateDecisionResult_Body = DecApiResponse.and(
+  z.object({ data: DecisionResultUpdate }).partial().passthrough()
+);
 const Recommendation = Timestamps.and(
   z
     .object({
@@ -189,6 +222,9 @@ const RiskAssessmentInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createRiskAssessment_Body = DecApiResponse.and(
+  z.object({ data: RiskAssessmentInput }).partial().passthrough()
+);
 const RiskAssessmentUpdate = z
   .object({
     score: z.number(),
@@ -198,6 +234,9 @@ const RiskAssessmentUpdate = z
   })
   .partial()
   .passthrough();
+const updateRiskAssessment_Body = DecApiResponse.and(
+  z.object({ data: RiskAssessmentUpdate }).partial().passthrough()
+);
 const RecommendationInput = z
   .object({
     decisionResultId: z.string(),
@@ -216,6 +255,9 @@ const RecommendationInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createRecommendation_Body = DecApiResponse.and(
+  z.object({ data: RecommendationInput }).partial().passthrough()
+);
 const RecommendationUpdate = z
   .object({
     status: z.enum(["pending", "accepted", "overridden", "deferred"]),
@@ -225,6 +267,9 @@ const RecommendationUpdate = z
   })
   .partial()
   .passthrough();
+const updateRecommendation_Body = DecApiResponse.and(
+  z.object({ data: RecommendationUpdate }).partial().passthrough()
+);
 const AlertEvaluationInput = z
   .object({
     patientId: z.string(),
@@ -237,6 +282,9 @@ const AlertEvaluationInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createAlertEvaluation_Body = DecApiResponse.and(
+  z.object({ data: AlertEvaluationInput }).partial().passthrough()
+);
 const AlertEvaluationUpdate = z
   .object({
     status: z.enum(["active", "snoozed", "overridden", "resolved"]),
@@ -247,6 +295,9 @@ const AlertEvaluationUpdate = z
   })
   .partial()
   .passthrough();
+const updateAlertEvaluation_Body = DecApiResponse.and(
+  z.object({ data: AlertEvaluationUpdate }).partial().passthrough()
+);
 const ExplanationInput = z
   .object({
     explanationType: z.enum([
@@ -261,6 +312,9 @@ const ExplanationInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createExplanation_Body = DecApiResponse.and(
+  z.object({ data: ExplanationInput }).partial().passthrough()
+);
 const FeatureAttribution = z
   .object({
     id: z.string(),
@@ -312,6 +366,9 @@ const ModelInvocationInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createModelInvocation_Body = DecApiResponse.and(
+  z.object({ data: ModelInvocationInput }).partial().passthrough()
+);
 const SimulationScenario = Timestamps.and(
   z
     .object({
@@ -335,6 +392,9 @@ const SimulationScenarioInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createSimulationScenario_Body = DecApiResponse.and(
+  z.object({ data: SimulationScenarioInput }).partial().passthrough()
+);
 const SimulationScenarioUpdate = z
   .object({
     name: z.string(),
@@ -345,6 +405,9 @@ const SimulationScenarioUpdate = z
   })
   .partial()
   .passthrough();
+const updateSimulationScenario_Body = DecApiResponse.and(
+  z.object({ data: SimulationScenarioUpdate }).partial().passthrough()
+);
 const SimulationRun = Timestamps.and(
   z
     .object({
@@ -365,6 +428,9 @@ const SimulationRunInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createSimulationRun_Body = DecApiResponse.and(
+  z.object({ data: SimulationRunInput }).partial().passthrough()
+);
 const SimulationMetric = z
   .object({
     id: z.string(),
@@ -400,6 +466,9 @@ const DecisionPolicyInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createDecisionPolicy_Body = DecApiResponse.and(
+  z.object({ data: DecisionPolicyInput }).partial().passthrough()
+);
 const DecisionPolicyUpdate = z
   .object({
     name: z.string(),
@@ -411,6 +480,9 @@ const DecisionPolicyUpdate = z
   })
   .partial()
   .passthrough();
+const updateDecisionPolicy_Body = DecApiResponse.and(
+  z.object({ data: DecisionPolicyUpdate }).partial().passthrough()
+);
 const ThresholdProfile = Timestamps.and(
   z
     .object({
@@ -432,6 +504,9 @@ const ThresholdProfileInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createThresholdProfile_Body = DecApiResponse.and(
+  z.object({ data: ThresholdProfileInput }).partial().passthrough()
+);
 const ThresholdProfileUpdate = z
   .object({
     name: z.string(),
@@ -442,6 +517,9 @@ const ThresholdProfileUpdate = z
   })
   .partial()
   .passthrough();
+const updateThresholdProfile_Body = DecApiResponse.and(
+  z.object({ data: ThresholdProfileUpdate }).partial().passthrough()
+);
 const DecisionMetricSnapshot = Timestamps.and(
   z
     .object({
@@ -463,6 +541,9 @@ const DecisionMetricSnapshotInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createDecisionMetricSnapshot_Body = DecApiResponse.and(
+  z.object({ data: DecisionMetricSnapshotInput }).partial().passthrough()
+);
 const Experiment = Timestamps.and(
   z
     .object({
@@ -490,6 +571,9 @@ const ExperimentInput = z
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
+const createExperiment_Body = DecApiResponse.and(
+  z.object({ data: ExperimentInput }).partial().passthrough()
+);
 const ExperimentUpdate = z
   .object({
     name: z.string(),
@@ -501,6 +585,9 @@ const ExperimentUpdate = z
   })
   .partial()
   .passthrough();
+const updateExperiment_Body = DecApiResponse.and(
+  z.object({ data: ExperimentUpdate }).partial().passthrough()
+);
 const ExperimentArm = z
   .object({
     id: z.string(),
@@ -527,48 +614,74 @@ const ExperimentResult = z
   .passthrough();
 
 export const schemas = {
+  DecApiMeta,
+  DecApiListResponse,
   Timestamps,
   DecisionSession,
+  DecApiResponse,
   DecisionSessionInput,
+  createDecisionSession_Body,
   Error,
   DecisionSessionUpdate,
+  updateDecisionSession_Body,
   DecisionRequest,
   DecisionResult,
   RiskAssessment,
   AlertEvaluation,
   Explanation,
   DecisionRequestInput,
+  createDecisionRequest_Body,
   DecisionResultInput,
+  createDecisionResult_Body,
   DecisionResultUpdate,
+  updateDecisionResult_Body,
   Recommendation,
   RiskAssessmentInput,
+  createRiskAssessment_Body,
   RiskAssessmentUpdate,
+  updateRiskAssessment_Body,
   RecommendationInput,
+  createRecommendation_Body,
   RecommendationUpdate,
+  updateRecommendation_Body,
   AlertEvaluationInput,
+  createAlertEvaluation_Body,
   AlertEvaluationUpdate,
+  updateAlertEvaluation_Body,
   ExplanationInput,
+  createExplanation_Body,
   FeatureAttribution,
   RuleTrace,
   ModelInvocation,
   ModelInvocationInput,
+  createModelInvocation_Body,
   SimulationScenario,
   SimulationScenarioInput,
+  createSimulationScenario_Body,
   SimulationScenarioUpdate,
+  updateSimulationScenario_Body,
   SimulationRun,
   SimulationRunInput,
+  createSimulationRun_Body,
   SimulationMetric,
   DecisionPolicy,
   DecisionPolicyInput,
+  createDecisionPolicy_Body,
   DecisionPolicyUpdate,
+  updateDecisionPolicy_Body,
   ThresholdProfile,
   ThresholdProfileInput,
+  createThresholdProfile_Body,
   ThresholdProfileUpdate,
+  updateThresholdProfile_Body,
   DecisionMetricSnapshot,
   DecisionMetricSnapshotInput,
+  createDecisionMetricSnapshot_Body,
   Experiment,
   ExperimentInput,
+  createExperiment_Body,
   ExperimentUpdate,
+  updateExperiment_Body,
   ExperimentArm,
   ExperimentResult,
 };
@@ -606,7 +719,12 @@ const endpoints = makeApi([
         schema: z.enum(["active", "snoozed", "overridden", "resolved"]).optional(),
       },
     ],
-    response: z.array(AlertEvaluation),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(AlertEvaluation) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -617,15 +735,15 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: AlertEvaluationInput,
+        schema: createAlertEvaluation_Body,
       },
     ],
-    response: AlertEvaluation,
+    response: DecApiResponse.and(z.object({ data: AlertEvaluation }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -641,12 +759,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: AlertEvaluation,
+    response: DecApiResponse.and(z.object({ data: AlertEvaluation }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -659,7 +777,7 @@ const endpoints = makeApi([
       {
         name: "body",
         type: "Body",
-        schema: AlertEvaluationUpdate,
+        schema: updateAlertEvaluation_Body,
       },
       {
         name: "id",
@@ -667,12 +785,12 @@ const endpoints = makeApi([
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: AlertEvaluation,
+    response: DecApiResponse.and(z.object({ data: AlertEvaluation }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -693,7 +811,7 @@ const endpoints = makeApi([
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -724,7 +842,12 @@ const endpoints = makeApi([
         schema: z.string().optional(),
       },
     ],
-    response: z.array(DecisionMetricSnapshot),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(DecisionMetricSnapshot) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -738,15 +861,17 @@ modified to ensure historical accuracy.
       {
         name: "body",
         type: "Body",
-        schema: DecisionMetricSnapshotInput,
+        schema: createDecisionMetricSnapshot_Body,
       },
     ],
-    response: DecisionMetricSnapshot,
+    response: DecApiResponse.and(
+      z.object({ data: DecisionMetricSnapshot }).partial().passthrough()
+    ),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -762,12 +887,14 @@ modified to ensure historical accuracy.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DecisionMetricSnapshot,
+    response: DecApiResponse.and(
+      z.object({ data: DecisionMetricSnapshot }).partial().passthrough()
+    ),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -793,7 +920,12 @@ modified to ensure historical accuracy.
         schema: z.enum(["draft", "active", "deprecated"]).optional(),
       },
     ],
-    response: z.array(DecisionPolicy),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(DecisionPolicy) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -804,15 +936,15 @@ modified to ensure historical accuracy.
       {
         name: "body",
         type: "Body",
-        schema: DecisionPolicyInput,
+        schema: createDecisionPolicy_Body,
       },
     ],
-    response: DecisionPolicy,
+    response: DecApiResponse.and(z.object({ data: DecisionPolicy }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -828,12 +960,12 @@ modified to ensure historical accuracy.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DecisionPolicy,
+    response: DecApiResponse.and(z.object({ data: DecisionPolicy }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -846,7 +978,7 @@ modified to ensure historical accuracy.
       {
         name: "body",
         type: "Body",
-        schema: DecisionPolicyUpdate,
+        schema: updateDecisionPolicy_Body,
       },
       {
         name: "id",
@@ -854,12 +986,12 @@ modified to ensure historical accuracy.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DecisionPolicy,
+    response: DecApiResponse.and(z.object({ data: DecisionPolicy }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -880,7 +1012,7 @@ modified to ensure historical accuracy.
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -942,7 +1074,12 @@ modified to ensure historical accuracy.
           .optional(),
       },
     ],
-    response: z.array(DecisionRequest),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(DecisionRequest) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -956,15 +1093,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: DecisionRequestInput,
+        schema: createDecisionRequest_Body,
       },
     ],
-    response: DecisionRequest,
+    response: DecApiResponse.and(z.object({ data: DecisionRequest }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -980,12 +1117,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DecisionRequest,
+    response: DecApiResponse.and(z.object({ data: DecisionRequest }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1069,7 +1206,12 @@ modified to ensure audit trail integrity.
         schema: z.enum(["pending", "completed", "failed"]).optional(),
       },
     ],
-    response: z.array(DecisionResult),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(DecisionResult) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1080,15 +1222,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: DecisionResultInput,
+        schema: createDecisionResult_Body,
       },
     ],
-    response: DecisionResult,
+    response: DecApiResponse.and(z.object({ data: DecisionResult }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1104,12 +1246,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DecisionResult,
+    response: DecApiResponse.and(z.object({ data: DecisionResult }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1122,7 +1264,7 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: DecisionResultUpdate,
+        schema: updateDecisionResult_Body,
       },
       {
         name: "id",
@@ -1130,12 +1272,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DecisionResult,
+    response: DecApiResponse.and(z.object({ data: DecisionResult }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1156,7 +1298,7 @@ modified to ensure audit trail integrity.
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1264,7 +1406,12 @@ modified to ensure audit trail integrity.
         schema: z.enum(["active", "completed", "cancelled"]).optional(),
       },
     ],
-    response: z.array(DecisionSession),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(DecisionSession) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1275,15 +1422,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: DecisionSessionInput,
+        schema: createDecisionSession_Body,
       },
     ],
-    response: DecisionSession,
+    response: DecApiResponse.and(z.object({ data: DecisionSession }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1299,12 +1446,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DecisionSession,
+    response: DecApiResponse.and(z.object({ data: DecisionSession }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1317,7 +1464,7 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: DecisionSessionUpdate,
+        schema: updateDecisionSession_Body,
       },
       {
         name: "id",
@@ -1325,12 +1472,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: DecisionSession,
+    response: DecApiResponse.and(z.object({ data: DecisionSession }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1351,7 +1498,7 @@ modified to ensure audit trail integrity.
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1497,7 +1644,12 @@ modified to ensure audit trail integrity.
         schema: z.enum(["draft", "running", "completed", "cancelled"]).optional(),
       },
     ],
-    response: z.array(Experiment),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(Experiment) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1508,15 +1660,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: ExperimentInput,
+        schema: createExperiment_Body,
       },
     ],
-    response: Experiment,
+    response: DecApiResponse.and(z.object({ data: Experiment }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1532,12 +1684,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Experiment,
+    response: DecApiResponse.and(z.object({ data: Experiment }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1550,7 +1702,7 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: ExperimentUpdate,
+        schema: updateExperiment_Body,
       },
       {
         name: "id",
@@ -1558,12 +1710,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Experiment,
+    response: DecApiResponse.and(z.object({ data: Experiment }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1584,7 +1736,7 @@ modified to ensure audit trail integrity.
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1660,7 +1812,12 @@ modified to ensure audit trail integrity.
           .optional(),
       },
     ],
-    response: z.array(Explanation),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(Explanation) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1671,15 +1828,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: ExplanationInput,
+        schema: createExplanation_Body,
       },
     ],
-    response: Explanation,
+    response: DecApiResponse.and(z.object({ data: Explanation }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1695,12 +1852,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Explanation,
+    response: DecApiResponse.and(z.object({ data: Explanation }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1779,7 +1936,12 @@ modified to ensure audit trail integrity.
         schema: z.string().optional(),
       },
     ],
-    response: z.array(ModelInvocation),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(ModelInvocation) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1793,15 +1955,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: ModelInvocationInput,
+        schema: createModelInvocation_Body,
       },
     ],
-    response: ModelInvocation,
+    response: DecApiResponse.and(z.object({ data: ModelInvocation }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1817,12 +1979,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ModelInvocation,
+    response: DecApiResponse.and(z.object({ data: ModelInvocation }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1884,7 +2046,12 @@ modified to ensure audit trail integrity.
         schema: z.enum(["pending", "accepted", "overridden", "deferred"]).optional(),
       },
     ],
-    response: z.array(Recommendation),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(Recommendation) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -1895,15 +2062,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: RecommendationInput,
+        schema: createRecommendation_Body,
       },
     ],
-    response: Recommendation,
+    response: DecApiResponse.and(z.object({ data: Recommendation }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1919,12 +2086,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Recommendation,
+    response: DecApiResponse.and(z.object({ data: Recommendation }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1937,7 +2104,7 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: RecommendationUpdate,
+        schema: updateRecommendation_Body,
       },
       {
         name: "id",
@@ -1945,12 +2112,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: Recommendation,
+    response: DecApiResponse.and(z.object({ data: Recommendation }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -1971,7 +2138,7 @@ modified to ensure audit trail integrity.
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2028,7 +2195,12 @@ modified to ensure audit trail integrity.
           .optional(),
       },
     ],
-    response: z.array(RiskAssessment),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(RiskAssessment) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2039,15 +2211,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: RiskAssessmentInput,
+        schema: createRiskAssessment_Body,
       },
     ],
-    response: RiskAssessment,
+    response: DecApiResponse.and(z.object({ data: RiskAssessment }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2063,12 +2235,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: RiskAssessment,
+    response: DecApiResponse.and(z.object({ data: RiskAssessment }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2081,7 +2253,7 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: RiskAssessmentUpdate,
+        schema: updateRiskAssessment_Body,
       },
       {
         name: "id",
@@ -2089,12 +2261,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: RiskAssessment,
+    response: DecApiResponse.and(z.object({ data: RiskAssessment }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2115,7 +2287,7 @@ modified to ensure audit trail integrity.
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2170,7 +2342,12 @@ modified to ensure audit trail integrity.
         schema: z.enum(["running", "completed", "failed"]).optional(),
       },
     ],
-    response: z.array(SimulationRun),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(SimulationRun) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2181,15 +2358,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: SimulationRunInput,
+        schema: createSimulationRun_Body,
       },
     ],
-    response: SimulationRun,
+    response: DecApiResponse.and(z.object({ data: SimulationRun }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2205,12 +2382,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: SimulationRun,
+    response: DecApiResponse.and(z.object({ data: SimulationRun }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2289,7 +2466,12 @@ modified to ensure audit trail integrity.
         schema: z.enum(["draft", "active", "completed"]).optional(),
       },
     ],
-    response: z.array(SimulationScenario),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(SimulationScenario) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2300,15 +2482,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: SimulationScenarioInput,
+        schema: createSimulationScenario_Body,
       },
     ],
-    response: SimulationScenario,
+    response: DecApiResponse.and(z.object({ data: SimulationScenario }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2324,12 +2506,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: SimulationScenario,
+    response: DecApiResponse.and(z.object({ data: SimulationScenario }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2342,7 +2524,7 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: SimulationScenarioUpdate,
+        schema: updateSimulationScenario_Body,
       },
       {
         name: "id",
@@ -2350,12 +2532,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: SimulationScenario,
+    response: DecApiResponse.and(z.object({ data: SimulationScenario }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2376,7 +2558,7 @@ modified to ensure audit trail integrity.
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2426,7 +2608,12 @@ modified to ensure audit trail integrity.
         schema: z.string().optional(),
       },
     ],
-    response: z.array(ThresholdProfile),
+    response: DecApiListResponse.and(
+      z
+        .object({ data: z.array(ThresholdProfile) })
+        .partial()
+        .passthrough()
+    ),
   },
   {
     method: "post",
@@ -2437,15 +2624,15 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: ThresholdProfileInput,
+        schema: createThresholdProfile_Body,
       },
     ],
-    response: ThresholdProfile,
+    response: DecApiResponse.and(z.object({ data: ThresholdProfile }).partial().passthrough()),
     errors: [
       {
         status: 400,
         description: `Bad request`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2461,12 +2648,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ThresholdProfile,
+    response: DecApiResponse.and(z.object({ data: ThresholdProfile }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2479,7 +2666,7 @@ modified to ensure audit trail integrity.
       {
         name: "body",
         type: "Body",
-        schema: ThresholdProfileUpdate,
+        schema: updateThresholdProfile_Body,
       },
       {
         name: "id",
@@ -2487,12 +2674,12 @@ modified to ensure audit trail integrity.
         schema: z.string().regex(/^[a-zA-Z0-9_-]+$/),
       },
     ],
-    response: ThresholdProfile,
+    response: DecApiResponse.and(z.object({ data: ThresholdProfile }).partial().passthrough()),
     errors: [
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },
@@ -2513,7 +2700,7 @@ modified to ensure audit trail integrity.
       {
         status: 404,
         description: `Resource not found`,
-        schema: Error,
+        schema: DecApiResponse.and(z.object({ data: Error }).partial().passthrough()),
       },
     ],
   },

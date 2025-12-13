@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/guideline.entity";
 export * from "./dto/list-guideline.dto";
-export * from "./dto/create-guideline.dto";
 export * from "./dto/get-guideline.dto";
-export * from "./dto/update-guideline.dto";
 export * from "./dto/delete-guideline.dto";

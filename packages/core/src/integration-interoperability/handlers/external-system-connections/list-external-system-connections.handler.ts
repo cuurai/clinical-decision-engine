@@ -7,7 +7,7 @@
 
 import type { ListExternalSystemConnectionsResponse } from "../../types/index.js";
 import type { ExternalSystemConnectionRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../../shared/helpers";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * List external system connections
@@ -23,13 +23,17 @@ export async function listExternalSystemConnections(
   // Return paginated response matching OpenAPI response type
   // Structure matches ProviderAccountListResponse: { data: { items: [...] }, meta: { ... } }
   return {
-    data: result.items,
+    data: {
+      items: result.items,
+    },
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
-      totalCount: result.total ?? result.items.length,
-      pageSize: result.items.length,
-      pageNumber: 1,
+      pagination: {
+        nextCursor: result.nextCursor ?? null,
+        prevCursor: result.prevCursor ?? null,
+        limit: result.items.length,
+      },
     },
   };
 

@@ -14,13 +14,12 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
-  ListHLMessagesParams,
-  HL7MessageInput
+  HL7Message,
+  ListHLMessagesParams
 } from "../types/index.js";
 /**
  * HL7MessageRepository Interface
  */
-export interface HL7MessageRepository extends CreateDeleteReadRepository<Timestamps, HL7MessageInput, string, ListHLMessagesParams> {
+export interface HL7MessageRepository extends CreateDeleteReadRepository<HL7Message, HL7Message, string, ListHLMessagesParams> {
 
 }

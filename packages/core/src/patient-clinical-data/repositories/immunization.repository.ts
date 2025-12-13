@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  Immunization,
   ListImmunizationsParams,
-  ImmunizationInput,
-  ImmunizationUpdate
+  UpdateImmunizationRequest
 } from "../types/index.js";
 /**
  * ImmunizationRepository Interface
  */
-export interface ImmunizationRepository extends CrudRepository<Timestamps, ImmunizationInput, ImmunizationUpdate, string, ListImmunizationsParams> {
+export interface ImmunizationRepository extends CrudRepository<Immunization, Immunization, UpdateImmunizationRequest, string, ListImmunizationsParams> {
 
 }

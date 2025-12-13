@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/data-export-batch.entity";
 export * from "./dto/list-data-export-batch.dto";
-export * from "./dto/create-data-export-batch.dto";
 export * from "./dto/get-data-export-batch.dto";
-export * from "./dto/update-data-export-batch.dto";
 export * from "./dto/delete-data-export-batch.dto";

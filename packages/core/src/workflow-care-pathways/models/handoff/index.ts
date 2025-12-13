@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/handoff.entity";
 export * from "./dto/list-handoff.dto";
-export * from "./dto/create-handoff.dto";
 export * from "./dto/get-handoff.dto";
-export * from "./dto/update-handoff.dto";
 export * from "./dto/delete-handoff.dto";

@@ -981,9 +981,19 @@ export interface components {
             meta?: components["schemas"]["WorApiMeta"];
         };
         WorApiListResponse: {
-            /** @description List of items */
-            data?: unknown[];
-            meta?: components["schemas"]["WorApiMeta"];
+            /** @description Paginated data container */
+            data?: {
+                /** @description List of items */
+                items?: unknown[];
+            };
+            meta?: components["schemas"]["WorApiMeta"] & {
+                /** @description Pagination metadata */
+                pagination?: {
+                    nextCursor?: string | null;
+                    prevCursor?: string | null;
+                    limit?: number;
+                };
+            };
         };
         Timestamps: {
             /** Format: date-time */
@@ -1712,7 +1722,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                "application/json": components["schemas"]["Error"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["Error"];
+                };
             };
         };
         /** @description Resource not found */
@@ -1721,7 +1733,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                "application/json": components["schemas"]["Error"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["Error"];
+                };
             };
         };
     };
@@ -1776,7 +1790,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["WorkflowDefinitionInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["WorkflowDefinitionInput"];
+                };
             };
         };
         responses: {
@@ -1786,7 +1802,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkflowDefinition"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["WorkflowDefinition"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -1810,7 +1828,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkflowDefinition"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["WorkflowDefinition"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1850,7 +1870,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["WorkflowDefinitionUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["WorkflowDefinitionUpdate"];
+                };
             };
         };
         responses: {
@@ -1860,7 +1882,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkflowDefinition"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["WorkflowDefinition"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -1889,9 +1913,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["WorkflowState"][];
-                    };
+                    "application/json": components["schemas"]["WorkflowState"][];
                 };
             };
         };
@@ -1919,9 +1941,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["WorkflowTransition"][];
-                    };
+                    "application/json": components["schemas"]["WorkflowTransition"][];
                 };
             };
         };
@@ -1965,7 +1985,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["WorkflowInstanceInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["WorkflowInstanceInput"];
+                };
             };
         };
         responses: {
@@ -1975,7 +1997,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkflowInstance"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["WorkflowInstance"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -1999,7 +2023,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkflowInstance"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["WorkflowInstance"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2039,7 +2065,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["WorkflowInstanceUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["WorkflowInstanceUpdate"];
+                };
             };
         };
         responses: {
@@ -2049,7 +2077,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkflowInstance"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["WorkflowInstance"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2078,9 +2108,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["Task"][];
-                    };
+                    "application/json": components["schemas"]["Task"][];
                 };
             };
         };
@@ -2108,9 +2136,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["WorkflowEvent"][];
-                    };
+                    "application/json": components["schemas"]["WorkflowEvent"][];
                 };
             };
         };
@@ -2138,9 +2164,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["AuditEvent"][];
-                    };
+                    "application/json": components["schemas"]["AuditEvent"][];
                 };
             };
         };
@@ -2182,7 +2206,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CarePathwayTemplateInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["CarePathwayTemplateInput"];
+                };
             };
         };
         responses: {
@@ -2192,7 +2218,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CarePathwayTemplate"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["CarePathwayTemplate"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2216,7 +2244,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CarePathwayTemplate"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["CarePathwayTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2256,7 +2286,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CarePathwayTemplateUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["CarePathwayTemplateUpdate"];
+                };
             };
         };
         responses: {
@@ -2266,7 +2298,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CarePathwayTemplate"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["CarePathwayTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2295,9 +2329,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["PathwayStep"][];
-                    };
+                    "application/json": components["schemas"]["PathwayStep"][];
                 };
             };
         };
@@ -2325,9 +2357,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["OrderSetTemplate"][];
-                    };
+                    "application/json": components["schemas"]["OrderSetTemplate"][];
                 };
             };
         };
@@ -2370,7 +2400,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CarePlanInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["CarePlanInput"];
+                };
             };
         };
         responses: {
@@ -2380,7 +2412,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CarePlan"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["CarePlan"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2404,7 +2438,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CarePlan"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["CarePlan"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2444,7 +2480,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CarePlanUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["CarePlanUpdate"];
+                };
             };
         };
         responses: {
@@ -2454,7 +2492,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CarePlan"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["CarePlan"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2483,9 +2523,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["CarePlanGoal"][];
-                    };
+                    "application/json": components["schemas"]["CarePlanGoal"][];
                 };
             };
         };
@@ -2513,9 +2551,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["Task"][];
-                    };
+                    "application/json": components["schemas"]["Task"][];
                 };
             };
         };
@@ -2543,9 +2579,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["ChecklistInstance"][];
-                    };
+                    "application/json": components["schemas"]["ChecklistInstance"][];
                 };
             };
         };
@@ -2588,7 +2622,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EpisodeOfCareInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["EpisodeOfCareInput"];
+                };
             };
         };
         responses: {
@@ -2598,7 +2634,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EpisodeOfCare"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["EpisodeOfCare"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2622,7 +2660,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EpisodeOfCare"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["EpisodeOfCare"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2662,7 +2702,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EpisodeOfCareUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["EpisodeOfCareUpdate"];
+                };
             };
         };
         responses: {
@@ -2672,7 +2714,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EpisodeOfCare"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["EpisodeOfCare"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2701,9 +2745,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["Encounter"][];
-                    };
+                    "application/json": components["schemas"]["Encounter"][];
                 };
             };
         };
@@ -2731,9 +2773,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["CarePlan"][];
-                    };
+                    "application/json": components["schemas"]["CarePlan"][];
                 };
             };
         };
@@ -2761,9 +2801,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["WorkflowInstance"][];
-                    };
+                    "application/json": components["schemas"]["WorkflowInstance"][];
                 };
             };
         };
@@ -2807,7 +2845,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TaskInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["TaskInput"];
+                };
             };
         };
         responses: {
@@ -2817,7 +2857,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Task"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["Task"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -2841,7 +2883,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Task"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["Task"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2881,7 +2925,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TaskUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["TaskUpdate"];
+                };
             };
         };
         responses: {
@@ -2891,7 +2937,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Task"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["Task"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -2920,9 +2968,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["TaskComment"][];
-                    };
+                    "application/json": components["schemas"]["TaskComment"][];
                 };
             };
         };
@@ -2950,9 +2996,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["AuditEvent"][];
-                    };
+                    "application/json": components["schemas"]["AuditEvent"][];
                 };
             };
         };
@@ -2995,7 +3039,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TaskAssignmentInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["TaskAssignmentInput"];
+                };
             };
         };
         responses: {
@@ -3005,7 +3051,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TaskAssignment"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["TaskAssignment"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3029,7 +3077,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TaskAssignment"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["TaskAssignment"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3069,7 +3119,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["TaskAssignmentUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["TaskAssignmentUpdate"];
+                };
             };
         };
         responses: {
@@ -3079,7 +3131,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TaskAssignment"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["TaskAssignment"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3124,7 +3178,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["AlertInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["AlertInput"];
+                };
             };
         };
         responses: {
@@ -3134,7 +3190,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Alert"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["Alert"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3158,7 +3216,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Alert"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["Alert"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3198,7 +3258,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["AlertUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["AlertUpdate"];
+                };
             };
         };
         responses: {
@@ -3208,7 +3270,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Alert"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["Alert"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3237,9 +3301,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["Explanation"][];
-                    };
+                    "application/json": components["schemas"]["Explanation"][];
                 };
             };
         };
@@ -3267,9 +3329,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["AuditEvent"][];
-                    };
+                    "application/json": components["schemas"]["AuditEvent"][];
                 };
             };
         };
@@ -3313,7 +3373,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["HandoffInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["HandoffInput"];
+                };
             };
         };
         responses: {
@@ -3323,7 +3385,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Handoff"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["Handoff"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3347,7 +3411,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Handoff"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["Handoff"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3387,7 +3453,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["HandoffUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["HandoffUpdate"];
+                };
             };
         };
         responses: {
@@ -3397,7 +3465,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Handoff"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["Handoff"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3426,9 +3496,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["Task"][];
-                    };
+                    "application/json": components["schemas"]["Task"][];
                 };
             };
         };
@@ -3470,7 +3538,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ChecklistTemplateInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["ChecklistTemplateInput"];
+                };
             };
         };
         responses: {
@@ -3480,7 +3550,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ChecklistTemplate"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["ChecklistTemplate"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3504,7 +3576,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ChecklistTemplate"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["ChecklistTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3544,7 +3618,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ChecklistTemplateUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["ChecklistTemplateUpdate"];
+                };
             };
         };
         responses: {
@@ -3554,7 +3630,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ChecklistTemplate"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["ChecklistTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3583,9 +3661,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["ChecklistItem"][];
-                    };
+                    "application/json": components["schemas"]["ChecklistItem"][];
                 };
             };
         };
@@ -3629,7 +3705,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ChecklistInstanceInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["ChecklistInstanceInput"];
+                };
             };
         };
         responses: {
@@ -3639,7 +3717,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ChecklistInstance"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["ChecklistInstance"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3663,7 +3743,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ChecklistInstance"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["ChecklistInstance"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3703,7 +3785,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ChecklistInstanceUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["ChecklistInstanceUpdate"];
+                };
             };
         };
         responses: {
@@ -3713,7 +3797,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ChecklistInstance"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["ChecklistInstance"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3742,9 +3828,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["ChecklistItemInstance"][];
-                    };
+                    "application/json": components["schemas"]["ChecklistItemInstance"][];
                 };
             };
         };
@@ -3786,7 +3870,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EscalationPolicyInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["EscalationPolicyInput"];
+                };
             };
         };
         responses: {
@@ -3796,7 +3882,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EscalationPolicy"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["EscalationPolicy"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3820,7 +3908,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EscalationPolicy"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["EscalationPolicy"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3860,7 +3950,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EscalationPolicyUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["EscalationPolicyUpdate"];
+                };
             };
         };
         responses: {
@@ -3870,7 +3962,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EscalationPolicy"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["EscalationPolicy"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -3899,9 +3993,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["EscalationRule"][];
-                    };
+                    "application/json": components["schemas"]["EscalationRule"][];
                 };
             };
         };
@@ -3943,7 +4035,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["RoutingRuleInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["RoutingRuleInput"];
+                };
             };
         };
         responses: {
@@ -3953,7 +4047,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RoutingRule"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["RoutingRule"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -3977,7 +4073,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RoutingRule"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["RoutingRule"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -4017,7 +4115,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["RoutingRuleUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["RoutingRuleUpdate"];
+                };
             };
         };
         responses: {
@@ -4027,7 +4127,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RoutingRule"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["RoutingRule"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -4070,7 +4172,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ScheduleTemplateInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["ScheduleTemplateInput"];
+                };
             };
         };
         responses: {
@@ -4080,7 +4184,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ScheduleTemplate"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["ScheduleTemplate"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -4104,7 +4210,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ScheduleTemplate"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["ScheduleTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -4144,7 +4252,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["ScheduleTemplateUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["ScheduleTemplateUpdate"];
+                };
             };
         };
         responses: {
@@ -4154,7 +4264,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ScheduleTemplate"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["ScheduleTemplate"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -4198,7 +4310,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["WorkQueueInput"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["WorkQueueInput"];
+                };
             };
         };
         responses: {
@@ -4208,7 +4322,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkQueue"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["WorkQueue"];
+                    };
                 };
             };
             400: components["responses"]["BadRequest"];
@@ -4232,7 +4348,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkQueue"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["WorkQueue"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -4272,7 +4390,9 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["WorkQueueUpdate"];
+                "application/json": components["schemas"]["WorApiResponse"] & {
+                    data?: components["schemas"]["WorkQueueUpdate"];
+                };
             };
         };
         responses: {
@@ -4282,7 +4402,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkQueue"];
+                    "application/json": components["schemas"]["WorApiResponse"] & {
+                        data?: components["schemas"]["WorkQueue"];
+                    };
                 };
             };
             404: components["responses"]["NotFound"];
@@ -4311,9 +4433,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["Task"][];
-                    };
+                    "application/json": components["schemas"]["Task"][];
                 };
             };
         };
@@ -4341,9 +4461,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorApiListResponse"] & {
-                        data?: components["schemas"]["Alert"][];
-                    };
+                    "application/json": components["schemas"]["Alert"][];
                 };
             };
         };

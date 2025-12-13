@@ -14,14 +14,17 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  Patient,
   ListPatientsParams,
-  PatientInput,
-  PatientUpdate
+  UpdatePatientRequest
 } from "../types/index.js";
+
+/**
+ * TODO: Schema mismatch detected: GET operations return 'Patient' but LIST operations return 'PatientList'. Using 'Patient' from GET operations. TODO: Fix schema mismatch in API - listSchedules should return Schedule[] not Job[]
+ */
 /**
  * PatientRepository Interface
  */
-export interface PatientRepository extends CrudRepository<Timestamps, PatientInput, PatientUpdate, string, ListPatientsParams> {
+export interface PatientRepository extends CrudRepository<Patient, Patient, UpdatePatientRequest, string, ListPatientsParams> {
 
 }

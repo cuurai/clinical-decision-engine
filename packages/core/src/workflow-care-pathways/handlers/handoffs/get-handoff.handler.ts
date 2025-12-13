@@ -6,31 +6,24 @@
  */
 
 import type { GetHandoffResponse } from "../../types/index.js";
-import { wcTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/workflow-care-pathways-converters.js";
+import type { HandoffRepository } from "../../repositories/index.js";
+import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get handoff by ID
  */
 export async function getHandoff(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: HandoffRepository,
+    orgId: string,
+    id: string
 ): Promise<GetHandoffResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const handoff = await repo.findById(orgId, id);
+  if (!handoff) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: handoff,
     meta: {
       correlationId: wcTransactionId(),
       timestamp: new Date().toISOString(),

@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/note.entity";
 export * from "./dto/list-note.dto";
-export * from "./dto/create-note.dto";
 export * from "./dto/get-note.dto";
-export * from "./dto/update-note.dto";
 export * from "./dto/delete-note.dto";

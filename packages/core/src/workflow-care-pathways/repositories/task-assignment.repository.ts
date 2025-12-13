@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  TaskAssignment,
   ListTaskAssignmentsParams,
-  TaskAssignmentInput,
-  TaskAssignmentUpdate
+  UpdateTaskAssignmentRequest
 } from "../types/index.js";
 /**
  * TaskAssignmentRepository Interface
  */
-export interface TaskAssignmentRepository extends CrudRepository<Timestamps, TaskAssignmentInput, TaskAssignmentUpdate, string, ListTaskAssignmentsParams> {
+export interface TaskAssignmentRepository extends CrudRepository<TaskAssignment, TaskAssignment, UpdateTaskAssignmentRequest, string, ListTaskAssignmentsParams> {
 
 }

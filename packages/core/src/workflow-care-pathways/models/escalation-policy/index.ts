@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/escalation-policy.entity";
 export * from "./dto/list-escalation-policy.dto";
-export * from "./dto/create-escalation-policy.dto";
 export * from "./dto/get-escalation-policy.dto";
-export * from "./dto/update-escalation-policy.dto";
 export * from "./dto/delete-escalation-policy.dto";

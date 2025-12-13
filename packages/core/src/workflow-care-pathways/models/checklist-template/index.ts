@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/checklist-template.entity";
 export * from "./dto/list-checklist-template.dto";
-export * from "./dto/create-checklist-template.dto";
 export * from "./dto/get-checklist-template.dto";
-export * from "./dto/update-checklist-template.dto";
 export * from "./dto/delete-checklist-template.dto";

@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  CareTeam,
   ListCareTeamsParams,
-  CareTeamInput,
-  CareTeamUpdate
+  UpdateCareTeamRequest
 } from "../types/index.js";
 /**
  * CareTeamRepository Interface
  */
-export interface CareTeamRepository extends CrudRepository<Timestamps, CareTeamInput, CareTeamUpdate, string, ListCareTeamsParams> {
+export interface CareTeamRepository extends CrudRepository<CareTeam, CareTeam, UpdateCareTeamRequest, string, ListCareTeamsParams> {
 
 }

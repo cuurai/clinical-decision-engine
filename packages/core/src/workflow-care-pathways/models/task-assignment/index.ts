@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/task-assignment.entity";
 export * from "./dto/list-task-assignment.dto";
-export * from "./dto/create-task-assignment.dto";
 export * from "./dto/get-task-assignment.dto";
-export * from "./dto/update-task-assignment.dto";
 export * from "./dto/delete-task-assignment.dto";

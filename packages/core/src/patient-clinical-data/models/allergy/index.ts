@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/allergy.entity";
 export * from "./dto/list-allergy.dto";
-export * from "./dto/create-allergy.dto";
 export * from "./dto/get-allergy.dto";
-export * from "./dto/update-allergy.dto";
 export * from "./dto/delete-allergy.dto";

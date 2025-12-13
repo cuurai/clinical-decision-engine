@@ -5,41 +5,41 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { RoutingRuleUpdate, UpdateRoutingRuleResponse } from "../../types/index.js";
-// TODO: Uncomment when implementing handler logic
-// import { wcTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// // TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/workflow-care-pathways-converters.js";
+import type { UpdateRoutingRuleResponse } from "../../types/index.js";
+import type { RoutingRuleRepository } from "../../repositories/index.js";
+import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
- * TODO: Uncomment when implementing handler logic that uses validated input
  */
-// function mapInputToValidated(input: RoutingRuleUpdate): RoutingRuleUpdate {
-//   // Note: Request body validation is handled by service layer schemas
-//   // Handlers accept validated input and focus on business logic
-//   return input;
-// }
+function mapInputToValidated(input: unknown): any {
+  // Note: Request body validation is handled by service layer schemas
+  // Handlers accept validated input and focus on business logic
+  return input;
+}
 
 
 /**
  * Update routing rule
  */
 export async function updateRoutingRule(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string,
-    // TODO: Use input when implementing handler logic,
-    _input: RoutingRuleUpdate
+    repo: RoutingRuleRepository,
+    orgId: string,
+    id: string,
+    input: unknown
 ): Promise<UpdateRoutingRuleResponse> {
   // 1. Validate input
-  // TODO: Use validated input when implementing business logic
-  // const validated = mapInputToValidated(input);
+  const validated = mapInputToValidated(input);
 
-  // 2. Operation returns a Response DTO (not an entity) - implement business logic here
-  // TODO: Implement operation logic (e.g., authentication, authorization, evaluation)
+  // 2. Domain input → Repository call (update operation)
+  const routingRule = await repo.update(orgId, id, validated);
 
-  throw new Error("Operation not yet implemented - requires business logic integration");
+  // 3. Repository result → response envelope
+  return {
+    data: routingRule,
+    meta: {
+      correlationId: wcTransactionId(),
+      timestamp: new Date().toISOString(),
+    },
+  };
 
 }

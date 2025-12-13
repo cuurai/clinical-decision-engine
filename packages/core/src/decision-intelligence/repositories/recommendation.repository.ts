@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  Recommendation,
   ListRecommendationsParams,
-  RecommendationInput,
-  RecommendationUpdate
+  UpdateRecommendationRequest
 } from "../types/index.js";
 /**
  * RecommendationRepository Interface
  */
-export interface RecommendationRepository extends CrudRepository<Timestamps, RecommendationInput, RecommendationUpdate, string, ListRecommendationsParams> {
+export interface RecommendationRepository extends CrudRepository<Recommendation, Recommendation, UpdateRecommendationRequest, string, ListRecommendationsParams> {
 
 }

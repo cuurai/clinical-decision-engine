@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  DiagnosticReport,
   ListDiagnosticReportsParams,
-  DiagnosticReportInput,
-  DiagnosticReportUpdate
+  UpdateDiagnosticReportRequest
 } from "../types/index.js";
 /**
  * DiagnosticReportRepository Interface
  */
-export interface DiagnosticReportRepository extends CrudRepository<Timestamps, DiagnosticReportInput, DiagnosticReportUpdate, string, ListDiagnosticReportsParams> {
+export interface DiagnosticReportRepository extends CrudRepository<DiagnosticReport, DiagnosticReport, UpdateDiagnosticReportRequest, string, ListDiagnosticReportsParams> {
 
 }

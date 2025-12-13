@@ -12,5 +12,4 @@
 // Auto-generated barrel export
 export * from "./entity/explanation.entity";
 export * from "./dto/list-explanation.dto";
-export * from "./dto/create-explanation.dto";
 export * from "./dto/get-explanation.dto";

@@ -6,7 +6,7 @@
  */
 
 import type { ConnectionRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../../shared/helpers";
+import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete connection
@@ -22,7 +22,7 @@ export async function deleteConnection(
   return {
     data: { success: true },
     meta: {
-      correlationId: intTransactionId(),
+      correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

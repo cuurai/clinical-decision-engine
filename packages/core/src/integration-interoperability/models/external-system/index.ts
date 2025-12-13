@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/external-system.entity";
 export * from "./dto/list-external-system.dto";
-export * from "./dto/create-external-system.dto";
 export * from "./dto/get-external-system.dto";
-export * from "./dto/update-external-system.dto";
 export * from "./dto/delete-external-system.dto";

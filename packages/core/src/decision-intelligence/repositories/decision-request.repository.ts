@@ -14,13 +14,12 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
-  ListDecisionRequestsParams,
-  DecisionRequestInput
+  DecisionRequest,
+  ListDecisionRequestsParams
 } from "../types/index.js";
 /**
  * DecisionRequestRepository Interface
  */
-export interface DecisionRequestRepository extends CreateReadRepository<Timestamps, DecisionRequestInput, string, ListDecisionRequestsParams> {
+export interface DecisionRequestRepository extends CreateReadRepository<DecisionRequest, DecisionRequest, string, ListDecisionRequestsParams> {
 
 }

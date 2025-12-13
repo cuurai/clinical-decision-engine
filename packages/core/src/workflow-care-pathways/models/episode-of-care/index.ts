@@ -11,7 +11,5 @@
 
 // Auto-generated barrel export
 export * from "./entity/episode-of-care.entity";
-export * from "./dto/create-episode-of-care.dto";
 export * from "./dto/get-episode-of-care.dto";
-export * from "./dto/update-episode-of-care.dto";
 export * from "./dto/delete-episode-of-care.dto";

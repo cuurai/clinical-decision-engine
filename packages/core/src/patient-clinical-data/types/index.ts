@@ -120,34 +120,34 @@ export type Document = operations["listDocuments"]["responses"]["200"]["content"
 
 // These types represent the input data for create/update operations
 
-export type PatientInputInput = NonNullable<operations["createPatient"]["requestBody"]>["content"]["application/json"];
-export type PatientUpdateInput = NonNullable<operations["updatePatient"]["requestBody"]>["content"]["application/json"];
-export type EncounterInputInput = NonNullable<operations["createEncounter"]["requestBody"]>["content"]["application/json"];
-export type EncounterUpdateInput = NonNullable<operations["updateEncounter"]["requestBody"]>["content"]["application/json"];
-export type ConditionInputInput = NonNullable<operations["createCondition"]["requestBody"]>["content"]["application/json"];
-export type ConditionUpdateInput = NonNullable<operations["updateCondition"]["requestBody"]>["content"]["application/json"];
-export type AllergyInputInput = NonNullable<operations["createAllergy"]["requestBody"]>["content"]["application/json"];
-export type AllergyUpdateInput = NonNullable<operations["updateAllergy"]["requestBody"]>["content"]["application/json"];
-export type MedicationStatementInputInput = NonNullable<operations["createMedicationStatement"]["requestBody"]>["content"]["application/json"];
-export type MedicationStatementUpdateInput = NonNullable<operations["updateMedicationStatement"]["requestBody"]>["content"]["application/json"];
-export type MedicationOrderInputInput = NonNullable<operations["createMedicationOrder"]["requestBody"]>["content"]["application/json"];
-export type MedicationOrderUpdateInput = NonNullable<operations["updateMedicationOrder"]["requestBody"]>["content"]["application/json"];
-export type ImmunizationInputInput = NonNullable<operations["createImmunization"]["requestBody"]>["content"]["application/json"];
-export type ImmunizationUpdateInput = NonNullable<operations["updateImmunization"]["requestBody"]>["content"]["application/json"];
-export type ObservationInputInput = NonNullable<operations["createObservation"]["requestBody"]>["content"]["application/json"];
-export type ObservationUpdateInput = NonNullable<operations["updateObservation"]["requestBody"]>["content"]["application/json"];
-export type DiagnosticReportInputInput = NonNullable<operations["createDiagnosticReport"]["requestBody"]>["content"]["application/json"];
-export type DiagnosticReportUpdateInput = NonNullable<operations["updateDiagnosticReport"]["requestBody"]>["content"]["application/json"];
-export type ImagingStudyInputInput = NonNullable<operations["createImagingStudy"]["requestBody"]>["content"]["application/json"];
-export type ImagingStudyUpdateInput = NonNullable<operations["updateImagingStudy"]["requestBody"]>["content"]["application/json"];
-export type ProcedureInputInput = NonNullable<operations["createProcedure"]["requestBody"]>["content"]["application/json"];
-export type ProcedureUpdateInput = NonNullable<operations["updateProcedure"]["requestBody"]>["content"]["application/json"];
-export type ClinicalNoteInputInput = NonNullable<operations["createNote"]["requestBody"]>["content"]["application/json"];
-export type ClinicalNoteUpdateInput = NonNullable<operations["updateNote"]["requestBody"]>["content"]["application/json"];
-export type CareTeamInputInput = NonNullable<operations["createCareTeam"]["requestBody"]>["content"]["application/json"];
-export type CareTeamUpdateInput = NonNullable<operations["updateCareTeam"]["requestBody"]>["content"]["application/json"];
-export type DocumentReferenceInputInput = NonNullable<operations["createDocument"]["requestBody"]>["content"]["application/json"];
-export type DocumentReferenceUpdateInput = NonNullable<operations["updateDocument"]["requestBody"]>["content"]["application/json"];
+export type CreatePatientInput = NonNullable<operations["createPatient"]["requestBody"]>["content"]["application/json"];
+export type UpdatePatientInput = NonNullable<operations["updatePatient"]["requestBody"]>["content"]["application/json"];
+export type CreateEncounterInput = NonNullable<operations["createEncounter"]["requestBody"]>["content"]["application/json"];
+export type UpdateEncounterInput = NonNullable<operations["updateEncounter"]["requestBody"]>["content"]["application/json"];
+export type CreateConditionInput = NonNullable<operations["createCondition"]["requestBody"]>["content"]["application/json"];
+export type UpdateConditionInput = NonNullable<operations["updateCondition"]["requestBody"]>["content"]["application/json"];
+export type CreateAllergyInput = NonNullable<operations["createAllergy"]["requestBody"]>["content"]["application/json"];
+export type UpdateAllergyInput = NonNullable<operations["updateAllergy"]["requestBody"]>["content"]["application/json"];
+export type CreateMedicationStatementInput = NonNullable<operations["createMedicationStatement"]["requestBody"]>["content"]["application/json"];
+export type UpdateMedicationStatementInput = NonNullable<operations["updateMedicationStatement"]["requestBody"]>["content"]["application/json"];
+export type CreateMedicationOrderInput = NonNullable<operations["createMedicationOrder"]["requestBody"]>["content"]["application/json"];
+export type UpdateMedicationOrderInput = NonNullable<operations["updateMedicationOrder"]["requestBody"]>["content"]["application/json"];
+export type CreateImmunizationInput = NonNullable<operations["createImmunization"]["requestBody"]>["content"]["application/json"];
+export type UpdateImmunizationInput = NonNullable<operations["updateImmunization"]["requestBody"]>["content"]["application/json"];
+export type CreateObservationInput = NonNullable<operations["createObservation"]["requestBody"]>["content"]["application/json"];
+export type UpdateObservationInput = NonNullable<operations["updateObservation"]["requestBody"]>["content"]["application/json"];
+export type CreateDiagnosticReportInput = NonNullable<operations["createDiagnosticReport"]["requestBody"]>["content"]["application/json"];
+export type UpdateDiagnosticReportInput = NonNullable<operations["updateDiagnosticReport"]["requestBody"]>["content"]["application/json"];
+export type CreateImagingStudyInput = NonNullable<operations["createImagingStudy"]["requestBody"]>["content"]["application/json"];
+export type UpdateImagingStudyInput = NonNullable<operations["updateImagingStudy"]["requestBody"]>["content"]["application/json"];
+export type CreateProcedureInput = NonNullable<operations["createProcedure"]["requestBody"]>["content"]["application/json"];
+export type UpdateProcedureInput = NonNullable<operations["updateProcedure"]["requestBody"]>["content"]["application/json"];
+export type CreateNoteInput = NonNullable<operations["createNote"]["requestBody"]>["content"]["application/json"];
+export type UpdateNoteInput = NonNullable<operations["updateNote"]["requestBody"]>["content"]["application/json"];
+export type CreateCareTeamInput = NonNullable<operations["createCareTeam"]["requestBody"]>["content"]["application/json"];
+export type UpdateCareTeamInput = NonNullable<operations["updateCareTeam"]["requestBody"]>["content"]["application/json"];
+export type CreateDocumentInput = NonNullable<operations["createDocument"]["requestBody"]>["content"]["application/json"];
+export type UpdateDocumentInput = NonNullable<operations["updateDocument"]["requestBody"]>["content"]["application/json"];
 
 
 // ============================================================================

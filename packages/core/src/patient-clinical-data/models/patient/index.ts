@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/patient.entity";
 export * from "./dto/list-patient.dto";
-export * from "./dto/create-patient.dto";
 export * from "./dto/get-patient.dto";
-export * from "./dto/update-patient.dto";
 export * from "./dto/delete-patient.dto";

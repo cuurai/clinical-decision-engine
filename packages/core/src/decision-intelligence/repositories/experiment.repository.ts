@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  Experiment,
   ListExperimentsParams,
-  ExperimentInput,
-  ExperimentUpdate
+  UpdateExperimentRequest
 } from "../types/index.js";
 /**
  * ExperimentRepository Interface
  */
-export interface ExperimentRepository extends CrudRepository<Timestamps, ExperimentInput, ExperimentUpdate, string, ListExperimentsParams> {
+export interface ExperimentRepository extends CrudRepository<Experiment, Experiment, UpdateExperimentRequest, string, ListExperimentsParams> {
 
 }

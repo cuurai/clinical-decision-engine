@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  AlertEvaluation,
   ListAlertEvaluationsParams,
-  AlertEvaluationInput,
-  AlertEvaluationUpdate
+  UpdateAlertEvaluationRequest
 } from "../types/index.js";
 /**
  * AlertEvaluationRepository Interface
  */
-export interface AlertEvaluationRepository extends CrudRepository<Timestamps, AlertEvaluationInput, AlertEvaluationUpdate, string, ListAlertEvaluationsParams> {
+export interface AlertEvaluationRepository extends CrudRepository<AlertEvaluation, AlertEvaluation, UpdateAlertEvaluationRequest, string, ListAlertEvaluationsParams> {
 
 }

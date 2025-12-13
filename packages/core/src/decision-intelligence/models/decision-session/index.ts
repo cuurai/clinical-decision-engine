@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/decision-session.entity";
 export * from "./dto/list-decision-session.dto";
-export * from "./dto/create-decision-session.dto";
 export * from "./dto/get-decision-session.dto";
-export * from "./dto/update-decision-session.dto";
 export * from "./dto/delete-decision-session.dto";

@@ -14,14 +14,13 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  CarePathwayTemplate,
   ListCarePathwayTemplatesParams,
-  CarePathwayTemplateInput,
-  CarePathwayTemplateUpdate
+  UpdateCarePathwayTemplateRequest
 } from "../types/index.js";
 /**
  * CarePathwayTemplateRepository Interface
  */
-export interface CarePathwayTemplateRepository extends CrudRepository<Timestamps, CarePathwayTemplateInput, CarePathwayTemplateUpdate, string, ListCarePathwayTemplatesParams> {
+export interface CarePathwayTemplateRepository extends CrudRepository<CarePathwayTemplate, CarePathwayTemplate, UpdateCarePathwayTemplateRequest, string, ListCarePathwayTemplatesParams> {
 
 }

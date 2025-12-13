@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/observation.entity";
 export * from "./dto/list-observation.dto";
-export * from "./dto/create-observation.dto";
 export * from "./dto/get-observation.dto";
-export * from "./dto/update-observation.dto";
 export * from "./dto/delete-observation.dto";

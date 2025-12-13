@@ -6,31 +6,24 @@
  */
 
 import type { GetImagingStudyResponse } from "../../types/index.js";
-import { pcTransactionId } from "../../../shared/helpers";
-// TODO: Uncomment when implementing handler logic
-// import { timestampsToApi } from "../../utils/patient-clinical-data-converters.js";
+import type { ImagingStudyRepository } from "../../repositories/index.js";
+import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Get imaging study by ID
  */
 export async function getImagingStudy(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
+    repo: ImagingStudyRepository,
+    orgId: string,
+    id: string
 ): Promise<GetImagingStudyResponse> {
-  // TODO: Implement validation logic
-  // This operation returns a Response DTO (not an entity)
-  // Implement business logic to generate the response DTO
+  const imagingStudy = await repo.findById(orgId, id);
+  if (!imagingStudy) {
+    throw new Error("Not found");
+  }
 
   return {
-    data: {
-      isValid: false,
-      status: "invalid" as const,
-      canRefresh: false,
-      // TODO: Populate other response DTO properties based on validation logic
-      // Example: tokenExpiresAt, lastValidatedAt, issues
-    },
+    data: imagingStudy,
     meta: {
       correlationId: pcTransactionId(),
       timestamp: new Date().toISOString(),

@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/model-version.entity";
 export * from "./dto/list-model-version.dto";
-export * from "./dto/create-model-version.dto";
 export * from "./dto/get-model-version.dto";
-export * from "./dto/update-model-version.dto";
 export * from "./dto/delete-model-version.dto";

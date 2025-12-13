@@ -6,7 +6,7 @@
  */
 
 import type { RecommendationRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../../shared/helpers";
+import { diTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * Delete recommendation
@@ -22,7 +22,7 @@ export async function deleteRecommendation(
   return {
     data: { success: true },
     meta: {
-      correlationId: decTransactionId(),
+      correlationId: diTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

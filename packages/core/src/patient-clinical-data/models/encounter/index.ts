@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/encounter.entity";
 export * from "./dto/list-encounter.dto";
-export * from "./dto/create-encounter.dto";
 export * from "./dto/get-encounter.dto";
-export * from "./dto/update-encounter.dto";
 export * from "./dto/delete-encounter.dto";

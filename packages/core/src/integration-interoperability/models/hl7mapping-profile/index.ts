@@ -12,7 +12,5 @@
 // Auto-generated barrel export
 export * from "./entity/hl7mapping-profile.entity";
 export * from "./dto/list-hl7mapping-profile.dto";
-export * from "./dto/create-hl7mapping-profile.dto";
 export * from "./dto/get-hl7mapping-profile.dto";
-export * from "./dto/update-hl7mapping-profile.dto";
 export * from "./dto/delete-hl7mapping-profile.dto";

@@ -7,7 +7,7 @@
 
 import type { ListPatientLabsResponse } from "../../types/index.js";
 import type { PatientLabRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
 
 /**
  * List patient lab results
@@ -23,13 +23,17 @@ export async function listPatientLabs(
   // Return paginated response matching OpenAPI response type
   // Structure matches ProviderAccountListResponse: { data: { items: [...] }, meta: { ... } }
   return {
-    data: result.items,
+    data: {
+      items: result.items,
+    },
     meta: {
-      correlationId: unknownTransactionId(),
+      correlationId: pcTransactionId(),
       timestamp: new Date().toISOString(),
-      totalCount: result.total ?? result.items.length,
-      pageSize: result.items.length,
-      pageNumber: 1,
+      pagination: {
+        nextCursor: result.nextCursor ?? null,
+        prevCursor: result.prevCursor ?? null,
+        limit: result.items.length,
+      },
     },
   };
 
