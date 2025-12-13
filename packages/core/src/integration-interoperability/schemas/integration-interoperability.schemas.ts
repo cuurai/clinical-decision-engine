@@ -86,9 +86,7 @@ const IntegrationJob = Timestamps.and(
       connectionId: z.string().optional(),
       jobType: z.enum(["sync", "import", "export", "scheduled", "manual"]),
       schedule: z.object({}).partial().passthrough().optional(),
-      status: z
-        .enum(["pending", "running", "completed", "failed", "cancelled"])
-        .optional(),
+      status: z.enum(["pending", "running", "completed", "failed", "cancelled"]).optional(),
       lastRunAt: z.string().datetime({ offset: true }).optional(),
       metadata: z.object({}).partial().passthrough().optional(),
     })
@@ -103,10 +101,7 @@ const ConnectionInput = z
     protocol: z.enum(["fhir", "hl7", "rest", "soap", "other"]),
     profile: z.string().optional(),
     credentials: z.object({}).partial().passthrough().optional(),
-    status: z
-      .enum(["active", "inactive", "error"])
-      .optional()
-      .default("active"),
+    status: z.enum(["active", "inactive", "error"]).optional().default("active"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -153,9 +148,7 @@ const FHIRBundle = Timestamps.and(
       resources: z.array(z.object({}).partial().passthrough()).optional(),
       direction: z.enum(["inbound", "outbound"]).optional(),
       connectionId: z.string().optional(),
-      status: z
-        .enum(["received", "processing", "completed", "failed"])
-        .optional(),
+      status: z.enum(["received", "processing", "completed", "failed"]).optional(),
       metadata: z.object({}).partial().passthrough().optional(),
     })
     .passthrough()
@@ -344,10 +337,7 @@ const IntegrationRun = Timestamps.and(
 const IntegrationRunInput = z
   .object({
     integrationJobId: z.string(),
-    status: z
-      .enum(["running", "completed", "failed"])
-      .optional()
-      .default("running"),
+    status: z.enum(["running", "completed", "failed"]).optional().default("running"),
     startedAt: z.string().datetime({ offset: true }).optional(),
     recordsProcessed: z.number().int().optional(),
     recordsTotal: z.number().int().optional(),
@@ -372,13 +362,7 @@ const InterfaceError = Timestamps.and(
   z
     .object({
       id: z.string(),
-      errorType: z.enum([
-        "message-level",
-        "record-level",
-        "validation",
-        "connection",
-        "other",
-      ]),
+      errorType: z.enum(["message-level", "record-level", "validation", "connection", "other"]),
       message: z.string(),
       entityType: z.string().optional(),
       entityId: z.string().optional(),
@@ -397,9 +381,7 @@ const DataImportBatch = Timestamps.and(
       description: z.string().optional(),
       format: z.enum(["csv", "ndjson", "fhir-bulk", "other"]),
       sourceUrl: z.string().url().optional(),
-      status: z
-        .enum(["pending", "processing", "completed", "failed"])
-        .optional(),
+      status: z.enum(["pending", "processing", "completed", "failed"]).optional(),
       recordsTotal: z.number().int().optional(),
       recordsProcessed: z.number().int().optional(),
       recordsFailed: z.number().int().optional(),
@@ -415,10 +397,7 @@ const DataImportBatchInput = z
     description: z.string().optional(),
     format: z.enum(["csv", "ndjson", "fhir-bulk", "other"]),
     sourceUrl: z.string().url().optional(),
-    status: z
-      .enum(["pending", "processing", "completed", "failed"])
-      .optional()
-      .default("pending"),
+    status: z.enum(["pending", "processing", "completed", "failed"]).optional().default("pending"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -455,9 +434,7 @@ const DataExportBatch = Timestamps.and(
       description: z.string().optional(),
       targetSystemId: z.string(),
       format: z.string().optional(),
-      status: z
-        .enum(["pending", "processing", "completed", "failed"])
-        .optional(),
+      status: z.enum(["pending", "processing", "completed", "failed"]).optional(),
       recordsTotal: z.number().int().optional(),
       filesGenerated: z.number().int().optional(),
       startedAt: z.string().datetime({ offset: true }).optional(),
@@ -472,10 +449,7 @@ const DataExportBatchInput = z
     description: z.string().optional(),
     targetSystemId: z.string(),
     format: z.string().optional(),
-    status: z
-      .enum(["pending", "processing", "completed", "failed"])
-      .optional()
-      .default("pending"),
+    status: z.enum(["pending", "processing", "completed", "failed"]).optional().default("pending"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -522,10 +496,7 @@ const EventSubscriptionInput = z
     webhookUrl: z.string().url(),
     externalSystemId: z.string().optional(),
     filters: z.object({}).partial().passthrough().optional(),
-    status: z
-      .enum(["active", "inactive", "paused"])
-      .optional()
-      .default("active"),
+    status: z.enum(["active", "inactive", "paused"]).optional().default("active"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -556,10 +527,7 @@ const EventDeliveryInput = z
   .object({
     eventSubscriptionId: z.string(),
     eventData: z.object({}).partial().passthrough(),
-    status: z
-      .enum(["pending", "delivered", "failed", "retrying"])
-      .optional()
-      .default("pending"),
+    status: z.enum(["pending", "delivered", "failed", "retrying"]).optional().default("pending"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -589,10 +557,7 @@ const APIClientInput = z
   .object({
     name: z.string(),
     description: z.string().optional(),
-    status: z
-      .enum(["active", "inactive", "suspended"])
-      .optional()
-      .default("active"),
+    status: z.enum(["active", "inactive", "suspended"]).optional().default("active"),
     rateLimit: z.number().int().optional(),
     metadata: z.object({}).partial().passthrough().optional(),
   })
@@ -624,12 +589,7 @@ const UsageMetric = z
   .object({
     id: z.string(),
     apiClientId: z.string(),
-    metricType: z.enum([
-      "request-count",
-      "error-count",
-      "latency",
-      "throttle-count",
-    ]),
+    metricType: z.enum(["request-count", "error-count", "latency", "throttle-count"]),
     value: z.number(),
     period: z.string(),
     createdAt: z.string().datetime({ offset: true }),
@@ -656,21 +616,12 @@ const APICredentialUpdate = z
   .passthrough();
 const InterfaceErrorInput = z
   .object({
-    errorType: z.enum([
-      "message-level",
-      "record-level",
-      "validation",
-      "connection",
-      "other",
-    ]),
+    errorType: z.enum(["message-level", "record-level", "validation", "connection", "other"]),
     message: z.string(),
     entityType: z.string().optional(),
     entityId: z.string().optional(),
     connectionId: z.string().optional(),
-    status: z
-      .enum(["open", "resolved", "ignored", "reprocessed"])
-      .optional()
-      .default("open"),
+    status: z.enum(["open", "resolved", "ignored", "reprocessed"]).optional().default("open"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();

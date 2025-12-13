@@ -9,22 +9,19 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { CrudRepository } from "../../shared/repositories/_base-repository";
+import type {
+  CrudRepository,
+} from "../../shared/repositories/_base-repository.js";
 
 import type {
   Timestamps,
   ListAlertEvaluationsParams,
   AlertEvaluationInput,
-  AlertEvaluationUpdate,
+  AlertEvaluationUpdate
 } from "../types/index.js";
 /**
  * AlertEvaluationRepository Interface
  */
-export interface AlertEvaluationRepository
-  extends CrudRepository<
-    Timestamps,
-    AlertEvaluationInput,
-    AlertEvaluationUpdate,
-    string,
-    ListAlertEvaluationsParams
-  > {}
+export interface AlertEvaluationRepository extends CrudRepository<Timestamps, AlertEvaluationInput, AlertEvaluationUpdate, string, ListAlertEvaluationsParams> {
+
+}

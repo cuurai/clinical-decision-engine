@@ -2,7 +2,7 @@
  * AUTO-GENERATED CODE — DO NOT EDIT
  *
  * Generator: Handler Generator v1.0.0
- * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/.bundled/openapi-patient-clinical-data.json
+ * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-patient-clinical-data.json
  */
 
 import type { GetConditionResponse } from "../../types/index.js";

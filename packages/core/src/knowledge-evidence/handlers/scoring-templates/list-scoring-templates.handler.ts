@@ -2,7 +2,7 @@
  * AUTO-GENERATED CODE — DO NOT EDIT
  *
  * Generator: Handler Generator v1.0.0
- * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/.bundled/openapi-knowledge-evidence.json
+ * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
 import type { ListScoringTemplatesParams, ListScoringTemplatesResponse } from "../../types/index.js";

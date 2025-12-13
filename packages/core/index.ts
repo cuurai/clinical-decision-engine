@@ -8,19 +8,19 @@
  */
 
 /**
- * @quub/core - Main Barrel Export
+ * @cuur/core - Main Barrel Export
  *
  * Central export point for all core business logic, handlers, repositories, and types
  * Organized by domain/service for easy importing
  *
  * Usage:
  *   // Namespace imports (recommended for new code)
- *   import { auth, exchange } from "@quub/core";
+ *   import { auth, exchange } from "@cuur/core";
  *   const { handlers, repositories } = auth;
  *
  *   // Flat imports (for direct imports)
- *   import { MarketRepository, OrderRepository } from "@quub/core";
- *   import { authSchemas, exchangeSchemas } from "@quub/core";
+ *   import { MarketRepository, OrderRepository } from "@cuur/core";
+ *   import { authSchemas, exchangeSchemas } from "@cuur/core";
  */
 
 // ============================================================================

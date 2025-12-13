@@ -25,10 +25,7 @@ const DecisionSessionInput = z
   .object({
     patientId: z.string(),
     encounterId: z.string().optional(),
-    status: z
-      .enum(["active", "completed", "cancelled"])
-      .optional()
-      .default("active"),
+    status: z.enum(["active", "completed", "cancelled"]).optional().default("active"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -53,17 +50,9 @@ const DecisionRequest = Timestamps.and(
       id: z.string(),
       decisionSessionId: z.string().optional(),
       patientId: z.string(),
-      requestType: z.enum([
-        "diagnostic",
-        "treatment",
-        "risk-assessment",
-        "pathway-selection",
-      ]),
+      requestType: z.enum(["diagnostic", "treatment", "risk-assessment", "pathway-selection"]),
       context: z.object({}).partial().passthrough(),
-      priority: z
-        .enum(["low", "normal", "high", "urgent"])
-        .optional()
-        .default("normal"),
+      priority: z.enum(["low", "normal", "high", "urgent"]).optional().default("normal"),
       metadata: z.object({}).partial().passthrough().optional(),
     })
     .passthrough()
@@ -94,11 +83,7 @@ const RiskAssessment = Timestamps.and(
         "other",
       ]),
       score: z.number(),
-      scoreRange: z
-        .object({ min: z.number(), max: z.number() })
-        .partial()
-        .passthrough()
-        .optional(),
+      scoreRange: z.object({ min: z.number(), max: z.number() }).partial().passthrough().optional(),
       interpretation: z.string().optional(),
       factors: z.array(z.object({}).partial().passthrough()).optional(),
       modelId: z.string().optional(),
@@ -116,9 +101,7 @@ const AlertEvaluation = Timestamps.and(
       severity: z.enum(["low", "medium", "high", "critical"]),
       fired: z.boolean().optional(),
       reasons: z.array(z.string()).optional(),
-      status: z
-        .enum(["active", "snoozed", "overridden", "resolved"])
-        .optional(),
+      status: z.enum(["active", "snoozed", "overridden", "resolved"]).optional(),
       snoozedUntil: z.string().datetime({ offset: true }).optional(),
       overriddenBy: z.string().optional(),
       overriddenAt: z.string().datetime({ offset: true }).optional(),
@@ -147,17 +130,9 @@ const DecisionRequestInput = z
   .object({
     decisionSessionId: z.string().optional(),
     patientId: z.string(),
-    requestType: z.enum([
-      "diagnostic",
-      "treatment",
-      "risk-assessment",
-      "pathway-selection",
-    ]),
+    requestType: z.enum(["diagnostic", "treatment", "risk-assessment", "pathway-selection"]),
     context: z.object({}).partial().passthrough(),
-    priority: z
-      .enum(["low", "normal", "high", "urgent"])
-      .optional()
-      .default("normal"),
+    priority: z.enum(["low", "normal", "high", "urgent"]).optional().default("normal"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -165,10 +140,7 @@ const DecisionResultInput = z
   .object({
     decisionRequestId: z.string(),
     decisionSessionId: z.string().optional(),
-    status: z
-      .enum(["pending", "completed", "failed"])
-      .optional()
-      .default("pending"),
+    status: z.enum(["pending", "completed", "failed"]).optional().default("pending"),
     result: z.object({}).partial().passthrough().optional(),
     metadata: z.object({}).partial().passthrough().optional(),
   })
@@ -197,9 +169,7 @@ const Recommendation = Timestamps.and(
       title: z.string().optional(),
       description: z.string().optional(),
       suggestion: z.object({}).partial().passthrough().optional(),
-      status: z
-        .enum(["pending", "accepted", "overridden", "deferred"])
-        .optional(),
+      status: z.enum(["pending", "accepted", "overridden", "deferred"]).optional(),
       acceptedBy: z.string().optional(),
       acceptedAt: z.string().datetime({ offset: true }).optional(),
       metadata: z.object({}).partial().passthrough().optional(),
@@ -210,19 +180,9 @@ const RiskAssessmentInput = z
   .object({
     patientId: z.string(),
     decisionResultId: z.string().optional(),
-    riskType: z.enum([
-      "mortality",
-      "readmission",
-      "complication",
-      "disease-progression",
-      "other",
-    ]),
+    riskType: z.enum(["mortality", "readmission", "complication", "disease-progression", "other"]),
     score: z.number(),
-    scoreRange: z
-      .object({ min: z.number(), max: z.number() })
-      .partial()
-      .passthrough()
-      .optional(),
+    scoreRange: z.object({ min: z.number(), max: z.number() }).partial().passthrough().optional(),
     interpretation: z.string().optional(),
     factors: z.array(z.object({}).partial().passthrough()).optional(),
     modelId: z.string().optional(),
@@ -252,10 +212,7 @@ const RecommendationInput = z
     title: z.string().optional(),
     description: z.string().optional(),
     suggestion: z.object({}).partial().passthrough().optional(),
-    status: z
-      .enum(["pending", "accepted", "overridden", "deferred"])
-      .optional()
-      .default("pending"),
+    status: z.enum(["pending", "accepted", "overridden", "deferred"]).optional().default("pending"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -276,10 +233,7 @@ const AlertEvaluationInput = z
     severity: z.enum(["low", "medium", "high", "critical"]),
     fired: z.boolean().optional().default(true),
     reasons: z.array(z.string()).optional(),
-    status: z
-      .enum(["active", "snoozed", "overridden", "resolved"])
-      .optional()
-      .default("active"),
+    status: z.enum(["active", "snoozed", "overridden", "resolved"]).optional().default("active"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -377,10 +331,7 @@ const SimulationScenarioInput = z
     description: z.string().optional(),
     category: z.string().optional(),
     scenarioDefinition: z.object({}).partial().passthrough().optional(),
-    status: z
-      .enum(["draft", "active", "completed"])
-      .optional()
-      .default("draft"),
+    status: z.enum(["draft", "active", "completed"]).optional().default("draft"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -410,10 +361,7 @@ const SimulationRun = Timestamps.and(
 const SimulationRunInput = z
   .object({
     simulationScenarioId: z.string(),
-    status: z
-      .enum(["running", "completed", "failed"])
-      .optional()
-      .default("running"),
+    status: z.enum(["running", "completed", "failed"]).optional().default("running"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -447,10 +395,7 @@ const DecisionPolicyInput = z
     name: z.string(),
     description: z.string().optional(),
     configuration: z.object({}).partial().passthrough().optional(),
-    status: z
-      .enum(["draft", "active", "deprecated"])
-      .optional()
-      .default("draft"),
+    status: z.enum(["draft", "active", "deprecated"]).optional().default("draft"),
     version: z.string().optional(),
     metadata: z.object({}).partial().passthrough().optional(),
   })
@@ -538,10 +483,7 @@ const ExperimentInput = z
     name: z.string(),
     description: z.string().optional(),
     experimentType: z.enum(["ab", "multi-arm"]),
-    status: z
-      .enum(["draft", "running", "completed", "cancelled"])
-      .optional()
-      .default("draft"),
+    status: z.enum(["draft", "running", "completed", "cancelled"]).optional().default("draft"),
     startDate: z.string().datetime({ offset: true }).optional(),
     endDate: z.string().datetime({ offset: true }).optional(),
     trafficAllocation: z.object({}).partial().passthrough().optional(),
@@ -661,9 +603,7 @@ const endpoints = makeApi([
       {
         name: "status",
         type: "Query",
-        schema: z
-          .enum(["active", "snoozed", "overridden", "resolved"])
-          .optional(),
+        schema: z.enum(["active", "snoozed", "overridden", "resolved"]).optional(),
       },
     ],
     response: z.array(AlertEvaluation),
@@ -998,12 +938,7 @@ modified to ensure historical accuracy.
         name: "requestType",
         type: "Query",
         schema: z
-          .enum([
-            "diagnostic",
-            "treatment",
-            "risk-assessment",
-            "pathway-selection",
-          ])
+          .enum(["diagnostic", "treatment", "risk-assessment", "pathway-selection"])
           .optional(),
       },
     ],
@@ -1559,9 +1494,7 @@ modified to ensure audit trail integrity.
       {
         name: "status",
         type: "Query",
-        schema: z
-          .enum(["draft", "running", "completed", "cancelled"])
-          .optional(),
+        schema: z.enum(["draft", "running", "completed", "cancelled"]).optional(),
       },
     ],
     response: z.array(Experiment),
@@ -1723,12 +1656,7 @@ modified to ensure audit trail integrity.
         name: "explanationType",
         type: "Query",
         schema: z
-          .enum([
-            "feature-importance",
-            "rule-trace",
-            "evidence-summary",
-            "model-reasoning",
-          ])
+          .enum(["feature-importance", "rule-trace", "evidence-summary", "model-reasoning"])
           .optional(),
       },
     ],
@@ -1947,22 +1875,13 @@ modified to ensure audit trail integrity.
         name: "recommendationType",
         type: "Query",
         schema: z
-          .enum([
-            "diagnostic",
-            "treatment",
-            "monitoring",
-            "follow-up",
-            "documentation",
-            "other",
-          ])
+          .enum(["diagnostic", "treatment", "monitoring", "follow-up", "documentation", "other"])
           .optional(),
       },
       {
         name: "status",
         type: "Query",
-        schema: z
-          .enum(["pending", "accepted", "overridden", "deferred"])
-          .optional(),
+        schema: z.enum(["pending", "accepted", "overridden", "deferred"]).optional(),
       },
     ],
     response: z.array(Recommendation),
@@ -2105,13 +2024,7 @@ modified to ensure audit trail integrity.
         name: "riskType",
         type: "Query",
         schema: z
-          .enum([
-            "mortality",
-            "readmission",
-            "complication",
-            "disease-progression",
-            "other",
-          ])
+          .enum(["mortality", "readmission", "complication", "disease-progression", "other"])
           .optional(),
       },
     ],

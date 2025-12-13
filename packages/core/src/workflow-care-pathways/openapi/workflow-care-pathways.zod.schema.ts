@@ -94,10 +94,7 @@ const WorkflowInstanceInput = z
     patientId: z.string(),
     encounterId: z.string().optional(),
     episodeOfCareId: z.string().optional(),
-    status: z
-      .enum(["active", "paused", "completed", "cancelled"])
-      .optional()
-      .default("active"),
+    status: z.enum(["active", "paused", "completed", "cancelled"]).optional().default("active"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -128,14 +125,7 @@ const Task = Timestamps.and(
         "other",
       ]),
       status: z
-        .enum([
-          "draft",
-          "ready",
-          "in-progress",
-          "on-hold",
-          "completed",
-          "cancelled",
-        ])
+        .enum(["draft", "ready", "in-progress", "on-hold", "completed", "cancelled"])
         .optional(),
       priority: z.enum(["low", "normal", "high", "urgent"]).optional(),
       dueDate: z.string().datetime({ offset: true }).optional(),
@@ -234,9 +224,7 @@ const CarePlan = Timestamps.and(
       carePathwayTemplateId: z.string().optional(),
       title: z.string().optional(),
       description: z.string().optional(),
-      status: z
-        .enum(["draft", "active", "suspended", "completed", "cancelled"])
-        .optional(),
+      status: z.enum(["draft", "active", "suspended", "completed", "cancelled"]).optional(),
       startDate: z.string().datetime({ offset: true }).optional(),
       endDate: z.string().datetime({ offset: true }).optional(),
       metadata: z.object({}).partial().passthrough().optional(),
@@ -310,10 +298,7 @@ const EpisodeOfCare = Timestamps.and(
 const EpisodeOfCareInput = z
   .object({
     patientId: z.string(),
-    status: z
-      .enum(["active", "completed", "cancelled"])
-      .optional()
-      .default("active"),
+    status: z.enum(["active", "completed", "cancelled"]).optional().default("active"),
     startDate: z.string().datetime({ offset: true }).optional(),
     condition: z.string().optional(),
     metadata: z.object({}).partial().passthrough().optional(),
@@ -344,29 +329,12 @@ const TaskInput = z
     patientId: z.string().optional(),
     title: z.string(),
     description: z.string().optional(),
-    taskType: z.enum([
-      "medication",
-      "procedure",
-      "lab-order",
-      "appointment",
-      "education",
-      "other",
-    ]),
+    taskType: z.enum(["medication", "procedure", "lab-order", "appointment", "education", "other"]),
     status: z
-      .enum([
-        "draft",
-        "ready",
-        "in-progress",
-        "on-hold",
-        "completed",
-        "cancelled",
-      ])
+      .enum(["draft", "ready", "in-progress", "on-hold", "completed", "cancelled"])
       .optional()
       .default("draft"),
-    priority: z
-      .enum(["low", "normal", "high", "urgent"])
-      .optional()
-      .default("normal"),
+    priority: z.enum(["low", "normal", "high", "urgent"]).optional().default("normal"),
     dueDate: z.string().datetime({ offset: true }).optional(),
     assignedTo: z.string().optional(),
     metadata: z.object({}).partial().passthrough().optional(),
@@ -376,14 +344,7 @@ const TaskUpdate = z
   .object({
     title: z.string(),
     description: z.string(),
-    status: z.enum([
-      "draft",
-      "ready",
-      "in-progress",
-      "on-hold",
-      "completed",
-      "cancelled",
-    ]),
+    status: z.enum(["draft", "ready", "in-progress", "on-hold", "completed", "cancelled"]),
     priority: z.enum(["low", "normal", "high", "urgent"]),
     dueDate: z.string().datetime({ offset: true }),
     assignedTo: z.string(),
@@ -447,14 +408,7 @@ const Alert = Timestamps.and(
       title: z.string().optional(),
       message: z.string().optional(),
       status: z
-        .enum([
-          "active",
-          "acknowledged",
-          "overridden",
-          "snoozed",
-          "resolved",
-          "dismissed",
-        ])
+        .enum(["active", "acknowledged", "overridden", "snoozed", "resolved", "dismissed"])
         .optional(),
       acknowledgedBy: z.string().optional(),
       acknowledgedAt: z.string().datetime({ offset: true }).optional(),
@@ -466,25 +420,12 @@ const Alert = Timestamps.and(
 const AlertInput = z
   .object({
     patientId: z.string(),
-    alertType: z.enum([
-      "drug-interaction",
-      "allergy",
-      "critical-value",
-      "clinical-rule",
-      "other",
-    ]),
+    alertType: z.enum(["drug-interaction", "allergy", "critical-value", "clinical-rule", "other"]),
     severity: z.enum(["low", "medium", "high", "critical"]),
     title: z.string(),
     message: z.string(),
     status: z
-      .enum([
-        "active",
-        "acknowledged",
-        "overridden",
-        "snoozed",
-        "resolved",
-        "dismissed",
-      ])
+      .enum(["active", "acknowledged", "overridden", "snoozed", "resolved", "dismissed"])
       .optional()
       .default("active"),
     metadata: z.object({}).partial().passthrough().optional(),
@@ -492,14 +433,7 @@ const AlertInput = z
   .passthrough();
 const AlertUpdate = z
   .object({
-    status: z.enum([
-      "active",
-      "acknowledged",
-      "overridden",
-      "snoozed",
-      "resolved",
-      "dismissed",
-    ]),
+    status: z.enum(["active", "acknowledged", "overridden", "snoozed", "resolved", "dismissed"]),
     acknowledgedBy: z.string(),
     acknowledgedAt: z.string().datetime({ offset: true }),
     resolvedAt: z.string().datetime({ offset: true }),
@@ -540,10 +474,7 @@ const HandoffInput = z
     handoffType: z.string().optional(),
     handoffDate: z.string().datetime({ offset: true }).optional(),
     notes: z.string().optional(),
-    status: z
-      .enum(["pending", "completed", "cancelled"])
-      .optional()
-      .default("pending"),
+    status: z.enum(["pending", "completed", "cancelled"]).optional().default("pending"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -605,10 +536,7 @@ const ChecklistInstanceInput = z
     checklistTemplateId: z.string(),
     patientId: z.string(),
     carePlanId: z.string().optional(),
-    status: z
-      .enum(["in-progress", "completed", "cancelled"])
-      .optional()
-      .default("in-progress"),
+    status: z.enum(["in-progress", "completed", "cancelled"]).optional().default("in-progress"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -880,14 +808,7 @@ const endpoints = makeApi([
         name: "status",
         type: "Query",
         schema: z
-          .enum([
-            "active",
-            "acknowledged",
-            "overridden",
-            "snoozed",
-            "resolved",
-            "dismissed",
-          ])
+          .enum(["active", "acknowledged", "overridden", "snoozed", "resolved", "dismissed"])
           .optional(),
       },
     ],
@@ -1215,9 +1136,7 @@ const endpoints = makeApi([
       {
         name: "status",
         type: "Query",
-        schema: z
-          .enum(["draft", "active", "suspended", "completed", "cancelled"])
-          .optional(),
+        schema: z.enum(["draft", "active", "suspended", "completed", "cancelled"]).optional(),
       },
     ],
     response: z.array(CarePlan),
@@ -2510,14 +2429,7 @@ const endpoints = makeApi([
         name: "status",
         type: "Query",
         schema: z
-          .enum([
-            "draft",
-            "ready",
-            "in-progress",
-            "on-hold",
-            "completed",
-            "cancelled",
-          ])
+          .enum(["draft", "ready", "in-progress", "on-hold", "completed", "cancelled"])
           .optional(),
       },
       {
@@ -3021,9 +2933,7 @@ const endpoints = makeApi([
       {
         name: "status",
         type: "Query",
-        schema: z
-          .enum(["active", "paused", "completed", "cancelled"])
-          .optional(),
+        schema: z.enum(["active", "paused", "completed", "cancelled"]).optional(),
       },
     ],
     response: z.array(WorkflowInstance),

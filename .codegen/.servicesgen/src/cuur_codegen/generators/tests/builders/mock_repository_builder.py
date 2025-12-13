@@ -17,6 +17,7 @@ def _get_domain_transaction_id_function(domain_name: str) -> str:
         "business-intelligence": "BI",
         "compliance": "CO",
         "custodian": "CU",
+        "decision-intelligence": "DI",
         "e-documents": "ED",
         "escrow": "ES",
         "events": "EV",
@@ -26,10 +27,13 @@ def _get_domain_transaction_id_function(domain_name: str) -> str:
         "gateway": "GW",
         "governance": "GO",
         "identity": "ID",
+        "integration-interoperability": "II",
+        "knowledge-evidence": "KE",
         "market-oracles": "MO",
         "marketplace": "MP",
         "notifications": "NO",
         "observability": "OB",
+        "patient-clinical-data": "PC",
         "pricing-refdata": "PR",
         "primary-market": "PM",
         "risk-limits": "RL",
@@ -38,6 +42,7 @@ def _get_domain_transaction_id_function(domain_name: str) -> str:
         "tenancy-trust": "TT",
         "transfer-agent": "TA",
         "treasury": "TR",
+        "workflow-care-pathways": "WC",
     }
 
     prefix = domain_prefix_map.get(domain_name.lower())

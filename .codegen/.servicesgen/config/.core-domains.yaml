@@ -1,30 +1,22 @@
-# Core Domains Configuration
-# Simple list of technical service domains (Core domains = foundational/core domains)
-
+version: "1.0.0"
 domains:
-  - auth
-  - blockchain
-  - business-intelligence
-  - compliance
-  - custodian
-  - e-documents
-  - escrow
-  - events
-  - exchange
-  - fees-billing
-  - fiat-banking
-  - gateway
-  - governance
-  - identity
-  - market-oracles
-  - marketplace
-  - notifications
-  - observability
-  - pricing-refdata
-  - primary-market
-  - risk-limits
-  - sandbox
-  - settlements
-  - tenancy-trust
-  - transfer-agent
-  - treasury
+  - name: decision-intelligence
+    enabled: true
+    spec_path: openapi-decision-intelligence.yaml
+    bundled_path: openapi-decision-intelligence.json
+  - name: integration-interoperability
+    enabled: true
+    spec_path: openapi-integration-interoperability.yaml
+    bundled_path: openapi-integration-interoperability.json
+  - name: knowledge-evidence
+    enabled: true
+    spec_path: openapi-knowledge-evidence.yaml
+    bundled_path: openapi-knowledge-evidence.json
+  - name: patient-clinical-data
+    enabled: true
+    spec_path: openapi-patient-clinical-data.yaml
+    bundled_path: openapi-patient-clinical-data.json
+  - name: workflow-care-pathways
+    enabled: true
+    spec_path: openapi-workflow-care-pathways.yaml
+    bundled_path: openapi-workflow-care-pathways.json

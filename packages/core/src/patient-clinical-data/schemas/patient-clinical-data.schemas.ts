@@ -8,12 +8,7 @@ const Timestamps = z
   .partial()
   .passthrough();
 const Coding = z
-  .object({
-    system: z.string(),
-    code: z.string(),
-    display: z.string(),
-    version: z.string(),
-  })
+  .object({ system: z.string(), code: z.string(), display: z.string(), version: z.string() })
   .partial()
   .passthrough();
 const CodeableConcept = z
@@ -26,15 +21,7 @@ const Identifier = z
   .passthrough();
 const HumanName = z
   .object({
-    use: z.enum([
-      "usual",
-      "official",
-      "temp",
-      "nickname",
-      "anonymous",
-      "old",
-      "maiden",
-    ]),
+    use: z.enum(["usual", "official", "temp", "nickname", "anonymous", "old", "maiden"]),
     family: z.string(),
     given: z.array(z.string()),
     prefix: z.array(z.string()),
@@ -137,12 +124,7 @@ const Period = z
   .partial()
   .passthrough();
 const Duration = z
-  .object({
-    value: z.number(),
-    unit: z.string(),
-    system: z.string(),
-    code: z.string(),
-  })
+  .object({ value: z.number(), unit: z.string(), system: z.string(), code: z.string() })
   .partial()
   .passthrough();
 const Encounter = Timestamps.and(
@@ -159,9 +141,7 @@ const Encounter = Timestamps.and(
         "finished",
         "cancelled",
       ]),
-      class: z
-        .enum(["inpatient", "outpatient", "emergency", "ambulatory", "virtual"])
-        .optional(),
+      class: z.enum(["inpatient", "outpatient", "emergency", "ambulatory", "virtual"]).optional(),
       type: z.array(CodeableConcept).optional(),
       period: Period.optional(),
       length: Duration.optional(),
@@ -180,14 +160,7 @@ const Condition = Timestamps.and(
       abatementDateTime: z.string().datetime({ offset: true }).optional(),
       recordedDate: z.string().datetime({ offset: true }).optional(),
       status: z
-        .enum([
-          "active",
-          "recurrence",
-          "relapse",
-          "inactive",
-          "remission",
-          "resolved",
-        ])
+        .enum(["active", "recurrence", "relapse", "inactive", "remission", "resolved"])
         .optional(),
     })
     .passthrough()
@@ -214,12 +187,7 @@ const Allergy = Timestamps.and(
     .passthrough()
 );
 const Quantity = z
-  .object({
-    value: z.number(),
-    unit: z.string(),
-    system: z.string(),
-    code: z.string(),
-  })
+  .object({ value: z.number(), unit: z.string(), system: z.string(), code: z.string() })
   .partial()
   .passthrough();
 const Dosage = z
@@ -409,13 +377,7 @@ const EncounterInput = z
       "finished",
       "cancelled",
     ]),
-    class: z.enum([
-      "inpatient",
-      "outpatient",
-      "emergency",
-      "ambulatory",
-      "virtual",
-    ]),
+    class: z.enum(["inpatient", "outpatient", "emergency", "ambulatory", "virtual"]),
     type: z.array(CodeableConcept).optional(),
     period: Period.optional(),
   })
@@ -443,14 +405,7 @@ const ConditionInput = z
     severity: CodeableConcept.optional(),
     onsetDateTime: z.string().datetime({ offset: true }).optional(),
     status: z
-      .enum([
-        "active",
-        "recurrence",
-        "relapse",
-        "inactive",
-        "remission",
-        "resolved",
-      ])
+      .enum(["active", "recurrence", "relapse", "inactive", "remission", "resolved"])
       .optional()
       .default("active"),
   })
@@ -460,14 +415,7 @@ const ConditionUpdate = z
     code: CodeableConcept,
     severity: CodeableConcept,
     abatementDateTime: z.string().datetime({ offset: true }),
-    status: z.enum([
-      "active",
-      "recurrence",
-      "relapse",
-      "inactive",
-      "remission",
-      "resolved",
-    ]),
+    status: z.enum(["active", "recurrence", "relapse", "inactive", "remission", "resolved"]),
   })
   .partial()
   .passthrough();
@@ -477,10 +425,7 @@ const AllergyInput = z
     code: CodeableConcept,
     reaction: z.array(AllergyReaction).optional(),
     criticality: z.enum(["low", "high", "unable-to-assess"]).optional(),
-    status: z
-      .enum(["active", "inactive", "resolved"])
-      .optional()
-      .default("active"),
+    status: z.enum(["active", "inactive", "resolved"]).optional().default("active"),
   })
   .passthrough();
 const AllergyUpdate = z
@@ -616,10 +561,7 @@ const ImmunizationInput = z
     occurrenceDateTime: z.string().datetime({ offset: true }).optional(),
     primarySource: z.boolean().optional().default(true),
     lotNumber: z.string().optional(),
-    status: z
-      .enum(["completed", "entered-in-error", "not-done"])
-      .optional()
-      .default("completed"),
+    status: z.enum(["completed", "entered-in-error", "not-done"]).optional().default("completed"),
   })
   .passthrough();
 const ImmunizationUpdate = z
@@ -725,13 +667,7 @@ const ImagingStudy = Timestamps.and(
       encounterId: z.string().optional(),
       modality: z.array(Coding).optional(),
       started: z.string().datetime({ offset: true }).optional(),
-      status: z.enum([
-        "registered",
-        "available",
-        "cancelled",
-        "entered-in-error",
-        "unknown",
-      ]),
+      status: z.enum(["registered", "available", "cancelled", "entered-in-error", "unknown"]),
       numberOfSeries: z.number().int().optional(),
       numberOfInstances: z.number().int().optional(),
     })
@@ -744,26 +680,14 @@ const ImagingStudyInput = z
     modality: z.array(Coding).optional(),
     started: z.string().datetime({ offset: true }).optional(),
     status: z
-      .enum([
-        "registered",
-        "available",
-        "cancelled",
-        "entered-in-error",
-        "unknown",
-      ])
+      .enum(["registered", "available", "cancelled", "entered-in-error", "unknown"])
       .optional()
       .default("registered"),
   })
   .passthrough();
 const ImagingStudyUpdate = z
   .object({
-    status: z.enum([
-      "registered",
-      "available",
-      "cancelled",
-      "entered-in-error",
-      "unknown",
-    ]),
+    status: z.enum(["registered", "available", "cancelled", "entered-in-error", "unknown"]),
   })
   .partial()
   .passthrough();
@@ -857,13 +781,7 @@ const CareTeam = Timestamps.and(
       id: z.string(),
       patientId: z.string(),
       encounterId: z.string().optional(),
-      status: z.enum([
-        "proposed",
-        "active",
-        "suspended",
-        "inactive",
-        "entered-in-error",
-      ]),
+      status: z.enum(["proposed", "active", "suspended", "inactive", "entered-in-error"]),
       participant: z.array(CareTeamParticipant).optional(),
       period: Period.optional(),
     })
@@ -884,13 +802,7 @@ const CareTeamInput = z
 const CareTeamUpdate = z
   .object({
     participant: z.array(CareTeamParticipant),
-    status: z.enum([
-      "proposed",
-      "active",
-      "suspended",
-      "inactive",
-      "entered-in-error",
-    ]),
+    status: z.enum(["proposed", "active", "suspended", "inactive", "entered-in-error"]),
     period: Period,
   })
   .partial()
@@ -901,10 +813,7 @@ const DocumentReferenceInput = z
     encounterId: z.string().optional(),
     type: CodeableConcept,
     content: z.array(DocumentContent).optional(),
-    status: z
-      .enum(["current", "superseded", "entered-in-error"])
-      .optional()
-      .default("current"),
+    status: z.enum(["current", "superseded", "entered-in-error"]).optional().default("current"),
   })
   .passthrough();
 const DocumentReferenceUpdate = z

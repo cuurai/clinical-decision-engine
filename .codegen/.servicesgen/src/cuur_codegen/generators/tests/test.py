@@ -98,9 +98,16 @@ class TestGenerator(FileGenerator):
         else:
             # Generate core domain entity factories
             # Note: output_dir is already correct (core/{domain}/), no need to override
-            return TestGenerator._generate_core_domain_factories(
+            files = TestGenerator._generate_core_domain_factories(
                 domain_name, test_dir, context, files
             )
+            # Also generate handler tests, mocks, and setup if enabled
+            tests_config = context.config.layers.tests
+            if tests_config.generate_handler_tests:
+                files = TestGenerator._generate_handler_tests(
+                    domain_name, test_dir, context, files
+                )
+            return files
 
     @staticmethod
     def _is_orchestrator_domain(domain_name: str, context: GenerationContext) -> bool:
@@ -247,7 +254,7 @@ class TestGenerator(FileGenerator):
 
         for relative_path, file_content in factory_files:
             # Create directory structure matching models: {entity-name}/{entity|dto}/
-            factory_file = factories_dir / relative_path
+            factory_file = core_factories_dir / relative_path
             ensure_directory(factory_file.parent)
             write_file(factory_file, file_content)
             files.append(factory_file)

@@ -177,13 +177,7 @@ const EvidenceCitation = Timestamps.and(
   z
     .object({
       id: z.string(),
-      citationType: z.enum([
-        "paper",
-        "guideline",
-        "trial",
-        "systematic-review",
-        "other",
-      ]),
+      citationType: z.enum(["paper", "guideline", "trial", "systematic-review", "other"]),
       title: z.string(),
       authors: z.array(z.string()).optional(),
       publicationDate: z.string().optional(),
@@ -213,10 +207,7 @@ const CareProtocolTemplateInput = z
     name: z.string(),
     description: z.string().optional(),
     category: z.string().optional(),
-    status: z
-      .enum(["draft", "active", "deprecated"])
-      .optional()
-      .default("draft"),
+    status: z.enum(["draft", "active", "deprecated"]).optional().default("draft"),
     version: z.string().optional(),
     metadata: z.object({}).partial().passthrough().optional(),
   })
@@ -265,10 +256,7 @@ const OrderSetTemplateInput = z
     name: z.string(),
     description: z.string().optional(),
     category: z.string().optional(),
-    status: z
-      .enum(["draft", "active", "deprecated"])
-      .optional()
-      .default("draft"),
+    status: z.enum(["draft", "active", "deprecated"]).optional().default("draft"),
     version: z.string().optional(),
     metadata: z.object({}).partial().passthrough().optional(),
   })
@@ -285,12 +273,7 @@ const OrderSetTemplateUpdate = z
   .partial()
   .passthrough();
 const Coding = z
-  .object({
-    system: z.string(),
-    code: z.string(),
-    display: z.string(),
-    version: z.string(),
-  })
+  .object({ system: z.string(), code: z.string(), display: z.string(), version: z.string() })
   .partial()
   .passthrough();
 const CodeableConcept = z
@@ -317,13 +300,7 @@ const ModelDefinition = Timestamps.and(
       id: z.string(),
       name: z.string(),
       description: z.string().optional(),
-      modelType: z.enum([
-        "diagnostic",
-        "prognostic",
-        "treatment",
-        "risk-assessment",
-        "other",
-      ]),
+      modelType: z.enum(["diagnostic", "prognostic", "treatment", "risk-assessment", "other"]),
       algorithm: z.string().optional(),
       framework: z.string().optional(),
       currentVersion: z.string().optional(),
@@ -336,20 +313,11 @@ const ModelDefinitionInput = z
   .object({
     name: z.string(),
     description: z.string().optional(),
-    modelType: z.enum([
-      "diagnostic",
-      "prognostic",
-      "treatment",
-      "risk-assessment",
-      "other",
-    ]),
+    modelType: z.enum(["diagnostic", "prognostic", "treatment", "risk-assessment", "other"]),
     algorithm: z.string().optional(),
     framework: z.string().optional(),
     currentVersion: z.string().optional(),
-    status: z
-      .enum(["draft", "active", "deprecated", "archived"])
-      .optional()
-      .default("draft"),
+    status: z.enum(["draft", "active", "deprecated", "archived"]).optional().default("draft"),
     metadata: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
@@ -372,9 +340,7 @@ const ModelVersion = Timestamps.and(
       artifactUrl: z.string().url().optional(),
       performanceMetrics: z.object({}).partial().passthrough().optional(),
       trainingDate: z.string().datetime({ offset: true }).optional(),
-      status: z
-        .enum(["training", "validated", "deployed", "deprecated"])
-        .optional(),
+      status: z.enum(["training", "validated", "deployed", "deprecated"]).optional(),
       metadata: z.object({}).partial().passthrough().optional(),
     })
     .passthrough()
@@ -383,14 +349,7 @@ const PerformanceMetric = z
   .object({
     id: z.string(),
     modelDefinitionId: z.string(),
-    metricType: z.enum([
-      "accuracy",
-      "precision",
-      "recall",
-      "f1-score",
-      "auc-roc",
-      "other",
-    ]),
+    metricType: z.enum(["accuracy", "precision", "recall", "f1-score", "auc-roc", "other"]),
     value: z.number(),
     date: z.string().datetime({ offset: true }),
     createdAt: z.string().datetime({ offset: true }),
@@ -655,15 +614,7 @@ const QuestionnaireQuestion = z
     id: z.string(),
     questionnaireTemplateId: z.string(),
     questionText: z.string(),
-    questionType: z.enum([
-      "boolean",
-      "choice",
-      "date",
-      "decimal",
-      "integer",
-      "string",
-      "text",
-    ]),
+    questionType: z.enum(["boolean", "choice", "date", "decimal", "integer", "string", "text"]),
     required: z.boolean(),
     order: z.number().int(),
     options: z.array(z.object({}).partial().passthrough()),
@@ -674,13 +625,7 @@ const QuestionnaireQuestion = z
   .passthrough();
 const EvidenceCitationInput = z
   .object({
-    citationType: z.enum([
-      "paper",
-      "guideline",
-      "trial",
-      "systematic-review",
-      "other",
-    ]),
+    citationType: z.enum(["paper", "guideline", "trial", "systematic-review", "other"]),
     title: z.string(),
     authors: z.array(z.string()).optional(),
     publicationDate: z.string().optional(),
@@ -710,9 +655,7 @@ const EvidenceReview = Timestamps.and(
       id: z.string(),
       evidenceCitationId: z.string().optional(),
       gradeLevel: z.enum(["high", "moderate", "low", "very-low"]).optional(),
-      strengthOfRecommendation: z
-        .enum(["strong", "weak", "conditional"])
-        .optional(),
+      strengthOfRecommendation: z.enum(["strong", "weak", "conditional"]).optional(),
       notes: z.string().optional(),
       reviewedBy: z.string().optional(),
       reviewDate: z.string().datetime({ offset: true }).optional(),
@@ -760,10 +703,7 @@ const KnowledgePackageInput = z
     name: z.string(),
     description: z.string().optional(),
     useCase: z.string().optional(),
-    status: z
-      .enum(["draft", "active", "deprecated"])
-      .optional()
-      .default("draft"),
+    status: z.enum(["draft", "active", "deprecated"]).optional().default("draft"),
     version: z.string().optional(),
     metadata: z.object({}).partial().passthrough().optional(),
   })
