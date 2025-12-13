@@ -1913,7 +1913,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkflowState"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["WorkflowState"][];
+                        };
+                    };
                 };
             };
         };
@@ -1941,7 +1945,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkflowTransition"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["WorkflowTransition"][];
+                        };
+                    };
                 };
             };
         };
@@ -2108,7 +2116,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Task"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["Task"][];
+                        };
+                    };
                 };
             };
         };
@@ -2136,7 +2148,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkflowEvent"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["WorkflowEvent"][];
+                        };
+                    };
                 };
             };
         };
@@ -2164,7 +2180,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AuditEvent"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["AuditEvent"][];
+                        };
+                    };
                 };
             };
         };
@@ -2329,7 +2349,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PathwayStep"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["PathwayStep"][];
+                        };
+                    };
                 };
             };
         };
@@ -2357,7 +2381,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OrderSetTemplate"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["OrderSetTemplate"][];
+                        };
+                    };
                 };
             };
         };
@@ -2523,7 +2551,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CarePlanGoal"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["CarePlanGoal"][];
+                        };
+                    };
                 };
             };
         };
@@ -2551,7 +2583,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Task"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["Task"][];
+                        };
+                    };
                 };
             };
         };
@@ -2579,7 +2615,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ChecklistInstance"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["ChecklistInstance"][];
+                        };
+                    };
                 };
             };
         };
@@ -2745,7 +2785,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Encounter"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["Encounter"][];
+                        };
+                    };
                 };
             };
         };
@@ -2773,7 +2817,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CarePlan"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["CarePlan"][];
+                        };
+                    };
                 };
             };
         };
@@ -2801,7 +2849,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["WorkflowInstance"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["WorkflowInstance"][];
+                        };
+                    };
                 };
             };
         };
@@ -2968,7 +3020,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TaskComment"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["TaskComment"][];
+                        };
+                    };
                 };
             };
         };
@@ -2996,7 +3052,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AuditEvent"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["AuditEvent"][];
+                        };
+                    };
                 };
             };
         };
@@ -3301,7 +3361,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Explanation"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["Explanation"][];
+                        };
+                    };
                 };
             };
         };
@@ -3329,7 +3393,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AuditEvent"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["AuditEvent"][];
+                        };
+                    };
                 };
             };
         };
@@ -3496,7 +3564,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Task"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["Task"][];
+                        };
+                    };
                 };
             };
         };
@@ -3661,7 +3733,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ChecklistItem"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["ChecklistItem"][];
+                        };
+                    };
                 };
             };
         };
@@ -3828,7 +3904,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ChecklistItemInstance"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["ChecklistItemInstance"][];
+                        };
+                    };
                 };
             };
         };
@@ -3993,7 +4073,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EscalationRule"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["EscalationRule"][];
+                        };
+                    };
                 };
             };
         };
@@ -4433,7 +4517,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Task"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["Task"][];
+                        };
+                    };
                 };
             };
         };
@@ -4461,7 +4549,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Alert"][];
+                    "application/json": components["schemas"]["WorApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["Alert"][];
+                        };
+                    };
                 };
             };
         };

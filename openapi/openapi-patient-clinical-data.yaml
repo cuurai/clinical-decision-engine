@@ -17,13 +17,11 @@ info:
     name: CuurAI MCP Team
   license:
     name: Proprietary
-
 servers:
   - url: https://api.cuurai.com/api/v1
     description: Production
   - url: http://localhost:8000/api/v1
     description: Local development
-
 tags:
   - name: Patients
     description: Master patient demographic & identifier records
@@ -53,41 +51,36 @@ tags:
     description: Clinicians and roles
   - name: Documents
     description: External clinical documents
-
 paths:
-  # ========================================================================
-  # 1. PATIENT
-  # ========================================================================
   /patients:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patients
       operationId: listPatients
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: search
           in: query
           schema:
             type: string
           description: Search by name, MRN, or identifier
       responses:
-        "200":
+        '200':
           description: List of patients
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/PatientList"
-
+                        $ref: '#/components/schemas/PatientList'
     post:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: Create patient
       operationId: createPatient
       requestBody:
@@ -96,389 +89,482 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/PatientInput"
+                      $ref: '#/components/schemas/PatientInput'
       responses:
-        "201":
+        '201':
           description: Patient created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Patient"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/Patient'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /patients/{id}:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: Get patient by ID
       operationId: getPatient
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Patient details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Patient"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Patient'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: Update patient
       operationId: updatePatient
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/PatientUpdate"
+                      $ref: '#/components/schemas/PatientUpdate'
       responses:
-        "200":
+        '200':
           description: Patient updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Patient"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Patient'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: Delete patient
       operationId: deletePatient
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Patient deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+        '404':
+          $ref: '#/components/responses/NotFound'
   /patients/{id}/summary:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: Get patient summary
       operationId: getPatientSummary
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Patient summary
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/PatientSummary"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/PatientSummary'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /patients/{id}/encounters:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient encounters
       operationId: listPatientEncounters
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of encounters
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Encounter"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Encounter'
   /patients/{id}/conditions:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient conditions
       operationId: listPatientConditions
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of conditions
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Condition"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Condition'
   /patients/{id}/allergies:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient allergies
       operationId: listPatientAllergies
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of allergies
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Allergy"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Allergy'
   /patients/{id}/medications:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient medication statements
       operationId: listPatientMedications
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of medication statements
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/MedicationStatement"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/MedicationStatement'
   /patients/{id}/immunizations:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient immunizations
       operationId: listPatientImmunizations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of immunizations
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Immunization"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Immunization'
   /patients/{id}/observations:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient observations
       operationId: listPatientObservations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: category
           in: query
           schema:
             type: string
-            enum: [vital-sign, laboratory, exam, survey]
+            enum:
+              - vital-sign
+              - laboratory
+              - exam
+              - survey
       responses:
-        "200":
+        '200':
           description: List of observations
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Observation"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Observation'
   /patients/{id}/observations/vitals:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient vital signs
       operationId: listPatientVitals
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of vital signs
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Observation"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Observation'
   /patients/{id}/observations/labs:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient lab results
       operationId: listPatientLabs
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of lab results
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Observation"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Observation'
   /patients/{id}/diagnostic-reports:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient diagnostic reports
       operationId: listPatientDiagnosticReports
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of diagnostic reports
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DiagnosticReport"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/DiagnosticReport'
   /patients/{id}/procedures:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient procedures
       operationId: listPatientProcedures
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of procedures
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Procedure"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Procedure'
   /patients/{id}/notes:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient clinical notes
       operationId: listPatientNotes
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of clinical notes
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ClinicalNote"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ClinicalNote'
   /patients/{id}/care-team:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient care team
       operationId: listPatientCareTeam
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of care team members
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CareTeamMember"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/CareTeamMember'
   /patients/{id}/documents:
     get:
-      tags: [Patients]
+      tags:
+        - Patients
       summary: List patient documents
       operationId: listPatientDocuments
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of documents
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DocumentReference"
-
-  # ========================================================================
-  # 2. ENCOUNTER
-  # ========================================================================
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/DocumentReference'
   /encounters:
     get:
-      tags: [Encounters]
+      tags:
+        - Encounters
       summary: List encounters
       operationId: listEncounters
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -487,27 +573,31 @@ paths:
           in: query
           schema:
             type: string
-            enum: [planned, arrived, triaged, in-progress, onleave, finished, cancelled]
+            enum:
+              - planned
+              - arrived
+              - triaged
+              - in-progress
+              - onleave
+              - finished
+              - cancelled
       responses:
-        "200":
+        '200':
           description: List of encounters
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/Encounter"
-
+                          $ref: '#/components/schemas/Encounter'
     post:
-      tags: [Encounters]
+      tags:
+        - Encounters
       summary: Create encounter
       operationId: createEncounter
       requestBody:
@@ -516,208 +606,235 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/EncounterInput"
+                      $ref: '#/components/schemas/EncounterInput'
       responses:
-        "201":
+        '201':
           description: Encounter created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Encounter"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/Encounter'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /encounters/{id}:
     get:
-      tags: [Encounters]
+      tags:
+        - Encounters
       summary: Get encounter by ID
       operationId: getEncounter
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Encounter details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Encounter"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Encounter'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Encounters]
+      tags:
+        - Encounters
       summary: Update encounter
       operationId: updateEncounter
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/EncounterUpdate"
+                      $ref: '#/components/schemas/EncounterUpdate'
       responses:
-        "200":
+        '200':
           description: Encounter updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Encounter"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Encounter'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Encounters]
+      tags:
+        - Encounters
       summary: Delete encounter
       operationId: deleteEncounter
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Encounter deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+        '404':
+          $ref: '#/components/responses/NotFound'
   /encounters/{id}/conditions:
     get:
-      tags: [Encounters]
+      tags:
+        - Encounters
       summary: List encounter conditions
       operationId: listEncounterConditions
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of conditions
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Condition"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Condition'
   /encounters/{id}/observations:
     get:
-      tags: [Encounters]
+      tags:
+        - Encounters
       summary: List encounter observations
       operationId: listEncounterObservations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of observations
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Observation"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Observation'
   /encounters/{id}/diagnostic-reports:
     get:
-      tags: [Encounters]
+      tags:
+        - Encounters
       summary: List encounter diagnostic reports
       operationId: listEncounterDiagnosticReports
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of diagnostic reports
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DiagnosticReport"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/DiagnosticReport'
   /encounters/{id}/procedures:
     get:
-      tags: [Encounters]
+      tags:
+        - Encounters
       summary: List encounter procedures
       operationId: listEncounterProcedures
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of procedures
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Procedure"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Procedure'
   /encounters/{id}/notes:
     get:
-      tags: [Encounters]
+      tags:
+        - Encounters
       summary: List encounter notes
       operationId: listEncounterNotes
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of notes
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ClinicalNote"
-
-  # ========================================================================
-  # 3. CONDITION
-  # ========================================================================
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ClinicalNote'
   /conditions:
     get:
-      tags: [Conditions]
+      tags:
+        - Conditions
       summary: List conditions
       operationId: listConditions
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -726,27 +843,30 @@ paths:
           in: query
           schema:
             type: string
-            enum: [active, recurrence, relapse, inactive, remission, resolved]
+            enum:
+              - active
+              - recurrence
+              - relapse
+              - inactive
+              - remission
+              - resolved
       responses:
-        "200":
+        '200':
           description: List of conditions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/Condition"
-
+                          $ref: '#/components/schemas/Condition'
     post:
-      tags: [Conditions]
+      tags:
+        - Conditions
       summary: Create condition
       operationId: createCondition
       requestBody:
@@ -755,132 +875,127 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ConditionInput"
+                      $ref: '#/components/schemas/ConditionInput'
       responses:
-        "201":
+        '201':
           description: Condition created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Condition"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/Condition'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /conditions/{id}:
     get:
-      tags: [Conditions]
+      tags:
+        - Conditions
       summary: Get condition by ID
       operationId: getCondition
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Condition details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Condition"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Condition'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Conditions]
+      tags:
+        - Conditions
       summary: Update condition
       operationId: updateCondition
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ConditionUpdate"
+                      $ref: '#/components/schemas/ConditionUpdate'
       responses:
-        "200":
+        '200':
           description: Condition updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Condition"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Condition'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Conditions]
+      tags:
+        - Conditions
       summary: Delete condition
       operationId: deleteCondition
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Condition deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+        '404':
+          $ref: '#/components/responses/NotFound'
   /conditions/{id}/notes:
     get:
-      tags: [Conditions]
+      tags:
+        - Conditions
       summary: List condition notes
       operationId: listConditionNotes
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of notes
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ClinicalNote"
-
-  # ========================================================================
-  # 4. ALLERGY
-  # ========================================================================
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ClinicalNote'
   /allergies:
     get:
-      tags: [Allergies]
+      tags:
+        - Allergies
       summary: List allergies
       operationId: listAllergies
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -889,27 +1004,27 @@ paths:
           in: query
           schema:
             type: string
-            enum: [active, inactive, resolved]
+            enum:
+              - active
+              - inactive
+              - resolved
       responses:
-        "200":
+        '200':
           description: List of allergies
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/Allergy"
-
+                          $ref: '#/components/schemas/Allergy'
     post:
-      tags: [Allergies]
+      tags:
+        - Allergies
       summary: Create allergy
       operationId: createAllergy
       requestBody:
@@ -918,113 +1033,100 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/AllergyInput"
+                      $ref: '#/components/schemas/AllergyInput'
       responses:
-        "201":
+        '201':
           description: Allergy created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Allergy"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/Allergy'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /allergies/{id}:
     get:
-      tags: [Allergies]
+      tags:
+        - Allergies
       summary: Get allergy by ID
       operationId: getAllergy
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Allergy details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Allergy"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Allergy'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Allergies]
+      tags:
+        - Allergies
       summary: Update allergy
       operationId: updateAllergy
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/AllergyUpdate"
+                      $ref: '#/components/schemas/AllergyUpdate'
       responses:
-        "200":
+        '200':
           description: Allergy updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Allergy"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Allergy'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Allergies]
+      tags:
+        - Allergies
       summary: Delete allergy
       operationId: deleteAllergy
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Allergy deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
-  # ========================================================================
-  # 5. MEDICATION STATEMENT
-  # ========================================================================
+        '404':
+          $ref: '#/components/responses/NotFound'
   /medication-statements:
     get:
-      tags: [Medication Statements]
+      tags:
+        - Medication Statements
       summary: List medication statements
       operationId: listMedicationStatements
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -1033,27 +1135,31 @@ paths:
           in: query
           schema:
             type: string
-            enum: [active, completed, entered-in-error, intended, stopped, on-hold, unknown]
+            enum:
+              - active
+              - completed
+              - entered-in-error
+              - intended
+              - stopped
+              - on-hold
+              - unknown
       responses:
-        "200":
+        '200':
           description: List of medication statements
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/MedicationStatement"
-
+                          $ref: '#/components/schemas/MedicationStatement'
     post:
-      tags: [Medication Statements]
+      tags:
+        - Medication Statements
       summary: Create medication statement
       operationId: createMedicationStatement
       requestBody:
@@ -1062,113 +1168,100 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/MedicationStatementInput"
+                      $ref: '#/components/schemas/MedicationStatementInput'
       responses:
-        "201":
+        '201':
           description: Medication statement created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/MedicationStatement"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/MedicationStatement'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /medication-statements/{id}:
     get:
-      tags: [Medication Statements]
+      tags:
+        - Medication Statements
       summary: Get medication statement by ID
       operationId: getMedicationStatement
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Medication statement details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/MedicationStatement"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/MedicationStatement'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Medication Statements]
+      tags:
+        - Medication Statements
       summary: Update medication statement
       operationId: updateMedicationStatement
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/MedicationStatementUpdate"
+                      $ref: '#/components/schemas/MedicationStatementUpdate'
       responses:
-        "200":
+        '200':
           description: Medication statement updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/MedicationStatement"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/MedicationStatement'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Medication Statements]
+      tags:
+        - Medication Statements
       summary: Delete medication statement
       operationId: deleteMedicationStatement
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Medication statement deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
-  # ========================================================================
-  # 6. MEDICATION ORDER
-  # ========================================================================
+        '404':
+          $ref: '#/components/responses/NotFound'
   /medication-orders:
     get:
-      tags: [Medication Orders]
+      tags:
+        - Medication Orders
       summary: List medication orders
       operationId: listMedicationOrders
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -1177,27 +1270,32 @@ paths:
           in: query
           schema:
             type: string
-            enum: [active, on-hold, cancelled, completed, entered-in-error, stopped, draft, unknown]
+            enum:
+              - active
+              - on-hold
+              - cancelled
+              - completed
+              - entered-in-error
+              - stopped
+              - draft
+              - unknown
       responses:
-        "200":
+        '200':
           description: List of medication orders
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/MedicationOrder"
-
+                          $ref: '#/components/schemas/MedicationOrder'
     post:
-      tags: [Medication Orders]
+      tags:
+        - Medication Orders
       summary: Create medication order
       operationId: createMedicationOrder
       requestBody:
@@ -1206,132 +1304,127 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/MedicationOrderInput"
+                      $ref: '#/components/schemas/MedicationOrderInput'
       responses:
-        "201":
+        '201':
           description: Medication order created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/MedicationOrder"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/MedicationOrder'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /medication-orders/{id}:
     get:
-      tags: [Medication Orders]
+      tags:
+        - Medication Orders
       summary: Get medication order by ID
       operationId: getMedicationOrder
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Medication order details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/MedicationOrder"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/MedicationOrder'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Medication Orders]
+      tags:
+        - Medication Orders
       summary: Update medication order
       operationId: updateMedicationOrder
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/MedicationOrderUpdate"
+                      $ref: '#/components/schemas/MedicationOrderUpdate'
       responses:
-        "200":
+        '200':
           description: Medication order updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/MedicationOrder"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/MedicationOrder'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Medication Orders]
+      tags:
+        - Medication Orders
       summary: Delete medication order
       operationId: deleteMedicationOrder
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Medication order deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+        '404':
+          $ref: '#/components/responses/NotFound'
   /medication-orders/{id}/administrations:
     get:
-      tags: [Medication Orders]
+      tags:
+        - Medication Orders
       summary: List medication administrations
       operationId: listMedicationAdministrations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of administrations
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/MedicationAdministration"
-
-  # ========================================================================
-  # 7. IMMUNIZATION
-  # ========================================================================
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/MedicationAdministration'
   /immunizations:
     get:
-      tags: [Immunizations]
+      tags:
+        - Immunizations
       summary: List immunizations
       operationId: listImmunizations
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -1340,27 +1433,27 @@ paths:
           in: query
           schema:
             type: string
-            enum: [completed, entered-in-error, not-done]
+            enum:
+              - completed
+              - entered-in-error
+              - not-done
       responses:
-        "200":
+        '200':
           description: List of immunizations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/Immunization"
-
+                          $ref: '#/components/schemas/Immunization'
     post:
-      tags: [Immunizations]
+      tags:
+        - Immunizations
       summary: Create immunization
       operationId: createImmunization
       requestBody:
@@ -1369,113 +1462,100 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ImmunizationInput"
+                      $ref: '#/components/schemas/ImmunizationInput'
       responses:
-        "201":
+        '201':
           description: Immunization created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Immunization"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/Immunization'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /immunizations/{id}:
     get:
-      tags: [Immunizations]
+      tags:
+        - Immunizations
       summary: Get immunization by ID
       operationId: getImmunization
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Immunization details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Immunization"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Immunization'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Immunizations]
+      tags:
+        - Immunizations
       summary: Update immunization
       operationId: updateImmunization
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ImmunizationUpdate"
+                      $ref: '#/components/schemas/ImmunizationUpdate'
       responses:
-        "200":
+        '200':
           description: Immunization updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Immunization"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Immunization'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Immunizations]
+      tags:
+        - Immunizations
       summary: Delete immunization
       operationId: deleteImmunization
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Immunization deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
-  # ========================================================================
-  # 8. OBSERVATION
-  # ========================================================================
+        '404':
+          $ref: '#/components/responses/NotFound'
   /observations:
     get:
-      tags: [Observations]
+      tags:
+        - Observations
       summary: List observations
       operationId: listObservations
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -1488,32 +1568,33 @@ paths:
           in: query
           schema:
             type: string
-            enum: [vital-sign, laboratory, exam, survey]
+            enum:
+              - vital-sign
+              - laboratory
+              - exam
+              - survey
         - name: code
           in: query
           schema:
             type: string
             description: LOINC code
       responses:
-        "200":
+        '200':
           description: List of observations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/Observation"
-
+                          $ref: '#/components/schemas/Observation'
     post:
-      tags: [Observations]
+      tags:
+        - Observations
       summary: Create observation
       operationId: createObservation
       requestBody:
@@ -1522,113 +1603,100 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ObservationInput"
+                      $ref: '#/components/schemas/ObservationInput'
       responses:
-        "201":
+        '201':
           description: Observation created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Observation"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/Observation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /observations/{id}:
     get:
-      tags: [Observations]
+      tags:
+        - Observations
       summary: Get observation by ID
       operationId: getObservation
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Observation details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Observation"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Observation'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Observations]
+      tags:
+        - Observations
       summary: Update observation
       operationId: updateObservation
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ObservationUpdate"
+                      $ref: '#/components/schemas/ObservationUpdate'
       responses:
-        "200":
+        '200':
           description: Observation updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Observation"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Observation'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Observations]
+      tags:
+        - Observations
       summary: Delete observation
       operationId: deleteObservation
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Observation deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
-  # ========================================================================
-  # 9. DIAGNOSTIC REPORT
-  # ========================================================================
+        '404':
+          $ref: '#/components/responses/NotFound'
   /diagnostic-reports:
     get:
-      tags: [Diagnostic Reports]
+      tags:
+        - Diagnostic Reports
       summary: List diagnostic reports
       operationId: listDiagnosticReports
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -1642,38 +1710,33 @@ paths:
           schema:
             type: string
             enum:
-              [
-                registered,
-                partial,
-                preliminary,
-                final,
-                amended,
-                corrected,
-                appended,
-                cancelled,
-                entered-in-error,
-                unknown,
-              ]
+              - registered
+              - partial
+              - preliminary
+              - final
+              - amended
+              - corrected
+              - appended
+              - cancelled
+              - entered-in-error
+              - unknown
       responses:
-        "200":
+        '200':
           description: List of diagnostic reports
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/DiagnosticReport"
-
+                          $ref: '#/components/schemas/DiagnosticReport'
     post:
-      tags: [Diagnostic Reports]
+      tags:
+        - Diagnostic Reports
       summary: Create diagnostic report
       operationId: createDiagnosticReport
       requestBody:
@@ -1682,151 +1745,154 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/DiagnosticReportInput"
+                      $ref: '#/components/schemas/DiagnosticReportInput'
       responses:
-        "201":
+        '201':
           description: Diagnostic report created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/DiagnosticReport"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/DiagnosticReport'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /diagnostic-reports/{id}:
     get:
-      tags: [Diagnostic Reports]
+      tags:
+        - Diagnostic Reports
       summary: Get diagnostic report by ID
       operationId: getDiagnosticReport
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Diagnostic report details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/DiagnosticReport"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/DiagnosticReport'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Diagnostic Reports]
+      tags:
+        - Diagnostic Reports
       summary: Update diagnostic report
       operationId: updateDiagnosticReport
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/DiagnosticReportUpdate"
+                      $ref: '#/components/schemas/DiagnosticReportUpdate'
       responses:
-        "200":
+        '200':
           description: Diagnostic report updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/DiagnosticReport"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/DiagnosticReport'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Diagnostic Reports]
+      tags:
+        - Diagnostic Reports
       summary: Delete diagnostic report
       operationId: deleteDiagnosticReport
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Diagnostic report deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+        '404':
+          $ref: '#/components/responses/NotFound'
   /diagnostic-reports/{id}/observations:
     get:
-      tags: [Diagnostic Reports]
+      tags:
+        - Diagnostic Reports
       summary: List diagnostic report observations
       operationId: listDiagnosticReportObservations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of observations
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Observation"
-
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Observation'
   /diagnostic-reports/{id}/imaging-studies:
     get:
-      tags: [Diagnostic Reports]
+      tags:
+        - Diagnostic Reports
       summary: List diagnostic report imaging studies
       operationId: listDiagnosticReportImagingStudies
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of imaging studies
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ImagingStudy"
-
-  # ========================================================================
-  # 10. IMAGING STUDY
-  # ========================================================================
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ImagingStudy'
   /imaging-studies:
     get:
-      tags: [Imaging Studies]
+      tags:
+        - Imaging Studies
       summary: List imaging studies
       operationId: listImagingStudies
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -1835,27 +1901,34 @@ paths:
           in: query
           schema:
             type: string
-            enum: [CR, CT, MR, US, MG, PT, NM, XR, DX, OT]
+            enum:
+              - CR
+              - CT
+              - MR
+              - US
+              - MG
+              - PT
+              - NM
+              - XR
+              - DX
+              - OT
       responses:
-        "200":
+        '200':
           description: List of imaging studies
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/ImagingStudy"
-
+                          $ref: '#/components/schemas/ImagingStudy'
     post:
-      tags: [Imaging Studies]
+      tags:
+        - Imaging Studies
       summary: Create imaging study
       operationId: createImagingStudy
       requestBody:
@@ -1864,132 +1937,127 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ImagingStudyInput"
+                      $ref: '#/components/schemas/ImagingStudyInput'
       responses:
-        "201":
+        '201':
           description: Imaging study created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/ImagingStudy"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/ImagingStudy'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /imaging-studies/{id}:
     get:
-      tags: [Imaging Studies]
+      tags:
+        - Imaging Studies
       summary: Get imaging study by ID
       operationId: getImagingStudy
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Imaging study details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/ImagingStudy"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/ImagingStudy'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Imaging Studies]
+      tags:
+        - Imaging Studies
       summary: Update imaging study
       operationId: updateImagingStudy
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ImagingStudyUpdate"
+                      $ref: '#/components/schemas/ImagingStudyUpdate'
       responses:
-        "200":
+        '200':
           description: Imaging study updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/ImagingStudy"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/ImagingStudy'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Imaging Studies]
+      tags:
+        - Imaging Studies
       summary: Delete imaging study
       operationId: deleteImagingStudy
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Imaging study deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+        '404':
+          $ref: '#/components/responses/NotFound'
   /imaging-studies/{id}/series:
     get:
-      tags: [Imaging Studies]
+      tags:
+        - Imaging Studies
       summary: List imaging study series
       operationId: listImagingStudySeries
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of series
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ImagingSeries"
-
-  # ========================================================================
-  # 11. PROCEDURE
-  # ========================================================================
+                allOf:
+                  - $ref: '#/components/schemas/PatApiListResponse'
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ImagingSeries'
   /procedures:
     get:
-      tags: [Procedures]
+      tags:
+        - Procedures
       summary: List procedures
       operationId: listProcedures
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -1999,36 +2067,31 @@ paths:
           schema:
             type: string
             enum:
-              [
-                preparation,
-                in-progress,
-                not-done,
-                on-hold,
-                stopped,
-                completed,
-                entered-in-error,
-                unknown,
-              ]
+              - preparation
+              - in-progress
+              - not-done
+              - on-hold
+              - stopped
+              - completed
+              - entered-in-error
+              - unknown
       responses:
-        "200":
+        '200':
           description: List of procedures
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/Procedure"
-
+                          $ref: '#/components/schemas/Procedure'
     post:
-      tags: [Procedures]
+      tags:
+        - Procedures
       summary: Create procedure
       operationId: createProcedure
       requestBody:
@@ -2037,113 +2100,100 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ProcedureInput"
+                      $ref: '#/components/schemas/ProcedureInput'
       responses:
-        "201":
+        '201':
           description: Procedure created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Procedure"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/Procedure'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /procedures/{id}:
     get:
-      tags: [Procedures]
+      tags:
+        - Procedures
       summary: Get procedure by ID
       operationId: getProcedure
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Procedure details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Procedure"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Procedure'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Procedures]
+      tags:
+        - Procedures
       summary: Update procedure
       operationId: updateProcedure
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ProcedureUpdate"
+                      $ref: '#/components/schemas/ProcedureUpdate'
       responses:
-        "200":
+        '200':
           description: Procedure updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/Procedure"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/Procedure'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Procedures]
+      tags:
+        - Procedures
       summary: Delete procedure
       operationId: deleteProcedure
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Procedure deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
-  # ========================================================================
-  # 12. CLINICAL NOTE
-  # ========================================================================
+        '404':
+          $ref: '#/components/responses/NotFound'
   /notes:
     get:
-      tags: [Clinical Notes]
+      tags:
+        - Clinical Notes
       summary: List clinical notes
       operationId: listNotes
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -2156,27 +2206,30 @@ paths:
           in: query
           schema:
             type: string
-            enum: [history-physical, progress, discharge, consultation, procedure, other]
+            enum:
+              - history-physical
+              - progress
+              - discharge
+              - consultation
+              - procedure
+              - other
       responses:
-        "200":
+        '200':
           description: List of clinical notes
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/ClinicalNote"
-
+                          $ref: '#/components/schemas/ClinicalNote'
     post:
-      tags: [Clinical Notes]
+      tags:
+        - Clinical Notes
       summary: Create clinical note
       operationId: createNote
       requestBody:
@@ -2185,113 +2238,100 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ClinicalNoteInput"
+                      $ref: '#/components/schemas/ClinicalNoteInput'
       responses:
-        "201":
+        '201':
           description: Clinical note created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/ClinicalNote"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/ClinicalNote'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /notes/{id}:
     get:
-      tags: [Clinical Notes]
+      tags:
+        - Clinical Notes
       summary: Get clinical note by ID
       operationId: getNote
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Clinical note details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/ClinicalNote"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/ClinicalNote'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Clinical Notes]
+      tags:
+        - Clinical Notes
       summary: Update clinical note
       operationId: updateNote
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/ClinicalNoteUpdate"
+                      $ref: '#/components/schemas/ClinicalNoteUpdate'
       responses:
-        "200":
+        '200':
           description: Clinical note updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/ClinicalNote"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/ClinicalNote'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Clinical Notes]
+      tags:
+        - Clinical Notes
       summary: Delete clinical note
       operationId: deleteNote
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Clinical note deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
-  # ========================================================================
-  # 13. CARE TEAM
-  # ========================================================================
+        '404':
+          $ref: '#/components/responses/NotFound'
   /care-teams:
     get:
-      tags: [Care Teams]
+      tags:
+        - Care Teams
       summary: List care teams
       operationId: listCareTeams
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -2304,27 +2344,29 @@ paths:
           in: query
           schema:
             type: string
-            enum: [proposed, active, suspended, inactive, entered-in-error]
+            enum:
+              - proposed
+              - active
+              - suspended
+              - inactive
+              - entered-in-error
       responses:
-        "200":
+        '200':
           description: List of care teams
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/CareTeam"
-
+                          $ref: '#/components/schemas/CareTeam'
     post:
-      tags: [Care Teams]
+      tags:
+        - Care Teams
       summary: Create care team
       operationId: createCareTeam
       requestBody:
@@ -2333,113 +2375,100 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/CareTeamInput"
+                      $ref: '#/components/schemas/CareTeamInput'
       responses:
-        "201":
+        '201':
           description: Care team created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/CareTeam"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/CareTeam'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /care-teams/{id}:
     get:
-      tags: [Care Teams]
+      tags:
+        - Care Teams
       summary: Get care team by ID
       operationId: getCareTeam
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Care team details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/CareTeam"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/CareTeam'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Care Teams]
+      tags:
+        - Care Teams
       summary: Update care team
       operationId: updateCareTeam
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/CareTeamUpdate"
+                      $ref: '#/components/schemas/CareTeamUpdate'
       responses:
-        "200":
+        '200':
           description: Care team updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/CareTeam"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/CareTeam'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Care Teams]
+      tags:
+        - Care Teams
       summary: Delete care team
       operationId: deleteCareTeam
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Care team deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
-  # ========================================================================
-  # 14. DOCUMENT REFERENCE
-  # ========================================================================
+        '404':
+          $ref: '#/components/responses/NotFound'
   /documents:
     get:
-      tags: [Documents]
+      tags:
+        - Documents
       summary: List document references
       operationId: listDocuments
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -2452,27 +2481,27 @@ paths:
           in: query
           schema:
             type: string
-            enum: [current, superseded, entered-in-error]
+            enum:
+              - current
+              - superseded
+              - entered-in-error
       responses:
-        "200":
+        '200':
           description: List of document references
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiListResponse"
-
+                  - $ref: '#/components/schemas/PatApiListResponse'
                   - type: object
-
                     properties:
                       data:
                         type: array
-
                         items:
-                          $ref: "#/components/schemas/DocumentReference"
-
+                          $ref: '#/components/schemas/DocumentReference'
     post:
-      tags: [Documents]
+      tags:
+        - Documents
       summary: Create document reference
       operationId: createDocument
       requestBody:
@@ -2481,102 +2510,91 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/DocumentReferenceInput"
+                      $ref: '#/components/schemas/DocumentReferenceInput'
       responses:
-        "201":
+        '201':
           description: Document reference created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/DocumentReference"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-
+                        $ref: '#/components/schemas/DocumentReference'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /documents/{id}:
     get:
-      tags: [Documents]
+      tags:
+        - Documents
       summary: Get document reference by ID
       operationId: getDocument
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Document reference details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/DocumentReference"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/DocumentReference'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
-      tags: [Documents]
+      tags:
+        - Documents
       summary: Update document reference
       operationId: updateDocument
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/PatApiResponse"
-
+                - $ref: '#/components/schemas/PatApiResponse'
                 - type: object
-
                   properties:
                     data:
-                      $ref: "#/components/schemas/DocumentReferenceUpdate"
+                      $ref: '#/components/schemas/DocumentReferenceUpdate'
       responses:
-        "200":
+        '200':
           description: Document reference updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/PatApiResponse"
-
+                  - $ref: '#/components/schemas/PatApiResponse'
                   - type: object
-
                     properties:
                       data:
-                        $ref: "#/components/schemas/DocumentReference"
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+                        $ref: '#/components/schemas/DocumentReference'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
-      tags: [Documents]
+      tags:
+        - Documents
       summary: Delete document reference
       operationId: deleteDocument
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Document reference deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
-
+        '404':
+          $ref: '#/components/responses/NotFound'
 components:
   parameters:
     IdParam:
@@ -2586,9 +2604,8 @@ components:
       description: Resource identifier
       schema:
         type: string
-        pattern: "^[a-zA-Z0-9_-]+$"
-        example: "pat_1234567890"
-
+        pattern: ^[a-zA-Z0-9_-]+$
+        example: pat_1234567890
     PageParam:
       name: page
       in: query
@@ -2598,7 +2615,6 @@ components:
         minimum: 1
         default: 1
         example: 1
-
     LimitParam:
       name: limit
       in: query
@@ -2609,7 +2625,6 @@ components:
         maximum: 100
         default: 20
         example: 20
-
   responses:
     BadRequest:
       description: Bad request
@@ -2617,32 +2632,28 @@ components:
         application/json:
           schema:
             allOf:
-              - $ref: "#/components/schemas/PatApiResponse"
-
+              - $ref: '#/components/schemas/PatApiResponse'
               - type: object
-
                 properties:
                   data:
-                    $ref: "#/components/schemas/Error"
-
+                    $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "#/components/schemas/PatApiResponse"
-
+              - $ref: '#/components/schemas/PatApiResponse'
               - type: object
-
                 properties:
                   data:
-                    $ref: "#/components/schemas/Error"
-
+                    $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
-      required: [error, message]
+      required:
+        - error
+        - message
       properties:
         error:
           type: string
@@ -2650,7 +2661,6 @@ components:
           type: string
         details:
           type: object
-
     PatApiMeta:
       type: object
       description: Response metadata with correlation tracking
@@ -2671,7 +2681,6 @@ components:
         pageNumber:
           type: integer
           description: Current page number
-
     PatApiResponse:
       type: object
       required:
@@ -2681,8 +2690,7 @@ components:
           type: object
           description: Response payload (specific type defined by endpoint)
         meta:
-          $ref: "#/components/schemas/PatApiMeta"
-
+          $ref: '#/components/schemas/PatApiMeta'
     PatApiListResponse:
       type: object
       properties:
@@ -2696,7 +2704,7 @@ components:
               items: {}
         meta:
           allOf:
-            - $ref: "#/components/schemas/PatApiMeta"
+            - $ref: '#/components/schemas/PatApiMeta'
             - type: object
               properties:
                 pagination:
@@ -2711,7 +2719,6 @@ components:
                       nullable: true
                     limit:
                       type: integer
-
     Timestamps:
       type: object
       properties:
@@ -2721,13 +2728,13 @@ components:
         updatedAt:
           type: string
           format: date-time
-
-    # Patient schemas
     Patient:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId]
+          required:
+            - id
+            - patientId
           properties:
             id:
               type: string
@@ -2737,23 +2744,27 @@ components:
             identifiers:
               type: array
               items:
-                $ref: "#/components/schemas/Identifier"
+                $ref: '#/components/schemas/Identifier'
             name:
-              $ref: "#/components/schemas/HumanName"
+              $ref: '#/components/schemas/HumanName'
             gender:
               type: string
-              enum: [male, female, other, unknown]
+              enum:
+                - male
+                - female
+                - other
+                - unknown
             birthDate:
               type: string
               format: date
             address:
               type: array
               items:
-                $ref: "#/components/schemas/Address"
+                $ref: '#/components/schemas/Address'
             telecom:
               type: array
               items:
-                $ref: "#/components/schemas/ContactPoint"
+                $ref: '#/components/schemas/ContactPoint'
             maritalStatus:
               type: string
             deceasedBoolean:
@@ -2761,66 +2772,71 @@ components:
             deceasedDateTime:
               type: string
               format: date-time
-
     PatientInput:
       type: object
-      required: [patientId]
+      required:
+        - patientId
       properties:
         patientId:
           type: string
         identifiers:
           type: array
           items:
-            $ref: "#/components/schemas/Identifier"
+            $ref: '#/components/schemas/Identifier'
         name:
-          $ref: "#/components/schemas/HumanName"
+          $ref: '#/components/schemas/HumanName'
         gender:
           type: string
-          enum: [male, female, other, unknown]
+          enum:
+            - male
+            - female
+            - other
+            - unknown
         birthDate:
           type: string
           format: date
         address:
           type: array
           items:
-            $ref: "#/components/schemas/Address"
+            $ref: '#/components/schemas/Address'
         telecom:
           type: array
           items:
-            $ref: "#/components/schemas/ContactPoint"
-
+            $ref: '#/components/schemas/ContactPoint'
     PatientUpdate:
       type: object
       properties:
         name:
-          $ref: "#/components/schemas/HumanName"
+          $ref: '#/components/schemas/HumanName'
         gender:
           type: string
-          enum: [male, female, other, unknown]
+          enum:
+            - male
+            - female
+            - other
+            - unknown
         address:
           type: array
           items:
-            $ref: "#/components/schemas/Address"
+            $ref: '#/components/schemas/Address'
         telecom:
           type: array
           items:
-            $ref: "#/components/schemas/ContactPoint"
-
+            $ref: '#/components/schemas/ContactPoint'
     PatientList:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: "#/components/schemas/Patient"
+            $ref: '#/components/schemas/Patient'
         pagination:
-          $ref: "#/components/schemas/Pagination"
-
+          $ref: '#/components/schemas/Pagination'
     PatientSummary:
       type: object
       properties:
         patient:
-          $ref: "#/components/schemas/Patient"
+          $ref: '#/components/schemas/Patient'
         activeConditions:
           type: integer
         activeMedications:
@@ -2830,13 +2846,14 @@ components:
         lastEncounterDate:
           type: string
           format: date-time
-
-    # Encounter schemas
     Encounter:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, status]
+          required:
+            - id
+            - patientId
+            - status
           properties:
             id:
               type: string
@@ -2844,53 +2861,86 @@ components:
               type: string
             status:
               type: string
-              enum: [planned, arrived, triaged, in-progress, onleave, finished, cancelled]
+              enum:
+                - planned
+                - arrived
+                - triaged
+                - in-progress
+                - onleave
+                - finished
+                - cancelled
             class:
               type: string
-              enum: [inpatient, outpatient, emergency, ambulatory, virtual]
+              enum:
+                - inpatient
+                - outpatient
+                - emergency
+                - ambulatory
+                - virtual
             type:
               type: array
               items:
-                $ref: "#/components/schemas/CodeableConcept"
+                $ref: '#/components/schemas/CodeableConcept'
             period:
-              $ref: "#/components/schemas/Period"
+              $ref: '#/components/schemas/Period'
             length:
-              $ref: "#/components/schemas/Duration"
-
+              $ref: '#/components/schemas/Duration'
     EncounterInput:
       type: object
-      required: [patientId, status, class]
+      required:
+        - patientId
+        - status
+        - class
       properties:
         patientId:
           type: string
         status:
           type: string
-          enum: [planned, arrived, triaged, in-progress, onleave, finished, cancelled]
+          enum:
+            - planned
+            - arrived
+            - triaged
+            - in-progress
+            - onleave
+            - finished
+            - cancelled
         class:
           type: string
-          enum: [inpatient, outpatient, emergency, ambulatory, virtual]
+          enum:
+            - inpatient
+            - outpatient
+            - emergency
+            - ambulatory
+            - virtual
         type:
           type: array
           items:
-            $ref: "#/components/schemas/CodeableConcept"
+            $ref: '#/components/schemas/CodeableConcept'
         period:
-          $ref: "#/components/schemas/Period"
-
+          $ref: '#/components/schemas/Period'
     EncounterUpdate:
       type: object
       properties:
         status:
           type: string
-          enum: [planned, arrived, triaged, in-progress, onleave, finished, cancelled]
+          enum:
+            - planned
+            - arrived
+            - triaged
+            - in-progress
+            - onleave
+            - finished
+            - cancelled
         period:
-          $ref: "#/components/schemas/Period"
-
-    # Condition schemas
+          $ref: '#/components/schemas/Period'
     Condition:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, code]
+          required:
+            - id
+            - patientId
+            - code
           properties:
             id:
               type: string
@@ -2899,9 +2949,9 @@ components:
             encounterId:
               type: string
             code:
-              $ref: "#/components/schemas/CodeableConcept"
+              $ref: '#/components/schemas/CodeableConcept'
             severity:
-              $ref: "#/components/schemas/CodeableConcept"
+              $ref: '#/components/schemas/CodeableConcept'
             onsetDateTime:
               type: string
               format: date-time
@@ -2913,177 +2963,239 @@ components:
               format: date-time
             status:
               type: string
-              enum: [active, recurrence, relapse, inactive, remission, resolved]
-
+              enum:
+                - active
+                - recurrence
+                - relapse
+                - inactive
+                - remission
+                - resolved
     ConditionInput:
       type: object
-      required: [patientId, code]
+      required:
+        - patientId
+        - code
       properties:
         patientId:
           type: string
         encounterId:
           type: string
         code:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         severity:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         onsetDateTime:
           type: string
           format: date-time
         status:
           type: string
-          enum: [active, recurrence, relapse, inactive, remission, resolved]
+          enum:
+            - active
+            - recurrence
+            - relapse
+            - inactive
+            - remission
+            - resolved
           default: active
-
     ConditionUpdate:
       type: object
       properties:
         code:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         severity:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         abatementDateTime:
           type: string
           format: date-time
         status:
           type: string
-          enum: [active, recurrence, relapse, inactive, remission, resolved]
-
-    # Allergy schemas
+          enum:
+            - active
+            - recurrence
+            - relapse
+            - inactive
+            - remission
+            - resolved
     Allergy:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, code]
+          required:
+            - id
+            - patientId
+            - code
           properties:
             id:
               type: string
             patientId:
               type: string
             code:
-              $ref: "#/components/schemas/CodeableConcept"
+              $ref: '#/components/schemas/CodeableConcept'
             reaction:
               type: array
               items:
-                $ref: "#/components/schemas/AllergyReaction"
+                $ref: '#/components/schemas/AllergyReaction'
             criticality:
               type: string
-              enum: [low, high, unable-to-assess]
+              enum:
+                - low
+                - high
+                - unable-to-assess
             status:
               type: string
-              enum: [active, inactive, resolved]
-
+              enum:
+                - active
+                - inactive
+                - resolved
     AllergyInput:
       type: object
-      required: [patientId, code]
+      required:
+        - patientId
+        - code
       properties:
         patientId:
           type: string
         code:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         reaction:
           type: array
           items:
-            $ref: "#/components/schemas/AllergyReaction"
+            $ref: '#/components/schemas/AllergyReaction'
         criticality:
           type: string
-          enum: [low, high, unable-to-assess]
+          enum:
+            - low
+            - high
+            - unable-to-assess
         status:
           type: string
-          enum: [active, inactive, resolved]
+          enum:
+            - active
+            - inactive
+            - resolved
           default: active
-
     AllergyUpdate:
       type: object
       properties:
         reaction:
           type: array
           items:
-            $ref: "#/components/schemas/AllergyReaction"
+            $ref: '#/components/schemas/AllergyReaction'
         criticality:
           type: string
-          enum: [low, high, unable-to-assess]
+          enum:
+            - low
+            - high
+            - unable-to-assess
         status:
           type: string
-          enum: [active, inactive, resolved]
-
+          enum:
+            - active
+            - inactive
+            - resolved
     AllergyReaction:
       type: object
       properties:
         substance:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         manifestation:
           type: array
           items:
-            $ref: "#/components/schemas/CodeableConcept"
+            $ref: '#/components/schemas/CodeableConcept'
         severity:
           type: string
-          enum: [mild, moderate, severe]
+          enum:
+            - mild
+            - moderate
+            - severe
         onset:
           type: string
           format: date-time
-
-    # Medication Statement schemas
     MedicationStatement:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, medicationCodeableConcept]
+          required:
+            - id
+            - patientId
+            - medicationCodeableConcept
           properties:
             id:
               type: string
             patientId:
               type: string
             medicationCodeableConcept:
-              $ref: "#/components/schemas/CodeableConcept"
+              $ref: '#/components/schemas/CodeableConcept'
             effectivePeriod:
-              $ref: "#/components/schemas/Period"
+              $ref: '#/components/schemas/Period'
             dosage:
               type: array
               items:
-                $ref: "#/components/schemas/Dosage"
+                $ref: '#/components/schemas/Dosage'
             status:
               type: string
-              enum: [active, completed, entered-in-error, intended, stopped, on-hold, unknown]
-
+              enum:
+                - active
+                - completed
+                - entered-in-error
+                - intended
+                - stopped
+                - on-hold
+                - unknown
     MedicationStatementInput:
       type: object
-      required: [patientId, medicationCodeableConcept]
+      required:
+        - patientId
+        - medicationCodeableConcept
       properties:
         patientId:
           type: string
         medicationCodeableConcept:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         effectivePeriod:
-          $ref: "#/components/schemas/Period"
+          $ref: '#/components/schemas/Period'
         dosage:
           type: array
           items:
-            $ref: "#/components/schemas/Dosage"
+            $ref: '#/components/schemas/Dosage'
         status:
           type: string
-          enum: [active, completed, entered-in-error, intended, stopped, on-hold, unknown]
+          enum:
+            - active
+            - completed
+            - entered-in-error
+            - intended
+            - stopped
+            - on-hold
+            - unknown
           default: active
-
     MedicationStatementUpdate:
       type: object
       properties:
         effectivePeriod:
-          $ref: "#/components/schemas/Period"
+          $ref: '#/components/schemas/Period'
         dosage:
           type: array
           items:
-            $ref: "#/components/schemas/Dosage"
+            $ref: '#/components/schemas/Dosage'
         status:
           type: string
-          enum: [active, completed, entered-in-error, intended, stopped, on-hold, unknown]
-
-    # Medication Order schemas
+          enum:
+            - active
+            - completed
+            - entered-in-error
+            - intended
+            - stopped
+            - on-hold
+            - unknown
     MedicationOrder:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, medicationCodeableConcept]
+          required:
+            - id
+            - patientId
+            - medicationCodeableConcept
           properties:
             id:
               type: string
@@ -3092,54 +3204,78 @@ components:
             encounterId:
               type: string
             medicationCodeableConcept:
-              $ref: "#/components/schemas/CodeableConcept"
+              $ref: '#/components/schemas/CodeableConcept'
             authoredOn:
               type: string
               format: date-time
             dosageInstruction:
               type: array
               items:
-                $ref: "#/components/schemas/Dosage"
+                $ref: '#/components/schemas/Dosage'
             status:
               type: string
               enum:
-                [active, on-hold, cancelled, completed, entered-in-error, stopped, draft, unknown]
-
+                - active
+                - on-hold
+                - cancelled
+                - completed
+                - entered-in-error
+                - stopped
+                - draft
+                - unknown
     MedicationOrderInput:
       type: object
-      required: [patientId, medicationCodeableConcept]
+      required:
+        - patientId
+        - medicationCodeableConcept
       properties:
         patientId:
           type: string
         encounterId:
           type: string
         medicationCodeableConcept:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         dosageInstruction:
           type: array
           items:
-            $ref: "#/components/schemas/Dosage"
+            $ref: '#/components/schemas/Dosage'
         status:
           type: string
-          enum: [active, on-hold, cancelled, completed, entered-in-error, stopped, draft, unknown]
+          enum:
+            - active
+            - on-hold
+            - cancelled
+            - completed
+            - entered-in-error
+            - stopped
+            - draft
+            - unknown
           default: draft
-
     MedicationOrderUpdate:
       type: object
       properties:
         dosageInstruction:
           type: array
           items:
-            $ref: "#/components/schemas/Dosage"
+            $ref: '#/components/schemas/Dosage'
         status:
           type: string
-          enum: [active, on-hold, cancelled, completed, entered-in-error, stopped, draft, unknown]
-
+          enum:
+            - active
+            - on-hold
+            - cancelled
+            - completed
+            - entered-in-error
+            - stopped
+            - draft
+            - unknown
     MedicationAdministration:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, medicationOrderId]
+          required:
+            - id
+            - medicationOrderId
           properties:
             id:
               type: string
@@ -3147,29 +3283,40 @@ components:
               type: string
             status:
               type: string
-              enum: [in-progress, not-done, on-hold, completed, entered-in-error, stopped, unknown]
+              enum:
+                - in-progress
+                - not-done
+                - on-hold
+                - completed
+                - entered-in-error
+                - stopped
+                - unknown
             effectiveDateTime:
               type: string
               format: date-time
             dosage:
-              $ref: "#/components/schemas/Dosage"
-
-    # Immunization schemas
+              $ref: '#/components/schemas/Dosage'
     Immunization:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, vaccineCode]
+          required:
+            - id
+            - patientId
+            - vaccineCode
           properties:
             id:
               type: string
             patientId:
               type: string
             vaccineCode:
-              $ref: "#/components/schemas/CodeableConcept"
+              $ref: '#/components/schemas/CodeableConcept'
             status:
               type: string
-              enum: [completed, entered-in-error, not-done]
+              enum:
+                - completed
+                - entered-in-error
+                - not-done
             occurrenceDateTime:
               type: string
               format: date-time
@@ -3177,15 +3324,16 @@ components:
               type: boolean
             lotNumber:
               type: string
-
     ImmunizationInput:
       type: object
-      required: [patientId, vaccineCode]
+      required:
+        - patientId
+        - vaccineCode
       properties:
         patientId:
           type: string
         vaccineCode:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         occurrenceDateTime:
           type: string
           format: date-time
@@ -3196,9 +3344,11 @@ components:
           type: string
         status:
           type: string
-          enum: [completed, entered-in-error, not-done]
+          enum:
+            - completed
+            - entered-in-error
+            - not-done
           default: completed
-
     ImmunizationUpdate:
       type: object
       properties:
@@ -3207,16 +3357,21 @@ components:
           format: date-time
         status:
           type: string
-          enum: [completed, entered-in-error, not-done]
+          enum:
+            - completed
+            - entered-in-error
+            - not-done
         lotNumber:
           type: string
-
-    # Observation schemas
     Observation:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, code, status]
+          required:
+            - id
+            - patientId
+            - code
+            - status
           properties:
             id:
               type: string
@@ -3225,16 +3380,16 @@ components:
             encounterId:
               type: string
             code:
-              $ref: "#/components/schemas/CodeableConcept"
+              $ref: '#/components/schemas/CodeableConcept'
             category:
               type: array
               items:
-                $ref: "#/components/schemas/CodeableConcept"
+                $ref: '#/components/schemas/CodeableConcept'
             effectiveDateTime:
               type: string
               format: date-time
             valueQuantity:
-              $ref: "#/components/schemas/Quantity"
+              $ref: '#/components/schemas/Quantity'
             valueString:
               type: string
             valueBoolean:
@@ -3245,40 +3400,39 @@ components:
             interpretation:
               type: array
               items:
-                $ref: "#/components/schemas/CodeableConcept"
+                $ref: '#/components/schemas/CodeableConcept'
             status:
               type: string
               enum:
-                [
-                  registered,
-                  preliminary,
-                  final,
-                  amended,
-                  corrected,
-                  cancelled,
-                  entered-in-error,
-                  unknown,
-                ]
-
+                - registered
+                - preliminary
+                - final
+                - amended
+                - corrected
+                - cancelled
+                - entered-in-error
+                - unknown
     ObservationInput:
       type: object
-      required: [patientId, code]
+      required:
+        - patientId
+        - code
       properties:
         patientId:
           type: string
         encounterId:
           type: string
         code:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         category:
           type: array
           items:
-            $ref: "#/components/schemas/CodeableConcept"
+            $ref: '#/components/schemas/CodeableConcept'
         effectiveDateTime:
           type: string
           format: date-time
         valueQuantity:
-          $ref: "#/components/schemas/Quantity"
+          $ref: '#/components/schemas/Quantity'
         valueString:
           type: string
         valueBoolean:
@@ -3289,23 +3443,20 @@ components:
         status:
           type: string
           enum:
-            [
-              registered,
-              preliminary,
-              final,
-              amended,
-              corrected,
-              cancelled,
-              entered-in-error,
-              unknown,
-            ]
+            - registered
+            - preliminary
+            - final
+            - amended
+            - corrected
+            - cancelled
+            - entered-in-error
+            - unknown
           default: preliminary
-
     ObservationUpdate:
       type: object
       properties:
         valueQuantity:
-          $ref: "#/components/schemas/Quantity"
+          $ref: '#/components/schemas/Quantity'
         valueString:
           type: string
         valueBoolean:
@@ -3316,23 +3467,23 @@ components:
         status:
           type: string
           enum:
-            [
-              registered,
-              preliminary,
-              final,
-              amended,
-              corrected,
-              cancelled,
-              entered-in-error,
-              unknown,
-            ]
-
-    # Diagnostic Report schemas
+            - registered
+            - preliminary
+            - final
+            - amended
+            - corrected
+            - cancelled
+            - entered-in-error
+            - unknown
     DiagnosticReport:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, code, status]
+          required:
+            - id
+            - patientId
+            - code
+            - status
           properties:
             id:
               type: string
@@ -3341,7 +3492,7 @@ components:
             encounterId:
               type: string
             code:
-              $ref: "#/components/schemas/CodeableConcept"
+              $ref: '#/components/schemas/CodeableConcept'
             effectiveDateTime:
               type: string
               format: date-time
@@ -3351,53 +3502,49 @@ components:
             status:
               type: string
               enum:
-                [
-                  registered,
-                  partial,
-                  preliminary,
-                  final,
-                  amended,
-                  corrected,
-                  appended,
-                  cancelled,
-                  entered-in-error,
-                  unknown,
-                ]
+                - registered
+                - partial
+                - preliminary
+                - final
+                - amended
+                - corrected
+                - appended
+                - cancelled
+                - entered-in-error
+                - unknown
             conclusion:
               type: string
-
     DiagnosticReportInput:
       type: object
-      required: [patientId, code]
+      required:
+        - patientId
+        - code
       properties:
         patientId:
           type: string
         encounterId:
           type: string
         code:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         effectiveDateTime:
           type: string
           format: date-time
         status:
           type: string
           enum:
-            [
-              registered,
-              partial,
-              preliminary,
-              final,
-              amended,
-              corrected,
-              appended,
-              cancelled,
-              entered-in-error,
-              unknown,
-            ]
+            - registered
+            - partial
+            - preliminary
+            - final
+            - amended
+            - corrected
+            - appended
+            - cancelled
+            - entered-in-error
+            - unknown
           default: preliminary
         conclusion:
           type: string
-
     DiagnosticReportUpdate:
       type: object
       properties:
@@ -3406,25 +3553,24 @@ components:
         status:
           type: string
           enum:
-            [
-              registered,
-              partial,
-              preliminary,
-              final,
-              amended,
-              corrected,
-              appended,
-              cancelled,
-              entered-in-error,
-              unknown,
-            ]
-
-    # Imaging Study schemas
+            - registered
+            - partial
+            - preliminary
+            - final
+            - amended
+            - corrected
+            - appended
+            - cancelled
+            - entered-in-error
+            - unknown
     ImagingStudy:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, status]
+          required:
+            - id
+            - patientId
+            - status
           properties:
             id:
               type: string
@@ -3435,21 +3581,26 @@ components:
             modality:
               type: array
               items:
-                $ref: "#/components/schemas/Coding"
+                $ref: '#/components/schemas/Coding'
             started:
               type: string
               format: date-time
             status:
               type: string
-              enum: [registered, available, cancelled, entered-in-error, unknown]
+              enum:
+                - registered
+                - available
+                - cancelled
+                - entered-in-error
+                - unknown
             numberOfSeries:
               type: integer
             numberOfInstances:
               type: integer
-
     ImagingStudyInput:
       type: object
-      required: [patientId]
+      required:
+        - patientId
       properties:
         patientId:
           type: string
@@ -3458,22 +3609,30 @@ components:
         modality:
           type: array
           items:
-            $ref: "#/components/schemas/Coding"
+            $ref: '#/components/schemas/Coding'
         started:
           type: string
           format: date-time
         status:
           type: string
-          enum: [registered, available, cancelled, entered-in-error, unknown]
+          enum:
+            - registered
+            - available
+            - cancelled
+            - entered-in-error
+            - unknown
           default: registered
-
     ImagingStudyUpdate:
       type: object
       properties:
         status:
           type: string
-          enum: [registered, available, cancelled, entered-in-error, unknown]
-
+          enum:
+            - registered
+            - available
+            - cancelled
+            - entered-in-error
+            - unknown
     ImagingSeries:
       type: object
       properties:
@@ -3484,19 +3643,21 @@ components:
         uid:
           type: string
         modality:
-          $ref: "#/components/schemas/Coding"
+          $ref: '#/components/schemas/Coding'
         numberOfInstances:
           type: integer
         started:
           type: string
           format: date-time
-
-    # Procedure schemas
     Procedure:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, code, status]
+          required:
+            - id
+            - patientId
+            - code
+            - status
           properties:
             id:
               type: string
@@ -3505,75 +3666,71 @@ components:
             encounterId:
               type: string
             code:
-              $ref: "#/components/schemas/CodeableConcept"
+              $ref: '#/components/schemas/CodeableConcept'
             performedPeriod:
-              $ref: "#/components/schemas/Period"
+              $ref: '#/components/schemas/Period'
             status:
               type: string
               enum:
-                [
-                  preparation,
-                  in-progress,
-                  not-done,
-                  on-hold,
-                  stopped,
-                  completed,
-                  entered-in-error,
-                  unknown,
-                ]
-
+                - preparation
+                - in-progress
+                - not-done
+                - on-hold
+                - stopped
+                - completed
+                - entered-in-error
+                - unknown
     ProcedureInput:
       type: object
-      required: [patientId, code]
+      required:
+        - patientId
+        - code
       properties:
         patientId:
           type: string
         encounterId:
           type: string
         code:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         performedPeriod:
-          $ref: "#/components/schemas/Period"
+          $ref: '#/components/schemas/Period'
         status:
           type: string
           enum:
-            [
-              preparation,
-              in-progress,
-              not-done,
-              on-hold,
-              stopped,
-              completed,
-              entered-in-error,
-              unknown,
-            ]
+            - preparation
+            - in-progress
+            - not-done
+            - on-hold
+            - stopped
+            - completed
+            - entered-in-error
+            - unknown
           default: preparation
-
     ProcedureUpdate:
       type: object
       properties:
         performedPeriod:
-          $ref: "#/components/schemas/Period"
+          $ref: '#/components/schemas/Period'
         status:
           type: string
           enum:
-            [
-              preparation,
-              in-progress,
-              not-done,
-              on-hold,
-              stopped,
-              completed,
-              entered-in-error,
-              unknown,
-            ]
-
-    # Clinical Note schemas
+            - preparation
+            - in-progress
+            - not-done
+            - on-hold
+            - stopped
+            - completed
+            - entered-in-error
+            - unknown
     ClinicalNote:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, noteType, content]
+          required:
+            - id
+            - patientId
+            - noteType
+            - content
           properties:
             id:
               type: string
@@ -3583,7 +3740,13 @@ components:
               type: string
             noteType:
               type: string
-              enum: [history-physical, progress, discharge, consultation, procedure, other]
+              enum:
+                - history-physical
+                - progress
+                - discharge
+                - consultation
+                - procedure
+                - other
             author:
               type: string
             authored:
@@ -3593,10 +3756,12 @@ components:
               type: string
             title:
               type: string
-
     ClinicalNoteInput:
       type: object
-      required: [patientId, noteType, content]
+      required:
+        - patientId
+        - noteType
+        - content
       properties:
         patientId:
           type: string
@@ -3604,14 +3769,19 @@ components:
           type: string
         noteType:
           type: string
-          enum: [history-physical, progress, discharge, consultation, procedure, other]
+          enum:
+            - history-physical
+            - progress
+            - discharge
+            - consultation
+            - procedure
+            - other
         author:
           type: string
         content:
           type: string
         title:
           type: string
-
     ClinicalNoteUpdate:
       type: object
       properties:
@@ -3621,14 +3791,21 @@ components:
           type: string
         noteType:
           type: string
-          enum: [history-physical, progress, discharge, consultation, procedure, other]
-
-    # Care Team schemas
+          enum:
+            - history-physical
+            - progress
+            - discharge
+            - consultation
+            - procedure
+            - other
     CareTeam:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, status]
+          required:
+            - id
+            - patientId
+            - status
           properties:
             id:
               type: string
@@ -3638,17 +3815,22 @@ components:
               type: string
             status:
               type: string
-              enum: [proposed, active, suspended, inactive, entered-in-error]
+              enum:
+                - proposed
+                - active
+                - suspended
+                - inactive
+                - entered-in-error
             participant:
               type: array
               items:
-                $ref: "#/components/schemas/CareTeamParticipant"
+                $ref: '#/components/schemas/CareTeamParticipant'
             period:
-              $ref: "#/components/schemas/Period"
-
+              $ref: '#/components/schemas/Period'
     CareTeamInput:
       type: object
-      required: [patientId]
+      required:
+        - patientId
       properties:
         patientId:
           type: string
@@ -3657,27 +3839,35 @@ components:
         participant:
           type: array
           items:
-            $ref: "#/components/schemas/CareTeamParticipant"
+            $ref: '#/components/schemas/CareTeamParticipant'
         status:
           type: string
-          enum: [proposed, active, suspended, inactive, entered-in-error]
+          enum:
+            - proposed
+            - active
+            - suspended
+            - inactive
+            - entered-in-error
           default: proposed
         period:
-          $ref: "#/components/schemas/Period"
-
+          $ref: '#/components/schemas/Period'
     CareTeamUpdate:
       type: object
       properties:
         participant:
           type: array
           items:
-            $ref: "#/components/schemas/CareTeamParticipant"
+            $ref: '#/components/schemas/CareTeamParticipant'
         status:
           type: string
-          enum: [proposed, active, suspended, inactive, entered-in-error]
+          enum:
+            - proposed
+            - active
+            - suspended
+            - inactive
+            - entered-in-error
         period:
-          $ref: "#/components/schemas/Period"
-
+          $ref: '#/components/schemas/Period'
     CareTeamMember:
       type: object
       properties:
@@ -3688,25 +3878,26 @@ components:
         practitionerId:
           type: string
         role:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         period:
-          $ref: "#/components/schemas/Period"
-
+          $ref: '#/components/schemas/Period'
     CareTeamParticipant:
       type: object
       properties:
         role:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         member:
           type: string
           description: Practitioner or organization reference
-
-    # Document Reference schemas
     DocumentReference:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
-          required: [id, patientId, type, status]
+          required:
+            - id
+            - patientId
+            - type
+            - status
           properties:
             id:
               type: string
@@ -3715,57 +3906,63 @@ components:
             encounterId:
               type: string
             type:
-              $ref: "#/components/schemas/CodeableConcept"
+              $ref: '#/components/schemas/CodeableConcept'
             status:
               type: string
-              enum: [current, superseded, entered-in-error]
+              enum:
+                - current
+                - superseded
+                - entered-in-error
             content:
               type: array
               items:
-                $ref: "#/components/schemas/DocumentContent"
+                $ref: '#/components/schemas/DocumentContent'
             date:
               type: string
               format: date-time
-
     DocumentReferenceInput:
       type: object
-      required: [patientId, type]
+      required:
+        - patientId
+        - type
       properties:
         patientId:
           type: string
         encounterId:
           type: string
         type:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         content:
           type: array
           items:
-            $ref: "#/components/schemas/DocumentContent"
+            $ref: '#/components/schemas/DocumentContent'
         status:
           type: string
-          enum: [current, superseded, entered-in-error]
+          enum:
+            - current
+            - superseded
+            - entered-in-error
           default: current
-
     DocumentReferenceUpdate:
       type: object
       properties:
         status:
           type: string
-          enum: [current, superseded, entered-in-error]
+          enum:
+            - current
+            - superseded
+            - entered-in-error
         content:
           type: array
           items:
-            $ref: "#/components/schemas/DocumentContent"
-
+            $ref: '#/components/schemas/DocumentContent'
     DocumentContent:
       type: object
       properties:
         attachment:
-          $ref: "#/components/schemas/Attachment"
+          $ref: '#/components/schemas/Attachment'
         format:
-          $ref: "#/components/schemas/Coding"
-
-    # Common FHIR-style schemas
+          $ref: '#/components/schemas/Coding'
     Identifier:
       type: object
       properties:
@@ -3774,14 +3971,20 @@ components:
         value:
           type: string
         type:
-          $ref: "#/components/schemas/CodeableConcept"
-
+          $ref: '#/components/schemas/CodeableConcept'
     HumanName:
       type: object
       properties:
         use:
           type: string
-          enum: [usual, official, temp, nickname, anonymous, old, maiden]
+          enum:
+            - usual
+            - official
+            - temp
+            - nickname
+            - anonymous
+            - old
+            - maiden
         family:
           type: string
         given:
@@ -3796,16 +3999,22 @@ components:
           type: array
           items:
             type: string
-
     Address:
       type: object
       properties:
         use:
           type: string
-          enum: [home, work, temp, old]
+          enum:
+            - home
+            - work
+            - temp
+            - old
         type:
           type: string
-          enum: [postal, physical, both]
+          enum:
+            - postal
+            - physical
+            - both
         line:
           type: array
           items:
@@ -3818,29 +4027,38 @@ components:
           type: string
         country:
           type: string
-
     ContactPoint:
       type: object
       properties:
         system:
           type: string
-          enum: [phone, fax, email, pager, url, sms, other]
+          enum:
+            - phone
+            - fax
+            - email
+            - pager
+            - url
+            - sms
+            - other
         value:
           type: string
         use:
           type: string
-          enum: [home, work, temp, old, mobile]
-
+          enum:
+            - home
+            - work
+            - temp
+            - old
+            - mobile
     CodeableConcept:
       type: object
       properties:
         coding:
           type: array
           items:
-            $ref: "#/components/schemas/Coding"
+            $ref: '#/components/schemas/Coding'
         text:
           type: string
-
     Coding:
       type: object
       properties:
@@ -3852,7 +4070,6 @@ components:
           type: string
         version:
           type: string
-
     Period:
       type: object
       properties:
@@ -3862,7 +4079,6 @@ components:
         end:
           type: string
           format: date-time
-
     Duration:
       type: object
       properties:
@@ -3874,7 +4090,6 @@ components:
           type: string
         code:
           type: string
-
     Quantity:
       type: object
       properties:
@@ -3886,7 +4101,6 @@ components:
           type: string
         code:
           type: string
-
     Dosage:
       type: object
       properties:
@@ -3895,10 +4109,9 @@ components:
         timing:
           type: object
         route:
-          $ref: "#/components/schemas/CodeableConcept"
+          $ref: '#/components/schemas/CodeableConcept'
         doseQuantity:
-          $ref: "#/components/schemas/Quantity"
-
+          $ref: '#/components/schemas/Quantity'
     Attachment:
       type: object
       properties:
@@ -3913,7 +4126,6 @@ components:
           type: integer
         hash:
           type: string
-
     Pagination:
       type: object
       properties:
@@ -3925,7 +4137,6 @@ components:
           type: integer
         totalPages:
           type: integer
-
 security:
   - BearerAuth: []
   - OAuth2: []

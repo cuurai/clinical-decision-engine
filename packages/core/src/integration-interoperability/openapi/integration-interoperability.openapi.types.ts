@@ -1879,7 +1879,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SystemEndpoint"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["SystemEndpoint"][];
+                        };
+                    };
                 };
             };
         };
@@ -1907,7 +1911,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Connection"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["Connection"][];
+                        };
+                    };
                 };
             };
         };
@@ -1935,7 +1943,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IntegrationJob"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["IntegrationJob"][];
+                        };
+                    };
                 };
             };
         };
@@ -2101,7 +2113,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InterfaceHealthCheck"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["InterfaceHealthCheck"][];
+                        };
+                    };
                 };
             };
         };
@@ -2129,7 +2145,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IntegrationJob"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["IntegrationJob"][];
+                        };
+                    };
                 };
             };
         };
@@ -2264,7 +2284,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": Record<string, never>[];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: Record<string, never>[];
+                        };
+                    };
                 };
             };
         };
@@ -2429,7 +2453,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MappingRule"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["MappingRule"][];
+                        };
+                    };
                 };
             };
         };
@@ -2564,7 +2592,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["HL7Segment"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["HL7Segment"][];
+                        };
+                    };
                 };
             };
         };
@@ -2592,7 +2624,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MappingResult"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["MappingResult"][];
+                        };
+                    };
                 };
             };
         };
@@ -2757,7 +2793,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MappingRule"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["MappingRule"][];
+                        };
+                    };
                 };
             };
         };
@@ -2925,7 +2965,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IntegrationRun"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["IntegrationRun"][];
+                        };
+                    };
                 };
             };
         };
@@ -3037,7 +3081,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["IntegrationLog"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["IntegrationLog"][];
+                        };
+                    };
                 };
             };
         };
@@ -3065,7 +3113,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InterfaceError"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["InterfaceError"][];
+                        };
+                    };
                 };
             };
         };
@@ -3231,7 +3283,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ImportRecord"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["ImportRecord"][];
+                        };
+                    };
                 };
             };
         };
@@ -3259,7 +3315,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InterfaceError"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["InterfaceError"][];
+                        };
+                    };
                 };
             };
         };
@@ -3425,7 +3485,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ExportFile"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["ExportFile"][];
+                        };
+                    };
                 };
             };
         };
@@ -3453,7 +3517,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["InterfaceError"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["InterfaceError"][];
+                        };
+                    };
                 };
             };
         };
@@ -3619,7 +3687,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EventDelivery"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["EventDelivery"][];
+                        };
+                    };
                 };
             };
         };
@@ -3900,7 +3972,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["APICredential"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["APICredential"][];
+                        };
+                    };
                 };
             };
         };
@@ -3928,7 +4004,11 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UsageMetric"][];
+                    "application/json": components["schemas"]["IntApiListResponse"] & {
+                        data?: {
+                            items?: components["schemas"]["UsageMetric"][];
+                        };
+                    };
                 };
             };
         };
