@@ -1739,7 +1739,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["ExternalSystem"][];
+                        data?: {
+                            items?: components["schemas"]["ExternalSystem"][];
+                        };
                     };
                 };
             };
@@ -1973,7 +1975,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["Connection"][];
+                        data?: {
+                            items?: components["schemas"]["Connection"][];
+                        };
                     };
                 };
             };
@@ -2175,7 +2179,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["FHIRBundle"][];
+                        data?: {
+                            items?: components["schemas"]["FHIRBundle"][];
+                        };
                     };
                 };
             };
@@ -2313,7 +2319,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["FHIRMappingProfile"][];
+                        data?: {
+                            items?: components["schemas"]["FHIRMappingProfile"][];
+                        };
                     };
                 };
             };
@@ -2483,7 +2491,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["HL7Message"][];
+                        data?: {
+                            items?: components["schemas"]["HL7Message"][];
+                        };
                     };
                 };
             };
@@ -2653,7 +2663,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["HL7MappingProfile"][];
+                        data?: {
+                            items?: components["schemas"]["HL7MappingProfile"][];
+                        };
                     };
                 };
             };
@@ -2825,7 +2837,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["IntegrationJob"][];
+                        data?: {
+                            items?: components["schemas"]["IntegrationJob"][];
+                        };
                     };
                 };
             };
@@ -2995,7 +3009,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["IntegrationRun"][];
+                        data?: {
+                            items?: components["schemas"]["IntegrationRun"][];
+                        };
                     };
                 };
             };
@@ -3143,7 +3159,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["DataImportBatch"][];
+                        data?: {
+                            items?: components["schemas"]["DataImportBatch"][];
+                        };
                     };
                 };
             };
@@ -3345,7 +3363,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["DataExportBatch"][];
+                        data?: {
+                            items?: components["schemas"]["DataExportBatch"][];
+                        };
                     };
                 };
             };
@@ -3547,7 +3567,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["EventSubscription"][];
+                        data?: {
+                            items?: components["schemas"]["EventSubscription"][];
+                        };
                     };
                 };
             };
@@ -3717,7 +3739,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["EventDelivery"][];
+                        data?: {
+                            items?: components["schemas"]["EventDelivery"][];
+                        };
                     };
                 };
             };
@@ -3832,7 +3856,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["APIClient"][];
+                        data?: {
+                            items?: components["schemas"]["APIClient"][];
+                        };
                     };
                 };
             };
@@ -4034,7 +4060,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["APICredential"][];
+                        data?: {
+                            items?: components["schemas"]["APICredential"][];
+                        };
                     };
                 };
             };
@@ -4172,7 +4200,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["InterfaceError"][];
+                        data?: {
+                            items?: components["schemas"]["InterfaceError"][];
+                        };
                     };
                 };
             };
@@ -4288,7 +4318,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["IntApiListResponse"] & {
-                        data?: components["schemas"]["InterfaceHealthCheck"][];
+                        data?: {
+                            items?: components["schemas"]["InterfaceHealthCheck"][];
+                        };
                     };
                 };
             };

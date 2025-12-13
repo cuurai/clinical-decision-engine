@@ -78,9 +78,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/WorkflowDefinition'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/WorkflowDefinition'
     post:
       tags:
         - Workflow Definitions
@@ -268,9 +271,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/WorkflowInstance'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/WorkflowInstance'
     post:
       tags:
         - Workflow Instances
@@ -472,9 +478,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/CarePathwayTemplate'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/CarePathwayTemplate'
     post:
       tags:
         - Care Pathway Templates
@@ -659,9 +668,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/CarePlan'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/CarePlan'
     post:
       tags:
         - Care Plans
@@ -871,9 +883,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/EpisodeOfCare'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/EpisodeOfCare'
     post:
       tags:
         - Episodes of Care
@@ -1090,9 +1105,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/Task'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Task'
     post:
       tags:
         - Tasks
@@ -1271,9 +1289,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/TaskAssignment'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/TaskAssignment'
     post:
       tags:
         - Task Assignments
@@ -1414,9 +1435,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/Alert'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Alert'
     post:
       tags:
         - Alerts
@@ -1599,9 +1623,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/Handoff'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/Handoff'
     post:
       tags:
         - Handoffs
@@ -1749,9 +1776,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/ChecklistTemplate'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ChecklistTemplate'
     post:
       tags:
         - Checklist Templates
@@ -1911,9 +1941,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/ChecklistInstance'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ChecklistInstance'
     post:
       tags:
         - Checklist Instances
@@ -2061,9 +2094,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/EscalationPolicy'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/EscalationPolicy'
     post:
       tags:
         - Escalation Policies
@@ -2211,9 +2247,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/RoutingRule'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/RoutingRule'
     post:
       tags:
         - Routing Rules
@@ -2334,9 +2373,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/ScheduleTemplate'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ScheduleTemplate'
     post:
       tags:
         - Schedule Templates
@@ -2461,9 +2503,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/WorkQueue'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/WorkQueue'
     post:
       tags:
         - Work Queues

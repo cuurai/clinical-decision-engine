@@ -1538,7 +1538,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["DecisionSession"][];
+                        data?: {
+                            items?: components["schemas"]["DecisionSession"][];
+                        };
                     };
                 };
             };
@@ -1837,7 +1839,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["DecisionRequest"][];
+                        data?: {
+                            items?: components["schemas"]["DecisionRequest"][];
+                        };
                     };
                 };
             };
@@ -1986,7 +1990,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["DecisionResult"][];
+                        data?: {
+                            items?: components["schemas"]["DecisionResult"][];
+                        };
                     };
                 };
             };
@@ -2220,7 +2226,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["RiskAssessment"][];
+                        data?: {
+                            items?: components["schemas"]["RiskAssessment"][];
+                        };
                     };
                 };
             };
@@ -2391,7 +2399,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["Recommendation"][];
+                        data?: {
+                            items?: components["schemas"]["Recommendation"][];
+                        };
                     };
                 };
             };
@@ -2562,7 +2572,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["AlertEvaluation"][];
+                        data?: {
+                            items?: components["schemas"]["AlertEvaluation"][];
+                        };
                     };
                 };
             };
@@ -2699,7 +2711,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["Explanation"][];
+                        data?: {
+                            items?: components["schemas"]["Explanation"][];
+                        };
                     };
                 };
             };
@@ -2847,7 +2861,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["ModelInvocation"][];
+                        data?: {
+                            items?: components["schemas"]["ModelInvocation"][];
+                        };
                     };
                 };
             };
@@ -2963,7 +2979,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["SimulationScenario"][];
+                        data?: {
+                            items?: components["schemas"]["SimulationScenario"][];
+                        };
                     };
                 };
             };
@@ -3133,7 +3151,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["SimulationRun"][];
+                        data?: {
+                            items?: components["schemas"]["SimulationRun"][];
+                        };
                     };
                 };
             };
@@ -3280,7 +3300,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["DecisionPolicy"][];
+                        data?: {
+                            items?: components["schemas"]["DecisionPolicy"][];
+                        };
                     };
                 };
             };
@@ -3449,7 +3471,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["ThresholdProfile"][];
+                        data?: {
+                            items?: components["schemas"]["ThresholdProfile"][];
+                        };
                     };
                 };
             };
@@ -3587,7 +3611,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["DecisionMetricSnapshot"][];
+                        data?: {
+                            items?: components["schemas"]["DecisionMetricSnapshot"][];
+                        };
                     };
                 };
             };
@@ -3670,7 +3696,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DecApiListResponse"] & {
-                        data?: components["schemas"]["Experiment"][];
+                        data?: {
+                            items?: components["schemas"]["Experiment"][];
+                        };
                     };
                 };
             };

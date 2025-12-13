@@ -87,9 +87,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/ClinicalRule'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ClinicalRule'
     post:
       tags:
         - Clinical Rules
@@ -264,9 +267,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/RuleSet'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/RuleSet'
     post:
       tags:
         - Rule Sets
@@ -418,9 +424,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/ClinicalGuideline'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ClinicalGuideline'
     post:
       tags:
         - Clinical Guidelines
@@ -603,9 +612,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/CareProtocolTemplate'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/CareProtocolTemplate'
     post:
       tags:
         - Care Protocol Templates
@@ -788,9 +800,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/OrderSetTemplate'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/OrderSetTemplate'
     post:
       tags:
         - Order Set Templates
@@ -953,9 +968,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/ModelDefinition'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ModelDefinition'
     post:
       tags:
         - Model Definitions
@@ -1139,9 +1157,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/ModelVersion'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ModelVersion'
     post:
       tags:
         - Model Versions
@@ -1459,9 +1480,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/ValueSet'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ValueSet'
     post:
       tags:
         - Value Sets
@@ -1613,9 +1637,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/ConceptMap'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ConceptMap'
     post:
       tags:
         - Concept Maps
@@ -1763,9 +1790,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/ScoringTemplate'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/ScoringTemplate'
     post:
       tags:
         - Scoring Templates
@@ -1913,9 +1943,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/QuestionnaireTemplate'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/QuestionnaireTemplate'
     post:
       tags:
         - Questionnaire Templates
@@ -2069,9 +2102,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/EvidenceCitation'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/EvidenceCitation'
     post:
       tags:
         - Evidence Citations
@@ -2197,9 +2233,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/EvidenceReview'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/EvidenceReview'
     post:
       tags:
         - Evidence Reviews
@@ -2328,9 +2367,12 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/KnowledgePackage'
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/KnowledgePackage'
     post:
       tags:
         - Knowledge Packages

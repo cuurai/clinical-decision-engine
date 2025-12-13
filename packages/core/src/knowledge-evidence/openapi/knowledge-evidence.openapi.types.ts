@@ -1750,7 +1750,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ClinicalRule"][];
+                        data?: {
+                            items?: components["schemas"]["ClinicalRule"][];
+                        };
                     };
                 };
             };
@@ -1951,7 +1953,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["RuleSet"][];
+                        data?: {
+                            items?: components["schemas"]["RuleSet"][];
+                        };
                     };
                 };
             };
@@ -2121,7 +2125,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ClinicalGuideline"][];
+                        data?: {
+                            items?: components["schemas"]["ClinicalGuideline"][];
+                        };
                     };
                 };
             };
@@ -2323,7 +2329,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["CareProtocolTemplate"][];
+                        data?: {
+                            items?: components["schemas"]["CareProtocolTemplate"][];
+                        };
                     };
                 };
             };
@@ -2525,7 +2533,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["OrderSetTemplate"][];
+                        data?: {
+                            items?: components["schemas"]["OrderSetTemplate"][];
+                        };
                     };
                 };
             };
@@ -2695,7 +2705,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ModelDefinition"][];
+                        data?: {
+                            items?: components["schemas"]["ModelDefinition"][];
+                        };
                     };
                 };
             };
@@ -2897,7 +2909,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ModelVersion"][];
+                        data?: {
+                            items?: components["schemas"]["ModelVersion"][];
+                        };
                     };
                 };
             };
@@ -3252,7 +3266,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ValueSet"][];
+                        data?: {
+                            items?: components["schemas"]["ValueSet"][];
+                        };
                     };
                 };
             };
@@ -3422,7 +3438,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ConceptMap"][];
+                        data?: {
+                            items?: components["schemas"]["ConceptMap"][];
+                        };
                     };
                 };
             };
@@ -3591,7 +3609,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["ScoringTemplate"][];
+                        data?: {
+                            items?: components["schemas"]["ScoringTemplate"][];
+                        };
                     };
                 };
             };
@@ -3760,7 +3780,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["QuestionnaireTemplate"][];
+                        data?: {
+                            items?: components["schemas"]["QuestionnaireTemplate"][];
+                        };
                     };
                 };
             };
@@ -3929,7 +3951,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["EvidenceCitation"][];
+                        data?: {
+                            items?: components["schemas"]["EvidenceCitation"][];
+                        };
                     };
                 };
             };
@@ -4066,7 +4090,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["EvidenceReview"][];
+                        data?: {
+                            items?: components["schemas"]["EvidenceReview"][];
+                        };
                     };
                 };
             };
@@ -4204,7 +4230,9 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["KnoApiListResponse"] & {
-                        data?: components["schemas"]["KnowledgePackage"][];
+                        data?: {
+                            items?: components["schemas"]["KnowledgePackage"][];
+                        };
                     };
                 };
             };
