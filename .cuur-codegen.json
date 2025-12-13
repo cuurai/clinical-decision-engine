@@ -1,0 +1,166 @@
+{
+  "$schema": "./.codegen/.servicesgen/schema.json",
+  "domains": [
+    {
+      "name": "decision-intelligence",
+      "enabled": true,
+      "spec_path": "openapi-decision-intelligence.yaml",
+      "bundled_path": "openapi-decision-intelligence.json"
+    },
+    {
+      "name": "integration-interoperability",
+      "enabled": true,
+      "spec_path": "openapi-integration-interoperability.yaml",
+      "bundled_path": "openapi-integration-interoperability.json"
+    },
+    {
+      "name": "knowledge-evidence",
+      "enabled": true,
+      "spec_path": "openapi-knowledge-evidence.yaml",
+      "bundled_path": "openapi-knowledge-evidence.json"
+    },
+    {
+      "name": "patient-clinical-data",
+      "enabled": true,
+      "spec_path": "openapi-patient-clinical-data.yaml",
+      "bundled_path": "openapi-patient-clinical-data.json"
+    },
+    {
+      "name": "workflow-care-pathways",
+      "enabled": true,
+      "spec_path": "openapi-workflow-care-pathways.yaml",
+      "bundled_path": "openapi-workflow-care-pathways.json"
+    }
+  ],
+  "paths": {
+    "project_root": "/Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine",
+    "openapi_dir": "/Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi",
+    "bundled_dir": "/Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled"
+  },
+  "folder_structure": {
+    "services": {
+      "base_path": "services/src",
+      "service": {
+        "output_dir": "{domain}",
+        "main_file": "index.ts",
+        "imports": {
+          "types": "@quub/core",
+          "repositories": "@quub/core",
+          "handlers": "@quub/core",
+          "schemas": "@quub/core",
+          "validators": "@quub/core",
+          "converters": "@quub/core",
+          "shared_helpers": "@quub/core/shared/helpers",
+          "shared_repositories": "@quub/core/shared/repositories",
+          "shared_types": "@quub/core/shared/types"
+        }
+      }
+    },
+    "adapters": {
+      "base_path": "adapters/src",
+      "repositories": {
+        "output_dir": "",
+        "main_file": "index.ts",
+        "imports": {
+          "types": "@quub/core",
+          "repositories": "@quub/core",
+          "handlers": "@quub/core",
+          "schemas": "@quub/core",
+          "validators": "@quub/core",
+          "converters": "@quub/core",
+          "shared_helpers": "@quub/core/shared/helpers",
+          "shared_repositories": "@quub/core/shared/repositories",
+          "shared_types": "@quub/core/shared/types"
+        }
+      }
+    },
+    "tests": {
+      "base_path": "tests/src",
+      "test": {
+        "output_dir": "",
+        "main_file": "index.ts",
+        "imports": {
+          "types": "@quub/core",
+          "repositories": "@quub/core",
+          "handlers": "@quub/core",
+          "schemas": "@quub/core",
+          "validators": "@quub/core",
+          "converters": "@quub/core",
+          "shared_helpers": "@quub/core/shared/helpers",
+          "shared_repositories": "@quub/core/shared/repositories",
+          "shared_types": "@quub/core/shared/types"
+        }
+      }
+    }
+  },
+  "layers": {
+    "services": {
+      "services": {
+        "enabled": true
+      },
+      "routes": {
+        "enabled": true
+      },
+      "dependencies": {
+        "enabled": true
+      },
+      "framework": "fastify",
+      "generate_main": true,
+      "generate_index": true,
+      "generate_dependencies": true,
+      "generate_routes": true,
+      "route_prefix": "",
+      "include_middleware": false,
+      "include_error_handlers": true,
+      "di_framework": "manual"
+    },
+    "adapters": {
+      "repositories": {
+        "enabled": true,
+        "include_js_docs": true
+      },
+      "include_crud_methods": true,
+      "include_custom_methods": true,
+      "interface_prefix": "",
+      "interface_suffix": "Repository"
+    },
+    "tests": {
+      "tests": {
+        "enabled": true
+      },
+      "mocks": {
+        "enabled": true
+      },
+      "setup": {
+        "enabled": true
+      },
+      "test_framework": "vitest",
+      "generate_mocks": true,
+      "generate_setup": true,
+      "generate_handler_tests": true,
+      "generate_integration_tests": false,
+      "mock_prefix": "mock",
+      "use_vi_mock": true
+    }
+  },
+  "pipeline": {
+    "clean": false,
+    "validate": true,
+    "skip_build": true,
+    "parallel": false,
+    "fail_fast": true,
+    "rollback": false
+  },
+  "build": {
+    "run_after_generate": false,
+    "packages": []
+  },
+  "git": {
+    "auto_commit": false,
+    "commit_message": "chore: regenerate services"
+  },
+  "log_level": "info",
+  "verbose": false,
+  "version": "1.0.0"
+}
+

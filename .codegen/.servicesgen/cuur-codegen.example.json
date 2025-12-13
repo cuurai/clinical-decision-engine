@@ -1,0 +1,142 @@
+{
+  "$schema": "./schema.json",
+  "domains": [
+    {
+      "name": "exchange",
+      "enabled": true,
+      "spec_path": "exchange.yaml",
+      "bundled_path": "exchange.json"
+    },
+    {
+      "name": "auth",
+      "enabled": true
+    },
+    {
+      "name": "governance",
+      "enabled": true
+    }
+  ],
+  "paths": {
+    "project_root": ".",
+    "openapi_dir": "./openapi",
+    "bundled_dir": "./openapi/.bundled",
+    "core_output_dir": "./packages/core/src",
+    "domain_output_dir": "./packages/domain/src",
+    "adapters_output_dir": "./packages/adapters/src",
+    "services_output_dir": "./services",
+    "tests_output_dir": "./tests"
+  },
+  "layers": {
+    "core": {
+      "handlers": {
+        "enabled": true,
+        "include_js_docs": true,
+        "include_validation": true
+      },
+      "types": {
+        "enabled": true,
+        "re_export_generated_types": true
+      },
+      "validators": {
+        "enabled": true,
+        "base_url": "https://kontent.com"
+      },
+      "converters": {
+        "enabled": true
+      },
+      "include_repositories": true,
+      "include_validation": true,
+      "include_converters": true
+    },
+    "adapters": {
+      "repositories": {
+        "enabled": true,
+        "include_js_docs": true
+      },
+      "include_crud_methods": true,
+      "include_custom_methods": true,
+      "interface_prefix": "",
+      "interface_suffix": "Repository"
+    },
+    "services": {
+      "services": {
+        "enabled": true
+      },
+      "routes": {
+        "enabled": true
+      },
+      "dependencies": {
+        "enabled": true
+      },
+      "framework": "fastify",
+      "generate_main": true,
+      "generate_index": true,
+      "generate_dependencies": true,
+      "generate_routes": true,
+      "route_prefix": "",
+      "include_middleware": false,
+      "include_error_handlers": true,
+      "di_framework": "manual"
+    },
+    "tests": {
+      "tests": {
+        "enabled": true
+      },
+      "mocks": {
+        "enabled": true
+      },
+      "setup": {
+        "enabled": true
+      },
+      "test_framework": "vitest",
+      "generate_mocks": true,
+      "generate_setup": true,
+      "generate_handler_tests": true,
+      "generate_integration_tests": false,
+      "mock_prefix": "mock",
+      "use_vi_mock": true
+    }
+  },
+  "generators": {
+    "handler": {
+      "enabled": true,
+      "include_js_docs": true,
+      "namespace_exports": false
+    },
+    "repository": {
+      "enabled": true,
+      "validate_entity_types": true
+    },
+    "schema": {
+      "enabled": true,
+      "include_validation": true
+    },
+    "types": {
+      "enabled": true,
+      "filter_shared_types": true
+    }
+  },
+  "pipeline": {
+    "clean": false,
+    "validate": true,
+    "skip_build": false,
+    "parallel": false,
+    "fail_fast": true,
+    "rollback": false
+  },
+  "build": {
+    "run_after_generate": true,
+    "packages": [
+      "@cuur/core",
+      "@quub/domain",
+      "@quub/adapters"
+    ]
+  },
+  "git": {
+    "auto_commit": false,
+    "commit_message": "chore: regenerate code"
+  },
+  "log_level": "info",
+  "verbose": false,
+  "version": "1.0.0"
+}

@@ -1,0 +1,91 @@
+# Cursor Agent Instructions
+
+## Codegen CLI Usage
+
+**⚠️ CRITICAL: Always use the proper CLI command `quub-coregen`. NEVER use primitive methods.**
+
+### ✅ CORRECT Usage
+
+```bash
+# Generate all domains
+quub-coregen generate --all --no-build --config packages/codegen/.quub-coregen.json
+
+# Generate specific domain
+quub-coregen generate --domain auth --no-build
+
+# Works from any directory - path resolution is automatic
+cd packages/core
+quub-coregen generate --domain exchange --no-build --config ../../packages/codegen/.quub-coregen.json
+```
+
+### ❌ WRONG - Never Use These
+
+```bash
+# DON'T use PYTHONPATH workarounds
+PYTHONPATH=.codegen/src python3 -m quub_codegen.cli.main generate --all
+
+# DON'T run Python modules directly
+python3 -m quub_codegen.cli.main generate --all
+
+# DON'T use relative imports
+cd .codegen && python3 -m quub_codegen.cli.main generate --all
+```
+
+### Key Points
+
+1. **Always use `quub-coregen` command** - It's installed via `pip install -e .` in `.codegen/`
+2. **Works from any directory** - The CLI automatically detects project root
+3. **Path resolution is automatic** - No need to worry about relative paths
+4. **Use `--no-build` flag** - Skip build validation during generation (faster)
+5. **Config file location** - Default is `packages/codegen/.quub-coregen.json`
+
+### Installation
+
+If `quub-coregen` command is not found:
+
+```bash
+cd .codegen
+pip install -e .
+```
+
+### Verification
+
+```bash
+quub-coregen --version
+quub-coregen --help
+```
+
+### Full Documentation
+
+See `.codegen/docs/AI_AGENT_USAGE.md` for complete usage guide.
+
+## Project Structure
+
+- `.codegen/` - Code generation tooling
+- `packages/core/` - Generated core SDK code
+- `packages/sdk/` - Generated SDK client code
+- `openapi/src/` - OpenAPI specifications
+
+## TypeScript Build
+
+```bash
+# Build core package
+cd packages/core && npm run build
+
+# Build all packages
+npm run build
+```
+
+## Code Generation Workflow
+
+1. **Install codegen** (if needed): `cd .codegen && pip install -e .`
+2. **Generate code**: `quub-coregen generate --all --no-build`
+3. **Build**: `cd packages/core && npm run build`
+4. **Verify**: Check for TypeScript errors
+
+## Important Notes
+
+- The codegen automatically resolves paths relative to project root
+- All generated files are in `packages/core/src/`
+- Main index file is `packages/core/index.ts` (auto-generated)
+- Never manually edit generated files - they will be overwritten

@@ -1,0 +1,90 @@
+# Orchestrator Domains Configuration
+# Simple mapping of orchestrator domains to core domains
+
+orchestratorDomains:
+  - name: accounts-funding
+    coreDomains: [blockchain, compliance, custodian, fiat-banking, risk-limits, treasury]
+
+  - name: analytics-dashboard
+    coreDomains: [business-intelligence]
+
+  - name: auth-session
+    coreDomains: [auth]
+
+  - name: blockchain-bridge-tokenization
+    coreDomains: [blockchain]
+
+  - name: blockchain-networks
+    coreDomains: [blockchain]
+
+  - name: blockchain-policy-engine
+    coreDomains: [blockchain]
+
+  - name: blockchain-proof-center
+    coreDomains: [blockchain]
+
+  - name: blockchain-transfers
+    coreDomains: [blockchain]
+
+  - name: blockchain-wallets
+    coreDomains: [blockchain, custodian]
+
+  - name: client-comms-docs
+    coreDomains: [e-documents, events]
+
+  - name: compliance-reporting
+    coreDomains: [compliance, business-intelligence]
+
+  - name: developer-integrations
+    coreDomains: [gateway]
+
+  - name: escrow-workflows
+    coreDomains: [escrow]
+
+  - name: issuer-governance-corp-actions
+    coreDomains: [governance]
+
+  - name: marketplace-otc-auctions
+    coreDomains: [exchange, marketplace]
+
+  - name: notifications-center
+    coreDomains: [events]
+
+  - name: onboarding-identity
+    coreDomains: [auth, identity]
+
+  - name: ops-observability
+    coreDomains: [events]
+
+  - name: orders-execution
+    coreDomains: [exchange, risk-limits]
+
+  - name: platform-admin-tenant
+    coreDomains: [tenancy-trust]
+
+  - name: portfolio-analytics
+    coreDomains: [business-intelligence, exchange]
+
+  - name: primary-issuance
+    coreDomains: [governance]
+
+  - name: refdata-pricing
+    coreDomains: [exchange]
+
+  - name: risk-management
+    coreDomains: [risk-limits, exchange]
+
+  - name: sandbox-simulation
+    coreDomains: [sandbox]
+
+  - name: trading-markets
+    coreDomains: [exchange]
+
+  - name: treasury-settlements
+    coreDomains: [treasury, settlements]
+
+  - name: user-profile-preferences
+    coreDomains: [auth]
+
+  - name: wallets-custody
+    coreDomains: [custodian, blockchain]

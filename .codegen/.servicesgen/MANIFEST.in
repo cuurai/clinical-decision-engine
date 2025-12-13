@@ -1,0 +1,7 @@
+include README.md
+include LICENSE
+include requirements.txt
+include .cuur-codegen.example.json
+recursive-include examples *.json *.yaml
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]

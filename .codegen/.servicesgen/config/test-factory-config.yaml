@@ -1,0 +1,224 @@
+# Test Factory Configuration
+#
+# Configuration-driven approach for entity factory generation.
+# Schema introspection is primary source of truth - this file only provides overrides.
+#
+# The generator will:
+# 1. Introspect Zod schemas to discover required fields, types, regex patterns
+# 2. Apply overrides from this config file
+# 3. Generate factories based on schema + config
+
+# ID Generation Patterns
+# Maps entity names to ID generation configuration
+id_patterns:
+  account:
+    prefix: "acc_"
+    regex: "^acc_[0-9A-HJKMNP-TV-Z]{26}$"
+    char_set: "0123456789ABCDEFGHJKMNPQRSTVWXYZ" # Excludes I, O, L, U
+    length: 26
+
+  kyccase:
+    prefix: "CO_"
+    regex: "^CO_[0-9A-HJKMNPQRSTVWXYZ]{26}$"
+    char_set: "0123456789ABCDEFGHJKMNPQRSTVWXYZ" # Excludes I, O, L, U
+    length: 26
+
+  org:
+    prefix: "ID_"
+    regex: "^ID_[0-9A-HJKMNP-TV-Z]{26}$"
+    char_set: "0123456789ABCDEFGHJKMNPQRSTVWXYZ" # Excludes I, O, L, U
+    length: 26
+
+  document:
+    prefix: "ED_"
+    regex: "^ED_[0-9A-HJKMNP-TV-Z]{26}$"
+    char_set: "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
+    length: 26
+
+  documentsignature:
+    prefix: "ED_"
+    regex: "^ED_[0-9A-HJKMNP-TV-Z]{26}$"
+    char_set: "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
+    length: 26
+
+  chain:
+    prefix: "BL_"
+    regex: "^BL_[0-9A-HJKMNPQRSTVWXYZ]{26}$"
+    char_set: "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
+    length: 26
+
+# Entity Domain Mappings
+# Maps entity names to domains when entity exists in multiple domains
+# Format: entity_name -> domain_name
+entity_domains:
+  account:
+    # Account exists in both auth and identity domains
+    # Map based on handler service context
+    identity: "identity" # When handler is from identity service
+    auth: "auth" # When handler is from auth service
+    default: "identity" # Default fallback
+
+# Field Generation Overrides
+# Only specify fields that need custom generation logic
+# All other fields will be auto-generated from schema introspection
+field_overrides:
+  org:
+    entity_fields:
+      id:
+        generator: '`ID_${Array.from({ length: 26 }, () => faker.helpers.arrayElement("0123456789ABCDEFGHJKMNPQRSTVWXYZ".split(""))).join("")}`'
+        required: true
+      legalName:
+        generator: "faker.company.name()"
+        required: true
+      status:
+        generator: 'faker.helpers.arrayElement(["ACTIVE", "SUSPENDED", "CLOSED"])'
+        required: true
+      createdAt:
+        generator: "new Date().toISOString()"
+        required: false
+      updatedAt:
+        generator: "new Date().toISOString()"
+        required: false
+
+  account:
+    entity_fields:
+      id:
+        generator: '`acc_${Array.from({ length: 26 }, () => faker.helpers.arrayElement("0123456789ABCDEFGHJKMNPQRSTVWXYZ".split(""))).join("")}`'
+        required: true
+      email:
+        generator: "faker.internet.email()"
+        required: true
+      status:
+        generator: 'faker.helpers.arrayElement(["ACTIVE", "INACTIVE", "SUSPENDED"])'
+        required: true
+      type:
+        generator: 'faker.helpers.arrayElement(["INDIVIDUAL", "CORPORATE", "INSTITUTIONAL"])'
+        required: true
+      createdAt:
+        generator: "new Date().toISOString()"
+        required: false
+    input_fields:
+      email:
+        generator: "faker.internet.email()"
+        required: true
+      type:
+        generator: 'faker.helpers.arrayElement(["INDIVIDUAL", "CORPORATE", "INSTITUTIONAL"])'
+        required: true
+
+  kyccase:
+    entity_fields:
+      id:
+        generator: '`CO_${Array.from({ length: 26 }, () => faker.helpers.arrayElement("0123456789ABCDEFGHJKMNPQRSTVWXYZ".split(""))).join("")}`'
+        required: true
+      orgId:
+        generator: '`ID_${Array.from({ length: 26 }, () => faker.helpers.arrayElement("0123456789ABCDEFGHJKMNPQRSTVWXYZ".split(""))).join("")}`'
+        required: true
+      accountId:
+        generator: '`acc_${Array.from({ length: 26 }, () => faker.helpers.arrayElement("0123456789ABCDEFGHJKMNPQRSTVWXYZ".split(""))).join("")}`'
+        required: true
+      type:
+        generator: 'faker.helpers.arrayElement(["PERSON", "ENTITY"])'
+        required: true
+      status:
+        generator: 'faker.helpers.arrayElement(["PENDING", "APPROVED", "REJECTED"])'
+        required: true
+      createdAt:
+        generator: "new Date().toISOString()"
+        required: true
+
+  document:
+    entity_fields:
+      name:
+        generator: "faker.system.fileName()"
+        required: true
+      type:
+        generator: 'faker.helpers.arrayElement(["PDF", "DOCX", "IMAGE", "XLSX", "JSON"])'
+        required: true
+      status:
+        generator: 'faker.helpers.arrayElement(["DRAFT", "REVIEW", "PUBLISHED", "ARCHIVED"])'
+        required: true
+      mimeType:
+        generator: "faker.system.mimeType()"
+        required: false
+      bytes:
+        generator: "faker.number.int({ min: 1000, max: 10000000 })"
+        required: false
+
+  chain:
+    entity_fields:
+      id:
+        generator: '`BL_${faker.string.alphanumeric(26).toUpperCase()}`'
+        required: true
+      chainId:
+        generator: "String(faker.number.int({ min: 1, max: 999 }))"
+        required: true
+      name:
+        generator: "faker.word.noun()"
+        required: true
+      shortName:
+        generator: "faker.word.noun().slice(0, 4).toUpperCase()"
+        required: true
+      networkType:
+        generator: 'faker.helpers.arrayElement(["MAINNET", "TESTNET", "DEVNET"])'
+        required: true
+      layer:
+        generator: 'faker.helpers.arrayElement(["L1", "L2"])'
+        required: true
+      nativeCurrency:
+        generator: "faker.finance.currencyCode()"
+        required: true
+      decimals:
+        generator: "18"
+        required: false
+      blockTime:
+        generator: "faker.number.int({ min: 1, max: 15 })"
+        required: false
+      confirmations:
+        generator: "12"
+        required: false
+      explorerUrl:
+        generator: "faker.internet.url()"
+        required: false
+      docsUrl:
+        generator: "faker.internet.url()"
+        required: false
+      iconUrl:
+        generator: "faker.internet.url()"
+        required: false
+      genesisHash:
+        generator: "faker.string.hexadecimal({ length: 64 })"
+        required: false
+      chainNamespace:
+        generator: 'faker.helpers.arrayElement(["EVM", "COSMOS", "SOLANA", "POLKADOT"])'
+        required: false
+      status:
+        generator: 'faker.helpers.arrayElement(["ACTIVE", "DEPRECATED", "DISABLED"])'
+        required: true
+      createdBy:
+        generator: '"system"'
+        required: false
+      updatedBy:
+        generator: '"system"'
+        required: false
+      createdAt:
+        generator: "new Date().toISOString()"
+        required: false
+      updatedAt:
+        generator: "new Date().toISOString()"
+        required: false
+
+# Input Schema Name Overrides
+# Maps entity names to custom input schema names when they don't follow Create{Entity}Request pattern
+input_schema_overrides:
+  documentsignature:
+    schema_name: "CreateSignatureRequestRequest"
+
+# Default Configuration
+defaults:
+  id_generation:
+    prefix: ""
+    generator: "faker.string.uuid()"
+    comment: "Default: use UUID for ID"
+
+  org_id_chars: "0123456789ABCDEFGHJKMNPQRSTVWXYZ" # Excludes I, O, L, U
+  org_id_regex: "^ID_[0-9A-HJKMNP-TV-Z]{26}$"

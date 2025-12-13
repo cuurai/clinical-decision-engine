@@ -1,0 +1,255 @@
+CODEGEN CLI USAGE GUIDE FOR AI AGENTS
+=======================================
+
+⚠️ IMPORTANT: Always use the proper CLI command cuur-coregen. The CLI automatically finds the config file at `.codegen/.cuur-coregen.json`.
+
+QUICK START
+-----------
+
+1. Installation
+
+   cd .codegen
+   pip install -e .
+
+   This installs the cuur-coregen CLI command globally. Verify installation:
+
+   cuur-coregen --version
+
+2. Proper CLI Usage
+
+   ✅ CORRECT - Use the CLI command:
+
+   # Generate Core Layer (from project root)
+   cuur-coregen generate --domain blockchain --layer core --bundle
+
+   # Generate SDK Layer
+   cuur-coregen generate --domain blockchain --layer sdk --bundle
+
+   # Generate all domains (core)
+   cuur-coregen generate --all --layer core --bundle --no-build
+
+   # Generate all domains (SDK)
+   cuur-coregen generate --all --layer sdk --bundle --no-build
+
+   # Config file is automatically found at .codegen/.cuur-coregen.json
+   # No need to specify --config unless using a different location
+
+   ❌ WRONG - Do NOT use these primitive methods:
+
+   # DON'T use PYTHONPATH workarounds (unless CLI has issues)
+   PYTHONPATH=.codegen/src python3 -m quub_codegen.cli.main generate --all
+
+   # DON'T run Python modules directly
+   python3 -m quub_codegen.cli.main generate --all
+
+WHY USE THE CLI?
+----------------
+
+The cuur-coregen CLI provides:
+
+1. Automatic path resolution - Works from any directory, automatically finds project root
+2. Proper entry point - Uses Python's standard entry point system
+3. Consistent behavior - Same behavior regardless of where it's executed
+4. Error handling - Better error messages and validation
+5. Future-proof - Will work with future updates and improvements
+
+KEY FEATURES
+------------
+
+Layer Selection
+
+The codegen supports two layers:
+- `--layer core` - Generates handlers, repositories, DTOs, entities, types, schemas, converters
+- `--layer sdk` - Generates domain clients, OpenAPI types, Zod schemas
+
+Project Root Detection
+
+The codegen automatically detects the project root by looking for:
+- packages/ directory
+- openapi/ directory
+- package.json file
+
+This means it works correctly regardless of:
+- Where you run the command from
+- Where the config file is located
+- Where the codegen package is installed
+
+Configuration File
+
+Default location: .codegen/.cuur-coregen.json (automatically found)
+
+The CLI searches for config in:
+1. .codegen/.cuur-coregen.json (default)
+2. Current directory .cuur-coregen.json
+3. Parent directories (up to 5 levels)
+
+You can specify a custom config:
+
+cuur-coregen generate --config .codegen/.cuur-coregen.json --domain blockchain --layer core
+
+The config file paths are automatically resolved relative to the project root.
+
+COMMON COMMANDS
+---------------
+
+Generate Core Layer
+
+# Generate one domain (core)
+cuur-coregen generate --domain blockchain --layer core --bundle
+
+# Generate all domains (core)
+cuur-coregen generate --all --layer core --bundle --no-build
+
+# With clean
+cuur-coregen generate --all --layer core --bundle --clean --no-build
+
+Generate SDK Layer
+
+# Generate one domain (SDK)
+cuur-coregen generate --domain blockchain --layer sdk --bundle
+
+# Generate all domains (SDK)
+cuur-coregen generate --all --layer sdk --bundle --no-build
+
+# SDK generates: domain clients, OpenAPI types, Zod schemas, and domains/index.ts
+
+Common Flags
+
+--domain <name>     - Specify domain(s) to generate (can be used multiple times)
+--all               - Generate all enabled domains
+--layer [core|sdk]  - Select layer to generate (default: core)
+--bundle            - Bundle OpenAPI YAML files before generation
+--no-build          - Skip build validation (faster during development)
+--clean             - Clean output directories before generation
+--config <path>     - Specify config file (default: .codegen/.cuur-coregen.json)
+
+TROUBLESHOOTING
+---------------
+
+CLI Not Found
+
+If cuur-coregen command is not found:
+
+1. Verify installation:
+   pip show cuur-coregen
+
+2. Reinstall:
+   cd .codegen
+   pip install -e . --force-reinstall
+
+3. Check PATH:
+   which cuur-coregen
+
+Old Version Being Used
+
+If you see warnings about `.servicesgen` or old package paths:
+
+1. Uninstall old versions:
+   pip uninstall quub-codegen cuur-coregen -y
+
+2. Reinstall current version:
+   cd .codegen
+   pip install -e . --force-reinstall
+
+3. Verify correct version:
+   python3 -c "import quub_codegen; print(quub_codegen.__file__)"
+   # Should show: .../quub-exchange-core/.codegen/src/quub_codegen/__init__.py
+
+Path Resolution Issues
+
+The codegen automatically resolves paths relative to project root. If you encounter path issues:
+
+1. Verify project root detection:
+   cd /any/directory
+   cuur-coregen generate --domain auth --no-build --config /full/path/to/.cuur-coregen.json
+
+2. Check config file:
+   - Ensure project_root in config is correct (or omit it for auto-detection)
+   - All paths in config are resolved relative to project root
+
+BEST PRACTICES FOR AI AGENTS
+----------------------------
+
+1. Always use cuur-coregen command - Never use PYTHONPATH or python -m workarounds
+2. Run from any directory - The CLI handles path resolution automatically
+3. Use --no-build flag - Skip build validation during generation (faster)
+4. Specify config explicitly - Use --config flag for clarity
+5. Check for CLI first - Verify cuur-coregen --version works before generating
+
+EXAMPLE WORKFLOW
+----------------
+
+# 1. Install (if not already installed)
+cd .codegen && pip install -e .
+
+# 2. Verify installation
+cuur-coregen --version
+
+# 3. Generate core layer (from project root)
+cd /path/to/project/root
+cuur-coregen generate --domain blockchain --layer core --bundle --no-build
+
+# 4. Generate SDK layer
+cuur-coregen generate --domain blockchain --layer sdk --bundle --no-build
+
+# 5. Generate all domains (core)
+cuur-coregen generate --all --layer core --bundle --no-build
+
+# 6. Build to verify
+cd packages/core && npm run build
+
+ARCHITECTURE NOTES
+------------------
+
+The codegen uses:
+
+- Python entry points - Proper CLI installation via pyproject.toml
+- Project root detection - Automatic detection via find_project_root() utility
+- Absolute path resolution - All paths resolved relative to project root
+- Config file discovery - Automatic config file location detection
+
+This architecture ensures the codegen works correctly regardless of:
+- Working directory
+- Config file location
+- Codegen package location
+- Installation method
+
+FILE NAMING CONVENTIONS
+------------------------
+
+All generated files use dot notation for file type suffixes:
+
+Core Layer:
+- Handlers: {verb}-{resource}.handler.ts
+- DTOs: {verb}-{resource}.dto.ts
+- Entities: {resource}.entity.ts
+- Repositories: {resource}.repository.ts
+- Domain Types: {domain}.domain.types.ts
+- Schemas: {domain}.schemas.ts
+
+SDK Layer:
+- Domain Clients: {domain}.client.ts
+- OpenAPI Types: {domain}.openapi.types.ts
+- Zod Schemas: {domain}.zod.schema.ts
+- Domains Index: domains/index.ts
+
+Multi-word resource names use kebab-case, file type suffixes use dot notation.
+
+SUMMARY
+-------
+
+✅ DO:
+- Use cuur-coregen command
+- Specify --layer flag (core or sdk)
+- Use --bundle flag when bundled files don't exist
+- Run from project root (config auto-detected)
+- Use proper flags (--all, --domain, --layer, --bundle, --no-build)
+
+❌ DON'T:
+- Use PYTHONPATH workarounds (unless CLI has issues)
+- Run python -m quub_codegen.cli.main directly
+- Forget to specify --layer flag
+- Assume paths relative to current directory
+- Use old config paths (packages/codegen/.cuur-coregen.json)
+
+The CLI automatically finds .codegen/.cuur-coregen.json and handles path resolution!

@@ -1,0 +1,30 @@
+# Raw Domains Configuration
+# Simple list of technical service domains
+
+domains:
+  - auth
+  - blockchain
+  - business-intelligence
+  - compliance
+  - custodian
+  - e-documents
+  - escrow
+  - events
+  - exchange
+  - fees-billing
+  - fiat-banking
+  - gateway
+  - governance
+  - identity
+  - market-oracles
+  - marketplace
+  - notifications
+  - observability
+  - pricing-refdata
+  - primary-market
+  - risk-limits
+  - sandbox
+  - settlements
+  - tenancy-trust
+  - transfer-agent
+  - treasury

@@ -1,0 +1,113 @@
+{
+    "$schema": "./schema.json",
+    "domains": [
+        {
+            "name": "decision-intelligence",
+            "enabled": true,
+            "spec_path": "openapi-decision-intelligence.yaml",
+            "bundled_path": "openapi-decision-intelligence.json"
+        },
+        {
+            "name": "integration-interoperability",
+            "enabled": true,
+            "spec_path": "openapi-integration-interoperability.yaml",
+            "bundled_path": "openapi-integration-interoperability.json"
+        },
+        {
+            "name": "knowledge-evidence",
+            "enabled": true,
+            "spec_path": "openapi-knowledge-evidence.yaml",
+            "bundled_path": "openapi-knowledge-evidence.json"
+        },
+        {
+            "name": "patient-clinical-data",
+            "enabled": true,
+            "spec_path": "openapi-patient-clinical-data.yaml",
+            "bundled_path": "openapi-patient-clinical-data.json"
+        },
+        {
+            "name": "workflow-care-pathways",
+            "enabled": true,
+            "spec_path": "openapi-workflow-care-pathways.yaml",
+            "bundled_path": "openapi-workflow-care-pathways.json"
+        }
+    ],
+    "paths": {
+        "project_root": "/Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine",
+        "openapi_dir": "/Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine",
+        "bundled_dir": "/Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/.bundled"
+    },
+    "layers": {
+        "core": {
+            "handlers": {
+                "enabled": true,
+                "include_js_docs": true,
+                "include_validation": true
+            },
+            "types": {
+                "enabled": true,
+                "re_export_generated_types": true
+            },
+            "schemas_file": {
+                "enabled": true,
+                "base_url": "https://api.cuurai.com/api/v1"
+            },
+            "converters": {
+                "enabled": true
+            },
+            "include_repositories": true,
+            "include_validation": true,
+            "include_converters": true,
+            "schemas": {
+                "enabled": true
+            }
+        },
+        "sdk": {
+            "enabled": true,
+            "generate_types": true,
+            "generate_schemas": true,
+            "generate_clients": true,
+            "base_url": "https://api.cuurai.com/api/v1"
+        }
+    },
+    "generators": {
+        "handler": {
+            "enabled": true,
+            "include_js_docs": true,
+            "namespace_exports": false
+        },
+        "repository": {
+            "enabled": true,
+            "validate_entity_types": true
+        },
+        "schema": {
+            "enabled": true,
+            "include_validation": true
+        },
+        "types": {
+            "enabled": true,
+            "filter_shared_types": true
+        }
+    },
+    "pipeline": {
+        "clean": false,
+        "validate": true,
+        "skip_build": false,
+        "parallel": false,
+        "fail_fast": true,
+        "rollback": false
+    },
+    "build": {
+        "run_after_generate": true,
+        "packages": [
+            "@cuur/core"
+        ]
+    },
+    "git": {
+        "auto_commit": false,
+        "commit_message": "chore: regenerate code"
+    },
+    "log_level": "info",
+    "verbose": false,
+    "version": "1.0.0"
+}

@@ -1,0 +1,54 @@
+{
+  "name": "@cuurai/clinical-decision-engine",
+  "version": "1.0.0",
+  "description": "Clinical Decision Engine - Core domain logic and types",
+  "type": "module",
+  "main": "./dist/packages/core/index.js",
+  "types": "./dist/packages/core/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/packages/core/index.d.ts",
+      "default": "./dist/packages/core/index.js"
+    },
+    "./core": {
+      "types": "./dist/packages/core/index.d.ts",
+      "default": "./dist/packages/core/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"**/*.{ts,json,md}\"",
+    "generate": "cuur-coregen generate --all --layer core --bundle --no-build --config .codegen/.cuur-coregen.json",
+    "bundle:openapi": "cd openapi && for yaml in openapi-*.yaml; do npx --yes @redocly/cli@latest bundle \"$yaml\" -o \".bundled/${yaml%.yaml}.json\" --force; done",
+    "generate:types": "for json in openapi/.bundled/openapi-*.json; do domain=$(basename \"$json\" .json | sed 's/openapi-//'); mkdir -p \"packages/core/src/$domain/openapi\"; npx --yes openapi-typescript@latest \"$json\" -o \"packages/core/src/$domain/openapi/$domain.openapi.types.ts\"; done"
+  },
+  "keywords": [
+    "clinical-decision-engine",
+    "openapi",
+    "typescript",
+    "healthcare"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@zodios/core": "^10.9.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
