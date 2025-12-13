@@ -18,7 +18,7 @@ import type {
   WorkflowInstanceRepository,
 } from "@cuur/core/workflow-care-pathways/repositories/index.js";
 import type {
-  Timestamps,
+  WorkflowInstance, Timestamps,
   WorkflowInstanceInput,
   WorkflowInstanceUpdate,
 } from "@cuur/core/workflow-care-pathways/types/index.js";
@@ -37,7 +37,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<WorkflowInstance>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<WorkflowInstance | null> {
     try {
       const record = await this.dao.workflowInstance.findFirst({
         where: {
@@ -81,20 +81,28 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<WorkflowInstance | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("WorkflowInstance", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: WorkflowInstanceInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: WorkflowInstance): Promise<WorkflowInstance> {
+    // Note: Repository interface expects WorkflowInstance, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as WorkflowInstanceInput;
+    try
+    // Note: Repository interface expects WorkflowInstance, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as WorkflowInstanceInput;
+    try
     try {
       const record = await this.dao.workflowInstance.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +111,13 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: WorkflowInstanceUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: WorkflowInstanceUpdate): Promise<WorkflowInstance> {
     try {
       const record = await this.dao.workflowInstance.update({
         where: { id },
         data: {
-          ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          ...inputData,
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +126,14 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.workflowInstance.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +141,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<WorkflowInstanceInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<WorkflowInstanceInput>): Promise<WorkflowInstance[]> {
     try {
       // Use createMany for better performance
       await this.dao.workflowInstance.createMany({
@@ -160,11 +168,11 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: WorkflowInstanceUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: WorkflowInstanceUpdate }>): Promise<WorkflowInstance[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: WorkflowInstance[] = [];
         for (const { id, data } of updates) {
           const record = await tx.workflowInstance.update({
             where: { id },
@@ -179,7 +187,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.workflowInstance.updateMany({
@@ -189,7 +197,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +205,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): WorkflowInstance {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +214,6 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as WorkflowInstance;
   }
 }

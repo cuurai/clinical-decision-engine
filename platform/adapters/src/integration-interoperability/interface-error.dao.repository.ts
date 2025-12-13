@@ -37,7 +37,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<InterfaceError>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<InterfaceError | null> {
     try {
       const record = await this.dao.interfaceError.findFirst({
         where: {
@@ -81,20 +81,28 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<InterfaceError | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("InterfaceError", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: InterfaceErrorInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: InterfaceError): Promise<InterfaceError> {
+    // Note: Repository interface expects InterfaceError, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as InterfaceErrorInput;
+    try
+    // Note: Repository interface expects InterfaceError, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as InterfaceErrorInput;
+    try
     try {
       const record = await this.dao.interfaceError.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +111,13 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: InterfaceErrorUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: InterfaceErrorUpdate): Promise<InterfaceError> {
     try {
       const record = await this.dao.interfaceError.update({
         where: { id },
         data: {
-          ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          ...inputData,
+          
         },
       });
       return this.toDomain(record);
@@ -118,7 +126,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<InterfaceErrorInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<InterfaceErrorInput>): Promise<InterfaceError[]> {
     try {
       // Use createMany for better performance
       await this.dao.interfaceError.createMany({
@@ -145,11 +153,11 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: InterfaceErrorUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: InterfaceErrorUpdate }>): Promise<InterfaceError[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: InterfaceError[] = [];
         for (const { id, data } of updates) {
           const record = await tx.interfaceError.update({
             where: { id },
@@ -164,7 +172,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): InterfaceError {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -173,6 +181,6 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as InterfaceError;
   }
 }

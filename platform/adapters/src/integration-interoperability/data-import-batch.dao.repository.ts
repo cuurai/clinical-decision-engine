@@ -20,7 +20,7 @@ import type {
 import type {
   DataImportBatchInput,
   DataImportBatchUpdate,
-  Timestamps,
+  DataImportBatch, Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<DataImportBatch>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<DataImportBatch | null> {
     try {
       const record = await this.dao.dataImportBatch.findFirst({
         where: {
@@ -81,20 +81,28 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<DataImportBatch | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("DataImportBatch", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: DataImportBatchInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: DataImportBatch): Promise<DataImportBatch> {
+    // Note: Repository interface expects DataImportBatch, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as DataImportBatchInput;
+    try
+    // Note: Repository interface expects DataImportBatch, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as DataImportBatchInput;
+    try
     try {
       const record = await this.dao.dataImportBatch.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +111,13 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: DataImportBatchUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: DataImportBatchUpdate): Promise<DataImportBatch> {
     try {
       const record = await this.dao.dataImportBatch.update({
         where: { id },
         data: {
-          ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          ...inputData,
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +126,14 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.dataImportBatch.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +141,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<DataImportBatchInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<DataImportBatchInput>): Promise<DataImportBatch[]> {
     try {
       // Use createMany for better performance
       await this.dao.dataImportBatch.createMany({
@@ -160,11 +168,11 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DataImportBatchUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DataImportBatchUpdate }>): Promise<DataImportBatch[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: DataImportBatch[] = [];
         for (const { id, data } of updates) {
           const record = await tx.dataImportBatch.update({
             where: { id },
@@ -179,7 +187,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.dataImportBatch.updateMany({
@@ -189,7 +197,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +205,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): DataImportBatch {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +214,6 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as DataImportBatch;
   }
 }

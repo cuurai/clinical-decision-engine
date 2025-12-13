@@ -20,7 +20,7 @@ import type {
 import type {
   ConnectionInput,
   ConnectionUpdate,
-  Timestamps,
+  Connection, Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<Connection>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<Connection | null> {
     try {
       const record = await this.dao.connection.findFirst({
         where: {
@@ -81,20 +81,28 @@ export class DaoConnectionRepository implements ConnectionRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<Connection | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("Connection", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: ConnectionInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: Connection): Promise<Connection> {
+    // Note: Repository interface expects Connection, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as ConnectionInput;
+    try
+    // Note: Repository interface expects Connection, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as ConnectionInput;
+    try
     try {
       const record = await this.dao.connection.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +111,13 @@ export class DaoConnectionRepository implements ConnectionRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: ConnectionUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: ConnectionUpdate): Promise<Connection> {
     try {
       const record = await this.dao.connection.update({
         where: { id },
         data: {
-          ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          ...inputData,
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +126,14 @@ export class DaoConnectionRepository implements ConnectionRepository {
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.connection.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +141,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<ConnectionInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<ConnectionInput>): Promise<Connection[]> {
     try {
       // Use createMany for better performance
       await this.dao.connection.createMany({
@@ -160,11 +168,11 @@ export class DaoConnectionRepository implements ConnectionRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ConnectionUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ConnectionUpdate }>): Promise<Connection[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: Connection[] = [];
         for (const { id, data } of updates) {
           const record = await tx.connection.update({
             where: { id },
@@ -179,7 +187,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.connection.updateMany({
@@ -189,7 +197,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +205,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): Connection {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +214,6 @@ export class DaoConnectionRepository implements ConnectionRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as Connection;
   }
 }

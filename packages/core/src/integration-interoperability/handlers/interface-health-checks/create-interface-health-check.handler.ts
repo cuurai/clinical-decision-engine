@@ -5,18 +5,20 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { CreateInterfaceHealthCheckResponse } from "../../types/index.js";
+import type {
+  CreateInterfaceHealthCheckResponse,
+  CreateInterfaceHealthCheckInput,
+} from "../../types/index.js";
 import type { InterfaceHealthCheckRepository } from "../../repositories/index.js";
 import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
- * TODO: Uncomment when implementing handler logic that uses validated input
  */
-// function mapInputToValidated(input: unknown): any {
-//   // Note: Request body validation is handled by service layer schemas
-//   // Handlers accept validated input and focus on business logic
-//   return input;
-// }
+function mapInputToValidated(input: unknown): CreateInterfaceHealthCheckInput {
+  // Note: Request body validation is handled by service layer schemas
+  // Handlers accept validated input and focus on business logic
+  return input as CreateInterfaceHealthCheckInput;
+}
 
 /**
  * Create interface health check (immutable)
@@ -26,29 +28,25 @@ import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
  *
  */
 export async function createInterfaceHealthCheck(
-  // TODO: Use repo when implementing handler logic,
-  _repo: InterfaceHealthCheckRepository,
-  // TODO: Use orgId when implementing handler logic,
-  _orgId: string,
-  // TODO: Use input when implementing handler logic,
-  _input: unknown
+  repo: InterfaceHealthCheckRepository,
+  orgId: string,
+  input: unknown
 ): Promise<CreateInterfaceHealthCheckResponse> {
   // 1. Validate input
-  // TODO: Use validated input when implementing query logic
-  // const validated = mapInputToValidated(input);
+  const validated = mapInputToValidated(input);
 
-  // 2. Query/evaluate operation - read from repositories to compute result
-  // TODO: Implement query logic using repository to read entities
-  // TODO: Use repo, orgId, and validated when implementing: const subscription = await repo.findById(orgId, orgId);
+  // 2. Domain input → Repository call
+  if (!validated.data) {
+    throw new Error("Invalid input: data is required");
+  }
+  const interfaceHealthCheck = await repo.create(orgId, validated.data);
 
-  // 3. Return Response DTO with computed result
+  // 3. Repository result → response envelope
   return {
-    data: {
-      // TODO: Populate Response DTO properties based on repository reads
-    },
+    data: interfaceHealthCheck,
     meta: {
       correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
-  } as CreateInterfaceHealthCheckResponse;
+  };
 }

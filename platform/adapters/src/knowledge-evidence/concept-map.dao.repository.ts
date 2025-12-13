@@ -20,7 +20,7 @@ import type {
 import type {
   ConceptMapInput,
   ConceptMapUpdate,
-  Timestamps,
+  ConceptMap, Timestamps,
 } from "@cuur/core/knowledge-evidence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<ConceptMap>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<ConceptMap | null> {
     try {
       const record = await this.dao.conceptMap.findFirst({
         where: {
@@ -81,20 +81,24 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<ConceptMap | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("ConceptMap", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: ConceptMapInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: ConceptMap): Promise<ConceptMap> {
+    // Note: Repository interface expects ConceptMap, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as ConceptMapInput;
+    try
     try {
       const record = await this.dao.conceptMap.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +107,13 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: ConceptMapUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: ConceptMapUpdate): Promise<ConceptMap> {
     try {
       const record = await this.dao.conceptMap.update({
         where: { id },
         data: {
           ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +122,14 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.conceptMap.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +137,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<ConceptMapInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<ConceptMapInput>): Promise<ConceptMap[]> {
     try {
       // Use createMany for better performance
       await this.dao.conceptMap.createMany({
@@ -160,11 +164,11 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ConceptMapUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ConceptMapUpdate }>): Promise<ConceptMap[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: ConceptMap[] = [];
         for (const { id, data } of updates) {
           const record = await tx.conceptMap.update({
             where: { id },
@@ -179,7 +183,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.conceptMap.updateMany({
@@ -189,7 +193,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +201,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): ConceptMap {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +210,6 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as ConceptMap;
   }
 }

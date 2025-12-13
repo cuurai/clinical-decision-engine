@@ -19,7 +19,7 @@ import type {
 } from "@cuur/core/integration-interoperability/repositories/index.js";
 import type {
   FHIRBundleInput,
-  Timestamps,
+  Fhirbundle, Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -36,7 +36,7 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<Fhirbundle>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -65,7 +65,7 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<Fhirbundle | null> {
     try {
       const record = await this.dao.fhirbundle.findFirst({
         where: {
@@ -80,20 +80,20 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<Fhirbundle | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("Fhirbundle", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: FHIRBundleInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: Fhirbundle): Promise<Fhirbundle> {
     try {
       const record = await this.dao.fhirbundle.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -102,14 +102,14 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.fhirbundle.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -117,7 +117,7 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<FHIRBundleInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<FHIRBundleInput>): Promise<Fhirbundle[]> {
     try {
       // Use createMany for better performance
       await this.dao.fhirbundle.createMany({
@@ -144,7 +144,7 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.fhirbundle.updateMany({
@@ -154,7 +154,7 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -162,7 +162,7 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): Fhirbundle {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -171,6 +171,6 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as Fhirbundle;
   }
 }

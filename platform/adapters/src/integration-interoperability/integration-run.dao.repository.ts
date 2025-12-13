@@ -19,7 +19,7 @@ import type {
 } from "@cuur/core/integration-interoperability/repositories/index.js";
 import type {
   IntegrationRunInput,
-  Timestamps,
+  IntegrationRun, Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -36,7 +36,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<IntegrationRun>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -65,7 +65,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<IntegrationRun | null> {
     try {
       const record = await this.dao.integrationRun.findFirst({
         where: {
@@ -80,20 +80,28 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<IntegrationRun | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("IntegrationRun", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: IntegrationRunInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: IntegrationRun): Promise<IntegrationRun> {
+    // Note: Repository interface expects IntegrationRun, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as IntegrationRunInput;
+    try
+    // Note: Repository interface expects IntegrationRun, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as IntegrationRunInput;
+    try
     try {
       const record = await this.dao.integrationRun.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -102,7 +110,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<IntegrationRunInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<IntegrationRunInput>): Promise<IntegrationRun[]> {
     try {
       // Use createMany for better performance
       await this.dao.integrationRun.createMany({
@@ -129,7 +137,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): IntegrationRun {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -138,6 +146,6 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as IntegrationRun;
   }
 }

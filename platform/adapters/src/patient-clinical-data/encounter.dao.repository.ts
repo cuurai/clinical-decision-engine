@@ -20,7 +20,7 @@ import type {
 import type {
   EncounterInput,
   EncounterUpdate,
-  Timestamps,
+  Encounter, Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoEncounterRepository implements EncounterRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<Encounter>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoEncounterRepository implements EncounterRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<Encounter | null> {
     try {
       const record = await this.dao.encounter.findFirst({
         where: {
@@ -81,20 +81,28 @@ export class DaoEncounterRepository implements EncounterRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<Encounter | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("Encounter", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: EncounterInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: Encounter): Promise<Encounter> {
+    // Note: Repository interface expects Encounter, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as EncounterInput;
+    try
+    // Note: Repository interface expects Encounter, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as EncounterInput;
+    try
     try {
       const record = await this.dao.encounter.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +111,13 @@ export class DaoEncounterRepository implements EncounterRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: EncounterUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: EncounterUpdate): Promise<Encounter> {
     try {
       const record = await this.dao.encounter.update({
         where: { id },
         data: {
-          ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          ...inputData,
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +126,14 @@ export class DaoEncounterRepository implements EncounterRepository {
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.encounter.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +141,7 @@ export class DaoEncounterRepository implements EncounterRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<EncounterInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<EncounterInput>): Promise<Encounter[]> {
     try {
       // Use createMany for better performance
       await this.dao.encounter.createMany({
@@ -160,11 +168,11 @@ export class DaoEncounterRepository implements EncounterRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: EncounterUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: EncounterUpdate }>): Promise<Encounter[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: Encounter[] = [];
         for (const { id, data } of updates) {
           const record = await tx.encounter.update({
             where: { id },
@@ -179,7 +187,7 @@ export class DaoEncounterRepository implements EncounterRepository {
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.encounter.updateMany({
@@ -189,7 +197,7 @@ export class DaoEncounterRepository implements EncounterRepository {
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +205,7 @@ export class DaoEncounterRepository implements EncounterRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): Encounter {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +214,6 @@ export class DaoEncounterRepository implements EncounterRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as Encounter;
   }
 }

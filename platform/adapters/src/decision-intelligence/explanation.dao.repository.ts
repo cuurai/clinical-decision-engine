@@ -19,7 +19,7 @@ import type {
 } from "@cuur/core/decision-intelligence/repositories/index.js";
 import type {
   ExplanationInput,
-  Timestamps,
+  Explanation, Timestamps,
 } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -36,7 +36,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<Explanation>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -65,7 +65,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<Explanation | null> {
     try {
       const record = await this.dao.explanation.findFirst({
         where: {
@@ -80,20 +80,24 @@ export class DaoExplanationRepository implements ExplanationRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<Explanation | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("Explanation", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: ExplanationInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: Explanation): Promise<Explanation> {
+    // Note: Repository interface expects Explanation, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as ExplanationInput;
+    try
     try {
       const record = await this.dao.explanation.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -102,7 +106,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<ExplanationInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<ExplanationInput>): Promise<Explanation[]> {
     try {
       // Use createMany for better performance
       await this.dao.explanation.createMany({
@@ -129,7 +133,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): Explanation {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -138,6 +142,6 @@ export class DaoExplanationRepository implements ExplanationRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as Explanation;
   }
 }

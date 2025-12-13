@@ -20,7 +20,7 @@ import type {
 import type {
   ScheduleTemplateInput,
   ScheduleTemplateUpdate,
-  Timestamps,
+  ScheduleTemplate, Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<ScheduleTemplate>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<ScheduleTemplate | null> {
     try {
       const record = await this.dao.scheduleTemplate.findFirst({
         where: {
@@ -81,20 +81,28 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<ScheduleTemplate | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("ScheduleTemplate", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: ScheduleTemplateInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: ScheduleTemplate): Promise<ScheduleTemplate> {
+    // Note: Repository interface expects ScheduleTemplate, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as ScheduleTemplateInput;
+    try
+    // Note: Repository interface expects ScheduleTemplate, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as ScheduleTemplateInput;
+    try
     try {
       const record = await this.dao.scheduleTemplate.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +111,13 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: ScheduleTemplateUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: ScheduleTemplateUpdate): Promise<ScheduleTemplate> {
     try {
       const record = await this.dao.scheduleTemplate.update({
         where: { id },
         data: {
-          ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          ...inputData,
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +126,14 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.scheduleTemplate.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +141,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<ScheduleTemplateInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<ScheduleTemplateInput>): Promise<ScheduleTemplate[]> {
     try {
       // Use createMany for better performance
       await this.dao.scheduleTemplate.createMany({
@@ -160,11 +168,11 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ScheduleTemplateUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ScheduleTemplateUpdate }>): Promise<ScheduleTemplate[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: ScheduleTemplate[] = [];
         for (const { id, data } of updates) {
           const record = await tx.scheduleTemplate.update({
             where: { id },
@@ -179,7 +187,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.scheduleTemplate.updateMany({
@@ -189,7 +197,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +205,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): ScheduleTemplate {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +214,6 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as ScheduleTemplate;
   }
 }

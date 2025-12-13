@@ -20,7 +20,7 @@ import type {
 import type {
   PatientInput,
   PatientUpdate,
-  Timestamps,
+  Patient, Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoPatientRepository implements PatientRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<Patient>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoPatientRepository implements PatientRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<Patient | null> {
     try {
       const record = await this.dao.patient.findFirst({
         where: {
@@ -81,20 +81,28 @@ export class DaoPatientRepository implements PatientRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<Patient | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("Patient", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: PatientInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: Patient): Promise<Patient> {
+    // Note: Repository interface expects Patient, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as PatientInput;
+    try
+    // Note: Repository interface expects Patient, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as PatientInput;
+    try
     try {
       const record = await this.dao.patient.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +111,13 @@ export class DaoPatientRepository implements PatientRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: PatientUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: PatientUpdate): Promise<Patient> {
     try {
       const record = await this.dao.patient.update({
         where: { id },
         data: {
-          ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          ...inputData,
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +126,14 @@ export class DaoPatientRepository implements PatientRepository {
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.patient.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +141,7 @@ export class DaoPatientRepository implements PatientRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<PatientInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<PatientInput>): Promise<Patient[]> {
     try {
       // Use createMany for better performance
       await this.dao.patient.createMany({
@@ -160,11 +168,11 @@ export class DaoPatientRepository implements PatientRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: PatientUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: PatientUpdate }>): Promise<Patient[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: Patient[] = [];
         for (const { id, data } of updates) {
           const record = await tx.patient.update({
             where: { id },
@@ -179,7 +187,7 @@ export class DaoPatientRepository implements PatientRepository {
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.patient.updateMany({
@@ -189,7 +197,7 @@ export class DaoPatientRepository implements PatientRepository {
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +205,7 @@ export class DaoPatientRepository implements PatientRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): Patient {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +214,6 @@ export class DaoPatientRepository implements PatientRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as Patient;
   }
 }

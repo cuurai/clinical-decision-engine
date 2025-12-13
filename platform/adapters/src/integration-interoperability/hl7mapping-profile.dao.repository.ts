@@ -20,7 +20,7 @@ import type {
 import type {
   HL7MappingProfileInput,
   HL7MappingProfileUpdate,
-  Timestamps,
+  Hl7mappingProfile, Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<Hl7mappingProfile>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<Hl7mappingProfile | null> {
     try {
       const record = await this.dao.hl7mappingProfile.findFirst({
         where: {
@@ -81,20 +81,20 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<Hl7mappingProfile | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("Hl7mappingProfile", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: HL7MappingProfileInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: Hl7mappingProfile): Promise<Hl7mappingProfile> {
     try {
       const record = await this.dao.hl7mappingProfile.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +103,13 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: HL7MappingProfileUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: Hl7mappingProfileUpdate): Promise<Hl7mappingProfile> {
     try {
       const record = await this.dao.hl7mappingProfile.update({
         where: { id },
         data: {
           ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +118,14 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.hl7mappingProfile.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +133,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<HL7MappingProfileInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<HL7MappingProfileInput>): Promise<Hl7mappingProfile[]> {
     try {
       // Use createMany for better performance
       await this.dao.hl7mappingProfile.createMany({
@@ -160,11 +160,11 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: HL7MappingProfileUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: HL7MappingProfileUpdate }>): Promise<Hl7mappingProfile[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: Hl7mappingProfile[] = [];
         for (const { id, data } of updates) {
           const record = await tx.hl7mappingProfile.update({
             where: { id },
@@ -179,7 +179,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.hl7mappingProfile.updateMany({
@@ -189,7 +189,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +197,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): Hl7mappingProfile {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +206,6 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as Hl7mappingProfile;
   }
 }

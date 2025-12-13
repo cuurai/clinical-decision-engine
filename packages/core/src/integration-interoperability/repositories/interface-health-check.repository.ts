@@ -9,17 +9,20 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CreateReadRepository,
-} from "../../shared/repositories/_base-repository.js";
+import type { CreateReadRepository } from "../../shared/repositories/_base-repository.js";
 
 import type {
   InterfaceHealthCheck,
-  ListInterfaceHealthChecksParams
+  InterfaceHealthCheckInput,
+  ListInterfaceHealthChecksParams,
 } from "../types/index.js";
 /**
  * InterfaceHealthCheckRepository Interface
  */
-export interface InterfaceHealthCheckRepository extends CreateReadRepository<InterfaceHealthCheck, InterfaceHealthCheck, string, ListInterfaceHealthChecksParams> {
-
-}
+export interface InterfaceHealthCheckRepository
+  extends CreateReadRepository<
+    InterfaceHealthCheck,
+    InterfaceHealthCheckInput,
+    string,
+    ListInterfaceHealthChecksParams
+  > {}

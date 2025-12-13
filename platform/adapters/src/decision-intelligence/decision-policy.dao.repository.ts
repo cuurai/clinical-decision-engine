@@ -20,7 +20,7 @@ import type {
 import type {
   DecisionPolicyInput,
   DecisionPolicyUpdate,
-  Timestamps,
+  DecisionPolicy, Timestamps,
 } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<DecisionPolicy>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<DecisionPolicy | null> {
     try {
       const record = await this.dao.decisionPolicy.findFirst({
         where: {
@@ -81,20 +81,24 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<DecisionPolicy | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("DecisionPolicy", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: DecisionPolicyInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: DecisionPolicy): Promise<DecisionPolicy> {
+    // Note: Repository interface expects DecisionPolicy, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as DecisionPolicyInput;
+    try
     try {
       const record = await this.dao.decisionPolicy.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +107,13 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: DecisionPolicyUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: DecisionPolicyUpdate): Promise<DecisionPolicy> {
     try {
       const record = await this.dao.decisionPolicy.update({
         where: { id },
         data: {
           ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +122,14 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.decisionPolicy.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +137,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<DecisionPolicyInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<DecisionPolicyInput>): Promise<DecisionPolicy[]> {
     try {
       // Use createMany for better performance
       await this.dao.decisionPolicy.createMany({
@@ -160,11 +164,11 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DecisionPolicyUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DecisionPolicyUpdate }>): Promise<DecisionPolicy[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: DecisionPolicy[] = [];
         for (const { id, data } of updates) {
           const record = await tx.decisionPolicy.update({
             where: { id },
@@ -179,7 +183,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.decisionPolicy.updateMany({
@@ -189,7 +193,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +201,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): DecisionPolicy {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +210,6 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as DecisionPolicy;
   }
 }

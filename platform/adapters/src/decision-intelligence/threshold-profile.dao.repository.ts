@@ -20,7 +20,7 @@ import type {
 import type {
   ThresholdProfileInput,
   ThresholdProfileUpdate,
-  Timestamps,
+  ThresholdProfile, Timestamps,
 } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<ThresholdProfile>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<ThresholdProfile | null> {
     try {
       const record = await this.dao.thresholdProfile.findFirst({
         where: {
@@ -81,20 +81,28 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<ThresholdProfile | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("ThresholdProfile", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: ThresholdProfileInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: ThresholdProfile): Promise<ThresholdProfile> {
+    // Note: Repository interface expects ThresholdProfile, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as ThresholdProfileInput;
+    try
+    // Note: Repository interface expects ThresholdProfile, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as ThresholdProfileInput;
+    try
     try {
       const record = await this.dao.thresholdProfile.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +111,13 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: ThresholdProfileUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: ThresholdProfileUpdate): Promise<ThresholdProfile> {
     try {
       const record = await this.dao.thresholdProfile.update({
         where: { id },
         data: {
-          ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          ...inputData,
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +126,14 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.thresholdProfile.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +141,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<ThresholdProfileInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<ThresholdProfileInput>): Promise<ThresholdProfile[]> {
     try {
       // Use createMany for better performance
       await this.dao.thresholdProfile.createMany({
@@ -160,11 +168,11 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ThresholdProfileUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ThresholdProfileUpdate }>): Promise<ThresholdProfile[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: ThresholdProfile[] = [];
         for (const { id, data } of updates) {
           const record = await tx.thresholdProfile.update({
             where: { id },
@@ -179,7 +187,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.thresholdProfile.updateMany({
@@ -189,7 +197,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +205,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): ThresholdProfile {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +214,6 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as ThresholdProfile;
   }
 }

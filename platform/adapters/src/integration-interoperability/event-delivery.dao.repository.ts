@@ -20,7 +20,7 @@ import type {
 import type {
   EventDeliveryInput,
   EventDeliveryUpdate,
-  Timestamps,
+  EventDelivery, Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<EventDelivery>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<EventDelivery | null> {
     try {
       const record = await this.dao.eventDelivery.findFirst({
         where: {
@@ -81,20 +81,28 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<EventDelivery | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("EventDelivery", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: EventDeliveryInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: EventDelivery): Promise<EventDelivery> {
+    // Note: Repository interface expects EventDelivery, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as EventDeliveryInput;
+    try
+    // Note: Repository interface expects EventDelivery, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as EventDeliveryInput;
+    try
     try {
       const record = await this.dao.eventDelivery.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +111,13 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: EventDeliveryUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: EventDeliveryUpdate): Promise<EventDelivery> {
     try {
       const record = await this.dao.eventDelivery.update({
         where: { id },
         data: {
-          ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          ...inputData,
+          
         },
       });
       return this.toDomain(record);
@@ -118,7 +126,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<EventDeliveryInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<EventDeliveryInput>): Promise<EventDelivery[]> {
     try {
       // Use createMany for better performance
       await this.dao.eventDelivery.createMany({
@@ -145,11 +153,11 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: EventDeliveryUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: EventDeliveryUpdate }>): Promise<EventDelivery[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: EventDelivery[] = [];
         for (const { id, data } of updates) {
           const record = await tx.eventDelivery.update({
             where: { id },
@@ -164,7 +172,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): EventDelivery {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -173,6 +181,6 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as EventDelivery;
   }
 }

@@ -9,18 +9,22 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CrudRepository,
-} from "../../shared/repositories/_base-repository.js";
+import type { CrudRepository } from "../../shared/repositories/_base-repository.js";
 
 import type {
   ChecklistTemplate,
+  ChecklistTemplateInput,
   ListChecklistTemplatesParams,
-  UpdateChecklistTemplateRequest
+  UpdateChecklistTemplateRequest,
 } from "../types/index.js";
 /**
  * ChecklistTemplateRepository Interface
  */
-export interface ChecklistTemplateRepository extends CrudRepository<ChecklistTemplate, ChecklistTemplate, UpdateChecklistTemplateRequest, string, ListChecklistTemplatesParams> {
-
-}
+export interface ChecklistTemplateRepository
+  extends CrudRepository<
+    ChecklistTemplate,
+    ChecklistTemplateInput,
+    UpdateChecklistTemplateRequest,
+    string,
+    ListChecklistTemplatesParams
+  > {}

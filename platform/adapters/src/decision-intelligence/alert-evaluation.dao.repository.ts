@@ -9,18 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { AlertEvaluationRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
 import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  AlertEvaluationRepository,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
-import type {
+  AlertEvaluation,
   AlertEvaluationInput,
   AlertEvaluationUpdate,
-  Timestamps,
+  ListAlertEvaluationsParams,
 } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -36,8 +31,8 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
 
   async list(
     orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+    params?: ListAlertEvaluationsParams
+  ): Promise<PaginatedResult<AlertEvaluation>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +43,17 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params?.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -66,7 +61,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<AlertEvaluation | null> {
     try {
       const record = await this.dao.alertEvaluation.findFirst({
         where: {
@@ -81,20 +76,22 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<AlertEvaluation | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("AlertEvaluation", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: AlertEvaluationInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: AlertEvaluation): Promise<AlertEvaluation> {
+    // Note: Repository interface expects AlertEvaluation, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as AlertEvaluationInput;
     try {
       const record = await this.dao.alertEvaluation.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
         },
       });
       return this.toDomain(record);
@@ -103,14 +100,11 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: AlertEvaluationUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: AlertEvaluationUpdate): Promise<AlertEvaluation> {
     try {
       const record = await this.dao.alertEvaluation.update({
         where: { id },
-        data: {
-          ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
-        },
+        data,
       });
       return this.toDomain(record);
     } catch (error) {
@@ -118,14 +112,13 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.alertEvaluation.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
         },
       });
     } catch (error) {
@@ -133,79 +126,11 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<AlertEvaluationInput>): Promise<Timestamps[]> {
-    try {
-      // Use createMany for better performance
-      await this.dao.alertEvaluation.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
-      });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.alertEvaluation.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
-    }
-  }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: AlertEvaluationUpdate }>): Promise<Timestamps[]> {
-    try {
-      // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
-        for (const { id, data } of updates) {
-          const record = await tx.alertEvaluation.update({
-            where: { id },
-            data,
-          });
-          results.push(this.toDomain(record));
-        }
-        return results;
-      });
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
-    }
-  }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
-    try {
-      // Soft delete: set deletedAt for multiple records
-      await this.dao.alertEvaluation.updateMany({
-        where: {
-          id: { in: ids },
-          orgId,
-        },
-        data: {
-          deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
-        },
-      });
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
-    }
-  }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): AlertEvaluation {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+      createdAt: model.createdAt instanceof Date ? model.createdAt.toISOString() : model.createdAt,
+      updatedAt: model.updatedAt instanceof Date ? model.updatedAt.toISOString() : model.updatedAt,
+    } as AlertEvaluation;
   }
 }

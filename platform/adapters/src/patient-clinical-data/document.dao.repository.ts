@@ -20,7 +20,7 @@ import type {
 import type {
   DocumentReferenceInput,
   DocumentReferenceUpdate,
-  Timestamps,
+  Document, Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoDocumentRepository implements DocumentRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<Document>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<Document | null> {
     try {
       const record = await this.dao.document.findFirst({
         where: {
@@ -81,20 +81,20 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<Document | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("Document", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: DocumentReferenceInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: Document): Promise<Document> {
     try {
       const record = await this.dao.document.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +103,13 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: DocumentReferenceUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: DocumentUpdate): Promise<Document> {
     try {
       const record = await this.dao.document.update({
         where: { id },
         data: {
           ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +118,14 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.document.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +133,7 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<DocumentReferenceInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<DocumentReferenceInput>): Promise<Document[]> {
     try {
       // Use createMany for better performance
       await this.dao.document.createMany({
@@ -160,11 +160,11 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DocumentReferenceUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DocumentReferenceUpdate }>): Promise<Document[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: Document[] = [];
         for (const { id, data } of updates) {
           const record = await tx.document.update({
             where: { id },
@@ -179,7 +179,7 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.document.updateMany({
@@ -189,7 +189,7 @@ export class DaoDocumentRepository implements DocumentRepository {
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +197,7 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): Document {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +206,6 @@ export class DaoDocumentRepository implements DocumentRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as Document;
   }
 }

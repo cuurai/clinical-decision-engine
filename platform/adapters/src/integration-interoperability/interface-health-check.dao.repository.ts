@@ -9,17 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  InterfaceHealthCheckRepository,
-} from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { InterfaceHealthCheckRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
 import type {
   InterfaceHealthCheckInput,
-  Timestamps,
+  InterfaceHealthCheck,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -36,7 +30,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<InterfaceHealthCheck>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -47,17 +41,17 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params?.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -65,7 +59,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<InterfaceHealthCheck | null> {
     try {
       const record = await this.dao.interfaceHealthCheck.findFirst({
         where: {
@@ -80,20 +74,22 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<InterfaceHealthCheck | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("InterfaceHealthCheck", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: InterfaceHealthCheckInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: InterfaceHealthCheck): Promise<InterfaceHealthCheck> {
+    // Note: Repository interface expects InterfaceHealthCheck, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as InterfaceHealthCheckInput;
     try {
       const record = await this.dao.interfaceHealthCheck.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
         },
       });
       return this.toDomain(record);
@@ -102,11 +98,14 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<InterfaceHealthCheckInput>): Promise<Timestamps[]> {
+  async createMany(
+    orgId: OrgId,
+    items: Array<InterfaceHealthCheckInput>
+  ): Promise<InterfaceHealthCheck[]> {
     try {
       // Use createMany for better performance
       await this.dao.interfaceHealthCheck.createMany({
-        data: items.map(item => ({
+        data: items.map((item) => ({
           ...item,
           orgId,
         })),
@@ -114,7 +113,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
       });
 
       // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
+      const ids = items.map((item) => item.id).filter(Boolean) as string[];
       if (ids.length === 0) {
         return [];
       }
@@ -129,15 +128,16 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): InterfaceHealthCheck {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
+    } as InterfaceHealthCheck;
   }
 }

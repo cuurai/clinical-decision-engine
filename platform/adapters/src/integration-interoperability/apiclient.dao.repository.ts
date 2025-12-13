@@ -20,7 +20,7 @@ import type {
 import type {
   APIClientInput,
   APIClientUpdate,
-  Timestamps,
+  Apiclient, Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<Apiclient>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<Apiclient | null> {
     try {
       const record = await this.dao.apiclient.findFirst({
         where: {
@@ -81,20 +81,20 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<Apiclient | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("Apiclient", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: APIClientInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: Apiclient): Promise<Apiclient> {
     try {
       const record = await this.dao.apiclient.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +103,13 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: APIClientUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: ApiclientUpdate): Promise<Apiclient> {
     try {
       const record = await this.dao.apiclient.update({
         where: { id },
         data: {
           ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +118,14 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.apiclient.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +133,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<APIClientInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<APIClientInput>): Promise<Apiclient[]> {
     try {
       // Use createMany for better performance
       await this.dao.apiclient.createMany({
@@ -160,11 +160,11 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: APIClientUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: APIClientUpdate }>): Promise<Apiclient[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: Apiclient[] = [];
         for (const { id, data } of updates) {
           const record = await tx.apiclient.update({
             where: { id },
@@ -179,7 +179,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.apiclient.updateMany({
@@ -189,7 +189,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +197,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): Apiclient {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +206,6 @@ export class DaoAPIClientRepository implements APIClientRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as Apiclient;
   }
 }

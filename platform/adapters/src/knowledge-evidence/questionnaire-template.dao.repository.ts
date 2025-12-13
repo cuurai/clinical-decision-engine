@@ -20,7 +20,7 @@ import type {
 import type {
   QuestionnaireTemplateInput,
   QuestionnaireTemplateUpdate,
-  Timestamps,
+  QuestionnaireTemplate, Timestamps,
 } from "@cuur/core/knowledge-evidence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Timestamps>> {
+  ): Promise<PaginatedResult<QuestionnaireTemplate>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -66,7 +66,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async findById(orgId: OrgId, id: string): Promise<QuestionnaireTemplate | null> {
     try {
       const record = await this.dao.questionnaireTemplate.findFirst({
         where: {
@@ -81,20 +81,24 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Timestamps | null> {
+  async get(orgId: OrgId, id: string): Promise<QuestionnaireTemplate | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Timestamps", id);
+      throw new NotFoundError("QuestionnaireTemplate", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: QuestionnaireTemplateInput, createdBy?: string): Promise<Timestamps> {
+  async create(orgId: OrgId, data: QuestionnaireTemplate): Promise<QuestionnaireTemplate> {
+    // Note: Repository interface expects QuestionnaireTemplate, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as QuestionnaireTemplateInput;
+    try
     try {
       const record = await this.dao.questionnaireTemplate.create({
         data: {
-          ...data,
+          ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          createdBy: createdBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -103,13 +107,13 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: QuestionnaireTemplateUpdate, updatedBy?: string): Promise<Timestamps> {
+  async update(orgId: OrgId, id: string, data: QuestionnaireTemplateUpdate): Promise<QuestionnaireTemplate> {
     try {
       const record = await this.dao.questionnaireTemplate.update({
         where: { id },
         data: {
           ...data,
-          updatedBy: updatedBy ?? null, // Audit trail
+          
         },
       });
       return this.toDomain(record);
@@ -118,14 +122,14 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       throw error;
     }
   }
-  async delete(orgId: OrgId, id: string, deletedBy?: string): Promise<void> {
+  async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.questionnaireTemplate.update({
         where: { id },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -133,7 +137,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<QuestionnaireTemplateInput>): Promise<Timestamps[]> {
+  async createMany(orgId: OrgId, items: Array<QuestionnaireTemplateInput>): Promise<QuestionnaireTemplate[]> {
     try {
       // Use createMany for better performance
       await this.dao.questionnaireTemplate.createMany({
@@ -160,11 +164,11 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: QuestionnaireTemplateUpdate }>): Promise<Timestamps[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: QuestionnaireTemplateUpdate }>): Promise<QuestionnaireTemplate[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Timestamps[] = [];
+        const results: QuestionnaireTemplate[] = [];
         for (const { id, data } of updates) {
           const record = await tx.questionnaireTemplate.update({
             where: { id },
@@ -179,7 +183,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       throw error;
     }
   }
-  async deleteMany(orgId: OrgId, ids: string[], deletedBy?: string): Promise<void> {
+  async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
       await this.dao.questionnaireTemplate.updateMany({
@@ -189,7 +193,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
         },
         data: {
           deletedAt: new Date(),
-          deletedBy: deletedBy ?? null,
+          
         },
       });
     } catch (error) {
@@ -197,7 +201,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       throw error;
     }
   }
-  private toDomain(model: any): Timestamps {
+  private toDomain(model: any): QuestionnaireTemplate {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +210,6 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Timestamps;
+    } as QuestionnaireTemplate;
   }
 }
