@@ -12,6 +12,7 @@
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { listRecommendationExplanations } from "@cuur/core/decision-intelligence/handlers/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function recommendationExplanationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -23,4 +24,10 @@ export async function recommendationExplanationsRoutes(
     return reply.code(200).send(result);
   });
 
+  // GET /recommendation-explanations (top-level list endpoint)
+  fastify.get("/recommendation-explanations", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listRecommendationExplanations(deps.recommendationExplanationRepo, orgId);
+    return reply.code(200).send(result);
+  });
 }

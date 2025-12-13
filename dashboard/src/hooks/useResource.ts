@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createResourceService, ListParams, ListResponse } from "../services/core/resource-service";
 import { getResourceApiPath } from "../types/services";
-import { ApiClientError } from "../services/core/api-client";
+import { ApiClientError, getServiceBaseURL } from "../services/core/api-client";
 
 export interface UseResourceOptions {
   serviceId: string;
@@ -36,7 +36,7 @@ export function useResource<T = unknown>({
   const [total, setTotal] = useState<number | undefined>(undefined);
 
   const apiPath = getResourceApiPath(serviceId, resourceId);
-  const service = apiPath ? createResourceService<T>(apiPath) : null;
+  const service = apiPath ? createResourceService<T>(apiPath, serviceId) : null;
 
   const fetchData = async (params?: ListParams) => {
     if (!service) {

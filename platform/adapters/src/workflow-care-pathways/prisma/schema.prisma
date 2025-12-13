@@ -16,10 +16,10 @@ datasource db {
 }
 
 enum AlerttypeEnum {
-  drug-interaction
+  drug_interaction
   allergy
-  critical-value
-  clinical-rule
+  critical_value
+  clinical_rule
   other
 }
 enum SeverityEnum {
@@ -37,8 +37,8 @@ enum StatusEnum {
   dismissed
 }
 enum RuletypeEnum {
-  time-based
-  severity-based
+  time_based
+  severity_based
   other
 }
 enum AssignedtotypeEnum {
@@ -49,7 +49,7 @@ enum AssignedtotypeEnum {
 enum TasktypeEnum {
   medication
   procedure
-  lab-order
+  lab_order
   appointment
   education
   other
@@ -207,7 +207,7 @@ model CarePlanInput {
   carePathwayTemplateId String @db.Char(33) /// FK: References CarePathwayTemplate
   title String
   description String
-  status StatusEnum @default(draft)
+  status StatusEnum @default(active)
   startDate DateTime
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
@@ -257,7 +257,7 @@ model ChecklistInstanceInput {
   checklistTemplateId String @db.Char(33) /// FK: References ChecklistTemplate
   patientId String @db.Char(33)
   carePlanId String @db.Char(33) /// FK: References CarePlan
-  status StatusEnum @default(in-progress)
+  status StatusEnum @default(active)
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -550,7 +550,7 @@ model HandoffInput {
   handoffType String
   handoffDate DateTime
   notes String
-  status StatusEnum @default(pending)
+  status StatusEnum @default(active)
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -784,7 +784,7 @@ model TaskInput {
   title String
   description String
   taskType TasktypeEnum
-  status StatusEnum @default(draft)
+  status StatusEnum @default(active)
   priority PriorityEnum @default(normal)
   dueDate DateTime
   assignedTo String

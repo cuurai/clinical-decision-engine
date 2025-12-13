@@ -21,8 +21,8 @@ enum StatusEnum {
   suspended
 }
 enum CredentialtypeEnum {
-  api-key
-  oauth-client
+  api_key
+  oauth_client
   certificate
 }
 enum ProtocolEnum {
@@ -35,7 +35,7 @@ enum ProtocolEnum {
 enum FormatEnum {
   csv
   ndjson
-  fhir-bulk
+  fhir_bulk
   other
 }
 enum SystemtypeEnum {
@@ -51,9 +51,9 @@ enum BundletypeEnum {
   document
   message
   transaction
-  transaction-response
+  transaction_response
   batch
-  batch-response
+  batch_response
   history
   searchset
   collection
@@ -76,8 +76,8 @@ enum LoglevelEnum {
   error
 }
 enum ErrortypeEnum {
-  message-level
-  record-level
+  message_level
+  record_level
   validation
   connection
   other
@@ -90,10 +90,10 @@ enum EndpointtypeEnum {
   other
 }
 enum MetrictypeEnum {
-  request-count
-  error-count
+  request_count
+  error_count
   latency
-  throttle-count
+  throttle_count
 }
 
 model APIClientInput {
@@ -239,7 +239,7 @@ model DataExportBatchInput {
   description String
   targetSystemId String @db.Char(33)
   format String
-  status StatusEnum @default(pending)
+  status StatusEnum @default(active)
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -286,7 +286,7 @@ model DataImportBatchInput {
   description String
   format FormatEnum
   sourceUrl String
-  status StatusEnum @default(pending)
+  status StatusEnum @default(active)
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -349,7 +349,7 @@ model EventDeliveryInput {
   orgId     String   @map("org_id")
   eventSubscriptionId String @db.Char(33) /// FK: References EventSubscription
   eventData String
-  status StatusEnum @default(pending)
+  status StatusEnum @default(active)
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -684,7 +684,7 @@ model IntegrationJobInput {
   connectionId String @db.Char(33) /// FK: References Connection
   jobType JobtypeEnum
   schedule String
-  status StatusEnum @default(pending)
+  status StatusEnum @default(active)
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -752,7 +752,7 @@ model IntegrationRunInput {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   integrationJobId String @db.Char(33) /// FK: References IntegrationJob
-  status StatusEnum @default(running)
+  status StatusEnum @default(active)
   startedAt DateTime
   recordsProcessed Int
   recordsTotal Int
@@ -783,7 +783,7 @@ model InterfaceErrorInput {
   entityType String
   entityId String @db.Char(33)
   connectionId String @db.Char(33) /// FK: References Connection
-  status StatusEnum @default(open)
+  status StatusEnum @default(active)
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

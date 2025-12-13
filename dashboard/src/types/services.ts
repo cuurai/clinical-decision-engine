@@ -1022,7 +1022,7 @@ export const services: Service[] = [
         id: "fhir-mapping-profiles",
         name: "FHIR Mapping Profiles",
         description: "Mapping profiles for FHIR resources",
-        path: "/f-hirmapping-profiles",
+        path: "/fhir-mapping-profiles",
       },
       {
         id: "fhir-mapping-profile-rules",
@@ -1034,7 +1034,7 @@ export const services: Service[] = [
         id: "hl7-messages",
         name: "HL7 Messages",
         description: "HL7 message processing",
-        path: "/h-lmessages",
+        path: "/hl7-messages",
       },
       {
         id: "hl7-message-segments",
@@ -1052,7 +1052,7 @@ export const services: Service[] = [
         id: "hl7-mapping-profiles",
         name: "HL7 Mapping Profiles",
         description: "Mapping profiles for HL7 messages",
-        path: "/h-lmapping-profiles",
+        path: "/hl7-mapping-profiles",
       },
       {
         id: "hl7-mapping-profile-rules",

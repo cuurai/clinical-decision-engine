@@ -9,23 +9,17 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  DecisionSessionRiskAssessmentRepository,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
-import type {
-  DecisionSessionRiskAssessment,
-} from "@cuur/core/decision-intelligence/types/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { DecisionSessionRiskAssessmentRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
+import type { DecisionSessionRiskAssessment } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
 
 const DEFAULT_LIMIT = 50;
 
-export class DaoDecisionSessionRiskAssessmentRepository implements DecisionSessionRiskAssessmentRepository {
+export class DaoDecisionSessionRiskAssessmentRepository
+  implements DecisionSessionRiskAssessmentRepository
+{
   private transactionManager: TransactionManager;
 
   constructor(private readonly dao: DaoClient) {
@@ -39,24 +33,24 @@ export class DaoDecisionSessionRiskAssessmentRepository implements DecisionSessi
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.decisionSessionRiskAssessment.findMany({
+      const records = await this.dao.riskAssessmentInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params?.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -66,7 +60,7 @@ export class DaoDecisionSessionRiskAssessmentRepository implements DecisionSessi
   }
   async findById(orgId: OrgId, id: string): Promise<DecisionSessionRiskAssessment | null> {
     try {
-      const record = await this.dao.decisionSessionRiskAssessment.findFirst({
+      const record = await this.dao.riskAssessmentInput.findFirst({
         where: {
           orgId,
           id,
@@ -89,12 +83,13 @@ export class DaoDecisionSessionRiskAssessmentRepository implements DecisionSessi
   private toDomain(model: any): DecisionSessionRiskAssessment {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as DecisionSessionRiskAssessment;
   }
 }

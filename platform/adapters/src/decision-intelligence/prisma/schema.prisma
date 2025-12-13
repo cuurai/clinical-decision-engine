@@ -12,6 +12,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum SeverityEnum {
@@ -29,8 +30,8 @@ enum StatusEnum {
 enum RequesttypeEnum {
   diagnostic
   treatment
-  risk-assessment
-  pathway-selection
+  risk_assessment
+  pathway_selection
 }
 enum PriorityEnum {
   low
@@ -40,19 +41,19 @@ enum PriorityEnum {
 }
 enum ExperimenttypeEnum {
   ab
-  multi-arm
+  multi_arm
 }
 enum ExplanationtypeEnum {
-  feature-importance
-  rule-trace
-  evidence-summary
-  model-reasoning
+  feature_importance
+  rule_trace
+  evidence_summary
+  model_reasoning
 }
 enum RecommendationtypeEnum {
   diagnostic
   treatment
   monitoring
-  follow-up
+  follow_up
   documentation
   other
 }
@@ -60,7 +61,7 @@ enum RisktypeEnum {
   mortality
   readmission
   complication
-  disease-progression
+  disease_progression
   other
 }
 
@@ -144,7 +145,7 @@ model DecisionPolicyInput {
   name String
   description String
   configuration String
-  status StatusEnum @default(draft)
+  status StatusEnum @default(active)
   version String
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
@@ -213,7 +214,7 @@ model DecisionResultInput {
   orgId     String   @map("org_id")
   decisionRequestId String @db.Char(33) /// FK: References DecisionRequest
   decisionSessionId String @db.Char(33) /// FK: References DecisionSession
-  status StatusEnum @default(pending)
+  status StatusEnum @default(active)
   result String
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
@@ -346,7 +347,7 @@ model ExperimentInput {
   name String
   description String
   experimentType ExperimenttypeEnum
-  status StatusEnum @default(draft)
+  status StatusEnum @default(active)
   startDate DateTime
   endDate DateTime
   trafficAllocation String
@@ -483,7 +484,7 @@ model RecommendationInput {
   title String
   description String
   suggestion String
-  status StatusEnum @default(pending)
+  status StatusEnum @default(active)
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -618,7 +619,7 @@ model SimulationRunInput {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   simulationScenarioId String @db.Char(33) /// FK: References SimulationScenario
-  status StatusEnum @default(running)
+  status StatusEnum @default(active)
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -643,7 +644,7 @@ model SimulationScenarioInput {
   description String
   category String
   scenarioDefinition String
-  status StatusEnum @default(draft)
+  status StatusEnum @default(active)
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

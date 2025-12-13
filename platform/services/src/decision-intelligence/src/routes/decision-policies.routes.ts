@@ -11,13 +11,19 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
-import { createDecisionPolicy, deleteDecisionPolicy, getDecisionPolicy, listDecisionPolicies, updateDecisionPolicy } from "@cuur/core/decision-intelligence/handlers/index.js";
-import type { DecisionPolicyInput, DecisionPolicyUpdate } from "@cuur/core/decision-intelligence/types/index.js";
+import {
+  createDecisionPolicy,
+  deleteDecisionPolicy,
+  getDecisionPolicy,
+  listDecisionPolicies,
+  updateDecisionPolicy,
+} from "@cuur/core/decision-intelligence/handlers/index.js";
+import type {
+  DecisionPolicyInput,
+  DecisionPolicyUpdate,
+} from "@cuur/core/decision-intelligence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
-export async function decisionPoliciesRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
+export async function decisionPoliciesRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /decision-policies
   fastify.get("/decision-policies", async (request, reply) => {
     const orgId = extractOrgId(request);
@@ -27,29 +33,37 @@ export async function decisionPoliciesRoutes(
   // POST /decision-policies
   fastify.post("/decision-policies", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createDecisionPolicy(deps.decisionPolicyRepo, orgId, request.body as CreateDecisionPolicyInput);
+    const result = await createDecisionPolicy(
+      deps.decisionPolicyRepo,
+      orgId,
+      request.body as CreateDecisionPolicyInput
+    );
     return reply.code(201).send(result);
   });
   // GET /decision-policies/{id}
   fastify.get("/decision-policies/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
-        const id = (request.params as any).id;
+    const id = (request.params as any).id;
     const result = await getDecisionPolicy(deps.decisionPolicyRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /decision-policies/{id}
   fastify.patch("/decision-policies/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
-        const id = (request.params as any).id;
-        const result = await updateDecisionPolicy(deps.decisionPolicyRepo, orgId, id, request.body as UpdateDecisionPolicieInput);
+    const id = (request.params as any).id;
+    const result = await updateDecisionPolicy(
+      deps.decisionPolicyRepo,
+      orgId,
+      id,
+      request.body as UpdateDecisionPolicieInput
+    );
     return reply.code(200).send(result);
   });
   // DELETE /decision-policies/{id}
   fastify.delete("/decision-policies/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
-        const id = (request.params as any).id;
-            await deleteDecisionPolicy(deps.decisionPolicyRepo, orgId, id);
+    const id = (request.params as any).id;
+    await deleteDecisionPolicy(deps.decisionPolicyRepo, orgId, id);
     return reply.code(204).send();
   });
-
 }

@@ -27,7 +27,7 @@ enum RuletypeEnum {
   workflow
 }
 enum EquivalenceEnum {
-  related-to
+  related_to
   equivalent
   wider
   narrower
@@ -38,14 +38,14 @@ enum CitationtypeEnum {
   paper
   guideline
   trial
-  systematic-review
+  systematic_review
   other
 }
 enum GradelevelEnum {
   high
   moderate
   low
-  very-low
+  very_low
 }
 enum StrengthofrecommendationEnum {
   strong
@@ -56,7 +56,7 @@ enum ModeltypeEnum {
   diagnostic
   prognostic
   treatment
-  risk-assessment
+  risk_assessment
   other
 }
 enum TesttypeEnum {
@@ -76,8 +76,8 @@ enum MetrictypeEnum {
   accuracy
   precision
   recall
-  f1-score
-  auc-roc
+  f1_score
+  auc_roc
   other
 }
 enum QuestiontypeEnum {
@@ -626,7 +626,7 @@ model ModelVersionInput {
   artifactUrl String
   performanceMetrics String
   trainingDate DateTime
-  status StatusEnum @default(training)
+  status StatusEnum @default(active)
   metadata String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

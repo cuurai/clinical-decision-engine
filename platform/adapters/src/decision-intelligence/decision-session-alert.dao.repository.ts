@@ -9,17 +9,9 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  DecisionSessionAlertRepository,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
-import type {
-  DecisionSessionAlert,
-} from "@cuur/core/decision-intelligence/types/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { DecisionSessionAlertRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
+import type { DecisionSessionAlert } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
 
@@ -39,24 +31,24 @@ export class DaoDecisionSessionAlertRepository implements DecisionSessionAlertRe
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.decisionSessionAlert.findMany({
+      const records = await this.dao.alertEvaluationInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params?.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -66,7 +58,7 @@ export class DaoDecisionSessionAlertRepository implements DecisionSessionAlertRe
   }
   async findById(orgId: OrgId, id: string): Promise<DecisionSessionAlert | null> {
     try {
-      const record = await this.dao.decisionSessionAlert.findFirst({
+      const record = await this.dao.alertEvaluationInput.findFirst({
         where: {
           orgId,
           id,
@@ -89,12 +81,13 @@ export class DaoDecisionSessionAlertRepository implements DecisionSessionAlertRe
   private toDomain(model: any): DecisionSessionAlert {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as DecisionSessionAlert;
   }
 }

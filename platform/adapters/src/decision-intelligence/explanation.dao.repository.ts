@@ -40,7 +40,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.explanation.findMany({
+      const records = await this.dao.explanationInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -67,7 +67,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<Explanation | null> {
     try {
-      const record = await this.dao.explanation.findFirst({
+      const record = await this.dao.explanationInput.findFirst({
         where: {
           orgId,
           id,
@@ -92,7 +92,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ExplanationInput;
     try {
-      const record = await this.dao.explanation.create({
+      const record = await this.dao.explanationInput.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -108,7 +108,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
   async createMany(orgId: OrgId, items: Array<ExplanationInput>): Promise<Explanation[]> {
     try {
       // Use createMany for better performance
-      await this.dao.explanation.createMany({
+      await this.dao.explanationInput.createMany({
         data: items.map(item => ({
           ...item,
           orgId,
@@ -122,7 +122,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
         return [];
       }
 
-      const records = await this.dao.explanation.findMany({
+      const records = await this.dao.explanationInput.findMany({
         where: { id: { in: ids }, orgId },
       });
 

@@ -9,18 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  IntegrationJobRepository,
-} from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { IntegrationJobRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
 import type {
   IntegrationJobInput,
   IntegrationJobUpdate,
-  IntegrationJob, Timestamps,
+  IntegrationJob,
+  Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +29,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<IntegrationJob>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<IntegrationJob>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +40,17 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params?.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -124,7 +116,6 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -136,7 +127,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
     try {
       // Use createMany for better performance
       await this.dao.integrationJob.createMany({
-        data: items.map(item => ({
+        data: items.map((item) => ({
           ...item,
           orgId,
         })),
@@ -144,7 +135,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
       });
 
       // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
+      const ids = items.map((item) => item.id).filter(Boolean) as string[];
       if (ids.length === 0) {
         return [];
       }
@@ -159,7 +150,10 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: IntegrationJobUpdate }>): Promise<IntegrationJob[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: IntegrationJobUpdate }>
+  ): Promise<IntegrationJob[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.execute(orgId, async (tx) => {
@@ -188,7 +182,6 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -199,12 +192,13 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
   private toDomain(model: any): IntegrationJob {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as IntegrationJob;
   }
 }

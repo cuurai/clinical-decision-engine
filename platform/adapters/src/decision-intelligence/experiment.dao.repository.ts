@@ -41,7 +41,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.experiment.findMany({
+      const records = await this.dao.experimentInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -68,7 +68,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<Experiment | null> {
     try {
-      const record = await this.dao.experiment.findFirst({
+      const record = await this.dao.experimentInput.findFirst({
         where: {
           orgId,
           id,
@@ -93,7 +93,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ExperimentInput;
     try {
-      const record = await this.dao.experiment.create({
+      const record = await this.dao.experimentInput.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -108,7 +108,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
   }
   async update(orgId: OrgId, id: string, data: ExperimentUpdate): Promise<Experiment> {
     try {
-      const record = await this.dao.experiment.update({
+      const record = await this.dao.experimentInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -124,7 +124,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.experiment.update({
+      await this.dao.experimentInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -139,7 +139,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
   async createMany(orgId: OrgId, items: Array<ExperimentInput>): Promise<Experiment[]> {
     try {
       // Use createMany for better performance
-      await this.dao.experiment.createMany({
+      await this.dao.experimentInput.createMany({
         data: items.map(item => ({
           ...item,
           orgId,
@@ -153,7 +153,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
         return [];
       }
 
-      const records = await this.dao.experiment.findMany({
+      const records = await this.dao.experimentInput.findMany({
         where: { id: { in: ids }, orgId },
       });
 
@@ -185,7 +185,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.experiment.updateMany({
+      await this.dao.experimentInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

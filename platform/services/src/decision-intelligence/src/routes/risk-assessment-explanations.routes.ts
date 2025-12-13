@@ -12,6 +12,7 @@
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { listRiskAssessmentExplanations } from "@cuur/core/decision-intelligence/handlers/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function riskAssessmentExplanationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -23,4 +24,10 @@ export async function riskAssessmentExplanationsRoutes(
     return reply.code(200).send(result);
   });
 
+  // GET /risk-assessment-explanations (top-level list endpoint)
+  fastify.get("/risk-assessment-explanations", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listRiskAssessmentExplanations(deps.riskAssessmentExplanationRepo, orgId);
+    return reply.code(200).send(result);
+  });
 }

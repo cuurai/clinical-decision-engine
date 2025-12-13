@@ -41,7 +41,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.decisionPolicy.findMany({
+      const records = await this.dao.decisionPolicyInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -68,7 +68,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<DecisionPolicy | null> {
     try {
-      const record = await this.dao.decisionPolicy.findFirst({
+      const record = await this.dao.decisionPolicyInput.findFirst({
         where: {
           orgId,
           id,
@@ -93,7 +93,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DecisionPolicyInput;
     try {
-      const record = await this.dao.decisionPolicy.create({
+      const record = await this.dao.decisionPolicyInput.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -108,7 +108,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
   }
   async update(orgId: OrgId, id: string, data: DecisionPolicyUpdate): Promise<DecisionPolicy> {
     try {
-      const record = await this.dao.decisionPolicy.update({
+      const record = await this.dao.decisionPolicyInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -124,7 +124,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.decisionPolicy.update({
+      await this.dao.decisionPolicyInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -139,7 +139,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
   async createMany(orgId: OrgId, items: Array<DecisionPolicyInput>): Promise<DecisionPolicy[]> {
     try {
       // Use createMany for better performance
-      await this.dao.decisionPolicy.createMany({
+      await this.dao.decisionPolicyInput.createMany({
         data: items.map(item => ({
           ...item,
           orgId,
@@ -153,7 +153,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
         return [];
       }
 
-      const records = await this.dao.decisionPolicy.findMany({
+      const records = await this.dao.decisionPolicyInput.findMany({
         where: { id: { in: ids }, orgId },
       });
 
@@ -185,7 +185,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.decisionPolicy.updateMany({
+      await this.dao.decisionPolicyInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

@@ -81,12 +81,11 @@ export function useOntologyTerms(autoFetch = true, params?: OntologyTermListPara
 }
 
 export function useValueSets(autoFetch = true, params?: ValueSetListParams) {
-  return useResourceHook<
-    ValueSet,
-    CreateValueSetInput,
-    UpdateValueSetInput,
-    ValueSetListParams
-  >(knowledgeEvidenceServices.valueSets, autoFetch, params);
+  return useResourceHook<ValueSet, CreateValueSetInput, UpdateValueSetInput, ValueSetListParams>(
+    knowledgeEvidenceServices.valueSets,
+    autoFetch,
+    params
+  );
 }
 
 export function useConceptMaps(autoFetch = true, params?: ConceptMapListParams) {

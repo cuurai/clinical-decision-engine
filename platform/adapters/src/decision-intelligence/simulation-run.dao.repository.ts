@@ -40,7 +40,7 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.simulationRun.findMany({
+      const records = await this.dao.simulationRunInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -67,7 +67,7 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<SimulationRun | null> {
     try {
-      const record = await this.dao.simulationRun.findFirst({
+      const record = await this.dao.simulationRunInput.findFirst({
         where: {
           orgId,
           id,
@@ -92,7 +92,7 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as SimulationRunInput;
     try {
-      const record = await this.dao.simulationRun.create({
+      const record = await this.dao.simulationRunInput.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -108,7 +108,7 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
   async createMany(orgId: OrgId, items: Array<SimulationRunInput>): Promise<SimulationRun[]> {
     try {
       // Use createMany for better performance
-      await this.dao.simulationRun.createMany({
+      await this.dao.simulationRunInput.createMany({
         data: items.map(item => ({
           ...item,
           orgId,
@@ -122,7 +122,7 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
         return [];
       }
 
-      const records = await this.dao.simulationRun.findMany({
+      const records = await this.dao.simulationRunInput.findMany({
         where: { id: { in: ids }, orgId },
       });
 

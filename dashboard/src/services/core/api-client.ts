@@ -1,7 +1,28 @@
+// Service port mapping
+const SERVICE_PORTS: Record<string, number> = {
+  "decision-intelligence": 3001,
+  "integration-interoperability": 3002,
+  "knowledge-evidence": 3003,
+  "patient-clinical-data": 3004,
+  "workflow-care-pathways": 3005,
+};
+
 export const API_CONFIG = {
   baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:3001",
   timeout: 30000,
 };
+
+// Get base URL for a specific service
+export function getServiceBaseURL(serviceId?: string): string {
+  if (!serviceId) {
+    return API_CONFIG.baseURL;
+  }
+  const port = SERVICE_PORTS[serviceId];
+  if (port) {
+    return `http://localhost:${port}`;
+  }
+  return API_CONFIG.baseURL;
+}
 
 export interface ApiError {
   message: string;
@@ -28,11 +49,17 @@ export interface RequestOptions {
   params?: Record<string, string | number | boolean | undefined>;
 }
 
-async function request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
-  const { method = "GET", headers = {}, body, params } = options;
+async function request<T>(
+  endpoint: string,
+  options: RequestOptions & { serviceId?: string } = {}
+): Promise<T> {
+  const { method = "GET", headers = {}, body, params, serviceId } = options;
+
+  // Use service-specific base URL if serviceId is provided
+  const baseURL = serviceId ? getServiceBaseURL(serviceId) : API_CONFIG.baseURL;
 
   // Build URL with query parameters
-  const url = new URL(`${API_CONFIG.baseURL}${endpoint}`);
+  const url = new URL(`${baseURL}${endpoint}`);
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
@@ -97,14 +124,18 @@ async function request<T>(endpoint: string, options: RequestOptions = {}): Promi
 }
 
 export const apiClient = {
-  get: <T>(endpoint: string, params?: RequestOptions["params"]) =>
-    request<T>(endpoint, { method: "GET", params }),
+  get: <T>(endpoint: string, options?: RequestOptions & { serviceId?: string }) =>
+    request<T>(endpoint, { method: "GET", ...options }),
 
-  post: <T>(endpoint: string, body?: unknown) => request<T>(endpoint, { method: "POST", body }),
+  post: <T>(endpoint: string, options?: RequestOptions & { serviceId?: string }) =>
+    request<T>(endpoint, { method: "POST", ...options }),
 
-  patch: <T>(endpoint: string, body?: unknown) => request<T>(endpoint, { method: "PATCH", body }),
+  patch: <T>(endpoint: string, options?: RequestOptions & { serviceId?: string }) =>
+    request<T>(endpoint, { method: "PATCH", ...options }),
 
-  put: <T>(endpoint: string, body?: unknown) => request<T>(endpoint, { method: "PUT", body }),
+  put: <T>(endpoint: string, options?: RequestOptions & { serviceId?: string }) =>
+    request<T>(endpoint, { method: "PUT", ...options }),
 
-  delete: <T>(endpoint: string) => request<T>(endpoint, { method: "DELETE" }),
+  delete: <T>(endpoint: string, options?: RequestOptions & { serviceId?: string }) =>
+    request<T>(endpoint, { method: "DELETE", ...options }),
 };

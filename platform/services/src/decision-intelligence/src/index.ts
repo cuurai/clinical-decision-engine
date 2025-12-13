@@ -11,6 +11,7 @@
 
 import Fastify from "fastify";
 import type { FastifyInstance } from "fastify";
+import cors from "@fastify/cors";
 import { registerRoutes } from "./routes/index.js";
 import { createDependencies } from "./dependencies/decision-intelligence.dependencies.js";
 import type { Dependencies } from "./dependencies/decision-intelligence.dependencies.js";
@@ -35,6 +36,26 @@ export async function createServer(
     logger: config.logger ?? true,
   });
 
+  // Register CORS
+  await fastify.register(cors, {
+    origin: (origin, cb) => {
+      // Allow all localhost origins in development
+      if (
+        !origin ||
+        origin.startsWith("http://localhost:") ||
+        origin.startsWith("http://127.0.0.1:")
+      ) {
+        cb(null, true);
+        return;
+      }
+      // Reject other origins
+      cb(new Error("Not allowed by CORS"), false);
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Org-Id"],
+  });
+
   // Register routes
   await registerRoutes(fastify, deps);
 
@@ -54,10 +75,7 @@ export async function createServer(
 /**
  * Start the service
  */
-export async function startService(
-  deps: Dependencies,
-  config: ServiceConfig = {}
-) {
+export async function startService(deps: Dependencies, config: ServiceConfig = {}) {
   const host = config.host ?? "0.0.0.0";
   const port = config.port ?? 3000;
 

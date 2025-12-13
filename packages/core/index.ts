@@ -58,23 +58,27 @@ export { schemas as DecisionIntelligenceSchemas } from "./src/decision-intellige
 // Integration Interoperability Service
 export * from "./src/integration-interoperability/handlers/index.js";
 export * from "./src/integration-interoperability/repositories/index.js";
-export * from "./src/integration-interoperability/types/integration-interoperability.domain.types.js";
+// Skip type exports to avoid conflicts - use namespace exports instead
+// export * from "./src/integration-interoperability/types/integration-interoperability.domain.types.js";
 export { schemas as IntegrationInteroperabilitySchemas } from "./src/integration-interoperability/schemas/integration-interoperability.schemas.js";
 
 // Knowledge Evidence Service
 export * from "./src/knowledge-evidence/handlers/index.js";
 export * from "./src/knowledge-evidence/repositories/index.js";
-export * from "./src/knowledge-evidence/types/knowledge-evidence.domain.types.js";
+// Skip type exports to avoid conflicts - use namespace exports instead
+// export * from "./src/knowledge-evidence/types/knowledge-evidence.domain.types.js";
 export { schemas as KnowledgeEvidenceSchemas } from "./src/knowledge-evidence/schemas/knowledge-evidence.schemas.js";
 
 // Patient Clinical Data Service
 export * from "./src/patient-clinical-data/handlers/index.js";
 export * from "./src/patient-clinical-data/repositories/index.js";
-export * from "./src/patient-clinical-data/types/patient-clinical-data.domain.types.js";
+// Skip type exports to avoid conflicts - use namespace exports instead
+// export * from "./src/patient-clinical-data/types/patient-clinical-data.domain.types.js";
 export { schemas as PatientClinicalDataSchemas } from "./src/patient-clinical-data/schemas/patient-clinical-data.schemas.js";
 
 // Workflow Care Pathways Service
 export * from "./src/workflow-care-pathways/handlers/index.js";
 export * from "./src/workflow-care-pathways/repositories/index.js";
-export * from "./src/workflow-care-pathways/types/workflow-care-pathways.domain.types.js";
+// Skip type exports to avoid conflicts - use namespace exports instead
+// export * from "./src/workflow-care-pathways/types/workflow-care-pathways.domain.types.js";
 export { schemas as WorkflowCarePathwaysSchemas } from "./src/workflow-care-pathways/schemas/workflow-care-pathways.schemas.js";

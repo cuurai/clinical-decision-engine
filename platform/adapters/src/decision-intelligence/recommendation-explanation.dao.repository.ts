@@ -9,17 +9,9 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  RecommendationExplanationRepository,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
-import type {
-  RecommendationExplanation,
-} from "@cuur/core/decision-intelligence/types/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { RecommendationExplanationRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
+import type { RecommendationExplanation } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
 
@@ -39,24 +31,24 @@ export class DaoRecommendationExplanationRepository implements RecommendationExp
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.recommendationExplanation.findMany({
+      const records = await this.dao.explanationInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params?.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -66,7 +58,7 @@ export class DaoRecommendationExplanationRepository implements RecommendationExp
   }
   async findById(orgId: OrgId, id: string): Promise<RecommendationExplanation | null> {
     try {
-      const record = await this.dao.recommendationExplanation.findFirst({
+      const record = await this.dao.explanationInput.findFirst({
         where: {
           orgId,
           id,
@@ -89,12 +81,13 @@ export class DaoRecommendationExplanationRepository implements RecommendationExp
   private toDomain(model: any): RecommendationExplanation {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as RecommendationExplanation;
   }
 }

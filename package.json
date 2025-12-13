@@ -15,13 +15,20 @@
     "clean": "cd packages/core && npm run clean",
     "typecheck": "cd packages/core && npm run typecheck",
     "lint": "cd packages/core && npm run lint",
-    "format": "cd packages/core && npm run format"
+    "format": "cd packages/core && npm run format",
+    "generate:prisma": "bash scripts/generate-prisma-clients.sh"
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
   },
   "dependencies": {
-    "js-yaml": "^4.1.1"
+    "@fastify/cors": "^11.2.0",
+    "@prisma/client": "^6.0.1",
+    "js-yaml": "^4.1.1",
+    "prisma": "^6.0.1"
+  },
+  "devDependencies": {
+    "glob": "^13.0.0"
   }
 }

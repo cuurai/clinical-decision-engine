@@ -9,17 +9,9 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  RiskAssessmentExplanationRepository,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
-import type {
-  RiskAssessmentExplanation,
-} from "@cuur/core/decision-intelligence/types/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { RiskAssessmentExplanationRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
+import type { RiskAssessmentExplanation } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
 
@@ -39,24 +31,24 @@ export class DaoRiskAssessmentExplanationRepository implements RiskAssessmentExp
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.riskAssessmentExplanation.findMany({
+      const records = await this.dao.explanationInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params?.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -66,7 +58,7 @@ export class DaoRiskAssessmentExplanationRepository implements RiskAssessmentExp
   }
   async findById(orgId: OrgId, id: string): Promise<RiskAssessmentExplanation | null> {
     try {
-      const record = await this.dao.riskAssessmentExplanation.findFirst({
+      const record = await this.dao.explanationInput.findFirst({
         where: {
           orgId,
           id,
@@ -89,12 +81,13 @@ export class DaoRiskAssessmentExplanationRepository implements RiskAssessmentExp
   private toDomain(model: any): RiskAssessmentExplanation {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as RiskAssessmentExplanation;
   }
 }

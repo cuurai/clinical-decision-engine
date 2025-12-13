@@ -45,3 +45,11 @@ coverage/
 
 # TypeScript
 *.tsbuildinfo
+
+# Generated files
+*.mjs
+*.d.ts
+
+# Prisma generated files
+**/prisma/generated/
+**/prisma/generated/**/*.js

@@ -29,7 +29,7 @@ enum TypeEnum {
 enum CriticalityEnum {
   low
   high
-  unable-to-assess
+  unable_to_assess
 }
 enum StatusEnum {
   active
@@ -42,7 +42,7 @@ enum SeverityEnum {
   severe
 }
 enum NotetypeEnum {
-  history-physical
+  history_physical
   progress
   discharge
   consultation
@@ -184,7 +184,7 @@ model CareTeamInput {
   patientId String @db.Char(33) /// FK: References Patient
   encounterId String @db.Char(33) /// FK: References Encounter
   participant String[]
-  status StatusEnum @default(proposed)
+  status StatusEnum @default(active)
   period String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -415,7 +415,7 @@ model DiagnosticReportInput {
   encounterId String @db.Char(33) /// FK: References Encounter
   code String
   effectiveDateTime DateTime
-  status StatusEnum @default(preliminary)
+  status StatusEnum @default(active)
   conclusion String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -478,7 +478,7 @@ model DocumentReferenceInput {
   encounterId String @db.Char(33) /// FK: References Encounter
   type String
   content String[]
-  status StatusEnum @default(current)
+  status StatusEnum @default(active)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   createdBy String? @map("created_by")
@@ -685,7 +685,7 @@ model ImagingStudyInput {
   encounterId String @db.Char(33) /// FK: References Encounter
   modality String[]
   started DateTime
-  status StatusEnum @default(registered)
+  status StatusEnum @default(active)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   createdBy String? @map("created_by")
@@ -730,7 +730,7 @@ model ImmunizationInput {
   occurrenceDateTime DateTime
   primarySource Boolean @default(true)
   lotNumber String
-  status StatusEnum @default(completed)
+  status StatusEnum @default(active)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   createdBy String? @map("created_by")
@@ -774,7 +774,7 @@ model MedicationOrderInput {
   encounterId String @db.Char(33) /// FK: References Encounter
   medicationCodeableConcept String
   dosageInstruction String[]
-  status StatusEnum @default(draft)
+  status StatusEnum @default(active)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   createdBy String? @map("created_by")
@@ -868,7 +868,7 @@ model ObservationInput {
   valueString String
   valueBoolean Boolean
   valueDateTime DateTime
-  status StatusEnum @default(preliminary)
+  status StatusEnum @default(active)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   createdBy String? @map("created_by")
@@ -1032,7 +1032,7 @@ model ProcedureInput {
   encounterId String @db.Char(33) /// FK: References Encounter
   code String
   performedPeriod String
-  status StatusEnum @default(preparation)
+  status StatusEnum @default(active)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   createdBy String? @map("created_by")

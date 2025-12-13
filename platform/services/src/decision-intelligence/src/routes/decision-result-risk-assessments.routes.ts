@@ -12,6 +12,7 @@
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { listDecisionResultRiskAssessments } from "@cuur/core/decision-intelligence/handlers/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function decisionResultRiskAssessmentsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -19,8 +20,20 @@ export async function decisionResultRiskAssessmentsRoutes(
   // GET /decision-results/{id}/risk-assessments
   fastify.get("/decision-results/:id/risk-assessments", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await listDecisionResultRiskAssessments(deps.decisionResultRiskAssessmentRepo, orgId);
+    const result = await listDecisionResultRiskAssessments(
+      deps.decisionResultRiskAssessmentRepo,
+      orgId
+    );
     return reply.code(200).send(result);
   });
 
+  // GET /decision-result-risk-assessments (top-level list endpoint)
+  fastify.get("/decision-result-risk-assessments", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listDecisionResultRiskAssessments(
+      deps.decisionResultRiskAssessmentRepo,
+      orgId
+    );
+    return reply.code(200).send(result);
+  });
 }

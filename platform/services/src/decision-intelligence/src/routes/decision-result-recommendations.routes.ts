@@ -12,6 +12,7 @@
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { listDecisionResultRecommendations } from "@cuur/core/decision-intelligence/handlers/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function decisionResultRecommendationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -19,8 +20,20 @@ export async function decisionResultRecommendationsRoutes(
   // GET /decision-results/{id}/recommendations
   fastify.get("/decision-results/:id/recommendations", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await listDecisionResultRecommendations(deps.decisionResultRecommendationRepo, orgId);
+    const result = await listDecisionResultRecommendations(
+      deps.decisionResultRecommendationRepo,
+      orgId
+    );
     return reply.code(200).send(result);
   });
 
+  // GET /decision-result-recommendations (top-level list endpoint)
+  fastify.get("/decision-result-recommendations", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listDecisionResultRecommendations(
+      deps.decisionResultRecommendationRepo,
+      orgId
+    );
+    return reply.code(200).send(result);
+  });
 }

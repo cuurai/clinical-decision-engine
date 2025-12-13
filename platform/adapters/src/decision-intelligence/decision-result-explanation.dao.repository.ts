@@ -39,7 +39,7 @@ export class DaoDecisionResultExplanationRepository implements DecisionResultExp
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.decisionResultExplanation.findMany({
+      const records = await this.dao.explanationInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -66,7 +66,7 @@ export class DaoDecisionResultExplanationRepository implements DecisionResultExp
   }
   async findById(orgId: OrgId, id: string): Promise<DecisionResultExplanation | null> {
     try {
-      const record = await this.dao.decisionResultExplanation.findFirst({
+      const record = await this.dao.explanationInput.findFirst({
         where: {
           orgId,
           id,

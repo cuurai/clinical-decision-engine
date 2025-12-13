@@ -40,7 +40,7 @@ export class DaoModelInvocationRepository implements ModelInvocationRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.modelInvocation.findMany({
+      const records = await this.dao.modelInvocationInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -67,7 +67,7 @@ export class DaoModelInvocationRepository implements ModelInvocationRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<ModelInvocation | null> {
     try {
-      const record = await this.dao.modelInvocation.findFirst({
+      const record = await this.dao.modelInvocationInput.findFirst({
         where: {
           orgId,
           id,
@@ -92,7 +92,7 @@ export class DaoModelInvocationRepository implements ModelInvocationRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ModelInvocationInput;
     try {
-      const record = await this.dao.modelInvocation.create({
+      const record = await this.dao.modelInvocationInput.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -108,7 +108,7 @@ export class DaoModelInvocationRepository implements ModelInvocationRepository {
   async createMany(orgId: OrgId, items: Array<ModelInvocationInput>): Promise<ModelInvocation[]> {
     try {
       // Use createMany for better performance
-      await this.dao.modelInvocation.createMany({
+      await this.dao.modelInvocationInput.createMany({
         data: items.map(item => ({
           ...item,
           orgId,
@@ -122,7 +122,7 @@ export class DaoModelInvocationRepository implements ModelInvocationRepository {
         return [];
       }
 
-      const records = await this.dao.modelInvocation.findMany({
+      const records = await this.dao.modelInvocationInput.findMany({
         where: { id: { in: ids }, orgId },
       });
 

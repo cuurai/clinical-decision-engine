@@ -12,10 +12,8 @@
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { listDecisionSessionRequests } from "@cuur/core/decision-intelligence/handlers/index.js";
-export async function decisionSessionRequestsRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
+import { extractOrgId } from "../../../shared/extract-org-id.js";
+export async function decisionSessionRequestsRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /decision-sessions/{id}/decision-requests
   fastify.get("/decision-sessions/:id/decision-requests", async (request, reply) => {
     const orgId = extractOrgId(request);
@@ -23,4 +21,10 @@ export async function decisionSessionRequestsRoutes(
     return reply.code(200).send(result);
   });
 
+  // GET /decision-session-requests (top-level list endpoint)
+  fastify.get("/decision-session-requests", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listDecisionSessionRequests(deps.decisionSessionRequestRepo, orgId);
+    return reply.code(200).send(result);
+  });
 }

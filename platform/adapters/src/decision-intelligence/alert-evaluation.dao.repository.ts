@@ -36,7 +36,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.alertEvaluation.findMany({
+      const records = await this.dao.alertEvaluationInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<AlertEvaluation | null> {
     try {
-      const record = await this.dao.alertEvaluation.findFirst({
+      const record = await this.dao.alertEvaluationInput.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as AlertEvaluationInput;
     try {
-      const record = await this.dao.alertEvaluation.create({
+      const record = await this.dao.alertEvaluationInput.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -102,7 +102,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
   }
   async update(orgId: OrgId, id: string, data: AlertEvaluationUpdate): Promise<AlertEvaluation> {
     try {
-      const record = await this.dao.alertEvaluation.update({
+      const record = await this.dao.alertEvaluationInput.update({
         where: { id, orgId },
         data,
       });
@@ -115,7 +115,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.alertEvaluation.update({
+      await this.dao.alertEvaluationInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
