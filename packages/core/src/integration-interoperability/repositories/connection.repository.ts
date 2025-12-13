@@ -14,7 +14,7 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  Connection,
   ListConnectionsParams,
   ConnectionInput,
   ConnectionUpdate
@@ -22,6 +22,6 @@ import type {
 /**
  * ConnectionRepository Interface
  */
-export interface ConnectionRepository extends CrudRepository<Timestamps, ConnectionInput, ConnectionUpdate, string, ListConnectionsParams> {
+export interface ConnectionRepository extends CrudRepository<Connection, ConnectionInput, ConnectionUpdate, string, ListConnectionsParams> {
 
 }

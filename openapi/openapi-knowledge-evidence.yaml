@@ -83,9 +83,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ClinicalRule"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/ClinicalRule"
 
     post:
       tags: [Clinical Rules]
@@ -96,14 +109,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ClinicalRuleInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ClinicalRuleInput"
       responses:
         "201":
           description: Clinical rule created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ClinicalRule"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ClinicalRule"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -120,7 +155,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ClinicalRule"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ClinicalRule"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -135,14 +181,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ClinicalRuleUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ClinicalRuleUpdate"
       responses:
         "200":
           description: Clinical rule updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ClinicalRule"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ClinicalRule"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -217,9 +285,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/RuleSet"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/RuleSet"
 
     post:
       tags: [Rule Sets]
@@ -230,14 +311,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RuleSetInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/RuleSetInput"
       responses:
         "201":
           description: Rule set created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RuleSet"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/RuleSet"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -254,7 +357,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RuleSet"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/RuleSet"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -269,14 +383,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RuleSetUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/RuleSetUpdate"
       responses:
         "200":
           description: Rule set updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RuleSet"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/RuleSet"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -336,9 +472,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ClinicalGuideline"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/ClinicalGuideline"
 
     post:
       tags: [Clinical Guidelines]
@@ -349,14 +498,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ClinicalGuidelineInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ClinicalGuidelineInput"
       responses:
         "201":
           description: Clinical guideline created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ClinicalGuideline"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ClinicalGuideline"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -373,7 +544,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ClinicalGuideline"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ClinicalGuideline"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -388,14 +570,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ClinicalGuidelineUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ClinicalGuidelineUpdate"
       responses:
         "200":
           description: Clinical guideline updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ClinicalGuideline"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ClinicalGuideline"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -475,9 +679,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CareProtocolTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/CareProtocolTemplate"
 
     post:
       tags: [Care Protocol Templates]
@@ -488,14 +705,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CareProtocolTemplateInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/CareProtocolTemplateInput"
       responses:
         "201":
           description: Care protocol template created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CareProtocolTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/CareProtocolTemplate"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -512,7 +751,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CareProtocolTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/CareProtocolTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -527,14 +777,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CareProtocolTemplateUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/CareProtocolTemplateUpdate"
       responses:
         "200":
           description: Care protocol template updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CareProtocolTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/CareProtocolTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -614,9 +886,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/OrderSetTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/OrderSetTemplate"
 
     post:
       tags: [Order Set Templates]
@@ -627,14 +912,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/OrderSetTemplateInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/OrderSetTemplateInput"
       responses:
         "201":
           description: Order set template created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrderSetTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/OrderSetTemplate"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -651,7 +958,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrderSetTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/OrderSetTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -666,14 +984,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/OrderSetTemplateUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/OrderSetTemplateUpdate"
       responses:
         "200":
           description: Order set template updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrderSetTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/OrderSetTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -735,9 +1075,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ModelDefinition"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/ModelDefinition"
 
     post:
       tags: [Model Definitions]
@@ -748,14 +1101,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ModelDefinitionInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ModelDefinitionInput"
       responses:
         "201":
           description: Model definition created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ModelDefinition"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ModelDefinition"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -772,7 +1147,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ModelDefinition"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ModelDefinition"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -787,14 +1173,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ModelDefinitionUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ModelDefinitionUpdate"
       responses:
         "200":
           description: Model definition updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ModelDefinition"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ModelDefinition"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -874,9 +1282,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ModelVersion"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/ModelVersion"
 
     post:
       tags: [Model Versions]
@@ -887,14 +1308,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ModelVersionInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ModelVersionInput"
       responses:
         "201":
           description: Model version created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ModelVersion"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ModelVersion"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -911,7 +1354,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ModelVersion"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ModelVersion"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -926,14 +1380,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ModelVersionUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ModelVersionUpdate"
       responses:
         "200":
           description: Model version updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ModelVersion"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ModelVersion"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1035,7 +1511,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OntologyTerm"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/OntologyTerm"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1117,9 +1604,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ValueSet"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/ValueSet"
 
     post:
       tags: [Value Sets]
@@ -1130,14 +1630,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ValueSetInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ValueSetInput"
       responses:
         "201":
           description: Value set created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ValueSet"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ValueSet"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1154,7 +1676,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ValueSet"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ValueSet"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1169,14 +1702,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ValueSetUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ValueSetUpdate"
       responses:
         "200":
           description: Value set updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ValueSet"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ValueSet"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1236,9 +1791,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ConceptMap"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/ConceptMap"
 
     post:
       tags: [Concept Maps]
@@ -1249,14 +1817,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ConceptMapInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ConceptMapInput"
       responses:
         "201":
           description: Concept map created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ConceptMap"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ConceptMap"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1273,7 +1863,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ConceptMap"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ConceptMap"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1288,14 +1889,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ConceptMapUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ConceptMapUpdate"
       responses:
         "200":
           description: Concept map updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ConceptMap"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ConceptMap"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1351,9 +1974,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ScoringTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/ScoringTemplate"
 
     post:
       tags: [Scoring Templates]
@@ -1364,14 +2000,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ScoringTemplateInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ScoringTemplateInput"
       responses:
         "201":
           description: Scoring template created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ScoringTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ScoringTemplate"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1388,7 +2046,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ScoringTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ScoringTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1403,14 +2072,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ScoringTemplateUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ScoringTemplateUpdate"
       responses:
         "200":
           description: Scoring template updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ScoringTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ScoringTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1466,9 +2157,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/QuestionnaireTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/QuestionnaireTemplate"
 
     post:
       tags: [Questionnaire Templates]
@@ -1479,14 +2183,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/QuestionnaireTemplateInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/QuestionnaireTemplateInput"
       responses:
         "201":
           description: Questionnaire template created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/QuestionnaireTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/QuestionnaireTemplate"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1503,7 +2229,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/QuestionnaireTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/QuestionnaireTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1518,14 +2255,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/QuestionnaireTemplateUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/QuestionnaireTemplateUpdate"
       responses:
         "200":
           description: Questionnaire template updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/QuestionnaireTemplate"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/QuestionnaireTemplate"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1582,9 +2341,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/EvidenceCitation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/EvidenceCitation"
 
     post:
       tags: [Evidence Citations]
@@ -1595,14 +2367,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EvidenceCitationInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/EvidenceCitationInput"
       responses:
         "201":
           description: Evidence citation created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EvidenceCitation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/EvidenceCitation"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1619,7 +2413,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EvidenceCitation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/EvidenceCitation"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1634,14 +2439,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EvidenceCitationUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/EvidenceCitationUpdate"
       responses:
         "200":
           description: Evidence citation updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EvidenceCitation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/EvidenceCitation"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1679,9 +2506,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/EvidenceReview"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/EvidenceReview"
 
     post:
       tags: [Evidence Reviews]
@@ -1692,14 +2532,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EvidenceReviewInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/EvidenceReviewInput"
       responses:
         "201":
           description: Evidence review created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EvidenceReview"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/EvidenceReview"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1716,7 +2578,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EvidenceReview"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/EvidenceReview"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1731,14 +2604,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EvidenceReviewUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/EvidenceReviewUpdate"
       responses:
         "200":
           description: Evidence review updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EvidenceReview"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/EvidenceReview"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1780,9 +2675,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/KnowledgePackage"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/KnowledgePackage"
 
     post:
       tags: [Knowledge Packages]
@@ -1793,14 +2701,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/KnowledgePackageInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/KnowledgePackageInput"
       responses:
         "201":
           description: Knowledge package created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/KnowledgePackage"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/KnowledgePackage"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1817,7 +2747,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/KnowledgePackage"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/KnowledgePackage"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1832,14 +2773,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/KnowledgePackageUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/KnoApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/KnowledgePackageUpdate"
       responses:
         "200":
           description: Knowledge package updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/KnowledgePackage"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/KnoApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/KnowledgePackage"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1951,14 +2914,36 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+
+            allOf:
+
+              - $ref: "#/components/schemas/KnoApiResponse"
+
+              - type: object
+
+                properties:
+
+                  data:
+
+                    $ref: "#/components/schemas/Error"
 
     NotFound:
       description: Resource not found
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+
+            allOf:
+
+              - $ref: "#/components/schemas/KnoApiResponse"
+
+              - type: object
+
+                properties:
+
+                  data:
+
+                    $ref: "#/components/schemas/Error"
 
   schemas:
     Error:

@@ -14,7 +14,7 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  EventSubscription,
   ListEventSubscriptionsParams,
   EventSubscriptionInput,
   EventSubscriptionUpdate
@@ -22,6 +22,6 @@ import type {
 /**
  * EventSubscriptionRepository Interface
  */
-export interface EventSubscriptionRepository extends CrudRepository<Timestamps, EventSubscriptionInput, EventSubscriptionUpdate, string, ListEventSubscriptionsParams> {
+export interface EventSubscriptionRepository extends CrudRepository<EventSubscription, EventSubscriptionInput, EventSubscriptionUpdate, string, ListEventSubscriptionsParams> {
 
 }

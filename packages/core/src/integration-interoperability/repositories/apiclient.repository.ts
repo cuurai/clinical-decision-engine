@@ -14,7 +14,7 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  APIClient,
   ListAPIClientsParams,
   APIClientInput,
   APIClientUpdate
@@ -22,6 +22,6 @@ import type {
 /**
  * APIClientRepository Interface
  */
-export interface APIClientRepository extends CrudRepository<Timestamps, APIClientInput, APIClientUpdate, string, ListAPIClientsParams> {
+export interface APIClientRepository extends CrudRepository<APIClient, APIClientInput, APIClientUpdate, string, ListAPIClientsParams> {
 
 }

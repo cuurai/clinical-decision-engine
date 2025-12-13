@@ -14,7 +14,7 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  FHIRMappingProfile,
   ListFHIRMappingProfilesParams,
   FHIRMappingProfileInput,
   FHIRMappingProfileUpdate
@@ -22,6 +22,6 @@ import type {
 /**
  * FHIRMappingProfileRepository Interface
  */
-export interface FHIRMappingProfileRepository extends CrudRepository<Timestamps, FHIRMappingProfileInput, FHIRMappingProfileUpdate, string, ListFHIRMappingProfilesParams> {
+export interface FHIRMappingProfileRepository extends CrudRepository<FHIRMappingProfile, FHIRMappingProfileInput, FHIRMappingProfileUpdate, string, ListFHIRMappingProfilesParams> {
 
 }

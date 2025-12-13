@@ -77,7 +77,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PatientList"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/PatientList"
 
     post:
       tags: [Patients]
@@ -88,14 +99,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PatientInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/PatientInput"
       responses:
         "201":
           description: Patient created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Patient"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Patient"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -112,7 +145,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Patient"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Patient"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -127,14 +171,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PatientUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/PatientUpdate"
       responses:
         "200":
           description: Patient updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Patient"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Patient"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -163,7 +229,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PatientSummary"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/PatientSummary"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -454,9 +531,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Encounter"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/Encounter"
 
     post:
       tags: [Encounters]
@@ -467,14 +557,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EncounterInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/EncounterInput"
       responses:
         "201":
           description: Encounter created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Encounter"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Encounter"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -491,7 +603,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Encounter"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Encounter"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -506,14 +629,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EncounterUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/EncounterUpdate"
       responses:
         "200":
           description: Encounter updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Encounter"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Encounter"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -650,9 +795,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Condition"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/Condition"
 
     post:
       tags: [Conditions]
@@ -663,14 +821,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ConditionInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ConditionInput"
       responses:
         "201":
           description: Condition created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Condition"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Condition"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -687,7 +867,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Condition"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Condition"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -702,14 +893,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ConditionUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ConditionUpdate"
       responses:
         "200":
           description: Condition updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Condition"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Condition"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -770,9 +983,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Allergy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/Allergy"
 
     post:
       tags: [Allergies]
@@ -783,14 +1009,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AllergyInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/AllergyInput"
       responses:
         "201":
           description: Allergy created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Allergy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Allergy"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -807,7 +1055,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Allergy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Allergy"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -822,14 +1081,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AllergyUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/AllergyUpdate"
       responses:
         "200":
           description: Allergy updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Allergy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Allergy"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -880,9 +1161,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/MedicationStatement"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/MedicationStatement"
 
     post:
       tags: [Medication Statements]
@@ -893,14 +1187,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MedicationStatementInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/MedicationStatementInput"
       responses:
         "201":
           description: Medication statement created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MedicationStatement"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/MedicationStatement"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -917,7 +1233,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MedicationStatement"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/MedicationStatement"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -932,14 +1259,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MedicationStatementUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/MedicationStatementUpdate"
       responses:
         "200":
           description: Medication statement updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MedicationStatement"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/MedicationStatement"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -991,9 +1340,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/MedicationOrder"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/MedicationOrder"
 
     post:
       tags: [Medication Orders]
@@ -1004,14 +1366,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MedicationOrderInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/MedicationOrderInput"
       responses:
         "201":
           description: Medication order created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MedicationOrder"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/MedicationOrder"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1028,7 +1412,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MedicationOrder"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/MedicationOrder"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1043,14 +1438,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/MedicationOrderUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/MedicationOrderUpdate"
       responses:
         "200":
           description: Medication order updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MedicationOrder"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/MedicationOrder"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1111,9 +1528,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Immunization"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/Immunization"
 
     post:
       tags: [Immunizations]
@@ -1124,14 +1554,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ImmunizationInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ImmunizationInput"
       responses:
         "201":
           description: Immunization created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Immunization"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Immunization"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1148,7 +1600,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Immunization"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Immunization"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1163,14 +1626,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ImmunizationUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ImmunizationUpdate"
       responses:
         "200":
           description: Immunization updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Immunization"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Immunization"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1221,9 +1706,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Observation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/Observation"
 
     post:
       tags: [Observations]
@@ -1234,14 +1732,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ObservationInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ObservationInput"
       responses:
         "201":
           description: Observation created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Observation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Observation"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1258,7 +1778,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Observation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Observation"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1273,14 +1804,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ObservationUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ObservationUpdate"
       responses:
         "200":
           description: Observation updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Observation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Observation"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1338,9 +1891,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DiagnosticReport"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/DiagnosticReport"
 
     post:
       tags: [Diagnostic Reports]
@@ -1351,14 +1917,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DiagnosticReportInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DiagnosticReportInput"
       responses:
         "201":
           description: Diagnostic report created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DiagnosticReport"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DiagnosticReport"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1375,7 +1963,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DiagnosticReport"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DiagnosticReport"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1390,14 +1989,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DiagnosticReportUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DiagnosticReportUpdate"
       responses:
         "200":
           description: Diagnostic report updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DiagnosticReport"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DiagnosticReport"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1477,9 +2098,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ImagingStudy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/ImagingStudy"
 
     post:
       tags: [Imaging Studies]
@@ -1490,14 +2124,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ImagingStudyInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ImagingStudyInput"
       responses:
         "201":
           description: Imaging study created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ImagingStudy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ImagingStudy"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1514,7 +2170,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ImagingStudy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ImagingStudy"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1529,14 +2196,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ImagingStudyUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ImagingStudyUpdate"
       responses:
         "200":
           description: Imaging study updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ImagingStudy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ImagingStudy"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1607,9 +2296,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Procedure"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/Procedure"
 
     post:
       tags: [Procedures]
@@ -1620,14 +2322,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ProcedureInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ProcedureInput"
       responses:
         "201":
           description: Procedure created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Procedure"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Procedure"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1644,7 +2368,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Procedure"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Procedure"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1659,14 +2394,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ProcedureUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ProcedureUpdate"
       responses:
         "200":
           description: Procedure updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Procedure"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Procedure"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1720,9 +2477,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ClinicalNote"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/ClinicalNote"
 
     post:
       tags: [Clinical Notes]
@@ -1733,14 +2503,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ClinicalNoteInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ClinicalNoteInput"
       responses:
         "201":
           description: Clinical note created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ClinicalNote"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ClinicalNote"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1757,7 +2549,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ClinicalNote"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ClinicalNote"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1772,14 +2575,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ClinicalNoteUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ClinicalNoteUpdate"
       responses:
         "200":
           description: Clinical note updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ClinicalNote"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ClinicalNote"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1825,9 +2650,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/CareTeam"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/CareTeam"
 
     post:
       tags: [Care Teams]
@@ -1838,14 +2676,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CareTeamInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/CareTeamInput"
       responses:
         "201":
           description: Care team created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CareTeam"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/CareTeam"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1862,7 +2722,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CareTeam"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/CareTeam"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1877,14 +2748,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CareTeamUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/CareTeamUpdate"
       responses:
         "200":
           description: Care team updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CareTeam"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/CareTeam"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1930,9 +2823,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DocumentReference"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/DocumentReference"
 
     post:
       tags: [Documents]
@@ -1943,14 +2849,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DocumentReferenceInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DocumentReferenceInput"
       responses:
         "201":
           description: Document reference created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DocumentReference"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DocumentReference"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1967,7 +2895,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DocumentReference"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DocumentReference"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1982,14 +2921,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DocumentReferenceUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/PatApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DocumentReferenceUpdate"
       responses:
         "200":
           description: Document reference updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DocumentReference"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/PatApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DocumentReference"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -2044,14 +3005,36 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+
+            allOf:
+
+              - $ref: "#/components/schemas/PatApiResponse"
+
+              - type: object
+
+                properties:
+
+                  data:
+
+                    $ref: "#/components/schemas/Error"
 
     NotFound:
       description: Resource not found
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+
+            allOf:
+
+              - $ref: "#/components/schemas/PatApiResponse"
+
+              - type: object
+
+                properties:
+
+                  data:
+
+                    $ref: "#/components/schemas/Error"
 
   schemas:
     Error:

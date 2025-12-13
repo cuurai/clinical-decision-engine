@@ -9,19 +9,22 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CrudRepository,
-} from "../../shared/repositories/_base-repository.js";
+import type { CrudRepository } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  ExternalSystem,
   ListExternalSystemsParams,
   ExternalSystemInput,
-  ExternalSystemUpdate
+  ExternalSystemUpdate,
 } from "../types/index.js";
 /**
  * ExternalSystemRepository Interface
  */
-export interface ExternalSystemRepository extends CrudRepository<Timestamps, ExternalSystemInput, ExternalSystemUpdate, string, ListExternalSystemsParams> {
-
-}
+export interface ExternalSystemRepository
+  extends CrudRepository<
+    ExternalSystem,
+    ExternalSystemInput,
+    ExternalSystemUpdate,
+    string,
+    ListExternalSystemsParams
+  > {}

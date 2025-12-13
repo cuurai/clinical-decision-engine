@@ -14,7 +14,7 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  HL7MappingProfile,
   ListHLMappingProfilesParams,
   HL7MappingProfileInput,
   HL7MappingProfileUpdate
@@ -22,6 +22,6 @@ import type {
 /**
  * HL7MappingProfileRepository Interface
  */
-export interface HL7MappingProfileRepository extends CrudRepository<Timestamps, HL7MappingProfileInput, HL7MappingProfileUpdate, string, ListHLMappingProfilesParams> {
+export interface HL7MappingProfileRepository extends CrudRepository<HL7MappingProfile, HL7MappingProfileInput, HL7MappingProfileUpdate, string, ListHLMappingProfilesParams> {
 
 }

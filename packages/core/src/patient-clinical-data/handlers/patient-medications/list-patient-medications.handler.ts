@@ -23,17 +23,13 @@ export async function listPatientMedications(
   // Return paginated response matching OpenAPI response type
   // Structure matches ProviderAccountListResponse: { data: { items: [...] }, meta: { ... } }
   return {
-    data: {
-      items: result.items,
-    },
+    data: result.items,
     meta: {
-      correlationId: pcTransactionId(),
+      correlationId: unknownTransactionId(),
       timestamp: new Date().toISOString(),
-      pagination: {
-        nextCursor: result.nextCursor ?? null,
-        prevCursor: result.prevCursor ?? null,
-        limit: result.items.length,
-      },
+      totalCount: result.total ?? result.items.length,
+      pageSize: result.items.length,
+      pageNumber: 1,
     },
   };
 

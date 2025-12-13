@@ -14,7 +14,7 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  IntegrationJob,
   ListIntegrationJobsParams,
   IntegrationJobInput,
   IntegrationJobUpdate
@@ -22,6 +22,6 @@ import type {
 /**
  * IntegrationJobRepository Interface
  */
-export interface IntegrationJobRepository extends CrudRepository<Timestamps, IntegrationJobInput, IntegrationJobUpdate, string, ListIntegrationJobsParams> {
+export interface IntegrationJobRepository extends CrudRepository<IntegrationJob, IntegrationJobInput, IntegrationJobUpdate, string, ListIntegrationJobsParams> {
 
 }

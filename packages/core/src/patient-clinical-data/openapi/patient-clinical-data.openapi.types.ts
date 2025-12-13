@@ -939,6 +939,32 @@ export interface components {
             message: string;
             details?: Record<string, never>;
         };
+        /** @description Response metadata with correlation tracking */
+        PatApiMeta: {
+            /** @description Unique identifier for request-response correlation */
+            correlationId?: string;
+            /**
+             * Format: date-time
+             * @description Response timestamp
+             */
+            timestamp?: string;
+            /** @description Total count of items (for list responses) */
+            totalCount?: number;
+            /** @description Number of items per page */
+            pageSize?: number;
+            /** @description Current page number */
+            pageNumber?: number;
+        };
+        PatApiResponse: {
+            /** @description Response payload */
+            data?: Record<string, never>;
+            meta?: components["schemas"]["PatApiMeta"];
+        };
+        PatApiListResponse: {
+            /** @description List of items */
+            data?: unknown[];
+            meta?: components["schemas"]["PatApiMeta"];
+        };
         Timestamps: {
             /** Format: date-time */
             createdAt?: string;
@@ -1704,7 +1730,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Encounter"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Encounter"][];
+                    };
                 };
             };
         };
@@ -1732,7 +1760,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Condition"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Condition"][];
+                    };
                 };
             };
         };
@@ -1760,7 +1790,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Allergy"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Allergy"][];
+                    };
                 };
             };
         };
@@ -1788,7 +1820,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MedicationStatement"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["MedicationStatement"][];
+                    };
                 };
             };
         };
@@ -1816,7 +1850,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Immunization"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Immunization"][];
+                    };
                 };
             };
         };
@@ -1845,7 +1881,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Observation"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Observation"][];
+                    };
                 };
             };
         };
@@ -1873,7 +1911,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Observation"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Observation"][];
+                    };
                 };
             };
         };
@@ -1901,7 +1941,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Observation"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Observation"][];
+                    };
                 };
             };
         };
@@ -1929,7 +1971,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DiagnosticReport"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["DiagnosticReport"][];
+                    };
                 };
             };
         };
@@ -1957,7 +2001,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Procedure"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Procedure"][];
+                    };
                 };
             };
         };
@@ -1985,7 +2031,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalNote"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["ClinicalNote"][];
+                    };
                 };
             };
         };
@@ -2013,7 +2061,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CareTeamMember"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["CareTeamMember"][];
+                    };
                 };
             };
         };
@@ -2041,7 +2091,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DocumentReference"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["DocumentReference"][];
+                    };
                 };
             };
         };
@@ -2068,7 +2120,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Encounter"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Encounter"][];
+                    };
                 };
             };
         };
@@ -2195,7 +2249,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Condition"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Condition"][];
+                    };
                 };
             };
         };
@@ -2223,7 +2279,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Observation"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Observation"][];
+                    };
                 };
             };
         };
@@ -2251,7 +2309,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DiagnosticReport"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["DiagnosticReport"][];
+                    };
                 };
             };
         };
@@ -2279,7 +2339,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Procedure"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Procedure"][];
+                    };
                 };
             };
         };
@@ -2307,7 +2369,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalNote"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["ClinicalNote"][];
+                    };
                 };
             };
         };
@@ -2334,7 +2398,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Condition"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Condition"][];
+                    };
                 };
             };
         };
@@ -2461,7 +2527,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalNote"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["ClinicalNote"][];
+                    };
                 };
             };
         };
@@ -2488,7 +2556,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Allergy"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Allergy"][];
+                    };
                 };
             };
         };
@@ -2614,7 +2684,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MedicationStatement"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["MedicationStatement"][];
+                    };
                 };
             };
         };
@@ -2740,7 +2812,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MedicationOrder"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["MedicationOrder"][];
+                    };
                 };
             };
         };
@@ -2867,7 +2941,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["MedicationAdministration"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["MedicationAdministration"][];
+                    };
                 };
             };
         };
@@ -2894,7 +2970,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Immunization"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Immunization"][];
+                    };
                 };
             };
         };
@@ -3022,7 +3100,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Observation"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Observation"][];
+                    };
                 };
             };
         };
@@ -3149,7 +3229,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DiagnosticReport"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["DiagnosticReport"][];
+                    };
                 };
             };
         };
@@ -3276,7 +3358,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Observation"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Observation"][];
+                    };
                 };
             };
         };
@@ -3304,7 +3388,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ImagingStudy"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["ImagingStudy"][];
+                    };
                 };
             };
         };
@@ -3331,7 +3417,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ImagingStudy"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["ImagingStudy"][];
+                    };
                 };
             };
         };
@@ -3458,7 +3546,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ImagingSeries"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["ImagingSeries"][];
+                    };
                 };
             };
         };
@@ -3485,7 +3575,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Procedure"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["Procedure"][];
+                    };
                 };
             };
         };
@@ -3612,7 +3704,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalNote"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["ClinicalNote"][];
+                    };
                 };
             };
         };
@@ -3739,7 +3833,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CareTeam"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["CareTeam"][];
+                    };
                 };
             };
         };
@@ -3866,7 +3962,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["DocumentReference"][];
+                    "application/json": components["schemas"]["PatApiListResponse"] & {
+                        data?: components["schemas"]["DocumentReference"][];
+                    };
                 };
             };
         };

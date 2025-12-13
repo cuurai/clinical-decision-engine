@@ -85,9 +85,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DecisionSession"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/DecisionSession"
 
     post:
       tags: [Decision Sessions]
@@ -98,14 +111,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DecisionSessionInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DecisionSessionInput"
       responses:
         "201":
           description: Decision session created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionSession"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionSession"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -122,7 +157,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionSession"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionSession"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -137,14 +183,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DecisionSessionUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DecisionSessionUpdate"
       responses:
         "200":
           description: Decision session updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionSession"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionSession"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -285,9 +353,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DecisionRequest"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/DecisionRequest"
 
     post:
       tags: [Decision Requests]
@@ -301,14 +382,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DecisionRequestInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DecisionRequestInput"
       responses:
         "201":
           description: Decision request created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionRequest"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionRequest"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -325,7 +428,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionRequest"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionRequest"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -397,9 +511,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DecisionResult"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/DecisionResult"
 
     post:
       tags: [Decision Results]
@@ -410,14 +537,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DecisionResultInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DecisionResultInput"
       responses:
         "201":
           description: Decision result created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionResult"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionResult"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -434,7 +583,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionResult"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionResult"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -449,14 +609,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DecisionResultUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DecisionResultUpdate"
       responses:
         "200":
           description: Decision result updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionResult"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionResult"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -555,9 +737,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/RiskAssessment"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/RiskAssessment"
 
     post:
       tags: [Risk Assessments]
@@ -568,14 +763,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RiskAssessmentInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/RiskAssessmentInput"
       responses:
         "201":
           description: Risk assessment created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RiskAssessment"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/RiskAssessment"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -592,7 +809,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RiskAssessment"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/RiskAssessment"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -607,14 +835,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RiskAssessmentUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/RiskAssessmentUpdate"
       responses:
         "200":
           description: Risk assessment updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/RiskAssessment"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/RiskAssessment"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -680,9 +930,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Recommendation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/Recommendation"
 
     post:
       tags: [Recommendations]
@@ -693,14 +956,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RecommendationInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/RecommendationInput"
       responses:
         "201":
           description: Recommendation created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Recommendation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Recommendation"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -717,7 +1002,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Recommendation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Recommendation"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -732,14 +1028,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RecommendationUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/RecommendationUpdate"
       responses:
         "200":
           description: Recommendation updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Recommendation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Recommendation"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -805,9 +1123,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/AlertEvaluation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/AlertEvaluation"
 
     post:
       tags: [Alert Evaluations]
@@ -818,14 +1149,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AlertEvaluationInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/AlertEvaluationInput"
       responses:
         "201":
           description: Alert evaluation created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AlertEvaluation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/AlertEvaluation"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -842,7 +1195,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AlertEvaluation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/AlertEvaluation"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -857,14 +1221,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/AlertEvaluationUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/AlertEvaluationUpdate"
       responses:
         "200":
           description: Alert evaluation updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AlertEvaluation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/AlertEvaluation"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -902,9 +1288,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Explanation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/Explanation"
 
     post:
       tags: [Explanations]
@@ -915,14 +1314,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ExplanationInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ExplanationInput"
       responses:
         "201":
           description: Explanation created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Explanation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Explanation"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -939,7 +1360,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Explanation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Explanation"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1006,9 +1438,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ModelInvocation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/ModelInvocation"
 
     post:
       tags: [Model Invocations]
@@ -1022,14 +1467,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ModelInvocationInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ModelInvocationInput"
       responses:
         "201":
           description: Model invocation created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ModelInvocation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ModelInvocation"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1046,7 +1513,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ModelInvocation"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ModelInvocation"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1095,9 +1573,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/SimulationScenario"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/SimulationScenario"
 
     post:
       tags: [Simulation Scenarios]
@@ -1108,14 +1599,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SimulationScenarioInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/SimulationScenarioInput"
       responses:
         "201":
           description: Simulation scenario created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SimulationScenario"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/SimulationScenario"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1132,7 +1645,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SimulationScenario"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/SimulationScenario"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1147,14 +1671,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SimulationScenarioUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/SimulationScenarioUpdate"
       responses:
         "200":
           description: Simulation scenario updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SimulationScenario"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/SimulationScenario"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1215,9 +1761,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/SimulationRun"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/SimulationRun"
 
     post:
       tags: [Simulation Runs]
@@ -1228,14 +1787,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SimulationRunInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/SimulationRunInput"
       responses:
         "201":
           description: Simulation run created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SimulationRun"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/SimulationRun"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1252,7 +1833,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SimulationRun"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/SimulationRun"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1316,9 +1908,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DecisionPolicy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/DecisionPolicy"
 
     post:
       tags: [Decision Policies]
@@ -1329,14 +1934,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DecisionPolicyInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DecisionPolicyInput"
       responses:
         "201":
           description: Decision policy created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionPolicy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionPolicy"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1353,7 +1980,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionPolicy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionPolicy"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1368,14 +2006,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DecisionPolicyUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DecisionPolicyUpdate"
       responses:
         "200":
           description: Decision policy updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionPolicy"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionPolicy"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1431,9 +2091,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ThresholdProfile"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/ThresholdProfile"
 
     post:
       tags: [Threshold Profiles]
@@ -1444,14 +2117,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ThresholdProfileInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ThresholdProfileInput"
       responses:
         "201":
           description: Threshold profile created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ThresholdProfile"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ThresholdProfile"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1468,7 +2163,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ThresholdProfile"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ThresholdProfile"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1483,14 +2189,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ThresholdProfileUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ThresholdProfileUpdate"
       responses:
         "200":
           description: Threshold profile updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ThresholdProfile"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/ThresholdProfile"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1531,9 +2259,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DecisionMetricSnapshot"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/DecisionMetricSnapshot"
 
     post:
       tags: [Decision Metrics]
@@ -1547,14 +2288,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DecisionMetricSnapshotInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/DecisionMetricSnapshotInput"
       responses:
         "201":
           description: Decision metric snapshot created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionMetricSnapshot"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionMetricSnapshot"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1571,7 +2334,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/DecisionMetricSnapshot"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/DecisionMetricSnapshot"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1597,9 +2371,22 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Experiment"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiListResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        type: array
+
+                        items:
+
+                          $ref: "#/components/schemas/Experiment"
 
     post:
       tags: [Experiments]
@@ -1610,14 +2397,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ExperimentInput"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ExperimentInput"
       responses:
         "201":
           description: Experiment created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Experiment"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Experiment"
         "400":
           $ref: "#/components/responses/BadRequest"
 
@@ -1634,7 +2443,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Experiment"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Experiment"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1649,14 +2469,36 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ExperimentUpdate"
+
+              allOf:
+
+                - $ref: "#/components/schemas/DecApiResponse"
+
+                - type: object
+
+                  properties:
+
+                    data:
+
+                      $ref: "#/components/schemas/ExperimentUpdate"
       responses:
         "200":
           description: Experiment updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Experiment"
+
+                allOf:
+
+                  - $ref: "#/components/schemas/DecApiResponse"
+
+                  - type: object
+
+                    properties:
+
+                      data:
+
+                        $ref: "#/components/schemas/Experiment"
         "404":
           $ref: "#/components/responses/NotFound"
 
@@ -1749,14 +2591,36 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+
+            allOf:
+
+              - $ref: "#/components/schemas/DecApiResponse"
+
+              - type: object
+
+                properties:
+
+                  data:
+
+                    $ref: "#/components/schemas/Error"
 
     NotFound:
       description: Resource not found
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+
+            allOf:
+
+              - $ref: "#/components/schemas/DecApiResponse"
+
+              - type: object
+
+                properties:
+
+                  data:
+
+                    $ref: "#/components/schemas/Error"
 
   schemas:
     Error:

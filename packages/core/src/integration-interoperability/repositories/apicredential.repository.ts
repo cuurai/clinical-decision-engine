@@ -14,7 +14,7 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  APICredential,
   ListAPICredentialsParams,
   APICredentialInput,
   APICredentialUpdate
@@ -22,6 +22,6 @@ import type {
 /**
  * APICredentialRepository Interface
  */
-export interface APICredentialRepository extends CrudRepository<Timestamps, APICredentialInput, APICredentialUpdate, string, ListAPICredentialsParams> {
+export interface APICredentialRepository extends CrudRepository<APICredential, APICredentialInput, APICredentialUpdate, string, ListAPICredentialsParams> {
 
 }

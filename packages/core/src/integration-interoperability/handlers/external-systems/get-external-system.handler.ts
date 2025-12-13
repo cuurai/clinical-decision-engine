@@ -5,7 +5,7 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { GetExternalSystemResponse } from "../../types/index.js";
+import type { GetExternalSystemResponseWrapped } from "../../types/index.js";
 import { intTransactionId } from "../../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
@@ -14,11 +14,11 @@ import { intTransactionId } from "../../../shared/helpers";
  * Get external system by ID
  */
 export async function getExternalSystem(
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string
-): Promise<GetExternalSystemResponse> {
+  // TODO: Use orgId when implementing handler logic,
+  _orgId: string,
+  // TODO: Use id when implementing handler logic,
+  _id: string
+): Promise<GetExternalSystemResponseWrapped> {
   // TODO: Implement validation logic
   // This operation returns a Response DTO (not an entity)
   // Implement business logic to generate the response DTO
@@ -36,5 +36,4 @@ export async function getExternalSystem(
       timestamp: new Date().toISOString(),
     },
   };
-
 }

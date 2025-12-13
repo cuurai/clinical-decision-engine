@@ -5,7 +5,10 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { ListExternalSystemsParams, ListExternalSystemsResponse } from "../../types/index.js";
+import type {
+  ListExternalSystemsParams,
+  ListExternalSystemsResponseWrapped,
+} from "../../types/index.js";
 import type { ExternalSystemRepository } from "../../repositories/index.js";
 import { intTransactionId } from "../../../shared/helpers";
 
@@ -13,29 +16,23 @@ import { intTransactionId } from "../../../shared/helpers";
  * List external systems
  */
 export async function listExternalSystems(
-    repo: ExternalSystemRepository,
-    orgId: string,
-    params?: ListExternalSystemsParams
-): Promise<ListExternalSystemsResponse> {
+  repo: ExternalSystemRepository,
+  orgId: string,
+  params?: ListExternalSystemsParams
+): Promise<ListExternalSystemsResponseWrapped> {
   // Call repository list method with params (if provided)
   const result = await repo.list(orgId, params);
-
 
   // Return paginated response matching OpenAPI response type
   // Structure matches ProviderAccountListResponse: { data: { items: [...] }, meta: { ... } }
   return {
-    data: {
-      items: result.items,
-    },
+    data: result.items,
     meta: {
       correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
-      pagination: {
-        nextCursor: result.nextCursor ?? null,
-        prevCursor: result.prevCursor ?? null,
-        limit: result.items.length,
-      },
+      totalCount: result.total ?? result.items.length,
+      pageSize: result.items.length,
+      pageNumber: 1,
     },
   };
-
 }

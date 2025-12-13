@@ -14,7 +14,7 @@ import type {
 } from "../../shared/repositories/_base-repository.js";
 
 import type {
-  Timestamps,
+  DataImportBatch,
   ListDataImportBatchesParams,
   DataImportBatchInput,
   DataImportBatchUpdate
@@ -22,6 +22,6 @@ import type {
 /**
  * DataImportBatchRepository Interface
  */
-export interface DataImportBatchRepository extends CrudRepository<Timestamps, DataImportBatchInput, DataImportBatchUpdate, string, ListDataImportBatchesParams> {
+export interface DataImportBatchRepository extends CrudRepository<DataImportBatch, DataImportBatchInput, DataImportBatchUpdate, string, ListDataImportBatchesParams> {
 
 }

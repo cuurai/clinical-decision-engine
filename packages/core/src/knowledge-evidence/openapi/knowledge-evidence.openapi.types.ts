@@ -939,6 +939,32 @@ export interface components {
             message: string;
             details?: Record<string, never>;
         };
+        /** @description Response metadata with correlation tracking */
+        KnoApiMeta: {
+            /** @description Unique identifier for request-response correlation */
+            correlationId?: string;
+            /**
+             * Format: date-time
+             * @description Response timestamp
+             */
+            timestamp?: string;
+            /** @description Total count of items (for list responses) */
+            totalCount?: number;
+            /** @description Number of items per page */
+            pageSize?: number;
+            /** @description Current page number */
+            pageNumber?: number;
+        };
+        KnoApiResponse: {
+            /** @description Response payload */
+            data?: Record<string, never>;
+            meta?: components["schemas"]["KnoApiMeta"];
+        };
+        KnoApiListResponse: {
+            /** @description List of items */
+            data?: unknown[];
+            meta?: components["schemas"]["KnoApiMeta"];
+        };
         Timestamps: {
             /** Format: date-time */
             createdAt?: string;
@@ -1711,7 +1737,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalRule"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ClinicalRule"][];
+                    };
                 };
             };
         };
@@ -1838,7 +1866,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalRuleVersion"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ClinicalRuleVersion"][];
+                    };
                 };
             };
         };
@@ -1866,7 +1896,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RuleTest"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["RuleTest"][];
+                    };
                 };
             };
         };
@@ -1892,7 +1924,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RuleSet"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["RuleSet"][];
+                    };
                 };
             };
         };
@@ -2019,7 +2053,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalRule"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ClinicalRule"][];
+                    };
                 };
             };
         };
@@ -2046,7 +2082,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalGuideline"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ClinicalGuideline"][];
+                    };
                 };
             };
         };
@@ -2173,7 +2211,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["GuidelineSection"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["GuidelineSection"][];
+                    };
                 };
             };
         };
@@ -2201,7 +2241,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EvidenceCitation"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["EvidenceCitation"][];
+                    };
                 };
             };
         };
@@ -2228,7 +2270,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CareProtocolTemplate"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["CareProtocolTemplate"][];
+                    };
                 };
             };
         };
@@ -2355,7 +2399,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProtocolStep"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ProtocolStep"][];
+                    };
                 };
             };
         };
@@ -2383,7 +2429,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OrderSetTemplate"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["OrderSetTemplate"][];
+                    };
                 };
             };
         };
@@ -2410,7 +2458,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OrderSetTemplate"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["OrderSetTemplate"][];
+                    };
                 };
             };
         };
@@ -2537,7 +2587,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OrderSetItem"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["OrderSetItem"][];
+                    };
                 };
             };
         };
@@ -2564,7 +2616,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelDefinition"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ModelDefinition"][];
+                    };
                 };
             };
         };
@@ -2691,7 +2745,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelVersion"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ModelVersion"][];
+                    };
                 };
             };
         };
@@ -2719,7 +2775,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PerformanceMetric"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["PerformanceMetric"][];
+                    };
                 };
             };
         };
@@ -2746,7 +2804,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelVersion"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ModelVersion"][];
+                    };
                 };
             };
         };
@@ -2873,7 +2933,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelTest"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ModelTest"][];
+                    };
                 };
             };
         };
@@ -2901,7 +2963,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FeatureDefinition"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["FeatureDefinition"][];
+                    };
                 };
             };
         };
@@ -2929,7 +2993,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OntologyTerm"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["OntologyTerm"][];
+                    };
                 };
             };
         };
@@ -2981,7 +3047,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OntologyTerm"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["OntologyTerm"][];
+                    };
                 };
             };
         };
@@ -3009,7 +3077,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OntologyTerm"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["OntologyTerm"][];
+                    };
                 };
             };
         };
@@ -3037,7 +3107,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TermMapping"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["TermMapping"][];
+                    };
                 };
             };
         };
@@ -3063,7 +3135,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ValueSet"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ValueSet"][];
+                    };
                 };
             };
         };
@@ -3190,7 +3264,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ValueSetCode"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ValueSetCode"][];
+                    };
                 };
             };
         };
@@ -3217,7 +3293,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ConceptMap"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ConceptMap"][];
+                    };
                 };
             };
         };
@@ -3344,7 +3422,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ConceptMapping"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ConceptMapping"][];
+                    };
                 };
             };
         };
@@ -3370,7 +3450,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ScoringTemplate"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ScoringTemplate"][];
+                    };
                 };
             };
         };
@@ -3497,7 +3579,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ScoringItem"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ScoringItem"][];
+                    };
                 };
             };
         };
@@ -3523,7 +3607,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["QuestionnaireTemplate"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["QuestionnaireTemplate"][];
+                    };
                 };
             };
         };
@@ -3650,7 +3736,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["QuestionnaireQuestion"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["QuestionnaireQuestion"][];
+                    };
                 };
             };
         };
@@ -3676,7 +3764,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EvidenceCitation"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["EvidenceCitation"][];
+                    };
                 };
             };
         };
@@ -3801,7 +3891,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EvidenceReview"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["EvidenceReview"][];
+                    };
                 };
             };
         };
@@ -3927,7 +4019,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["KnowledgePackage"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["KnowledgePackage"][];
+                    };
                 };
             };
         };
@@ -4054,7 +4148,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ClinicalRule"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ClinicalRule"][];
+                    };
                 };
             };
         };
@@ -4082,7 +4178,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ModelDefinition"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ModelDefinition"][];
+                    };
                 };
             };
         };
@@ -4110,7 +4208,9 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ValueSet"][];
+                    "application/json": components["schemas"]["KnoApiListResponse"] & {
+                        data?: components["schemas"]["ValueSet"][];
+                    };
                 };
             };
         };
