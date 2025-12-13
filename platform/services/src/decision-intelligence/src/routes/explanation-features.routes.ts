@@ -18,7 +18,7 @@ export async function explanationFeaturesRoutes(
 ) {
   // GET /explanations/{id}/features
   fastify.get("/explanations/:id/features", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listExplanationFeatures(deps.explanationFeatureRepo, orgId);
     return reply.code(200).send(result);
   });

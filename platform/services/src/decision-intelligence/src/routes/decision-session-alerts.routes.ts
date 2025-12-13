@@ -18,7 +18,7 @@ export async function decisionSessionAlertsRoutes(
 ) {
   // GET /decision-sessions/{id}/alerts
   fastify.get("/decision-sessions/:id/alerts", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDecisionSessionAlerts(deps.decisionSessionAlertRepo, orgId);
     return reply.code(200).send(result);
   });

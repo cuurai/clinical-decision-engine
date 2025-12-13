@@ -11,41 +11,64 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
-import { createChecklistTemplate, deleteChecklistTemplate, getChecklistTemplate, listChecklistTemplates, updateChecklistTemplate } from "@cuur/core/workflow-care-pathways/handlers/index.js";
-import type { ChecklistTemplateInput, ChecklistTemplateUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
-export async function checklistTemplatesRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
+import {
+  createChecklistTemplate,
+  deleteChecklistTemplate,
+  getChecklistTemplate,
+  listChecklistTemplates,
+  updateChecklistTemplate,
+} from "@cuur/core/workflow-care-pathways/handlers/index.js";
+import type {
+  CreateChecklistTemplateInput,
+  UpdateChecklistTemplateInput,
+} from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
+
+export async function checklistTemplatesRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /checklist-templates
   fastify.get("/checklist-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await listChecklistTemplates(deps.checklistTemplateRepo, orgId, request.query || {});
+    const orgId = extractOrgId(request);
+    const result = await listChecklistTemplates(
+      deps.checklistTemplateRepo,
+      orgId,
+      request.query || {}
+    );
     return reply.code(200).send(result);
   });
   // POST /checklist-templates
   fastify.post("/checklist-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createChecklistTemplate(deps.checklistTemplateRepo, orgId, request.body as ChecklistTemplateInput);
+    const orgId = extractOrgId(request);
+    const result = await createChecklistTemplate(
+      deps.checklistTemplateRepo,
+      orgId,
+      request.body as CreateChecklistTemplateInput
+    );
     return reply.code(201).send(result);
   });
   // GET /checklist-templates/{id}
   fastify.get("/checklist-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getChecklistTemplate(deps.checklistTemplateRepo, orgId);
+    const orgId = extractOrgId(request);
+    const id = (request.params as any).id;
+    const result = await getChecklistTemplate(deps.checklistTemplateRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /checklist-templates/{id}
   fastify.patch("/checklist-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateChecklistTemplate(deps.checklistTemplateRepo, orgId, request.body as ChecklistTemplateUpdate);
+    const orgId = extractOrgId(request);
+    const id = (request.params as any).id;
+    const result = await updateChecklistTemplate(
+      deps.checklistTemplateRepo,
+      orgId,
+      id,
+      request.body as UpdateChecklistTemplateInput
+    );
     return reply.code(200).send(result);
   });
   // DELETE /checklist-templates/{id}
   fastify.delete("/checklist-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteChecklistTemplate(deps.checklistTemplateRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+    const id = (request.params as any).id;
+    await deleteChecklistTemplate(deps.checklistTemplateRepo, orgId, id);
+    return reply.code(204).send();
   });
-
 }

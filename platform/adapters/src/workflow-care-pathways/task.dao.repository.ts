@@ -92,11 +92,6 @@ export class DaoTaskRepository implements TaskRepository {
     // Note: Repository interface expects Task, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as TaskInput;
-    try
-    // Note: Repository interface expects Task, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as TaskInput;
-    try
     try {
       const record = await this.dao.task.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoTaskRepository implements TaskRepository {
   async update(orgId: OrgId, id: string, data: TaskUpdate): Promise<Task> {
     try {
       const record = await this.dao.task.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoTaskRepository implements TaskRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.task.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoTaskRepository implements TaskRepository {
         const results: Task[] = [];
         for (const { id, data } of updates) {
           const record = await tx.task.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

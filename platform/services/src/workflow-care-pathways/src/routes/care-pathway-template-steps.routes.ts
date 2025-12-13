@@ -18,7 +18,7 @@ export async function carePathwayTemplateStepsRoutes(
 ) {
   // GET /care-pathway-templates/{id}/steps
   fastify.get("/care-pathway-templates/:id/steps", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listCarePathwayTemplateSteps(deps.carePathwayTemplateStepRepo, orgId);
     return reply.code(200).send(result);
   });

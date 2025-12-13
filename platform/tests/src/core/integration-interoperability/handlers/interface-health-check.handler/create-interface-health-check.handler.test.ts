@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { createInterfaceHealthCheck as createInterfaceHealthCheckHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createInterfaceHealthCheckHandler } from "@quub/factories";
+    createInterfaceHealthCheckHandler } from "@cuur/factories";
 
 describe("createInterfaceHealthCheck - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

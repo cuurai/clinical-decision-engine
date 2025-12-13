@@ -1,7 +1,7 @@
 {
-  "name": "@quub/service-decision-intelligence",
+  "name": "@cuur/service-decision-intelligence",
   "version": "1.0.0",
-  "description": "Quub Exchange - DecisionIntelligence API",
+  "description": "Cuur Exchange - DecisionIntelligence API",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,8 +12,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@cuur/core": "workspace:*",
-    "@quub/adapters": "workspace:*",
+    "@cuur/core": "file:../../../../packages/core",
+    "@cuur/adapters": "file:../../../../platform/adapters",
     "fastify": "^4.28.0",
     "@prisma/client": "^6.0.1"
   },

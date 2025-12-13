@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createConnection, deleteConnection, getConnection, listConnections, updateConnection } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { ConnectionInput, ConnectionUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function connectionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /connections
   fastify.get("/connections", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listConnections(deps.connectionRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /connections
   fastify.post("/connections", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createConnection(deps.connectionRepo, orgId, request.body as ConnectionInput);
+    const orgId = extractOrgId(request);
+    const result = await createConnection(deps.connectionRepo, orgId, request.body as CreateConnectionInput);
     return reply.code(201).send(result);
   });
   // GET /connections/{id}
   fastify.get("/connections/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getConnection(deps.connectionRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getConnection(deps.connectionRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /connections/{id}
   fastify.patch("/connections/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateConnection(deps.connectionRepo, orgId, request.body as ConnectionUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateConnection(deps.connectionRepo, orgId, id, request.body as UpdateConnectionInput);
     return reply.code(200).send(result);
   });
   // DELETE /connections/{id}
   fastify.delete("/connections/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteConnection(deps.connectionRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteConnection(deps.connectionRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

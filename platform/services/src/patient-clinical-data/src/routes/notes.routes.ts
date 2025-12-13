@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createNote, deleteNote, getNote, listNotes, updateNote } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { ClinicalNoteInput, ClinicalNoteUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function notesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /notes
   fastify.get("/notes", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listNotes(deps.noteRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /notes
   fastify.post("/notes", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createNote(deps.noteRepo, orgId, request.body as ClinicalNoteInput);
+    const orgId = extractOrgId(request);
+    const result = await createNote(deps.noteRepo, orgId, request.body as CreateClinicalNoteInput);
     return reply.code(201).send(result);
   });
   // GET /notes/{id}
   fastify.get("/notes/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getNote(deps.noteRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getNote(deps.noteRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /notes/{id}
   fastify.patch("/notes/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateNote(deps.noteRepo, orgId, request.body as ClinicalNoteUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateNote(deps.noteRepo, orgId, id, request.body as UpdateNoteInput);
     return reply.code(200).send(result);
   });
   // DELETE /notes/{id}
   fastify.delete("/notes/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteNote(deps.noteRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteNote(deps.noteRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

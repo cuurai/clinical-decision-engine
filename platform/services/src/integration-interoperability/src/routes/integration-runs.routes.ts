@@ -13,26 +13,28 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createIntegrationRun, getIntegrationRun, listIntegrationRuns } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { IntegrationRunInput } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function integrationRunsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /integration-runs
   fastify.get("/integration-runs", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listIntegrationRuns(deps.integrationRunRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /integration-runs
   fastify.post("/integration-runs", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createIntegrationRun(deps.integrationRunRepo, orgId, request.body as IntegrationRunInput);
+    const orgId = extractOrgId(request);
+    const result = await createIntegrationRun(deps.integrationRunRepo, orgId, request.body as CreateIntegrationRunInput);
     return reply.code(201).send(result);
   });
   // GET /integration-runs/{id}
   fastify.get("/integration-runs/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getIntegrationRun(deps.integrationRunRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getIntegrationRun(deps.integrationRunRepo, orgId, id);
     return reply.code(200).send(result);
   });
 

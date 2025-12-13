@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createMedicationStatement, deleteMedicationStatement, getMedicationStatement, listMedicationStatements, updateMedicationStatement } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { MedicationStatementInput, MedicationStatementUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function medicationStatementsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /medication-statements
   fastify.get("/medication-statements", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listMedicationStatements(deps.medicationStatementRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /medication-statements
   fastify.post("/medication-statements", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createMedicationStatement(deps.medicationStatementRepo, orgId, request.body as MedicationStatementInput);
+    const orgId = extractOrgId(request);
+    const result = await createMedicationStatement(deps.medicationStatementRepo, orgId, request.body as CreateMedicationStatementInput);
     return reply.code(201).send(result);
   });
   // GET /medication-statements/{id}
   fastify.get("/medication-statements/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getMedicationStatement(deps.medicationStatementRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getMedicationStatement(deps.medicationStatementRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /medication-statements/{id}
   fastify.patch("/medication-statements/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateMedicationStatement(deps.medicationStatementRepo, orgId, request.body as MedicationStatementUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateMedicationStatement(deps.medicationStatementRepo, orgId, id, request.body as UpdateMedicationStatementInput);
     return reply.code(200).send(result);
   });
   // DELETE /medication-statements/{id}
   fastify.delete("/medication-statements/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteMedicationStatement(deps.medicationStatementRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteMedicationStatement(deps.medicationStatementRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

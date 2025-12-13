@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { deleteAPIClient as deleteAPIClientHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createApiclientHandler } from "@quub/factories";
+    createApiclientHandler } from "@cuur/factories";
 
 describe("deleteAPIClient - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

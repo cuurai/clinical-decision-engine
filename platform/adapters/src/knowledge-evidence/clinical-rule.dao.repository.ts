@@ -92,7 +92,6 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
     // Note: Repository interface expects ClinicalRule, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ClinicalRuleInput;
-    try
     try {
       const record = await this.dao.clinicalRule.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
   async update(orgId: OrgId, id: string, data: ClinicalRuleUpdate): Promise<ClinicalRule> {
     try {
       const record = await this.dao.clinicalRule.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.clinicalRule.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
         const results: ClinicalRule[] = [];
         for (const { id, data } of updates) {
           const record = await tx.clinicalRule.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

@@ -92,11 +92,6 @@ export class DaoCareTeamRepository implements CareTeamRepository {
     // Note: Repository interface expects CareTeam, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as CareTeamInput;
-    try
-    // Note: Repository interface expects CareTeam, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as CareTeamInput;
-    try
     try {
       const record = await this.dao.careTeam.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
   async update(orgId: OrgId, id: string, data: CareTeamUpdate): Promise<CareTeam> {
     try {
       const record = await this.dao.careTeam.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.careTeam.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
         const results: CareTeam[] = [];
         for (const { id, data } of updates) {
           const record = await tx.careTeam.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createDiagnosticReport, deleteDiagnosticReport, getDiagnosticReport, listDiagnosticReports, updateDiagnosticReport } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { DiagnosticReportInput, DiagnosticReportUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function diagnosticReportsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /diagnostic-reports
   fastify.get("/diagnostic-reports", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDiagnosticReports(deps.diagnosticReportRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /diagnostic-reports
   fastify.post("/diagnostic-reports", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createDiagnosticReport(deps.diagnosticReportRepo, orgId, request.body as DiagnosticReportInput);
+    const orgId = extractOrgId(request);
+    const result = await createDiagnosticReport(deps.diagnosticReportRepo, orgId, request.body as CreateDiagnosticReportInput);
     return reply.code(201).send(result);
   });
   // GET /diagnostic-reports/{id}
   fastify.get("/diagnostic-reports/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getDiagnosticReport(deps.diagnosticReportRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getDiagnosticReport(deps.diagnosticReportRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /diagnostic-reports/{id}
   fastify.patch("/diagnostic-reports/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateDiagnosticReport(deps.diagnosticReportRepo, orgId, request.body as DiagnosticReportUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateDiagnosticReport(deps.diagnosticReportRepo, orgId, id, request.body as UpdateDiagnosticReportInput);
     return reply.code(200).send(result);
   });
   // DELETE /diagnostic-reports/{id}
   fastify.delete("/diagnostic-reports/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteDiagnosticReport(deps.diagnosticReportRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteDiagnosticReport(deps.diagnosticReportRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

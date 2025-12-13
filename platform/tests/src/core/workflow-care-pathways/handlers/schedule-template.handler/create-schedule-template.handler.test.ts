@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { createScheduleTemplate as createScheduleTemplateHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createScheduleTemplateHandler } from "@quub/factories";
+    createScheduleTemplateHandler } from "@cuur/factories";
 
 describe("createScheduleTemplate - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

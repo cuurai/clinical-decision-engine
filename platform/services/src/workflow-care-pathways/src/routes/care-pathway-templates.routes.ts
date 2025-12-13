@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createCarePathwayTemplate, deleteCarePathwayTemplate, getCarePathwayTemplate, listCarePathwayTemplates, updateCarePathwayTemplate } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { CarePathwayTemplateInput, CarePathwayTemplateUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function carePathwayTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /care-pathway-templates
   fastify.get("/care-pathway-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listCarePathwayTemplates(deps.carePathwayTemplateRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /care-pathway-templates
   fastify.post("/care-pathway-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId, request.body as CarePathwayTemplateInput);
+    const orgId = extractOrgId(request);
+    const result = await createCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId, request.body as CreateCarePathwayTemplateInput);
     return reply.code(201).send(result);
   });
   // GET /care-pathway-templates/{id}
   fastify.get("/care-pathway-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /care-pathway-templates/{id}
   fastify.patch("/care-pathway-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId, request.body as CarePathwayTemplateUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId, id, request.body as UpdateCarePathwayTemplateInput);
     return reply.code(200).send(result);
   });
   // DELETE /care-pathway-templates/{id}
   fastify.delete("/care-pathway-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

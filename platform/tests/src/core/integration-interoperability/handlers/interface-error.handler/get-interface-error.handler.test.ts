@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getInterfaceError as getInterfaceErrorHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createInterfaceErrorHandler } from "@quub/factories";
+    createInterfaceErrorHandler } from "@cuur/factories";
 
 describe("getInterfaceError - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

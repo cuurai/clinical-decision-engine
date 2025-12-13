@@ -1,5 +1,5 @@
 {
-  "name": "@quub/tests-decision-intelligence",
+  "name": "@cuur/tests-decision-intelligence",
   "version": "1.0.0",
   "description": "Quub Exchange - DecisionIntelligence Tests",
   "type": "module",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@cuur/core": "workspace:*",
-    "@quub/factories": "workspace:*",
+    "@cuur/factories": "workspace:*",
     "@prisma/client": "^6.0.1",
     "jsonwebtoken": "^9.0.2"
   },

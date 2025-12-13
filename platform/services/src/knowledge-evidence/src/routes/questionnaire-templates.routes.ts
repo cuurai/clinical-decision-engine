@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createQuestionnaireTemplate, deleteQuestionnaireTemplate, getQuestionnaireTemplate, listQuestionnaireTemplates, updateQuestionnaireTemplate } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { QuestionnaireTemplateInput, QuestionnaireTemplateUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function questionnaireTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /questionnaire-templates
   fastify.get("/questionnaire-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listQuestionnaireTemplates(deps.questionnaireTemplateRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /questionnaire-templates
   fastify.post("/questionnaire-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId, request.body as QuestionnaireTemplateInput);
+    const orgId = extractOrgId(request);
+    const result = await createQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId, request.body as CreateQuestionnaireTemplateInput);
     return reply.code(201).send(result);
   });
   // GET /questionnaire-templates/{id}
   fastify.get("/questionnaire-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /questionnaire-templates/{id}
   fastify.patch("/questionnaire-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId, request.body as QuestionnaireTemplateUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId, id, request.body as UpdateQuestionnaireTemplateInput);
     return reply.code(200).send(result);
   });
   // DELETE /questionnaire-templates/{id}
   fastify.delete("/questionnaire-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

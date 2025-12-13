@@ -18,7 +18,7 @@ export async function episodeOfCareWorkflowInstancesRoutes(
 ) {
   // GET /episodes-of-care/{id}/workflow-instances
   fastify.get("/episodes-of-care/:id/workflow-instances", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listEpisodeOfCareWorkflowInstances(deps.episodeOfCareWorkflowInstanceRepo, orgId);
     return reply.code(200).send(result);
   });

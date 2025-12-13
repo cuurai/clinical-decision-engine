@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getTaskAssignment as getTaskAssignmentHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createTaskAssignmentHandler } from "@quub/factories";
+    createTaskAssignmentHandler } from "@cuur/factories";
 
 describe("getTaskAssignment - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

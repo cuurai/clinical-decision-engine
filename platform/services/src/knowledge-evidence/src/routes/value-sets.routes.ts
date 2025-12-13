@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createValueSet, deleteValueSet, getValueSet, listValueSets, updateValueSet } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { ValueSetInput, ValueSetUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function valueSetsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /value-sets
   fastify.get("/value-sets", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listValueSets(deps.valueSetRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /value-sets
   fastify.post("/value-sets", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createValueSet(deps.valueSetRepo, orgId, request.body as ValueSetInput);
+    const orgId = extractOrgId(request);
+    const result = await createValueSet(deps.valueSetRepo, orgId, request.body as CreateValueSetInput);
     return reply.code(201).send(result);
   });
   // GET /value-sets/{id}
   fastify.get("/value-sets/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getValueSet(deps.valueSetRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getValueSet(deps.valueSetRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /value-sets/{id}
   fastify.patch("/value-sets/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateValueSet(deps.valueSetRepo, orgId, request.body as ValueSetUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateValueSet(deps.valueSetRepo, orgId, id, request.body as UpdateValueSetInput);
     return reply.code(200).send(result);
   });
   // DELETE /value-sets/{id}
   fastify.delete("/value-sets/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteValueSet(deps.valueSetRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteValueSet(deps.valueSetRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

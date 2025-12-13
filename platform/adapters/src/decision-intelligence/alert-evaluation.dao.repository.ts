@@ -103,7 +103,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
   async update(orgId: OrgId, id: string, data: AlertEvaluationUpdate): Promise<AlertEvaluation> {
     try {
       const record = await this.dao.alertEvaluation.update({
-        where: { id },
+        where: { id, orgId },
         data,
       });
       return this.toDomain(record);
@@ -116,7 +116,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.alertEvaluation.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
         },

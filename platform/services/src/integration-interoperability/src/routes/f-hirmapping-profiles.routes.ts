@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createFHIRMappingProfile, deleteFHIRMappingProfile, getFHIRMappingProfile, listFHIRMappingProfiles, updateFHIRMappingProfile } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { FHIRMappingProfileInput, FHIRMappingProfileUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function fHIRMappingProfilesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /fhir-mapping-profiles
   fastify.get("/fhir-mapping-profiles", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listFHIRMappingProfiles(deps.fHIRMappingProfileRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /fhir-mapping-profiles
   fastify.post("/fhir-mapping-profiles", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, request.body as FHIRMappingProfileInput);
+    const orgId = extractOrgId(request);
+    const result = await createFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, request.body as CreateFHIRMappingProfileInput);
     return reply.code(201).send(result);
   });
   // GET /fhir-mapping-profiles/{id}
   fastify.get("/fhir-mapping-profiles/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /fhir-mapping-profiles/{id}
   fastify.patch("/fhir-mapping-profiles/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, request.body as FHIRMappingProfileUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, id, request.body as UpdateFHirmappingProfileInput);
     return reply.code(200).send(result);
   });
   // DELETE /fhir-mapping-profiles/{id}
   fastify.delete("/fhir-mapping-profiles/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

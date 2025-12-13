@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createKnowledgePackage, deleteKnowledgePackage, getKnowledgePackage, listKnowledgePackages, updateKnowledgePackage } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { KnowledgePackageInput, KnowledgePackageUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function knowledgePackagesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /knowledge-packages
   fastify.get("/knowledge-packages", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listKnowledgePackages(deps.knowledgePackageRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /knowledge-packages
   fastify.post("/knowledge-packages", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createKnowledgePackage(deps.knowledgePackageRepo, orgId, request.body as KnowledgePackageInput);
+    const orgId = extractOrgId(request);
+    const result = await createKnowledgePackage(deps.knowledgePackageRepo, orgId, request.body as CreateKnowledgePackageInput);
     return reply.code(201).send(result);
   });
   // GET /knowledge-packages/{id}
   fastify.get("/knowledge-packages/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getKnowledgePackage(deps.knowledgePackageRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getKnowledgePackage(deps.knowledgePackageRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /knowledge-packages/{id}
   fastify.patch("/knowledge-packages/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateKnowledgePackage(deps.knowledgePackageRepo, orgId, request.body as KnowledgePackageUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateKnowledgePackage(deps.knowledgePackageRepo, orgId, id, request.body as UpdateKnowledgePackageInput);
     return reply.code(200).send(result);
   });
   // DELETE /knowledge-packages/{id}
   fastify.delete("/knowledge-packages/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteKnowledgePackage(deps.knowledgePackageRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteKnowledgePackage(deps.knowledgePackageRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

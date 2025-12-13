@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createHandoff, deleteHandoff, getHandoff, listHandoffs, updateHandoff } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { HandoffInput, HandoffUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function handoffsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /handoffs
   fastify.get("/handoffs", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listHandoffs(deps.handoffRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /handoffs
   fastify.post("/handoffs", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createHandoff(deps.handoffRepo, orgId, request.body as HandoffInput);
+    const orgId = extractOrgId(request);
+    const result = await createHandoff(deps.handoffRepo, orgId, request.body as CreateHandoffInput);
     return reply.code(201).send(result);
   });
   // GET /handoffs/{id}
   fastify.get("/handoffs/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getHandoff(deps.handoffRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getHandoff(deps.handoffRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /handoffs/{id}
   fastify.patch("/handoffs/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateHandoff(deps.handoffRepo, orgId, request.body as HandoffUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await updateHandoff(deps.handoffRepo, orgId, id, request.body as UpdateHandoffInput);
     return reply.code(200).send(result);
   });
   // DELETE /handoffs/{id}
   fastify.delete("/handoffs/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteHandoff(deps.handoffRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        await deleteHandoff(deps.handoffRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

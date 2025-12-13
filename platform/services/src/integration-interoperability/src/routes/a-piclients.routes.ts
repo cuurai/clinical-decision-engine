@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createAPIClient, deleteAPIClient, getAPIClient, listAPIClients, updateAPIClient } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { APIClientInput, APIClientUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function aPIClientsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /api-clients
   fastify.get("/api-clients", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listAPIClients(deps.aPIClientRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /api-clients
   fastify.post("/api-clients", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createAPIClient(deps.aPIClientRepo, orgId, request.body as APIClientInput);
+    const orgId = extractOrgId(request);
+    const result = await createAPIClient(deps.aPIClientRepo, orgId, request.body as CreateAPIClientInput);
     return reply.code(201).send(result);
   });
   // GET /api-clients/{id}
   fastify.get("/api-clients/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getAPIClient(deps.aPIClientRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getAPIClient(deps.aPIClientRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /api-clients/{id}
   fastify.patch("/api-clients/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateAPIClient(deps.aPIClientRepo, orgId, request.body as APIClientUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateAPIClient(deps.aPIClientRepo, orgId, id, request.body as UpdateAPiclientInput);
     return reply.code(200).send(result);
   });
   // DELETE /api-clients/{id}
   fastify.delete("/api-clients/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteAPIClient(deps.aPIClientRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteAPIClient(deps.aPIClientRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

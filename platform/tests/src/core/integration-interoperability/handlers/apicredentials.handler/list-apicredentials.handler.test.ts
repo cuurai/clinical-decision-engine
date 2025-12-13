@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listAPICredentials as listAPICredentialsHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createApicredentialsHandler } from "@quub/factories";
+    createApicredentialsHandler } from "@cuur/factories";
 
 describe("listAPICredentials - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

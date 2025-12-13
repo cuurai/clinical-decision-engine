@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createEvidenceReview, deleteEvidenceReview, getEvidenceReview, listEvidenceReviews, updateEvidenceReview } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { EvidenceReviewInput, EvidenceReviewUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function evidenceReviewsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /evidence-reviews
   fastify.get("/evidence-reviews", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listEvidenceReviews(deps.evidenceReviewRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /evidence-reviews
   fastify.post("/evidence-reviews", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createEvidenceReview(deps.evidenceReviewRepo, orgId, request.body as EvidenceReviewInput);
+    const orgId = extractOrgId(request);
+    const result = await createEvidenceReview(deps.evidenceReviewRepo, orgId, request.body as CreateEvidenceReviewInput);
     return reply.code(201).send(result);
   });
   // GET /evidence-reviews/{id}
   fastify.get("/evidence-reviews/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getEvidenceReview(deps.evidenceReviewRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getEvidenceReview(deps.evidenceReviewRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /evidence-reviews/{id}
   fastify.patch("/evidence-reviews/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateEvidenceReview(deps.evidenceReviewRepo, orgId, request.body as EvidenceReviewUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateEvidenceReview(deps.evidenceReviewRepo, orgId, id, request.body as UpdateEvidenceReviewInput);
     return reply.code(200).send(result);
   });
   // DELETE /evidence-reviews/{id}
   fastify.delete("/evidence-reviews/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteEvidenceReview(deps.evidenceReviewRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteEvidenceReview(deps.evidenceReviewRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

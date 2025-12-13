@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listConceptMapMappings as listConceptMapMappingsHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createConceptMapMappingsHandler } from "@quub/factories";
+    createConceptMapMappingsHandler } from "@cuur/factories";
 
 describe("listConceptMapMappings - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

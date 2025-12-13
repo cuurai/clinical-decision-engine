@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createHL7MappingProfile, deleteHL7MappingProfile, getHL7MappingProfile, listHL7MappingProfiles, updateHL7MappingProfile } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { HL7MappingProfileInput, HL7MappingProfileUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function hLMappingProfilesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /hl7-mapping-profiles
   fastify.get("/hl7-mapping-profiles", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listHL7MappingProfiles(deps.hLMappingProfileRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /hl7-mapping-profiles
   fastify.post("/hl7-mapping-profiles", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createHL7MappingProfile(deps.hLMappingProfileRepo, orgId, request.body as HL7MappingProfileInput);
+    const orgId = extractOrgId(request);
+    const result = await createHL7MappingProfile(deps.hLMappingProfileRepo, orgId, request.body as CreateHL7MappingProfileInput);
     return reply.code(201).send(result);
   });
   // GET /hl7-mapping-profiles/{id}
   fastify.get("/hl7-mapping-profiles/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getHL7MappingProfile(deps.hLMappingProfileRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getHL7MappingProfile(deps.hLMappingProfileRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /hl7-mapping-profiles/{id}
   fastify.patch("/hl7-mapping-profiles/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateHL7MappingProfile(deps.hLMappingProfileRepo, orgId, request.body as HL7MappingProfileUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateHL7MappingProfile(deps.hLMappingProfileRepo, orgId, id, request.body as UpdateHLmappingProfileInput);
     return reply.code(200).send(result);
   });
   // DELETE /hl7-mapping-profiles/{id}
   fastify.delete("/hl7-mapping-profiles/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteHL7MappingProfile(deps.hLMappingProfileRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteHL7MappingProfile(deps.hLMappingProfileRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

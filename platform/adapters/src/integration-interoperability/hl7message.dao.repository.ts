@@ -106,7 +106,7 @@ export class DaoHL7MessageRepository implements HL7MessageRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.hl7message.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           

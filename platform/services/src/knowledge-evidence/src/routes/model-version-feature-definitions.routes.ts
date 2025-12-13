@@ -18,7 +18,7 @@ export async function modelVersionFeatureDefinitionsRoutes(
 ) {
   // GET /model-versions/{id}/feature-definitions
   fastify.get("/model-versions/:id/feature-definitions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listModelVersionFeatureDefinitions(deps.modelVersionFeatureDefinitionRepo, orgId);
     return reply.code(200).send(result);
   });

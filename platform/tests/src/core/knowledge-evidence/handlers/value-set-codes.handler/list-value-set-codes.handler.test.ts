@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listValueSetCodes as listValueSetCodesHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createValueSetCodesHandler } from "@quub/factories";
+    createValueSetCodesHandler } from "@cuur/factories";
 
 describe("listValueSetCodes - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

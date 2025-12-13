@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listAlertEvaluations as listAlertEvaluationsHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createAlertEvaluationsHandler } from "@quub/factories";
+    createAlertEvaluationsHandler } from "@cuur/factories";
 
 describe("listAlertEvaluations - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

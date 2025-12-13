@@ -18,7 +18,7 @@ export async function modelDefinitionPerformanceMetricsRoutes(
 ) {
   // GET /model-definitions/{id}/performance-metrics
   fastify.get("/model-definitions/:id/performance-metrics", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listModelDefinitionPerformanceMetrics(deps.modelDefinitionPerformanceMetricRepo, orgId);
     return reply.code(200).send(result);
   });

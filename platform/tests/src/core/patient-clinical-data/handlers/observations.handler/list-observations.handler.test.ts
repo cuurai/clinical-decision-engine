@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listObservations as listObservationsHandler } from "@cuur/core/patient-clinical-data/handlers/index.js";
 
 import { seedFaker,
-    createObservationsHandler } from "@quub/factories";
+    createObservationsHandler } from "@cuur/factories";
 
 describe("listObservations - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

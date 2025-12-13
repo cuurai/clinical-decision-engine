@@ -18,7 +18,7 @@ export async function integrationRunErrorsRoutes(
 ) {
   // GET /integration-runs/{id}/errors
   fastify.get("/integration-runs/:id/errors", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listIntegrationRunErrors(deps.integrationRunErrorRepo, orgId);
     return reply.code(200).send(result);
   });

@@ -18,7 +18,7 @@ export async function modelDefinitionVersionsRoutes(
 ) {
   // GET /model-definitions/{id}/versions
   fastify.get("/model-definitions/:id/versions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listModelDefinitionVersions(deps.modelDefinitionVersionRepo, orgId);
     return reply.code(200).send(result);
   });

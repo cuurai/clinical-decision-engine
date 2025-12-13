@@ -9,7 +9,12 @@
         ".": {
             "types": "./dist/index.d.ts",
             "default": "./dist/index.js"
-        }
+        },
+        "./decision-intelligence/*": "./dist/decision-intelligence/*",
+        "./integration-interoperability/*": "./dist/integration-interoperability/*",
+        "./knowledge-evidence/*": "./dist/knowledge-evidence/*",
+        "./patient-clinical-data/*": "./dist/patient-clinical-data/*",
+        "./workflow-care-pathways/*": "./dist/workflow-care-pathways/*"
     },
     "scripts": {
         "build": "tsc",

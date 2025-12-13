@@ -18,7 +18,7 @@ export async function decisionPolicyThresholdProfilesRoutes(
 ) {
   // GET /decision-policies/{id}/threshold-profiles
   fastify.get("/decision-policies/:id/threshold-profiles", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDecisionPolicyThresholdProfiles(deps.decisionPolicyThresholdProfileRepo, orgId);
     return reply.code(200).send(result);
   });

@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listExternalSystemConnections as listExternalSystemConnectionsHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createExternalSystemConnectionsHandler } from "@quub/factories";
+    createExternalSystemConnectionsHandler } from "@cuur/factories";
 
 describe("listExternalSystemConnections - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

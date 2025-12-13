@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listModelVersions as listModelVersionsHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createModelVersionsHandler } from "@quub/factories";
+    createModelVersionsHandler } from "@cuur/factories";
 
 describe("listModelVersions - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

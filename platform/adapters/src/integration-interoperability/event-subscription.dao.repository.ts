@@ -92,11 +92,6 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
     // Note: Repository interface expects EventSubscription, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as EventSubscriptionInput;
-    try
-    // Note: Repository interface expects EventSubscription, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as EventSubscriptionInput;
-    try
     try {
       const record = await this.dao.eventSubscription.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
   async update(orgId: OrgId, id: string, data: EventSubscriptionUpdate): Promise<EventSubscription> {
     try {
       const record = await this.dao.eventSubscription.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.eventSubscription.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
         const results: EventSubscription[] = [];
         for (const { id, data } of updates) {
           const record = await tx.eventSubscription.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

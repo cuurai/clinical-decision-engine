@@ -11,29 +11,40 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { createInterfaceHealthCheck, getInterfaceHealthCheck, listInterfaceHealthChecks } from "@cuur/core/integration-interoperability/handlers/index.js";
-import type { InterfaceHealthCheckInput } from "@cuur/core/integration-interoperability/types/index.js";
-export async function interfaceHealthChecksRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
+import {
+  createInterfaceHealthCheck,
+  getInterfaceHealthCheck,
+  listInterfaceHealthChecks,
+} from "@cuur/core/integration-interoperability/handlers/index.js";
+import type { CreateInterfaceHealthCheckInput } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
+
+export async function interfaceHealthChecksRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /interface-health-checks
   fastify.get("/interface-health-checks", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await listInterfaceHealthChecks(deps.interfaceHealthCheckRepo, orgId, request.query || {});
+    const orgId = extractOrgId(request);
+    const result = await listInterfaceHealthChecks(
+      deps.interfaceHealthCheckRepo,
+      orgId,
+      request.query || {}
+    );
     return reply.code(200).send(result);
   });
   // POST /interface-health-checks
   fastify.post("/interface-health-checks", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createInterfaceHealthCheck(deps.interfaceHealthCheckRepo, orgId, request.body as InterfaceHealthCheckInput);
+    const orgId = extractOrgId(request);
+    const result = await createInterfaceHealthCheck(
+      deps.interfaceHealthCheckRepo,
+      orgId,
+      request.body as CreateInterfaceHealthCheckInput
+    );
     return reply.code(201).send(result);
   });
   // GET /interface-health-checks/{id}
   fastify.get("/interface-health-checks/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getInterfaceHealthCheck(deps.interfaceHealthCheckRepo, orgId);
+    const orgId = extractOrgId(request);
+    const id = (request.params as any).id;
+    const result = await getInterfaceHealthCheck(deps.interfaceHealthCheckRepo, orgId, id);
     return reply.code(200).send(result);
   });
-
 }

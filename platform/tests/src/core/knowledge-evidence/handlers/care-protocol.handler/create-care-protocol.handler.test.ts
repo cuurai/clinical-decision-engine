@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { createCareProtocol as createCareProtocolHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createCareProtocolHandler } from "@quub/factories";
+    createCareProtocolHandler } from "@cuur/factories";
 
 describe("createCareProtocol - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

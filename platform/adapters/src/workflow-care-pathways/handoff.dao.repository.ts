@@ -92,11 +92,6 @@ export class DaoHandoffRepository implements HandoffRepository {
     // Note: Repository interface expects Handoff, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as HandoffInput;
-    try
-    // Note: Repository interface expects Handoff, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as HandoffInput;
-    try
     try {
       const record = await this.dao.handoff.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoHandoffRepository implements HandoffRepository {
   async update(orgId: OrgId, id: string, data: HandoffUpdate): Promise<Handoff> {
     try {
       const record = await this.dao.handoff.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoHandoffRepository implements HandoffRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.handoff.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoHandoffRepository implements HandoffRepository {
         const results: Handoff[] = [];
         for (const { id, data } of updates) {
           const record = await tx.handoff.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

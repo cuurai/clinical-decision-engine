@@ -4,6 +4,11 @@
   "description": "Clinical Decision Engine - Monorepo Root",
   "type": "module",
   "private": true,
+  "workspaces": [
+    "packages/core",
+    "platform/adapters",
+    "platform/services/src/*"
+  ],
   "scripts": {
     "build": "cd packages/core && npm install && npm run build",
     "build:watch": "cd packages/core && npm run build:watch",

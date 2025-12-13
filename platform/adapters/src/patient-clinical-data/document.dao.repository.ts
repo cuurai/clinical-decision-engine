@@ -106,7 +106,7 @@ export class DaoDocumentRepository implements DocumentRepository {
   async update(orgId: OrgId, id: string, data: DocumentUpdate): Promise<Document> {
     try {
       const record = await this.dao.document.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -122,7 +122,7 @@ export class DaoDocumentRepository implements DocumentRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.document.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -167,7 +167,7 @@ export class DaoDocumentRepository implements DocumentRepository {
         const results: Document[] = [];
         for (const { id, data } of updates) {
           const record = await tx.document.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

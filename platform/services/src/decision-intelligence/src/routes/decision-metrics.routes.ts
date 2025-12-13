@@ -18,7 +18,7 @@ export async function decisionMetricsRoutes(
 ) {
   // GET /decision-metrics
   fastify.get("/decision-metrics", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDecisionMetrics(deps.decisionMetricRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });

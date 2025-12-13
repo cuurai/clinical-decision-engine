@@ -92,7 +92,6 @@ export class DaoEvidenceReviewRepository implements EvidenceReviewRepository {
     // Note: Repository interface expects EvidenceReview, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as EvidenceReviewInput;
-    try
     try {
       const record = await this.dao.evidenceReview.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoEvidenceReviewRepository implements EvidenceReviewRepository {
   async update(orgId: OrgId, id: string, data: EvidenceReviewUpdate): Promise<EvidenceReview> {
     try {
       const record = await this.dao.evidenceReview.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoEvidenceReviewRepository implements EvidenceReviewRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.evidenceReview.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoEvidenceReviewRepository implements EvidenceReviewRepository {
         const results: EvidenceReview[] = [];
         for (const { id, data } of updates) {
           const record = await tx.evidenceReview.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

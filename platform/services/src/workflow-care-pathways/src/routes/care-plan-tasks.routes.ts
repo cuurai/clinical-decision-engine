@@ -18,7 +18,7 @@ export async function carePlanTasksRoutes(
 ) {
   // GET /care-plans/{id}/tasks
   fastify.get("/care-plans/:id/tasks", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listCarePlanTasks(deps.carePlanTaskRepo, orgId);
     return reply.code(200).send(result);
   });

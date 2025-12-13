@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listChecklistTemplates as listChecklistTemplatesHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createChecklistTemplatesHandler } from "@quub/factories";
+    createChecklistTemplatesHandler } from "@cuur/factories";
 
 describe("listChecklistTemplates - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

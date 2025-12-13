@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createTask, deleteTask, getTask, listTasks, updateTask } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { TaskInput, TaskUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function tasksRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /tasks
   fastify.get("/tasks", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listTasks(deps.taskRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /tasks
   fastify.post("/tasks", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createTask(deps.taskRepo, orgId, request.body as TaskInput);
+    const orgId = extractOrgId(request);
+    const result = await createTask(deps.taskRepo, orgId, request.body as CreateTaskInput);
     return reply.code(201).send(result);
   });
   // GET /tasks/{id}
   fastify.get("/tasks/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getTask(deps.taskRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getTask(deps.taskRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /tasks/{id}
   fastify.patch("/tasks/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateTask(deps.taskRepo, orgId, request.body as TaskUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await updateTask(deps.taskRepo, orgId, id, request.body as UpdateTaskInput);
     return reply.code(200).send(result);
   });
   // DELETE /tasks/{id}
   fastify.delete("/tasks/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteTask(deps.taskRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        await deleteTask(deps.taskRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

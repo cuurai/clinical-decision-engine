@@ -92,11 +92,6 @@ export class DaoAllergyRepository implements AllergyRepository {
     // Note: Repository interface expects Allergy, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as AllergyInput;
-    try
-    // Note: Repository interface expects Allergy, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as AllergyInput;
-    try
     try {
       const record = await this.dao.allergy.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoAllergyRepository implements AllergyRepository {
   async update(orgId: OrgId, id: string, data: AllergyUpdate): Promise<Allergy> {
     try {
       const record = await this.dao.allergy.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoAllergyRepository implements AllergyRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.allergy.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoAllergyRepository implements AllergyRepository {
         const results: Allergy[] = [];
         for (const { id, data } of updates) {
           const record = await tx.allergy.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

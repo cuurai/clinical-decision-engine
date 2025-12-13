@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listModelInvocations as listModelInvocationsHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createModelInvocationsHandler } from "@quub/factories";
+    createModelInvocationsHandler } from "@cuur/factories";
 
 describe("listModelInvocations - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

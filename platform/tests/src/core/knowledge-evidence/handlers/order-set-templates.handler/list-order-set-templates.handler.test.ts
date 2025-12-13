@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listOrderSetTemplates as listOrderSetTemplatesHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createOrderSetTemplatesHandler } from "@quub/factories";
+    createOrderSetTemplatesHandler } from "@cuur/factories";
 
 describe("listOrderSetTemplates - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

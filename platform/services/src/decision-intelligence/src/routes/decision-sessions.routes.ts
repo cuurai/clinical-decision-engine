@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createDecisionSession, deleteDecisionSession, getDecisionSession, listDecisionSessions, updateDecisionSession } from "@cuur/core/decision-intelligence/handlers/index.js";
 import type { DecisionSessionInput, DecisionSessionUpdate } from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function decisionSessionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /decision-sessions
   fastify.get("/decision-sessions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDecisionSessions(deps.decisionSessionRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /decision-sessions
   fastify.post("/decision-sessions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createDecisionSession(deps.decisionSessionRepo, orgId, request.body as DecisionSessionInput);
+    const orgId = extractOrgId(request);
+    const result = await createDecisionSession(deps.decisionSessionRepo, orgId, request.body as CreateDecisionSessionInput);
     return reply.code(201).send(result);
   });
   // GET /decision-sessions/{id}
   fastify.get("/decision-sessions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getDecisionSession(deps.decisionSessionRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getDecisionSession(deps.decisionSessionRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /decision-sessions/{id}
   fastify.patch("/decision-sessions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateDecisionSession(deps.decisionSessionRepo, orgId, request.body as DecisionSessionUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateDecisionSession(deps.decisionSessionRepo, orgId, id, request.body as UpdateDecisionSessionInput);
     return reply.code(200).send(result);
   });
   // DELETE /decision-sessions/{id}
   fastify.delete("/decision-sessions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteDecisionSession(deps.decisionSessionRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteDecisionSession(deps.decisionSessionRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { createThresholdProfile as createThresholdProfileHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createThresholdProfileHandler } from "@quub/factories";
+    createThresholdProfileHandler } from "@cuur/factories";
 
 describe("createThresholdProfile - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

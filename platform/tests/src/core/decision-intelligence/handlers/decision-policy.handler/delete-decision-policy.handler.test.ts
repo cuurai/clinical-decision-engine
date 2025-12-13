@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { deleteDecisionPolicy as deleteDecisionPolicyHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createDecisionPolicyHandler } from "@quub/factories";
+    createDecisionPolicyHandler } from "@cuur/factories";
 
 describe("deleteDecisionPolicy - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

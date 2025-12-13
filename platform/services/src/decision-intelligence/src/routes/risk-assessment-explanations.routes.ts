@@ -18,7 +18,7 @@ export async function riskAssessmentExplanationsRoutes(
 ) {
   // GET /risk-assessments/{id}/explanations
   fastify.get("/risk-assessments/:id/explanations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listRiskAssessmentExplanations(deps.riskAssessmentExplanationRepo, orgId);
     return reply.code(200).send(result);
   });

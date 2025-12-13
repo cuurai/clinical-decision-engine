@@ -18,7 +18,7 @@ export async function conditionNotesRoutes(
 ) {
   // GET /conditions/{id}/notes
   fastify.get("/conditions/:id/notes", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listConditionNotes(deps.conditionNoteRepo, orgId);
     return reply.code(200).send(result);
   });

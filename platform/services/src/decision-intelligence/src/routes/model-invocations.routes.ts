@@ -13,26 +13,28 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createModelInvocation, getModelInvocation, listModelInvocations } from "@cuur/core/decision-intelligence/handlers/index.js";
 import type { ModelInvocationInput } from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function modelInvocationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /model-invocations
   fastify.get("/model-invocations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listModelInvocations(deps.modelInvocationRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /model-invocations
   fastify.post("/model-invocations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createModelInvocation(deps.modelInvocationRepo, orgId, request.body as ModelInvocationInput);
+    const orgId = extractOrgId(request);
+    const result = await createModelInvocation(deps.modelInvocationRepo, orgId, request.body as CreateModelInvocationInput);
     return reply.code(201).send(result);
   });
   // GET /model-invocations/{id}
   fastify.get("/model-invocations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getModelInvocation(deps.modelInvocationRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getModelInvocation(deps.modelInvocationRepo, orgId, id);
     return reply.code(200).send(result);
   });
 

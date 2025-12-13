@@ -18,7 +18,7 @@ export async function workflowInstanceTasksRoutes(
 ) {
   // GET /workflow-instances/{id}/tasks
   fastify.get("/workflow-instances/:id/tasks", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listWorkflowInstanceTasks(deps.workflowInstanceTaskRepo, orgId);
     return reply.code(200).send(result);
   });

@@ -92,7 +92,6 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
     // Note: Repository interface expects ModelVersion, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ModelVersionInput;
-    try
     try {
       const record = await this.dao.modelVersion.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
   async update(orgId: OrgId, id: string, data: ModelVersionUpdate): Promise<ModelVersion> {
     try {
       const record = await this.dao.modelVersion.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.modelVersion.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
         const results: ModelVersion[] = [];
         for (const { id, data } of updates) {
           const record = await tx.modelVersion.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

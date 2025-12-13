@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createConceptMap, deleteConceptMap, getConceptMap, listConceptMaps, updateConceptMap } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { ConceptMapInput, ConceptMapUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function conceptMapsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /concept-maps
   fastify.get("/concept-maps", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listConceptMaps(deps.conceptMapRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /concept-maps
   fastify.post("/concept-maps", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createConceptMap(deps.conceptMapRepo, orgId, request.body as ConceptMapInput);
+    const orgId = extractOrgId(request);
+    const result = await createConceptMap(deps.conceptMapRepo, orgId, request.body as CreateConceptMapInput);
     return reply.code(201).send(result);
   });
   // GET /concept-maps/{id}
   fastify.get("/concept-maps/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getConceptMap(deps.conceptMapRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getConceptMap(deps.conceptMapRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /concept-maps/{id}
   fastify.patch("/concept-maps/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateConceptMap(deps.conceptMapRepo, orgId, request.body as ConceptMapUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateConceptMap(deps.conceptMapRepo, orgId, id, request.body as UpdateConceptMapInput);
     return reply.code(200).send(result);
   });
   // DELETE /concept-maps/{id}
   fastify.delete("/concept-maps/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteConceptMap(deps.conceptMapRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteConceptMap(deps.conceptMapRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

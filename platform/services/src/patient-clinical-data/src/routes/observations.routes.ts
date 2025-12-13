@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createObservation, deleteObservation, getObservation, listObservations, updateObservation } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { ObservationInput, ObservationUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function observationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /observations
   fastify.get("/observations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listObservations(deps.observationRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /observations
   fastify.post("/observations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createObservation(deps.observationRepo, orgId, request.body as ObservationInput);
+    const orgId = extractOrgId(request);
+    const result = await createObservation(deps.observationRepo, orgId, request.body as CreateObservationInput);
     return reply.code(201).send(result);
   });
   // GET /observations/{id}
   fastify.get("/observations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getObservation(deps.observationRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getObservation(deps.observationRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /observations/{id}
   fastify.patch("/observations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateObservation(deps.observationRepo, orgId, request.body as ObservationUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateObservation(deps.observationRepo, orgId, id, request.body as UpdateObservationInput);
     return reply.code(200).send(result);
   });
   // DELETE /observations/{id}
   fastify.delete("/observations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteObservation(deps.observationRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteObservation(deps.observationRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

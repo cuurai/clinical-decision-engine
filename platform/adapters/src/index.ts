@@ -8,20 +8,20 @@
  */
 
 /**
- * @quub/adapters - Main Barrel Export
+ * @cuur/adapters - Main Barrel Export
  *
  * Central export point for all adapter implementations (DAO repositories)
  * Organized by domain for easy importing
  *
  * Usage:
  *   // Import adapters directly (recommended)
- *   import { DaoWalletRepository, DaoChainRepository } from "@quub/adapters";
+ *   import { DaoWalletRepository, DaoChainRepository } from "@cuur/adapters";
  *
  *   // Or import from a specific domain subpath
- *   import { DaoWalletRepository, DaoChainRepository } from "@quub/adapters/blockchain";
+ *   import { DaoWalletRepository, DaoChainRepository } from "@cuur/adapters/blockchain";
  *
  *   // Or import as namespace
- *   import { blockchain } from "@quub/adapters";
+ *   import { blockchain } from "@cuur/adapters";
  *   const { DaoWalletRepository } = blockchain;
  */
 

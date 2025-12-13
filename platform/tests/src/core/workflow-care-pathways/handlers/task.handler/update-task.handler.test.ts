@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { updateTask as updateTaskHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createTaskHandler } from "@quub/factories";
+    createTaskHandler } from "@cuur/factories";
 
 describe("updateTask - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

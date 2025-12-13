@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listExplanationRuleTraces as listExplanationRuleTracesHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createExplanationRuleTracesHandler } from "@quub/factories";
+    createExplanationRuleTracesHandler } from "@cuur/factories";
 
 describe("listExplanationRuleTraces - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

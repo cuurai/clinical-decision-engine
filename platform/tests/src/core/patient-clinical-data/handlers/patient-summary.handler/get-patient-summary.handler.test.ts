@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getPatientSummary as getPatientSummaryHandler } from "@cuur/core/patient-clinical-data/handlers/index.js";
 
 import { seedFaker,
-    createPatientSummaryHandler } from "@quub/factories";
+    createPatientSummaryHandler } from "@cuur/factories";
 
 describe("getPatientSummary - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

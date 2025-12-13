@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { createEscalationPolicy as createEscalationPolicyHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createEscalationPolicyHandler } from "@quub/factories";
+    createEscalationPolicyHandler } from "@cuur/factories";
 
 describe("createEscalationPolicy - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

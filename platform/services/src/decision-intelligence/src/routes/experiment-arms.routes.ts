@@ -18,7 +18,7 @@ export async function experimentArmsRoutes(
 ) {
   // GET /experiments/{id}/arms
   fastify.get("/experiments/:id/arms", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listExperimentArms(deps.experimentArmRepo, orgId);
     return reply.code(200).send(result);
   });

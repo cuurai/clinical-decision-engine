@@ -18,7 +18,7 @@ export async function explanationRuleTracesRoutes(
 ) {
   // GET /explanations/{id}/rule-traces
   fastify.get("/explanations/:id/rule-traces", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listExplanationRuleTraces(deps.explanationRuleTraceRepo, orgId);
     return reply.code(200).send(result);
   });

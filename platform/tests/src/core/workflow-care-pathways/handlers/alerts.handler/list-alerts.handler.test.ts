@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listAlerts as listAlertsHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createAlertsHandler } from "@quub/factories";
+    createAlertsHandler } from "@cuur/factories";
 
 describe("listAlerts - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listHL7Messages as listHL7MessagesHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createHlMessagesHandler } from "@quub/factories";
+    createHlMessagesHandler } from "@cuur/factories";
 
 describe("listHL7Messages - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

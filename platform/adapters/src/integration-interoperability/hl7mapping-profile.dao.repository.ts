@@ -106,7 +106,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
   async update(orgId: OrgId, id: string, data: Hl7mappingProfileUpdate): Promise<Hl7mappingProfile> {
     try {
       const record = await this.dao.hl7mappingProfile.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -122,7 +122,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.hl7mappingProfile.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -167,7 +167,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
         const results: Hl7mappingProfile[] = [];
         for (const { id, data } of updates) {
           const record = await tx.hl7mappingProfile.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

@@ -13,26 +13,28 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createDecisionRequest, getDecisionRequest, listDecisionRequests } from "@cuur/core/decision-intelligence/handlers/index.js";
 import type { DecisionRequestInput } from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function decisionRequestsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /decision-requests
   fastify.get("/decision-requests", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDecisionRequests(deps.decisionRequestRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /decision-requests
   fastify.post("/decision-requests", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createDecisionRequest(deps.decisionRequestRepo, orgId, request.body as DecisionRequestInput);
+    const orgId = extractOrgId(request);
+    const result = await createDecisionRequest(deps.decisionRequestRepo, orgId, request.body as CreateDecisionRequestInput);
     return reply.code(201).send(result);
   });
   // GET /decision-requests/{id}
   fastify.get("/decision-requests/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getDecisionRequest(deps.decisionRequestRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getDecisionRequest(deps.decisionRequestRepo, orgId, id);
     return reply.code(200).send(result);
   });
 

@@ -92,7 +92,6 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
     // Note: Repository interface expects RiskAssessment, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as RiskAssessmentInput;
-    try
     try {
       const record = await this.dao.riskAssessment.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
   async update(orgId: OrgId, id: string, data: RiskAssessmentUpdate): Promise<RiskAssessment> {
     try {
       const record = await this.dao.riskAssessment.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.riskAssessment.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
         const results: RiskAssessment[] = [];
         for (const { id, data } of updates) {
           const record = await tx.riskAssessment.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

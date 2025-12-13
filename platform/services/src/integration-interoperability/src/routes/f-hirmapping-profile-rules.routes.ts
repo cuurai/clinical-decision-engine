@@ -18,7 +18,7 @@ export async function fHIRMappingProfileRulesRoutes(
 ) {
   // GET /fhir-mapping-profiles/{id}/rules
   fastify.get("/fhir-mapping-profiles/:id/rules", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listFHIRMappingProfileRules(deps.fHIRMappingProfileRuleRepo, orgId);
     return reply.code(200).send(result);
   });

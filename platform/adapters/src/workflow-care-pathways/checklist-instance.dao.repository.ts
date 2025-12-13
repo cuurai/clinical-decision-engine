@@ -92,11 +92,6 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
     // Note: Repository interface expects ChecklistInstance, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ChecklistInstanceInput;
-    try
-    // Note: Repository interface expects ChecklistInstance, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as ChecklistInstanceInput;
-    try
     try {
       const record = await this.dao.checklistInstance.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
   async update(orgId: OrgId, id: string, data: ChecklistInstanceUpdate): Promise<ChecklistInstance> {
     try {
       const record = await this.dao.checklistInstance.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.checklistInstance.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
         const results: ChecklistInstance[] = [];
         for (const { id, data } of updates) {
           const record = await tx.checklistInstance.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

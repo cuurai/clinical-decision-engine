@@ -92,7 +92,6 @@ export class DaoOrderSetTemplateRepository implements OrderSetTemplateRepository
     // Note: Repository interface expects OrderSetTemplate, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as OrderSetTemplateInput;
-    try
     try {
       const record = await this.dao.orderSetTemplate.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoOrderSetTemplateRepository implements OrderSetTemplateRepository
   async update(orgId: OrgId, id: string, data: OrderSetTemplateUpdate): Promise<OrderSetTemplate> {
     try {
       const record = await this.dao.orderSetTemplate.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoOrderSetTemplateRepository implements OrderSetTemplateRepository
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.orderSetTemplate.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoOrderSetTemplateRepository implements OrderSetTemplateRepository
         const results: OrderSetTemplate[] = [];
         for (const { id, data } of updates) {
           const record = await tx.orderSetTemplate.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

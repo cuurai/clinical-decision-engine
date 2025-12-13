@@ -92,11 +92,6 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
     // Note: Repository interface expects WorkQueue, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as WorkQueueInput;
-    try
-    // Note: Repository interface expects WorkQueue, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as WorkQueueInput;
-    try
     try {
       const record = await this.dao.workQueue.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
   async update(orgId: OrgId, id: string, data: WorkQueueUpdate): Promise<WorkQueue> {
     try {
       const record = await this.dao.workQueue.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.workQueue.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
         const results: WorkQueue[] = [];
         for (const { id, data } of updates) {
           const record = await tx.workQueue.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

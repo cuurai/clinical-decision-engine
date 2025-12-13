@@ -13,32 +13,35 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createEventDelivery, getEventDelivery, listEventDeliveries, updateEventDelivery } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { EventDeliveryInput, EventDeliveryUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function eventDeliveriesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /event-deliveries
   fastify.get("/event-deliveries", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listEventDeliveries(deps.eventDeliveryRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /event-deliveries
   fastify.post("/event-deliveries", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createEventDelivery(deps.eventDeliveryRepo, orgId, request.body as EventDeliveryInput);
+    const orgId = extractOrgId(request);
+    const result = await createEventDelivery(deps.eventDeliveryRepo, orgId, request.body as CreateEventDeliveryInput);
     return reply.code(201).send(result);
   });
   // GET /event-deliveries/{id}
   fastify.get("/event-deliveries/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getEventDelivery(deps.eventDeliveryRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getEventDelivery(deps.eventDeliveryRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /event-deliveries/{id}
   fastify.patch("/event-deliveries/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateEventDelivery(deps.eventDeliveryRepo, orgId, request.body as EventDeliveryUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateEventDelivery(deps.eventDeliveryRepo, orgId, id, request.body as UpdateEventDeliverieInput);
     return reply.code(200).send(result);
   });
 

@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createWorkQueue, deleteWorkQueue, getWorkQueue, listWorkQueues, updateWorkQueue } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { WorkQueueInput, WorkQueueUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function workQueuesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /work-queues
   fastify.get("/work-queues", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listWorkQueues(deps.workQueueRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /work-queues
   fastify.post("/work-queues", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createWorkQueue(deps.workQueueRepo, orgId, request.body as WorkQueueInput);
+    const orgId = extractOrgId(request);
+    const result = await createWorkQueue(deps.workQueueRepo, orgId, request.body as CreateWorkQueueInput);
     return reply.code(201).send(result);
   });
   // GET /work-queues/{id}
   fastify.get("/work-queues/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getWorkQueue(deps.workQueueRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getWorkQueue(deps.workQueueRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /work-queues/{id}
   fastify.patch("/work-queues/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateWorkQueue(deps.workQueueRepo, orgId, request.body as WorkQueueUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await updateWorkQueue(deps.workQueueRepo, orgId, id, request.body as UpdateWorkQueueInput);
     return reply.code(200).send(result);
   });
   // DELETE /work-queues/{id}
   fastify.delete("/work-queues/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteWorkQueue(deps.workQueueRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        await deleteWorkQueue(deps.workQueueRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

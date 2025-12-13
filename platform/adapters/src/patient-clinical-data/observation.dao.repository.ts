@@ -92,11 +92,6 @@ export class DaoObservationRepository implements ObservationRepository {
     // Note: Repository interface expects Observation, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ObservationInput;
-    try
-    // Note: Repository interface expects Observation, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as ObservationInput;
-    try
     try {
       const record = await this.dao.observation.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoObservationRepository implements ObservationRepository {
   async update(orgId: OrgId, id: string, data: ObservationUpdate): Promise<Observation> {
     try {
       const record = await this.dao.observation.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoObservationRepository implements ObservationRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.observation.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoObservationRepository implements ObservationRepository {
         const results: Observation[] = [];
         for (const { id, data } of updates) {
           const record = await tx.observation.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

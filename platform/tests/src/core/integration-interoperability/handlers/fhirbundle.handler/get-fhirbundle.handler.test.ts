@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getFHIRBundle as getFHIRBundleHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createFhirbundleHandler } from "@quub/factories";
+    createFhirbundleHandler } from "@cuur/factories";
 
 describe("getFHIRBundle - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

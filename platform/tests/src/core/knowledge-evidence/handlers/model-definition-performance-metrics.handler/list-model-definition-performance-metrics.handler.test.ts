@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listModelDefinitionPerformanceMetrics as listModelDefinitionPerformanceMetricsHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createModelDefinitionPerformanceMetricsHandler } from "@quub/factories";
+    createModelDefinitionPerformanceMetricsHandler } from "@cuur/factories";
 
 describe("listModelDefinitionPerformanceMetrics - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

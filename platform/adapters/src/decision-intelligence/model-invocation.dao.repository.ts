@@ -91,7 +91,6 @@ export class DaoModelInvocationRepository implements ModelInvocationRepository {
     // Note: Repository interface expects ModelInvocation, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ModelInvocationInput;
-    try
     try {
       const record = await this.dao.modelInvocation.create({
         data: {

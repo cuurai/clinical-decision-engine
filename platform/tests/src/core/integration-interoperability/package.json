@@ -1,5 +1,5 @@
 {
-  "name": "@quub/tests-integration-interoperability",
+  "name": "@cuur/tests-integration-interoperability",
   "version": "1.0.0",
   "description": "Quub Exchange - IntegrationInteroperability Tests",
   "type": "module",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@cuur/core": "workspace:*",
-    "@quub/factories": "workspace:*",
+    "@cuur/factories": "workspace:*",
     "@prisma/client": "^6.0.1",
     "jsonwebtoken": "^9.0.2"
   },

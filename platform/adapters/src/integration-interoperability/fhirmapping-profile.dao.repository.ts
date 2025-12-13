@@ -106,7 +106,7 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
   async update(orgId: OrgId, id: string, data: FhirmappingProfileUpdate): Promise<FhirmappingProfile> {
     try {
       const record = await this.dao.fhirmappingProfile.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -122,7 +122,7 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.fhirmappingProfile.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -167,7 +167,7 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
         const results: FhirmappingProfile[] = [];
         for (const { id, data } of updates) {
           const record = await tx.fhirmappingProfile.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

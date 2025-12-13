@@ -92,11 +92,6 @@ export class DaoEncounterRepository implements EncounterRepository {
     // Note: Repository interface expects Encounter, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as EncounterInput;
-    try
-    // Note: Repository interface expects Encounter, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as EncounterInput;
-    try
     try {
       const record = await this.dao.encounter.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoEncounterRepository implements EncounterRepository {
   async update(orgId: OrgId, id: string, data: EncounterUpdate): Promise<Encounter> {
     try {
       const record = await this.dao.encounter.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoEncounterRepository implements EncounterRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.encounter.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoEncounterRepository implements EncounterRepository {
         const results: Encounter[] = [];
         for (const { id, data } of updates) {
           const record = await tx.encounter.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

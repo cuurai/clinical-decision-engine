@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createDocument, deleteDocument, getDocument, listDocuments, updateDocument } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { DocumentReferenceInput, DocumentReferenceUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function documentsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /documents
   fastify.get("/documents", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDocuments(deps.documentRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /documents
   fastify.post("/documents", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createDocument(deps.documentRepo, orgId, request.body as DocumentReferenceInput);
+    const orgId = extractOrgId(request);
+    const result = await createDocument(deps.documentRepo, orgId, request.body as CreateDocumentReferenceInput);
     return reply.code(201).send(result);
   });
   // GET /documents/{id}
   fastify.get("/documents/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getDocument(deps.documentRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getDocument(deps.documentRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /documents/{id}
   fastify.patch("/documents/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateDocument(deps.documentRepo, orgId, request.body as DocumentReferenceUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateDocument(deps.documentRepo, orgId, id, request.body as UpdateDocumentInput);
     return reply.code(200).send(result);
   });
   // DELETE /documents/{id}
   fastify.delete("/documents/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteDocument(deps.documentRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteDocument(deps.documentRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

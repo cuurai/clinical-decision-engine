@@ -92,11 +92,6 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
     // Note: Repository interface expects DataExportBatch, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DataExportBatchInput;
-    try
-    // Note: Repository interface expects DataExportBatch, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as DataExportBatchInput;
-    try
     try {
       const record = await this.dao.dataExportBatch.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
   async update(orgId: OrgId, id: string, data: DataExportBatchUpdate): Promise<DataExportBatch> {
     try {
       const record = await this.dao.dataExportBatch.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.dataExportBatch.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
         const results: DataExportBatch[] = [];
         for (const { id, data } of updates) {
           const record = await tx.dataExportBatch.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

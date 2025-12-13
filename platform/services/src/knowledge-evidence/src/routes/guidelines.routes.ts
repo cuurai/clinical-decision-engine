@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createGuideline, deleteGuideline, getGuideline, listGuidelines, updateGuideline } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { ClinicalGuidelineInput, ClinicalGuidelineUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function guidelinesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /guidelines
   fastify.get("/guidelines", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listGuidelines(deps.guidelineRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /guidelines
   fastify.post("/guidelines", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createGuideline(deps.guidelineRepo, orgId, request.body as ClinicalGuidelineInput);
+    const orgId = extractOrgId(request);
+    const result = await createGuideline(deps.guidelineRepo, orgId, request.body as CreateClinicalGuidelineInput);
     return reply.code(201).send(result);
   });
   // GET /guidelines/{id}
   fastify.get("/guidelines/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getGuideline(deps.guidelineRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getGuideline(deps.guidelineRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /guidelines/{id}
   fastify.patch("/guidelines/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateGuideline(deps.guidelineRepo, orgId, request.body as ClinicalGuidelineUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateGuideline(deps.guidelineRepo, orgId, id, request.body as UpdateGuidelineInput);
     return reply.code(200).send(result);
   });
   // DELETE /guidelines/{id}
   fastify.delete("/guidelines/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteGuideline(deps.guidelineRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteGuideline(deps.guidelineRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

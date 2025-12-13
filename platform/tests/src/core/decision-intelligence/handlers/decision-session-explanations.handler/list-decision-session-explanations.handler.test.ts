@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listDecisionSessionExplanations as listDecisionSessionExplanationsHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createDecisionSessionExplanationsHandler } from "@quub/factories";
+    createDecisionSessionExplanationsHandler } from "@cuur/factories";
 
 describe("listDecisionSessionExplanations - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

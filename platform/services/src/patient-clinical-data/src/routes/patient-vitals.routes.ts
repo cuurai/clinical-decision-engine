@@ -18,7 +18,7 @@ export async function patientVitalsRoutes(
 ) {
   // GET /patients/{id}/observations/vitals
   fastify.get("/patients/:id/observations/vitals", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listPatientVitals(deps.patientVitalRepo, orgId);
     return reply.code(200).send(result);
   });

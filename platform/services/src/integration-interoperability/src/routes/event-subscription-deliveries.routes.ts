@@ -18,7 +18,7 @@ export async function eventSubscriptionDeliveriesRoutes(
 ) {
   // GET /event-subscriptions/{id}/deliveries
   fastify.get("/event-subscriptions/:id/deliveries", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listEventSubscriptionDeliveries(deps.eventSubscriptionDeliveryRepo, orgId);
     return reply.code(200).send(result);
   });

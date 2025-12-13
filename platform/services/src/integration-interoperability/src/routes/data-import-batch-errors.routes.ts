@@ -18,7 +18,7 @@ export async function dataImportBatchErrorsRoutes(
 ) {
   // GET /data-import-batches/{id}/errors
   fastify.get("/data-import-batches/:id/errors", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDataImportBatchErrors(deps.dataImportBatchErrorRepo, orgId);
     return reply.code(200).send(result);
   });

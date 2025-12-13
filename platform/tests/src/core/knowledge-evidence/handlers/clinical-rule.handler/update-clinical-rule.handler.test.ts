@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { updateClinicalRule as updateClinicalRuleHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createClinicalRuleHandler } from "@quub/factories";
+    createClinicalRuleHandler } from "@cuur/factories";
 
 describe("updateClinicalRule - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

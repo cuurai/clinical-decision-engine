@@ -92,11 +92,6 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
     // Note: Repository interface expects WorkflowDefinition, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as WorkflowDefinitionInput;
-    try
-    // Note: Repository interface expects WorkflowDefinition, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as WorkflowDefinitionInput;
-    try
     try {
       const record = await this.dao.workflowDefinition.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
   async update(orgId: OrgId, id: string, data: WorkflowDefinitionUpdate): Promise<WorkflowDefinition> {
     try {
       const record = await this.dao.workflowDefinition.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.workflowDefinition.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
         const results: WorkflowDefinition[] = [];
         for (const { id, data } of updates) {
           const record = await tx.workflowDefinition.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

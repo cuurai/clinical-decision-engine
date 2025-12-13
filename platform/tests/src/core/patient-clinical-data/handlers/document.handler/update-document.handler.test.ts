@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { updateDocument as updateDocumentHandler } from "@cuur/core/patient-clinical-data/handlers/index.js";
 
 import { seedFaker,
-    createDocumentHandler } from "@quub/factories";
+    createDocumentHandler } from "@cuur/factories";
 
 describe("updateDocument - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

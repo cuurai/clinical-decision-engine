@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { updateProcedure as updateProcedureHandler } from "@cuur/core/patient-clinical-data/handlers/index.js";
 
 import { seedFaker,
-    createProcedureHandler } from "@quub/factories";
+    createProcedureHandler } from "@cuur/factories";
 
 describe("updateProcedure - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

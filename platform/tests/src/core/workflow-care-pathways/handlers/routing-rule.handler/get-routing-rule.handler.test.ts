@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getRoutingRule as getRoutingRuleHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createRoutingRuleHandler } from "@quub/factories";
+    createRoutingRuleHandler } from "@cuur/factories";
 
 describe("getRoutingRule - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

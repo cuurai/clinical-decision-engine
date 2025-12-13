@@ -92,7 +92,6 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
     // Note: Repository interface expects ModelDefinition, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ModelDefinitionInput;
-    try
     try {
       const record = await this.dao.modelDefinition.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
   async update(orgId: OrgId, id: string, data: ModelDefinitionUpdate): Promise<ModelDefinition> {
     try {
       const record = await this.dao.modelDefinition.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.modelDefinition.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
         const results: ModelDefinition[] = [];
         for (const { id, data } of updates) {
           const record = await tx.modelDefinition.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

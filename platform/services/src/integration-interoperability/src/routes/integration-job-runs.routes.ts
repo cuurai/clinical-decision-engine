@@ -18,7 +18,7 @@ export async function integrationJobRunsRoutes(
 ) {
   // GET /integration-jobs/{id}/runs
   fastify.get("/integration-jobs/:id/runs", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listIntegrationJobRuns(deps.integrationJobRunRepo, orgId);
     return reply.code(200).send(result);
   });

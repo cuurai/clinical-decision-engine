@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listClinicalRuleVersions as listClinicalRuleVersionsHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createClinicalRuleVersionsHandler } from "@quub/factories";
+    createClinicalRuleVersionsHandler } from "@cuur/factories";
 
 describe("listClinicalRuleVersions - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

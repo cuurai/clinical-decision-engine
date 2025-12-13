@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createRiskAssessment, deleteRiskAssessment, getRiskAssessment, listRiskAssessments, updateRiskAssessment } from "@cuur/core/decision-intelligence/handlers/index.js";
 import type { RiskAssessmentInput, RiskAssessmentUpdate } from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function riskAssessmentsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /risk-assessments
   fastify.get("/risk-assessments", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listRiskAssessments(deps.riskAssessmentRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /risk-assessments
   fastify.post("/risk-assessments", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createRiskAssessment(deps.riskAssessmentRepo, orgId, request.body as RiskAssessmentInput);
+    const orgId = extractOrgId(request);
+    const result = await createRiskAssessment(deps.riskAssessmentRepo, orgId, request.body as CreateRiskAssessmentInput);
     return reply.code(201).send(result);
   });
   // GET /risk-assessments/{id}
   fastify.get("/risk-assessments/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getRiskAssessment(deps.riskAssessmentRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getRiskAssessment(deps.riskAssessmentRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /risk-assessments/{id}
   fastify.patch("/risk-assessments/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateRiskAssessment(deps.riskAssessmentRepo, orgId, request.body as RiskAssessmentUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateRiskAssessment(deps.riskAssessmentRepo, orgId, id, request.body as UpdateRiskAssessmentInput);
     return reply.code(200).send(result);
   });
   // DELETE /risk-assessments/{id}
   fastify.delete("/risk-assessments/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteRiskAssessment(deps.riskAssessmentRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteRiskAssessment(deps.riskAssessmentRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

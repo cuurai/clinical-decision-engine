@@ -91,11 +91,6 @@ export class DaoDecisionRequestRepository implements DecisionRequestRepository {
     // Note: Repository interface expects DecisionRequest, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DecisionRequestInput;
-    try
-    // Note: Repository interface expects DecisionRequest, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as DecisionRequestInput;
-    try
     try {
       const record = await this.dao.decisionRequest.create({
         data: {

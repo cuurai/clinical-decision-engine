@@ -18,7 +18,7 @@ export async function workQueueAlertsRoutes(
 ) {
   // GET /work-queues/{id}/alerts
   fastify.get("/work-queues/:id/alerts", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listWorkQueueAlerts(deps.workQueueAlertRepo, orgId);
     return reply.code(200).send(result);
   });

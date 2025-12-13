@@ -18,7 +18,7 @@ export async function connectionHealthChecksRoutes(
 ) {
   // GET /connections/{id}/health-checks
   fastify.get("/connections/:id/health-checks", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listConnectionHealthChecks(deps.connectionHealthCheckRepo, orgId);
     return reply.code(200).send(result);
   });

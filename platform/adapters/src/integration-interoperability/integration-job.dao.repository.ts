@@ -92,17 +92,11 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
     // Note: Repository interface expects IntegrationJob, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as IntegrationJobInput;
-    try
-    // Note: Repository interface expects IntegrationJob, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as IntegrationJobInput;
-    try
     try {
       const record = await this.dao.integrationJob.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -114,11 +108,8 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
   async update(orgId: OrgId, id: string, data: IntegrationJobUpdate): Promise<IntegrationJob> {
     try {
       const record = await this.dao.integrationJob.update({
-        where: { id },
-        data: {
-          ...inputData,
-          
-        },
+        where: { id, orgId },
+        data,
       });
       return this.toDomain(record);
     } catch (error) {
@@ -130,7 +121,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.integrationJob.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +166,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
         const results: IntegrationJob[] = [];
         for (const { id, data } of updates) {
           const record = await tx.integrationJob.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

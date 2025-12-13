@@ -92,7 +92,6 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
     // Note: Repository interface expects EvidenceCitation, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as EvidenceCitationInput;
-    try
     try {
       const record = await this.dao.evidenceCitation.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
   async update(orgId: OrgId, id: string, data: EvidenceCitationUpdate): Promise<EvidenceCitation> {
     try {
       const record = await this.dao.evidenceCitation.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.evidenceCitation.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
         const results: EvidenceCitation[] = [];
         for (const { id, data } of updates) {
           const record = await tx.evidenceCitation.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

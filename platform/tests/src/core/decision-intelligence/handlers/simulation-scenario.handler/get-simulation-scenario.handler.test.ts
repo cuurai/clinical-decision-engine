@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getSimulationScenario as getSimulationScenarioHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createSimulationScenarioHandler } from "@quub/factories";
+    createSimulationScenarioHandler } from "@cuur/factories";
 
 describe("getSimulationScenario - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

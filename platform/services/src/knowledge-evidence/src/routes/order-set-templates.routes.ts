@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createOrderSetTemplate, deleteOrderSetTemplate, getOrderSetTemplate, listOrderSetTemplates, updateOrderSetTemplate } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { OrderSetTemplateInput, OrderSetTemplateUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function orderSetTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /order-set-templates
   fastify.get("/order-set-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listOrderSetTemplates(deps.orderSetTemplateRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /order-set-templates
   fastify.post("/order-set-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createOrderSetTemplate(deps.orderSetTemplateRepo, orgId, request.body as OrderSetTemplateInput);
+    const orgId = extractOrgId(request);
+    const result = await createOrderSetTemplate(deps.orderSetTemplateRepo, orgId, request.body as CreateOrderSetTemplateInput);
     return reply.code(201).send(result);
   });
   // GET /order-set-templates/{id}
   fastify.get("/order-set-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getOrderSetTemplate(deps.orderSetTemplateRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getOrderSetTemplate(deps.orderSetTemplateRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /order-set-templates/{id}
   fastify.patch("/order-set-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateOrderSetTemplate(deps.orderSetTemplateRepo, orgId, request.body as OrderSetTemplateUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateOrderSetTemplate(deps.orderSetTemplateRepo, orgId, id, request.body as UpdateOrderSetTemplateInput);
     return reply.code(200).send(result);
   });
   // DELETE /order-set-templates/{id}
   fastify.delete("/order-set-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteOrderSetTemplate(deps.orderSetTemplateRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteOrderSetTemplate(deps.orderSetTemplateRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

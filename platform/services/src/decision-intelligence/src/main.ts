@@ -22,11 +22,10 @@
 // Import Prisma client from adapters-generated client
 import { PrismaClient } from "../../../../adapters/src/decision-intelligence/prisma/generated/index.js";
 import { startService, createDependencies } from "./index.js";
-import type { DaoClient } from "@quub/adapters/shared/dao-client.js";
+import type { DaoClient } from "@cuur/adapters/shared/dao-client.js";
 import {
   DaoAlertEvaluationRepository,
   DaoDecisionMetricRepository,
-  DaoDecisionMetricSnapshotRepository,
   DaoDecisionPolicyRepository,
   DaoDecisionPolicyThresholdProfileRepository,
   DaoDecisionRequestExplanationRepository,
@@ -60,7 +59,7 @@ import {
   DaoSimulationScenarioRepository,
   DaoSimulationScenarioRunRepository,
   DaoThresholdProfileRepository,
-} from "@quub/adapters";
+} from "@cuur/adapters";
 
 /**
  * Initialize Prisma client with environment-specific configuration
@@ -101,7 +100,6 @@ async function main() {
   const deps = createDependencies({
     alertEvaluationRepo: new DaoAlertEvaluationRepository(daoClient),
     decisionMetricRepo: new DaoDecisionMetricRepository(daoClient),
-    decisionMetricSnapshotRepo: new DaoDecisionMetricSnapshotRepository(daoClient),
     decisionPolicyRepo: new DaoDecisionPolicyRepository(daoClient),
     decisionPolicyThresholdProfileRepo: new DaoDecisionPolicyThresholdProfileRepository(daoClient),
     decisionRequestExplanationRepo: new DaoDecisionRequestExplanationRepository(daoClient),

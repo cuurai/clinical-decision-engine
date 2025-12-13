@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createDataExportBatch, deleteDataExportBatch, getDataExportBatch, listDataExportBatches, updateDataExportBatch } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { DataExportBatchInput, DataExportBatchUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function dataExportBatchesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /data-export-batches
   fastify.get("/data-export-batches", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDataExportBatches(deps.dataExportBatchRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /data-export-batches
   fastify.post("/data-export-batches", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createDataExportBatch(deps.dataExportBatchRepo, orgId, request.body as DataExportBatchInput);
+    const orgId = extractOrgId(request);
+    const result = await createDataExportBatch(deps.dataExportBatchRepo, orgId, request.body as CreateDataExportBatchInput);
     return reply.code(201).send(result);
   });
   // GET /data-export-batches/{id}
   fastify.get("/data-export-batches/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getDataExportBatch(deps.dataExportBatchRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getDataExportBatch(deps.dataExportBatchRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /data-export-batches/{id}
   fastify.patch("/data-export-batches/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateDataExportBatch(deps.dataExportBatchRepo, orgId, request.body as DataExportBatchUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateDataExportBatch(deps.dataExportBatchRepo, orgId, id, request.body as UpdateDataExportBatcheInput);
     return reply.code(200).send(result);
   });
   // DELETE /data-export-batches/{id}
   fastify.delete("/data-export-batches/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteDataExportBatch(deps.dataExportBatchRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteDataExportBatch(deps.dataExportBatchRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

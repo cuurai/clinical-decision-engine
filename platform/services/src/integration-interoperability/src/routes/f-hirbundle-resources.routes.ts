@@ -18,7 +18,7 @@ export async function fHIRBundleResourcesRoutes(
 ) {
   // GET /fhir-bundles/{id}/resources
   fastify.get("/fhir-bundles/:id/resources", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listFHIRBundleResources(deps.fHIRBundleResourceRepo, orgId);
     return reply.code(200).send(result);
   });

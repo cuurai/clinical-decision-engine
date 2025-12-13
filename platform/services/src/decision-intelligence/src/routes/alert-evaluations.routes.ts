@@ -11,41 +11,60 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
-import { createAlertEvaluation, deleteAlertEvaluation, getAlertEvaluation, listAlertEvaluations, updateAlertEvaluation } from "@cuur/core/decision-intelligence/handlers/index.js";
-import type { AlertEvaluationInput, AlertEvaluationUpdate } from "@cuur/core/decision-intelligence/types/index.js";
-export async function alertEvaluationsRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
+import {
+  createAlertEvaluation,
+  deleteAlertEvaluation,
+  getAlertEvaluation,
+  listAlertEvaluations,
+  updateAlertEvaluation,
+} from "@cuur/core/decision-intelligence/handlers/index.js";
+import type {
+  CreateAlertEvaluationInput,
+  UpdateAlertEvaluationInput,
+} from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
+
+export async function alertEvaluationsRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /alert-evaluations
   fastify.get("/alert-evaluations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listAlertEvaluations(deps.alertEvaluationRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /alert-evaluations
   fastify.post("/alert-evaluations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createAlertEvaluation(deps.alertEvaluationRepo, orgId, request.body as AlertEvaluationInput);
+    const orgId = extractOrgId(request);
+    const result = await createAlertEvaluation(
+      deps.alertEvaluationRepo,
+      orgId,
+      request.body as CreateAlertEvaluationInput
+    );
     return reply.code(201).send(result);
   });
   // GET /alert-evaluations/{id}
   fastify.get("/alert-evaluations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getAlertEvaluation(deps.alertEvaluationRepo, orgId);
+    const orgId = extractOrgId(request);
+    const id = (request.params as any).id;
+    const result = await getAlertEvaluation(deps.alertEvaluationRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /alert-evaluations/{id}
   fastify.patch("/alert-evaluations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateAlertEvaluation(deps.alertEvaluationRepo, orgId, request.body as AlertEvaluationUpdate);
+    const orgId = extractOrgId(request);
+    const id = (request.params as any).id;
+    const result = await updateAlertEvaluation(
+      deps.alertEvaluationRepo,
+      orgId,
+      id,
+      request.body as UpdateAlertEvaluationInput
+    );
     return reply.code(200).send(result);
   });
   // DELETE /alert-evaluations/{id}
   fastify.delete("/alert-evaluations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteAlertEvaluation(deps.alertEvaluationRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+    const id = (request.params as any).id;
+    await deleteAlertEvaluation(deps.alertEvaluationRepo, orgId, id);
+    return reply.code(204).send();
   });
-
 }

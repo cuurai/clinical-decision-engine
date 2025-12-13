@@ -92,11 +92,6 @@ export class DaoProcedureRepository implements ProcedureRepository {
     // Note: Repository interface expects Procedure, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ProcedureInput;
-    try
-    // Note: Repository interface expects Procedure, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as ProcedureInput;
-    try
     try {
       const record = await this.dao.procedure.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoProcedureRepository implements ProcedureRepository {
   async update(orgId: OrgId, id: string, data: ProcedureUpdate): Promise<Procedure> {
     try {
       const record = await this.dao.procedure.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoProcedureRepository implements ProcedureRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.procedure.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoProcedureRepository implements ProcedureRepository {
         const results: Procedure[] = [];
         for (const { id, data } of updates) {
           const record = await tx.procedure.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

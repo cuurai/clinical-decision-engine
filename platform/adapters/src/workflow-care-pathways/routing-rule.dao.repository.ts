@@ -92,11 +92,6 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
     // Note: Repository interface expects RoutingRule, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as RoutingRuleInput;
-    try
-    // Note: Repository interface expects RoutingRule, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as RoutingRuleInput;
-    try
     try {
       const record = await this.dao.routingRule.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
   async update(orgId: OrgId, id: string, data: RoutingRuleUpdate): Promise<RoutingRule> {
     try {
       const record = await this.dao.routingRule.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.routingRule.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
         const results: RoutingRule[] = [];
         for (const { id, data } of updates) {
           const record = await tx.routingRule.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

@@ -92,11 +92,6 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
     // Note: Repository interface expects InterfaceError, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as InterfaceErrorInput;
-    try
-    // Note: Repository interface expects InterfaceError, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as InterfaceErrorInput;
-    try
     try {
       const record = await this.dao.interfaceError.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
   async update(orgId: OrgId, id: string, data: InterfaceErrorUpdate): Promise<InterfaceError> {
     try {
       const record = await this.dao.interfaceError.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -160,7 +155,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
         const results: InterfaceError[] = [];
         for (const { id, data } of updates) {
           const record = await tx.interfaceError.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { createNote as createNoteHandler } from "@cuur/core/patient-clinical-data/handlers/index.js";
 
 import { seedFaker,
-    createNoteHandler } from "@quub/factories";
+    createNoteHandler } from "@cuur/factories";
 
 describe("createNote - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

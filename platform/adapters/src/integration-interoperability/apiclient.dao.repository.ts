@@ -106,7 +106,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
   async update(orgId: OrgId, id: string, data: ApiclientUpdate): Promise<Apiclient> {
     try {
       const record = await this.dao.apiclient.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -122,7 +122,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.apiclient.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -167,7 +167,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
         const results: Apiclient[] = [];
         for (const { id, data } of updates) {
           const record = await tx.apiclient.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

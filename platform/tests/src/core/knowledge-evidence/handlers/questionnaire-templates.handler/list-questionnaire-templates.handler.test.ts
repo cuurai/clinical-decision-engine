@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listQuestionnaireTemplates as listQuestionnaireTemplatesHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createQuestionnaireTemplatesHandler } from "@quub/factories";
+    createQuestionnaireTemplatesHandler } from "@cuur/factories";
 
 describe("listQuestionnaireTemplates - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listDecisionResultRecommendations as listDecisionResultRecommendationsHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createDecisionResultRecommendationsHandler } from "@quub/factories";
+    createDecisionResultRecommendationsHandler } from "@cuur/factories";
 
 describe("listDecisionResultRecommendations - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

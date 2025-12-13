@@ -92,7 +92,6 @@ export class DaoRuleSetRepository implements RuleSetRepository {
     // Note: Repository interface expects RuleSet, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as RuleSetInput;
-    try
     try {
       const record = await this.dao.ruleSet.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
   async update(orgId: OrgId, id: string, data: RuleSetUpdate): Promise<RuleSet> {
     try {
       const record = await this.dao.ruleSet.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.ruleSet.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
         const results: RuleSet[] = [];
         for (const { id, data } of updates) {
           const record = await tx.ruleSet.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

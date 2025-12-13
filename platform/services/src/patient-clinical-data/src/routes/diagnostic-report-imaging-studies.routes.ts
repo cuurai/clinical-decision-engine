@@ -18,7 +18,7 @@ export async function diagnosticReportImagingStudiesRoutes(
 ) {
   // GET /diagnostic-reports/{id}/imaging-studies
   fastify.get("/diagnostic-reports/:id/imaging-studies", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDiagnosticReportImagingStudies(deps.diagnosticReportImagingStudyRepo, orgId);
     return reply.code(200).send(result);
   });

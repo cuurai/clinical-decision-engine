@@ -92,11 +92,6 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
     // Note: Repository interface expects ImagingStudy, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ImagingStudyInput;
-    try
-    // Note: Repository interface expects ImagingStudy, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as ImagingStudyInput;
-    try
     try {
       const record = await this.dao.imagingStudy.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
   async update(orgId: OrgId, id: string, data: ImagingStudyUpdate): Promise<ImagingStudy> {
     try {
       const record = await this.dao.imagingStudy.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.imagingStudy.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
         const results: ImagingStudy[] = [];
         for (const { id, data } of updates) {
           const record = await tx.imagingStudy.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

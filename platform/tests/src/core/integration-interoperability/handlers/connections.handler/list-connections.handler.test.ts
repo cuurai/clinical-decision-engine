@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listConnections as listConnectionsHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createConnectionsHandler } from "@quub/factories";
+    createConnectionsHandler } from "@cuur/factories";
 
 describe("listConnections - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createDataImportBatch, deleteDataImportBatch, getDataImportBatch, listDataImportBatches, updateDataImportBatch } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { DataImportBatchInput, DataImportBatchUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function dataImportBatchesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /data-import-batches
   fastify.get("/data-import-batches", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDataImportBatches(deps.dataImportBatchRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /data-import-batches
   fastify.post("/data-import-batches", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createDataImportBatch(deps.dataImportBatchRepo, orgId, request.body as DataImportBatchInput);
+    const orgId = extractOrgId(request);
+    const result = await createDataImportBatch(deps.dataImportBatchRepo, orgId, request.body as CreateDataImportBatchInput);
     return reply.code(201).send(result);
   });
   // GET /data-import-batches/{id}
   fastify.get("/data-import-batches/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getDataImportBatch(deps.dataImportBatchRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getDataImportBatch(deps.dataImportBatchRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /data-import-batches/{id}
   fastify.patch("/data-import-batches/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateDataImportBatch(deps.dataImportBatchRepo, orgId, request.body as DataImportBatchUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateDataImportBatch(deps.dataImportBatchRepo, orgId, id, request.body as UpdateDataImportBatcheInput);
     return reply.code(200).send(result);
   });
   // DELETE /data-import-batches/{id}
   fastify.delete("/data-import-batches/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteDataImportBatch(deps.dataImportBatchRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteDataImportBatch(deps.dataImportBatchRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

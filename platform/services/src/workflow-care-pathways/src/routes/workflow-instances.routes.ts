@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createWorkflowInstance, deleteWorkflowInstance, getWorkflowInstance, listWorkflowInstances, updateWorkflowInstance } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { WorkflowInstanceInput, WorkflowInstanceUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function workflowInstancesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /workflow-instances
   fastify.get("/workflow-instances", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listWorkflowInstances(deps.workflowInstanceRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /workflow-instances
   fastify.post("/workflow-instances", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createWorkflowInstance(deps.workflowInstanceRepo, orgId, request.body as WorkflowInstanceInput);
+    const orgId = extractOrgId(request);
+    const result = await createWorkflowInstance(deps.workflowInstanceRepo, orgId, request.body as CreateWorkflowInstanceInput);
     return reply.code(201).send(result);
   });
   // GET /workflow-instances/{id}
   fastify.get("/workflow-instances/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getWorkflowInstance(deps.workflowInstanceRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getWorkflowInstance(deps.workflowInstanceRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /workflow-instances/{id}
   fastify.patch("/workflow-instances/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateWorkflowInstance(deps.workflowInstanceRepo, orgId, request.body as WorkflowInstanceUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await updateWorkflowInstance(deps.workflowInstanceRepo, orgId, id, request.body as UpdateWorkflowInstanceInput);
     return reply.code(200).send(result);
   });
   // DELETE /workflow-instances/{id}
   fastify.delete("/workflow-instances/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteWorkflowInstance(deps.workflowInstanceRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        await deleteWorkflowInstance(deps.workflowInstanceRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

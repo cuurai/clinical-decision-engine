@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { deleteDataImportBatch as deleteDataImportBatchHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createDataImportBatchHandler } from "@quub/factories";
+    createDataImportBatchHandler } from "@cuur/factories";
 
 describe("deleteDataImportBatch - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

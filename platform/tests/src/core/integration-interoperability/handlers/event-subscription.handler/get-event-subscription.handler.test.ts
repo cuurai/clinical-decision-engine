@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getEventSubscription as getEventSubscriptionHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createEventSubscriptionHandler } from "@quub/factories";
+    createEventSubscriptionHandler } from "@cuur/factories";
 
 describe("getEventSubscription - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

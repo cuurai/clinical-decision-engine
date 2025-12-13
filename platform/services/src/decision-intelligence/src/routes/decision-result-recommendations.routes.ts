@@ -18,7 +18,7 @@ export async function decisionResultRecommendationsRoutes(
 ) {
   // GET /decision-results/{id}/recommendations
   fastify.get("/decision-results/:id/recommendations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDecisionResultRecommendations(deps.decisionResultRecommendationRepo, orgId);
     return reply.code(200).send(result);
   });

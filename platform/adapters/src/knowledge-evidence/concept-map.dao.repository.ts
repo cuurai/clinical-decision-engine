@@ -92,7 +92,6 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
     // Note: Repository interface expects ConceptMap, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ConceptMapInput;
-    try
     try {
       const record = await this.dao.conceptMap.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
   async update(orgId: OrgId, id: string, data: ConceptMapUpdate): Promise<ConceptMap> {
     try {
       const record = await this.dao.conceptMap.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.conceptMap.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
         const results: ConceptMap[] = [];
         for (const { id, data } of updates) {
           const record = await tx.conceptMap.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

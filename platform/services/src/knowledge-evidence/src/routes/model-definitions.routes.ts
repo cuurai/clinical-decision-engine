@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createModelDefinition, deleteModelDefinition, getModelDefinition, listModelDefinitions, updateModelDefinition } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { ModelDefinitionInput, ModelDefinitionUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function modelDefinitionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /model-definitions
   fastify.get("/model-definitions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listModelDefinitions(deps.modelDefinitionRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /model-definitions
   fastify.post("/model-definitions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createModelDefinition(deps.modelDefinitionRepo, orgId, request.body as ModelDefinitionInput);
+    const orgId = extractOrgId(request);
+    const result = await createModelDefinition(deps.modelDefinitionRepo, orgId, request.body as CreateModelDefinitionInput);
     return reply.code(201).send(result);
   });
   // GET /model-definitions/{id}
   fastify.get("/model-definitions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getModelDefinition(deps.modelDefinitionRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getModelDefinition(deps.modelDefinitionRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /model-definitions/{id}
   fastify.patch("/model-definitions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateModelDefinition(deps.modelDefinitionRepo, orgId, request.body as ModelDefinitionUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateModelDefinition(deps.modelDefinitionRepo, orgId, id, request.body as UpdateModelDefinitionInput);
     return reply.code(200).send(result);
   });
   // DELETE /model-definitions/{id}
   fastify.delete("/model-definitions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteModelDefinition(deps.modelDefinitionRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteModelDefinition(deps.modelDefinitionRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

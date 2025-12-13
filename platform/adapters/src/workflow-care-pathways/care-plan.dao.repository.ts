@@ -92,11 +92,6 @@ export class DaoCarePlanRepository implements CarePlanRepository {
     // Note: Repository interface expects CarePlan, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as CarePlanInput;
-    try
-    // Note: Repository interface expects CarePlan, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as CarePlanInput;
-    try
     try {
       const record = await this.dao.carePlan.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoCarePlanRepository implements CarePlanRepository {
   async update(orgId: OrgId, id: string, data: CarePlanUpdate): Promise<CarePlan> {
     try {
       const record = await this.dao.carePlan.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoCarePlanRepository implements CarePlanRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.carePlan.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoCarePlanRepository implements CarePlanRepository {
         const results: CarePlan[] = [];
         for (const { id, data } of updates) {
           const record = await tx.carePlan.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

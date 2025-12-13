@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listWorkflowInstances as listWorkflowInstancesHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createWorkflowInstancesHandler } from "@quub/factories";
+    createWorkflowInstancesHandler } from "@cuur/factories";
 
 describe("listWorkflowInstances - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

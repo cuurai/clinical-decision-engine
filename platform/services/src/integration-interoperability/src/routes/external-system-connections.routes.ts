@@ -18,7 +18,7 @@ export async function externalSystemConnectionsRoutes(
 ) {
   // GET /external-systems/{id}/connections
   fastify.get("/external-systems/:id/connections", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listExternalSystemConnections(deps.externalSystemConnectionRepo, orgId);
     return reply.code(200).send(result);
   });

@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createPatient, deletePatient, getPatient, listPatients, updatePatient } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { PatientInput, PatientUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function patientsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /patients
   fastify.get("/patients", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listPatients(deps.patientRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /patients
   fastify.post("/patients", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createPatient(deps.patientRepo, orgId, request.body as PatientInput);
+    const orgId = extractOrgId(request);
+    const result = await createPatient(deps.patientRepo, orgId, request.body as CreatePatientInput);
     return reply.code(201).send(result);
   });
   // GET /patients/{id}
   fastify.get("/patients/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getPatient(deps.patientRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getPatient(deps.patientRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /patients/{id}
   fastify.patch("/patients/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updatePatient(deps.patientRepo, orgId, request.body as PatientUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updatePatient(deps.patientRepo, orgId, id, request.body as UpdatePatientInput);
     return reply.code(200).send(result);
   });
   // DELETE /patients/{id}
   fastify.delete("/patients/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deletePatient(deps.patientRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deletePatient(deps.patientRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

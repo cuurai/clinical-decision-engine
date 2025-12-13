@@ -18,7 +18,7 @@ export async function knowledgePackageModelDefinitionsRoutes(
 ) {
   // GET /knowledge-packages/{id}/model-definitions
   fastify.get("/knowledge-packages/:id/model-definitions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listKnowledgePackageModelDefinitions(deps.knowledgePackageModelDefinitionRepo, orgId);
     return reply.code(200).send(result);
   });

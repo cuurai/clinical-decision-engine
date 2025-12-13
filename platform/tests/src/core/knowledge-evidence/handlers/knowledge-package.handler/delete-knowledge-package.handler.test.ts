@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { deleteKnowledgePackage as deleteKnowledgePackageHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createKnowledgePackageHandler } from "@quub/factories";
+    createKnowledgePackageHandler } from "@cuur/factories";
 
 describe("deleteKnowledgePackage - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

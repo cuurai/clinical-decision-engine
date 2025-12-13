@@ -18,7 +18,7 @@ export async function simulationScenarioRunsRoutes(
 ) {
   // GET /simulation-scenarios/{id}/simulation-runs
   fastify.get("/simulation-scenarios/:id/simulation-runs", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listSimulationScenarioRuns(deps.simulationScenarioRunRepo, orgId);
     return reply.code(200).send(result);
   });

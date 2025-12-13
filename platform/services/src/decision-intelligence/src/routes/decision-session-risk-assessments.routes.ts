@@ -18,7 +18,7 @@ export async function decisionSessionRiskAssessmentsRoutes(
 ) {
   // GET /decision-sessions/{id}/risk-assessments
   fastify.get("/decision-sessions/:id/risk-assessments", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDecisionSessionRiskAssessments(deps.decisionSessionRiskAssessmentRepo, orgId);
     return reply.code(200).send(result);
   });

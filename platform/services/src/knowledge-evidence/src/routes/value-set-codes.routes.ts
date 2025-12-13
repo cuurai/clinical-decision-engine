@@ -18,7 +18,7 @@ export async function valueSetCodesRoutes(
 ) {
   // GET /value-sets/{id}/codes
   fastify.get("/value-sets/:id/codes", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listValueSetCodes(deps.valueSetCodeRepo, orgId);
     return reply.code(200).send(result);
   });

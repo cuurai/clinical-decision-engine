@@ -18,7 +18,7 @@ export async function dataImportBatchRecordsRoutes(
 ) {
   // GET /data-import-batches/{id}/records
   fastify.get("/data-import-batches/:id/records", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDataImportBatchRecords(deps.dataImportBatchRecordRepo, orgId);
     return reply.code(200).send(result);
   });

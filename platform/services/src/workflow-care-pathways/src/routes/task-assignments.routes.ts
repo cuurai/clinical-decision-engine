@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createTaskAssignment, deleteTaskAssignment, getTaskAssignment, listTaskAssignments, updateTaskAssignment } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { TaskAssignmentInput, TaskAssignmentUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function taskAssignmentsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /task-assignments
   fastify.get("/task-assignments", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listTaskAssignments(deps.taskAssignmentRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /task-assignments
   fastify.post("/task-assignments", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createTaskAssignment(deps.taskAssignmentRepo, orgId, request.body as TaskAssignmentInput);
+    const orgId = extractOrgId(request);
+    const result = await createTaskAssignment(deps.taskAssignmentRepo, orgId, request.body as CreateTaskAssignmentInput);
     return reply.code(201).send(result);
   });
   // GET /task-assignments/{id}
   fastify.get("/task-assignments/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getTaskAssignment(deps.taskAssignmentRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getTaskAssignment(deps.taskAssignmentRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /task-assignments/{id}
   fastify.patch("/task-assignments/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateTaskAssignment(deps.taskAssignmentRepo, orgId, request.body as TaskAssignmentUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await updateTaskAssignment(deps.taskAssignmentRepo, orgId, id, request.body as UpdateTaskAssignmentInput);
     return reply.code(200).send(result);
   });
   // DELETE /task-assignments/{id}
   fastify.delete("/task-assignments/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteTaskAssignment(deps.taskAssignmentRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        await deleteTaskAssignment(deps.taskAssignmentRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

@@ -18,7 +18,7 @@ export async function medicationAdministrationsRoutes(
 ) {
   // GET /medication-orders/{id}/administrations
   fastify.get("/medication-orders/:id/administrations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listMedicationAdministrations(deps.medicationAdministrationRepo, orgId);
     return reply.code(200).send(result);
   });

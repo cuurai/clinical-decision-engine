@@ -18,7 +18,7 @@ export async function ontologyTermParentsRoutes(
 ) {
   // GET /ontology-terms/{id}/parents
   fastify.get("/ontology-terms/:id/parents", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listOntologyTermParents(deps.ontologyTermParentRepo, orgId);
     return reply.code(200).send(result);
   });

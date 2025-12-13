@@ -92,11 +92,6 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
     // Note: Repository interface expects MedicationStatement, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as MedicationStatementInput;
-    try
-    // Note: Repository interface expects MedicationStatement, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as MedicationStatementInput;
-    try
     try {
       const record = await this.dao.medicationStatement.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
   async update(orgId: OrgId, id: string, data: MedicationStatementUpdate): Promise<MedicationStatement> {
     try {
       const record = await this.dao.medicationStatement.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.medicationStatement.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
         const results: MedicationStatement[] = [];
         for (const { id, data } of updates) {
           const record = await tx.medicationStatement.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createCarePlan, deleteCarePlan, getCarePlan, listCarePlans, updateCarePlan } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { CarePlanInput, CarePlanUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function carePlansRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /care-plans
   fastify.get("/care-plans", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listCarePlans(deps.carePlanRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /care-plans
   fastify.post("/care-plans", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createCarePlan(deps.carePlanRepo, orgId, request.body as CarePlanInput);
+    const orgId = extractOrgId(request);
+    const result = await createCarePlan(deps.carePlanRepo, orgId, request.body as CreateCarePlanInput);
     return reply.code(201).send(result);
   });
   // GET /care-plans/{id}
   fastify.get("/care-plans/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getCarePlan(deps.carePlanRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getCarePlan(deps.carePlanRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /care-plans/{id}
   fastify.patch("/care-plans/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateCarePlan(deps.carePlanRepo, orgId, request.body as CarePlanUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateCarePlan(deps.carePlanRepo, orgId, id, request.body as UpdateCarePlanInput);
     return reply.code(200).send(result);
   });
   // DELETE /care-plans/{id}
   fastify.delete("/care-plans/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteCarePlan(deps.carePlanRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteCarePlan(deps.carePlanRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

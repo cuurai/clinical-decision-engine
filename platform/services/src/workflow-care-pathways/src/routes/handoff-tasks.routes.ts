@@ -18,7 +18,7 @@ export async function handoffTasksRoutes(
 ) {
   // GET /handoffs/{id}/tasks
   fastify.get("/handoffs/:id/tasks", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listHandoffTasks(deps.handoffTaskRepo, orgId);
     return reply.code(200).send(result);
   });

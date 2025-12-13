@@ -92,11 +92,6 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
     // Note: Repository interface expects EventDelivery, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as EventDeliveryInput;
-    try
-    // Note: Repository interface expects EventDelivery, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as EventDeliveryInput;
-    try
     try {
       const record = await this.dao.eventDelivery.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
   async update(orgId: OrgId, id: string, data: EventDeliveryUpdate): Promise<EventDelivery> {
     try {
       const record = await this.dao.eventDelivery.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -160,7 +155,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
         const results: EventDelivery[] = [];
         for (const { id, data } of updates) {
           const record = await tx.eventDelivery.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

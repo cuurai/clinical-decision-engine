@@ -92,11 +92,6 @@ export class DaoConnectionRepository implements ConnectionRepository {
     // Note: Repository interface expects Connection, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ConnectionInput;
-    try
-    // Note: Repository interface expects Connection, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as ConnectionInput;
-    try
     try {
       const record = await this.dao.connection.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
   async update(orgId: OrgId, id: string, data: ConnectionUpdate): Promise<Connection> {
     try {
       const record = await this.dao.connection.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.connection.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
         const results: Connection[] = [];
         for (const { id, data } of updates) {
           const record = await tx.connection.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

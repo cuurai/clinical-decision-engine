@@ -92,11 +92,6 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
     // Note: Repository interface expects CarePathwayTemplate, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as CarePathwayTemplateInput;
-    try
-    // Note: Repository interface expects CarePathwayTemplate, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as CarePathwayTemplateInput;
-    try
     try {
       const record = await this.dao.carePathwayTemplate.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
   async update(orgId: OrgId, id: string, data: CarePathwayTemplateUpdate): Promise<CarePathwayTemplate> {
     try {
       const record = await this.dao.carePathwayTemplate.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.carePathwayTemplate.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
         const results: CarePathwayTemplate[] = [];
         for (const { id, data } of updates) {
           const record = await tx.carePathwayTemplate.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

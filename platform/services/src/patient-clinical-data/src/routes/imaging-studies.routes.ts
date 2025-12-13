@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createImagingStudy, deleteImagingStudy, getImagingStudy, listImagingStudies, updateImagingStudy } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { ImagingStudyInput, ImagingStudyUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function imagingStudiesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /imaging-studies
   fastify.get("/imaging-studies", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listImagingStudies(deps.imagingStudyRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /imaging-studies
   fastify.post("/imaging-studies", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createImagingStudy(deps.imagingStudyRepo, orgId, request.body as ImagingStudyInput);
+    const orgId = extractOrgId(request);
+    const result = await createImagingStudy(deps.imagingStudyRepo, orgId, request.body as CreateImagingStudyInput);
     return reply.code(201).send(result);
   });
   // GET /imaging-studies/{id}
   fastify.get("/imaging-studies/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getImagingStudy(deps.imagingStudyRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getImagingStudy(deps.imagingStudyRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /imaging-studies/{id}
   fastify.patch("/imaging-studies/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateImagingStudy(deps.imagingStudyRepo, orgId, request.body as ImagingStudyUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateImagingStudy(deps.imagingStudyRepo, orgId, id, request.body as UpdateImagingStudieInput);
     return reply.code(200).send(result);
   });
   // DELETE /imaging-studies/{id}
   fastify.delete("/imaging-studies/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteImagingStudy(deps.imagingStudyRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteImagingStudy(deps.imagingStudyRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

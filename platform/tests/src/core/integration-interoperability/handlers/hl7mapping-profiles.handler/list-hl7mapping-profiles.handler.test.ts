@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listHL7MappingProfiles as listHL7MappingProfilesHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createHlMappingProfilesHandler } from "@quub/factories";
+    createHlMappingProfilesHandler } from "@cuur/factories";
 
 describe("listHL7MappingProfiles - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

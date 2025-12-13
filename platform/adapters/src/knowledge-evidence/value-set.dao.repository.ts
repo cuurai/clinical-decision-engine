@@ -92,7 +92,6 @@ export class DaoValueSetRepository implements ValueSetRepository {
     // Note: Repository interface expects ValueSet, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ValueSetInput;
-    try
     try {
       const record = await this.dao.valueSet.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoValueSetRepository implements ValueSetRepository {
   async update(orgId: OrgId, id: string, data: ValueSetUpdate): Promise<ValueSet> {
     try {
       const record = await this.dao.valueSet.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoValueSetRepository implements ValueSetRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.valueSet.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoValueSetRepository implements ValueSetRepository {
         const results: ValueSet[] = [];
         for (const { id, data } of updates) {
           const record = await tx.valueSet.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

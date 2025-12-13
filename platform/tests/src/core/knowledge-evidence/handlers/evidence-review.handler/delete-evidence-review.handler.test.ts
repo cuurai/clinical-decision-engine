@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { deleteEvidenceReview as deleteEvidenceReviewHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createEvidenceReviewHandler } from "@quub/factories";
+    createEvidenceReviewHandler } from "@cuur/factories";
 
 describe("deleteEvidenceReview - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

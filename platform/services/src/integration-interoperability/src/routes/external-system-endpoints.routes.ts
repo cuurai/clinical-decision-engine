@@ -18,7 +18,7 @@ export async function externalSystemEndpointsRoutes(
 ) {
   // GET /external-systems/{id}/endpoints
   fastify.get("/external-systems/:id/endpoints", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listExternalSystemEndpoints(deps.externalSystemEndpointRepo, orgId);
     return reply.code(200).send(result);
   });

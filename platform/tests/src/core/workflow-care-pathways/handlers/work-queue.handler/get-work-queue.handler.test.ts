@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getWorkQueue as getWorkQueueHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createWorkQueueHandler } from "@quub/factories";
+    createWorkQueueHandler } from "@cuur/factories";
 
 describe("getWorkQueue - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listDecisionMetrics as listDecisionMetricsHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createDecisionMetricsHandler } from "@quub/factories";
+    createDecisionMetricsHandler } from "@cuur/factories";
 
 describe("listDecisionMetrics - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

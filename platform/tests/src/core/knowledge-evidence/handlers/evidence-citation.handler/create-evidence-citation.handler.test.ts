@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { createEvidenceCitation as createEvidenceCitationHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createEvidenceCitationHandler } from "@quub/factories";
+    createEvidenceCitationHandler } from "@cuur/factories";
 
 describe("createEvidenceCitation - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createRoutingRule, deleteRoutingRule, getRoutingRule, listRoutingRules, updateRoutingRule } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { RoutingRuleInput, RoutingRuleUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function routingRulesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /routing-rules
   fastify.get("/routing-rules", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listRoutingRules(deps.routingRuleRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /routing-rules
   fastify.post("/routing-rules", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createRoutingRule(deps.routingRuleRepo, orgId, request.body as RoutingRuleInput);
+    const orgId = extractOrgId(request);
+    const result = await createRoutingRule(deps.routingRuleRepo, orgId, request.body as CreateRoutingRuleInput);
     return reply.code(201).send(result);
   });
   // GET /routing-rules/{id}
   fastify.get("/routing-rules/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getRoutingRule(deps.routingRuleRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getRoutingRule(deps.routingRuleRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /routing-rules/{id}
   fastify.patch("/routing-rules/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateRoutingRule(deps.routingRuleRepo, orgId, request.body as RoutingRuleUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await updateRoutingRule(deps.routingRuleRepo, orgId, id, request.body as UpdateRoutingRuleInput);
     return reply.code(200).send(result);
   });
   // DELETE /routing-rules/{id}
   fastify.delete("/routing-rules/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteRoutingRule(deps.routingRuleRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        await deleteRoutingRule(deps.routingRuleRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

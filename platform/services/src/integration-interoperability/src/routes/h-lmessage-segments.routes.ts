@@ -18,7 +18,7 @@ export async function hLMessageSegmentsRoutes(
 ) {
   // GET /hl7-messages/{id}/segments
   fastify.get("/hl7-messages/:id/segments", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listHL7MessageSegments(deps.hLMessageSegmentRepo, orgId);
     return reply.code(200).send(result);
   });

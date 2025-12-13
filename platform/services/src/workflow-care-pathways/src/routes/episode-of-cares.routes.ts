@@ -13,33 +13,37 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createEpisodeOfCare, deleteEpisodeOfCare, getEpisodeOfCare, updateEpisodeOfCare } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { EpisodeOfCareInput, EpisodeOfCareUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function episodeOfCaresRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // POST /episodes-of-care
   fastify.post("/episodes-of-care", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createEpisodeOfCare(deps.episodeOfCareRepo, orgId, request.body as EpisodeOfCareInput);
+    const orgId = extractOrgId(request);
+    const result = await createEpisodeOfCare(deps.episodeOfCareRepo, orgId, request.body as CreateEpisodeOfCareInput);
     return reply.code(201).send(result);
   });
   // GET /episodes-of-care/{id}
   fastify.get("/episodes-of-care/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getEpisodeOfCare(deps.episodeOfCareRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getEpisodeOfCare(deps.episodeOfCareRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /episodes-of-care/{id}
   fastify.patch("/episodes-of-care/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateEpisodeOfCare(deps.episodeOfCareRepo, orgId, request.body as EpisodeOfCareUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await updateEpisodeOfCare(deps.episodeOfCareRepo, orgId, id, request.body as UpdateEpisodeOfCareInput);
     return reply.code(200).send(result);
   });
   // DELETE /episodes-of-care/{id}
   fastify.delete("/episodes-of-care/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteEpisodeOfCare(deps.episodeOfCareRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        await deleteEpisodeOfCare(deps.episodeOfCareRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listKnowledgePackageValueSets as listKnowledgePackageValueSetsHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createKnowledgePackageValueSetsHandler } from "@quub/factories";
+    createKnowledgePackageValueSetsHandler } from "@cuur/factories";
 
 describe("listKnowledgePackageValueSets - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

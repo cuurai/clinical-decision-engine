@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createEvidenceCitation, deleteEvidenceCitation, getEvidenceCitation, listEvidenceCitations, updateEvidenceCitation } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { EvidenceCitationInput, EvidenceCitationUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function evidenceCitationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /evidence-citations
   fastify.get("/evidence-citations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listEvidenceCitations(deps.evidenceCitationRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /evidence-citations
   fastify.post("/evidence-citations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createEvidenceCitation(deps.evidenceCitationRepo, orgId, request.body as EvidenceCitationInput);
+    const orgId = extractOrgId(request);
+    const result = await createEvidenceCitation(deps.evidenceCitationRepo, orgId, request.body as CreateEvidenceCitationInput);
     return reply.code(201).send(result);
   });
   // GET /evidence-citations/{id}
   fastify.get("/evidence-citations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getEvidenceCitation(deps.evidenceCitationRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getEvidenceCitation(deps.evidenceCitationRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /evidence-citations/{id}
   fastify.patch("/evidence-citations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateEvidenceCitation(deps.evidenceCitationRepo, orgId, request.body as EvidenceCitationUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateEvidenceCitation(deps.evidenceCitationRepo, orgId, id, request.body as UpdateEvidenceCitationInput);
     return reply.code(200).send(result);
   });
   // DELETE /evidence-citations/{id}
   fastify.delete("/evidence-citations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteEvidenceCitation(deps.evidenceCitationRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteEvidenceCitation(deps.evidenceCitationRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

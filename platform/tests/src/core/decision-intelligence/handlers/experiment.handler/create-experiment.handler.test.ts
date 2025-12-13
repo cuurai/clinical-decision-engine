@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { createExperiment as createExperimentHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createExperimentHandler } from "@quub/factories";
+    createExperimentHandler } from "@cuur/factories";
 
 describe("createExperiment - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

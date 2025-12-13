@@ -18,7 +18,7 @@ export async function guidelineEvidenceCitationsRoutes(
 ) {
   // GET /guidelines/{id}/evidence-citations
   fastify.get("/guidelines/:id/evidence-citations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listGuidelineEvidenceCitations(deps.guidelineEvidenceCitationRepo, orgId);
     return reply.code(200).send(result);
   });

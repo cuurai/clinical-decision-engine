@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createAllergy, deleteAllergy, getAllergy, listAllergies, updateAllergy } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { AllergyInput, AllergyUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function allergiesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /allergies
   fastify.get("/allergies", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listAllergies(deps.allergyRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /allergies
   fastify.post("/allergies", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createAllergy(deps.allergyRepo, orgId, request.body as AllergyInput);
+    const orgId = extractOrgId(request);
+    const result = await createAllergy(deps.allergyRepo, orgId, request.body as CreateAllergyInput);
     return reply.code(201).send(result);
   });
   // GET /allergies/{id}
   fastify.get("/allergies/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getAllergy(deps.allergyRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getAllergy(deps.allergyRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /allergies/{id}
   fastify.patch("/allergies/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateAllergy(deps.allergyRepo, orgId, request.body as AllergyUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateAllergy(deps.allergyRepo, orgId, id, request.body as UpdateAllergieInput);
     return reply.code(200).send(result);
   });
   // DELETE /allergies/{id}
   fastify.delete("/allergies/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteAllergy(deps.allergyRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteAllergy(deps.allergyRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

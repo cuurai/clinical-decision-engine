@@ -92,11 +92,6 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
     // Note: Repository interface expects ScheduleTemplate, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ScheduleTemplateInput;
-    try
-    // Note: Repository interface expects ScheduleTemplate, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as ScheduleTemplateInput;
-    try
     try {
       const record = await this.dao.scheduleTemplate.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
   async update(orgId: OrgId, id: string, data: ScheduleTemplateUpdate): Promise<ScheduleTemplate> {
     try {
       const record = await this.dao.scheduleTemplate.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.scheduleTemplate.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
         const results: ScheduleTemplate[] = [];
         for (const { id, data } of updates) {
           const record = await tx.scheduleTemplate.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

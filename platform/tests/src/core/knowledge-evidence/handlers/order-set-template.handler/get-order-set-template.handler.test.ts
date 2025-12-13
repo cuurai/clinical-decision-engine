@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getOrderSetTemplate as getOrderSetTemplateHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createOrderSetTemplateHandler } from "@quub/factories";
+    createOrderSetTemplateHandler } from "@cuur/factories";
 
 describe("getOrderSetTemplate - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

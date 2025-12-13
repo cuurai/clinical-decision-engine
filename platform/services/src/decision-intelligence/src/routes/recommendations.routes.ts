@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createRecommendation, deleteRecommendation, getRecommendation, listRecommendations, updateRecommendation } from "@cuur/core/decision-intelligence/handlers/index.js";
 import type { RecommendationInput, RecommendationUpdate } from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function recommendationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /recommendations
   fastify.get("/recommendations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listRecommendations(deps.recommendationRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /recommendations
   fastify.post("/recommendations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createRecommendation(deps.recommendationRepo, orgId, request.body as RecommendationInput);
+    const orgId = extractOrgId(request);
+    const result = await createRecommendation(deps.recommendationRepo, orgId, request.body as CreateRecommendationInput);
     return reply.code(201).send(result);
   });
   // GET /recommendations/{id}
   fastify.get("/recommendations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getRecommendation(deps.recommendationRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getRecommendation(deps.recommendationRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /recommendations/{id}
   fastify.patch("/recommendations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateRecommendation(deps.recommendationRepo, orgId, request.body as RecommendationUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateRecommendation(deps.recommendationRepo, orgId, id, request.body as UpdateRecommendationInput);
     return reply.code(200).send(result);
   });
   // DELETE /recommendations/{id}
   fastify.delete("/recommendations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteRecommendation(deps.recommendationRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteRecommendation(deps.recommendationRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

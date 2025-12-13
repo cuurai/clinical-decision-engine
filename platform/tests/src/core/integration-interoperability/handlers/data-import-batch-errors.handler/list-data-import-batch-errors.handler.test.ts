@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listDataImportBatchErrors as listDataImportBatchErrorsHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createDataImportBatchErrorsHandler } from "@quub/factories";
+    createDataImportBatchErrorsHandler } from "@cuur/factories";
 
 describe("listDataImportBatchErrors - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

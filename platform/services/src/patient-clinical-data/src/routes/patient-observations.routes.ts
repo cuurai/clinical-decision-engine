@@ -18,7 +18,7 @@ export async function patientObservationsRoutes(
 ) {
   // GET /patients/{id}/observations
   fastify.get("/patients/:id/observations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listPatientObservations(deps.patientObservationRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });

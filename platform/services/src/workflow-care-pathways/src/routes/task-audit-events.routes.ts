@@ -18,7 +18,7 @@ export async function taskAuditEventsRoutes(
 ) {
   // GET /tasks/{id}/audit-events
   fastify.get("/tasks/:id/audit-events", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listTaskAuditEvents(deps.taskAuditEventRepo, orgId);
     return reply.code(200).send(result);
   });

@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createThresholdProfile, deleteThresholdProfile, getThresholdProfile, listThresholdProfiles, updateThresholdProfile } from "@cuur/core/decision-intelligence/handlers/index.js";
 import type { ThresholdProfileInput, ThresholdProfileUpdate } from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function thresholdProfilesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /threshold-profiles
   fastify.get("/threshold-profiles", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listThresholdProfiles(deps.thresholdProfileRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /threshold-profiles
   fastify.post("/threshold-profiles", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createThresholdProfile(deps.thresholdProfileRepo, orgId, request.body as ThresholdProfileInput);
+    const orgId = extractOrgId(request);
+    const result = await createThresholdProfile(deps.thresholdProfileRepo, orgId, request.body as CreateThresholdProfileInput);
     return reply.code(201).send(result);
   });
   // GET /threshold-profiles/{id}
   fastify.get("/threshold-profiles/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getThresholdProfile(deps.thresholdProfileRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getThresholdProfile(deps.thresholdProfileRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /threshold-profiles/{id}
   fastify.patch("/threshold-profiles/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateThresholdProfile(deps.thresholdProfileRepo, orgId, request.body as ThresholdProfileUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateThresholdProfile(deps.thresholdProfileRepo, orgId, id, request.body as UpdateThresholdProfileInput);
     return reply.code(200).send(result);
   });
   // DELETE /threshold-profiles/{id}
   fastify.delete("/threshold-profiles/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteThresholdProfile(deps.thresholdProfileRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteThresholdProfile(deps.thresholdProfileRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

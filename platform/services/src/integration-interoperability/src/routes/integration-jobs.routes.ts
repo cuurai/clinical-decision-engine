@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createIntegrationJob, deleteIntegrationJob, getIntegrationJob, listIntegrationJobs, updateIntegrationJob } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { IntegrationJobInput, IntegrationJobUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function integrationJobsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /integration-jobs
   fastify.get("/integration-jobs", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listIntegrationJobs(deps.integrationJobRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /integration-jobs
   fastify.post("/integration-jobs", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createIntegrationJob(deps.integrationJobRepo, orgId, request.body as IntegrationJobInput);
+    const orgId = extractOrgId(request);
+    const result = await createIntegrationJob(deps.integrationJobRepo, orgId, request.body as CreateIntegrationJobInput);
     return reply.code(201).send(result);
   });
   // GET /integration-jobs/{id}
   fastify.get("/integration-jobs/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getIntegrationJob(deps.integrationJobRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getIntegrationJob(deps.integrationJobRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /integration-jobs/{id}
   fastify.patch("/integration-jobs/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateIntegrationJob(deps.integrationJobRepo, orgId, request.body as IntegrationJobUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateIntegrationJob(deps.integrationJobRepo, orgId, id, request.body as UpdateIntegrationJobInput);
     return reply.code(200).send(result);
   });
   // DELETE /integration-jobs/{id}
   fastify.delete("/integration-jobs/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteIntegrationJob(deps.integrationJobRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteIntegrationJob(deps.integrationJobRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

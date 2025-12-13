@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getChecklistInstance as getChecklistInstanceHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createChecklistInstanceHandler } from "@quub/factories";
+    createChecklistInstanceHandler } from "@cuur/factories";
 
 describe("getChecklistInstance - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

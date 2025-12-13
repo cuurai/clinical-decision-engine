@@ -18,7 +18,7 @@ export async function orderSetTemplateItemsRoutes(
 ) {
   // GET /order-set-templates/{id}/items
   fastify.get("/order-set-templates/:id/items", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listOrderSetTemplateItems(deps.orderSetTemplateItemRepo, orgId);
     return reply.code(200).send(result);
   });

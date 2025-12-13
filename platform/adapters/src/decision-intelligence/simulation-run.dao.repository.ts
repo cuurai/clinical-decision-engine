@@ -91,7 +91,6 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
     // Note: Repository interface expects SimulationRun, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as SimulationRunInput;
-    try
     try {
       const record = await this.dao.simulationRun.create({
         data: {

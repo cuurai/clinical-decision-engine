@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { deleteCondition as deleteConditionHandler } from "@cuur/core/patient-clinical-data/handlers/index.js";
 
 import { seedFaker,
-    createConditionHandler } from "@quub/factories";
+    createConditionHandler } from "@cuur/factories";
 
 describe("deleteCondition - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

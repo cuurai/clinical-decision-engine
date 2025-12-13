@@ -18,7 +18,7 @@ export async function workQueueTasksRoutes(
 ) {
   // GET /work-queues/{id}/tasks
   fastify.get("/work-queues/:id/tasks", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listWorkQueueTasks(deps.workQueueTaskRepo, orgId);
     return reply.code(200).send(result);
   });

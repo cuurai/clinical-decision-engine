@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createSimulationScenario, deleteSimulationScenario, getSimulationScenario, listSimulationScenarios, updateSimulationScenario } from "@cuur/core/decision-intelligence/handlers/index.js";
 import type { SimulationScenarioInput, SimulationScenarioUpdate } from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function simulationScenariosRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /simulation-scenarios
   fastify.get("/simulation-scenarios", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listSimulationScenarios(deps.simulationScenarioRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /simulation-scenarios
   fastify.post("/simulation-scenarios", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createSimulationScenario(deps.simulationScenarioRepo, orgId, request.body as SimulationScenarioInput);
+    const orgId = extractOrgId(request);
+    const result = await createSimulationScenario(deps.simulationScenarioRepo, orgId, request.body as CreateSimulationScenarioInput);
     return reply.code(201).send(result);
   });
   // GET /simulation-scenarios/{id}
   fastify.get("/simulation-scenarios/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getSimulationScenario(deps.simulationScenarioRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getSimulationScenario(deps.simulationScenarioRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /simulation-scenarios/{id}
   fastify.patch("/simulation-scenarios/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateSimulationScenario(deps.simulationScenarioRepo, orgId, request.body as SimulationScenarioUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateSimulationScenario(deps.simulationScenarioRepo, orgId, id, request.body as UpdateSimulationScenarioInput);
     return reply.code(200).send(result);
   });
   // DELETE /simulation-scenarios/{id}
   fastify.delete("/simulation-scenarios/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteSimulationScenario(deps.simulationScenarioRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteSimulationScenario(deps.simulationScenarioRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

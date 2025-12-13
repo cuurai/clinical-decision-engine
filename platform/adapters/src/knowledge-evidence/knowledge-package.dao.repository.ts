@@ -92,7 +92,6 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
     // Note: Repository interface expects KnowledgePackage, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as KnowledgePackageInput;
-    try
     try {
       const record = await this.dao.knowledgePackage.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
   async update(orgId: OrgId, id: string, data: KnowledgePackageUpdate): Promise<KnowledgePackage> {
     try {
       const record = await this.dao.knowledgePackage.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.knowledgePackage.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
         const results: KnowledgePackage[] = [];
         for (const { id, data } of updates) {
           const record = await tx.knowledgePackage.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

@@ -92,7 +92,6 @@ export class DaoDecisionSessionRepository implements DecisionSessionRepository {
     // Note: Repository interface expects DecisionSession, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DecisionSessionInput;
-    try
     try {
       const record = await this.dao.decisionSession.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoDecisionSessionRepository implements DecisionSessionRepository {
   async update(orgId: OrgId, id: string, data: DecisionSessionUpdate): Promise<DecisionSession> {
     try {
       const record = await this.dao.decisionSession.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoDecisionSessionRepository implements DecisionSessionRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.decisionSession.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoDecisionSessionRepository implements DecisionSessionRepository {
         const results: DecisionSession[] = [];
         for (const { id, data } of updates) {
           const record = await tx.decisionSession.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

@@ -92,11 +92,6 @@ export class DaoRecommendationRepository implements RecommendationRepository {
     // Note: Repository interface expects Recommendation, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as RecommendationInput;
-    try
-    // Note: Repository interface expects Recommendation, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as RecommendationInput;
-    try
     try {
       const record = await this.dao.recommendation.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoRecommendationRepository implements RecommendationRepository {
   async update(orgId: OrgId, id: string, data: RecommendationUpdate): Promise<Recommendation> {
     try {
       const record = await this.dao.recommendation.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoRecommendationRepository implements RecommendationRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.recommendation.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoRecommendationRepository implements RecommendationRepository {
         const results: Recommendation[] = [];
         for (const { id, data } of updates) {
           const record = await tx.recommendation.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

@@ -92,11 +92,6 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
     // Note: Repository interface expects EscalationPolicy, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as EscalationPolicyInput;
-    try
-    // Note: Repository interface expects EscalationPolicy, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as EscalationPolicyInput;
-    try
     try {
       const record = await this.dao.escalationPolicy.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
   async update(orgId: OrgId, id: string, data: EscalationPolicyUpdate): Promise<EscalationPolicy> {
     try {
       const record = await this.dao.escalationPolicy.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.escalationPolicy.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
         const results: EscalationPolicy[] = [];
         for (const { id, data } of updates) {
           const record = await tx.escalationPolicy.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

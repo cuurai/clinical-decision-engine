@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createScheduleTemplate, deleteScheduleTemplate, getScheduleTemplate, listScheduleTemplates, updateScheduleTemplate } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { ScheduleTemplateInput, ScheduleTemplateUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function scheduleTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /schedule-templates
   fastify.get("/schedule-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listScheduleTemplates(deps.scheduleTemplateRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /schedule-templates
   fastify.post("/schedule-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createScheduleTemplate(deps.scheduleTemplateRepo, orgId, request.body as ScheduleTemplateInput);
+    const orgId = extractOrgId(request);
+    const result = await createScheduleTemplate(deps.scheduleTemplateRepo, orgId, request.body as CreateScheduleTemplateInput);
     return reply.code(201).send(result);
   });
   // GET /schedule-templates/{id}
   fastify.get("/schedule-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getScheduleTemplate(deps.scheduleTemplateRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getScheduleTemplate(deps.scheduleTemplateRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /schedule-templates/{id}
   fastify.patch("/schedule-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateScheduleTemplate(deps.scheduleTemplateRepo, orgId, request.body as ScheduleTemplateUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await updateScheduleTemplate(deps.scheduleTemplateRepo, orgId, id, request.body as UpdateScheduleTemplateInput);
     return reply.code(200).send(result);
   });
   // DELETE /schedule-templates/{id}
   fastify.delete("/schedule-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteScheduleTemplate(deps.scheduleTemplateRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        await deleteScheduleTemplate(deps.scheduleTemplateRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

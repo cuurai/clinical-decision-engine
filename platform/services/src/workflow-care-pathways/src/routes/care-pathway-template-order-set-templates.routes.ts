@@ -18,7 +18,7 @@ export async function carePathwayTemplateOrderSetTemplatesRoutes(
 ) {
   // GET /care-pathway-templates/{id}/order-set-templates
   fastify.get("/care-pathway-templates/:id/order-set-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listCarePathwayTemplateOrderSetTemplates(deps.carePathwayTemplateOrderSetTemplateRepo, orgId);
     return reply.code(200).send(result);
   });

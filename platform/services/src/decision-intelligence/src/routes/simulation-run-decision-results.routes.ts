@@ -18,7 +18,7 @@ export async function simulationRunDecisionResultsRoutes(
 ) {
   // GET /simulation-runs/{id}/decision-results
   fastify.get("/simulation-runs/:id/decision-results", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listSimulationRunDecisionResults(deps.simulationRunDecisionResultRepo, orgId);
     return reply.code(200).send(result);
   });

@@ -92,11 +92,6 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
     // Note: Repository interface expects TaskAssignment, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as TaskAssignmentInput;
-    try
-    // Note: Repository interface expects TaskAssignment, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as TaskAssignmentInput;
-    try
     try {
       const record = await this.dao.taskAssignment.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
   async update(orgId: OrgId, id: string, data: TaskAssignmentUpdate): Promise<TaskAssignment> {
     try {
       const record = await this.dao.taskAssignment.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.taskAssignment.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
         const results: TaskAssignment[] = [];
         for (const { id, data } of updates) {
           const record = await tx.taskAssignment.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

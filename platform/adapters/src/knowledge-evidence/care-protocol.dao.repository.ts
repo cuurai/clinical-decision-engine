@@ -106,7 +106,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
   async update(orgId: OrgId, id: string, data: CareProtocolUpdate): Promise<CareProtocol> {
     try {
       const record = await this.dao.careProtocol.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -122,7 +122,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.careProtocol.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -167,7 +167,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
         const results: CareProtocol[] = [];
         for (const { id, data } of updates) {
           const record = await tx.careProtocol.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

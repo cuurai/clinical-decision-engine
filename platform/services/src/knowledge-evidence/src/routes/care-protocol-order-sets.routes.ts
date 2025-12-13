@@ -18,7 +18,7 @@ export async function careProtocolOrderSetsRoutes(
 ) {
   // GET /care-protocols/{id}/order-sets
   fastify.get("/care-protocols/:id/order-sets", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listCareProtocolOrderSets(deps.careProtocolOrderSetRepo, orgId);
     return reply.code(200).send(result);
   });

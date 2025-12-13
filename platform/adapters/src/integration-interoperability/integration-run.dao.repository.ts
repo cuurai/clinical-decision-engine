@@ -91,11 +91,6 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
     // Note: Repository interface expects IntegrationRun, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as IntegrationRunInput;
-    try
-    // Note: Repository interface expects IntegrationRun, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as IntegrationRunInput;
-    try
     try {
       const record = await this.dao.integrationRun.create({
         data: {

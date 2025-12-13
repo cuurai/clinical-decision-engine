@@ -92,7 +92,6 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
     // Note: Repository interface expects SimulationScenario, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as SimulationScenarioInput;
-    try
     try {
       const record = await this.dao.simulationScenario.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
   async update(orgId: OrgId, id: string, data: SimulationScenarioUpdate): Promise<SimulationScenario> {
     try {
       const record = await this.dao.simulationScenario.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.simulationScenario.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
         const results: SimulationScenario[] = [];
         for (const { id, data } of updates) {
           const record = await tx.simulationScenario.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

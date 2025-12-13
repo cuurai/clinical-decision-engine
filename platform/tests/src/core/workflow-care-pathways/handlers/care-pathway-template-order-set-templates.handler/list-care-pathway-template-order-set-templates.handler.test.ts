@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listCarePathwayTemplateOrderSetTemplates as listCarePathwayTemplateOrderSetTemplatesHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createCarePathwayTemplateOrderSetTemplatesHandler } from "@quub/factories";
+    createCarePathwayTemplateOrderSetTemplatesHandler } from "@cuur/factories";
 
 describe("listCarePathwayTemplateOrderSetTemplates - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

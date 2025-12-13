@@ -106,7 +106,7 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.fhirbundle.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           

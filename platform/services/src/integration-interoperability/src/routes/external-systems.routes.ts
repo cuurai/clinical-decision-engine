@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createExternalSystem, deleteExternalSystem, getExternalSystem, listExternalSystems, updateExternalSystem } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { ExternalSystemInput, ExternalSystemUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function externalSystemsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /external-systems
   fastify.get("/external-systems", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listExternalSystems(deps.externalSystemRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /external-systems
   fastify.post("/external-systems", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createExternalSystem(deps.externalSystemRepo, orgId, request.body as ExternalSystemInput);
+    const orgId = extractOrgId(request);
+    const result = await createExternalSystem(deps.externalSystemRepo, orgId, request.body as CreateExternalSystemInput);
     return reply.code(201).send(result);
   });
   // GET /external-systems/{id}
   fastify.get("/external-systems/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getExternalSystem(deps.externalSystemRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getExternalSystem(deps.externalSystemRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /external-systems/{id}
   fastify.patch("/external-systems/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateExternalSystem(deps.externalSystemRepo, orgId, request.body as ExternalSystemUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateExternalSystem(deps.externalSystemRepo, orgId, id, request.body as UpdateExternalSystemInput);
     return reply.code(200).send(result);
   });
   // DELETE /external-systems/{id}
   fastify.delete("/external-systems/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteExternalSystem(deps.externalSystemRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteExternalSystem(deps.externalSystemRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

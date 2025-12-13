@@ -92,11 +92,6 @@ export class DaoConditionRepository implements ConditionRepository {
     // Note: Repository interface expects Condition, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ConditionInput;
-    try
-    // Note: Repository interface expects Condition, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as ConditionInput;
-    try
     try {
       const record = await this.dao.condition.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoConditionRepository implements ConditionRepository {
   async update(orgId: OrgId, id: string, data: ConditionUpdate): Promise<Condition> {
     try {
       const record = await this.dao.condition.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoConditionRepository implements ConditionRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.condition.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoConditionRepository implements ConditionRepository {
         const results: Condition[] = [];
         for (const { id, data } of updates) {
           const record = await tx.condition.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

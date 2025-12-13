@@ -92,11 +92,6 @@ export class DaoAlertRepository implements AlertRepository {
     // Note: Repository interface expects Alert, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as AlertInput;
-    try
-    // Note: Repository interface expects Alert, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as AlertInput;
-    try
     try {
       const record = await this.dao.alert.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoAlertRepository implements AlertRepository {
   async update(orgId: OrgId, id: string, data: AlertUpdate): Promise<Alert> {
     try {
       const record = await this.dao.alert.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoAlertRepository implements AlertRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.alert.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoAlertRepository implements AlertRepository {
         const results: Alert[] = [];
         for (const { id, data } of updates) {
           const record = await tx.alert.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

@@ -92,7 +92,6 @@ export class DaoGuidelineRepository implements GuidelineRepository {
     // Note: Repository interface expects Guideline, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as GuidelineInput;
-    try
     try {
       const record = await this.dao.guideline.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
   async update(orgId: OrgId, id: string, data: GuidelineUpdate): Promise<Guideline> {
     try {
       const record = await this.dao.guideline.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.guideline.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
         const results: Guideline[] = [];
         for (const { id, data } of updates) {
           const record = await tx.guideline.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

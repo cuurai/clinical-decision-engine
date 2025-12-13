@@ -18,7 +18,7 @@ export async function patientMedicationsRoutes(
 ) {
   // GET /patients/{id}/medications
   fastify.get("/patients/:id/medications", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listPatientMedications(deps.patientMedicationRepo, orgId);
     return reply.code(200).send(result);
   });

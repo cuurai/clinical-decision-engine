@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listOntologyTermParents as listOntologyTermParentsHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createOntologyTermParentsHandler } from "@quub/factories";
+    createOntologyTermParentsHandler } from "@cuur/factories";
 
 describe("listOntologyTermParents - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

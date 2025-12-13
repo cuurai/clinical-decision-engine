@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createProcedure, deleteProcedure, getProcedure, listProcedures, updateProcedure } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { ProcedureInput, ProcedureUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function proceduresRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /procedures
   fastify.get("/procedures", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listProcedures(deps.procedureRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /procedures
   fastify.post("/procedures", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createProcedure(deps.procedureRepo, orgId, request.body as ProcedureInput);
+    const orgId = extractOrgId(request);
+    const result = await createProcedure(deps.procedureRepo, orgId, request.body as CreateProcedureInput);
     return reply.code(201).send(result);
   });
   // GET /procedures/{id}
   fastify.get("/procedures/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getProcedure(deps.procedureRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getProcedure(deps.procedureRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /procedures/{id}
   fastify.patch("/procedures/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateProcedure(deps.procedureRepo, orgId, request.body as ProcedureUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateProcedure(deps.procedureRepo, orgId, id, request.body as UpdateProcedureInput);
     return reply.code(200).send(result);
   });
   // DELETE /procedures/{id}
   fastify.delete("/procedures/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteProcedure(deps.procedureRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteProcedure(deps.procedureRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

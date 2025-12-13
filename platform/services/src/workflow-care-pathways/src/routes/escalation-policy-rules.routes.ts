@@ -18,7 +18,7 @@ export async function escalationPolicyRulesRoutes(
 ) {
   // GET /escalation-policies/{id}/rules
   fastify.get("/escalation-policies/:id/rules", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listEscalationPolicyRules(deps.escalationPolicyRuleRepo, orgId);
     return reply.code(200).send(result);
   });

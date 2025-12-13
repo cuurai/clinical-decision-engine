@@ -92,7 +92,6 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
     // Note: Repository interface expects QuestionnaireTemplate, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as QuestionnaireTemplateInput;
-    try
     try {
       const record = await this.dao.questionnaireTemplate.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
   async update(orgId: OrgId, id: string, data: QuestionnaireTemplateUpdate): Promise<QuestionnaireTemplate> {
     try {
       const record = await this.dao.questionnaireTemplate.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.questionnaireTemplate.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
         const results: QuestionnaireTemplate[] = [];
         for (const { id, data } of updates) {
           const record = await tx.questionnaireTemplate.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

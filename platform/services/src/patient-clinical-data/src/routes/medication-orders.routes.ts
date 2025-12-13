@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createMedicationOrder, deleteMedicationOrder, getMedicationOrder, listMedicationOrders, updateMedicationOrder } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { MedicationOrderInput, MedicationOrderUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function medicationOrdersRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /medication-orders
   fastify.get("/medication-orders", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listMedicationOrders(deps.medicationOrderRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /medication-orders
   fastify.post("/medication-orders", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createMedicationOrder(deps.medicationOrderRepo, orgId, request.body as MedicationOrderInput);
+    const orgId = extractOrgId(request);
+    const result = await createMedicationOrder(deps.medicationOrderRepo, orgId, request.body as CreateMedicationOrderInput);
     return reply.code(201).send(result);
   });
   // GET /medication-orders/{id}
   fastify.get("/medication-orders/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getMedicationOrder(deps.medicationOrderRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getMedicationOrder(deps.medicationOrderRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /medication-orders/{id}
   fastify.patch("/medication-orders/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateMedicationOrder(deps.medicationOrderRepo, orgId, request.body as MedicationOrderUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateMedicationOrder(deps.medicationOrderRepo, orgId, id, request.body as UpdateMedicationOrderInput);
     return reply.code(200).send(result);
   });
   // DELETE /medication-orders/{id}
   fastify.delete("/medication-orders/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteMedicationOrder(deps.medicationOrderRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteMedicationOrder(deps.medicationOrderRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

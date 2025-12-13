@@ -18,7 +18,7 @@ export async function taskCommentsRoutes(
 ) {
   // GET /tasks/{id}/comments
   fastify.get("/tasks/:id/comments", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listTaskComments(deps.taskCommentRepo, orgId);
     return reply.code(200).send(result);
   });

@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listOntologyTermMappings as listOntologyTermMappingsHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createOntologyTermMappingsHandler } from "@quub/factories";
+    createOntologyTermMappingsHandler } from "@cuur/factories";
 
 describe("listOntologyTermMappings - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

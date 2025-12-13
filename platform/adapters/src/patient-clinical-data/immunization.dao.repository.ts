@@ -92,11 +92,6 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
     // Note: Repository interface expects Immunization, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ImmunizationInput;
-    try
-    // Note: Repository interface expects Immunization, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as ImmunizationInput;
-    try
     try {
       const record = await this.dao.immunization.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
   async update(orgId: OrgId, id: string, data: ImmunizationUpdate): Promise<Immunization> {
     try {
       const record = await this.dao.immunization.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.immunization.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
         const results: Immunization[] = [];
         for (const { id, data } of updates) {
           const record = await tx.immunization.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

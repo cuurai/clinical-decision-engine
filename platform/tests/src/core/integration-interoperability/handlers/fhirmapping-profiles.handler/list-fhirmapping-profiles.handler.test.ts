@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listFHIRMappingProfiles as listFHIRMappingProfilesHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createFhirmappingProfilesHandler } from "@quub/factories";
+    createFhirmappingProfilesHandler } from "@cuur/factories";
 
 describe("listFHIRMappingProfiles - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

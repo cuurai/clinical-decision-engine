@@ -106,7 +106,7 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
   async update(orgId: OrgId, id: string, data: ApicredentialUpdate): Promise<Apicredential> {
     try {
       const record = await this.dao.apicredential.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -122,7 +122,7 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.apicredential.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -167,7 +167,7 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
         const results: Apicredential[] = [];
         for (const { id, data } of updates) {
           const record = await tx.apicredential.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

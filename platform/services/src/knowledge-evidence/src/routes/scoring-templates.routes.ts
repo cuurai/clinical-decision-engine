@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createScoringTemplate, deleteScoringTemplate, getScoringTemplate, listScoringTemplates, updateScoringTemplate } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { ScoringTemplateInput, ScoringTemplateUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function scoringTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /scoring-templates
   fastify.get("/scoring-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listScoringTemplates(deps.scoringTemplateRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /scoring-templates
   fastify.post("/scoring-templates", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createScoringTemplate(deps.scoringTemplateRepo, orgId, request.body as ScoringTemplateInput);
+    const orgId = extractOrgId(request);
+    const result = await createScoringTemplate(deps.scoringTemplateRepo, orgId, request.body as CreateScoringTemplateInput);
     return reply.code(201).send(result);
   });
   // GET /scoring-templates/{id}
   fastify.get("/scoring-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getScoringTemplate(deps.scoringTemplateRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getScoringTemplate(deps.scoringTemplateRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /scoring-templates/{id}
   fastify.patch("/scoring-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateScoringTemplate(deps.scoringTemplateRepo, orgId, request.body as ScoringTemplateUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateScoringTemplate(deps.scoringTemplateRepo, orgId, id, request.body as UpdateScoringTemplateInput);
     return reply.code(200).send(result);
   });
   // DELETE /scoring-templates/{id}
   fastify.delete("/scoring-templates/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteScoringTemplate(deps.scoringTemplateRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteScoringTemplate(deps.scoringTemplateRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

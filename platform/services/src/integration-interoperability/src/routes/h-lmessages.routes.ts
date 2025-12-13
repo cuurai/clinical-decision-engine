@@ -13,33 +13,36 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createHL7Message, deleteHL7Message, getHL7Message, listHL7Messages } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { HL7MessageInput } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function hLMessagesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /hl7-messages
   fastify.get("/hl7-messages", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listHL7Messages(deps.hLMessageRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /hl7-messages
   fastify.post("/hl7-messages", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createHL7Message(deps.hLMessageRepo, orgId, request.body as HL7MessageInput);
+    const orgId = extractOrgId(request);
+    const result = await createHL7Message(deps.hLMessageRepo, orgId, request.body as CreateHL7MessageInput);
     return reply.code(201).send(result);
   });
   // GET /hl7-messages/{id}
   fastify.get("/hl7-messages/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getHL7Message(deps.hLMessageRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getHL7Message(deps.hLMessageRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // DELETE /hl7-messages/{id}
   fastify.delete("/hl7-messages/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteHL7Message(deps.hLMessageRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteHL7Message(deps.hLMessageRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

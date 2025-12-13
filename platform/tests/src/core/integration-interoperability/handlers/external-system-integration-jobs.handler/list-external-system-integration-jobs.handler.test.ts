@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listExternalSystemIntegrationJobs as listExternalSystemIntegrationJobsHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createExternalSystemIntegrationJobsHandler } from "@quub/factories";
+    createExternalSystemIntegrationJobsHandler } from "@cuur/factories";
 
 describe("listExternalSystemIntegrationJobs - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

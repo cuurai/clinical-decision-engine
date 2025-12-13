@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { updateRiskAssessment as updateRiskAssessmentHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createRiskAssessmentHandler } from "@quub/factories";
+    createRiskAssessmentHandler } from "@cuur/factories";
 
 describe("updateRiskAssessment - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

@@ -92,7 +92,6 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
     // Note: Repository interface expects ScoringTemplate, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ScoringTemplateInput;
-    try
     try {
       const record = await this.dao.scoringTemplate.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
   async update(orgId: OrgId, id: string, data: ScoringTemplateUpdate): Promise<ScoringTemplate> {
     try {
       const record = await this.dao.scoringTemplate.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.scoringTemplate.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
         const results: ScoringTemplate[] = [];
         for (const { id, data } of updates) {
           const record = await tx.scoringTemplate.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

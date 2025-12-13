@@ -18,7 +18,7 @@ export async function workflowDefinitionStatesRoutes(
 ) {
   // GET /workflow-definitions/{id}/states
   fastify.get("/workflow-definitions/:id/states", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listWorkflowDefinitionStates(deps.workflowDefinitionStateRepo, orgId);
     return reply.code(200).send(result);
   });

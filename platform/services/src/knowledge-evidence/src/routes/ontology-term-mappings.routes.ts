@@ -18,7 +18,7 @@ export async function ontologyTermMappingsRoutes(
 ) {
   // GET /ontology-terms/{id}/mappings
   fastify.get("/ontology-terms/:id/mappings", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listOntologyTermMappings(deps.ontologyTermMappingRepo, orgId);
     return reply.code(200).send(result);
   });

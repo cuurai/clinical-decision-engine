@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getCarePlan as getCarePlanHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createCarePlanHandler } from "@quub/factories";
+    createCarePlanHandler } from "@cuur/factories";
 
 describe("getCarePlan - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

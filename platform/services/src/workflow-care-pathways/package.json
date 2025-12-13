@@ -1,7 +1,7 @@
 {
-  "name": "@quub/service-workflow-care-pathways",
+  "name": "@cuur/service-workflow-care-pathways",
   "version": "1.0.0",
-  "description": "Quub Exchange - WorkflowCarePathways API",
+  "description": "Cuur Exchange - WorkflowCarePathways API",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,8 +12,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@cuur/core": "workspace:*",
-    "@quub/adapters": "workspace:*",
+    "@cuur/core": "file:../../../../packages/core",
+    "@cuur/adapters": "file:../../../../packages/core",
     "fastify": "^4.28.0",
     "@prisma/client": "^6.0.1"
   },

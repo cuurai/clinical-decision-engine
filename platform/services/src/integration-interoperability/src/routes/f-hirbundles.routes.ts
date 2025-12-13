@@ -13,33 +13,36 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createFHIRBundle, deleteFHIRBundle, getFHIRBundle, listFHIRBundles } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { FHIRBundleInput } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function fHIRBundlesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /fhir-bundles
   fastify.get("/fhir-bundles", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listFHIRBundles(deps.fHIRBundleRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /fhir-bundles
   fastify.post("/fhir-bundles", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createFHIRBundle(deps.fHIRBundleRepo, orgId, request.body as FHIRBundleInput);
+    const orgId = extractOrgId(request);
+    const result = await createFHIRBundle(deps.fHIRBundleRepo, orgId, request.body as CreateFHIRBundleInput);
     return reply.code(201).send(result);
   });
   // GET /fhir-bundles/{id}
   fastify.get("/fhir-bundles/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getFHIRBundle(deps.fHIRBundleRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getFHIRBundle(deps.fHIRBundleRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // DELETE /fhir-bundles/{id}
   fastify.delete("/fhir-bundles/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteFHIRBundle(deps.fHIRBundleRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteFHIRBundle(deps.fHIRBundleRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

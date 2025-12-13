@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getDecisionMetricSnapshot as getDecisionMetricSnapshotHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createDecisionMetricSnapshotHandler } from "@quub/factories";
+    createDecisionMetricSnapshotHandler } from "@cuur/factories";
 
 describe("getDecisionMetricSnapshot - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

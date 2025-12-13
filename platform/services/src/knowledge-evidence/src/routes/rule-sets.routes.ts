@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createRuleSet, deleteRuleSet, getRuleSet, listRuleSets, updateRuleSet } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { RuleSetInput, RuleSetUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function ruleSetsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /rule-sets
   fastify.get("/rule-sets", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listRuleSets(deps.ruleSetRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /rule-sets
   fastify.post("/rule-sets", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createRuleSet(deps.ruleSetRepo, orgId, request.body as RuleSetInput);
+    const orgId = extractOrgId(request);
+    const result = await createRuleSet(deps.ruleSetRepo, orgId, request.body as CreateRuleSetInput);
     return reply.code(201).send(result);
   });
   // GET /rule-sets/{id}
   fastify.get("/rule-sets/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getRuleSet(deps.ruleSetRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getRuleSet(deps.ruleSetRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /rule-sets/{id}
   fastify.patch("/rule-sets/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateRuleSet(deps.ruleSetRepo, orgId, request.body as RuleSetUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateRuleSet(deps.ruleSetRepo, orgId, id, request.body as UpdateRuleSetInput);
     return reply.code(200).send(result);
   });
   // DELETE /rule-sets/{id}
   fastify.delete("/rule-sets/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteRuleSet(deps.ruleSetRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteRuleSet(deps.ruleSetRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

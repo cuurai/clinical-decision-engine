@@ -92,11 +92,6 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
     // Note: Repository interface expects ExternalSystem, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ExternalSystemInput;
-    try
-    // Note: Repository interface expects ExternalSystem, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as ExternalSystemInput;
-    try
     try {
       const record = await this.dao.externalSystem.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
   async update(orgId: OrgId, id: string, data: ExternalSystemUpdate): Promise<ExternalSystem> {
     try {
       const record = await this.dao.externalSystem.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.externalSystem.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
         const results: ExternalSystem[] = [];
         for (const { id, data } of updates) {
           const record = await tx.externalSystem.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

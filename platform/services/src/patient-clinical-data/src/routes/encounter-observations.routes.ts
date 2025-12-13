@@ -18,7 +18,7 @@ export async function encounterObservationsRoutes(
 ) {
   // GET /encounters/{id}/observations
   fastify.get("/encounters/:id/observations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listEncounterObservations(deps.encounterObservationRepo, orgId);
     return reply.code(200).send(result);
   });

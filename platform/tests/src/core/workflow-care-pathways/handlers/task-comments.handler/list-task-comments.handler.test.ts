@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listTaskComments as listTaskCommentsHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createTaskCommentsHandler } from "@quub/factories";
+    createTaskCommentsHandler } from "@cuur/factories";
 
 describe("listTaskComments - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

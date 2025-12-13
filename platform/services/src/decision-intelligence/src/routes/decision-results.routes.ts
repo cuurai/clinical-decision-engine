@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createDecisionResult, deleteDecisionResult, getDecisionResult, listDecisionResults, updateDecisionResult } from "@cuur/core/decision-intelligence/handlers/index.js";
 import type { DecisionResultInput, DecisionResultUpdate } from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function decisionResultsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /decision-results
   fastify.get("/decision-results", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listDecisionResults(deps.decisionResultRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /decision-results
   fastify.post("/decision-results", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createDecisionResult(deps.decisionResultRepo, orgId, request.body as DecisionResultInput);
+    const orgId = extractOrgId(request);
+    const result = await createDecisionResult(deps.decisionResultRepo, orgId, request.body as CreateDecisionResultInput);
     return reply.code(201).send(result);
   });
   // GET /decision-results/{id}
   fastify.get("/decision-results/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getDecisionResult(deps.decisionResultRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getDecisionResult(deps.decisionResultRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /decision-results/{id}
   fastify.patch("/decision-results/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateDecisionResult(deps.decisionResultRepo, orgId, request.body as DecisionResultUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateDecisionResult(deps.decisionResultRepo, orgId, id, request.body as UpdateDecisionResultInput);
     return reply.code(200).send(result);
   });
   // DELETE /decision-results/{id}
   fastify.delete("/decision-results/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteDecisionResult(deps.decisionResultRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteDecisionResult(deps.decisionResultRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

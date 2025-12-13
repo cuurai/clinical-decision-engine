@@ -16,8 +16,8 @@
  * Barrel export for mock repositories and test helpers.
  * Import these in workflow-care-pathways service tests for consistent mocking.
  *
- * NOTE: Mock repositories are service-specific and live here, NOT in @quub/factories.
- * @quub/factories contains only reusable data factories.
+ * NOTE: Mock repositories are service-specific and live here, NOT in @cuur/factories.
+ * @cuur/factories contains only reusable data factories.
  */
 
 // Mock Repositories (service-specific, from mocks/)

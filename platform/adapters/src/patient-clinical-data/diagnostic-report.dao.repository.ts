@@ -92,11 +92,6 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
     // Note: Repository interface expects DiagnosticReport, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DiagnosticReportInput;
-    try
-    // Note: Repository interface expects DiagnosticReport, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as DiagnosticReportInput;
-    try
     try {
       const record = await this.dao.diagnosticReport.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
   async update(orgId: OrgId, id: string, data: DiagnosticReportUpdate): Promise<DiagnosticReport> {
     try {
       const record = await this.dao.diagnosticReport.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.diagnosticReport.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
         const results: DiagnosticReport[] = [];
         for (const { id, data } of updates) {
           const record = await tx.diagnosticReport.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

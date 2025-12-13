@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { listDecisionSessionRiskAssessments as listDecisionSessionRiskAssessmentsHandler } from "@cuur/core/decision-intelligence/handlers/index.js";
 
 import { seedFaker,
-    createDecisionSessionRiskAssessmentsHandler } from "@quub/factories";
+    createDecisionSessionRiskAssessmentsHandler } from "@cuur/factories";
 
 describe("listDecisionSessionRiskAssessments - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

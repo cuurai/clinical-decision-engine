@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createImmunization, deleteImmunization, getImmunization, listImmunizations, updateImmunization } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { ImmunizationInput, ImmunizationUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function immunizationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /immunizations
   fastify.get("/immunizations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listImmunizations(deps.immunizationRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /immunizations
   fastify.post("/immunizations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createImmunization(deps.immunizationRepo, orgId, request.body as ImmunizationInput);
+    const orgId = extractOrgId(request);
+    const result = await createImmunization(deps.immunizationRepo, orgId, request.body as CreateImmunizationInput);
     return reply.code(201).send(result);
   });
   // GET /immunizations/{id}
   fastify.get("/immunizations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getImmunization(deps.immunizationRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getImmunization(deps.immunizationRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /immunizations/{id}
   fastify.patch("/immunizations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateImmunization(deps.immunizationRepo, orgId, request.body as ImmunizationUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateImmunization(deps.immunizationRepo, orgId, id, request.body as UpdateImmunizationInput);
     return reply.code(200).send(result);
   });
   // DELETE /immunizations/{id}
   fastify.delete("/immunizations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteImmunization(deps.immunizationRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteImmunization(deps.immunizationRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

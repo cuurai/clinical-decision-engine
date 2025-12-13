@@ -18,7 +18,7 @@ export async function knowledgePackageClinicalRulesRoutes(
 ) {
   // GET /knowledge-packages/{id}/clinical-rules
   fastify.get("/knowledge-packages/:id/clinical-rules", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listKnowledgePackageClinicalRules(deps.knowledgePackageClinicalRuleRepo, orgId);
     return reply.code(200).send(result);
   });

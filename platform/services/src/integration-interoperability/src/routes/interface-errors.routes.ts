@@ -13,32 +13,35 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createInterfaceError, getInterfaceError, listInterfaceErrors, updateInterfaceError } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { InterfaceErrorInput, InterfaceErrorUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function interfaceErrorsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /interface-errors
   fastify.get("/interface-errors", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listInterfaceErrors(deps.interfaceErrorRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /interface-errors
   fastify.post("/interface-errors", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createInterfaceError(deps.interfaceErrorRepo, orgId, request.body as InterfaceErrorInput);
+    const orgId = extractOrgId(request);
+    const result = await createInterfaceError(deps.interfaceErrorRepo, orgId, request.body as CreateInterfaceErrorInput);
     return reply.code(201).send(result);
   });
   // GET /interface-errors/{id}
   fastify.get("/interface-errors/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getInterfaceError(deps.interfaceErrorRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getInterfaceError(deps.interfaceErrorRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /interface-errors/{id}
   fastify.patch("/interface-errors/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateInterfaceError(deps.interfaceErrorRepo, orgId, request.body as InterfaceErrorUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateInterfaceError(deps.interfaceErrorRepo, orgId, id, request.body as UpdateInterfaceErrorInput);
     return reply.code(200).send(result);
   });
 

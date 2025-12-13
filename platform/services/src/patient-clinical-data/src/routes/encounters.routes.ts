@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createEncounter, deleteEncounter, getEncounter, listEncounters, updateEncounter } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { EncounterInput, EncounterUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function encountersRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /encounters
   fastify.get("/encounters", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listEncounters(deps.encounterRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /encounters
   fastify.post("/encounters", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createEncounter(deps.encounterRepo, orgId, request.body as EncounterInput);
+    const orgId = extractOrgId(request);
+    const result = await createEncounter(deps.encounterRepo, orgId, request.body as CreateEncounterInput);
     return reply.code(201).send(result);
   });
   // GET /encounters/{id}
   fastify.get("/encounters/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getEncounter(deps.encounterRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getEncounter(deps.encounterRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /encounters/{id}
   fastify.patch("/encounters/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateEncounter(deps.encounterRepo, orgId, request.body as EncounterUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateEncounter(deps.encounterRepo, orgId, id, request.body as UpdateEncounterInput);
     return reply.code(200).send(result);
   });
   // DELETE /encounters/{id}
   fastify.delete("/encounters/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteEncounter(deps.encounterRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteEncounter(deps.encounterRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

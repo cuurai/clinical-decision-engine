@@ -13,26 +13,28 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createSimulationRun, getSimulationRun, listSimulationRuns } from "@cuur/core/decision-intelligence/handlers/index.js";
 import type { SimulationRunInput } from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function simulationRunsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /simulation-runs
   fastify.get("/simulation-runs", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listSimulationRuns(deps.simulationRunRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /simulation-runs
   fastify.post("/simulation-runs", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createSimulationRun(deps.simulationRunRepo, orgId, request.body as SimulationRunInput);
+    const orgId = extractOrgId(request);
+    const result = await createSimulationRun(deps.simulationRunRepo, orgId, request.body as CreateSimulationRunInput);
     return reply.code(201).send(result);
   });
   // GET /simulation-runs/{id}
   fastify.get("/simulation-runs/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getSimulationRun(deps.simulationRunRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getSimulationRun(deps.simulationRunRepo, orgId, id);
     return reply.code(200).send(result);
   });
 

@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createEscalationPolicy, deleteEscalationPolicy, getEscalationPolicy, listEscalationPolicies, updateEscalationPolicy } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { EscalationPolicyInput, EscalationPolicyUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function escalationPoliciesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /escalation-policies
   fastify.get("/escalation-policies", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listEscalationPolicies(deps.escalationPolicyRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /escalation-policies
   fastify.post("/escalation-policies", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createEscalationPolicy(deps.escalationPolicyRepo, orgId, request.body as EscalationPolicyInput);
+    const orgId = extractOrgId(request);
+    const result = await createEscalationPolicy(deps.escalationPolicyRepo, orgId, request.body as CreateEscalationPolicyInput);
     return reply.code(201).send(result);
   });
   // GET /escalation-policies/{id}
   fastify.get("/escalation-policies/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getEscalationPolicy(deps.escalationPolicyRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getEscalationPolicy(deps.escalationPolicyRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /escalation-policies/{id}
   fastify.patch("/escalation-policies/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateEscalationPolicy(deps.escalationPolicyRepo, orgId, request.body as EscalationPolicyUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await updateEscalationPolicy(deps.escalationPolicyRepo, orgId, id, request.body as UpdateEscalationPolicieInput);
     return reply.code(200).send(result);
   });
   // DELETE /escalation-policies/{id}
   fastify.delete("/escalation-policies/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteEscalationPolicy(deps.escalationPolicyRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        await deleteEscalationPolicy(deps.escalationPolicyRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

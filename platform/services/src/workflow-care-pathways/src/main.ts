@@ -22,7 +22,7 @@
 // Import Prisma client from adapters-generated client
 import { PrismaClient } from "../../../../adapters/src/workflow-care-pathways/prisma/generated/index.js";
 import { startService, createDependencies } from "./index.js";
-import type { DaoClient } from "@quub/adapters/shared/dao-client.js";
+import type { DaoClient } from "@cuur/adapters/shared/dao-client.js";
 import {
   DaoAlertAuditEventRepository,
   DaoAlertExplanationRepository,
@@ -63,7 +63,7 @@ import {
   DaoWorkflowInstanceEventRepository,
   DaoWorkflowInstanceRepository,
   DaoWorkflowInstanceTaskRepository,
-} from "@quub/adapters";
+} from "@cuur/adapters";
 
 /**
  * Initialize Prisma client with environment-specific configuration

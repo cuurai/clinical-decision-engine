@@ -13,20 +13,22 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createDecisionMetricSnapshot, getDecisionMetricSnapshot } from "@cuur/core/decision-intelligence/handlers/index.js";
 import type { DecisionMetricSnapshotInput } from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function decisionMetricSnapshotsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // POST /decision-metrics
   fastify.post("/decision-metrics", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createDecisionMetricSnapshot(deps.decisionMetricSnapshotRepo, orgId, request.body as DecisionMetricSnapshotInput);
+    const orgId = extractOrgId(request);
+    const result = await createDecisionMetricSnapshot(deps.decisionMetricSnapshotRepo, orgId, request.body as CreateDecisionMetricSnapshotInput);
     return reply.code(201).send(result);
   });
   // GET /decision-metrics/{id}
   fastify.get("/decision-metrics/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getDecisionMetricSnapshot(deps.decisionMetricSnapshotRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getDecisionMetricSnapshot(deps.decisionMetricSnapshotRepo, orgId, id);
     return reply.code(200).send(result);
   });
 

@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createClinicalRule, deleteClinicalRule, getClinicalRule, listClinicalRules, updateClinicalRule } from "@cuur/core/knowledge-evidence/handlers/index.js";
 import type { ClinicalRuleInput, ClinicalRuleUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function clinicalRulesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /clinical-rules
   fastify.get("/clinical-rules", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listClinicalRules(deps.clinicalRuleRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /clinical-rules
   fastify.post("/clinical-rules", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createClinicalRule(deps.clinicalRuleRepo, orgId, request.body as ClinicalRuleInput);
+    const orgId = extractOrgId(request);
+    const result = await createClinicalRule(deps.clinicalRuleRepo, orgId, request.body as CreateClinicalRuleInput);
     return reply.code(201).send(result);
   });
   // GET /clinical-rules/{id}
   fastify.get("/clinical-rules/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getClinicalRule(deps.clinicalRuleRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getClinicalRule(deps.clinicalRuleRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /clinical-rules/{id}
   fastify.patch("/clinical-rules/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateClinicalRule(deps.clinicalRuleRepo, orgId, request.body as ClinicalRuleUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateClinicalRule(deps.clinicalRuleRepo, orgId, id, request.body as UpdateClinicalRuleInput);
     return reply.code(200).send(result);
   });
   // DELETE /clinical-rules/{id}
   fastify.delete("/clinical-rules/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteClinicalRule(deps.clinicalRuleRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteClinicalRule(deps.clinicalRuleRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

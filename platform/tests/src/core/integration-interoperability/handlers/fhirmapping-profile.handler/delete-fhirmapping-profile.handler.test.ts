@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { deleteFHIRMappingProfile as deleteFHIRMappingProfileHandler } from "@cuur/core/integration-interoperability/handlers/index.js";
 
 import { seedFaker,
-    createFhirmappingProfileHandler } from "@quub/factories";
+    createFhirmappingProfileHandler } from "@cuur/factories";
 
 describe("deleteFHIRMappingProfile - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

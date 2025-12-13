@@ -18,7 +18,7 @@ export async function aPIClientUsageMetricsRoutes(
 ) {
   // GET /api-clients/{id}/usage-metrics
   fastify.get("/api-clients/:id/usage-metrics", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listAPIClientUsageMetrics(deps.aPIClientUsageMetricRepo, orgId);
     return reply.code(200).send(result);
   });

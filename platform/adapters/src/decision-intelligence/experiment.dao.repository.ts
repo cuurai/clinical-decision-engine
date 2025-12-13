@@ -92,7 +92,6 @@ export class DaoExperimentRepository implements ExperimentRepository {
     // Note: Repository interface expects Experiment, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ExperimentInput;
-    try
     try {
       const record = await this.dao.experiment.create({
         data: {
@@ -110,7 +109,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
   async update(orgId: OrgId, id: string, data: ExperimentUpdate): Promise<Experiment> {
     try {
       const record = await this.dao.experiment.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...data,
           
@@ -126,7 +125,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.experiment.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -171,7 +170,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
         const results: Experiment[] = [];
         for (const { id, data } of updates) {
           const record = await tx.experiment.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

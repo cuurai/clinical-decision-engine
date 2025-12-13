@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createWorkflowDefinition, deleteWorkflowDefinition, getWorkflowDefinition, listWorkflowDefinitions, updateWorkflowDefinition } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { WorkflowDefinitionInput, WorkflowDefinitionUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function workflowDefinitionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /workflow-definitions
   fastify.get("/workflow-definitions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listWorkflowDefinitions(deps.workflowDefinitionRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /workflow-definitions
   fastify.post("/workflow-definitions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createWorkflowDefinition(deps.workflowDefinitionRepo, orgId, request.body as WorkflowDefinitionInput);
+    const orgId = extractOrgId(request);
+    const result = await createWorkflowDefinition(deps.workflowDefinitionRepo, orgId, request.body as CreateWorkflowDefinitionInput);
     return reply.code(201).send(result);
   });
   // GET /workflow-definitions/{id}
   fastify.get("/workflow-definitions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getWorkflowDefinition(deps.workflowDefinitionRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getWorkflowDefinition(deps.workflowDefinitionRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /workflow-definitions/{id}
   fastify.patch("/workflow-definitions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateWorkflowDefinition(deps.workflowDefinitionRepo, orgId, request.body as WorkflowDefinitionUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await updateWorkflowDefinition(deps.workflowDefinitionRepo, orgId, id, request.body as UpdateWorkflowDefinitionInput);
     return reply.code(200).send(result);
   });
   // DELETE /workflow-definitions/{id}
   fastify.delete("/workflow-definitions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteWorkflowDefinition(deps.workflowDefinitionRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        await deleteWorkflowDefinition(deps.workflowDefinitionRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

@@ -92,11 +92,6 @@ export class DaoPatientRepository implements PatientRepository {
     // Note: Repository interface expects Patient, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as PatientInput;
-    try
-    // Note: Repository interface expects Patient, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as PatientInput;
-    try
     try {
       const record = await this.dao.patient.create({
         data: {
@@ -114,7 +109,7 @@ export class DaoPatientRepository implements PatientRepository {
   async update(orgId: OrgId, id: string, data: PatientUpdate): Promise<Patient> {
     try {
       const record = await this.dao.patient.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           ...inputData,
           
@@ -130,7 +125,7 @@ export class DaoPatientRepository implements PatientRepository {
     try {
       // Soft delete: set deletedAt instead of hard delete
       await this.dao.patient.update({
-        where: { id },
+        where: { id, orgId },
         data: {
           deletedAt: new Date(),
           
@@ -175,7 +170,7 @@ export class DaoPatientRepository implements PatientRepository {
         const results: Patient[] = [];
         for (const { id, data } of updates) {
           const record = await tx.patient.update({
-            where: { id },
+            where: { id, orgId },
             data,
           });
           results.push(this.toDomain(record));

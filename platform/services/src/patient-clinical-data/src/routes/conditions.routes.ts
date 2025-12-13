@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createCondition, deleteCondition, getCondition, listConditions, updateCondition } from "@cuur/core/patient-clinical-data/handlers/index.js";
 import type { ConditionInput, ConditionUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function conditionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /conditions
   fastify.get("/conditions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listConditions(deps.conditionRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /conditions
   fastify.post("/conditions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createCondition(deps.conditionRepo, orgId, request.body as ConditionInput);
+    const orgId = extractOrgId(request);
+    const result = await createCondition(deps.conditionRepo, orgId, request.body as CreateConditionInput);
     return reply.code(201).send(result);
   });
   // GET /conditions/{id}
   fastify.get("/conditions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getCondition(deps.conditionRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getCondition(deps.conditionRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /conditions/{id}
   fastify.patch("/conditions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateCondition(deps.conditionRepo, orgId, request.body as ConditionUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateCondition(deps.conditionRepo, orgId, id, request.body as UpdateConditionInput);
     return reply.code(200).send(result);
   });
   // DELETE /conditions/{id}
   fastify.delete("/conditions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteCondition(deps.conditionRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteCondition(deps.conditionRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

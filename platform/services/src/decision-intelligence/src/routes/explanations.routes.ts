@@ -13,26 +13,28 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createExplanation, getExplanation, listExplanations } from "@cuur/core/decision-intelligence/handlers/index.js";
 import type { ExplanationInput } from "@cuur/core/decision-intelligence/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function explanationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /explanations
   fastify.get("/explanations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listExplanations(deps.explanationRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /explanations
   fastify.post("/explanations", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createExplanation(deps.explanationRepo, orgId, request.body as ExplanationInput);
+    const orgId = extractOrgId(request);
+    const result = await createExplanation(deps.explanationRepo, orgId, request.body as CreateExplanationInput);
     return reply.code(201).send(result);
   });
   // GET /explanations/{id}
   fastify.get("/explanations/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getExplanation(deps.explanationRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getExplanation(deps.explanationRepo, orgId, id);
     return reply.code(200).send(result);
   });
 

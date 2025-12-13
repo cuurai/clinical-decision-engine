@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { deleteRoutingRule as deleteRoutingRuleHandler } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 
 import { seedFaker,
-    createRoutingRuleHandler } from "@quub/factories";
+    createRoutingRuleHandler } from "@cuur/factories";
 
 describe("deleteRoutingRule - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

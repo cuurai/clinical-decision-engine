@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { getRuleSet as getRuleSetHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createRuleSetHandler } from "@quub/factories";
+    createRuleSetHandler } from "@cuur/factories";
 
 describe("getRuleSet - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

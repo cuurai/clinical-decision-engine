@@ -21,7 +21,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { deleteConceptMap as deleteConceptMapHandler } from "@cuur/core/knowledge-evidence/handlers/index.js";
 
 import { seedFaker,
-    createConceptMapHandler } from "@quub/factories";
+    createConceptMapHandler } from "@cuur/factories";
 
 describe("deleteConceptMap - Business Rules", () => {
   const FIXED_DATE = new Date("2025-01-01T00:00:00Z");

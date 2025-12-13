@@ -18,7 +18,7 @@ export async function scoringTemplateItemsRoutes(
 ) {
   // GET /scoring-templates/{id}/items
   fastify.get("/scoring-templates/:id/items", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listScoringTemplateItems(deps.scoringTemplateItemRepo, orgId);
     return reply.code(200).send(result);
   });

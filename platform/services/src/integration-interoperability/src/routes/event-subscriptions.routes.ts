@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createEventSubscription, deleteEventSubscription, getEventSubscription, listEventSubscriptions, updateEventSubscription } from "@cuur/core/integration-interoperability/handlers/index.js";
 import type { EventSubscriptionInput, EventSubscriptionUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function eventSubscriptionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /event-subscriptions
   fastify.get("/event-subscriptions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listEventSubscriptions(deps.eventSubscriptionRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /event-subscriptions
   fastify.post("/event-subscriptions", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createEventSubscription(deps.eventSubscriptionRepo, orgId, request.body as EventSubscriptionInput);
+    const orgId = extractOrgId(request);
+    const result = await createEventSubscription(deps.eventSubscriptionRepo, orgId, request.body as CreateEventSubscriptionInput);
     return reply.code(201).send(result);
   });
   // GET /event-subscriptions/{id}
   fastify.get("/event-subscriptions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getEventSubscription(deps.eventSubscriptionRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getEventSubscription(deps.eventSubscriptionRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /event-subscriptions/{id}
   fastify.patch("/event-subscriptions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateEventSubscription(deps.eventSubscriptionRepo, orgId, request.body as EventSubscriptionUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateEventSubscription(deps.eventSubscriptionRepo, orgId, id, request.body as UpdateEventSubscriptionInput);
     return reply.code(200).send(result);
   });
   // DELETE /event-subscriptions/{id}
   fastify.delete("/event-subscriptions/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteEventSubscription(deps.eventSubscriptionRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteEventSubscription(deps.eventSubscriptionRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }

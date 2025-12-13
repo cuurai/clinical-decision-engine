@@ -13,39 +13,43 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createAlert, deleteAlert, getAlert, listAlerts, updateAlert } from "@cuur/core/workflow-care-pathways/handlers/index.js";
 import type { AlertInput, AlertUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function alertsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
   // GET /alerts
   fastify.get("/alerts", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
+    const orgId = extractOrgId(request);
     const result = await listAlerts(deps.alertRepo, orgId, request.query || {});
     return reply.code(200).send(result);
   });
   // POST /alerts
   fastify.post("/alerts", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await createAlert(deps.alertRepo, orgId, request.body as AlertInput);
+    const orgId = extractOrgId(request);
+    const result = await createAlert(deps.alertRepo, orgId, request.body as CreateAlertInput);
     return reply.code(201).send(result);
   });
   // GET /alerts/{id}
   fastify.get("/alerts/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await getAlert(deps.alertRepo, orgId);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+    const result = await getAlert(deps.alertRepo, orgId, id);
     return reply.code(200).send(result);
   });
   // PATCH /alerts/{id}
   fastify.patch("/alerts/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await updateAlert(deps.alertRepo, orgId, request.body as AlertUpdate);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+        const result = await updateAlert(deps.alertRepo, orgId, id, request.body as UpdateAlertInput);
     return reply.code(200).send(result);
   });
   // DELETE /alerts/{id}
   fastify.delete("/alerts/:id", async (request, reply) => {
-    const orgId = (request as any).orgId || (request.headers as any)['x-org-id'] || '';
-    const result = await deleteAlert(deps.alertRepo, orgId);
-    return reply.code(204).send(result);
+    const orgId = extractOrgId(request);
+        const id = (request.params as any).id;
+            await deleteAlert(deps.alertRepo, orgId, id);
+    return reply.code(204).send();
   });
 
 }
