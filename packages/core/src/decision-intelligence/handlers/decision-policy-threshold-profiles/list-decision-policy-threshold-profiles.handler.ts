@@ -7,7 +7,7 @@
 
 import type { ListDecisionPolicyThresholdProfilesResponse } from "../../types/index.js";
 import type { DecisionPolicyThresholdProfileRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { decTransactionId } from "../../shared/helpers";
 
 /**
  * List decision policy threshold profiles
@@ -27,7 +27,7 @@ export async function listDecisionPolicyThresholdProfiles(
       items: result.items,
     },
     meta: {
-      correlationId: diTransactionId(),
+      correlationId: decTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

@@ -7,7 +7,7 @@
 
 import type { ListEncounterProceduresResponse } from "../../types/index.js";
 import type { EncounterProcedureRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../shared/helpers";
 
 /**
  * List encounter procedures

@@ -7,7 +7,7 @@
 
 import type { ListExternalSystemConnectionsResponse } from "../../types/index.js";
 import type { ExternalSystemConnectionRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List external system connections
@@ -27,7 +27,7 @@ export async function listExternalSystemConnections(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

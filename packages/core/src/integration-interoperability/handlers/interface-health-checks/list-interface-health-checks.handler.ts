@@ -7,7 +7,7 @@
 
 import type { ListInterfaceHealthChecksParams, ListInterfaceHealthChecksResponse } from "../../types/index.js";
 import type { InterfaceHealthCheckRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List interface health checks
@@ -28,7 +28,7 @@ export async function listInterfaceHealthChecks(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

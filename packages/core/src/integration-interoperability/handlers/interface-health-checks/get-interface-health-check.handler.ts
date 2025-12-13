@@ -7,7 +7,7 @@
 
 import type { GetInterfaceHealthCheckResponse } from "../../types/index.js";
 import type { InterfaceHealthCheckRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
 
@@ -38,7 +38,7 @@ export async function getInterfaceHealthCheck(
       // Example: tokenExpiresAt, lastValidatedAt, issues
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

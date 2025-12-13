@@ -6,7 +6,7 @@
  */
 
 import type { ValueSetRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { knoTransactionId } from "../../shared/helpers";
 
 /**
  * Delete value set
@@ -22,7 +22,7 @@ export async function deleteValueSet(
   return {
     data: { success: true },
     meta: {
-      correlationId: keTransactionId(),
+      correlationId: knoTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

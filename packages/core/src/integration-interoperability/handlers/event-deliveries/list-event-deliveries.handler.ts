@@ -7,7 +7,7 @@
 
 import type { ListEventDeliveriesParams, ListEventDeliveriesResponse } from "../../types/index.js";
 import type { EventDeliveryRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List event deliveries
@@ -28,7 +28,7 @@ export async function listEventDeliveries(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

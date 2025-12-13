@@ -6,7 +6,7 @@
  */
 
 import type { APIClientRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * Delete API client
@@ -22,7 +22,7 @@ export async function deleteAPIClient(
   return {
     data: { success: true },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

@@ -1905,6 +1905,45 @@ components:
           type: string
         details:
           type: object
+    IntApiMeta:
+      type: object
+      description: Response metadata with correlation tracking
+      properties:
+        correlationId:
+          type: string
+          description: Unique identifier for request-response correlation
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp
+        totalCount:
+          type: integer
+          description: Total count of items (for list responses)
+        pageSize:
+          type: integer
+          description: Number of items per page
+        pageNumber:
+          type: integer
+          description: Current page number
+
+    IntApiResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          description: Response payload
+        meta:
+          $ref: "#/components/schemas/IntApiMeta"
+
+    IntApiListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: List of items
+        meta:
+          $ref: "#/components/schemas/IntApiMeta"
+
     Timestamps:
       type: object
       properties:

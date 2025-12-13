@@ -6,7 +6,7 @@
  */
 
 import type { ImagingStudyRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../shared/helpers";
 
 /**
  * Delete imaging study

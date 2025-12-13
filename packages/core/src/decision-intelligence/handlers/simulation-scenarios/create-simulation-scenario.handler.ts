@@ -7,7 +7,7 @@
 
 import type { CreateSimulationScenarioResponse, SimulationScenarioInput } from "../../types/index.js";
 // TODO: Uncomment when implementing handler logic
-// import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+// import { decTransactionId } from "../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/decision-intelligence-converters.js";

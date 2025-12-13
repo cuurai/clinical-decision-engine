@@ -6,7 +6,7 @@
  */
 
 import type { GetRuleSetResponse } from "../../types/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { knoTransactionId } from "../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/knowledge-evidence-converters.js";
 
@@ -32,7 +32,7 @@ export async function getRuleSet(
       // Example: tokenExpiresAt, lastValidatedAt, issues
     },
     meta: {
-      correlationId: keTransactionId(),
+      correlationId: knoTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

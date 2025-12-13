@@ -7,7 +7,7 @@
 
 import type { ListWorkflowDefinitionsParams, ListWorkflowDefinitionsResponse } from "../../types/index.js";
 import type { WorkflowDefinitionRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { wcTransactionId } from "../../shared/helpers";
 
 /**
  * List workflow definitions

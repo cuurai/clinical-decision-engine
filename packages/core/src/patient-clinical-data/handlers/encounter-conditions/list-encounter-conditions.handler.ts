@@ -7,7 +7,7 @@
 
 import type { ListEncounterConditionsResponse } from "../../types/index.js";
 import type { EncounterConditionRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../shared/helpers";
 
 /**
  * List encounter conditions

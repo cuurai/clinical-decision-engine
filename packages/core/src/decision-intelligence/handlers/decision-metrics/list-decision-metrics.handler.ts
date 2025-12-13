@@ -7,7 +7,7 @@
 
 import type { ListDecisionMetricsParams, ListDecisionMetricsResponse } from "../../types/index.js";
 import type { DecisionMetricRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { decTransactionId } from "../../shared/helpers";
 
 /**
  * List decision metrics
@@ -28,7 +28,7 @@ export async function listDecisionMetrics(
       items: result.items,
     },
     meta: {
-      correlationId: diTransactionId(),
+      correlationId: decTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

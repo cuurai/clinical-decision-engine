@@ -6,7 +6,7 @@
  */
 
 import type { HandoffRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { wcTransactionId } from "../../shared/helpers";
 
 /**
  * Delete handoff

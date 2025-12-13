@@ -7,7 +7,7 @@
 
 import type { ListIntegrationJobRunsResponse } from "../../types/index.js";
 import type { IntegrationJobRunRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List integration job runs
@@ -27,7 +27,7 @@ export async function listIntegrationJobRuns(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

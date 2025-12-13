@@ -7,7 +7,7 @@
 
 import type { ListNotesParams, ListNotesResponse } from "../../types/index.js";
 import type { NoteRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../shared/helpers";
 
 /**
  * List clinical notes

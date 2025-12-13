@@ -7,7 +7,7 @@
 
 import type { ListThresholdProfilesParams, ListThresholdProfilesResponse } from "../../types/index.js";
 import type { ThresholdProfileRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { decTransactionId } from "../../shared/helpers";
 
 /**
  * List threshold profiles
@@ -28,7 +28,7 @@ export async function listThresholdProfiles(
       items: result.items,
     },
     meta: {
-      correlationId: diTransactionId(),
+      correlationId: decTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

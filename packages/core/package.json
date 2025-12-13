@@ -1,0 +1,41 @@
+{
+    "name": "@cuurai/clinical-decision-engine-core",
+    "version": "1.0.0",
+    "description": "Clinical Decision Engine - Core domain logic and types",
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "scripts": {
+        "build": "tsc",
+        "build:watch": "tsc --watch",
+        "clean": "rm -rf dist",
+        "typecheck": "tsc --noEmit"
+    },
+    "keywords": [
+        "clinical-decision-engine",
+        "openapi",
+        "typescript",
+        "healthcare"
+    ],
+    "author": "",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@zodios/core": "^10.9.0",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.0",
+        "typescript": "^5.3.3"
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=9.0.0"
+    }
+}

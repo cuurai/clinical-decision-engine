@@ -7,7 +7,7 @@
 
 import type { ListExperimentArmsResponse } from "../../types/index.js";
 import type { ExperimentArmRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { decTransactionId } from "../../shared/helpers";
 
 /**
  * List experiment arms
@@ -27,7 +27,7 @@ export async function listExperimentArms(
       items: result.items,
     },
     meta: {
-      correlationId: diTransactionId(),
+      correlationId: decTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

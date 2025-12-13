@@ -7,7 +7,7 @@
 
 import type { ListExternalSystemIntegrationJobsResponse } from "../../types/index.js";
 import type { ExternalSystemIntegrationJobRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List external system integration jobs
@@ -27,7 +27,7 @@ export async function listExternalSystemIntegrationJobs(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

@@ -7,7 +7,7 @@
 
 import type { ListAPIClientCredentialsResponse } from "../../types/index.js";
 import type { APIClientCredentialRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List API client credentials
@@ -27,7 +27,7 @@ export async function listAPIClientCredentials(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

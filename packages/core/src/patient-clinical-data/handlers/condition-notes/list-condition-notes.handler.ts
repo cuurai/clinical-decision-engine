@@ -7,7 +7,7 @@
 
 import type { ListConditionNotesResponse } from "../../types/index.js";
 import type { ConditionNoteRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../shared/helpers";
 
 /**
  * List condition notes

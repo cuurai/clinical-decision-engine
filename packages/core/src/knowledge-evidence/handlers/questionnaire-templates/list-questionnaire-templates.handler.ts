@@ -7,7 +7,7 @@
 
 import type { ListQuestionnaireTemplatesParams, ListQuestionnaireTemplatesResponse } from "../../types/index.js";
 import type { QuestionnaireTemplateRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { knoTransactionId } from "../../shared/helpers";
 
 /**
  * List questionnaire templates
@@ -28,7 +28,7 @@ export async function listQuestionnaireTemplates(
       items: result.items,
     },
     meta: {
-      correlationId: keTransactionId(),
+      correlationId: knoTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

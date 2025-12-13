@@ -6,7 +6,7 @@
  */
 
 import type { SimulationScenarioRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { decTransactionId } from "../../shared/helpers";
 
 /**
  * Delete simulation scenario
@@ -22,7 +22,7 @@ export async function deleteSimulationScenario(
   return {
     data: { success: true },
     meta: {
-      correlationId: diTransactionId(),
+      correlationId: decTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

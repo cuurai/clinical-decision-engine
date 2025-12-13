@@ -6,7 +6,7 @@
  */
 
 import type { GetRecommendationResponse } from "../../types/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { decTransactionId } from "../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/decision-intelligence-converters.js";
 
@@ -32,7 +32,7 @@ export async function getRecommendation(
       // Example: tokenExpiresAt, lastValidatedAt, issues
     },
     meta: {
-      correlationId: diTransactionId(),
+      correlationId: decTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

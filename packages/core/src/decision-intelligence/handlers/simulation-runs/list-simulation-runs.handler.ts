@@ -7,7 +7,7 @@
 
 import type { ListSimulationRunsParams, ListSimulationRunsResponse } from "../../types/index.js";
 import type { SimulationRunRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { decTransactionId } from "../../shared/helpers";
 
 /**
  * List simulation runs
@@ -28,7 +28,7 @@ export async function listSimulationRuns(
       items: result.items,
     },
     meta: {
-      correlationId: diTransactionId(),
+      correlationId: decTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

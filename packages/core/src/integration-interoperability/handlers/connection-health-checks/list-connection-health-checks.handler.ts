@@ -7,7 +7,7 @@
 
 import type { ListConnectionHealthChecksResponse } from "../../types/index.js";
 import type { ConnectionHealthCheckRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List connection health checks
@@ -27,7 +27,7 @@ export async function listConnectionHealthChecks(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

@@ -7,7 +7,7 @@
 
 import type { ListConceptMapsParams, ListConceptMapsResponse } from "../../types/index.js";
 import type { ConceptMapRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { knoTransactionId } from "../../shared/helpers";
 
 /**
  * List concept maps
@@ -28,7 +28,7 @@ export async function listConceptMaps(
       items: result.items,
     },
     meta: {
-      correlationId: keTransactionId(),
+      correlationId: knoTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

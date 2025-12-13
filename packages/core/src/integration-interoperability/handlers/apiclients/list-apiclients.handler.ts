@@ -7,7 +7,7 @@
 
 import type { ListAPIClientsParams, ListAPIClientsResponse } from "../../types/index.js";
 import type { APIClientRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List API clients
@@ -28,7 +28,7 @@ export async function listAPIClients(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

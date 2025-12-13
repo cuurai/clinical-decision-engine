@@ -7,7 +7,7 @@
 
 import type { ListDataImportBatchRecordsResponse } from "../../types/index.js";
 import type { DataImportBatchRecordRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List data import batch records
@@ -27,7 +27,7 @@ export async function listDataImportBatchRecords(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

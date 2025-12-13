@@ -7,7 +7,7 @@
 
 import type { CreateInterfaceHealthCheckResponse, InterfaceHealthCheckInput } from "../../types/index.js";
 import type { InterfaceHealthCheckRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
 /**
@@ -50,7 +50,7 @@ export async function createInterfaceHealthCheck(
       // TODO: Populate Response DTO properties based on repository reads
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

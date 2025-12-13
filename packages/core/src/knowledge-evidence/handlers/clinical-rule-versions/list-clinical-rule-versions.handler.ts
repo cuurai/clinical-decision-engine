@@ -7,7 +7,7 @@
 
 import type { ListClinicalRuleVersionsResponse } from "../../types/index.js";
 import type { ClinicalRuleVersionRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { knoTransactionId } from "../../shared/helpers";
 
 /**
  * List clinical rule versions
@@ -27,7 +27,7 @@ export async function listClinicalRuleVersions(
       items: result.items,
     },
     meta: {
-      correlationId: keTransactionId(),
+      correlationId: knoTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

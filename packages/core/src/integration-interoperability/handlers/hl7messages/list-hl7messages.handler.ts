@@ -7,7 +7,7 @@
 
 import type { ListHLMessagesParams, ListHLMessagesResponse } from "../../types/index.js";
 import type { HL7MessageRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List HL7 messages
@@ -28,7 +28,7 @@ export async function listHL7Messages(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

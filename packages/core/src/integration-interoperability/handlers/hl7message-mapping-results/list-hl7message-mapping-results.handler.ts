@@ -7,7 +7,7 @@
 
 import type { ListHLMessageMappingResultsResponse } from "../../types/index.js";
 import type { HL7MessageMappingResultRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List HL7 message mapping results
@@ -27,7 +27,7 @@ export async function listHL7MessageMappingResults(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

@@ -7,7 +7,7 @@
 
 import type { ListFHIRBundleResourcesResponse } from "../../types/index.js";
 import type { FHIRBundleResourceRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 
 /**
  * List FHIR bundle resources
@@ -27,7 +27,7 @@ export async function listFHIRBundleResources(
       items: result.items,
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

@@ -7,7 +7,7 @@
 
 import type { ConditionUpdate, UpdateConditionResponse } from "../../types/index.js";
 // TODO: Uncomment when implementing handler logic
-// import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+// import { pcTransactionId } from "../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/patient-clinical-data-converters.js";

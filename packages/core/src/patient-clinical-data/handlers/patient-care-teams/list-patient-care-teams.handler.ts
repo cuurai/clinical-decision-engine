@@ -7,7 +7,7 @@
 
 import type { ListPatientCareTeamResponse } from "../../types/index.js";
 import type { PatientCareTeamRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../shared/helpers";
 
 /**
  * List patient care team

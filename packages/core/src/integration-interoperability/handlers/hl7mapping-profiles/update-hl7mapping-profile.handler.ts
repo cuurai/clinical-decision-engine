@@ -7,7 +7,7 @@
 
 import type { HL7MappingProfileUpdate, UpdateHLMappingProfileResponse } from "../../types/index.js";
 // TODO: Uncomment when implementing handler logic
-// import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+// import { intTransactionId } from "../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";

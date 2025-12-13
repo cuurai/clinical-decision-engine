@@ -7,7 +7,7 @@
 
 import type { GetOntologyTermResponse } from "../../types/index.js";
 import type { OntologyTermRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { knoTransactionId } from "../../shared/helpers";
 
 /**
  * Get ontology term by ID
@@ -25,7 +25,7 @@ export async function getOntologyTerm(
   return {
     data: ontologyTerm,
     meta: {
-      correlationId: keTransactionId(),
+      correlationId: knoTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

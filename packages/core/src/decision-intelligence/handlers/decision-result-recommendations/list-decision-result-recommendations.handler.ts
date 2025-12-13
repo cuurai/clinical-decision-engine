@@ -7,7 +7,7 @@
 
 import type { ListDecisionResultRecommendationsResponse } from "../../types/index.js";
 import type { DecisionResultRecommendationRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { decTransactionId } from "../../shared/helpers";
 
 /**
  * List decision result recommendations
@@ -27,7 +27,7 @@ export async function listDecisionResultRecommendations(
       items: result.items,
     },
     meta: {
-      correlationId: diTransactionId(),
+      correlationId: decTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

@@ -7,7 +7,7 @@
 
 import type { ListModelInvocationExplanationsResponse } from "../../types/index.js";
 import type { ModelInvocationExplanationRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { decTransactionId } from "../../shared/helpers";
 
 /**
  * List model invocation explanations
@@ -27,7 +27,7 @@ export async function listModelInvocationExplanations(
       items: result.items,
     },
     meta: {
-      correlationId: diTransactionId(),
+      correlationId: decTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

@@ -7,7 +7,7 @@
 
 import type { ListAlertAuditEventsResponse } from "../../types/index.js";
 import type { AlertAuditEventRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { wcTransactionId } from "../../shared/helpers";
 
 /**
  * List alert audit events

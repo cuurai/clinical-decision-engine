@@ -6,7 +6,7 @@
  */
 
 import type { GetEventSubscriptionResponse } from "../../types/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { intTransactionId } from "../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
 
@@ -32,7 +32,7 @@ export async function getEventSubscription(
       // Example: tokenExpiresAt, lastValidatedAt, issues
     },
     meta: {
-      correlationId: iiTransactionId(),
+      correlationId: intTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

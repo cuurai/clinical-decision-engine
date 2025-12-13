@@ -7,7 +7,7 @@
 
 import type { SearchOntologyTermsParams, SearchOntologyTermsResponse } from "../../types/index.js";
 import type { OntologyTermRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { knoTransactionId } from "../../shared/helpers";
 
 /**
  * Search/browse ontology terms
@@ -28,7 +28,7 @@ export async function searchOntologyTerms(
       items: result.items,
     },
     meta: {
-      correlationId: keTransactionId(),
+      correlationId: knoTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

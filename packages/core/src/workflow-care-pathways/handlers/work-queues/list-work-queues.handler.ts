@@ -7,7 +7,7 @@
 
 import type { ListWorkQueuesParams, ListWorkQueuesResponse } from "../../types/index.js";
 import type { WorkQueueRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { wcTransactionId } from "../../shared/helpers";
 
 /**
  * List work queues

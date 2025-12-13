@@ -6,7 +6,7 @@
  */
 
 import type { EvidenceCitationRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { knoTransactionId } from "../../shared/helpers";
 
 /**
  * Delete evidence citation
@@ -22,7 +22,7 @@ export async function deleteEvidenceCitation(
   return {
     data: { success: true },
     meta: {
-      correlationId: keTransactionId(),
+      correlationId: knoTransactionId(),
       timestamp: new Date().toISOString(),
     },
   };

@@ -7,7 +7,7 @@
 
 import type { ListEpisodeOfCareCarePlansResponse } from "../../types/index.js";
 import type { EpisodeOfCareCarePlanRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { wcTransactionId } from "../../shared/helpers";
 
 /**
  * List episode of care care plans

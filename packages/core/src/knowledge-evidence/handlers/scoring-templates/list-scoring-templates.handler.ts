@@ -7,7 +7,7 @@
 
 import type { ListScoringTemplatesParams, ListScoringTemplatesResponse } from "../../types/index.js";
 import type { ScoringTemplateRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { knoTransactionId } from "../../shared/helpers";
 
 /**
  * List scoring templates
@@ -28,7 +28,7 @@ export async function listScoringTemplates(
       items: result.items,
     },
     meta: {
-      correlationId: keTransactionId(),
+      correlationId: knoTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

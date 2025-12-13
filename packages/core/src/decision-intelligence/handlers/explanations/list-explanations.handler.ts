@@ -7,7 +7,7 @@
 
 import type { ListExplanationsParams, ListExplanationsResponse } from "../../types/index.js";
 import type { ExplanationRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { decTransactionId } from "../../shared/helpers";
 
 /**
  * List explanations
@@ -28,7 +28,7 @@ export async function listExplanations(
       items: result.items,
     },
     meta: {
-      correlationId: diTransactionId(),
+      correlationId: decTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

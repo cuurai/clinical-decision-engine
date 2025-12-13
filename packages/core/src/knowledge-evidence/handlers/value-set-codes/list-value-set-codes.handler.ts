@@ -7,7 +7,7 @@
 
 import type { ListValueSetCodesResponse } from "../../types/index.js";
 import type { ValueSetCodeRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { knoTransactionId } from "../../shared/helpers";
 
 /**
  * List value set codes
@@ -27,7 +27,7 @@ export async function listValueSetCodes(
       items: result.items,
     },
     meta: {
-      correlationId: keTransactionId(),
+      correlationId: knoTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

@@ -7,7 +7,7 @@
 
 import type { ConceptMapUpdate, UpdateConceptMapResponse } from "../../types/index.js";
 // TODO: Uncomment when implementing handler logic
-// import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+// import { knoTransactionId } from "../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/knowledge-evidence-converters.js";

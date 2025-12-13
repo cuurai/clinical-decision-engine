@@ -7,7 +7,7 @@
 
 import type { ListKnowledgePackagesParams, ListKnowledgePackagesResponse } from "../../types/index.js";
 import type { KnowledgePackageRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { knoTransactionId } from "../../shared/helpers";
 
 /**
  * List knowledge packages
@@ -28,7 +28,7 @@ export async function listKnowledgePackages(
       items: result.items,
     },
     meta: {
-      correlationId: keTransactionId(),
+      correlationId: knoTransactionId(),
       timestamp: new Date().toISOString(),
       pagination: {
         nextCursor: result.nextCursor ?? null,

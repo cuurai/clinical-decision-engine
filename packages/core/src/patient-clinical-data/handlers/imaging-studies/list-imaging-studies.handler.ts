@@ -7,7 +7,7 @@
 
 import type { ListImagingStudiesParams, ListImagingStudiesResponse } from "../../types/index.js";
 import type { ImagingStudyRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../shared/helpers";
 
 /**
  * List imaging studies

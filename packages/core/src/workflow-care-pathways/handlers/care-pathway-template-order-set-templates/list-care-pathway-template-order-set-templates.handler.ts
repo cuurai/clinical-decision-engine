@@ -7,7 +7,7 @@
 
 import type { ListCarePathwayTemplateOrderSetTemplatesResponse } from "../../types/index.js";
 import type { CarePathwayTemplateOrderSetTemplateRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { wcTransactionId } from "../../shared/helpers";
 
 /**
  * List care pathway template order set templates

@@ -7,7 +7,7 @@
 
 import type { ListChecklistTemplateItemsResponse } from "../../types/index.js";
 import type { ChecklistTemplateItemRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { wcTransactionId } from "../../shared/helpers";
 
 /**
  * List checklist template items
