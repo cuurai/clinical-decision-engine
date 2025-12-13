@@ -956,9 +956,9 @@ export interface components {
             pageNumber?: number;
         };
         KnoApiResponse: {
-            /** @description Response payload */
+            /** @description Response payload (specific type defined by endpoint) */
             data?: Record<string, never>;
-            meta?: components["schemas"]["KnoApiMeta"];
+            meta: components["schemas"]["KnoApiMeta"];
         };
         KnoApiListResponse: {
             /** @description Paginated data container */

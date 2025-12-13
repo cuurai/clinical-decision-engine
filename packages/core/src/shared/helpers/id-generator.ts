@@ -45,3 +45,10 @@ export function worTransactionId(): string {
 export function generateId(): string {
   return randomUUID();
 }
+
+// Aliases for handler convenience (shorter prefixes)
+export const diTransactionId = decTransactionId;
+export const iiTransactionId = intTransactionId;
+export const keTransactionId = knoTransactionId;
+export const pcTransactionId = patTransactionId;
+export const wcTransactionId = worTransactionId;

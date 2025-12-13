@@ -962,9 +962,9 @@ export interface components {
             pageNumber?: number;
         };
         IntApiResponse: {
-            /** @description Response payload */
+            /** @description Response payload (specific type defined by endpoint) */
             data?: Record<string, never>;
-            meta?: components["schemas"]["IntApiMeta"];
+            meta: components["schemas"]["IntApiMeta"];
         };
         IntApiListResponse: {
             /** @description Paginated data container */

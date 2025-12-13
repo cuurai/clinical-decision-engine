@@ -2618,10 +2618,12 @@ components:
 
     KnoApiResponse:
       type: object
+      required:
+        - meta
       properties:
         data:
           type: object
-          description: Response payload
+          description: Response payload (specific type defined by endpoint)
         meta:
           $ref: "#/components/schemas/KnoApiMeta"
 

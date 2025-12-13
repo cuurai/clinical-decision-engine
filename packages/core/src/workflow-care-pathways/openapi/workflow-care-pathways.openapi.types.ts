@@ -976,9 +976,9 @@ export interface components {
             pageNumber?: number;
         };
         WorApiResponse: {
-            /** @description Response payload */
+            /** @description Response payload (specific type defined by endpoint) */
             data?: Record<string, never>;
-            meta?: components["schemas"]["WorApiMeta"];
+            meta: components["schemas"]["WorApiMeta"];
         };
         WorApiListResponse: {
             /** @description Paginated data container */

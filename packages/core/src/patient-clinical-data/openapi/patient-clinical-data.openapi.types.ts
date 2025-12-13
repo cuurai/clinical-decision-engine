@@ -956,9 +956,9 @@ export interface components {
             pageNumber?: number;
         };
         PatApiResponse: {
-            /** @description Response payload */
+            /** @description Response payload (specific type defined by endpoint) */
             data?: Record<string, never>;
-            meta?: components["schemas"]["PatApiMeta"];
+            meta: components["schemas"]["PatApiMeta"];
         };
         PatApiListResponse: {
             /** @description Paginated data container */

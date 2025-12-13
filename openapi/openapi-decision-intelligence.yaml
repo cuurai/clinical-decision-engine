@@ -218,9 +218,17 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/DecisionRequest"
+                allOf:
+                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          items:
+                            type: array
+                            items:
+                              $ref: "#/components/schemas/DecisionRequest"
 
   /decision-sessions/{id}/decision-results:
     get:
@@ -2339,10 +2347,12 @@ components:
 
     DecApiResponse:
       type: object
+      required:
+        - meta
       properties:
         data:
           type: object
-          description: Response payload
+          description: Response payload (specific type defined by endpoint)
         meta:
           $ref: "#/components/schemas/DecApiMeta"
 
