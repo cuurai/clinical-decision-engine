@@ -980,11 +980,11 @@ export interface components {
         };
         WorApiListResponse: {
             /** @description Paginated data container */
-            data?: {
+            data: {
                 /** @description List of items */
-                items?: unknown[];
+                items: unknown[];
             };
-            meta?: components["schemas"]["WorApiMeta"] & {
+            meta: components["schemas"]["WorApiMeta"] & {
                 /** @description Pagination metadata */
                 pagination?: {
                     nextCursor?: string | null;

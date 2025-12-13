@@ -960,11 +960,11 @@ export interface components {
         };
         KnoApiListResponse: {
             /** @description Paginated data container */
-            data?: {
+            data: {
                 /** @description List of items */
-                items?: unknown[];
+                items: unknown[];
             };
-            meta?: components["schemas"]["KnoApiMeta"] & {
+            meta: components["schemas"]["KnoApiMeta"] & {
                 /** @description Pagination metadata */
                 pagination?: {
                     nextCursor?: string | null;

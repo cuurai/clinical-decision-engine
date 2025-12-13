@@ -966,11 +966,11 @@ export interface components {
         };
         IntApiListResponse: {
             /** @description Paginated data container */
-            data?: {
+            data: {
                 /** @description List of items */
-                items?: unknown[];
+                items: unknown[];
             };
-            meta?: components["schemas"]["IntApiMeta"] & {
+            meta: components["schemas"]["IntApiMeta"] & {
                 /** @description Pagination metadata */
                 pagination?: {
                     nextCursor?: string | null;

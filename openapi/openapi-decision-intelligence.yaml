@@ -59,8 +59,8 @@ paths:
       summary: List decision sessions
       operationId: listDecisionSessions
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -78,19 +78,19 @@ paths:
               - completed
               - cancelled
       responses:
-        "200":
+        '200':
           description: List of decision sessions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/DecisionSession"
+                          $ref: '#/components/schemas/DecisionSession'
     post:
       tags:
         - Decision Sessions
@@ -102,25 +102,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/DecisionSessionInput"
+                      $ref: '#/components/schemas/DecisionSessionInput'
       responses:
-        "201":
+        '201':
           description: Decision session created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionSession"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/DecisionSession'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /decision-sessions/{id}:
     get:
       tags:
@@ -128,65 +128,65 @@ paths:
       summary: Get decision session by ID
       operationId: getDecisionSession
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Decision session details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionSession"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/DecisionSession'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
       tags:
         - Decision Sessions
       summary: Update decision session
       operationId: updateDecisionSession
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/DecisionSessionUpdate"
+                      $ref: '#/components/schemas/DecisionSessionUpdate'
       responses:
-        "200":
+        '200':
           description: Decision session updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionSession"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/DecisionSession'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
       tags:
         - Decision Sessions
       summary: Delete decision session
       operationId: deleteDecisionSession
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Decision session deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
+        '404':
+          $ref: '#/components/responses/NotFound'
   /decision-sessions/{id}/decision-requests:
     get:
       tags:
@@ -194,17 +194,17 @@ paths:
       summary: List decision session requests
       operationId: listDecisionSessionRequests
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of decision requests
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -213,7 +213,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/DecisionRequest"
+                              $ref: '#/components/schemas/DecisionRequest'
   /decision-sessions/{id}/decision-results:
     get:
       tags:
@@ -221,17 +221,17 @@ paths:
       summary: List decision session results
       operationId: listDecisionSessionResults
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of decision results
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -240,7 +240,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/DecisionResult"
+                              $ref: '#/components/schemas/DecisionResult'
   /decision-sessions/{id}/risk-assessments:
     get:
       tags:
@@ -248,17 +248,17 @@ paths:
       summary: List decision session risk assessments
       operationId: listDecisionSessionRiskAssessments
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of risk assessments
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -267,7 +267,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/RiskAssessment"
+                              $ref: '#/components/schemas/RiskAssessment'
   /decision-sessions/{id}/alerts:
     get:
       tags:
@@ -275,17 +275,17 @@ paths:
       summary: List decision session alerts
       operationId: listDecisionSessionAlerts
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of alerts
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -294,7 +294,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/AlertEvaluation"
+                              $ref: '#/components/schemas/AlertEvaluation'
   /decision-sessions/{id}/explanations:
     get:
       tags:
@@ -302,17 +302,17 @@ paths:
       summary: List decision session explanations
       operationId: listDecisionSessionExplanations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of explanations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -321,7 +321,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/Explanation"
+                              $ref: '#/components/schemas/Explanation'
   /decision-requests:
     get:
       tags:
@@ -329,8 +329,8 @@ paths:
       summary: List decision requests
       operationId: listDecisionRequests
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: decisionSessionId
           in: query
           schema:
@@ -349,19 +349,19 @@ paths:
               - risk-assessment
               - pathway-selection
       responses:
-        "200":
+        '200':
           description: List of decision requests
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/DecisionRequest"
+                          $ref: '#/components/schemas/DecisionRequest'
     post:
       tags:
         - Decision Requests
@@ -376,25 +376,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/DecisionRequestInput"
+                      $ref: '#/components/schemas/DecisionRequestInput'
       responses:
-        "201":
+        '201':
           description: Decision request created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionRequest"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/DecisionRequest'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /decision-requests/{id}:
     get:
       tags:
@@ -402,21 +402,21 @@ paths:
       summary: Get decision request by ID
       operationId: getDecisionRequest
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Decision request details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionRequest"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/DecisionRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /decision-requests/{id}/decision-results:
     get:
       tags:
@@ -424,17 +424,17 @@ paths:
       summary: List decision request results
       operationId: listDecisionRequestResults
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of decision results
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -443,7 +443,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/DecisionResult"
+                              $ref: '#/components/schemas/DecisionResult'
   /decision-requests/{id}/explanations:
     get:
       tags:
@@ -451,17 +451,17 @@ paths:
       summary: List decision request explanations
       operationId: listDecisionRequestExplanations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of explanations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -470,7 +470,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/Explanation"
+                              $ref: '#/components/schemas/Explanation'
   /decision-results:
     get:
       tags:
@@ -478,8 +478,8 @@ paths:
       summary: List decision results
       operationId: listDecisionResults
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: decisionRequestId
           in: query
           schema:
@@ -497,19 +497,19 @@ paths:
               - completed
               - failed
       responses:
-        "200":
+        '200':
           description: List of decision results
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/DecisionResult"
+                          $ref: '#/components/schemas/DecisionResult'
     post:
       tags:
         - Decision Results
@@ -521,25 +521,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/DecisionResultInput"
+                      $ref: '#/components/schemas/DecisionResultInput'
       responses:
-        "201":
+        '201':
           description: Decision result created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionResult"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/DecisionResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /decision-results/{id}:
     get:
       tags:
@@ -547,65 +547,65 @@ paths:
       summary: Get decision result by ID
       operationId: getDecisionResult
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Decision result details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionResult"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/DecisionResult'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
       tags:
         - Decision Results
       summary: Update decision result
       operationId: updateDecisionResult
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/DecisionResultUpdate"
+                      $ref: '#/components/schemas/DecisionResultUpdate'
       responses:
-        "200":
+        '200':
           description: Decision result updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionResult"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/DecisionResult'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
       tags:
         - Decision Results
       summary: Delete decision result
       operationId: deleteDecisionResult
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Decision result deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
+        '404':
+          $ref: '#/components/responses/NotFound'
   /decision-results/{id}/recommendations:
     get:
       tags:
@@ -613,17 +613,17 @@ paths:
       summary: List decision result recommendations
       operationId: listDecisionResultRecommendations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of recommendations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -632,7 +632,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/Recommendation"
+                              $ref: '#/components/schemas/Recommendation'
   /decision-results/{id}/risk-assessments:
     get:
       tags:
@@ -640,17 +640,17 @@ paths:
       summary: List decision result risk assessments
       operationId: listDecisionResultRiskAssessments
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of risk assessments
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -659,7 +659,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/RiskAssessment"
+                              $ref: '#/components/schemas/RiskAssessment'
   /decision-results/{id}/explanations:
     get:
       tags:
@@ -667,17 +667,17 @@ paths:
       summary: List decision result explanations
       operationId: listDecisionResultExplanations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of explanations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -686,7 +686,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/Explanation"
+                              $ref: '#/components/schemas/Explanation'
   /risk-assessments:
     get:
       tags:
@@ -694,8 +694,8 @@ paths:
       summary: List risk assessments
       operationId: listRiskAssessments
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -711,19 +711,19 @@ paths:
               - disease-progression
               - other
       responses:
-        "200":
+        '200':
           description: List of risk assessments
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/RiskAssessment"
+                          $ref: '#/components/schemas/RiskAssessment'
     post:
       tags:
         - Risk Assessments
@@ -735,25 +735,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/RiskAssessmentInput"
+                      $ref: '#/components/schemas/RiskAssessmentInput'
       responses:
-        "201":
+        '201':
           description: Risk assessment created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/RiskAssessment"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/RiskAssessment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /risk-assessments/{id}:
     get:
       tags:
@@ -761,65 +761,65 @@ paths:
       summary: Get risk assessment by ID
       operationId: getRiskAssessment
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Risk assessment details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/RiskAssessment"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/RiskAssessment'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
       tags:
         - Risk Assessments
       summary: Update risk assessment
       operationId: updateRiskAssessment
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/RiskAssessmentUpdate"
+                      $ref: '#/components/schemas/RiskAssessmentUpdate'
       responses:
-        "200":
+        '200':
           description: Risk assessment updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/RiskAssessment"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/RiskAssessment'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
       tags:
         - Risk Assessments
       summary: Delete risk assessment
       operationId: deleteRiskAssessment
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Risk assessment deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
+        '404':
+          $ref: '#/components/responses/NotFound'
   /risk-assessments/{id}/explanations:
     get:
       tags:
@@ -827,17 +827,17 @@ paths:
       summary: List risk assessment explanations
       operationId: listRiskAssessmentExplanations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of explanations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -846,7 +846,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/Explanation"
+                              $ref: '#/components/schemas/Explanation'
   /recommendations:
     get:
       tags:
@@ -854,8 +854,8 @@ paths:
       summary: List recommendations
       operationId: listRecommendations
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: decisionResultId
           in: query
           schema:
@@ -881,19 +881,19 @@ paths:
               - overridden
               - deferred
       responses:
-        "200":
+        '200':
           description: List of recommendations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/Recommendation"
+                          $ref: '#/components/schemas/Recommendation'
     post:
       tags:
         - Recommendations
@@ -905,25 +905,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/RecommendationInput"
+                      $ref: '#/components/schemas/RecommendationInput'
       responses:
-        "201":
+        '201':
           description: Recommendation created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Recommendation"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/Recommendation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /recommendations/{id}:
     get:
       tags:
@@ -931,65 +931,65 @@ paths:
       summary: Get recommendation by ID
       operationId: getRecommendation
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Recommendation details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Recommendation"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/Recommendation'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
       tags:
         - Recommendations
       summary: Update recommendation
       operationId: updateRecommendation
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/RecommendationUpdate"
+                      $ref: '#/components/schemas/RecommendationUpdate'
       responses:
-        "200":
+        '200':
           description: Recommendation updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Recommendation"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/Recommendation'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
       tags:
         - Recommendations
       summary: Delete recommendation
       operationId: deleteRecommendation
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Recommendation deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
+        '404':
+          $ref: '#/components/responses/NotFound'
   /recommendations/{id}/explanations:
     get:
       tags:
@@ -997,17 +997,17 @@ paths:
       summary: List recommendation explanations
       operationId: listRecommendationExplanations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of explanations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -1016,7 +1016,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/Explanation"
+                              $ref: '#/components/schemas/Explanation'
   /alert-evaluations:
     get:
       tags:
@@ -1024,8 +1024,8 @@ paths:
       summary: List alert evaluations
       operationId: listAlertEvaluations
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: patientId
           in: query
           schema:
@@ -1049,19 +1049,19 @@ paths:
               - overridden
               - resolved
       responses:
-        "200":
+        '200':
           description: List of alert evaluations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/AlertEvaluation"
+                          $ref: '#/components/schemas/AlertEvaluation'
     post:
       tags:
         - Alert Evaluations
@@ -1073,25 +1073,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/AlertEvaluationInput"
+                      $ref: '#/components/schemas/AlertEvaluationInput'
       responses:
-        "201":
+        '201':
           description: Alert evaluation created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/AlertEvaluation"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/AlertEvaluation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /alert-evaluations/{id}:
     get:
       tags:
@@ -1099,65 +1099,65 @@ paths:
       summary: Get alert evaluation by ID
       operationId: getAlertEvaluation
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Alert evaluation details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/AlertEvaluation"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/AlertEvaluation'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
       tags:
         - Alert Evaluations
       summary: Update alert evaluation
       operationId: updateAlertEvaluation
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/AlertEvaluationUpdate"
+                      $ref: '#/components/schemas/AlertEvaluationUpdate'
       responses:
-        "200":
+        '200':
           description: Alert evaluation updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/AlertEvaluation"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/AlertEvaluation'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
       tags:
         - Alert Evaluations
       summary: Delete alert evaluation
       operationId: deleteAlertEvaluation
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Alert evaluation deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
+        '404':
+          $ref: '#/components/responses/NotFound'
   /explanations:
     get:
       tags:
@@ -1165,8 +1165,8 @@ paths:
       summary: List explanations
       operationId: listExplanations
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: explanationType
           in: query
           schema:
@@ -1177,19 +1177,19 @@ paths:
               - evidence-summary
               - model-reasoning
       responses:
-        "200":
+        '200':
           description: List of explanations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/Explanation"
+                          $ref: '#/components/schemas/Explanation'
     post:
       tags:
         - Explanations
@@ -1201,25 +1201,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/ExplanationInput"
+                      $ref: '#/components/schemas/ExplanationInput'
       responses:
-        "201":
+        '201':
           description: Explanation created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Explanation"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/Explanation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /explanations/{id}:
     get:
       tags:
@@ -1227,21 +1227,21 @@ paths:
       summary: Get explanation by ID
       operationId: getExplanation
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Explanation details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Explanation"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/Explanation'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /explanations/{id}/features:
     get:
       tags:
@@ -1249,17 +1249,17 @@ paths:
       summary: List explanation features
       operationId: listExplanationFeatures
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of feature attributions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -1268,7 +1268,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/FeatureAttribution"
+                              $ref: '#/components/schemas/FeatureAttribution'
   /explanations/{id}/rule-traces:
     get:
       tags:
@@ -1276,17 +1276,17 @@ paths:
       summary: List explanation rule traces
       operationId: listExplanationRuleTraces
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of rule traces
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -1295,7 +1295,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/RuleTrace"
+                              $ref: '#/components/schemas/RuleTrace'
   /model-invocations:
     get:
       tags:
@@ -1303,8 +1303,8 @@ paths:
       summary: List model invocations
       operationId: listModelInvocations
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: modelVersionId
           in: query
           schema:
@@ -1314,19 +1314,19 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: List of model invocations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/ModelInvocation"
+                          $ref: '#/components/schemas/ModelInvocation'
     post:
       tags:
         - Model Invocations
@@ -1341,25 +1341,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/ModelInvocationInput"
+                      $ref: '#/components/schemas/ModelInvocationInput'
       responses:
-        "201":
+        '201':
           description: Model invocation created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/ModelInvocation"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/ModelInvocation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /model-invocations/{id}:
     get:
       tags:
@@ -1367,21 +1367,21 @@ paths:
       summary: Get model invocation by ID
       operationId: getModelInvocation
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Model invocation details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/ModelInvocation"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/ModelInvocation'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /model-invocations/{id}/explanations:
     get:
       tags:
@@ -1389,17 +1389,17 @@ paths:
       summary: List model invocation explanations
       operationId: listModelInvocationExplanations
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of explanations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -1408,7 +1408,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/Explanation"
+                              $ref: '#/components/schemas/Explanation'
   /simulation-scenarios:
     get:
       tags:
@@ -1416,8 +1416,8 @@ paths:
       summary: List simulation scenarios
       operationId: listSimulationScenarios
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: category
           in: query
           schema:
@@ -1431,19 +1431,19 @@ paths:
               - active
               - completed
       responses:
-        "200":
+        '200':
           description: List of simulation scenarios
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/SimulationScenario"
+                          $ref: '#/components/schemas/SimulationScenario'
     post:
       tags:
         - Simulation Scenarios
@@ -1455,25 +1455,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/SimulationScenarioInput"
+                      $ref: '#/components/schemas/SimulationScenarioInput'
       responses:
-        "201":
+        '201':
           description: Simulation scenario created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/SimulationScenario"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/SimulationScenario'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /simulation-scenarios/{id}:
     get:
       tags:
@@ -1481,65 +1481,65 @@ paths:
       summary: Get simulation scenario by ID
       operationId: getSimulationScenario
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Simulation scenario details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/SimulationScenario"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/SimulationScenario'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
       tags:
         - Simulation Scenarios
       summary: Update simulation scenario
       operationId: updateSimulationScenario
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/SimulationScenarioUpdate"
+                      $ref: '#/components/schemas/SimulationScenarioUpdate'
       responses:
-        "200":
+        '200':
           description: Simulation scenario updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/SimulationScenario"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/SimulationScenario'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
       tags:
         - Simulation Scenarios
       summary: Delete simulation scenario
       operationId: deleteSimulationScenario
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Simulation scenario deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
+        '404':
+          $ref: '#/components/responses/NotFound'
   /simulation-scenarios/{id}/simulation-runs:
     get:
       tags:
@@ -1547,17 +1547,17 @@ paths:
       summary: List simulation scenario runs
       operationId: listSimulationScenarioRuns
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of simulation runs
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -1566,7 +1566,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/SimulationRun"
+                              $ref: '#/components/schemas/SimulationRun'
   /simulation-runs:
     get:
       tags:
@@ -1574,8 +1574,8 @@ paths:
       summary: List simulation runs
       operationId: listSimulationRuns
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: simulationScenarioId
           in: query
           schema:
@@ -1589,19 +1589,19 @@ paths:
               - completed
               - failed
       responses:
-        "200":
+        '200':
           description: List of simulation runs
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/SimulationRun"
+                          $ref: '#/components/schemas/SimulationRun'
     post:
       tags:
         - Simulation Runs
@@ -1613,25 +1613,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/SimulationRunInput"
+                      $ref: '#/components/schemas/SimulationRunInput'
       responses:
-        "201":
+        '201':
           description: Simulation run created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/SimulationRun"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/SimulationRun'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /simulation-runs/{id}:
     get:
       tags:
@@ -1639,21 +1639,21 @@ paths:
       summary: Get simulation run by ID
       operationId: getSimulationRun
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Simulation run details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/SimulationRun"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/SimulationRun'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /simulation-runs/{id}/decision-results:
     get:
       tags:
@@ -1661,17 +1661,17 @@ paths:
       summary: List simulation run decision results
       operationId: listSimulationRunDecisionResults
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of decision results
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -1680,7 +1680,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/DecisionResult"
+                              $ref: '#/components/schemas/DecisionResult'
   /simulation-runs/{id}/metrics:
     get:
       tags:
@@ -1688,17 +1688,17 @@ paths:
       summary: List simulation run metrics
       operationId: listSimulationRunMetrics
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of metrics
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -1707,7 +1707,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/SimulationMetric"
+                              $ref: '#/components/schemas/SimulationMetric'
   /decision-policies:
     get:
       tags:
@@ -1715,8 +1715,8 @@ paths:
       summary: List decision policies
       operationId: listDecisionPolicies
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: status
           in: query
           schema:
@@ -1726,19 +1726,19 @@ paths:
               - active
               - deprecated
       responses:
-        "200":
+        '200':
           description: List of decision policies
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/DecisionPolicy"
+                          $ref: '#/components/schemas/DecisionPolicy'
     post:
       tags:
         - Decision Policies
@@ -1750,25 +1750,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/DecisionPolicyInput"
+                      $ref: '#/components/schemas/DecisionPolicyInput'
       responses:
-        "201":
+        '201':
           description: Decision policy created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionPolicy"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/DecisionPolicy'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /decision-policies/{id}:
     get:
       tags:
@@ -1776,65 +1776,65 @@ paths:
       summary: Get decision policy by ID
       operationId: getDecisionPolicy
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Decision policy details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionPolicy"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/DecisionPolicy'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
       tags:
         - Decision Policies
       summary: Update decision policy
       operationId: updateDecisionPolicy
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/DecisionPolicyUpdate"
+                      $ref: '#/components/schemas/DecisionPolicyUpdate'
       responses:
-        "200":
+        '200':
           description: Decision policy updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionPolicy"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/DecisionPolicy'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
       tags:
         - Decision Policies
       summary: Delete decision policy
       operationId: deleteDecisionPolicy
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Decision policy deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
+        '404':
+          $ref: '#/components/responses/NotFound'
   /decision-policies/{id}/threshold-profiles:
     get:
       tags:
@@ -1842,17 +1842,17 @@ paths:
       summary: List decision policy threshold profiles
       operationId: listDecisionPolicyThresholdProfiles
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of threshold profiles
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -1861,7 +1861,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/ThresholdProfile"
+                              $ref: '#/components/schemas/ThresholdProfile'
   /threshold-profiles:
     get:
       tags:
@@ -1869,26 +1869,26 @@ paths:
       summary: List threshold profiles
       operationId: listThresholdProfiles
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: category
           in: query
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: List of threshold profiles
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/ThresholdProfile"
+                          $ref: '#/components/schemas/ThresholdProfile'
     post:
       tags:
         - Threshold Profiles
@@ -1900,25 +1900,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/ThresholdProfileInput"
+                      $ref: '#/components/schemas/ThresholdProfileInput'
       responses:
-        "201":
+        '201':
           description: Threshold profile created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/ThresholdProfile"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/ThresholdProfile'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /threshold-profiles/{id}:
     get:
       tags:
@@ -1926,65 +1926,65 @@ paths:
       summary: Get threshold profile by ID
       operationId: getThresholdProfile
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Threshold profile details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/ThresholdProfile"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/ThresholdProfile'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
       tags:
         - Threshold Profiles
       summary: Update threshold profile
       operationId: updateThresholdProfile
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/ThresholdProfileUpdate"
+                      $ref: '#/components/schemas/ThresholdProfileUpdate'
       responses:
-        "200":
+        '200':
           description: Threshold profile updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/ThresholdProfile"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/ThresholdProfile'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
       tags:
         - Threshold Profiles
       summary: Delete threshold profile
       operationId: deleteThresholdProfile
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Threshold profile deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
+        '404':
+          $ref: '#/components/responses/NotFound'
   /decision-metrics:
     get:
       tags:
@@ -1992,8 +1992,8 @@ paths:
       summary: List decision metrics
       operationId: listDecisionMetrics
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: decisionPolicyId
           in: query
           schema:
@@ -2003,19 +2003,19 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: List of decision metrics
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/DecisionMetricSnapshot"
+                          $ref: '#/components/schemas/DecisionMetricSnapshot'
     post:
       tags:
         - Decision Metrics
@@ -2030,25 +2030,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/DecisionMetricSnapshotInput"
+                      $ref: '#/components/schemas/DecisionMetricSnapshotInput'
       responses:
-        "201":
+        '201':
           description: Decision metric snapshot created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionMetricSnapshot"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/DecisionMetricSnapshot'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /decision-metrics/{id}:
     get:
       tags:
@@ -2056,21 +2056,21 @@ paths:
       summary: Get decision metric snapshot by ID
       operationId: getDecisionMetricSnapshot
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Decision metric snapshot details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/DecisionMetricSnapshot"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/DecisionMetricSnapshot'
+        '404':
+          $ref: '#/components/responses/NotFound'
   /experiments:
     get:
       tags:
@@ -2078,8 +2078,8 @@ paths:
       summary: List experiments
       operationId: listExperiments
       parameters:
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
         - name: status
           in: query
           schema:
@@ -2090,19 +2090,19 @@ paths:
               - completed
               - cancelled
       responses:
-        "200":
+        '200':
           description: List of experiments
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: "#/components/schemas/Experiment"
+                          $ref: '#/components/schemas/Experiment'
     post:
       tags:
         - Experiments
@@ -2114,25 +2114,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/ExperimentInput"
+                      $ref: '#/components/schemas/ExperimentInput'
       responses:
-        "201":
+        '201':
           description: Experiment created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Experiment"
-        "400":
-          $ref: "#/components/responses/BadRequest"
+                        $ref: '#/components/schemas/Experiment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
   /experiments/{id}:
     get:
       tags:
@@ -2140,65 +2140,65 @@ paths:
       summary: Get experiment by ID
       operationId: getExperiment
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "200":
+        '200':
           description: Experiment details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Experiment"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/Experiment'
+        '404':
+          $ref: '#/components/responses/NotFound'
     patch:
       tags:
         - Experiments
       summary: Update experiment
       operationId: updateExperiment
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: "#/components/schemas/DecApiResponse"
+                - $ref: '#/components/schemas/DecApiResponse'
                 - type: object
                   properties:
                     data:
-                      $ref: "#/components/schemas/ExperimentUpdate"
+                      $ref: '#/components/schemas/ExperimentUpdate'
       responses:
-        "200":
+        '200':
           description: Experiment updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiResponse"
+                  - $ref: '#/components/schemas/DecApiResponse'
                   - type: object
                     properties:
                       data:
-                        $ref: "#/components/schemas/Experiment"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                        $ref: '#/components/schemas/Experiment'
+        '404':
+          $ref: '#/components/responses/NotFound'
     delete:
       tags:
         - Experiments
       summary: Delete experiment
       operationId: deleteExperiment
       parameters:
-        - $ref: "#/components/parameters/IdParam"
+        - $ref: '#/components/parameters/IdParam'
       responses:
-        "204":
+        '204':
           description: Experiment deleted
-        "404":
-          $ref: "#/components/responses/NotFound"
+        '404':
+          $ref: '#/components/responses/NotFound'
   /experiments/{id}/arms:
     get:
       tags:
@@ -2206,17 +2206,17 @@ paths:
       summary: List experiment arms
       operationId: listExperimentArms
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of experiment arms
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -2225,7 +2225,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/ExperimentArm"
+                              $ref: '#/components/schemas/ExperimentArm'
   /experiments/{id}/results:
     get:
       tags:
@@ -2233,17 +2233,17 @@ paths:
       summary: List experiment results
       operationId: listExperimentResults
       parameters:
-        - $ref: "#/components/parameters/IdParam"
-        - $ref: "#/components/parameters/PageParam"
-        - $ref: "#/components/parameters/LimitParam"
+        - $ref: '#/components/parameters/IdParam'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/LimitParam'
       responses:
-        "200":
+        '200':
           description: List of experiment results
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/DecApiListResponse"
+                  - $ref: '#/components/schemas/DecApiListResponse'
                   - type: object
                     properties:
                       data:
@@ -2252,7 +2252,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: "#/components/schemas/ExperimentResult"
+                              $ref: '#/components/schemas/ExperimentResult'
 components:
   parameters:
     IdParam:
@@ -2290,22 +2290,22 @@ components:
         application/json:
           schema:
             allOf:
-              - $ref: "#/components/schemas/DecApiResponse"
+              - $ref: '#/components/schemas/DecApiResponse'
               - type: object
                 properties:
                   data:
-                    $ref: "#/components/schemas/Error"
+                    $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found
       content:
         application/json:
           schema:
             allOf:
-              - $ref: "#/components/schemas/DecApiResponse"
+              - $ref: '#/components/schemas/DecApiResponse'
               - type: object
                 properties:
                   data:
-                    $ref: "#/components/schemas/Error"
+                    $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -2345,12 +2345,17 @@ components:
         - meta
       properties:
         meta:
-          $ref: "#/components/schemas/DecApiMeta"
+          $ref: '#/components/schemas/DecApiMeta'
     DecApiListResponse:
       type: object
+      required:
+        - data
+        - meta
       properties:
         data:
           type: object
+          required:
+            - items
           description: Paginated data container
           properties:
             items:
@@ -2359,7 +2364,7 @@ components:
               items: {}
         meta:
           allOf:
-            - $ref: "#/components/schemas/DecApiMeta"
+            - $ref: '#/components/schemas/DecApiMeta'
             - type: object
               properties:
                 pagination:
@@ -2385,7 +2390,7 @@ components:
           format: date-time
     DecisionSession:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -2448,7 +2453,7 @@ components:
           additionalProperties: true
     DecisionRequest:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -2516,7 +2521,7 @@ components:
           additionalProperties: true
     DecisionResult:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -2577,7 +2582,7 @@ components:
           additionalProperties: true
     RiskAssessment:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -2677,7 +2682,7 @@ components:
           additionalProperties: true
     Recommendation:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -2772,7 +2777,7 @@ components:
           additionalProperties: true
     AlertEvaluation:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -2878,7 +2883,7 @@ components:
           additionalProperties: true
     Explanation:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -2973,7 +2978,7 @@ components:
           format: date-time
     ModelInvocation:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -3021,7 +3026,7 @@ components:
           additionalProperties: true
     SimulationScenario:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -3090,7 +3095,7 @@ components:
           additionalProperties: true
     SimulationRun:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -3155,7 +3160,7 @@ components:
           format: date-time
     DecisionPolicy:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -3226,7 +3231,7 @@ components:
           additionalProperties: true
     ThresholdProfile:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -3279,7 +3284,7 @@ components:
           additionalProperties: true
     DecisionMetricSnapshot:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id
@@ -3319,7 +3324,7 @@ components:
           additionalProperties: true
     Experiment:
       allOf:
-        - $ref: "#/components/schemas/Timestamps"
+        - $ref: '#/components/schemas/Timestamps'
         - type: object
           required:
             - id

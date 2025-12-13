@@ -911,11 +911,11 @@ export interface components {
         };
         DecApiListResponse: {
             /** @description Paginated data container */
-            data?: {
+            data: {
                 /** @description List of items */
-                items?: unknown[];
+                items: unknown[];
             };
-            meta?: components["schemas"]["DecApiMeta"] & {
+            meta: components["schemas"]["DecApiMeta"] & {
                 /** @description Pagination metadata */
                 pagination?: {
                     nextCursor?: string | null;
