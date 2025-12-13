@@ -63,8 +63,8 @@ paths:
       summary: List external systems
       operationId: listExternalSystems
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: systemType
           in: query
           schema:
@@ -78,19 +78,19 @@ paths:
               - payer
               - other
       responses:
-        '200':
+        "200":
           description: List of external systems
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ExternalSystem'
+                          $ref: "#/components/schemas/ExternalSystem"
     post:
       tags:
         - External Systems
@@ -102,25 +102,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ExternalSystemInput'
+                      $ref: "#/components/schemas/ExternalSystemInput"
       responses:
-        '201':
+        "201":
           description: External system created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ExternalSystem'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/ExternalSystem"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /external-systems/{id}:
     get:
       tags:
@@ -128,65 +128,65 @@ paths:
       summary: Get external system by ID
       operationId: getExternalSystem
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: External system details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ExternalSystem'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ExternalSystem"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - External Systems
       summary: Update external system
       operationId: updateExternalSystem
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ExternalSystemUpdate'
+                      $ref: "#/components/schemas/ExternalSystemUpdate"
       responses:
-        '200':
+        "200":
           description: External system updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ExternalSystem'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ExternalSystem"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - External Systems
       summary: Delete external system
       operationId: deleteExternalSystem
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: External system deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /external-systems/{id}/endpoints:
     get:
       tags:
@@ -194,17 +194,17 @@ paths:
       summary: List external system endpoints
       operationId: listExternalSystemEndpoints
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of endpoints
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -213,7 +213,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/SystemEndpoint'
+                              $ref: "#/components/schemas/SystemEndpoint"
   /external-systems/{id}/connections:
     get:
       tags:
@@ -221,17 +221,17 @@ paths:
       summary: List external system connections
       operationId: listExternalSystemConnections
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of connections
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -240,7 +240,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/Connection'
+                              $ref: "#/components/schemas/Connection"
   /external-systems/{id}/integration-jobs:
     get:
       tags:
@@ -248,17 +248,17 @@ paths:
       summary: List external system integration jobs
       operationId: listExternalSystemIntegrationJobs
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of integration jobs
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -267,7 +267,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/IntegrationJob'
+                              $ref: "#/components/schemas/IntegrationJob"
   /connections:
     get:
       tags:
@@ -275,8 +275,8 @@ paths:
       summary: List connections
       operationId: listConnections
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: externalSystemId
           in: query
           schema:
@@ -290,19 +290,19 @@ paths:
               - inactive
               - error
       responses:
-        '200':
+        "200":
           description: List of connections
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Connection'
+                          $ref: "#/components/schemas/Connection"
     post:
       tags:
         - Connections
@@ -314,25 +314,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ConnectionInput'
+                      $ref: "#/components/schemas/ConnectionInput"
       responses:
-        '201':
+        "201":
           description: Connection created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Connection'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/Connection"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /connections/{id}:
     get:
       tags:
@@ -340,65 +340,65 @@ paths:
       summary: Get connection by ID
       operationId: getConnection
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Connection details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Connection'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/Connection"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Connections
       summary: Update connection
       operationId: updateConnection
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ConnectionUpdate'
+                      $ref: "#/components/schemas/ConnectionUpdate"
       responses:
-        '200':
+        "200":
           description: Connection updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Connection'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/Connection"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Connections
       summary: Delete connection
       operationId: deleteConnection
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Connection deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /connections/{id}/health-checks:
     get:
       tags:
@@ -406,17 +406,17 @@ paths:
       summary: List connection health checks
       operationId: listConnectionHealthChecks
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of health checks
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -425,7 +425,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/InterfaceHealthCheck'
+                              $ref: "#/components/schemas/InterfaceHealthCheck"
   /connections/{id}/integration-jobs:
     get:
       tags:
@@ -433,17 +433,17 @@ paths:
       summary: List connection integration jobs
       operationId: listConnectionIntegrationJobs
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of integration jobs
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -452,7 +452,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/IntegrationJob'
+                              $ref: "#/components/schemas/IntegrationJob"
   /fhir-bundles:
     get:
       tags:
@@ -460,8 +460,8 @@ paths:
       summary: List FHIR bundles
       operationId: listFHIRBundles
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: bundleType
           in: query
           schema:
@@ -484,19 +484,19 @@ paths:
               - inbound
               - outbound
       responses:
-        '200':
+        "200":
           description: List of FHIR bundles
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/FHIRBundle'
+                          $ref: "#/components/schemas/FHIRBundle"
     post:
       tags:
         - FHIR Bundles
@@ -507,29 +507,29 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FHIRBundleInput'
+              $ref: "#/components/schemas/FHIRBundleInput"
           application/fhir+json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/FHIRBundleInput'
+                      $ref: "#/components/schemas/FHIRBundleInput"
       responses:
-        '201':
+        "201":
           description: FHIR bundle created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/FHIRBundle'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/FHIRBundle"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /fhir-bundles/{id}:
     get:
       tags:
@@ -537,33 +537,33 @@ paths:
       summary: Get FHIR bundle by ID
       operationId: getFHIRBundle
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: FHIR bundle details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/FHIRBundle'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/FHIRBundle"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - FHIR Bundles
       summary: Delete FHIR bundle
       operationId: deleteFHIRBundle
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: FHIR bundle deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /fhir-bundles/{id}/resources:
     get:
       tags:
@@ -571,17 +571,17 @@ paths:
       summary: List FHIR bundle resources
       operationId: listFHIRBundleResources
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of FHIR resources
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -598,26 +598,26 @@ paths:
       summary: List FHIR mapping profiles
       operationId: listFHIRMappingProfiles
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: externalSystemId
           in: query
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of FHIR mapping profiles
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/FHIRMappingProfile'
+                          $ref: "#/components/schemas/FHIRMappingProfile"
     post:
       tags:
         - FHIR Mapping Profiles
@@ -629,25 +629,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/FHIRMappingProfileInput'
+                      $ref: "#/components/schemas/FHIRMappingProfileInput"
       responses:
-        '201':
+        "201":
           description: FHIR mapping profile created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/FHIRMappingProfile'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/FHIRMappingProfile"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /fhir-mapping-profiles/{id}:
     get:
       tags:
@@ -655,65 +655,65 @@ paths:
       summary: Get FHIR mapping profile by ID
       operationId: getFHIRMappingProfile
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: FHIR mapping profile details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/FHIRMappingProfile'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/FHIRMappingProfile"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - FHIR Mapping Profiles
       summary: Update FHIR mapping profile
       operationId: updateFHIRMappingProfile
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/FHIRMappingProfileUpdate'
+                      $ref: "#/components/schemas/FHIRMappingProfileUpdate"
       responses:
-        '200':
+        "200":
           description: FHIR mapping profile updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/FHIRMappingProfile'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/FHIRMappingProfile"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - FHIR Mapping Profiles
       summary: Delete FHIR mapping profile
       operationId: deleteFHIRMappingProfile
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: FHIR mapping profile deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /fhir-mapping-profiles/{id}/rules:
     get:
       tags:
@@ -721,17 +721,17 @@ paths:
       summary: List FHIR mapping profile rules
       operationId: listFHIRMappingProfileRules
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of mapping rules
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -740,7 +740,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/MappingRule'
+                              $ref: "#/components/schemas/MappingRule"
   /hl7-messages:
     get:
       tags:
@@ -748,8 +748,8 @@ paths:
       summary: List HL7 messages
       operationId: listHL7Messages
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: messageType
           in: query
           schema:
@@ -763,19 +763,19 @@ paths:
               - inbound
               - outbound
       responses:
-        '200':
+        "200":
           description: List of HL7 messages
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/HL7Message'
+                          $ref: "#/components/schemas/HL7Message"
     post:
       tags:
         - HL7 Messages
@@ -791,25 +791,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/HL7MessageInput'
+                      $ref: "#/components/schemas/HL7MessageInput"
       responses:
-        '201':
+        "201":
           description: HL7 message created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/HL7Message'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/HL7Message"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /hl7-messages/{id}:
     get:
       tags:
@@ -817,33 +817,33 @@ paths:
       summary: Get HL7 message by ID
       operationId: getHL7Message
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: HL7 message details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/HL7Message'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/HL7Message"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - HL7 Messages
       summary: Delete HL7 message
       operationId: deleteHL7Message
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: HL7 message deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /hl7-messages/{id}/segments:
     get:
       tags:
@@ -851,17 +851,17 @@ paths:
       summary: List HL7 message segments
       operationId: listHL7MessageSegments
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of HL7 segments
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -870,7 +870,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/HL7Segment'
+                              $ref: "#/components/schemas/HL7Segment"
   /hl7-messages/{id}/mapping-results:
     get:
       tags:
@@ -878,17 +878,17 @@ paths:
       summary: List HL7 message mapping results
       operationId: listHL7MessageMappingResults
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of mapping results
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -897,7 +897,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/MappingResult'
+                              $ref: "#/components/schemas/MappingResult"
   /hl7-mapping-profiles:
     get:
       tags:
@@ -905,26 +905,26 @@ paths:
       summary: List HL7 mapping profiles
       operationId: listHL7MappingProfiles
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: externalSystemId
           in: query
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of HL7 mapping profiles
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/HL7MappingProfile'
+                          $ref: "#/components/schemas/HL7MappingProfile"
     post:
       tags:
         - HL7 Mapping Profiles
@@ -936,25 +936,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/HL7MappingProfileInput'
+                      $ref: "#/components/schemas/HL7MappingProfileInput"
       responses:
-        '201':
+        "201":
           description: HL7 mapping profile created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/HL7MappingProfile'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/HL7MappingProfile"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /hl7-mapping-profiles/{id}:
     get:
       tags:
@@ -962,65 +962,65 @@ paths:
       summary: Get HL7 mapping profile by ID
       operationId: getHL7MappingProfile
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: HL7 mapping profile details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/HL7MappingProfile'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/HL7MappingProfile"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - HL7 Mapping Profiles
       summary: Update HL7 mapping profile
       operationId: updateHL7MappingProfile
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/HL7MappingProfileUpdate'
+                      $ref: "#/components/schemas/HL7MappingProfileUpdate"
       responses:
-        '200':
+        "200":
           description: HL7 mapping profile updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/HL7MappingProfile'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/HL7MappingProfile"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - HL7 Mapping Profiles
       summary: Delete HL7 mapping profile
       operationId: deleteHL7MappingProfile
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: HL7 mapping profile deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /hl7-mapping-profiles/{id}/rules:
     get:
       tags:
@@ -1028,17 +1028,17 @@ paths:
       summary: List HL7 mapping profile rules
       operationId: listHL7MappingProfileRules
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of mapping rules
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1047,7 +1047,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/MappingRule'
+                              $ref: "#/components/schemas/MappingRule"
   /integration-jobs:
     get:
       tags:
@@ -1055,8 +1055,8 @@ paths:
       summary: List integration jobs
       operationId: listIntegrationJobs
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: externalSystemId
           in: query
           schema:
@@ -1086,19 +1086,19 @@ paths:
               - failed
               - cancelled
       responses:
-        '200':
+        "200":
           description: List of integration jobs
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/IntegrationJob'
+                          $ref: "#/components/schemas/IntegrationJob"
     post:
       tags:
         - Integration Jobs
@@ -1110,25 +1110,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/IntegrationJobInput'
+                      $ref: "#/components/schemas/IntegrationJobInput"
       responses:
-        '201':
+        "201":
           description: Integration job created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/IntegrationJob'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/IntegrationJob"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /integration-jobs/{id}:
     get:
       tags:
@@ -1136,65 +1136,65 @@ paths:
       summary: Get integration job by ID
       operationId: getIntegrationJob
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Integration job details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/IntegrationJob'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/IntegrationJob"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Integration Jobs
       summary: Update integration job
       operationId: updateIntegrationJob
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/IntegrationJobUpdate'
+                      $ref: "#/components/schemas/IntegrationJobUpdate"
       responses:
-        '200':
+        "200":
           description: Integration job updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/IntegrationJob'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/IntegrationJob"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Integration Jobs
       summary: Delete integration job
       operationId: deleteIntegrationJob
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Integration job deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /integration-jobs/{id}/runs:
     get:
       tags:
@@ -1202,17 +1202,17 @@ paths:
       summary: List integration job runs
       operationId: listIntegrationJobRuns
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of integration runs
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1221,7 +1221,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/IntegrationRun'
+                              $ref: "#/components/schemas/IntegrationRun"
   /integration-runs:
     get:
       tags:
@@ -1229,8 +1229,8 @@ paths:
       summary: List integration runs
       operationId: listIntegrationRuns
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: integrationJobId
           in: query
           schema:
@@ -1244,19 +1244,19 @@ paths:
               - completed
               - failed
       responses:
-        '200':
+        "200":
           description: List of integration runs
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/IntegrationRun'
+                          $ref: "#/components/schemas/IntegrationRun"
     post:
       tags:
         - Integration Runs
@@ -1271,25 +1271,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/IntegrationRunInput'
+                      $ref: "#/components/schemas/IntegrationRunInput"
       responses:
-        '201':
+        "201":
           description: Integration run created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/IntegrationRun'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/IntegrationRun"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /integration-runs/{id}:
     get:
       tags:
@@ -1297,21 +1297,21 @@ paths:
       summary: Get integration run by ID
       operationId: getIntegrationRun
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Integration run details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/IntegrationRun'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/IntegrationRun"
+        "404":
+          $ref: "#/components/responses/NotFound"
   /integration-runs/{id}/logs:
     get:
       tags:
@@ -1319,17 +1319,17 @@ paths:
       summary: List integration run logs
       operationId: listIntegrationRunLogs
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of logs
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1338,7 +1338,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/IntegrationLog'
+                              $ref: "#/components/schemas/IntegrationLog"
   /integration-runs/{id}/errors:
     get:
       tags:
@@ -1346,17 +1346,17 @@ paths:
       summary: List integration run errors
       operationId: listIntegrationRunErrors
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of errors
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1365,7 +1365,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/InterfaceError'
+                              $ref: "#/components/schemas/InterfaceError"
   /data-import-batches:
     get:
       tags:
@@ -1373,8 +1373,8 @@ paths:
       summary: List data import batches
       operationId: listDataImportBatches
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: status
           in: query
           schema:
@@ -1394,19 +1394,19 @@ paths:
               - fhir-bulk
               - other
       responses:
-        '200':
+        "200":
           description: List of data import batches
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/DataImportBatch'
+                          $ref: "#/components/schemas/DataImportBatch"
     post:
       tags:
         - Data Import Batches
@@ -1418,25 +1418,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/DataImportBatchInput'
+                      $ref: "#/components/schemas/DataImportBatchInput"
       responses:
-        '201':
+        "201":
           description: Data import batch created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/DataImportBatch'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/DataImportBatch"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /data-import-batches/{id}:
     get:
       tags:
@@ -1444,65 +1444,65 @@ paths:
       summary: Get data import batch by ID
       operationId: getDataImportBatch
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Data import batch details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/DataImportBatch'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/DataImportBatch"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Data Import Batches
       summary: Update data import batch
       operationId: updateDataImportBatch
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/DataImportBatchUpdate'
+                      $ref: "#/components/schemas/DataImportBatchUpdate"
       responses:
-        '200':
+        "200":
           description: Data import batch updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/DataImportBatch'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/DataImportBatch"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Data Import Batches
       summary: Delete data import batch
       operationId: deleteDataImportBatch
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Data import batch deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /data-import-batches/{id}/records:
     get:
       tags:
@@ -1510,17 +1510,17 @@ paths:
       summary: List data import batch records
       operationId: listDataImportBatchRecords
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of import records
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1529,7 +1529,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ImportRecord'
+                              $ref: "#/components/schemas/ImportRecord"
   /data-import-batches/{id}/errors:
     get:
       tags:
@@ -1537,17 +1537,17 @@ paths:
       summary: List data import batch errors
       operationId: listDataImportBatchErrors
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of errors
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1556,7 +1556,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/InterfaceError'
+                              $ref: "#/components/schemas/InterfaceError"
   /data-export-batches:
     get:
       tags:
@@ -1564,8 +1564,8 @@ paths:
       summary: List data export batches
       operationId: listDataExportBatches
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: status
           in: query
           schema:
@@ -1580,19 +1580,19 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of data export batches
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/DataExportBatch'
+                          $ref: "#/components/schemas/DataExportBatch"
     post:
       tags:
         - Data Export Batches
@@ -1604,25 +1604,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/DataExportBatchInput'
+                      $ref: "#/components/schemas/DataExportBatchInput"
       responses:
-        '201':
+        "201":
           description: Data export batch created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/DataExportBatch'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/DataExportBatch"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /data-export-batches/{id}:
     get:
       tags:
@@ -1630,65 +1630,65 @@ paths:
       summary: Get data export batch by ID
       operationId: getDataExportBatch
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Data export batch details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/DataExportBatch'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/DataExportBatch"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Data Export Batches
       summary: Update data export batch
       operationId: updateDataExportBatch
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/DataExportBatchUpdate'
+                      $ref: "#/components/schemas/DataExportBatchUpdate"
       responses:
-        '200':
+        "200":
           description: Data export batch updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/DataExportBatch'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/DataExportBatch"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Data Export Batches
       summary: Delete data export batch
       operationId: deleteDataExportBatch
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Data export batch deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /data-export-batches/{id}/files:
     get:
       tags:
@@ -1696,17 +1696,17 @@ paths:
       summary: List data export batch files
       operationId: listDataExportBatchFiles
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of export files
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1715,7 +1715,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ExportFile'
+                              $ref: "#/components/schemas/ExportFile"
   /data-export-batches/{id}/errors:
     get:
       tags:
@@ -1723,17 +1723,17 @@ paths:
       summary: List data export batch errors
       operationId: listDataExportBatchErrors
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of errors
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1742,7 +1742,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/InterfaceError'
+                              $ref: "#/components/schemas/InterfaceError"
   /event-subscriptions:
     get:
       tags:
@@ -1750,8 +1750,8 @@ paths:
       summary: List event subscriptions
       operationId: listEventSubscriptions
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: eventType
           in: query
           schema:
@@ -1765,19 +1765,19 @@ paths:
               - inactive
               - paused
       responses:
-        '200':
+        "200":
           description: List of event subscriptions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/EventSubscription'
+                          $ref: "#/components/schemas/EventSubscription"
     post:
       tags:
         - Event Subscriptions
@@ -1789,25 +1789,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EventSubscriptionInput'
+                      $ref: "#/components/schemas/EventSubscriptionInput"
       responses:
-        '201':
+        "201":
           description: Event subscription created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EventSubscription'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/EventSubscription"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /event-subscriptions/{id}:
     get:
       tags:
@@ -1815,65 +1815,65 @@ paths:
       summary: Get event subscription by ID
       operationId: getEventSubscription
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Event subscription details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EventSubscription'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EventSubscription"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Event Subscriptions
       summary: Update event subscription
       operationId: updateEventSubscription
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EventSubscriptionUpdate'
+                      $ref: "#/components/schemas/EventSubscriptionUpdate"
       responses:
-        '200':
+        "200":
           description: Event subscription updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EventSubscription'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EventSubscription"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Event Subscriptions
       summary: Delete event subscription
       operationId: deleteEventSubscription
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Event subscription deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /event-subscriptions/{id}/deliveries:
     get:
       tags:
@@ -1881,17 +1881,17 @@ paths:
       summary: List event subscription deliveries
       operationId: listEventSubscriptionDeliveries
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of event deliveries
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1900,7 +1900,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/EventDelivery'
+                              $ref: "#/components/schemas/EventDelivery"
   /event-deliveries:
     get:
       tags:
@@ -1908,8 +1908,8 @@ paths:
       summary: List event deliveries
       operationId: listEventDeliveries
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: eventSubscriptionId
           in: query
           schema:
@@ -1924,19 +1924,19 @@ paths:
               - failed
               - retrying
       responses:
-        '200':
+        "200":
           description: List of event deliveries
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/EventDelivery'
+                          $ref: "#/components/schemas/EventDelivery"
     post:
       tags:
         - Event Deliveries
@@ -1948,25 +1948,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EventDeliveryInput'
+                      $ref: "#/components/schemas/EventDeliveryInput"
       responses:
-        '201':
+        "201":
           description: Event delivery created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EventDelivery'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/EventDelivery"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /event-deliveries/{id}:
     get:
       tags:
@@ -1974,53 +1974,53 @@ paths:
       summary: Get event delivery by ID
       operationId: getEventDelivery
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Event delivery details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EventDelivery'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EventDelivery"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Event Deliveries
       summary: Update event delivery
       operationId: updateEventDelivery
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EventDeliveryUpdate'
+                      $ref: "#/components/schemas/EventDeliveryUpdate"
       responses:
-        '200':
+        "200":
           description: Event delivery updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EventDelivery'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EventDelivery"
+        "404":
+          $ref: "#/components/responses/NotFound"
   /api-clients:
     get:
       tags:
@@ -2028,8 +2028,8 @@ paths:
       summary: List API clients
       operationId: listAPIClients
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: status
           in: query
           schema:
@@ -2039,19 +2039,19 @@ paths:
               - inactive
               - suspended
       responses:
-        '200':
+        "200":
           description: List of API clients
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/APIClient'
+                          $ref: "#/components/schemas/APIClient"
     post:
       tags:
         - API Clients
@@ -2063,25 +2063,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/APIClientInput'
+                      $ref: "#/components/schemas/APIClientInput"
       responses:
-        '201':
+        "201":
           description: API client created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/APIClient'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/APIClient"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /api-clients/{id}:
     get:
       tags:
@@ -2089,65 +2089,65 @@ paths:
       summary: Get API client by ID
       operationId: getAPIClient
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: API client details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/APIClient'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/APIClient"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - API Clients
       summary: Update API client
       operationId: updateAPIClient
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/APIClientUpdate'
+                      $ref: "#/components/schemas/APIClientUpdate"
       responses:
-        '200':
+        "200":
           description: API client updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/APIClient'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/APIClient"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - API Clients
       summary: Delete API client
       operationId: deleteAPIClient
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: API client deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /api-clients/{id}/credentials:
     get:
       tags:
@@ -2155,17 +2155,17 @@ paths:
       summary: List API client credentials
       operationId: listAPIClientCredentials
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of credentials
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -2174,7 +2174,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/APICredential'
+                              $ref: "#/components/schemas/APICredential"
   /api-clients/{id}/usage-metrics:
     get:
       tags:
@@ -2182,17 +2182,17 @@ paths:
       summary: List API client usage metrics
       operationId: listAPIClientUsageMetrics
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of usage metrics
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -2201,7 +2201,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/UsageMetric'
+                              $ref: "#/components/schemas/UsageMetric"
   /api-credentials:
     get:
       tags:
@@ -2209,8 +2209,8 @@ paths:
       summary: List API credentials
       operationId: listAPICredentials
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: apiClientId
           in: query
           schema:
@@ -2224,19 +2224,19 @@ paths:
               - oauth-client
               - certificate
       responses:
-        '200':
+        "200":
           description: List of API credentials
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/APICredential'
+                          $ref: "#/components/schemas/APICredential"
     post:
       tags:
         - API Credentials
@@ -2248,25 +2248,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/APICredentialInput'
+                      $ref: "#/components/schemas/APICredentialInput"
       responses:
-        '201':
+        "201":
           description: API credential created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/APICredential'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/APICredential"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /api-credentials/{id}:
     get:
       tags:
@@ -2274,65 +2274,65 @@ paths:
       summary: Get API credential by ID
       operationId: getAPICredential
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: API credential details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/APICredential'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/APICredential"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - API Credentials
       summary: Update API credential
       operationId: updateAPICredential
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/APICredentialUpdate'
+                      $ref: "#/components/schemas/APICredentialUpdate"
       responses:
-        '200':
+        "200":
           description: API credential updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/APICredential'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/APICredential"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - API Credentials
       summary: Delete API credential
       operationId: deleteAPICredential
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: API credential deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /interface-errors:
     get:
       tags:
@@ -2340,8 +2340,8 @@ paths:
       summary: List interface errors
       operationId: listInterfaceErrors
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: errorType
           in: query
           schema:
@@ -2362,19 +2362,19 @@ paths:
               - ignored
               - reprocessed
       responses:
-        '200':
+        "200":
           description: List of interface errors
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/InterfaceError'
+                          $ref: "#/components/schemas/InterfaceError"
     post:
       tags:
         - Interface Errors
@@ -2386,25 +2386,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/InterfaceErrorInput'
+                      $ref: "#/components/schemas/InterfaceErrorInput"
       responses:
-        '201':
+        "201":
           description: Interface error created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/InterfaceError'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/InterfaceError"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /interface-errors/{id}:
     get:
       tags:
@@ -2412,53 +2412,53 @@ paths:
       summary: Get interface error by ID
       operationId: getInterfaceError
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Interface error details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/InterfaceError'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/InterfaceError"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Interface Errors
       summary: Update interface error
       operationId: updateInterfaceError
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/InterfaceErrorUpdate'
+                      $ref: "#/components/schemas/InterfaceErrorUpdate"
       responses:
-        '200':
+        "200":
           description: Interface error updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/InterfaceError'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/InterfaceError"
+        "404":
+          $ref: "#/components/responses/NotFound"
   /interface-health-checks:
     get:
       tags:
@@ -2466,8 +2466,8 @@ paths:
       summary: List interface health checks
       operationId: listInterfaceHealthChecks
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: connectionId
           in: query
           schema:
@@ -2481,19 +2481,19 @@ paths:
               - degraded
               - down
       responses:
-        '200':
+        "200":
           description: List of interface health checks
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiListResponse'
+                  - $ref: "#/components/schemas/IntApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/InterfaceHealthCheck'
+                          $ref: "#/components/schemas/InterfaceHealthCheck"
     post:
       tags:
         - Interface Health Checks
@@ -2508,25 +2508,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/IntApiResponse'
+                - $ref: "#/components/schemas/IntApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/InterfaceHealthCheckInput'
+                      $ref: "#/components/schemas/InterfaceHealthCheckInput"
       responses:
-        '201':
+        "201":
           description: Interface health check created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/InterfaceHealthCheck'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/InterfaceHealthCheck"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /interface-health-checks/{id}:
     get:
       tags:
@@ -2534,21 +2534,21 @@ paths:
       summary: Get interface health check by ID
       operationId: getInterfaceHealthCheck
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Interface health check details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/IntApiResponse'
+                  - $ref: "#/components/schemas/IntApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/InterfaceHealthCheck'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/InterfaceHealthCheck"
+        "404":
+          $ref: "#/components/responses/NotFound"
 components:
   parameters:
     IdParam:
@@ -2586,22 +2586,22 @@ components:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/IntApiResponse'
+              - $ref: "#/components/schemas/IntApiResponse"
               - type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Error'
+                    $ref: "#/components/schemas/Error"
     NotFound:
       description: Resource not found
       content:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/IntApiResponse'
+              - $ref: "#/components/schemas/IntApiResponse"
               - type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Error'
+                    $ref: "#/components/schemas/Error"
   schemas:
     Error:
       type: object
@@ -2640,11 +2640,8 @@ components:
       required:
         - meta
       properties:
-        data:
-          type: object
-          description: Response payload (specific type defined by endpoint)
         meta:
-          $ref: '#/components/schemas/IntApiMeta'
+          $ref: "#/components/schemas/IntApiMeta"
     IntApiListResponse:
       type: object
       properties:
@@ -2658,7 +2655,7 @@ components:
               items: {}
         meta:
           allOf:
-            - $ref: '#/components/schemas/IntApiMeta'
+            - $ref: "#/components/schemas/IntApiMeta"
             - type: object
               properties:
                 pagination:
@@ -2684,7 +2681,7 @@ components:
           format: date-time
     ExternalSystem:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -2783,7 +2780,7 @@ components:
           format: date-time
     Connection:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -2889,7 +2886,7 @@ components:
           additionalProperties: true
     FHIRBundle:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -2965,7 +2962,7 @@ components:
           additionalProperties: true
     FHIRMappingProfile:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3049,7 +3046,7 @@ components:
           format: date-time
     HL7Message:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3142,7 +3139,7 @@ components:
           format: date-time
     HL7MappingProfile:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3199,7 +3196,7 @@ components:
           additionalProperties: true
     IntegrationJob:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3301,7 +3298,7 @@ components:
           additionalProperties: true
     IntegrationRun:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3391,7 +3388,7 @@ components:
           format: date-time
     DataImportBatch:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3518,7 +3515,7 @@ components:
           format: date-time
     DataExportBatch:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3626,7 +3623,7 @@ components:
           format: date-time
     EventSubscription:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3697,7 +3694,7 @@ components:
           additionalProperties: true
     EventDelivery:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3769,7 +3766,7 @@ components:
           additionalProperties: true
     APIClient:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3857,7 +3854,7 @@ components:
           format: date-time
     APICredential:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3919,7 +3916,7 @@ components:
           additionalProperties: true
     InterfaceError:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -4008,7 +4005,7 @@ components:
           additionalProperties: true
     InterfaceHealthCheck:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id

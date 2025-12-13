@@ -61,26 +61,26 @@ paths:
       summary: List workflow definitions
       operationId: listWorkflowDefinitions
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: category
           in: query
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of workflow definitions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/WorkflowDefinition'
+                          $ref: "#/components/schemas/WorkflowDefinition"
     post:
       tags:
         - Workflow Definitions
@@ -92,25 +92,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/WorkflowDefinitionInput'
+                      $ref: "#/components/schemas/WorkflowDefinitionInput"
       responses:
-        '201':
+        "201":
           description: Workflow definition created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/WorkflowDefinition'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/WorkflowDefinition"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /workflow-definitions/{id}:
     get:
       tags:
@@ -118,65 +118,65 @@ paths:
       summary: Get workflow definition by ID
       operationId: getWorkflowDefinition
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Workflow definition details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/WorkflowDefinition'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/WorkflowDefinition"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Workflow Definitions
       summary: Update workflow definition
       operationId: updateWorkflowDefinition
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/WorkflowDefinitionUpdate'
+                      $ref: "#/components/schemas/WorkflowDefinitionUpdate"
       responses:
-        '200':
+        "200":
           description: Workflow definition updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/WorkflowDefinition'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/WorkflowDefinition"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Workflow Definitions
       summary: Delete workflow definition
       operationId: deleteWorkflowDefinition
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Workflow definition deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /workflow-definitions/{id}/states:
     get:
       tags:
@@ -184,17 +184,17 @@ paths:
       summary: List workflow definition states
       operationId: listWorkflowDefinitionStates
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of states
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -203,7 +203,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/WorkflowState'
+                              $ref: "#/components/schemas/WorkflowState"
   /workflow-definitions/{id}/transitions:
     get:
       tags:
@@ -211,17 +211,17 @@ paths:
       summary: List workflow definition transitions
       operationId: listWorkflowDefinitionTransitions
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of transitions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -230,7 +230,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/WorkflowTransition'
+                              $ref: "#/components/schemas/WorkflowTransition"
   /workflow-instances:
     get:
       tags:
@@ -238,8 +238,8 @@ paths:
       summary: List workflow instances
       operationId: listWorkflowInstances
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: patientId
           in: query
           schema:
@@ -258,19 +258,19 @@ paths:
               - completed
               - cancelled
       responses:
-        '200':
+        "200":
           description: List of workflow instances
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/WorkflowInstance'
+                          $ref: "#/components/schemas/WorkflowInstance"
     post:
       tags:
         - Workflow Instances
@@ -282,25 +282,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/WorkflowInstanceInput'
+                      $ref: "#/components/schemas/WorkflowInstanceInput"
       responses:
-        '201':
+        "201":
           description: Workflow instance created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/WorkflowInstance'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/WorkflowInstance"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /workflow-instances/{id}:
     get:
       tags:
@@ -308,65 +308,65 @@ paths:
       summary: Get workflow instance by ID
       operationId: getWorkflowInstance
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Workflow instance details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/WorkflowInstance'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/WorkflowInstance"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Workflow Instances
       summary: Update workflow instance
       operationId: updateWorkflowInstance
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/WorkflowInstanceUpdate'
+                      $ref: "#/components/schemas/WorkflowInstanceUpdate"
       responses:
-        '200':
+        "200":
           description: Workflow instance updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/WorkflowInstance'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/WorkflowInstance"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Workflow Instances
       summary: Delete workflow instance
       operationId: deleteWorkflowInstance
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Workflow instance deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /workflow-instances/{id}/tasks:
     get:
       tags:
@@ -374,17 +374,17 @@ paths:
       summary: List workflow instance tasks
       operationId: listWorkflowInstanceTasks
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of tasks
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -393,7 +393,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/Task'
+                              $ref: "#/components/schemas/Task"
   /workflow-instances/{id}/events:
     get:
       tags:
@@ -401,17 +401,17 @@ paths:
       summary: List workflow instance events
       operationId: listWorkflowInstanceEvents
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of events
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -420,7 +420,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/WorkflowEvent'
+                              $ref: "#/components/schemas/WorkflowEvent"
   /workflow-instances/{id}/audit-events:
     get:
       tags:
@@ -428,17 +428,17 @@ paths:
       summary: List workflow instance audit events
       operationId: listWorkflowInstanceAuditEvents
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of audit events
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -447,7 +447,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/AuditEvent'
+                              $ref: "#/components/schemas/AuditEvent"
   /care-pathway-templates:
     get:
       tags:
@@ -455,26 +455,26 @@ paths:
       summary: List care pathway templates
       operationId: listCarePathwayTemplates
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: category
           in: query
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of care pathway templates
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/CarePathwayTemplate'
+                          $ref: "#/components/schemas/CarePathwayTemplate"
     post:
       tags:
         - Care Pathway Templates
@@ -486,25 +486,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/CarePathwayTemplateInput'
+                      $ref: "#/components/schemas/CarePathwayTemplateInput"
       responses:
-        '201':
+        "201":
           description: Care pathway template created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/CarePathwayTemplate'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/CarePathwayTemplate"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /care-pathway-templates/{id}:
     get:
       tags:
@@ -512,65 +512,65 @@ paths:
       summary: Get care pathway template by ID
       operationId: getCarePathwayTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Care pathway template details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/CarePathwayTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/CarePathwayTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Care Pathway Templates
       summary: Update care pathway template
       operationId: updateCarePathwayTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/CarePathwayTemplateUpdate'
+                      $ref: "#/components/schemas/CarePathwayTemplateUpdate"
       responses:
-        '200':
+        "200":
           description: Care pathway template updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/CarePathwayTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/CarePathwayTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Care Pathway Templates
       summary: Delete care pathway template
       operationId: deleteCarePathwayTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Care pathway template deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /care-pathway-templates/{id}/steps:
     get:
       tags:
@@ -578,17 +578,17 @@ paths:
       summary: List care pathway template steps
       operationId: listCarePathwayTemplateSteps
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of steps
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -597,7 +597,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/PathwayStep'
+                              $ref: "#/components/schemas/PathwayStep"
   /care-pathway-templates/{id}/order-set-templates:
     get:
       tags:
@@ -605,17 +605,17 @@ paths:
       summary: List care pathway template order set templates
       operationId: listCarePathwayTemplateOrderSetTemplates
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of order set templates
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -624,7 +624,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/OrderSetTemplate'
+                              $ref: "#/components/schemas/OrderSetTemplate"
   /care-plans:
     get:
       tags:
@@ -632,8 +632,8 @@ paths:
       summary: List care plans
       operationId: listCarePlans
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: patientId
           in: query
           schema:
@@ -649,19 +649,19 @@ paths:
               - completed
               - cancelled
       responses:
-        '200':
+        "200":
           description: List of care plans
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/CarePlan'
+                          $ref: "#/components/schemas/CarePlan"
     post:
       tags:
         - Care Plans
@@ -673,25 +673,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/CarePlanInput'
+                      $ref: "#/components/schemas/CarePlanInput"
       responses:
-        '201':
+        "201":
           description: Care plan created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/CarePlan'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/CarePlan"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /care-plans/{id}:
     get:
       tags:
@@ -699,65 +699,65 @@ paths:
       summary: Get care plan by ID
       operationId: getCarePlan
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Care plan details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/CarePlan'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/CarePlan"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Care Plans
       summary: Update care plan
       operationId: updateCarePlan
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/CarePlanUpdate'
+                      $ref: "#/components/schemas/CarePlanUpdate"
       responses:
-        '200':
+        "200":
           description: Care plan updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/CarePlan'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/CarePlan"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Care Plans
       summary: Delete care plan
       operationId: deleteCarePlan
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Care plan deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /care-plans/{id}/goals:
     get:
       tags:
@@ -765,17 +765,17 @@ paths:
       summary: List care plan goals
       operationId: listCarePlanGoals
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of goals
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -784,7 +784,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/CarePlanGoal'
+                              $ref: "#/components/schemas/CarePlanGoal"
   /care-plans/{id}/tasks:
     get:
       tags:
@@ -792,17 +792,17 @@ paths:
       summary: List care plan tasks
       operationId: listCarePlanTasks
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of tasks
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -811,7 +811,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/Task'
+                              $ref: "#/components/schemas/Task"
   /care-plans/{id}/checklists:
     get:
       tags:
@@ -819,17 +819,17 @@ paths:
       summary: List care plan checklists
       operationId: listCarePlanChecklists
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of checklists
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -838,7 +838,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ChecklistInstance'
+                              $ref: "#/components/schemas/ChecklistInstance"
   /episodes-of-care:
     get:
       tags:
@@ -846,8 +846,8 @@ paths:
       summary: List episodes of care
       operationId: listEpisodesOfCare
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: patientId
           in: query
           schema:
@@ -861,19 +861,19 @@ paths:
               - completed
               - cancelled
       responses:
-        '200':
+        "200":
           description: List of episodes of care
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/EpisodeOfCare'
+                          $ref: "#/components/schemas/EpisodeOfCare"
     post:
       tags:
         - Episodes of Care
@@ -885,25 +885,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EpisodeOfCareInput'
+                      $ref: "#/components/schemas/EpisodeOfCareInput"
       responses:
-        '201':
+        "201":
           description: Episode of care created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EpisodeOfCare'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/EpisodeOfCare"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /episodes-of-care/{id}:
     get:
       tags:
@@ -911,65 +911,65 @@ paths:
       summary: Get episode of care by ID
       operationId: getEpisodeOfCare
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Episode of care details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EpisodeOfCare'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EpisodeOfCare"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Episodes of Care
       summary: Update episode of care
       operationId: updateEpisodeOfCare
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EpisodeOfCareUpdate'
+                      $ref: "#/components/schemas/EpisodeOfCareUpdate"
       responses:
-        '200':
+        "200":
           description: Episode of care updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EpisodeOfCare'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EpisodeOfCare"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Episodes of Care
       summary: Delete episode of care
       operationId: deleteEpisodeOfCare
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Episode of care deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /episodes-of-care/{id}/encounters:
     get:
       tags:
@@ -977,17 +977,17 @@ paths:
       summary: List episode of care encounters
       operationId: listEpisodeOfCareEncounters
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of encounters
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -996,7 +996,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/Encounter'
+                              $ref: "#/components/schemas/Encounter"
   /episodes-of-care/{id}/care-plans:
     get:
       tags:
@@ -1004,17 +1004,17 @@ paths:
       summary: List episode of care care plans
       operationId: listEpisodeOfCareCarePlans
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of care plans
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1023,7 +1023,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/CarePlan'
+                              $ref: "#/components/schemas/CarePlan"
   /episodes-of-care/{id}/workflow-instances:
     get:
       tags:
@@ -1031,17 +1031,17 @@ paths:
       summary: List episode of care workflow instances
       operationId: listEpisodeOfCareWorkflowInstances
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of workflow instances
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1050,7 +1050,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/WorkflowInstance'
+                              $ref: "#/components/schemas/WorkflowInstance"
   /tasks:
     get:
       tags:
@@ -1058,8 +1058,8 @@ paths:
       summary: List tasks
       operationId: listTasks
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: patientId
           in: query
           schema:
@@ -1080,19 +1080,19 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of tasks
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Task'
+                          $ref: "#/components/schemas/Task"
     post:
       tags:
         - Tasks
@@ -1104,25 +1104,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/TaskInput'
+                      $ref: "#/components/schemas/TaskInput"
       responses:
-        '201':
+        "201":
           description: Task created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Task'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/Task"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /tasks/{id}:
     get:
       tags:
@@ -1130,65 +1130,65 @@ paths:
       summary: Get task by ID
       operationId: getTask
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Task details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Task'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/Task"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Tasks
       summary: Update task
       operationId: updateTask
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/TaskUpdate'
+                      $ref: "#/components/schemas/TaskUpdate"
       responses:
-        '200':
+        "200":
           description: Task updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Task'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/Task"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Tasks
       summary: Delete task
       operationId: deleteTask
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Task deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /tasks/{id}/comments:
     get:
       tags:
@@ -1196,17 +1196,17 @@ paths:
       summary: List task comments
       operationId: listTaskComments
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of comments
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1215,7 +1215,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/TaskComment'
+                              $ref: "#/components/schemas/TaskComment"
   /tasks/{id}/audit-events:
     get:
       tags:
@@ -1223,17 +1223,17 @@ paths:
       summary: List task audit events
       operationId: listTaskAuditEvents
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of audit events
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1242,7 +1242,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/AuditEvent'
+                              $ref: "#/components/schemas/AuditEvent"
   /task-assignments:
     get:
       tags:
@@ -1250,8 +1250,8 @@ paths:
       summary: List task assignments
       operationId: listTaskAssignments
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: taskId
           in: query
           schema:
@@ -1261,19 +1261,19 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of task assignments
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/TaskAssignment'
+                          $ref: "#/components/schemas/TaskAssignment"
     post:
       tags:
         - Task Assignments
@@ -1285,25 +1285,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/TaskAssignmentInput'
+                      $ref: "#/components/schemas/TaskAssignmentInput"
       responses:
-        '201':
+        "201":
           description: Task assignment created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/TaskAssignment'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/TaskAssignment"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /task-assignments/{id}:
     get:
       tags:
@@ -1311,65 +1311,65 @@ paths:
       summary: Get task assignment by ID
       operationId: getTaskAssignment
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Task assignment details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/TaskAssignment'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/TaskAssignment"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Task Assignments
       summary: Update task assignment
       operationId: updateTaskAssignment
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/TaskAssignmentUpdate'
+                      $ref: "#/components/schemas/TaskAssignmentUpdate"
       responses:
-        '200':
+        "200":
           description: Task assignment updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/TaskAssignment'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/TaskAssignment"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Task Assignments
       summary: Delete task assignment
       operationId: deleteTaskAssignment
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Task assignment deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /alerts:
     get:
       tags:
@@ -1377,8 +1377,8 @@ paths:
       summary: List alerts
       operationId: listAlerts
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: patientId
           in: query
           schema:
@@ -1404,19 +1404,19 @@ paths:
               - resolved
               - dismissed
       responses:
-        '200':
+        "200":
           description: List of alerts
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Alert'
+                          $ref: "#/components/schemas/Alert"
     post:
       tags:
         - Alerts
@@ -1428,25 +1428,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/AlertInput'
+                      $ref: "#/components/schemas/AlertInput"
       responses:
-        '201':
+        "201":
           description: Alert created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Alert'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/Alert"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /alerts/{id}:
     get:
       tags:
@@ -1454,65 +1454,65 @@ paths:
       summary: Get alert by ID
       operationId: getAlert
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Alert details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Alert'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/Alert"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Alerts
       summary: Update alert
       operationId: updateAlert
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/AlertUpdate'
+                      $ref: "#/components/schemas/AlertUpdate"
       responses:
-        '200':
+        "200":
           description: Alert updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Alert'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/Alert"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Alerts
       summary: Delete alert
       operationId: deleteAlert
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Alert deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /alerts/{id}/explanations:
     get:
       tags:
@@ -1520,17 +1520,17 @@ paths:
       summary: List alert explanations
       operationId: listAlertExplanations
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of explanations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1539,7 +1539,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/Explanation'
+                              $ref: "#/components/schemas/Explanation"
   /alerts/{id}/audit-events:
     get:
       tags:
@@ -1547,17 +1547,17 @@ paths:
       summary: List alert audit events
       operationId: listAlertAuditEvents
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of audit events
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1566,7 +1566,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/AuditEvent'
+                              $ref: "#/components/schemas/AuditEvent"
   /handoffs:
     get:
       tags:
@@ -1574,8 +1574,8 @@ paths:
       summary: List handoffs
       operationId: listHandoffs
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: patientId
           in: query
           schema:
@@ -1589,19 +1589,19 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of handoffs
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/Handoff'
+                          $ref: "#/components/schemas/Handoff"
     post:
       tags:
         - Handoffs
@@ -1613,25 +1613,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/HandoffInput'
+                      $ref: "#/components/schemas/HandoffInput"
       responses:
-        '201':
+        "201":
           description: Handoff created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Handoff'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/Handoff"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /handoffs/{id}:
     get:
       tags:
@@ -1639,65 +1639,65 @@ paths:
       summary: Get handoff by ID
       operationId: getHandoff
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Handoff details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Handoff'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/Handoff"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Handoffs
       summary: Update handoff
       operationId: updateHandoff
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/HandoffUpdate'
+                      $ref: "#/components/schemas/HandoffUpdate"
       responses:
-        '200':
+        "200":
           description: Handoff updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/Handoff'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/Handoff"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Handoffs
       summary: Delete handoff
       operationId: deleteHandoff
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Handoff deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /handoffs/{id}/tasks:
     get:
       tags:
@@ -1705,17 +1705,17 @@ paths:
       summary: List handoff tasks
       operationId: listHandoffTasks
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of tasks
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1724,7 +1724,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/Task'
+                              $ref: "#/components/schemas/Task"
   /checklist-templates:
     get:
       tags:
@@ -1732,26 +1732,26 @@ paths:
       summary: List checklist templates
       operationId: listChecklistTemplates
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: category
           in: query
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of checklist templates
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ChecklistTemplate'
+                          $ref: "#/components/schemas/ChecklistTemplate"
     post:
       tags:
         - Checklist Templates
@@ -1763,25 +1763,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ChecklistTemplateInput'
+                      $ref: "#/components/schemas/ChecklistTemplateInput"
       responses:
-        '201':
+        "201":
           description: Checklist template created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ChecklistTemplate'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/ChecklistTemplate"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /checklist-templates/{id}:
     get:
       tags:
@@ -1789,65 +1789,65 @@ paths:
       summary: Get checklist template by ID
       operationId: getChecklistTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Checklist template details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ChecklistTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ChecklistTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Checklist Templates
       summary: Update checklist template
       operationId: updateChecklistTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ChecklistTemplateUpdate'
+                      $ref: "#/components/schemas/ChecklistTemplateUpdate"
       responses:
-        '200':
+        "200":
           description: Checklist template updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ChecklistTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ChecklistTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Checklist Templates
       summary: Delete checklist template
       operationId: deleteChecklistTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Checklist template deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /checklist-templates/{id}/items:
     get:
       tags:
@@ -1855,17 +1855,17 @@ paths:
       summary: List checklist template items
       operationId: listChecklistTemplateItems
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of checklist items
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1874,7 +1874,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ChecklistItem'
+                              $ref: "#/components/schemas/ChecklistItem"
   /checklist-instances:
     get:
       tags:
@@ -1882,8 +1882,8 @@ paths:
       summary: List checklist instances
       operationId: listChecklistInstances
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: patientId
           in: query
           schema:
@@ -1901,19 +1901,19 @@ paths:
               - completed
               - cancelled
       responses:
-        '200':
+        "200":
           description: List of checklist instances
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ChecklistInstance'
+                          $ref: "#/components/schemas/ChecklistInstance"
     post:
       tags:
         - Checklist Instances
@@ -1925,25 +1925,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ChecklistInstanceInput'
+                      $ref: "#/components/schemas/ChecklistInstanceInput"
       responses:
-        '201':
+        "201":
           description: Checklist instance created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ChecklistInstance'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/ChecklistInstance"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /checklist-instances/{id}:
     get:
       tags:
@@ -1951,65 +1951,65 @@ paths:
       summary: Get checklist instance by ID
       operationId: getChecklistInstance
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Checklist instance details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ChecklistInstance'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ChecklistInstance"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Checklist Instances
       summary: Update checklist instance
       operationId: updateChecklistInstance
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ChecklistInstanceUpdate'
+                      $ref: "#/components/schemas/ChecklistInstanceUpdate"
       responses:
-        '200':
+        "200":
           description: Checklist instance updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ChecklistInstance'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ChecklistInstance"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Checklist Instances
       summary: Delete checklist instance
       operationId: deleteChecklistInstance
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Checklist instance deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /checklist-instances/{id}/items:
     get:
       tags:
@@ -2017,17 +2017,17 @@ paths:
       summary: List checklist instance items
       operationId: listChecklistInstanceItems
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of checklist items
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -2036,7 +2036,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ChecklistItemInstance'
+                              $ref: "#/components/schemas/ChecklistItemInstance"
   /escalation-policies:
     get:
       tags:
@@ -2044,26 +2044,26 @@ paths:
       summary: List escalation policies
       operationId: listEscalationPolicies
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: category
           in: query
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of escalation policies
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/EscalationPolicy'
+                          $ref: "#/components/schemas/EscalationPolicy"
     post:
       tags:
         - Escalation Policies
@@ -2075,25 +2075,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EscalationPolicyInput'
+                      $ref: "#/components/schemas/EscalationPolicyInput"
       responses:
-        '201':
+        "201":
           description: Escalation policy created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EscalationPolicy'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/EscalationPolicy"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /escalation-policies/{id}:
     get:
       tags:
@@ -2101,65 +2101,65 @@ paths:
       summary: Get escalation policy by ID
       operationId: getEscalationPolicy
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Escalation policy details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EscalationPolicy'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EscalationPolicy"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Escalation Policies
       summary: Update escalation policy
       operationId: updateEscalationPolicy
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EscalationPolicyUpdate'
+                      $ref: "#/components/schemas/EscalationPolicyUpdate"
       responses:
-        '200':
+        "200":
           description: Escalation policy updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EscalationPolicy'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EscalationPolicy"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Escalation Policies
       summary: Delete escalation policy
       operationId: deleteEscalationPolicy
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Escalation policy deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /escalation-policies/{id}/rules:
     get:
       tags:
@@ -2167,17 +2167,17 @@ paths:
       summary: List escalation policy rules
       operationId: listEscalationPolicyRules
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of escalation rules
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -2186,7 +2186,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/EscalationRule'
+                              $ref: "#/components/schemas/EscalationRule"
   /routing-rules:
     get:
       tags:
@@ -2194,26 +2194,26 @@ paths:
       summary: List routing rules
       operationId: listRoutingRules
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: enabled
           in: query
           schema:
             type: boolean
       responses:
-        '200':
+        "200":
           description: List of routing rules
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/RoutingRule'
+                          $ref: "#/components/schemas/RoutingRule"
     post:
       tags:
         - Routing Rules
@@ -2225,25 +2225,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/RoutingRuleInput'
+                      $ref: "#/components/schemas/RoutingRuleInput"
       responses:
-        '201':
+        "201":
           description: Routing rule created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/RoutingRule'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/RoutingRule"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /routing-rules/{id}:
     get:
       tags:
@@ -2251,65 +2251,65 @@ paths:
       summary: Get routing rule by ID
       operationId: getRoutingRule
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Routing rule details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/RoutingRule'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/RoutingRule"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Routing Rules
       summary: Update routing rule
       operationId: updateRoutingRule
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/RoutingRuleUpdate'
+                      $ref: "#/components/schemas/RoutingRuleUpdate"
       responses:
-        '200':
+        "200":
           description: Routing rule updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/RoutingRule'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/RoutingRule"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Routing Rules
       summary: Delete routing rule
       operationId: deleteRoutingRule
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Routing rule deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /schedule-templates:
     get:
       tags:
@@ -2317,26 +2317,26 @@ paths:
       summary: List schedule templates
       operationId: listScheduleTemplates
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: category
           in: query
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of schedule templates
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ScheduleTemplate'
+                          $ref: "#/components/schemas/ScheduleTemplate"
     post:
       tags:
         - Schedule Templates
@@ -2348,25 +2348,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ScheduleTemplateInput'
+                      $ref: "#/components/schemas/ScheduleTemplateInput"
       responses:
-        '201':
+        "201":
           description: Schedule template created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ScheduleTemplate'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/ScheduleTemplate"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /schedule-templates/{id}:
     get:
       tags:
@@ -2374,65 +2374,65 @@ paths:
       summary: Get schedule template by ID
       operationId: getScheduleTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Schedule template details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ScheduleTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ScheduleTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Schedule Templates
       summary: Update schedule template
       operationId: updateScheduleTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ScheduleTemplateUpdate'
+                      $ref: "#/components/schemas/ScheduleTemplateUpdate"
       responses:
-        '200':
+        "200":
           description: Schedule template updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ScheduleTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ScheduleTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Schedule Templates
       summary: Delete schedule template
       operationId: deleteScheduleTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Schedule template deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /work-queues:
     get:
       tags:
@@ -2440,8 +2440,8 @@ paths:
       summary: List work queues
       operationId: listWorkQueues
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: teamId
           in: query
           schema:
@@ -2451,19 +2451,19 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of work queues
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/WorkQueue'
+                          $ref: "#/components/schemas/WorkQueue"
     post:
       tags:
         - Work Queues
@@ -2475,25 +2475,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/WorkQueueInput'
+                      $ref: "#/components/schemas/WorkQueueInput"
       responses:
-        '201':
+        "201":
           description: Work queue created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/WorkQueue'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/WorkQueue"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /work-queues/{id}:
     get:
       tags:
@@ -2501,65 +2501,65 @@ paths:
       summary: Get work queue by ID
       operationId: getWorkQueue
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Work queue details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/WorkQueue'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/WorkQueue"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Work Queues
       summary: Update work queue
       operationId: updateWorkQueue
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/WorApiResponse'
+                - $ref: "#/components/schemas/WorApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/WorkQueueUpdate'
+                      $ref: "#/components/schemas/WorkQueueUpdate"
       responses:
-        '200':
+        "200":
           description: Work queue updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiResponse'
+                  - $ref: "#/components/schemas/WorApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/WorkQueue'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/WorkQueue"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Work Queues
       summary: Delete work queue
       operationId: deleteWorkQueue
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Work queue deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /work-queues/{id}/tasks:
     get:
       tags:
@@ -2567,17 +2567,17 @@ paths:
       summary: List work queue tasks
       operationId: listWorkQueueTasks
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of tasks
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -2586,7 +2586,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/Task'
+                              $ref: "#/components/schemas/Task"
   /work-queues/{id}/alerts:
     get:
       tags:
@@ -2594,17 +2594,17 @@ paths:
       summary: List work queue alerts
       operationId: listWorkQueueAlerts
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of alerts
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/WorApiListResponse'
+                  - $ref: "#/components/schemas/WorApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -2613,7 +2613,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/Alert'
+                              $ref: "#/components/schemas/Alert"
 components:
   parameters:
     IdParam:
@@ -2651,22 +2651,22 @@ components:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/WorApiResponse'
+              - $ref: "#/components/schemas/WorApiResponse"
               - type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Error'
+                    $ref: "#/components/schemas/Error"
     NotFound:
       description: Resource not found
       content:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/WorApiResponse'
+              - $ref: "#/components/schemas/WorApiResponse"
               - type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Error'
+                    $ref: "#/components/schemas/Error"
   schemas:
     Error:
       type: object
@@ -2705,11 +2705,8 @@ components:
       required:
         - meta
       properties:
-        data:
-          type: object
-          description: Response payload (specific type defined by endpoint)
         meta:
-          $ref: '#/components/schemas/WorApiMeta'
+          $ref: "#/components/schemas/WorApiMeta"
     WorApiListResponse:
       type: object
       properties:
@@ -2723,7 +2720,7 @@ components:
               items: {}
         meta:
           allOf:
-            - $ref: '#/components/schemas/WorApiMeta'
+            - $ref: "#/components/schemas/WorApiMeta"
             - type: object
               properties:
                 pagination:
@@ -2749,7 +2746,7 @@ components:
           format: date-time
     WorkflowDefinition:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -2842,7 +2839,7 @@ components:
           format: date-time
     WorkflowInstance:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -2942,7 +2939,7 @@ components:
           format: date-time
     CarePathwayTemplate:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3029,7 +3026,7 @@ components:
           format: date-time
     CarePlan:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3142,7 +3139,7 @@ components:
           format: date-time
     EpisodeOfCare:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3223,7 +3220,7 @@ components:
           format: date-time
     Task:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3406,7 +3403,7 @@ components:
           format: date-time
     TaskAssignment:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3466,7 +3463,7 @@ components:
           additionalProperties: true
     Alert:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3600,7 +3597,7 @@ components:
           format: date-time
     Handoff:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3683,7 +3680,7 @@ components:
           additionalProperties: true
     ChecklistTemplate:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3753,7 +3750,7 @@ components:
           format: date-time
     ChecklistInstance:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3844,7 +3841,7 @@ components:
           format: date-time
     EscalationPolicy:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3921,7 +3918,7 @@ components:
           format: date-time
     RoutingRule:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3997,7 +3994,7 @@ components:
           additionalProperties: true
     ScheduleTemplate:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -4050,7 +4047,7 @@ components:
           additionalProperties: true
     WorkQueue:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id

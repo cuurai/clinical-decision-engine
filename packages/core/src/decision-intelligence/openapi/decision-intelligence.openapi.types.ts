@@ -907,8 +907,6 @@ export interface components {
             pageNumber?: number;
         };
         DecApiResponse: {
-            /** @description Response payload (specific type defined by endpoint) */
-            data?: Record<string, never>;
             meta: components["schemas"]["DecApiMeta"];
         };
         DecApiListResponse: {

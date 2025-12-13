@@ -61,8 +61,8 @@ paths:
       summary: List clinical rules
       operationId: listClinicalRules
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: ruleType
           in: query
           schema:
@@ -77,19 +77,19 @@ paths:
           schema:
             type: boolean
       responses:
-        '200':
+        "200":
           description: List of clinical rules
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ClinicalRule'
+                          $ref: "#/components/schemas/ClinicalRule"
     post:
       tags:
         - Clinical Rules
@@ -101,25 +101,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ClinicalRuleInput'
+                      $ref: "#/components/schemas/ClinicalRuleInput"
       responses:
-        '201':
+        "201":
           description: Clinical rule created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ClinicalRule'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/ClinicalRule"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /clinical-rules/{id}:
     get:
       tags:
@@ -127,65 +127,65 @@ paths:
       summary: Get clinical rule by ID
       operationId: getClinicalRule
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Clinical rule details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ClinicalRule'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ClinicalRule"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Clinical Rules
       summary: Update clinical rule
       operationId: updateClinicalRule
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ClinicalRuleUpdate'
+                      $ref: "#/components/schemas/ClinicalRuleUpdate"
       responses:
-        '200':
+        "200":
           description: Clinical rule updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ClinicalRule'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ClinicalRule"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Clinical Rules
       summary: Delete clinical rule
       operationId: deleteClinicalRule
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Clinical rule deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /clinical-rules/{id}/versions:
     get:
       tags:
@@ -193,17 +193,17 @@ paths:
       summary: List clinical rule versions
       operationId: listClinicalRuleVersions
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of rule versions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -212,7 +212,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ClinicalRuleVersion'
+                              $ref: "#/components/schemas/ClinicalRuleVersion"
   /clinical-rules/{id}/tests:
     get:
       tags:
@@ -220,17 +220,17 @@ paths:
       summary: List clinical rule tests
       operationId: listClinicalRuleTests
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of rule tests
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -239,7 +239,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/RuleTest'
+                              $ref: "#/components/schemas/RuleTest"
   /rule-sets:
     get:
       tags:
@@ -247,26 +247,26 @@ paths:
       summary: List rule sets
       operationId: listRuleSets
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: category
           in: query
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of rule sets
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/RuleSet'
+                          $ref: "#/components/schemas/RuleSet"
     post:
       tags:
         - Rule Sets
@@ -278,25 +278,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/RuleSetInput'
+                      $ref: "#/components/schemas/RuleSetInput"
       responses:
-        '201':
+        "201":
           description: Rule set created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/RuleSet'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/RuleSet"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /rule-sets/{id}:
     get:
       tags:
@@ -304,65 +304,65 @@ paths:
       summary: Get rule set by ID
       operationId: getRuleSet
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Rule set details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/RuleSet'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/RuleSet"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Rule Sets
       summary: Update rule set
       operationId: updateRuleSet
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/RuleSetUpdate'
+                      $ref: "#/components/schemas/RuleSetUpdate"
       responses:
-        '200':
+        "200":
           description: Rule set updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/RuleSet'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/RuleSet"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Rule Sets
       summary: Delete rule set
       operationId: deleteRuleSet
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Rule set deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /rule-sets/{id}/clinical-rules:
     get:
       tags:
@@ -370,17 +370,17 @@ paths:
       summary: List rule set clinical rules
       operationId: listRuleSetClinicalRules
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of clinical rules
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -389,7 +389,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ClinicalRule'
+                              $ref: "#/components/schemas/ClinicalRule"
   /guidelines:
     get:
       tags:
@@ -397,8 +397,8 @@ paths:
       summary: List clinical guidelines
       operationId: listGuidelines
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: organization
           in: query
           schema:
@@ -408,19 +408,19 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of clinical guidelines
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ClinicalGuideline'
+                          $ref: "#/components/schemas/ClinicalGuideline"
     post:
       tags:
         - Clinical Guidelines
@@ -432,25 +432,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ClinicalGuidelineInput'
+                      $ref: "#/components/schemas/ClinicalGuidelineInput"
       responses:
-        '201':
+        "201":
           description: Clinical guideline created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ClinicalGuideline'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/ClinicalGuideline"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /guidelines/{id}:
     get:
       tags:
@@ -458,65 +458,65 @@ paths:
       summary: Get clinical guideline by ID
       operationId: getGuideline
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Clinical guideline details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ClinicalGuideline'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ClinicalGuideline"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Clinical Guidelines
       summary: Update clinical guideline
       operationId: updateGuideline
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ClinicalGuidelineUpdate'
+                      $ref: "#/components/schemas/ClinicalGuidelineUpdate"
       responses:
-        '200':
+        "200":
           description: Clinical guideline updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ClinicalGuideline'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ClinicalGuideline"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Clinical Guidelines
       summary: Delete clinical guideline
       operationId: deleteGuideline
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Clinical guideline deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /guidelines/{id}/sections:
     get:
       tags:
@@ -524,17 +524,17 @@ paths:
       summary: List guideline sections
       operationId: listGuidelineSections
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of guideline sections
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -543,7 +543,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/GuidelineSection'
+                              $ref: "#/components/schemas/GuidelineSection"
   /guidelines/{id}/evidence-citations:
     get:
       tags:
@@ -551,17 +551,17 @@ paths:
       summary: List guideline evidence citations
       operationId: listGuidelineEvidenceCitations
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of evidence citations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -570,7 +570,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/EvidenceCitation'
+                              $ref: "#/components/schemas/EvidenceCitation"
   /care-protocols:
     get:
       tags:
@@ -578,8 +578,8 @@ paths:
       summary: List care protocol templates
       operationId: listCareProtocols
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: category
           in: query
           schema:
@@ -593,19 +593,19 @@ paths:
               - active
               - deprecated
       responses:
-        '200':
+        "200":
           description: List of care protocol templates
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/CareProtocolTemplate'
+                          $ref: "#/components/schemas/CareProtocolTemplate"
     post:
       tags:
         - Care Protocol Templates
@@ -617,25 +617,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/CareProtocolTemplateInput'
+                      $ref: "#/components/schemas/CareProtocolTemplateInput"
       responses:
-        '201':
+        "201":
           description: Care protocol template created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/CareProtocolTemplate'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/CareProtocolTemplate"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /care-protocols/{id}:
     get:
       tags:
@@ -643,65 +643,65 @@ paths:
       summary: Get care protocol template by ID
       operationId: getCareProtocol
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Care protocol template details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/CareProtocolTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/CareProtocolTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Care Protocol Templates
       summary: Update care protocol template
       operationId: updateCareProtocol
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/CareProtocolTemplateUpdate'
+                      $ref: "#/components/schemas/CareProtocolTemplateUpdate"
       responses:
-        '200':
+        "200":
           description: Care protocol template updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/CareProtocolTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/CareProtocolTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Care Protocol Templates
       summary: Delete care protocol template
       operationId: deleteCareProtocol
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Care protocol template deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /care-protocols/{id}/steps:
     get:
       tags:
@@ -709,17 +709,17 @@ paths:
       summary: List care protocol steps
       operationId: listCareProtocolSteps
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of protocol steps
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -728,7 +728,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ProtocolStep'
+                              $ref: "#/components/schemas/ProtocolStep"
   /care-protocols/{id}/order-sets:
     get:
       tags:
@@ -736,17 +736,17 @@ paths:
       summary: List care protocol order sets
       operationId: listCareProtocolOrderSets
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of order sets
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -755,7 +755,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/OrderSetTemplate'
+                              $ref: "#/components/schemas/OrderSetTemplate"
   /order-set-templates:
     get:
       tags:
@@ -763,8 +763,8 @@ paths:
       summary: List order set templates
       operationId: listOrderSetTemplates
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: category
           in: query
           schema:
@@ -778,19 +778,19 @@ paths:
               - active
               - deprecated
       responses:
-        '200':
+        "200":
           description: List of order set templates
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/OrderSetTemplate'
+                          $ref: "#/components/schemas/OrderSetTemplate"
     post:
       tags:
         - Order Set Templates
@@ -802,25 +802,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/OrderSetTemplateInput'
+                      $ref: "#/components/schemas/OrderSetTemplateInput"
       responses:
-        '201':
+        "201":
           description: Order set template created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/OrderSetTemplate'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/OrderSetTemplate"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /order-set-templates/{id}:
     get:
       tags:
@@ -828,65 +828,65 @@ paths:
       summary: Get order set template by ID
       operationId: getOrderSetTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Order set template details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/OrderSetTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/OrderSetTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Order Set Templates
       summary: Update order set template
       operationId: updateOrderSetTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/OrderSetTemplateUpdate'
+                      $ref: "#/components/schemas/OrderSetTemplateUpdate"
       responses:
-        '200':
+        "200":
           description: Order set template updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/OrderSetTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/OrderSetTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Order Set Templates
       summary: Delete order set template
       operationId: deleteOrderSetTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Order set template deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /order-set-templates/{id}/items:
     get:
       tags:
@@ -894,17 +894,17 @@ paths:
       summary: List order set template items
       operationId: listOrderSetTemplateItems
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of order set items
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -913,7 +913,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/OrderSetItem'
+                              $ref: "#/components/schemas/OrderSetItem"
   /model-definitions:
     get:
       tags:
@@ -921,8 +921,8 @@ paths:
       summary: List model definitions
       operationId: listModelDefinitions
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: modelType
           in: query
           schema:
@@ -943,19 +943,19 @@ paths:
               - deprecated
               - archived
       responses:
-        '200':
+        "200":
           description: List of model definitions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ModelDefinition'
+                          $ref: "#/components/schemas/ModelDefinition"
     post:
       tags:
         - Model Definitions
@@ -967,25 +967,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ModelDefinitionInput'
+                      $ref: "#/components/schemas/ModelDefinitionInput"
       responses:
-        '201':
+        "201":
           description: Model definition created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ModelDefinition'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/ModelDefinition"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /model-definitions/{id}:
     get:
       tags:
@@ -993,65 +993,65 @@ paths:
       summary: Get model definition by ID
       operationId: getModelDefinition
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Model definition details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ModelDefinition'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ModelDefinition"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Model Definitions
       summary: Update model definition
       operationId: updateModelDefinition
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ModelDefinitionUpdate'
+                      $ref: "#/components/schemas/ModelDefinitionUpdate"
       responses:
-        '200':
+        "200":
           description: Model definition updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ModelDefinition'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ModelDefinition"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Model Definitions
       summary: Delete model definition
       operationId: deleteModelDefinition
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Model definition deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /model-definitions/{id}/versions:
     get:
       tags:
@@ -1059,17 +1059,17 @@ paths:
       summary: List model definition versions
       operationId: listModelDefinitionVersions
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of model versions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1078,7 +1078,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ModelVersion'
+                              $ref: "#/components/schemas/ModelVersion"
   /model-definitions/{id}/performance-metrics:
     get:
       tags:
@@ -1086,17 +1086,17 @@ paths:
       summary: List model definition performance metrics
       operationId: listModelDefinitionPerformanceMetrics
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of performance metrics
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1105,7 +1105,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/PerformanceMetric'
+                              $ref: "#/components/schemas/PerformanceMetric"
   /model-versions:
     get:
       tags:
@@ -1113,8 +1113,8 @@ paths:
       summary: List model versions
       operationId: listModelVersions
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: modelDefinitionId
           in: query
           schema:
@@ -1129,19 +1129,19 @@ paths:
               - deployed
               - deprecated
       responses:
-        '200':
+        "200":
           description: List of model versions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ModelVersion'
+                          $ref: "#/components/schemas/ModelVersion"
     post:
       tags:
         - Model Versions
@@ -1153,25 +1153,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ModelVersionInput'
+                      $ref: "#/components/schemas/ModelVersionInput"
       responses:
-        '201':
+        "201":
           description: Model version created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ModelVersion'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/ModelVersion"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /model-versions/{id}:
     get:
       tags:
@@ -1179,65 +1179,65 @@ paths:
       summary: Get model version by ID
       operationId: getModelVersion
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Model version details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ModelVersion'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ModelVersion"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Model Versions
       summary: Update model version
       operationId: updateModelVersion
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ModelVersionUpdate'
+                      $ref: "#/components/schemas/ModelVersionUpdate"
       responses:
-        '200':
+        "200":
           description: Model version updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ModelVersion'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ModelVersion"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Model Versions
       summary: Delete model version
       operationId: deleteModelVersion
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Model version deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /model-versions/{id}/tests:
     get:
       tags:
@@ -1245,17 +1245,17 @@ paths:
       summary: List model version tests
       operationId: listModelVersionTests
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of model tests
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1264,7 +1264,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ModelTest'
+                              $ref: "#/components/schemas/ModelTest"
   /model-versions/{id}/feature-definitions:
     get:
       tags:
@@ -1272,17 +1272,17 @@ paths:
       summary: List model version feature definitions
       operationId: listModelVersionFeatureDefinitions
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of feature definitions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1291,7 +1291,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/FeatureDefinition'
+                              $ref: "#/components/schemas/FeatureDefinition"
   /ontology-terms:
     get:
       tags:
@@ -1299,8 +1299,8 @@ paths:
       summary: Search/browse ontology terms
       operationId: searchOntologyTerms
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: system
           in: query
           schema:
@@ -1316,13 +1316,13 @@ paths:
             type: string
             description: Search term
       responses:
-        '200':
+        "200":
           description: List of ontology terms
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1331,7 +1331,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/OntologyTerm'
+                              $ref: "#/components/schemas/OntologyTerm"
   /ontology-terms/{id}:
     get:
       tags:
@@ -1339,21 +1339,21 @@ paths:
       summary: Get ontology term by ID
       operationId: getOntologyTerm
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Ontology term details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/OntologyTerm'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/OntologyTerm"
+        "404":
+          $ref: "#/components/responses/NotFound"
   /ontology-terms/{id}/children:
     get:
       tags:
@@ -1361,17 +1361,17 @@ paths:
       summary: List ontology term children
       operationId: listOntologyTermChildren
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of child ontology terms
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1380,7 +1380,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/OntologyTerm'
+                              $ref: "#/components/schemas/OntologyTerm"
   /ontology-terms/{id}/parents:
     get:
       tags:
@@ -1388,17 +1388,17 @@ paths:
       summary: List ontology term parents
       operationId: listOntologyTermParents
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of parent ontology terms
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1407,7 +1407,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/OntologyTerm'
+                              $ref: "#/components/schemas/OntologyTerm"
   /ontology-terms/{id}/mappings:
     get:
       tags:
@@ -1415,17 +1415,17 @@ paths:
       summary: List ontology term mappings
       operationId: listOntologyTermMappings
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of term mappings
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1434,7 +1434,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/TermMapping'
+                              $ref: "#/components/schemas/TermMapping"
   /value-sets:
     get:
       tags:
@@ -1442,26 +1442,26 @@ paths:
       summary: List value sets
       operationId: listValueSets
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: category
           in: query
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of value sets
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ValueSet'
+                          $ref: "#/components/schemas/ValueSet"
     post:
       tags:
         - Value Sets
@@ -1473,25 +1473,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ValueSetInput'
+                      $ref: "#/components/schemas/ValueSetInput"
       responses:
-        '201':
+        "201":
           description: Value set created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ValueSet'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/ValueSet"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /value-sets/{id}:
     get:
       tags:
@@ -1499,65 +1499,65 @@ paths:
       summary: Get value set by ID
       operationId: getValueSet
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Value set details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ValueSet'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ValueSet"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Value Sets
       summary: Update value set
       operationId: updateValueSet
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ValueSetUpdate'
+                      $ref: "#/components/schemas/ValueSetUpdate"
       responses:
-        '200':
+        "200":
           description: Value set updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ValueSet'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ValueSet"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Value Sets
       summary: Delete value set
       operationId: deleteValueSet
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Value set deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /value-sets/{id}/codes:
     get:
       tags:
@@ -1565,17 +1565,17 @@ paths:
       summary: List value set codes
       operationId: listValueSetCodes
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of codes
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1584,7 +1584,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ValueSetCode'
+                              $ref: "#/components/schemas/ValueSetCode"
   /concept-maps:
     get:
       tags:
@@ -1592,8 +1592,8 @@ paths:
       summary: List concept maps
       operationId: listConceptMaps
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: sourceSystem
           in: query
           schema:
@@ -1603,19 +1603,19 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of concept maps
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ConceptMap'
+                          $ref: "#/components/schemas/ConceptMap"
     post:
       tags:
         - Concept Maps
@@ -1627,25 +1627,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ConceptMapInput'
+                      $ref: "#/components/schemas/ConceptMapInput"
       responses:
-        '201':
+        "201":
           description: Concept map created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ConceptMap'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/ConceptMap"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /concept-maps/{id}:
     get:
       tags:
@@ -1653,65 +1653,65 @@ paths:
       summary: Get concept map by ID
       operationId: getConceptMap
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Concept map details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ConceptMap'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ConceptMap"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Concept Maps
       summary: Update concept map
       operationId: updateConceptMap
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ConceptMapUpdate'
+                      $ref: "#/components/schemas/ConceptMapUpdate"
       responses:
-        '200':
+        "200":
           description: Concept map updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ConceptMap'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ConceptMap"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Concept Maps
       summary: Delete concept map
       operationId: deleteConceptMap
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Concept map deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /concept-maps/{id}/mappings:
     get:
       tags:
@@ -1719,17 +1719,17 @@ paths:
       summary: List concept map mappings
       operationId: listConceptMapMappings
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of mappings
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1738,7 +1738,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ConceptMapping'
+                              $ref: "#/components/schemas/ConceptMapping"
   /scoring-templates:
     get:
       tags:
@@ -1746,26 +1746,26 @@ paths:
       summary: List scoring templates
       operationId: listScoringTemplates
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: category
           in: query
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of scoring templates
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/ScoringTemplate'
+                          $ref: "#/components/schemas/ScoringTemplate"
     post:
       tags:
         - Scoring Templates
@@ -1777,25 +1777,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ScoringTemplateInput'
+                      $ref: "#/components/schemas/ScoringTemplateInput"
       responses:
-        '201':
+        "201":
           description: Scoring template created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ScoringTemplate'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/ScoringTemplate"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /scoring-templates/{id}:
     get:
       tags:
@@ -1803,65 +1803,65 @@ paths:
       summary: Get scoring template by ID
       operationId: getScoringTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Scoring template details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ScoringTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ScoringTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Scoring Templates
       summary: Update scoring template
       operationId: updateScoringTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/ScoringTemplateUpdate'
+                      $ref: "#/components/schemas/ScoringTemplateUpdate"
       responses:
-        '200':
+        "200":
           description: Scoring template updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/ScoringTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/ScoringTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Scoring Templates
       summary: Delete scoring template
       operationId: deleteScoringTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Scoring template deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /scoring-templates/{id}/items:
     get:
       tags:
@@ -1869,17 +1869,17 @@ paths:
       summary: List scoring template items
       operationId: listScoringTemplateItems
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of scoring items
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -1888,7 +1888,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ScoringItem'
+                              $ref: "#/components/schemas/ScoringItem"
   /questionnaire-templates:
     get:
       tags:
@@ -1896,26 +1896,26 @@ paths:
       summary: List questionnaire templates
       operationId: listQuestionnaireTemplates
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: category
           in: query
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: List of questionnaire templates
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/QuestionnaireTemplate'
+                          $ref: "#/components/schemas/QuestionnaireTemplate"
     post:
       tags:
         - Questionnaire Templates
@@ -1927,25 +1927,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/QuestionnaireTemplateInput'
+                      $ref: "#/components/schemas/QuestionnaireTemplateInput"
       responses:
-        '201':
+        "201":
           description: Questionnaire template created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/QuestionnaireTemplate'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/QuestionnaireTemplate"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /questionnaire-templates/{id}:
     get:
       tags:
@@ -1953,65 +1953,65 @@ paths:
       summary: Get questionnaire template by ID
       operationId: getQuestionnaireTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Questionnaire template details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/QuestionnaireTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/QuestionnaireTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Questionnaire Templates
       summary: Update questionnaire template
       operationId: updateQuestionnaireTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/QuestionnaireTemplateUpdate'
+                      $ref: "#/components/schemas/QuestionnaireTemplateUpdate"
       responses:
-        '200':
+        "200":
           description: Questionnaire template updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/QuestionnaireTemplate'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/QuestionnaireTemplate"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Questionnaire Templates
       summary: Delete questionnaire template
       operationId: deleteQuestionnaireTemplate
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Questionnaire template deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /questionnaire-templates/{id}/questions:
     get:
       tags:
@@ -2019,17 +2019,17 @@ paths:
       summary: List questionnaire template questions
       operationId: listQuestionnaireTemplateQuestions
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of questions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -2038,7 +2038,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/QuestionnaireQuestion'
+                              $ref: "#/components/schemas/QuestionnaireQuestion"
   /evidence-citations:
     get:
       tags:
@@ -2046,8 +2046,8 @@ paths:
       summary: List evidence citations
       operationId: listEvidenceCitations
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: citationType
           in: query
           schema:
@@ -2059,19 +2059,19 @@ paths:
               - systematic-review
               - other
       responses:
-        '200':
+        "200":
           description: List of evidence citations
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/EvidenceCitation'
+                          $ref: "#/components/schemas/EvidenceCitation"
     post:
       tags:
         - Evidence Citations
@@ -2083,25 +2083,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EvidenceCitationInput'
+                      $ref: "#/components/schemas/EvidenceCitationInput"
       responses:
-        '201':
+        "201":
           description: Evidence citation created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EvidenceCitation'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/EvidenceCitation"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /evidence-citations/{id}:
     get:
       tags:
@@ -2109,65 +2109,65 @@ paths:
       summary: Get evidence citation by ID
       operationId: getEvidenceCitation
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Evidence citation details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EvidenceCitation'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EvidenceCitation"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Evidence Citations
       summary: Update evidence citation
       operationId: updateEvidenceCitation
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EvidenceCitationUpdate'
+                      $ref: "#/components/schemas/EvidenceCitationUpdate"
       responses:
-        '200':
+        "200":
           description: Evidence citation updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EvidenceCitation'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EvidenceCitation"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Evidence Citations
       summary: Delete evidence citation
       operationId: deleteEvidenceCitation
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Evidence citation deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /evidence-reviews:
     get:
       tags:
@@ -2175,8 +2175,8 @@ paths:
       summary: List evidence reviews
       operationId: listEvidenceReviews
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: gradeLevel
           in: query
           schema:
@@ -2187,19 +2187,19 @@ paths:
               - low
               - very-low
       responses:
-        '200':
+        "200":
           description: List of evidence reviews
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/EvidenceReview'
+                          $ref: "#/components/schemas/EvidenceReview"
     post:
       tags:
         - Evidence Reviews
@@ -2211,25 +2211,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EvidenceReviewInput'
+                      $ref: "#/components/schemas/EvidenceReviewInput"
       responses:
-        '201':
+        "201":
           description: Evidence review created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EvidenceReview'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/EvidenceReview"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /evidence-reviews/{id}:
     get:
       tags:
@@ -2237,65 +2237,65 @@ paths:
       summary: Get evidence review by ID
       operationId: getEvidenceReview
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Evidence review details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EvidenceReview'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EvidenceReview"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Evidence Reviews
       summary: Update evidence review
       operationId: updateEvidenceReview
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/EvidenceReviewUpdate'
+                      $ref: "#/components/schemas/EvidenceReviewUpdate"
       responses:
-        '200':
+        "200":
           description: Evidence review updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/EvidenceReview'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/EvidenceReview"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Evidence Reviews
       summary: Delete evidence review
       operationId: deleteEvidenceReview
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Evidence review deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /knowledge-packages:
     get:
       tags:
@@ -2303,8 +2303,8 @@ paths:
       summary: List knowledge packages
       operationId: listKnowledgePackages
       parameters:
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
         - name: useCase
           in: query
           schema:
@@ -2318,19 +2318,19 @@ paths:
               - active
               - deprecated
       responses:
-        '200':
+        "200":
           description: List of knowledge packages
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
                         type: array
                         items:
-                          $ref: '#/components/schemas/KnowledgePackage'
+                          $ref: "#/components/schemas/KnowledgePackage"
     post:
       tags:
         - Knowledge Packages
@@ -2342,25 +2342,25 @@ paths:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/KnowledgePackageInput'
+                      $ref: "#/components/schemas/KnowledgePackageInput"
       responses:
-        '201':
+        "201":
           description: Knowledge package created
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/KnowledgePackage'
-        '400':
-          $ref: '#/components/responses/BadRequest'
+                        $ref: "#/components/schemas/KnowledgePackage"
+        "400":
+          $ref: "#/components/responses/BadRequest"
   /knowledge-packages/{id}:
     get:
       tags:
@@ -2368,65 +2368,65 @@ paths:
       summary: Get knowledge package by ID
       operationId: getKnowledgePackage
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '200':
+        "200":
           description: Knowledge package details
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/KnowledgePackage'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/KnowledgePackage"
+        "404":
+          $ref: "#/components/responses/NotFound"
     patch:
       tags:
         - Knowledge Packages
       summary: Update knowledge package
       operationId: updateKnowledgePackage
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - $ref: '#/components/schemas/KnoApiResponse'
+                - $ref: "#/components/schemas/KnoApiResponse"
                 - type: object
                   properties:
                     data:
-                      $ref: '#/components/schemas/KnowledgePackageUpdate'
+                      $ref: "#/components/schemas/KnowledgePackageUpdate"
       responses:
-        '200':
+        "200":
           description: Knowledge package updated
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiResponse'
+                  - $ref: "#/components/schemas/KnoApiResponse"
                   - type: object
                     properties:
                       data:
-                        $ref: '#/components/schemas/KnowledgePackage'
-        '404':
-          $ref: '#/components/responses/NotFound'
+                        $ref: "#/components/schemas/KnowledgePackage"
+        "404":
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Knowledge Packages
       summary: Delete knowledge package
       operationId: deleteKnowledgePackage
       parameters:
-        - $ref: '#/components/parameters/IdParam'
+        - $ref: "#/components/parameters/IdParam"
       responses:
-        '204':
+        "204":
           description: Knowledge package deleted
-        '404':
-          $ref: '#/components/responses/NotFound'
+        "404":
+          $ref: "#/components/responses/NotFound"
   /knowledge-packages/{id}/clinical-rules:
     get:
       tags:
@@ -2434,17 +2434,17 @@ paths:
       summary: List knowledge package clinical rules
       operationId: listKnowledgePackageClinicalRules
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of clinical rules
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -2453,7 +2453,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ClinicalRule'
+                              $ref: "#/components/schemas/ClinicalRule"
   /knowledge-packages/{id}/model-definitions:
     get:
       tags:
@@ -2461,17 +2461,17 @@ paths:
       summary: List knowledge package model definitions
       operationId: listKnowledgePackageModelDefinitions
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of model definitions
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -2480,7 +2480,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ModelDefinition'
+                              $ref: "#/components/schemas/ModelDefinition"
   /knowledge-packages/{id}/value-sets:
     get:
       tags:
@@ -2488,17 +2488,17 @@ paths:
       summary: List knowledge package value sets
       operationId: listKnowledgePackageValueSets
       parameters:
-        - $ref: '#/components/parameters/IdParam'
-        - $ref: '#/components/parameters/PageParam'
-        - $ref: '#/components/parameters/LimitParam'
+        - $ref: "#/components/parameters/IdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
       responses:
-        '200':
+        "200":
           description: List of value sets
           content:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/KnoApiListResponse'
+                  - $ref: "#/components/schemas/KnoApiListResponse"
                   - type: object
                     properties:
                       data:
@@ -2507,7 +2507,7 @@ paths:
                           items:
                             type: array
                             items:
-                              $ref: '#/components/schemas/ValueSet'
+                              $ref: "#/components/schemas/ValueSet"
 components:
   parameters:
     IdParam:
@@ -2545,22 +2545,22 @@ components:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/KnoApiResponse'
+              - $ref: "#/components/schemas/KnoApiResponse"
               - type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Error'
+                    $ref: "#/components/schemas/Error"
     NotFound:
       description: Resource not found
       content:
         application/json:
           schema:
             allOf:
-              - $ref: '#/components/schemas/KnoApiResponse'
+              - $ref: "#/components/schemas/KnoApiResponse"
               - type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Error'
+                    $ref: "#/components/schemas/Error"
   schemas:
     Error:
       type: object
@@ -2599,11 +2599,8 @@ components:
       required:
         - meta
       properties:
-        data:
-          type: object
-          description: Response payload (specific type defined by endpoint)
         meta:
-          $ref: '#/components/schemas/KnoApiMeta'
+          $ref: "#/components/schemas/KnoApiMeta"
     KnoApiListResponse:
       type: object
       properties:
@@ -2617,7 +2614,7 @@ components:
               items: {}
         meta:
           allOf:
-            - $ref: '#/components/schemas/KnoApiMeta'
+            - $ref: "#/components/schemas/KnoApiMeta"
             - type: object
               properties:
                 pagination:
@@ -2643,7 +2640,7 @@ components:
           format: date-time
     ClinicalRule:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -2784,7 +2781,7 @@ components:
           format: date-time
     RuleSet:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -2835,7 +2832,7 @@ components:
           additionalProperties: true
     ClinicalGuideline:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -2954,7 +2951,7 @@ components:
           format: date-time
     CareProtocolTemplate:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3051,7 +3048,7 @@ components:
           format: date-time
     OrderSetTemplate:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3135,7 +3132,7 @@ components:
             - procedure
             - other
         code:
-          $ref: '#/components/schemas/CodeableConcept'
+          $ref: "#/components/schemas/CodeableConcept"
         required:
           type: boolean
         default:
@@ -3150,7 +3147,7 @@ components:
           format: date-time
     ModelDefinition:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3243,7 +3240,7 @@ components:
           additionalProperties: true
     ModelVersion:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3442,7 +3439,7 @@ components:
           format: date-time
     ValueSet:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3512,7 +3509,7 @@ components:
           format: date-time
     ConceptMap:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3595,7 +3592,7 @@ components:
           format: date-time
     ScoringTemplate:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3660,7 +3657,7 @@ components:
         name:
           type: string
         code:
-          $ref: '#/components/schemas/CodeableConcept'
+          $ref: "#/components/schemas/CodeableConcept"
         weight:
           type: number
         order:
@@ -3673,7 +3670,7 @@ components:
           format: date-time
     QuestionnaireTemplate:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3757,7 +3754,7 @@ components:
           format: date-time
     EvidenceCitation:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3856,7 +3853,7 @@ components:
           additionalProperties: true
     EvidenceReview:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -3941,7 +3938,7 @@ components:
           additionalProperties: true
     KnowledgePackage:
       allOf:
-        - $ref: '#/components/schemas/Timestamps'
+        - $ref: "#/components/schemas/Timestamps"
         - type: object
           required:
             - id
@@ -4015,7 +4012,7 @@ components:
         coding:
           type: array
           items:
-            $ref: '#/components/schemas/Coding'
+            $ref: "#/components/schemas/Coding"
         text:
           type: string
     Coding:
