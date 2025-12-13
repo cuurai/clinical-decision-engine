@@ -7,7 +7,7 @@
 
 import type { ListProceduresParams, ListProceduresResponse } from "../../types/index.js";
 import type { ProcedureRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers";
 
 /**
  * List procedures

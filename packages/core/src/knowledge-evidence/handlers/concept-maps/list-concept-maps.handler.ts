@@ -7,7 +7,7 @@
 
 import type { ListConceptMapsParams, ListConceptMapsResponse } from "../../types/index.js";
 import type { ConceptMapRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List concept maps

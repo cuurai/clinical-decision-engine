@@ -6,7 +6,7 @@
  */
 
 import type { DataImportBatchRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete data import batch

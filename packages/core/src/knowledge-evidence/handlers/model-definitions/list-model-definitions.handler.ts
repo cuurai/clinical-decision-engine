@@ -7,7 +7,7 @@
 
 import type { ListModelDefinitionsParams, ListModelDefinitionsResponse } from "../../types/index.js";
 import type { ModelDefinitionRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List model definitions

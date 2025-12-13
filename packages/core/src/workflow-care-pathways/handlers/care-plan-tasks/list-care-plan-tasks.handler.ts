@@ -7,7 +7,7 @@
 
 import type { ListCarePlanTasksResponse } from "../../types/index.js";
 import type { CarePlanTaskRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * List care plan tasks

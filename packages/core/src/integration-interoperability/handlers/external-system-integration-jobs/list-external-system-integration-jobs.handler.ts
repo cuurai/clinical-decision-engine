@@ -7,7 +7,7 @@
 
 import type { ListExternalSystemIntegrationJobsResponse } from "../../types/index.js";
 import type { ExternalSystemIntegrationJobRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List external system integration jobs

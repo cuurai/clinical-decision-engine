@@ -7,7 +7,7 @@
 
 import type { ListKnowledgePackageModelDefinitionsResponse } from "../../types/index.js";
 import type { KnowledgePackageModelDefinitionRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List knowledge package model definitions

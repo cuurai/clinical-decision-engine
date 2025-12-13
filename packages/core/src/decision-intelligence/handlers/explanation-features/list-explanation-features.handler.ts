@@ -7,7 +7,7 @@
 
 import type { ListExplanationFeaturesResponse } from "../../types/index.js";
 import type { ExplanationFeatureRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List explanation features

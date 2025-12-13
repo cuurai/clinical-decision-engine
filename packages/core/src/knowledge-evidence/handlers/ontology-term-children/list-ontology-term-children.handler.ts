@@ -7,7 +7,7 @@
 
 import type { ListOntologyTermChildrenResponse } from "../../types/index.js";
 import type { OntologyTermChildRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List ontology term children

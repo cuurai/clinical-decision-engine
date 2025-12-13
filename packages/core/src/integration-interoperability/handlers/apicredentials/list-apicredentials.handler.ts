@@ -7,7 +7,7 @@
 
 import type { ListAPICredentialsParams, ListAPICredentialsResponse } from "../../types/index.js";
 import type { APICredentialRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List API credentials

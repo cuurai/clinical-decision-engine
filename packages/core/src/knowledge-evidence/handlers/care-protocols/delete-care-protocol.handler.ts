@@ -6,7 +6,7 @@
  */
 
 import type { CareProtocolRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete care protocol template

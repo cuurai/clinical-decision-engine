@@ -7,7 +7,7 @@
 
 import type { ListHLMessagesParams, ListHLMessagesResponse } from "../../types/index.js";
 import type { HL7MessageRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List HL7 messages

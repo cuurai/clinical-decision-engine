@@ -7,7 +7,7 @@
 
 import type { ListFHIRMappingProfileRulesResponse } from "../../types/index.js";
 import type { FHIRMappingProfileRuleRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List FHIR mapping profile rules

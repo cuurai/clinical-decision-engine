@@ -7,7 +7,7 @@
 
 import type { ListDecisionSessionExplanationsResponse } from "../../types/index.js";
 import type { DecisionSessionExplanationRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List decision session explanations

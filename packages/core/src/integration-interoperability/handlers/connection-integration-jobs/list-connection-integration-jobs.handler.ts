@@ -7,7 +7,7 @@
 
 import type { ListConnectionIntegrationJobsResponse } from "../../types/index.js";
 import type { ConnectionIntegrationJobRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List connection integration jobs

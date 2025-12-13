@@ -7,7 +7,7 @@
 
 import type { ListExplanationRuleTracesResponse } from "../../types/index.js";
 import type { ExplanationRuleTraceRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List explanation rule traces

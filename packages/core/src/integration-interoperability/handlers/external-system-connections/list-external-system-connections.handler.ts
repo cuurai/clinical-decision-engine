@@ -7,7 +7,7 @@
 
 import type { ListExternalSystemConnectionsResponse } from "../../types/index.js";
 import type { ExternalSystemConnectionRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List external system connections

@@ -6,7 +6,7 @@
  */
 
 import type { GetDecisionResultResponse } from "../../types/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/decision-intelligence-converters.js";
 

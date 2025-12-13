@@ -7,7 +7,7 @@
 
 import type { ListDecisionRequestsParams, ListDecisionRequestsResponse } from "../../types/index.js";
 import type { DecisionRequestRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List decision requests

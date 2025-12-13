@@ -7,7 +7,7 @@
 
 import type { ListDecisionRequestExplanationsResponse } from "../../types/index.js";
 import type { DecisionRequestExplanationRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List decision request explanations

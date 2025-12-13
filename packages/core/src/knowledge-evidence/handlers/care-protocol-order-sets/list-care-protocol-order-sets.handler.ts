@@ -7,7 +7,7 @@
 
 import type { ListCareProtocolOrderSetsResponse } from "../../types/index.js";
 import type { CareProtocolOrderSetRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List care protocol order sets

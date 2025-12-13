@@ -7,7 +7,7 @@
 
 import type { ListRuleSetsParams, ListRuleSetsResponse } from "../../types/index.js";
 import type { RuleSetRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List rule sets

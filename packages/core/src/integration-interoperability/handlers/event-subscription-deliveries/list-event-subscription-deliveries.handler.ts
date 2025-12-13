@@ -7,7 +7,7 @@
 
 import type { ListEventSubscriptionDeliveriesResponse } from "../../types/index.js";
 import type { EventSubscriptionDeliveryRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List event subscription deliveries

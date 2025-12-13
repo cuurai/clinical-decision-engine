@@ -7,7 +7,7 @@
 
 import type { ListEscalationPolicyRulesResponse } from "../../types/index.js";
 import type { EscalationPolicyRuleRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * List escalation policy rules

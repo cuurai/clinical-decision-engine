@@ -7,7 +7,7 @@
 
 import type { ListSimulationScenarioRunsResponse } from "../../types/index.js";
 import type { SimulationScenarioRunRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List simulation scenario runs

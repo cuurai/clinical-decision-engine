@@ -7,7 +7,7 @@
 
 import type { ListDataExportBatchErrorsResponse } from "../../types/index.js";
 import type { DataExportBatchErrorRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List data export batch errors

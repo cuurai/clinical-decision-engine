@@ -7,7 +7,7 @@
 
 import type { ListHLMappingProfilesParams, ListHLMappingProfilesResponse } from "../../types/index.js";
 import type { HL7MappingProfileRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List HL7 mapping profiles

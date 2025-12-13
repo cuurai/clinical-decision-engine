@@ -7,7 +7,7 @@
 
 import type { ListExternalSystemsParams, ListExternalSystemsResponse } from "../../types/index.js";
 import type { ExternalSystemRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List external systems

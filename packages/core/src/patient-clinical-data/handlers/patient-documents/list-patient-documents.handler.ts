@@ -7,7 +7,7 @@
 
 import type { ListPatientDocumentsResponse } from "../../types/index.js";
 import type { PatientDocumentRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers";
 
 /**
  * List patient documents

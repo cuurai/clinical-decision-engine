@@ -6,7 +6,7 @@
  */
 
 import type { GetCareProtocolResponse } from "../../types/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/knowledge-evidence-converters.js";
 

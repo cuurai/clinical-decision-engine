@@ -7,7 +7,7 @@
 
 import type { ListDiagnosticReportImagingStudiesResponse } from "../../types/index.js";
 import type { DiagnosticReportImagingStudyRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers";
 
 /**
  * List diagnostic report imaging studies

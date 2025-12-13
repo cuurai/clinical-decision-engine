@@ -7,7 +7,7 @@
 
 import type { ListWorkflowInstanceAuditEventsResponse } from "../../types/index.js";
 import type { WorkflowInstanceAuditEventRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * List workflow instance audit events

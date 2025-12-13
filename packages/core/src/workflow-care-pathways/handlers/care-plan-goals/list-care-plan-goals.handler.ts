@@ -7,7 +7,7 @@
 
 import type { ListCarePlanGoalsResponse } from "../../types/index.js";
 import type { CarePlanGoalRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * List care plan goals

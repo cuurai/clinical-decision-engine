@@ -7,7 +7,7 @@
 
 import type { ListKnowledgePackageValueSetsResponse } from "../../types/index.js";
 import type { KnowledgePackageValueSetRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List knowledge package value sets

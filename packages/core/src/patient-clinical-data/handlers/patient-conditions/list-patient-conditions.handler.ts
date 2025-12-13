@@ -7,7 +7,7 @@
 
 import type { ListPatientConditionsResponse } from "../../types/index.js";
 import type { PatientConditionRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers";
 
 /**
  * List patient conditions

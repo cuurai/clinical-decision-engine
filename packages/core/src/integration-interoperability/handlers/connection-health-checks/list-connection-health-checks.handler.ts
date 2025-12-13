@@ -7,7 +7,7 @@
 
 import type { ListConnectionHealthChecksResponse } from "../../types/index.js";
 import type { ConnectionHealthCheckRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List connection health checks

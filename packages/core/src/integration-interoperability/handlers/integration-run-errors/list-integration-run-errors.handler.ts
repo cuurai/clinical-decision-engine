@@ -7,7 +7,7 @@
 
 import type { ListIntegrationRunErrorsResponse } from "../../types/index.js";
 import type { IntegrationRunErrorRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List integration run errors

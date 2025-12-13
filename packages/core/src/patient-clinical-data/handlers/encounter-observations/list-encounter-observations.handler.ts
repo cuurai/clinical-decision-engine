@@ -7,7 +7,7 @@
 
 import type { ListEncounterObservationsResponse } from "../../types/index.js";
 import type { EncounterObservationRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers";
 
 /**
  * List encounter observations

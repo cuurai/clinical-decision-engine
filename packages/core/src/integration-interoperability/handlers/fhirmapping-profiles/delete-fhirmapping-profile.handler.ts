@@ -6,7 +6,7 @@
  */
 
 import type { FHIRMappingProfileRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete FHIR mapping profile

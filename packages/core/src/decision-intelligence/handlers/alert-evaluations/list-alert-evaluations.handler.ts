@@ -7,7 +7,7 @@
 
 import type { ListAlertEvaluationsParams, ListAlertEvaluationsResponse } from "../../types/index.js";
 import type { AlertEvaluationRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List alert evaluations

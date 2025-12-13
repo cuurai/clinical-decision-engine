@@ -7,7 +7,7 @@
 
 import type { ListChecklistInstanceItemsResponse } from "../../types/index.js";
 import type { ChecklistInstanceItemRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * List checklist instance items

@@ -7,7 +7,7 @@
 
 import type { ListEvidenceCitationsParams, ListEvidenceCitationsResponse } from "../../types/index.js";
 import type { EvidenceCitationRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List evidence citations

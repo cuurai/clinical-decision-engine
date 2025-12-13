@@ -7,7 +7,7 @@
 
 import type { ListOntologyTermMappingsResponse } from "../../types/index.js";
 import type { OntologyTermMappingRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List ontology term mappings

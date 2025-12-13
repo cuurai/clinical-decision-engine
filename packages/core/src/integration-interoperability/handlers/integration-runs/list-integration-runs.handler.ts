@@ -7,7 +7,7 @@
 
 import type { ListIntegrationRunsParams, ListIntegrationRunsResponse } from "../../types/index.js";
 import type { IntegrationRunRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List integration runs

@@ -7,7 +7,7 @@
 
 import type { ListCarePlanChecklistsResponse } from "../../types/index.js";
 import type { CarePlanChecklistRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * List care plan checklists

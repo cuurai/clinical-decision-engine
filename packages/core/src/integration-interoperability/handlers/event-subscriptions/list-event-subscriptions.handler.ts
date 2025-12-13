@@ -7,7 +7,7 @@
 
 import type { ListEventSubscriptionsParams, ListEventSubscriptionsResponse } from "../../types/index.js";
 import type { EventSubscriptionRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List event subscriptions

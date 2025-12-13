@@ -7,7 +7,7 @@
 
 import type { ListAPIClientsParams, ListAPIClientsResponse } from "../../types/index.js";
 import type { APIClientRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List API clients

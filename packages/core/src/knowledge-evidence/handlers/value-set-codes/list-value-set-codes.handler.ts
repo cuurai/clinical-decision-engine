@@ -7,7 +7,7 @@
 
 import type { ListValueSetCodesResponse } from "../../types/index.js";
 import type { ValueSetCodeRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List value set codes

@@ -7,7 +7,7 @@
 
 import type { ListOrderSetTemplatesParams, ListOrderSetTemplatesResponse } from "../../types/index.js";
 import type { OrderSetTemplateRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List order set templates

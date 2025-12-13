@@ -7,7 +7,7 @@
 
 import type { ListConnectionsParams, ListConnectionsResponse } from "../../types/index.js";
 import type { ConnectionRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List connections

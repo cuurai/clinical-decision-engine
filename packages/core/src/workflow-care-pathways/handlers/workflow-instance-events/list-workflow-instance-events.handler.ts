@@ -7,7 +7,7 @@
 
 import type { ListWorkflowInstanceEventsResponse } from "../../types/index.js";
 import type { WorkflowInstanceEventRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * List workflow instance events

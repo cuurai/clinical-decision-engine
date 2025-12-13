@@ -7,7 +7,7 @@
 
 import type { GetChecklistInstanceResponse } from "../../types/index.js";
 import type { ChecklistInstanceRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/workflow-care-pathways-converters.js";
 

@@ -6,7 +6,7 @@
  */
 
 import type { OrderSetTemplateRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete order set template

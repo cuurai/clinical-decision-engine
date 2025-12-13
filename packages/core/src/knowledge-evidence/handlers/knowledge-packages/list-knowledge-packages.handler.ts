@@ -7,7 +7,7 @@
 
 import type { ListKnowledgePackagesParams, ListKnowledgePackagesResponse } from "../../types/index.js";
 import type { KnowledgePackageRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List knowledge packages

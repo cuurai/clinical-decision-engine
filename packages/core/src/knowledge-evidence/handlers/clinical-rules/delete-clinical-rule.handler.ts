@@ -6,7 +6,7 @@
  */
 
 import type { ClinicalRuleRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete clinical rule

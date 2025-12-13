@@ -7,7 +7,7 @@
 
 import type { ListExperimentArmsResponse } from "../../types/index.js";
 import type { ExperimentArmRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List experiment arms

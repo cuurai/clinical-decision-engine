@@ -7,7 +7,7 @@
 
 import type { CreateThresholdProfileResponse, ThresholdProfileInput } from "../../types/index.js";
 // TODO: Uncomment when implementing handler logic
-// import { decTransactionId } from "../../shared/helpers";
+// import { decTransactionId } from "../../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/decision-intelligence-converters.js";

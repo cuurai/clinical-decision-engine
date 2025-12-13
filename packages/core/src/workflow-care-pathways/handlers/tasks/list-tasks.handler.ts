@@ -7,7 +7,7 @@
 
 import type { ListTasksParams, ListTasksResponse } from "../../types/index.js";
 import type { TaskRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * List tasks

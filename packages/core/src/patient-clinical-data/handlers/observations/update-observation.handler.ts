@@ -7,7 +7,7 @@
 
 import type { ObservationUpdate, UpdateObservationResponse } from "../../types/index.js";
 // TODO: Uncomment when implementing handler logic
-// import { pcTransactionId } from "../../shared/helpers";
+// import { pcTransactionId } from "../../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/patient-clinical-data-converters.js";

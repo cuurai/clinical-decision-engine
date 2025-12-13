@@ -7,7 +7,7 @@
 
 import type { ListQuestionnaireTemplateQuestionsResponse } from "../../types/index.js";
 import type { QuestionnaireTemplateQuestionRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List questionnaire template questions

@@ -7,7 +7,7 @@
 
 import type { ListEncounterNotesResponse } from "../../types/index.js";
 import type { EncounterNoteRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers";
 
 /**
  * List encounter notes

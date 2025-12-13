@@ -7,7 +7,7 @@
 
 import type { ListDecisionPoliciesParams, ListDecisionPoliciesResponse } from "../../types/index.js";
 import type { DecisionPolicyRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List decision policies

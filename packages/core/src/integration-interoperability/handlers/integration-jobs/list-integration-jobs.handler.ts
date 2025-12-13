@@ -7,7 +7,7 @@
 
 import type { ListIntegrationJobsParams, ListIntegrationJobsResponse } from "../../types/index.js";
 import type { IntegrationJobRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List integration jobs

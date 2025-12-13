@@ -7,7 +7,7 @@
 
 import type { ListScoringTemplateItemsResponse } from "../../types/index.js";
 import type { ScoringTemplateItemRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List scoring template items

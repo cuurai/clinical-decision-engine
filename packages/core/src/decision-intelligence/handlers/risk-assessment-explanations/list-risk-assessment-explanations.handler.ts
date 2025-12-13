@@ -7,7 +7,7 @@
 
 import type { ListRiskAssessmentExplanationsResponse } from "../../types/index.js";
 import type { RiskAssessmentExplanationRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List risk assessment explanations

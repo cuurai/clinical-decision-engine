@@ -7,7 +7,7 @@
 
 import type { ListDiagnosticReportObservationsResponse } from "../../types/index.js";
 import type { DiagnosticReportObservationRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers";
 
 /**
  * List diagnostic report observations

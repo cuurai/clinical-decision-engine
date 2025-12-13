@@ -7,7 +7,7 @@
 
 import type { ListGuidelinesParams, ListGuidelinesResponse } from "../../types/index.js";
 import type { GuidelineRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List clinical guidelines

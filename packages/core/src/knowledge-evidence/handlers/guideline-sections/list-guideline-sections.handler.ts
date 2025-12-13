@@ -7,7 +7,7 @@
 
 import type { ListGuidelineSectionsResponse } from "../../types/index.js";
 import type { GuidelineSectionRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List guideline sections

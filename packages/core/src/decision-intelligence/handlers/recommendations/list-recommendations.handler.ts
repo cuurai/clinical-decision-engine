@@ -7,7 +7,7 @@
 
 import type { ListRecommendationsParams, ListRecommendationsResponse } from "../../types/index.js";
 import type { RecommendationRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List recommendations

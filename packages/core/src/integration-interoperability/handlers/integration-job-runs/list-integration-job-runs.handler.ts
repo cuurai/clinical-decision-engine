@@ -7,7 +7,7 @@
 
 import type { ListIntegrationJobRunsResponse } from "../../types/index.js";
 import type { IntegrationJobRunRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List integration job runs

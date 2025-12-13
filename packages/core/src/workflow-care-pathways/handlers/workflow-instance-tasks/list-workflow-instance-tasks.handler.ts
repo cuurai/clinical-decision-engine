@@ -7,7 +7,7 @@
 
 import type { ListWorkflowInstanceTasksResponse } from "../../types/index.js";
 import type { WorkflowInstanceTaskRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * List workflow instance tasks

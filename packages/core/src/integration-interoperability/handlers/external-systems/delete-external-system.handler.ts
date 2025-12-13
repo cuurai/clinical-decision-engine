@@ -6,7 +6,7 @@
  */
 
 import type { ExternalSystemRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete external system

@@ -7,7 +7,7 @@
 
 import type { ListModelVersionTestsResponse } from "../../types/index.js";
 import type { ModelVersionTestRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List model version tests

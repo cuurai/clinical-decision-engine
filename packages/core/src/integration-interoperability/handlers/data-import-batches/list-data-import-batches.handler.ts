@@ -7,7 +7,7 @@
 
 import type { ListDataImportBatchesParams, ListDataImportBatchesResponse } from "../../types/index.js";
 import type { DataImportBatchRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List data import batches

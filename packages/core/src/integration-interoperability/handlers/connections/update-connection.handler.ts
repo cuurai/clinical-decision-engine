@@ -7,7 +7,7 @@
 
 import type { ConnectionUpdate, UpdateConnectionResponse } from "../../types/index.js";
 // TODO: Uncomment when implementing handler logic
-// import { intTransactionId } from "../../shared/helpers";
+// import { intTransactionId } from "../../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";

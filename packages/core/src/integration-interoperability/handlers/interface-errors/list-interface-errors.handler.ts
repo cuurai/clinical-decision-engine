@@ -7,7 +7,7 @@
 
 import type { ListInterfaceErrorsParams, ListInterfaceErrorsResponse } from "../../types/index.js";
 import type { InterfaceErrorRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List interface errors

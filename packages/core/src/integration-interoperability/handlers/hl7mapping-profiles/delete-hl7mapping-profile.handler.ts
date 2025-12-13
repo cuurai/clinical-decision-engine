@@ -6,7 +6,7 @@
  */
 
 import type { HL7MappingProfileRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete HL7 mapping profile

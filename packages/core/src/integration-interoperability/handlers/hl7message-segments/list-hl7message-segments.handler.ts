@@ -7,7 +7,7 @@
 
 import type { ListHLMessageSegmentsResponse } from "../../types/index.js";
 import type { HL7MessageSegmentRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List HL7 message segments

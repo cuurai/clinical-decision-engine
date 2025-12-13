@@ -6,7 +6,7 @@
  */
 
 import type { RoutingRuleRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete routing rule

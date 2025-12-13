@@ -7,7 +7,7 @@
 
 import type { ListAlertExplanationsResponse } from "../../types/index.js";
 import type { AlertExplanationRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * List alert explanations

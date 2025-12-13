@@ -7,7 +7,7 @@
 
 import type { ListClinicalRulesParams, ListClinicalRulesResponse } from "../../types/index.js";
 import type { ClinicalRuleRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List clinical rules

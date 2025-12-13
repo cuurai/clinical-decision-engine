@@ -6,7 +6,7 @@
  */
 
 import type { GetEventDeliveryResponse } from "../../types/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
 

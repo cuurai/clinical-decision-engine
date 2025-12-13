@@ -7,7 +7,7 @@
 
 import type { ListFHIRBundlesParams, ListFHIRBundlesResponse } from "../../types/index.js";
 import type { FHIRBundleRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List FHIR bundles

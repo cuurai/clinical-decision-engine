@@ -7,7 +7,7 @@
 
 import type { ListModelDefinitionPerformanceMetricsResponse } from "../../types/index.js";
 import type { ModelDefinitionPerformanceMetricRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List model definition performance metrics

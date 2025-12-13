@@ -7,7 +7,7 @@
 
 import type { ListExternalSystemEndpointsResponse } from "../../types/index.js";
 import type { ExternalSystemEndpointRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List external system endpoints

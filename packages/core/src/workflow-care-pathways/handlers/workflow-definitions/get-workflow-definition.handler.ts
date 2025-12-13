@@ -6,7 +6,7 @@
  */
 
 import type { GetWorkflowDefinitionResponse } from "../../types/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/workflow-care-pathways-converters.js";
 

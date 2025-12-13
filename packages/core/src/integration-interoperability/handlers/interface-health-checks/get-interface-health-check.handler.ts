@@ -7,7 +7,7 @@
 
 import type { GetInterfaceHealthCheckResponse } from "../../types/index.js";
 import type { InterfaceHealthCheckRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/integration-interoperability-converters.js";
 

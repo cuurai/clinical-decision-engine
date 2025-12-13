@@ -7,7 +7,7 @@
 
 import type { ListClinicalRuleTestsResponse } from "../../types/index.js";
 import type { ClinicalRuleTestRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List clinical rule tests

@@ -7,7 +7,7 @@
 
 import type { ListGuidelineEvidenceCitationsResponse } from "../../types/index.js";
 import type { GuidelineEvidenceCitationRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List guideline evidence citations

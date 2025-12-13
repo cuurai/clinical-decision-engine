@@ -6,7 +6,7 @@
  */
 
 import type { DecisionPolicyRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete decision policy

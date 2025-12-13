@@ -7,7 +7,7 @@
 
 import type { ListInterfaceHealthChecksParams, ListInterfaceHealthChecksResponse } from "../../types/index.js";
 import type { InterfaceHealthCheckRepository } from "../../repositories/index.js";
-import { intTransactionId } from "../../shared/helpers";
+import { intTransactionId } from "../../../shared/helpers";
 
 /**
  * List interface health checks

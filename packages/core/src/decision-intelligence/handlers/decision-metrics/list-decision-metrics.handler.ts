@@ -7,7 +7,7 @@
 
 import type { ListDecisionMetricsParams, ListDecisionMetricsResponse } from "../../types/index.js";
 import type { DecisionMetricRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List decision metrics

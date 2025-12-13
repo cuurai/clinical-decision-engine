@@ -7,7 +7,7 @@
 
 import type { ListPatientVitalsResponse } from "../../types/index.js";
 import type { PatientVitalRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers";
 
 /**
  * List patient vital signs

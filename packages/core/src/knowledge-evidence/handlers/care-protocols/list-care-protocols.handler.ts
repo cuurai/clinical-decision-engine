@@ -7,7 +7,7 @@
 
 import type { ListCareProtocolsParams, ListCareProtocolsResponse } from "../../types/index.js";
 import type { CareProtocolRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List care protocol templates

@@ -6,7 +6,7 @@
  */
 
 import type { WorkflowDefinitionRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete workflow definition

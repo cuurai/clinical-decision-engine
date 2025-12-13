@@ -7,7 +7,7 @@
 
 import type { ListExperimentResultsResponse } from "../../types/index.js";
 import type { ExperimentResultRepository } from "../../repositories/index.js";
-import { decTransactionId } from "../../shared/helpers";
+import { decTransactionId } from "../../../shared/helpers";
 
 /**
  * List experiment results

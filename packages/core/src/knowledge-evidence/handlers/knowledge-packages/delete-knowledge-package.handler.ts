@@ -6,7 +6,7 @@
  */
 
 import type { KnowledgePackageRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete knowledge package

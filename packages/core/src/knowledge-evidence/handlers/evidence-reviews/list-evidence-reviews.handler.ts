@@ -7,7 +7,7 @@
 
 import type { ListEvidenceReviewsParams, ListEvidenceReviewsResponse } from "../../types/index.js";
 import type { EvidenceReviewRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List evidence reviews

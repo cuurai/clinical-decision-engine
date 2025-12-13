@@ -7,7 +7,7 @@
 
 import type { ChecklistTemplateInput, CreateChecklistTemplateResponse } from "../../types/index.js";
 import type { ChecklistTemplateRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 // TODO: Uncomment when implementing handler logic
 // import { timestampsToApi } from "../../utils/workflow-care-pathways-converters.js";
 /**

@@ -6,7 +6,7 @@
  */
 
 import type { ImmunizationRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete immunization

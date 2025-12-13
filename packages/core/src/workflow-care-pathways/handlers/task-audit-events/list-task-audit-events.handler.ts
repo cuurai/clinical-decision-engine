@@ -7,7 +7,7 @@
 
 import type { ListTaskAuditEventsResponse } from "../../types/index.js";
 import type { TaskAuditEventRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * List task audit events

@@ -6,7 +6,7 @@
  */
 
 import type { EpisodeOfCareRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../shared/helpers";
+import { wcTransactionId } from "../../../shared/helpers";
 
 /**
  * Delete episode of care

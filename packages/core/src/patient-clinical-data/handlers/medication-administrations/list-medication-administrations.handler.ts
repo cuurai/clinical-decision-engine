@@ -7,7 +7,7 @@
 
 import type { ListMedicationAdministrationsResponse } from "../../types/index.js";
 import type { MedicationAdministrationRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../shared/helpers";
+import { pcTransactionId } from "../../../shared/helpers";
 
 /**
  * List medication administrations

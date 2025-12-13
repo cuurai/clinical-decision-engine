@@ -7,7 +7,7 @@
 
 import type { ListCareProtocolStepsResponse } from "../../types/index.js";
 import type { CareProtocolStepRepository } from "../../repositories/index.js";
-import { knoTransactionId } from "../../shared/helpers";
+import { knoTransactionId } from "../../../shared/helpers";
 
 /**
  * List care protocol steps
