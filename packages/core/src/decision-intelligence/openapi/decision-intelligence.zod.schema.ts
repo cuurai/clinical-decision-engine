@@ -686,7 +686,7 @@ export const schemas = {
   ExperimentResult,
 };
 
-const endpoints = makeApi([
+const endpoints: any = makeApi([
   {
     method: "get",
     path: "/alert-evaluations",

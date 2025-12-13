@@ -35,6 +35,6 @@ export async function listTaskAuditEvents(
         limit: result.items.length,
       },
     },
-  };
+  } as ListTaskAuditEventsResponse;
 
 }

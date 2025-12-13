@@ -35,6 +35,6 @@ export async function listExplanationRuleTraces(
         limit: result.items.length,
       },
     },
-  };
+  } as ListExplanationRuleTracesResponse;
 
 }

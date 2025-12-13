@@ -35,6 +35,6 @@ export async function listOntologyTermChildren(
         limit: result.items.length,
       },
     },
-  };
+  } as ListOntologyTermChildrenResponse;
 
 }

@@ -36,6 +36,6 @@ export async function listThresholdProfiles(
         limit: result.items.length,
       },
     },
-  };
+  } as ListThresholdProfilesResponse;
 
 }

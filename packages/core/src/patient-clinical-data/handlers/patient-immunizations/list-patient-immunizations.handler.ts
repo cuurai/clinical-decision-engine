@@ -35,6 +35,6 @@ export async function listPatientImmunizations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListPatientImmunizationsResponse;
 
 }

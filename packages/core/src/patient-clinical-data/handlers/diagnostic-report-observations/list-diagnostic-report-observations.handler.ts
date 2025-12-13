@@ -35,6 +35,6 @@ export async function listDiagnosticReportObservations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListDiagnosticReportObservationsResponse;
 
 }

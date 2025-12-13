@@ -35,6 +35,6 @@ export async function listScoringTemplateItems(
         limit: result.items.length,
       },
     },
-  };
+  } as ListScoringTemplateItemsResponse;
 
 }

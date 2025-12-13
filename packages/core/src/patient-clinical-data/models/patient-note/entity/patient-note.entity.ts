@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/patient-clinical-data.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/patient-clinical-data.schemas";
  * Description: Represents the PatientNote domain model.
  * Source: schemas.PatientNote
  */
-export const ZPatientNoteEntitySchema = schemas.PatientNote;
+export const ZPatientNoteEntitySchema = schemas.PatientNote as ZodType<any, any, any>;
 export type PatientNoteEntity = z.infer<typeof ZPatientNoteEntitySchema>;

@@ -36,6 +36,6 @@ export async function listFHIRBundles(
         limit: result.items.length,
       },
     },
-  };
+  } as ListFHIRBundlesResponse;
 
 }

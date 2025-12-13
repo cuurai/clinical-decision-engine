@@ -36,6 +36,6 @@ export async function listChecklistInstances(
         limit: result.items.length,
       },
     },
-  };
+  } as ListChecklistInstancesResponse;
 
 }

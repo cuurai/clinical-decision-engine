@@ -35,6 +35,6 @@ export async function listIntegrationRunErrors(
         limit: result.items.length,
       },
     },
-  };
+  } as ListIntegrationRunErrorsResponse;
 
 }

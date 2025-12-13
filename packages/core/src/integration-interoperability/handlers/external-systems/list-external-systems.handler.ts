@@ -36,6 +36,6 @@ export async function listExternalSystems(
         limit: result.items.length,
       },
     },
-  };
+  } as ListExternalSystemsResponse;
 
 }

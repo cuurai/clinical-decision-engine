@@ -35,6 +35,6 @@ export async function listHL7MappingProfileRules(
         limit: result.items.length,
       },
     },
-  };
+  } as ListHLMappingProfileRulesResponse;
 
 }

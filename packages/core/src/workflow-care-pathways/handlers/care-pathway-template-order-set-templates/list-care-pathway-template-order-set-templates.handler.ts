@@ -35,6 +35,6 @@ export async function listCarePathwayTemplateOrderSetTemplates(
         limit: result.items.length,
       },
     },
-  };
+  } as ListCarePathwayTemplateOrderSetTemplatesResponse;
 
 }

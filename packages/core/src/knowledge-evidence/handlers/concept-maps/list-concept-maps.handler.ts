@@ -36,6 +36,6 @@ export async function listConceptMaps(
         limit: result.items.length,
       },
     },
-  };
+  } as ListConceptMapsResponse;
 
 }

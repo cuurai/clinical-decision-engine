@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/integration-interoperability.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/integration-interoperability.schemas";
  * Description: Represents the EventSubscriptionDelivery domain model.
  * Source: schemas.EventSubscriptionDelivery
  */
-export const ZEventSubscriptionDeliveryEntitySchema = schemas.EventSubscriptionDelivery;
+export const ZEventSubscriptionDeliveryEntitySchema = schemas.EventSubscriptionDelivery as ZodType<any, any, any>;
 export type EventSubscriptionDeliveryEntity = z.infer<typeof ZEventSubscriptionDeliveryEntitySchema>;

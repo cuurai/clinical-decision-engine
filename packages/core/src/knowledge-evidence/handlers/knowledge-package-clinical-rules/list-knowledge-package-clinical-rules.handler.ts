@@ -35,6 +35,6 @@ export async function listKnowledgePackageClinicalRules(
         limit: result.items.length,
       },
     },
-  };
+  } as ListKnowledgePackageClinicalRulesResponse;
 
 }

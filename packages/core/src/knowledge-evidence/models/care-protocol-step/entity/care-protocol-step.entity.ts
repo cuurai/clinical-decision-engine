@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
  * Description: Represents the CareProtocolStep domain model.
  * Source: schemas.CareProtocolStep
  */
-export const ZCareProtocolStepEntitySchema = schemas.CareProtocolStep;
+export const ZCareProtocolStepEntitySchema = schemas.CareProtocolStep as ZodType<any, any, any>;
 export type CareProtocolStepEntity = z.infer<typeof ZCareProtocolStepEntitySchema>;

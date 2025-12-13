@@ -35,6 +35,6 @@ export async function listWorkflowInstanceTasks(
         limit: result.items.length,
       },
     },
-  };
+  } as ListWorkflowInstanceTasksResponse;
 
 }

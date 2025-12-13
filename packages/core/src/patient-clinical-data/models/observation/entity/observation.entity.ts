@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/patient-clinical-data.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/patient-clinical-data.schemas";
  * Description: Represents the Observation domain model.
  * Source: schemas.Observation
  */
-export const ZObservationEntitySchema = schemas.Observation;
+export const ZObservationEntitySchema = schemas.Observation as ZodType<any, any, any>;
 export type ObservationEntity = z.infer<typeof ZObservationEntitySchema>;

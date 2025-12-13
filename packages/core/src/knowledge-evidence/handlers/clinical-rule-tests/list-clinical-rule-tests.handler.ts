@@ -35,6 +35,6 @@ export async function listClinicalRuleTests(
         limit: result.items.length,
       },
     },
-  };
+  } as ListClinicalRuleTestsResponse;
 
 }

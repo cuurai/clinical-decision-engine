@@ -36,6 +36,6 @@ export async function listDocuments(
         limit: result.items.length,
       },
     },
-  };
+  } as ListDocumentsResponse;
 
 }

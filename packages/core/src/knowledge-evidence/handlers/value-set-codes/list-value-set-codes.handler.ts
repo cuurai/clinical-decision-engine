@@ -35,6 +35,6 @@ export async function listValueSetCodes(
         limit: result.items.length,
       },
     },
-  };
+  } as ListValueSetCodesResponse;
 
 }

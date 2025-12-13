@@ -36,6 +36,6 @@ export async function listModelDefinitions(
         limit: result.items.length,
       },
     },
-  };
+  } as ListModelDefinitionsResponse;
 
 }

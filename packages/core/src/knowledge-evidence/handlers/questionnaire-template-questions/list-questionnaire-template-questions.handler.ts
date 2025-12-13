@@ -35,6 +35,6 @@ export async function listQuestionnaireTemplateQuestions(
         limit: result.items.length,
       },
     },
-  };
+  } as ListQuestionnaireTemplateQuestionsResponse;
 
 }

@@ -36,6 +36,6 @@ export async function listProcedures(
         limit: result.items.length,
       },
     },
-  };
+  } as ListProceduresResponse;
 
 }

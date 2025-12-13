@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
  * Description: Represents the OntologyTermMapping domain model.
  * Source: schemas.OntologyTermMapping
  */
-export const ZOntologyTermMappingEntitySchema = schemas.OntologyTermMapping;
+export const ZOntologyTermMappingEntitySchema = schemas.OntologyTermMapping as ZodType<any, any, any>;
 export type OntologyTermMappingEntity = z.infer<typeof ZOntologyTermMappingEntitySchema>;

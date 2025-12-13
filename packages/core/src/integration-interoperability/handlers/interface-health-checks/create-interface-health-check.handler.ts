@@ -18,21 +18,20 @@ import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
 //   return input;
 // }
 
-
 /**
  * Create interface health check (immutable)
  *
  * Creates an immutable interface health check snapshot. Once created, health checks cannot be
  * modified to ensure historical accuracy.
- * 
+ *
  */
 export async function createInterfaceHealthCheck(
-    // TODO: Use repo when implementing handler logic,
-    _repo: InterfaceHealthCheckRepository,
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use input when implementing handler logic,
-    _input: unknown
+  // TODO: Use repo when implementing handler logic,
+  _repo: InterfaceHealthCheckRepository,
+  // TODO: Use orgId when implementing handler logic,
+  _orgId: string,
+  // TODO: Use input when implementing handler logic,
+  _input: unknown
 ): Promise<CreateInterfaceHealthCheckResponse> {
   // 1. Validate input
   // TODO: Use validated input when implementing query logic
@@ -51,6 +50,5 @@ export async function createInterfaceHealthCheck(
       correlationId: iiTransactionId(),
       timestamp: new Date().toISOString(),
     },
-  };
-
+  } as CreateInterfaceHealthCheckResponse;
 }

@@ -35,6 +35,6 @@ export async function listExternalSystemEndpoints(
         limit: result.items.length,
       },
     },
-  };
+  } as ListExternalSystemEndpointsResponse;
 
 }

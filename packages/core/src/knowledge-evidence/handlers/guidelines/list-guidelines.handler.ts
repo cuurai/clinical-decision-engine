@@ -36,6 +36,6 @@ export async function listGuidelines(
         limit: result.items.length,
       },
     },
-  };
+  } as ListGuidelinesResponse;
 
 }

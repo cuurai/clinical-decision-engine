@@ -35,6 +35,6 @@ export async function listFHIRBundleResources(
         limit: result.items.length,
       },
     },
-  };
+  } as ListFHIRBundleResourcesResponse;
 
 }

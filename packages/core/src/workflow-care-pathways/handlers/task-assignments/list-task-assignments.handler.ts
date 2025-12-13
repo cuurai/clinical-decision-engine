@@ -36,6 +36,6 @@ export async function listTaskAssignments(
         limit: result.items.length,
       },
     },
-  };
+  } as ListTaskAssignmentsResponse;
 
 }

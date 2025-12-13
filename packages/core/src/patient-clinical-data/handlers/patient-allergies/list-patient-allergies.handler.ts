@@ -35,6 +35,6 @@ export async function listPatientAllergies(
         limit: result.items.length,
       },
     },
-  };
+  } as ListPatientAllergiesResponse;
 
 }

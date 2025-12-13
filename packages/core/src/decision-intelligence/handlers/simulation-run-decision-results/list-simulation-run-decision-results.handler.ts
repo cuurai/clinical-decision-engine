@@ -35,6 +35,6 @@ export async function listSimulationRunDecisionResults(
         limit: result.items.length,
       },
     },
-  };
+  } as ListSimulationRunDecisionResultsResponse;
 
 }

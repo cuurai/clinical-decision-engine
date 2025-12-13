@@ -35,6 +35,6 @@ export async function listWorkflowInstanceEvents(
         limit: result.items.length,
       },
     },
-  };
+  } as ListWorkflowInstanceEventsResponse;
 
 }

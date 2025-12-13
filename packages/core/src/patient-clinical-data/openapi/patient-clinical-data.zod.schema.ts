@@ -927,7 +927,7 @@ const updateDocument_Body = PatApiResponse.and(
   z.object({ data: DocumentReferenceUpdate }).partial().passthrough()
 );
 
-export const schemas = {
+export const schemas: Record<string, any> = {
   PatApiMeta,
   PatApiResponse,
   Timestamps,
@@ -1025,7 +1025,7 @@ export const schemas = {
   updateDocument_Body,
 };
 
-const endpoints = makeApi([
+const endpoints: any = makeApi([
   {
     method: "get",
     path: "/allergies",
@@ -3409,7 +3409,7 @@ const endpoints = makeApi([
   },
 ]);
 
-export const api = new Zodios("https://api.cuurai.com/api/v1", endpoints);
+export const api: any = new Zodios("https://api.cuurai.com/api/v1", endpoints);
 
 export function createApiClient(baseUrl: string, options?: ZodiosOptions) {
   return new Zodios(baseUrl, endpoints, options);

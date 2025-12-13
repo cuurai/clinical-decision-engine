@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
  * Description: Represents the EvidenceReview domain model.
  * Source: schemas.EvidenceReview
  */
-export const ZEvidenceReviewEntitySchema = schemas.EvidenceReview;
+export const ZEvidenceReviewEntitySchema = schemas.EvidenceReview as ZodType<any, any, any>;
 export type EvidenceReviewEntity = z.infer<typeof ZEvidenceReviewEntitySchema>;

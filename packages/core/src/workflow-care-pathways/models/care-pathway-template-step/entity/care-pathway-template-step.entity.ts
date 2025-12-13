@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
  * Description: Represents the CarePathwayTemplateStep domain model.
  * Source: schemas.CarePathwayTemplateStep
  */
-export const ZCarePathwayTemplateStepEntitySchema = schemas.CarePathwayTemplateStep;
+export const ZCarePathwayTemplateStepEntitySchema = schemas.CarePathwayTemplateStep as ZodType<any, any, any>;
 export type CarePathwayTemplateStepEntity = z.infer<typeof ZCarePathwayTemplateStepEntitySchema>;

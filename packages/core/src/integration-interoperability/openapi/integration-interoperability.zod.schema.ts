@@ -827,7 +827,7 @@ export const schemas = {
   createInterfaceHealthCheck_Body,
 };
 
-const endpoints = makeApi([
+const endpoints: any = makeApi([
   {
     method: "get",
     path: "/api-clients",

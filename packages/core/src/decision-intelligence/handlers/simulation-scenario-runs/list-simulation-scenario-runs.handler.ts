@@ -35,6 +35,6 @@ export async function listSimulationScenarioRuns(
         limit: result.items.length,
       },
     },
-  };
+  } as ListSimulationScenarioRunsResponse;
 
 }

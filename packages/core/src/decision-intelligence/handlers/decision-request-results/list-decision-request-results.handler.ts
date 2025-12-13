@@ -13,12 +13,11 @@ import { diTransactionId } from "../../../shared/helpers/id-generator.js";
  * List decision request results
  */
 export async function listDecisionRequestResults(
-    repo: DecisionRequestResultRepository,
-    orgId: string
+  repo: DecisionRequestResultRepository,
+  orgId: string
 ): Promise<ListDecisionRequestResultsResponse> {
   // Call repository list method with params (if provided)
   const result = await repo.list(orgId, undefined);
-
 
   // Return paginated response matching OpenAPI response type
   // Structure matches ProviderAccountListResponse: { data: { items: [...] }, meta: { ... } }
@@ -35,6 +34,5 @@ export async function listDecisionRequestResults(
         limit: result.items.length,
       },
     },
-  };
-
+  } as ListDecisionRequestResultsResponse;
 }

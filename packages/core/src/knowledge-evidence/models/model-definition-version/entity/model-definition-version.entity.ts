@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
  * Description: Represents the ModelDefinitionVersion domain model.
  * Source: schemas.ModelDefinitionVersion
  */
-export const ZModelDefinitionVersionEntitySchema = schemas.ModelDefinitionVersion;
+export const ZModelDefinitionVersionEntitySchema = schemas.ModelDefinitionVersion as ZodType<any, any, any>;
 export type ModelDefinitionVersionEntity = z.infer<typeof ZModelDefinitionVersionEntitySchema>;

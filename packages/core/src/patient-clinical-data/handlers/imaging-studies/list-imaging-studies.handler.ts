@@ -36,6 +36,6 @@ export async function listImagingStudies(
         limit: result.items.length,
       },
     },
-  };
+  } as ListImagingStudiesResponse;
 
 }

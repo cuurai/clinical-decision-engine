@@ -36,6 +36,6 @@ export async function listDiagnosticReports(
         limit: result.items.length,
       },
     },
-  };
+  } as ListDiagnosticReportsResponse;
 
 }

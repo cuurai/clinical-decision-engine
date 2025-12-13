@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/decision-intelligence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/decision-intelligence.schemas";
  * Description: Represents the ExperimentResult domain model.
  * Source: schemas.ExperimentResult
  */
-export const ZExperimentResultEntitySchema = schemas.ExperimentResult;
+export const ZExperimentResultEntitySchema = schemas.ExperimentResult as ZodType<any, any, any>;
 export type ExperimentResultEntity = z.infer<typeof ZExperimentResultEntitySchema>;

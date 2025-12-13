@@ -35,6 +35,6 @@ export async function listExternalSystemConnections(
         limit: result.items.length,
       },
     },
-  };
+  } as ListExternalSystemConnectionsResponse;
 
 }

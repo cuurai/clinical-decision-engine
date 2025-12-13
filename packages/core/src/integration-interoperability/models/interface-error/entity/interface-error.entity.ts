@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/integration-interoperability.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/integration-interoperability.schemas";
  * Description: Represents the InterfaceError domain model.
  * Source: schemas.InterfaceError
  */
-export const ZInterfaceErrorEntitySchema = schemas.InterfaceError;
+export const ZInterfaceErrorEntitySchema = schemas.InterfaceError as ZodType<any, any, any>;
 export type InterfaceErrorEntity = z.infer<typeof ZInterfaceErrorEntitySchema>;

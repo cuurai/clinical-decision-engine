@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/decision-intelligence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/decision-intelligence.schemas";
  * Description: Represents the DecisionRequestResult domain model.
  * Source: schemas.DecisionRequestResult
  */
-export const ZDecisionRequestResultEntitySchema = schemas.DecisionRequestResult;
+export const ZDecisionRequestResultEntitySchema = schemas.DecisionRequestResult as ZodType<any, any, any>;
 export type DecisionRequestResultEntity = z.infer<typeof ZDecisionRequestResultEntitySchema>;

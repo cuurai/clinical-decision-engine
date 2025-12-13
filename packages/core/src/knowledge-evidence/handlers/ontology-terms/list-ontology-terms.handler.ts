@@ -36,6 +36,6 @@ export async function searchOntologyTerms(
         limit: result.items.length,
       },
     },
-  };
+  } as SearchOntologyTermsResponse;
 
 }

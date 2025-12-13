@@ -36,6 +36,6 @@ export async function listAlertEvaluations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListAlertEvaluationsResponse;
 
 }

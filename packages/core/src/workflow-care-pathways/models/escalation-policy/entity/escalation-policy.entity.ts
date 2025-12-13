@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
  * Description: Represents the EscalationPolicy domain model.
  * Source: schemas.EscalationPolicy
  */
-export const ZEscalationPolicyEntitySchema = schemas.EscalationPolicy;
+export const ZEscalationPolicyEntitySchema = schemas.EscalationPolicy as ZodType<any, any, any>;
 export type EscalationPolicyEntity = z.infer<typeof ZEscalationPolicyEntitySchema>;

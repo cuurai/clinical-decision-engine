@@ -36,6 +36,6 @@ export async function listSimulationScenarios(
         limit: result.items.length,
       },
     },
-  };
+  } as ListSimulationScenariosResponse;
 
 }

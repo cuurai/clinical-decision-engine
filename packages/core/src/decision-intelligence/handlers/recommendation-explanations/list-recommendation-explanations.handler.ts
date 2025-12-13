@@ -35,6 +35,6 @@ export async function listRecommendationExplanations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListRecommendationExplanationsResponse;
 
 }

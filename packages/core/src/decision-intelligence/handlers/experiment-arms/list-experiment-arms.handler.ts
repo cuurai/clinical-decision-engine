@@ -35,6 +35,6 @@ export async function listExperimentArms(
         limit: result.items.length,
       },
     },
-  };
+  } as ListExperimentArmsResponse;
 
 }

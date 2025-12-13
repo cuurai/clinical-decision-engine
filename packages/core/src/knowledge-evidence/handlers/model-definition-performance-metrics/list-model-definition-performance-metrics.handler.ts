@@ -35,6 +35,6 @@ export async function listModelDefinitionPerformanceMetrics(
         limit: result.items.length,
       },
     },
-  };
+  } as ListModelDefinitionPerformanceMetricsResponse;
 
 }

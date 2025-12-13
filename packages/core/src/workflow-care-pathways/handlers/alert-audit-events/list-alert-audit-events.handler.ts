@@ -35,6 +35,6 @@ export async function listAlertAuditEvents(
         limit: result.items.length,
       },
     },
-  };
+  } as ListAlertAuditEventsResponse;
 
 }

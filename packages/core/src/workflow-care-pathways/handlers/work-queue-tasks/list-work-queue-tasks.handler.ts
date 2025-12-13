@@ -35,6 +35,6 @@ export async function listWorkQueueTasks(
         limit: result.items.length,
       },
     },
-  };
+  } as ListWorkQueueTasksResponse;
 
 }

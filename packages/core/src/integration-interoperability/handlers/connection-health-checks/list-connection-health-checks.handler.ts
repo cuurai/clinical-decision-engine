@@ -35,6 +35,6 @@ export async function listConnectionHealthChecks(
         limit: result.items.length,
       },
     },
-  };
+  } as ListConnectionHealthChecksResponse;
 
 }

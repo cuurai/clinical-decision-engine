@@ -36,6 +36,6 @@ export async function listIntegrationRuns(
         limit: result.items.length,
       },
     },
-  };
+  } as ListIntegrationRunsResponse;
 
 }

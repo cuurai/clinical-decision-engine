@@ -35,6 +35,6 @@ export async function listCarePlanTasks(
         limit: result.items.length,
       },
     },
-  };
+  } as ListCarePlanTasksResponse;
 
 }

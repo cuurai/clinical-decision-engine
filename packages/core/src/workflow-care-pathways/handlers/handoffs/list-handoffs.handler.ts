@@ -36,6 +36,6 @@ export async function listHandoffs(
         limit: result.items.length,
       },
     },
-  };
+  } as ListHandoffsResponse;
 
 }

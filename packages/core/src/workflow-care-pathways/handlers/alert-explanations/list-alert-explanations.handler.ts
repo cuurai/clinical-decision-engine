@@ -35,6 +35,6 @@ export async function listAlertExplanations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListAlertExplanationsResponse;
 
 }

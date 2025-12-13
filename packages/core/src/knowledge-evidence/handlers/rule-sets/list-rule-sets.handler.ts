@@ -36,6 +36,6 @@ export async function listRuleSets(
         limit: result.items.length,
       },
     },
-  };
+  } as ListRuleSetsResponse;
 
 }

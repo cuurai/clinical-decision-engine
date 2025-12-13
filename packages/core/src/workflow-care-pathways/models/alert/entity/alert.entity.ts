@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
  * Description: Represents the Alert domain model.
  * Source: schemas.Alert
  */
-export const ZAlertEntitySchema = schemas.Alert;
+export const ZAlertEntitySchema = schemas.Alert as ZodType<any, any, any>;
 export type AlertEntity = z.infer<typeof ZAlertEntitySchema>;

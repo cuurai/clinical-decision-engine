@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/integration-interoperability.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/integration-interoperability.schemas";
  * Description: Represents the IntegrationJob domain model.
  * Source: schemas.IntegrationJob
  */
-export const ZIntegrationJobEntitySchema = schemas.IntegrationJob;
+export const ZIntegrationJobEntitySchema = schemas.IntegrationJob as ZodType<any, any, any>;
 export type IntegrationJobEntity = z.infer<typeof ZIntegrationJobEntitySchema>;

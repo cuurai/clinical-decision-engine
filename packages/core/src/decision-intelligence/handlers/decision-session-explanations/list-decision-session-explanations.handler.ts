@@ -35,6 +35,6 @@ export async function listDecisionSessionExplanations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListDecisionSessionExplanationsResponse;
 
 }

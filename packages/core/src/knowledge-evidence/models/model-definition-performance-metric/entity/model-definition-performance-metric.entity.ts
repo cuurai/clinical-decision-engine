@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
  * Description: Represents the ModelDefinitionPerformanceMetric domain model.
  * Source: schemas.ModelDefinitionPerformanceMetric
  */
-export const ZModelDefinitionPerformanceMetricEntitySchema = schemas.ModelDefinitionPerformanceMetric;
+export const ZModelDefinitionPerformanceMetricEntitySchema = schemas.ModelDefinitionPerformanceMetric as ZodType<any, any, any>;
 export type ModelDefinitionPerformanceMetricEntity = z.infer<typeof ZModelDefinitionPerformanceMetricEntitySchema>;

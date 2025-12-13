@@ -36,6 +36,6 @@ export async function listInterfaceHealthChecks(
         limit: result.items.length,
       },
     },
-  };
+  } as ListInterfaceHealthChecksResponse;
 
 }

@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
  * Description: Represents the ValueSet domain model.
  * Source: schemas.ValueSet
  */
-export const ZValueSetEntitySchema = schemas.ValueSet;
+export const ZValueSetEntitySchema = schemas.ValueSet as ZodType<any, any, any>;
 export type ValueSetEntity = z.infer<typeof ZValueSetEntitySchema>;

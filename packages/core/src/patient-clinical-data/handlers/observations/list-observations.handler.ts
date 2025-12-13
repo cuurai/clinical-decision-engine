@@ -36,6 +36,6 @@ export async function listObservations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListObservationsResponse;
 
 }

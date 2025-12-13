@@ -35,6 +35,6 @@ export async function listSimulationRunMetrics(
         limit: result.items.length,
       },
     },
-  };
+  } as ListSimulationRunMetricsResponse;
 
 }

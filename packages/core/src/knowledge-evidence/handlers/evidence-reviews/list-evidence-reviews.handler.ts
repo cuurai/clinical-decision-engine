@@ -36,6 +36,6 @@ export async function listEvidenceReviews(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEvidenceReviewsResponse;
 
 }

@@ -35,6 +35,6 @@ export async function listModelVersionTests(
         limit: result.items.length,
       },
     },
-  };
+  } as ListModelVersionTestsResponse;
 
 }

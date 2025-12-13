@@ -35,6 +35,6 @@ export async function listEncounterConditions(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEncounterConditionsResponse;
 
 }

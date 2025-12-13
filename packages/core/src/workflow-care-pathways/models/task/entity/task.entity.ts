@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
  * Description: Represents the Task domain model.
  * Source: schemas.Task
  */
-export const ZTaskEntitySchema = schemas.Task;
+export const ZTaskEntitySchema = schemas.Task as ZodType<any, any, any>;
 export type TaskEntity = z.infer<typeof ZTaskEntitySchema>;

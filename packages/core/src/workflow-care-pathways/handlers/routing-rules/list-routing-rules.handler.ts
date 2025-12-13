@@ -36,6 +36,6 @@ export async function listRoutingRules(
         limit: result.items.length,
       },
     },
-  };
+  } as ListRoutingRulesResponse;
 
 }

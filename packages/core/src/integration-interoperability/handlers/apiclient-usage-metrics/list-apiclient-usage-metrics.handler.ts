@@ -35,6 +35,6 @@ export async function listAPIClientUsageMetrics(
         limit: result.items.length,
       },
     },
-  };
+  } as ListAPIClientUsageMetricsResponse;
 
 }

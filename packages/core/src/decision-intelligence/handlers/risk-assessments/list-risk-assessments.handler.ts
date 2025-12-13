@@ -36,6 +36,6 @@ export async function listRiskAssessments(
         limit: result.items.length,
       },
     },
-  };
+  } as ListRiskAssessmentsResponse;
 
 }

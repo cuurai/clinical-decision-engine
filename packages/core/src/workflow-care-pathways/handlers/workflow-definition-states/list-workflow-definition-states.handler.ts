@@ -35,6 +35,6 @@ export async function listWorkflowDefinitionStates(
         limit: result.items.length,
       },
     },
-  };
+  } as ListWorkflowDefinitionStatesResponse;
 
 }

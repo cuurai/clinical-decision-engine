@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
  * Description: Represents the RoutingRule domain model.
  * Source: schemas.RoutingRule
  */
-export const ZRoutingRuleEntitySchema = schemas.RoutingRule;
+export const ZRoutingRuleEntitySchema = schemas.RoutingRule as ZodType<any, any, any>;
 export type RoutingRuleEntity = z.infer<typeof ZRoutingRuleEntitySchema>;

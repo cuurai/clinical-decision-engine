@@ -917,7 +917,7 @@ export const schemas = {
   updateKnowledgePackage_Body,
 };
 
-const endpoints = makeApi([
+const endpoints: any = makeApi([
   {
     method: "get",
     path: "/care-protocols",

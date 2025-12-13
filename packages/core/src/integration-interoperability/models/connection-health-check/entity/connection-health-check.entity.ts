@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/integration-interoperability.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/integration-interoperability.schemas";
  * Description: Represents the ConnectionHealthCheck domain model.
  * Source: schemas.ConnectionHealthCheck
  */
-export const ZConnectionHealthCheckEntitySchema = schemas.ConnectionHealthCheck;
+export const ZConnectionHealthCheckEntitySchema = schemas.ConnectionHealthCheck as ZodType<any, any, any>;
 export type ConnectionHealthCheckEntity = z.infer<typeof ZConnectionHealthCheckEntitySchema>;

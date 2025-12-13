@@ -36,6 +36,6 @@ export async function listDataExportBatches(
         limit: result.items.length,
       },
     },
-  };
+  } as ListDataExportBatchesResponse;
 
 }

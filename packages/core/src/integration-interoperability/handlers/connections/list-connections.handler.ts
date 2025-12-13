@@ -36,6 +36,6 @@ export async function listConnections(
         limit: result.items.length,
       },
     },
-  };
+  } as ListConnectionsResponse;
 
 }

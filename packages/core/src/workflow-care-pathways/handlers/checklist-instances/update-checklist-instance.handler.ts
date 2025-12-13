@@ -18,19 +18,18 @@ import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
 //   return input;
 // }
 
-
 /**
  * Update checklist instance
  */
 export async function updateChecklistInstance(
-    // TODO: Use repo when implementing handler logic,
-    _repo: ChecklistInstanceRepository,
-    // TODO: Use orgId when implementing handler logic,
-    _orgId: string,
-    // TODO: Use id when implementing handler logic,
-    _id: string,
-    // TODO: Use input when implementing handler logic,
-    _input: unknown
+  // TODO: Use repo when implementing handler logic,
+  _repo: ChecklistInstanceRepository,
+  // TODO: Use orgId when implementing handler logic,
+  _orgId: string,
+  // TODO: Use id when implementing handler logic,
+  _id: string,
+  // TODO: Use input when implementing handler logic,
+  _input: unknown
 ): Promise<UpdateChecklistInstanceResponse> {
   // 1. Validate input
   // TODO: Use validated input when implementing query logic
@@ -49,6 +48,5 @@ export async function updateChecklistInstance(
       correlationId: wcTransactionId(),
       timestamp: new Date().toISOString(),
     },
-  };
-
+  } as UpdateChecklistInstanceResponse;
 }

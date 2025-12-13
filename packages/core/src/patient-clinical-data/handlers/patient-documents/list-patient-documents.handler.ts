@@ -35,6 +35,6 @@ export async function listPatientDocuments(
         limit: result.items.length,
       },
     },
-  };
+  } as ListPatientDocumentsResponse;
 
 }

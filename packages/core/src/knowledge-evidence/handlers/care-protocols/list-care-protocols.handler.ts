@@ -36,6 +36,6 @@ export async function listCareProtocols(
         limit: result.items.length,
       },
     },
-  };
+  } as ListCareProtocolsResponse;
 
 }

@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/integration-interoperability.schemas";
 
 /**
@@ -17,5 +17,9 @@ import { schemas } from "../../../schemas/integration-interoperability.schemas";
  * Description: Represents the HL7MappingProfileRule domain model.
  * Source: schemas.HL7MappingProfileRule
  */
-export const ZHL7MappingProfileRuleEntitySchema = schemas.HL7MappingProfileRule;
+export const ZHL7MappingProfileRuleEntitySchema = schemas.HL7MappingProfileRule as ZodType<
+  any,
+  any,
+  any
+>;
 export type HL7MappingProfileRuleEntity = z.infer<typeof ZHL7MappingProfileRuleEntitySchema>;

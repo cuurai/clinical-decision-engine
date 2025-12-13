@@ -35,6 +35,6 @@ export async function listDecisionSessionRiskAssessments(
         limit: result.items.length,
       },
     },
-  };
+  } as ListDecisionSessionRiskAssessmentsResponse;
 
 }

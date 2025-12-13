@@ -35,6 +35,6 @@ export async function listEncounterNotes(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEncounterNotesResponse;
 
 }

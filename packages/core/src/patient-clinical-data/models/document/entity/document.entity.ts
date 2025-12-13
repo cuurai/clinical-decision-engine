@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/patient-clinical-data.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/patient-clinical-data.schemas";
  * Description: Represents the Document domain model.
  * Source: schemas.Document
  */
-export const ZDocumentEntitySchema = schemas.Document;
+export const ZDocumentEntitySchema = schemas.Document as ZodType<any, any, any>;
 export type DocumentEntity = z.infer<typeof ZDocumentEntitySchema>;

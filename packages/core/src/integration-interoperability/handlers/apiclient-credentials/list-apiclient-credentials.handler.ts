@@ -35,6 +35,6 @@ export async function listAPIClientCredentials(
         limit: result.items.length,
       },
     },
-  };
+  } as ListAPIClientCredentialsResponse;
 
 }

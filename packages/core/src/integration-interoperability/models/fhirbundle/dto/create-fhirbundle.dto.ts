@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/integration-interoperability.schemas";
 
 /**
@@ -18,5 +18,5 @@ import { schemas } from "../../../schemas/integration-interoperability.schemas";
  * Route: Create FHIR bundle (ingest or send)
  * OpenAPI Source: schemas.FHIRBundleInput
  */
-export const ZFHIRBundleInputSchema = schemas.FHIRBundleInput;
+export const ZFHIRBundleInputSchema = schemas.FHIRBundleInput as ZodType<any, any, any>;
 export type FHIRBundleInput = z.infer<typeof ZFHIRBundleInputSchema>;

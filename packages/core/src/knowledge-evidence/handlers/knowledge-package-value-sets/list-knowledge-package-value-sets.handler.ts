@@ -35,6 +35,6 @@ export async function listKnowledgePackageValueSets(
         limit: result.items.length,
       },
     },
-  };
+  } as ListKnowledgePackageValueSetsResponse;
 
 }

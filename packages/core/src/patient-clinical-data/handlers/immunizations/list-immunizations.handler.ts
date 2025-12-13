@@ -36,6 +36,6 @@ export async function listImmunizations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListImmunizationsResponse;
 
 }

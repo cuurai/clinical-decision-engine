@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/decision-intelligence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/decision-intelligence.schemas";
  * Description: Represents the DecisionMetricSnapshot domain model.
  * Source: schemas.DecisionMetricSnapshot
  */
-export const ZDecisionMetricSnapshotEntitySchema = schemas.DecisionMetricSnapshot;
+export const ZDecisionMetricSnapshotEntitySchema = schemas.DecisionMetricSnapshot as ZodType<any, any, any>;
 export type DecisionMetricSnapshotEntity = z.infer<typeof ZDecisionMetricSnapshotEntitySchema>;

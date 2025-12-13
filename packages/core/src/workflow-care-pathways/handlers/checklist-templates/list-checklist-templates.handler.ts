@@ -36,6 +36,6 @@ export async function listChecklistTemplates(
         limit: result.items.length,
       },
     },
-  };
+  } as ListChecklistTemplatesResponse;
 
 }

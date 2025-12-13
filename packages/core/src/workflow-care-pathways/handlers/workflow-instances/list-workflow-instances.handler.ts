@@ -36,6 +36,6 @@ export async function listWorkflowInstances(
         limit: result.items.length,
       },
     },
-  };
+  } as ListWorkflowInstancesResponse;
 
 }

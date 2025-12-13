@@ -36,6 +36,6 @@ export async function listEvidenceCitations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEvidenceCitationsResponse;
 
 }

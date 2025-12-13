@@ -20,7 +20,6 @@ import type { components, operations } from "../openapi/knowledge-evidence.opena
 
 export type { components, operations };
 
-
 // ============================================================================
 // Convenient Type Aliases for Schemas
 // ============================================================================
@@ -84,28 +83,48 @@ export type ValueSet = components["schemas"]["ValueSet"];
 export type ValueSetCode = components["schemas"]["ValueSetCode"];
 export type ValueSetInput = components["schemas"]["ValueSetInput"];
 export type ValueSetUpdate = components["schemas"]["ValueSetUpdate"];
-export type ClinicalRuleTest = operations["listClinicalRuleTests"]["responses"]["200"]["content"]["application/json"]["data"];
-export type RuleSetClinicalRule = operations["listRuleSetClinicalRules"]["responses"]["200"]["content"]["application/json"]["data"];
-export type Guideline = operations["listGuidelines"]["responses"]["200"]["content"]["application/json"]["data"];
-export type GuidelineEvidenceCitation = operations["listGuidelineEvidenceCitations"]["responses"]["200"]["content"]["application/json"]["data"];
-export type CareProtocol = operations["listCareProtocols"]["responses"]["200"]["content"]["application/json"]["data"];
-export type CareProtocolStep = operations["listCareProtocolSteps"]["responses"]["200"]["content"]["application/json"]["data"];
-export type CareProtocolOrderSet = operations["listCareProtocolOrderSets"]["responses"]["200"]["content"]["application/json"]["data"];
-export type OrderSetTemplateItem = operations["listOrderSetTemplateItems"]["responses"]["200"]["content"]["application/json"]["data"];
-export type ModelDefinitionVersion = operations["listModelDefinitionVersions"]["responses"]["200"]["content"]["application/json"]["data"];
-export type ModelDefinitionPerformanceMetric = operations["listModelDefinitionPerformanceMetrics"]["responses"]["200"]["content"]["application/json"]["data"];
-export type ModelVersionTest = operations["listModelVersionTests"]["responses"]["200"]["content"]["application/json"]["data"];
-export type ModelVersionFeatureDefinition = operations["listModelVersionFeatureDefinitions"]["responses"]["200"]["content"]["application/json"]["data"];
-export type OntologyTermChild = operations["listOntologyTermChildren"]["responses"]["200"]["content"]["application/json"]["data"];
-export type OntologyTermParent = operations["listOntologyTermParents"]["responses"]["200"]["content"]["application/json"]["data"];
-export type OntologyTermMapping = operations["listOntologyTermMappings"]["responses"]["200"]["content"]["application/json"]["data"];
-export type ConceptMapMapping = operations["listConceptMapMappings"]["responses"]["200"]["content"]["application/json"]["data"];
-export type ScoringTemplateItem = operations["listScoringTemplateItems"]["responses"]["200"]["content"]["application/json"]["data"];
-export type QuestionnaireTemplateQuestion = operations["listQuestionnaireTemplateQuestions"]["responses"]["200"]["content"]["application/json"]["data"];
-export type KnowledgePackageClinicalRule = operations["listKnowledgePackageClinicalRules"]["responses"]["200"]["content"]["application/json"]["data"];
-export type KnowledgePackageModelDefinition = operations["listKnowledgePackageModelDefinitions"]["responses"]["200"]["content"]["application/json"]["data"];
-export type KnowledgePackageValueSet = operations["listKnowledgePackageValueSets"]["responses"]["200"]["content"]["application/json"]["data"];
-
+export type ClinicalRuleTest =
+  operations["listClinicalRuleTests"]["responses"]["200"]["content"]["application/json"]["data"];
+export type RuleSetClinicalRule =
+  operations["listRuleSetClinicalRules"]["responses"]["200"]["content"]["application/json"]["data"];
+export type Guideline =
+  operations["listGuidelines"]["responses"]["200"]["content"]["application/json"]["data"];
+export type GuidelineEvidenceCitation =
+  operations["listGuidelineEvidenceCitations"]["responses"]["200"]["content"]["application/json"]["data"];
+export type CareProtocol =
+  operations["listCareProtocols"]["responses"]["200"]["content"]["application/json"]["data"];
+export type CareProtocolStep =
+  operations["listCareProtocolSteps"]["responses"]["200"]["content"]["application/json"]["data"];
+export type CareProtocolOrderSet =
+  operations["listCareProtocolOrderSets"]["responses"]["200"]["content"]["application/json"]["data"];
+export type OrderSetTemplateItem =
+  operations["listOrderSetTemplateItems"]["responses"]["200"]["content"]["application/json"]["data"];
+export type ModelDefinitionVersion =
+  operations["listModelDefinitionVersions"]["responses"]["200"]["content"]["application/json"]["data"];
+export type ModelDefinitionPerformanceMetric =
+  operations["listModelDefinitionPerformanceMetrics"]["responses"]["200"]["content"]["application/json"]["data"];
+export type ModelVersionTest =
+  operations["listModelVersionTests"]["responses"]["200"]["content"]["application/json"]["data"];
+export type ModelVersionFeatureDefinition =
+  operations["listModelVersionFeatureDefinitions"]["responses"]["200"]["content"]["application/json"]["data"];
+export type OntologyTermChild =
+  operations["listOntologyTermChildren"]["responses"]["200"]["content"]["application/json"]["data"];
+export type OntologyTermParent =
+  operations["listOntologyTermParents"]["responses"]["200"]["content"]["application/json"]["data"];
+export type OntologyTermMapping =
+  operations["listOntologyTermMappings"]["responses"]["200"]["content"]["application/json"]["data"];
+export type ConceptMapMapping =
+  operations["listConceptMapMappings"]["responses"]["200"]["content"]["application/json"]["data"];
+export type ScoringTemplateItem =
+  operations["listScoringTemplateItems"]["responses"]["200"]["content"]["application/json"]["data"];
+export type QuestionnaireTemplateQuestion =
+  operations["listQuestionnaireTemplateQuestions"]["responses"]["200"]["content"]["application/json"]["data"];
+export type KnowledgePackageClinicalRule =
+  operations["listKnowledgePackageClinicalRules"]["responses"]["200"]["content"]["application/json"]["data"];
+export type KnowledgePackageModelDefinition =
+  operations["listKnowledgePackageModelDefinitions"]["responses"]["200"]["content"]["application/json"]["data"];
+export type KnowledgePackageValueSet =
+  operations["listKnowledgePackageValueSets"]["responses"]["200"]["content"]["application/json"]["data"];
 
 // ============================================================================
 // Operation Input Types (Request Bodies)
@@ -113,35 +132,112 @@ export type KnowledgePackageValueSet = operations["listKnowledgePackageValueSets
 
 // These types represent the input data for create/update operations
 
-export type CreateClinicalRuleInput = NonNullable<operations["createClinicalRule"]["requestBody"]>["content"]["application/json"];
-export type UpdateClinicalRuleInput = NonNullable<operations["updateClinicalRule"]["requestBody"]>["content"]["application/json"];
-export type CreateRuleSetInput = NonNullable<operations["createRuleSet"]["requestBody"]>["content"]["application/json"];
-export type UpdateRuleSetInput = NonNullable<operations["updateRuleSet"]["requestBody"]>["content"]["application/json"];
-export type CreateGuidelineInput = NonNullable<operations["createGuideline"]["requestBody"]>["content"]["application/json"];
-export type UpdateGuidelineInput = NonNullable<operations["updateGuideline"]["requestBody"]>["content"]["application/json"];
-export type CreateCareProtocolInput = NonNullable<operations["createCareProtocol"]["requestBody"]>["content"]["application/json"];
-export type UpdateCareProtocolInput = NonNullable<operations["updateCareProtocol"]["requestBody"]>["content"]["application/json"];
-export type CreateOrderSetTemplateInput = NonNullable<operations["createOrderSetTemplate"]["requestBody"]>["content"]["application/json"];
-export type UpdateOrderSetTemplateInput = NonNullable<operations["updateOrderSetTemplate"]["requestBody"]>["content"]["application/json"];
-export type CreateModelDefinitionInput = NonNullable<operations["createModelDefinition"]["requestBody"]>["content"]["application/json"];
-export type UpdateModelDefinitionInput = NonNullable<operations["updateModelDefinition"]["requestBody"]>["content"]["application/json"];
-export type CreateModelVersionInput = NonNullable<operations["createModelVersion"]["requestBody"]>["content"]["application/json"];
-export type UpdateModelVersionInput = NonNullable<operations["updateModelVersion"]["requestBody"]>["content"]["application/json"];
-export type CreateValueSetInput = NonNullable<operations["createValueSet"]["requestBody"]>["content"]["application/json"];
-export type UpdateValueSetInput = NonNullable<operations["updateValueSet"]["requestBody"]>["content"]["application/json"];
-export type CreateConceptMapInput = NonNullable<operations["createConceptMap"]["requestBody"]>["content"]["application/json"];
-export type UpdateConceptMapInput = NonNullable<operations["updateConceptMap"]["requestBody"]>["content"]["application/json"];
-export type CreateScoringTemplateInput = NonNullable<operations["createScoringTemplate"]["requestBody"]>["content"]["application/json"];
-export type UpdateScoringTemplateInput = NonNullable<operations["updateScoringTemplate"]["requestBody"]>["content"]["application/json"];
-export type CreateQuestionnaireTemplateInput = NonNullable<operations["createQuestionnaireTemplate"]["requestBody"]>["content"]["application/json"];
-export type UpdateQuestionnaireTemplateInput = NonNullable<operations["updateQuestionnaireTemplate"]["requestBody"]>["content"]["application/json"];
-export type CreateEvidenceCitationInput = NonNullable<operations["createEvidenceCitation"]["requestBody"]>["content"]["application/json"];
-export type UpdateEvidenceCitationInput = NonNullable<operations["updateEvidenceCitation"]["requestBody"]>["content"]["application/json"];
-export type CreateEvidenceReviewInput = NonNullable<operations["createEvidenceReview"]["requestBody"]>["content"]["application/json"];
-export type UpdateEvidenceReviewInput = NonNullable<operations["updateEvidenceReview"]["requestBody"]>["content"]["application/json"];
-export type CreateKnowledgePackageInput = NonNullable<operations["createKnowledgePackage"]["requestBody"]>["content"]["application/json"];
-export type UpdateKnowledgePackageInput = NonNullable<operations["updateKnowledgePackage"]["requestBody"]>["content"]["application/json"];
+export type CreateClinicalRuleInput = NonNullable<
+  operations["createClinicalRule"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateClinicalRuleInput = NonNullable<
+  operations["updateClinicalRule"]["requestBody"]
+>["content"]["application/json"];
+export type CreateRuleSetInput = NonNullable<
+  operations["createRuleSet"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateRuleSetInput = NonNullable<
+  operations["updateRuleSet"]["requestBody"]
+>["content"]["application/json"];
+export type CreateGuidelineInput = NonNullable<
+  operations["createGuideline"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateGuidelineInput = NonNullable<
+  operations["updateGuideline"]["requestBody"]
+>["content"]["application/json"];
+export type CreateCareProtocolInput = NonNullable<
+  operations["createCareProtocol"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateCareProtocolInput = NonNullable<
+  operations["updateCareProtocol"]["requestBody"]
+>["content"]["application/json"];
+export type CreateOrderSetTemplateInput = NonNullable<
+  operations["createOrderSetTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateOrderSetTemplateInput = NonNullable<
+  operations["updateOrderSetTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type CreateModelDefinitionInput = NonNullable<
+  operations["createModelDefinition"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateModelDefinitionInput = NonNullable<
+  operations["updateModelDefinition"]["requestBody"]
+>["content"]["application/json"];
+export type CreateModelVersionInput = NonNullable<
+  operations["createModelVersion"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateModelVersionInput = NonNullable<
+  operations["updateModelVersion"]["requestBody"]
+>["content"]["application/json"];
+export type CreateValueSetInput = NonNullable<
+  operations["createValueSet"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateValueSetInput = NonNullable<
+  operations["updateValueSet"]["requestBody"]
+>["content"]["application/json"];
+export type CreateConceptMapInput = NonNullable<
+  operations["createConceptMap"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateConceptMapInput = NonNullable<
+  operations["updateConceptMap"]["requestBody"]
+>["content"]["application/json"];
+export type CreateScoringTemplateInput = NonNullable<
+  operations["createScoringTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateScoringTemplateInput = NonNullable<
+  operations["updateScoringTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type CreateQuestionnaireTemplateInput = NonNullable<
+  operations["createQuestionnaireTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateQuestionnaireTemplateInput = NonNullable<
+  operations["updateQuestionnaireTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type CreateEvidenceCitationInput = NonNullable<
+  operations["createEvidenceCitation"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateEvidenceCitationInput = NonNullable<
+  operations["updateEvidenceCitation"]["requestBody"]
+>["content"]["application/json"];
+export type CreateEvidenceReviewInput = NonNullable<
+  operations["createEvidenceReview"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateEvidenceReviewInput = NonNullable<
+  operations["updateEvidenceReview"]["requestBody"]
+>["content"]["application/json"];
+export type CreateKnowledgePackageInput = NonNullable<
+  operations["createKnowledgePackage"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateKnowledgePackageInput = NonNullable<
+  operations["updateKnowledgePackage"]["requestBody"]
+>["content"]["application/json"];
 
+// ============================================================================
+// Type Aliases for Repository Interfaces (Update*Request → Update*Input)
+// ============================================================================
+
+// These aliases provide backward compatibility for repository interfaces
+// that use Update*Request naming convention instead of Update*Input
+
+export type UpdateCareProtocolTemplateRequest = UpdateCareProtocolInput;
+export type UpdateClinicalGuidelineRequest = UpdateGuidelineInput;
+export type UpdateClinicalRuleRequest = UpdateClinicalRuleInput;
+export type UpdateConceptMapRequest = UpdateConceptMapInput;
+export type UpdateEvidenceCitationRequest = UpdateEvidenceCitationInput;
+export type UpdateEvidenceReviewRequest = UpdateEvidenceReviewInput;
+export type UpdateKnowledgePackageRequest = UpdateKnowledgePackageInput;
+export type UpdateModelDefinitionRequest = UpdateModelDefinitionInput;
+export type UpdateModelVersionRequest = UpdateModelVersionInput;
+export type UpdateOrderSetTemplateRequest = UpdateOrderSetTemplateInput;
+export type UpdateQuestionnaireTemplateRequest = UpdateQuestionnaireTemplateInput;
+export type UpdateRuleSetRequest = UpdateRuleSetInput;
+export type UpdateScoringTemplateRequest = UpdateScoringTemplateInput;
+export type UpdateValueSetRequest = UpdateValueSetInput;
 
 // ============================================================================
 // Operation Parameter Types (Query Parameters)
@@ -153,18 +249,21 @@ export type ListClinicalRulesParams = operations["listClinicalRules"]["parameter
 export type ListRuleSetsParams = operations["listRuleSets"]["parameters"]["query"];
 export type ListGuidelinesParams = operations["listGuidelines"]["parameters"]["query"];
 export type ListCareProtocolsParams = operations["listCareProtocols"]["parameters"]["query"];
-export type ListOrderSetTemplatesParams = operations["listOrderSetTemplates"]["parameters"]["query"];
+export type ListOrderSetTemplatesParams =
+  operations["listOrderSetTemplates"]["parameters"]["query"];
 export type ListModelDefinitionsParams = operations["listModelDefinitions"]["parameters"]["query"];
 export type ListModelVersionsParams = operations["listModelVersions"]["parameters"]["query"];
 export type SearchOntologyTermsParams = operations["searchOntologyTerms"]["parameters"]["query"];
 export type ListValueSetsParams = operations["listValueSets"]["parameters"]["query"];
 export type ListConceptMapsParams = operations["listConceptMaps"]["parameters"]["query"];
 export type ListScoringTemplatesParams = operations["listScoringTemplates"]["parameters"]["query"];
-export type ListQuestionnaireTemplatesParams = operations["listQuestionnaireTemplates"]["parameters"]["query"];
-export type ListEvidenceCitationsParams = operations["listEvidenceCitations"]["parameters"]["query"];
+export type ListQuestionnaireTemplatesParams =
+  operations["listQuestionnaireTemplates"]["parameters"]["query"];
+export type ListEvidenceCitationsParams =
+  operations["listEvidenceCitations"]["parameters"]["query"];
 export type ListEvidenceReviewsParams = operations["listEvidenceReviews"]["parameters"]["query"];
-export type ListKnowledgePackagesParams = operations["listKnowledgePackages"]["parameters"]["query"];
-
+export type ListKnowledgePackagesParams =
+  operations["listKnowledgePackages"]["parameters"]["query"];
 
 // ============================================================================
 // Operation Response Types
@@ -172,85 +271,163 @@ export type ListKnowledgePackagesParams = operations["listKnowledgePackages"]["p
 
 // These types are used by handlers for type-safe response envelopes
 
-export type ListClinicalRulesResponse = operations["listClinicalRules"]["responses"]["200"]["content"]["application/json"];
-export type CreateClinicalRuleResponse = operations["createClinicalRule"]["responses"]["201"]["content"]["application/json"];
-export type GetClinicalRuleResponse = operations["getClinicalRule"]["responses"]["200"]["content"]["application/json"];
-export type UpdateClinicalRuleResponse = operations["updateClinicalRule"]["responses"]["200"]["content"]["application/json"];
-export type ListClinicalRuleVersionsResponse = operations["listClinicalRuleVersions"]["responses"]["200"]["content"]["application/json"];
-export type ListClinicalRuleTestsResponse = operations["listClinicalRuleTests"]["responses"]["200"]["content"]["application/json"];
-export type ListRuleSetsResponse = operations["listRuleSets"]["responses"]["200"]["content"]["application/json"];
-export type CreateRuleSetResponse = operations["createRuleSet"]["responses"]["201"]["content"]["application/json"];
-export type GetRuleSetResponse = operations["getRuleSet"]["responses"]["200"]["content"]["application/json"];
-export type UpdateRuleSetResponse = operations["updateRuleSet"]["responses"]["200"]["content"]["application/json"];
-export type ListRuleSetClinicalRulesResponse = operations["listRuleSetClinicalRules"]["responses"]["200"]["content"]["application/json"];
-export type ListGuidelinesResponse = operations["listGuidelines"]["responses"]["200"]["content"]["application/json"];
-export type CreateGuidelineResponse = operations["createGuideline"]["responses"]["201"]["content"]["application/json"];
-export type GetGuidelineResponse = operations["getGuideline"]["responses"]["200"]["content"]["application/json"];
-export type UpdateGuidelineResponse = operations["updateGuideline"]["responses"]["200"]["content"]["application/json"];
-export type ListGuidelineSectionsResponse = operations["listGuidelineSections"]["responses"]["200"]["content"]["application/json"];
-export type ListGuidelineEvidenceCitationsResponse = operations["listGuidelineEvidenceCitations"]["responses"]["200"]["content"]["application/json"];
-export type ListCareProtocolsResponse = operations["listCareProtocols"]["responses"]["200"]["content"]["application/json"];
-export type CreateCareProtocolResponse = operations["createCareProtocol"]["responses"]["201"]["content"]["application/json"];
-export type GetCareProtocolResponse = operations["getCareProtocol"]["responses"]["200"]["content"]["application/json"];
-export type UpdateCareProtocolResponse = operations["updateCareProtocol"]["responses"]["200"]["content"]["application/json"];
-export type ListCareProtocolStepsResponse = operations["listCareProtocolSteps"]["responses"]["200"]["content"]["application/json"];
-export type ListCareProtocolOrderSetsResponse = operations["listCareProtocolOrderSets"]["responses"]["200"]["content"]["application/json"];
-export type ListOrderSetTemplatesResponse = operations["listOrderSetTemplates"]["responses"]["200"]["content"]["application/json"];
-export type CreateOrderSetTemplateResponse = operations["createOrderSetTemplate"]["responses"]["201"]["content"]["application/json"];
-export type GetOrderSetTemplateResponse = operations["getOrderSetTemplate"]["responses"]["200"]["content"]["application/json"];
-export type UpdateOrderSetTemplateResponse = operations["updateOrderSetTemplate"]["responses"]["200"]["content"]["application/json"];
-export type ListOrderSetTemplateItemsResponse = operations["listOrderSetTemplateItems"]["responses"]["200"]["content"]["application/json"];
-export type ListModelDefinitionsResponse = operations["listModelDefinitions"]["responses"]["200"]["content"]["application/json"];
-export type CreateModelDefinitionResponse = operations["createModelDefinition"]["responses"]["201"]["content"]["application/json"];
-export type GetModelDefinitionResponse = operations["getModelDefinition"]["responses"]["200"]["content"]["application/json"];
-export type UpdateModelDefinitionResponse = operations["updateModelDefinition"]["responses"]["200"]["content"]["application/json"];
-export type ListModelDefinitionVersionsResponse = operations["listModelDefinitionVersions"]["responses"]["200"]["content"]["application/json"];
-export type ListModelDefinitionPerformanceMetricsResponse = operations["listModelDefinitionPerformanceMetrics"]["responses"]["200"]["content"]["application/json"];
-export type ListModelVersionsResponse = operations["listModelVersions"]["responses"]["200"]["content"]["application/json"];
-export type CreateModelVersionResponse = operations["createModelVersion"]["responses"]["201"]["content"]["application/json"];
-export type GetModelVersionResponse = operations["getModelVersion"]["responses"]["200"]["content"]["application/json"];
-export type UpdateModelVersionResponse = operations["updateModelVersion"]["responses"]["200"]["content"]["application/json"];
-export type ListModelVersionTestsResponse = operations["listModelVersionTests"]["responses"]["200"]["content"]["application/json"];
-export type ListModelVersionFeatureDefinitionsResponse = operations["listModelVersionFeatureDefinitions"]["responses"]["200"]["content"]["application/json"];
-export type SearchOntologyTermsResponse = operations["searchOntologyTerms"]["responses"]["200"]["content"]["application/json"];
-export type GetOntologyTermResponse = operations["getOntologyTerm"]["responses"]["200"]["content"]["application/json"];
-export type ListOntologyTermChildrenResponse = operations["listOntologyTermChildren"]["responses"]["200"]["content"]["application/json"];
-export type ListOntologyTermParentsResponse = operations["listOntologyTermParents"]["responses"]["200"]["content"]["application/json"];
-export type ListOntologyTermMappingsResponse = operations["listOntologyTermMappings"]["responses"]["200"]["content"]["application/json"];
-export type ListValueSetsResponse = operations["listValueSets"]["responses"]["200"]["content"]["application/json"];
-export type CreateValueSetResponse = operations["createValueSet"]["responses"]["201"]["content"]["application/json"];
-export type GetValueSetResponse = operations["getValueSet"]["responses"]["200"]["content"]["application/json"];
-export type UpdateValueSetResponse = operations["updateValueSet"]["responses"]["200"]["content"]["application/json"];
-export type ListValueSetCodesResponse = operations["listValueSetCodes"]["responses"]["200"]["content"]["application/json"];
-export type ListConceptMapsResponse = operations["listConceptMaps"]["responses"]["200"]["content"]["application/json"];
-export type CreateConceptMapResponse = operations["createConceptMap"]["responses"]["201"]["content"]["application/json"];
-export type GetConceptMapResponse = operations["getConceptMap"]["responses"]["200"]["content"]["application/json"];
-export type UpdateConceptMapResponse = operations["updateConceptMap"]["responses"]["200"]["content"]["application/json"];
-export type ListConceptMapMappingsResponse = operations["listConceptMapMappings"]["responses"]["200"]["content"]["application/json"];
-export type ListScoringTemplatesResponse = operations["listScoringTemplates"]["responses"]["200"]["content"]["application/json"];
-export type CreateScoringTemplateResponse = operations["createScoringTemplate"]["responses"]["201"]["content"]["application/json"];
-export type GetScoringTemplateResponse = operations["getScoringTemplate"]["responses"]["200"]["content"]["application/json"];
-export type UpdateScoringTemplateResponse = operations["updateScoringTemplate"]["responses"]["200"]["content"]["application/json"];
-export type ListScoringTemplateItemsResponse = operations["listScoringTemplateItems"]["responses"]["200"]["content"]["application/json"];
-export type ListQuestionnaireTemplatesResponse = operations["listQuestionnaireTemplates"]["responses"]["200"]["content"]["application/json"];
-export type CreateQuestionnaireTemplateResponse = operations["createQuestionnaireTemplate"]["responses"]["201"]["content"]["application/json"];
-export type GetQuestionnaireTemplateResponse = operations["getQuestionnaireTemplate"]["responses"]["200"]["content"]["application/json"];
-export type UpdateQuestionnaireTemplateResponse = operations["updateQuestionnaireTemplate"]["responses"]["200"]["content"]["application/json"];
-export type ListQuestionnaireTemplateQuestionsResponse = operations["listQuestionnaireTemplateQuestions"]["responses"]["200"]["content"]["application/json"];
-export type ListEvidenceCitationsResponse = operations["listEvidenceCitations"]["responses"]["200"]["content"]["application/json"];
-export type CreateEvidenceCitationResponse = operations["createEvidenceCitation"]["responses"]["201"]["content"]["application/json"];
-export type GetEvidenceCitationResponse = operations["getEvidenceCitation"]["responses"]["200"]["content"]["application/json"];
-export type UpdateEvidenceCitationResponse = operations["updateEvidenceCitation"]["responses"]["200"]["content"]["application/json"];
-export type ListEvidenceReviewsResponse = operations["listEvidenceReviews"]["responses"]["200"]["content"]["application/json"];
-export type CreateEvidenceReviewResponse = operations["createEvidenceReview"]["responses"]["201"]["content"]["application/json"];
-export type GetEvidenceReviewResponse = operations["getEvidenceReview"]["responses"]["200"]["content"]["application/json"];
-export type UpdateEvidenceReviewResponse = operations["updateEvidenceReview"]["responses"]["200"]["content"]["application/json"];
-export type ListKnowledgePackagesResponse = operations["listKnowledgePackages"]["responses"]["200"]["content"]["application/json"];
-export type CreateKnowledgePackageResponse = operations["createKnowledgePackage"]["responses"]["201"]["content"]["application/json"];
-export type GetKnowledgePackageResponse = operations["getKnowledgePackage"]["responses"]["200"]["content"]["application/json"];
-export type UpdateKnowledgePackageResponse = operations["updateKnowledgePackage"]["responses"]["200"]["content"]["application/json"];
-export type ListKnowledgePackageClinicalRulesResponse = operations["listKnowledgePackageClinicalRules"]["responses"]["200"]["content"]["application/json"];
-export type ListKnowledgePackageModelDefinitionsResponse = operations["listKnowledgePackageModelDefinitions"]["responses"]["200"]["content"]["application/json"];
-export type ListKnowledgePackageValueSetsResponse = operations["listKnowledgePackageValueSets"]["responses"]["200"]["content"]["application/json"];
-
-
+export type ListClinicalRulesResponse =
+  operations["listClinicalRules"]["responses"]["200"]["content"]["application/json"];
+export type CreateClinicalRuleResponse =
+  operations["createClinicalRule"]["responses"]["201"]["content"]["application/json"];
+export type GetClinicalRuleResponse =
+  operations["getClinicalRule"]["responses"]["200"]["content"]["application/json"];
+export type UpdateClinicalRuleResponse =
+  operations["updateClinicalRule"]["responses"]["200"]["content"]["application/json"];
+export type ListClinicalRuleVersionsResponse =
+  operations["listClinicalRuleVersions"]["responses"]["200"]["content"]["application/json"];
+export type ListClinicalRuleTestsResponse =
+  operations["listClinicalRuleTests"]["responses"]["200"]["content"]["application/json"];
+export type ListRuleSetsResponse =
+  operations["listRuleSets"]["responses"]["200"]["content"]["application/json"];
+export type CreateRuleSetResponse =
+  operations["createRuleSet"]["responses"]["201"]["content"]["application/json"];
+export type GetRuleSetResponse =
+  operations["getRuleSet"]["responses"]["200"]["content"]["application/json"];
+export type UpdateRuleSetResponse =
+  operations["updateRuleSet"]["responses"]["200"]["content"]["application/json"];
+export type ListRuleSetClinicalRulesResponse =
+  operations["listRuleSetClinicalRules"]["responses"]["200"]["content"]["application/json"];
+export type ListGuidelinesResponse =
+  operations["listGuidelines"]["responses"]["200"]["content"]["application/json"];
+export type CreateGuidelineResponse =
+  operations["createGuideline"]["responses"]["201"]["content"]["application/json"];
+export type GetGuidelineResponse =
+  operations["getGuideline"]["responses"]["200"]["content"]["application/json"];
+export type UpdateGuidelineResponse =
+  operations["updateGuideline"]["responses"]["200"]["content"]["application/json"];
+export type ListGuidelineSectionsResponse =
+  operations["listGuidelineSections"]["responses"]["200"]["content"]["application/json"];
+export type ListGuidelineEvidenceCitationsResponse =
+  operations["listGuidelineEvidenceCitations"]["responses"]["200"]["content"]["application/json"];
+export type ListCareProtocolsResponse =
+  operations["listCareProtocols"]["responses"]["200"]["content"]["application/json"];
+export type CreateCareProtocolResponse =
+  operations["createCareProtocol"]["responses"]["201"]["content"]["application/json"];
+export type GetCareProtocolResponse =
+  operations["getCareProtocol"]["responses"]["200"]["content"]["application/json"];
+export type UpdateCareProtocolResponse =
+  operations["updateCareProtocol"]["responses"]["200"]["content"]["application/json"];
+export type ListCareProtocolStepsResponse =
+  operations["listCareProtocolSteps"]["responses"]["200"]["content"]["application/json"];
+export type ListCareProtocolOrderSetsResponse =
+  operations["listCareProtocolOrderSets"]["responses"]["200"]["content"]["application/json"];
+export type ListOrderSetTemplatesResponse =
+  operations["listOrderSetTemplates"]["responses"]["200"]["content"]["application/json"];
+export type CreateOrderSetTemplateResponse =
+  operations["createOrderSetTemplate"]["responses"]["201"]["content"]["application/json"];
+export type GetOrderSetTemplateResponse =
+  operations["getOrderSetTemplate"]["responses"]["200"]["content"]["application/json"];
+export type UpdateOrderSetTemplateResponse =
+  operations["updateOrderSetTemplate"]["responses"]["200"]["content"]["application/json"];
+export type ListOrderSetTemplateItemsResponse =
+  operations["listOrderSetTemplateItems"]["responses"]["200"]["content"]["application/json"];
+export type ListModelDefinitionsResponse =
+  operations["listModelDefinitions"]["responses"]["200"]["content"]["application/json"];
+export type CreateModelDefinitionResponse =
+  operations["createModelDefinition"]["responses"]["201"]["content"]["application/json"];
+export type GetModelDefinitionResponse =
+  operations["getModelDefinition"]["responses"]["200"]["content"]["application/json"];
+export type UpdateModelDefinitionResponse =
+  operations["updateModelDefinition"]["responses"]["200"]["content"]["application/json"];
+export type ListModelDefinitionVersionsResponse =
+  operations["listModelDefinitionVersions"]["responses"]["200"]["content"]["application/json"];
+export type ListModelDefinitionPerformanceMetricsResponse =
+  operations["listModelDefinitionPerformanceMetrics"]["responses"]["200"]["content"]["application/json"];
+export type ListModelVersionsResponse =
+  operations["listModelVersions"]["responses"]["200"]["content"]["application/json"];
+export type CreateModelVersionResponse =
+  operations["createModelVersion"]["responses"]["201"]["content"]["application/json"];
+export type GetModelVersionResponse =
+  operations["getModelVersion"]["responses"]["200"]["content"]["application/json"];
+export type UpdateModelVersionResponse =
+  operations["updateModelVersion"]["responses"]["200"]["content"]["application/json"];
+export type ListModelVersionTestsResponse =
+  operations["listModelVersionTests"]["responses"]["200"]["content"]["application/json"];
+export type ListModelVersionFeatureDefinitionsResponse =
+  operations["listModelVersionFeatureDefinitions"]["responses"]["200"]["content"]["application/json"];
+export type SearchOntologyTermsResponse =
+  operations["searchOntologyTerms"]["responses"]["200"]["content"]["application/json"];
+export type GetOntologyTermResponse =
+  operations["getOntologyTerm"]["responses"]["200"]["content"]["application/json"];
+export type ListOntologyTermChildrenResponse =
+  operations["listOntologyTermChildren"]["responses"]["200"]["content"]["application/json"];
+export type ListOntologyTermParentsResponse =
+  operations["listOntologyTermParents"]["responses"]["200"]["content"]["application/json"];
+export type ListOntologyTermMappingsResponse =
+  operations["listOntologyTermMappings"]["responses"]["200"]["content"]["application/json"];
+export type ListValueSetsResponse =
+  operations["listValueSets"]["responses"]["200"]["content"]["application/json"];
+export type CreateValueSetResponse =
+  operations["createValueSet"]["responses"]["201"]["content"]["application/json"];
+export type GetValueSetResponse =
+  operations["getValueSet"]["responses"]["200"]["content"]["application/json"];
+export type UpdateValueSetResponse =
+  operations["updateValueSet"]["responses"]["200"]["content"]["application/json"];
+export type ListValueSetCodesResponse =
+  operations["listValueSetCodes"]["responses"]["200"]["content"]["application/json"];
+export type ListConceptMapsResponse =
+  operations["listConceptMaps"]["responses"]["200"]["content"]["application/json"];
+export type CreateConceptMapResponse =
+  operations["createConceptMap"]["responses"]["201"]["content"]["application/json"];
+export type GetConceptMapResponse =
+  operations["getConceptMap"]["responses"]["200"]["content"]["application/json"];
+export type UpdateConceptMapResponse =
+  operations["updateConceptMap"]["responses"]["200"]["content"]["application/json"];
+export type ListConceptMapMappingsResponse =
+  operations["listConceptMapMappings"]["responses"]["200"]["content"]["application/json"];
+export type ListScoringTemplatesResponse =
+  operations["listScoringTemplates"]["responses"]["200"]["content"]["application/json"];
+export type CreateScoringTemplateResponse =
+  operations["createScoringTemplate"]["responses"]["201"]["content"]["application/json"];
+export type GetScoringTemplateResponse =
+  operations["getScoringTemplate"]["responses"]["200"]["content"]["application/json"];
+export type UpdateScoringTemplateResponse =
+  operations["updateScoringTemplate"]["responses"]["200"]["content"]["application/json"];
+export type ListScoringTemplateItemsResponse =
+  operations["listScoringTemplateItems"]["responses"]["200"]["content"]["application/json"];
+export type ListQuestionnaireTemplatesResponse =
+  operations["listQuestionnaireTemplates"]["responses"]["200"]["content"]["application/json"];
+export type CreateQuestionnaireTemplateResponse =
+  operations["createQuestionnaireTemplate"]["responses"]["201"]["content"]["application/json"];
+export type GetQuestionnaireTemplateResponse =
+  operations["getQuestionnaireTemplate"]["responses"]["200"]["content"]["application/json"];
+export type UpdateQuestionnaireTemplateResponse =
+  operations["updateQuestionnaireTemplate"]["responses"]["200"]["content"]["application/json"];
+export type ListQuestionnaireTemplateQuestionsResponse =
+  operations["listQuestionnaireTemplateQuestions"]["responses"]["200"]["content"]["application/json"];
+export type ListEvidenceCitationsResponse =
+  operations["listEvidenceCitations"]["responses"]["200"]["content"]["application/json"];
+export type CreateEvidenceCitationResponse =
+  operations["createEvidenceCitation"]["responses"]["201"]["content"]["application/json"];
+export type GetEvidenceCitationResponse =
+  operations["getEvidenceCitation"]["responses"]["200"]["content"]["application/json"];
+export type UpdateEvidenceCitationResponse =
+  operations["updateEvidenceCitation"]["responses"]["200"]["content"]["application/json"];
+export type ListEvidenceReviewsResponse =
+  operations["listEvidenceReviews"]["responses"]["200"]["content"]["application/json"];
+export type CreateEvidenceReviewResponse =
+  operations["createEvidenceReview"]["responses"]["201"]["content"]["application/json"];
+export type GetEvidenceReviewResponse =
+  operations["getEvidenceReview"]["responses"]["200"]["content"]["application/json"];
+export type UpdateEvidenceReviewResponse =
+  operations["updateEvidenceReview"]["responses"]["200"]["content"]["application/json"];
+export type ListKnowledgePackagesResponse =
+  operations["listKnowledgePackages"]["responses"]["200"]["content"]["application/json"];
+export type CreateKnowledgePackageResponse =
+  operations["createKnowledgePackage"]["responses"]["201"]["content"]["application/json"];
+export type GetKnowledgePackageResponse =
+  operations["getKnowledgePackage"]["responses"]["200"]["content"]["application/json"];
+export type UpdateKnowledgePackageResponse =
+  operations["updateKnowledgePackage"]["responses"]["200"]["content"]["application/json"];
+export type ListKnowledgePackageClinicalRulesResponse =
+  operations["listKnowledgePackageClinicalRules"]["responses"]["200"]["content"]["application/json"];
+export type ListKnowledgePackageModelDefinitionsResponse =
+  operations["listKnowledgePackageModelDefinitions"]["responses"]["200"]["content"]["application/json"];
+export type ListKnowledgePackageValueSetsResponse =
+  operations["listKnowledgePackageValueSets"]["responses"]["200"]["content"]["application/json"];

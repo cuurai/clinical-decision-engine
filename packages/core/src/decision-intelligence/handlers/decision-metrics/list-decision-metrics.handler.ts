@@ -36,6 +36,6 @@ export async function listDecisionMetrics(
         limit: result.items.length,
       },
     },
-  };
+  } as ListDecisionMetricsResponse;
 
 }

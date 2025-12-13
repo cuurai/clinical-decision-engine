@@ -35,6 +35,6 @@ export async function listWorkflowDefinitionTransitions(
         limit: result.items.length,
       },
     },
-  };
+  } as ListWorkflowDefinitionTransitionsResponse;
 
 }

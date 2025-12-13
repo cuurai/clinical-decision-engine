@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
  * Description: Represents the WorkflowInstance domain model.
  * Source: schemas.WorkflowInstance
  */
-export const ZWorkflowInstanceEntitySchema = schemas.WorkflowInstance;
+export const ZWorkflowInstanceEntitySchema = schemas.WorkflowInstance as ZodType<any, any, any>;
 export type WorkflowInstanceEntity = z.infer<typeof ZWorkflowInstanceEntitySchema>;

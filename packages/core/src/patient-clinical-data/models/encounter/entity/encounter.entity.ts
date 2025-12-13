@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/patient-clinical-data.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/patient-clinical-data.schemas";
  * Description: Represents the Encounter domain model.
  * Source: schemas.Encounter
  */
-export const ZEncounterEntitySchema = schemas.Encounter;
+export const ZEncounterEntitySchema = schemas.Encounter as ZodType<any, any, any>;
 export type EncounterEntity = z.infer<typeof ZEncounterEntitySchema>;

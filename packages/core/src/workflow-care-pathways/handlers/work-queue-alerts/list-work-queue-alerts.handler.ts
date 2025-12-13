@@ -35,6 +35,6 @@ export async function listWorkQueueAlerts(
         limit: result.items.length,
       },
     },
-  };
+  } as ListWorkQueueAlertsResponse;
 
 }

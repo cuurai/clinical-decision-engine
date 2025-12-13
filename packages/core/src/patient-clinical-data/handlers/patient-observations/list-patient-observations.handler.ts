@@ -36,6 +36,6 @@ export async function listPatientObservations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListPatientObservationsResponse;
 
 }

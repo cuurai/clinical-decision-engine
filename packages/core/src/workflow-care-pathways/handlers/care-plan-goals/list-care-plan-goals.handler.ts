@@ -35,6 +35,6 @@ export async function listCarePlanGoals(
         limit: result.items.length,
       },
     },
-  };
+  } as ListCarePlanGoalsResponse;
 
 }

@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/patient-clinical-data.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/patient-clinical-data.schemas";
  * Description: Represents the MedicationAdministration domain model.
  * Source: schemas.MedicationAdministration
  */
-export const ZMedicationAdministrationEntitySchema = schemas.MedicationAdministration;
+export const ZMedicationAdministrationEntitySchema = schemas.MedicationAdministration as ZodType<any, any, any>;
 export type MedicationAdministrationEntity = z.infer<typeof ZMedicationAdministrationEntitySchema>;

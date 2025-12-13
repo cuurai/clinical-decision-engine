@@ -35,6 +35,6 @@ export async function listPatientVitals(
         limit: result.items.length,
       },
     },
-  };
+  } as ListPatientVitalsResponse;
 
 }

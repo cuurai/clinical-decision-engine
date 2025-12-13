@@ -35,6 +35,6 @@ export async function listPatientCareTeam(
         limit: result.items.length,
       },
     },
-  };
+  } as ListPatientCareTeamResponse;
 
 }

@@ -35,6 +35,6 @@ export async function listTaskComments(
         limit: result.items.length,
       },
     },
-  };
+  } as ListTaskCommentsResponse;
 
 }

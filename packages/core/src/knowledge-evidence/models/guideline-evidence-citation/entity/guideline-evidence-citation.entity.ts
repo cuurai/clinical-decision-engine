@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
  * Description: Represents the GuidelineEvidenceCitation domain model.
  * Source: schemas.GuidelineEvidenceCitation
  */
-export const ZGuidelineEvidenceCitationEntitySchema = schemas.GuidelineEvidenceCitation;
+export const ZGuidelineEvidenceCitationEntitySchema = schemas.GuidelineEvidenceCitation as ZodType<any, any, any>;
 export type GuidelineEvidenceCitationEntity = z.infer<typeof ZGuidelineEvidenceCitationEntitySchema>;

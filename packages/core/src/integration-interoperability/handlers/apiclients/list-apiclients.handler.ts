@@ -36,6 +36,6 @@ export async function listAPIClients(
         limit: result.items.length,
       },
     },
-  };
+  } as ListAPIClientsResponse;
 
 }

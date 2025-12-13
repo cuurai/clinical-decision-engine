@@ -35,6 +35,6 @@ export async function listModelDefinitionVersions(
         limit: result.items.length,
       },
     },
-  };
+  } as ListModelDefinitionVersionsResponse;
 
 }

@@ -35,6 +35,6 @@ export async function listOntologyTermMappings(
         limit: result.items.length,
       },
     },
-  };
+  } as ListOntologyTermMappingsResponse;
 
 }

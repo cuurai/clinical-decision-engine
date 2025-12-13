@@ -36,6 +36,6 @@ export async function listEncounters(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEncountersResponse;
 
 }

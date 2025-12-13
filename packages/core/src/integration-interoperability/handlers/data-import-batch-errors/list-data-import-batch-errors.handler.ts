@@ -35,6 +35,6 @@ export async function listDataImportBatchErrors(
         limit: result.items.length,
       },
     },
-  };
+  } as ListDataImportBatchErrorsResponse;
 
 }

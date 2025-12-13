@@ -35,6 +35,6 @@ export async function listGuidelineEvidenceCitations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListGuidelineEvidenceCitationsResponse;
 
 }

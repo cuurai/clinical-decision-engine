@@ -20,7 +20,6 @@ import type { components, operations } from "../openapi/workflow-care-pathways.o
 
 export type { components, operations };
 
-
 // ============================================================================
 // Convenient Type Aliases for Schemas
 // ============================================================================
@@ -84,29 +83,50 @@ export type WorkflowInstanceInput = components["schemas"]["WorkflowInstanceInput
 export type WorkflowInstanceUpdate = components["schemas"]["WorkflowInstanceUpdate"];
 export type WorkflowState = components["schemas"]["WorkflowState"];
 export type WorkflowTransition = components["schemas"]["WorkflowTransition"];
-export type WorkflowDefinitionState = operations["listWorkflowDefinitionStates"]["responses"]["200"]["content"]["application/json"]["data"];
-export type WorkflowDefinitionTransition = operations["listWorkflowDefinitionTransitions"]["responses"]["200"]["content"]["application/json"]["data"];
-export type WorkflowInstanceTask = operations["listWorkflowInstanceTasks"]["responses"]["200"]["content"]["application/json"]["data"];
-export type WorkflowInstanceEvent = operations["listWorkflowInstanceEvents"]["responses"]["200"]["content"]["application/json"]["data"];
-export type WorkflowInstanceAuditEvent = operations["listWorkflowInstanceAuditEvents"]["responses"]["200"]["content"]["application/json"]["data"];
-export type CarePathwayTemplateStep = operations["listCarePathwayTemplateSteps"]["responses"]["200"]["content"]["application/json"]["data"];
-export type CarePathwayTemplateOrderSetTemplate = operations["listCarePathwayTemplateOrderSetTemplates"]["responses"]["200"]["content"]["application/json"]["data"];
-export type CarePlanTask = operations["listCarePlanTasks"]["responses"]["200"]["content"]["application/json"]["data"];
-export type CarePlanChecklist = operations["listCarePlanChecklists"]["responses"]["200"]["content"]["application/json"]["data"];
-export type EpisodesOfCare = operations["listEpisodesOfCare"]["responses"]["200"]["content"]["application/json"]["data"];
-export type EpisodeOfCareEncounter = operations["listEpisodeOfCareEncounters"]["responses"]["200"]["content"]["application/json"]["data"];
-export type EpisodeOfCareCarePlan = operations["listEpisodeOfCareCarePlans"]["responses"]["200"]["content"]["application/json"]["data"];
-export type EpisodeOfCareWorkflowInstance = operations["listEpisodeOfCareWorkflowInstances"]["responses"]["200"]["content"]["application/json"]["data"];
-export type TaskAuditEvent = operations["listTaskAuditEvents"]["responses"]["200"]["content"]["application/json"]["data"];
-export type AlertExplanation = operations["listAlertExplanations"]["responses"]["200"]["content"]["application/json"]["data"];
-export type AlertAuditEvent = operations["listAlertAuditEvents"]["responses"]["200"]["content"]["application/json"]["data"];
-export type HandoffTask = operations["listHandoffTasks"]["responses"]["200"]["content"]["application/json"]["data"];
-export type ChecklistTemplateItem = operations["listChecklistTemplateItems"]["responses"]["200"]["content"]["application/json"]["data"];
-export type ChecklistInstanceItem = operations["listChecklistInstanceItems"]["responses"]["200"]["content"]["application/json"]["data"];
-export type EscalationPolicyRule = operations["listEscalationPolicyRules"]["responses"]["200"]["content"]["application/json"]["data"];
-export type WorkQueueTask = operations["listWorkQueueTasks"]["responses"]["200"]["content"]["application/json"]["data"];
-export type WorkQueueAlert = operations["listWorkQueueAlerts"]["responses"]["200"]["content"]["application/json"]["data"];
-
+export type WorkflowDefinitionState =
+  operations["listWorkflowDefinitionStates"]["responses"]["200"]["content"]["application/json"]["data"];
+export type WorkflowDefinitionTransition =
+  operations["listWorkflowDefinitionTransitions"]["responses"]["200"]["content"]["application/json"]["data"];
+export type WorkflowInstanceTask =
+  operations["listWorkflowInstanceTasks"]["responses"]["200"]["content"]["application/json"]["data"];
+export type WorkflowInstanceEvent =
+  operations["listWorkflowInstanceEvents"]["responses"]["200"]["content"]["application/json"]["data"];
+export type WorkflowInstanceAuditEvent =
+  operations["listWorkflowInstanceAuditEvents"]["responses"]["200"]["content"]["application/json"]["data"];
+export type CarePathwayTemplateStep =
+  operations["listCarePathwayTemplateSteps"]["responses"]["200"]["content"]["application/json"]["data"];
+export type CarePathwayTemplateOrderSetTemplate =
+  operations["listCarePathwayTemplateOrderSetTemplates"]["responses"]["200"]["content"]["application/json"]["data"];
+export type CarePlanTask =
+  operations["listCarePlanTasks"]["responses"]["200"]["content"]["application/json"]["data"];
+export type CarePlanChecklist =
+  operations["listCarePlanChecklists"]["responses"]["200"]["content"]["application/json"]["data"];
+export type EpisodesOfCare =
+  operations["listEpisodesOfCare"]["responses"]["200"]["content"]["application/json"]["data"];
+export type EpisodeOfCareEncounter =
+  operations["listEpisodeOfCareEncounters"]["responses"]["200"]["content"]["application/json"]["data"];
+export type EpisodeOfCareCarePlan =
+  operations["listEpisodeOfCareCarePlans"]["responses"]["200"]["content"]["application/json"]["data"];
+export type EpisodeOfCareWorkflowInstance =
+  operations["listEpisodeOfCareWorkflowInstances"]["responses"]["200"]["content"]["application/json"]["data"];
+export type TaskAuditEvent =
+  operations["listTaskAuditEvents"]["responses"]["200"]["content"]["application/json"]["data"];
+export type AlertExplanation =
+  operations["listAlertExplanations"]["responses"]["200"]["content"]["application/json"]["data"];
+export type AlertAuditEvent =
+  operations["listAlertAuditEvents"]["responses"]["200"]["content"]["application/json"]["data"];
+export type HandoffTask =
+  operations["listHandoffTasks"]["responses"]["200"]["content"]["application/json"]["data"];
+export type ChecklistTemplateItem =
+  operations["listChecklistTemplateItems"]["responses"]["200"]["content"]["application/json"]["data"];
+export type ChecklistInstanceItem =
+  operations["listChecklistInstanceItems"]["responses"]["200"]["content"]["application/json"]["data"];
+export type EscalationPolicyRule =
+  operations["listEscalationPolicyRules"]["responses"]["200"]["content"]["application/json"]["data"];
+export type WorkQueueTask =
+  operations["listWorkQueueTasks"]["responses"]["200"]["content"]["application/json"]["data"];
+export type WorkQueueAlert =
+  operations["listWorkQueueAlerts"]["responses"]["200"]["content"]["application/json"]["data"];
 
 // ============================================================================
 // Operation Input Types (Request Bodies)
@@ -114,37 +134,119 @@ export type WorkQueueAlert = operations["listWorkQueueAlerts"]["responses"]["200
 
 // These types represent the input data for create/update operations
 
-export type CreateWorkflowDefinitionInput = NonNullable<operations["createWorkflowDefinition"]["requestBody"]>["content"]["application/json"];
-export type UpdateWorkflowDefinitionInput = NonNullable<operations["updateWorkflowDefinition"]["requestBody"]>["content"]["application/json"];
-export type CreateWorkflowInstanceInput = NonNullable<operations["createWorkflowInstance"]["requestBody"]>["content"]["application/json"];
-export type UpdateWorkflowInstanceInput = NonNullable<operations["updateWorkflowInstance"]["requestBody"]>["content"]["application/json"];
-export type CreateCarePathwayTemplateInput = NonNullable<operations["createCarePathwayTemplate"]["requestBody"]>["content"]["application/json"];
-export type UpdateCarePathwayTemplateInput = NonNullable<operations["updateCarePathwayTemplate"]["requestBody"]>["content"]["application/json"];
-export type CreateCarePlanInput = NonNullable<operations["createCarePlan"]["requestBody"]>["content"]["application/json"];
-export type UpdateCarePlanInput = NonNullable<operations["updateCarePlan"]["requestBody"]>["content"]["application/json"];
-export type CreateEpisodeOfCareInput = NonNullable<operations["createEpisodeOfCare"]["requestBody"]>["content"]["application/json"];
-export type UpdateEpisodeOfCareInput = NonNullable<operations["updateEpisodeOfCare"]["requestBody"]>["content"]["application/json"];
-export type CreateTaskInput = NonNullable<operations["createTask"]["requestBody"]>["content"]["application/json"];
-export type UpdateTaskInput = NonNullable<operations["updateTask"]["requestBody"]>["content"]["application/json"];
-export type CreateTaskAssignmentInput = NonNullable<operations["createTaskAssignment"]["requestBody"]>["content"]["application/json"];
-export type UpdateTaskAssignmentInput = NonNullable<operations["updateTaskAssignment"]["requestBody"]>["content"]["application/json"];
-export type CreateAlertInput = NonNullable<operations["createAlert"]["requestBody"]>["content"]["application/json"];
-export type UpdateAlertInput = NonNullable<operations["updateAlert"]["requestBody"]>["content"]["application/json"];
-export type CreateHandoffInput = NonNullable<operations["createHandoff"]["requestBody"]>["content"]["application/json"];
-export type UpdateHandoffInput = NonNullable<operations["updateHandoff"]["requestBody"]>["content"]["application/json"];
-export type CreateChecklistTemplateInput = NonNullable<operations["createChecklistTemplate"]["requestBody"]>["content"]["application/json"];
-export type UpdateChecklistTemplateInput = NonNullable<operations["updateChecklistTemplate"]["requestBody"]>["content"]["application/json"];
-export type CreateChecklistInstanceInput = NonNullable<operations["createChecklistInstance"]["requestBody"]>["content"]["application/json"];
-export type UpdateChecklistInstanceInput = NonNullable<operations["updateChecklistInstance"]["requestBody"]>["content"]["application/json"];
-export type CreateEscalationPolicyInput = NonNullable<operations["createEscalationPolicy"]["requestBody"]>["content"]["application/json"];
-export type UpdateEscalationPolicyInput = NonNullable<operations["updateEscalationPolicy"]["requestBody"]>["content"]["application/json"];
-export type CreateRoutingRuleInput = NonNullable<operations["createRoutingRule"]["requestBody"]>["content"]["application/json"];
-export type UpdateRoutingRuleInput = NonNullable<operations["updateRoutingRule"]["requestBody"]>["content"]["application/json"];
-export type CreateScheduleTemplateInput = NonNullable<operations["createScheduleTemplate"]["requestBody"]>["content"]["application/json"];
-export type UpdateScheduleTemplateInput = NonNullable<operations["updateScheduleTemplate"]["requestBody"]>["content"]["application/json"];
-export type CreateWorkQueueInput = NonNullable<operations["createWorkQueue"]["requestBody"]>["content"]["application/json"];
-export type UpdateWorkQueueInput = NonNullable<operations["updateWorkQueue"]["requestBody"]>["content"]["application/json"];
+export type CreateWorkflowDefinitionInput = NonNullable<
+  operations["createWorkflowDefinition"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateWorkflowDefinitionInput = NonNullable<
+  operations["updateWorkflowDefinition"]["requestBody"]
+>["content"]["application/json"];
+export type CreateWorkflowInstanceInput = NonNullable<
+  operations["createWorkflowInstance"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateWorkflowInstanceInput = NonNullable<
+  operations["updateWorkflowInstance"]["requestBody"]
+>["content"]["application/json"];
+export type CreateCarePathwayTemplateInput = NonNullable<
+  operations["createCarePathwayTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateCarePathwayTemplateInput = NonNullable<
+  operations["updateCarePathwayTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type CreateCarePlanInput = NonNullable<
+  operations["createCarePlan"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateCarePlanInput = NonNullable<
+  operations["updateCarePlan"]["requestBody"]
+>["content"]["application/json"];
+export type CreateEpisodeOfCareInput = NonNullable<
+  operations["createEpisodeOfCare"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateEpisodeOfCareInput = NonNullable<
+  operations["updateEpisodeOfCare"]["requestBody"]
+>["content"]["application/json"];
+export type CreateTaskInput = NonNullable<
+  operations["createTask"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateTaskInput = NonNullable<
+  operations["updateTask"]["requestBody"]
+>["content"]["application/json"];
+export type CreateTaskAssignmentInput = NonNullable<
+  operations["createTaskAssignment"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateTaskAssignmentInput = NonNullable<
+  operations["updateTaskAssignment"]["requestBody"]
+>["content"]["application/json"];
+export type CreateAlertInput = NonNullable<
+  operations["createAlert"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateAlertInput = NonNullable<
+  operations["updateAlert"]["requestBody"]
+>["content"]["application/json"];
+export type CreateHandoffInput = NonNullable<
+  operations["createHandoff"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateHandoffInput = NonNullable<
+  operations["updateHandoff"]["requestBody"]
+>["content"]["application/json"];
+export type CreateChecklistTemplateInput = NonNullable<
+  operations["createChecklistTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateChecklistTemplateInput = NonNullable<
+  operations["updateChecklistTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type CreateChecklistInstanceInput = NonNullable<
+  operations["createChecklistInstance"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateChecklistInstanceInput = NonNullable<
+  operations["updateChecklistInstance"]["requestBody"]
+>["content"]["application/json"];
+export type CreateEscalationPolicyInput = NonNullable<
+  operations["createEscalationPolicy"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateEscalationPolicyInput = NonNullable<
+  operations["updateEscalationPolicy"]["requestBody"]
+>["content"]["application/json"];
+export type CreateRoutingRuleInput = NonNullable<
+  operations["createRoutingRule"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateRoutingRuleInput = NonNullable<
+  operations["updateRoutingRule"]["requestBody"]
+>["content"]["application/json"];
+export type CreateScheduleTemplateInput = NonNullable<
+  operations["createScheduleTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateScheduleTemplateInput = NonNullable<
+  operations["updateScheduleTemplate"]["requestBody"]
+>["content"]["application/json"];
+export type CreateWorkQueueInput = NonNullable<
+  operations["createWorkQueue"]["requestBody"]
+>["content"]["application/json"];
+export type UpdateWorkQueueInput = NonNullable<
+  operations["updateWorkQueue"]["requestBody"]
+>["content"]["application/json"];
 
+// ============================================================================
+// Type Aliases for Repository Interfaces (Update*Request → Update*Input)
+// ============================================================================
+
+// These aliases provide backward compatibility for repository interfaces
+// that use Update*Request naming convention instead of Update*Input
+
+export type UpdateAlertRequest = UpdateAlertInput;
+export type UpdateCarePathwayTemplateRequest = UpdateCarePathwayTemplateInput;
+export type UpdateCarePlanRequest = UpdateCarePlanInput;
+export type UpdateChecklistInstanceRequest = UpdateChecklistInstanceInput;
+export type UpdateChecklistTemplateRequest = UpdateChecklistTemplateInput;
+export type UpdateEpisodeOfCareRequest = UpdateEpisodeOfCareInput;
+export type UpdateEscalationPolicyRequest = UpdateEscalationPolicyInput;
+export type UpdateHandoffRequest = UpdateHandoffInput;
+export type UpdateRoutingRuleRequest = UpdateRoutingRuleInput;
+export type UpdateScheduleTemplateRequest = UpdateScheduleTemplateInput;
+export type UpdateTaskRequest = UpdateTaskInput;
+export type UpdateTaskAssignmentRequest = UpdateTaskAssignmentInput;
+export type UpdateWorkflowDefinitionRequest = UpdateWorkflowDefinitionInput;
+export type UpdateWorkflowInstanceRequest = UpdateWorkflowInstanceInput;
+export type UpdateWorkQueueRequest = UpdateWorkQueueInput;
 
 // ============================================================================
 // Operation Parameter Types (Query Parameters)
@@ -152,22 +254,28 @@ export type UpdateWorkQueueInput = NonNullable<operations["updateWorkQueue"]["re
 
 // These types represent query parameters for list/search operations
 
-export type ListWorkflowDefinitionsParams = operations["listWorkflowDefinitions"]["parameters"]["query"];
-export type ListWorkflowInstancesParams = operations["listWorkflowInstances"]["parameters"]["query"];
-export type ListCarePathwayTemplatesParams = operations["listCarePathwayTemplates"]["parameters"]["query"];
+export type ListWorkflowDefinitionsParams =
+  operations["listWorkflowDefinitions"]["parameters"]["query"];
+export type ListWorkflowInstancesParams =
+  operations["listWorkflowInstances"]["parameters"]["query"];
+export type ListCarePathwayTemplatesParams =
+  operations["listCarePathwayTemplates"]["parameters"]["query"];
 export type ListCarePlansParams = operations["listCarePlans"]["parameters"]["query"];
 export type ListEpisodesOfCareParams = operations["listEpisodesOfCare"]["parameters"]["query"];
 export type ListTasksParams = operations["listTasks"]["parameters"]["query"];
 export type ListTaskAssignmentsParams = operations["listTaskAssignments"]["parameters"]["query"];
 export type ListAlertsParams = operations["listAlerts"]["parameters"]["query"];
 export type ListHandoffsParams = operations["listHandoffs"]["parameters"]["query"];
-export type ListChecklistTemplatesParams = operations["listChecklistTemplates"]["parameters"]["query"];
-export type ListChecklistInstancesParams = operations["listChecklistInstances"]["parameters"]["query"];
-export type ListEscalationPoliciesParams = operations["listEscalationPolicies"]["parameters"]["query"];
+export type ListChecklistTemplatesParams =
+  operations["listChecklistTemplates"]["parameters"]["query"];
+export type ListChecklistInstancesParams =
+  operations["listChecklistInstances"]["parameters"]["query"];
+export type ListEscalationPoliciesParams =
+  operations["listEscalationPolicies"]["parameters"]["query"];
 export type ListRoutingRulesParams = operations["listRoutingRules"]["parameters"]["query"];
-export type ListScheduleTemplatesParams = operations["listScheduleTemplates"]["parameters"]["query"];
+export type ListScheduleTemplatesParams =
+  operations["listScheduleTemplates"]["parameters"]["query"];
 export type ListWorkQueuesParams = operations["listWorkQueues"]["parameters"]["query"];
-
 
 // ============================================================================
 // Operation Response Types
@@ -175,88 +283,169 @@ export type ListWorkQueuesParams = operations["listWorkQueues"]["parameters"]["q
 
 // These types are used by handlers for type-safe response envelopes
 
-export type ListWorkflowDefinitionsResponse = operations["listWorkflowDefinitions"]["responses"]["200"]["content"]["application/json"];
-export type CreateWorkflowDefinitionResponse = operations["createWorkflowDefinition"]["responses"]["201"]["content"]["application/json"];
-export type GetWorkflowDefinitionResponse = operations["getWorkflowDefinition"]["responses"]["200"]["content"]["application/json"];
-export type UpdateWorkflowDefinitionResponse = operations["updateWorkflowDefinition"]["responses"]["200"]["content"]["application/json"];
-export type ListWorkflowDefinitionStatesResponse = operations["listWorkflowDefinitionStates"]["responses"]["200"]["content"]["application/json"];
-export type ListWorkflowDefinitionTransitionsResponse = operations["listWorkflowDefinitionTransitions"]["responses"]["200"]["content"]["application/json"];
-export type ListWorkflowInstancesResponse = operations["listWorkflowInstances"]["responses"]["200"]["content"]["application/json"];
-export type CreateWorkflowInstanceResponse = operations["createWorkflowInstance"]["responses"]["201"]["content"]["application/json"];
-export type GetWorkflowInstanceResponse = operations["getWorkflowInstance"]["responses"]["200"]["content"]["application/json"];
-export type UpdateWorkflowInstanceResponse = operations["updateWorkflowInstance"]["responses"]["200"]["content"]["application/json"];
-export type ListWorkflowInstanceTasksResponse = operations["listWorkflowInstanceTasks"]["responses"]["200"]["content"]["application/json"];
-export type ListWorkflowInstanceEventsResponse = operations["listWorkflowInstanceEvents"]["responses"]["200"]["content"]["application/json"];
-export type ListWorkflowInstanceAuditEventsResponse = operations["listWorkflowInstanceAuditEvents"]["responses"]["200"]["content"]["application/json"];
-export type ListCarePathwayTemplatesResponse = operations["listCarePathwayTemplates"]["responses"]["200"]["content"]["application/json"];
-export type CreateCarePathwayTemplateResponse = operations["createCarePathwayTemplate"]["responses"]["201"]["content"]["application/json"];
-export type GetCarePathwayTemplateResponse = operations["getCarePathwayTemplate"]["responses"]["200"]["content"]["application/json"];
-export type UpdateCarePathwayTemplateResponse = operations["updateCarePathwayTemplate"]["responses"]["200"]["content"]["application/json"];
-export type ListCarePathwayTemplateStepsResponse = operations["listCarePathwayTemplateSteps"]["responses"]["200"]["content"]["application/json"];
-export type ListCarePathwayTemplateOrderSetTemplatesResponse = operations["listCarePathwayTemplateOrderSetTemplates"]["responses"]["200"]["content"]["application/json"];
-export type ListCarePlansResponse = operations["listCarePlans"]["responses"]["200"]["content"]["application/json"];
-export type CreateCarePlanResponse = operations["createCarePlan"]["responses"]["201"]["content"]["application/json"];
-export type GetCarePlanResponse = operations["getCarePlan"]["responses"]["200"]["content"]["application/json"];
-export type UpdateCarePlanResponse = operations["updateCarePlan"]["responses"]["200"]["content"]["application/json"];
-export type ListCarePlanGoalsResponse = operations["listCarePlanGoals"]["responses"]["200"]["content"]["application/json"];
-export type ListCarePlanTasksResponse = operations["listCarePlanTasks"]["responses"]["200"]["content"]["application/json"];
-export type ListCarePlanChecklistsResponse = operations["listCarePlanChecklists"]["responses"]["200"]["content"]["application/json"];
-export type ListEpisodesOfCareResponse = operations["listEpisodesOfCare"]["responses"]["200"]["content"]["application/json"];
-export type CreateEpisodeOfCareResponse = operations["createEpisodeOfCare"]["responses"]["201"]["content"]["application/json"];
-export type GetEpisodeOfCareResponse = operations["getEpisodeOfCare"]["responses"]["200"]["content"]["application/json"];
-export type UpdateEpisodeOfCareResponse = operations["updateEpisodeOfCare"]["responses"]["200"]["content"]["application/json"];
-export type ListEpisodeOfCareEncountersResponse = operations["listEpisodeOfCareEncounters"]["responses"]["200"]["content"]["application/json"];
-export type ListEpisodeOfCareCarePlansResponse = operations["listEpisodeOfCareCarePlans"]["responses"]["200"]["content"]["application/json"];
-export type ListEpisodeOfCareWorkflowInstancesResponse = operations["listEpisodeOfCareWorkflowInstances"]["responses"]["200"]["content"]["application/json"];
-export type ListTasksResponse = operations["listTasks"]["responses"]["200"]["content"]["application/json"];
-export type CreateTaskResponse = operations["createTask"]["responses"]["201"]["content"]["application/json"];
-export type GetTaskResponse = operations["getTask"]["responses"]["200"]["content"]["application/json"];
-export type UpdateTaskResponse = operations["updateTask"]["responses"]["200"]["content"]["application/json"];
-export type ListTaskCommentsResponse = operations["listTaskComments"]["responses"]["200"]["content"]["application/json"];
-export type ListTaskAuditEventsResponse = operations["listTaskAuditEvents"]["responses"]["200"]["content"]["application/json"];
-export type ListTaskAssignmentsResponse = operations["listTaskAssignments"]["responses"]["200"]["content"]["application/json"];
-export type CreateTaskAssignmentResponse = operations["createTaskAssignment"]["responses"]["201"]["content"]["application/json"];
-export type GetTaskAssignmentResponse = operations["getTaskAssignment"]["responses"]["200"]["content"]["application/json"];
-export type UpdateTaskAssignmentResponse = operations["updateTaskAssignment"]["responses"]["200"]["content"]["application/json"];
-export type ListAlertsResponse = operations["listAlerts"]["responses"]["200"]["content"]["application/json"];
-export type CreateAlertResponse = operations["createAlert"]["responses"]["201"]["content"]["application/json"];
-export type GetAlertResponse = operations["getAlert"]["responses"]["200"]["content"]["application/json"];
-export type UpdateAlertResponse = operations["updateAlert"]["responses"]["200"]["content"]["application/json"];
-export type ListAlertExplanationsResponse = operations["listAlertExplanations"]["responses"]["200"]["content"]["application/json"];
-export type ListAlertAuditEventsResponse = operations["listAlertAuditEvents"]["responses"]["200"]["content"]["application/json"];
-export type ListHandoffsResponse = operations["listHandoffs"]["responses"]["200"]["content"]["application/json"];
-export type CreateHandoffResponse = operations["createHandoff"]["responses"]["201"]["content"]["application/json"];
-export type GetHandoffResponse = operations["getHandoff"]["responses"]["200"]["content"]["application/json"];
-export type UpdateHandoffResponse = operations["updateHandoff"]["responses"]["200"]["content"]["application/json"];
-export type ListHandoffTasksResponse = operations["listHandoffTasks"]["responses"]["200"]["content"]["application/json"];
-export type ListChecklistTemplatesResponse = operations["listChecklistTemplates"]["responses"]["200"]["content"]["application/json"];
-export type CreateChecklistTemplateResponse = operations["createChecklistTemplate"]["responses"]["201"]["content"]["application/json"];
-export type GetChecklistTemplateResponse = operations["getChecklistTemplate"]["responses"]["200"]["content"]["application/json"];
-export type UpdateChecklistTemplateResponse = operations["updateChecklistTemplate"]["responses"]["200"]["content"]["application/json"];
-export type ListChecklistTemplateItemsResponse = operations["listChecklistTemplateItems"]["responses"]["200"]["content"]["application/json"];
-export type ListChecklistInstancesResponse = operations["listChecklistInstances"]["responses"]["200"]["content"]["application/json"];
-export type CreateChecklistInstanceResponse = operations["createChecklistInstance"]["responses"]["201"]["content"]["application/json"];
-export type GetChecklistInstanceResponse = operations["getChecklistInstance"]["responses"]["200"]["content"]["application/json"];
-export type UpdateChecklistInstanceResponse = operations["updateChecklistInstance"]["responses"]["200"]["content"]["application/json"];
-export type ListChecklistInstanceItemsResponse = operations["listChecklistInstanceItems"]["responses"]["200"]["content"]["application/json"];
-export type ListEscalationPoliciesResponse = operations["listEscalationPolicies"]["responses"]["200"]["content"]["application/json"];
-export type CreateEscalationPolicyResponse = operations["createEscalationPolicy"]["responses"]["201"]["content"]["application/json"];
-export type GetEscalationPolicyResponse = operations["getEscalationPolicy"]["responses"]["200"]["content"]["application/json"];
-export type UpdateEscalationPolicyResponse = operations["updateEscalationPolicy"]["responses"]["200"]["content"]["application/json"];
-export type ListEscalationPolicyRulesResponse = operations["listEscalationPolicyRules"]["responses"]["200"]["content"]["application/json"];
-export type ListRoutingRulesResponse = operations["listRoutingRules"]["responses"]["200"]["content"]["application/json"];
-export type CreateRoutingRuleResponse = operations["createRoutingRule"]["responses"]["201"]["content"]["application/json"];
-export type GetRoutingRuleResponse = operations["getRoutingRule"]["responses"]["200"]["content"]["application/json"];
-export type UpdateRoutingRuleResponse = operations["updateRoutingRule"]["responses"]["200"]["content"]["application/json"];
-export type ListScheduleTemplatesResponse = operations["listScheduleTemplates"]["responses"]["200"]["content"]["application/json"];
-export type CreateScheduleTemplateResponse = operations["createScheduleTemplate"]["responses"]["201"]["content"]["application/json"];
-export type GetScheduleTemplateResponse = operations["getScheduleTemplate"]["responses"]["200"]["content"]["application/json"];
-export type UpdateScheduleTemplateResponse = operations["updateScheduleTemplate"]["responses"]["200"]["content"]["application/json"];
-export type ListWorkQueuesResponse = operations["listWorkQueues"]["responses"]["200"]["content"]["application/json"];
-export type CreateWorkQueueResponse = operations["createWorkQueue"]["responses"]["201"]["content"]["application/json"];
-export type GetWorkQueueResponse = operations["getWorkQueue"]["responses"]["200"]["content"]["application/json"];
-export type UpdateWorkQueueResponse = operations["updateWorkQueue"]["responses"]["200"]["content"]["application/json"];
-export type ListWorkQueueTasksResponse = operations["listWorkQueueTasks"]["responses"]["200"]["content"]["application/json"];
-export type ListWorkQueueAlertsResponse = operations["listWorkQueueAlerts"]["responses"]["200"]["content"]["application/json"];
-
-
+export type ListWorkflowDefinitionsResponse =
+  operations["listWorkflowDefinitions"]["responses"]["200"]["content"]["application/json"];
+export type CreateWorkflowDefinitionResponse =
+  operations["createWorkflowDefinition"]["responses"]["201"]["content"]["application/json"];
+export type GetWorkflowDefinitionResponse =
+  operations["getWorkflowDefinition"]["responses"]["200"]["content"]["application/json"];
+export type UpdateWorkflowDefinitionResponse =
+  operations["updateWorkflowDefinition"]["responses"]["200"]["content"]["application/json"];
+export type ListWorkflowDefinitionStatesResponse =
+  operations["listWorkflowDefinitionStates"]["responses"]["200"]["content"]["application/json"];
+export type ListWorkflowDefinitionTransitionsResponse =
+  operations["listWorkflowDefinitionTransitions"]["responses"]["200"]["content"]["application/json"];
+export type ListWorkflowInstancesResponse =
+  operations["listWorkflowInstances"]["responses"]["200"]["content"]["application/json"];
+export type CreateWorkflowInstanceResponse =
+  operations["createWorkflowInstance"]["responses"]["201"]["content"]["application/json"];
+export type GetWorkflowInstanceResponse =
+  operations["getWorkflowInstance"]["responses"]["200"]["content"]["application/json"];
+export type UpdateWorkflowInstanceResponse =
+  operations["updateWorkflowInstance"]["responses"]["200"]["content"]["application/json"];
+export type ListWorkflowInstanceTasksResponse =
+  operations["listWorkflowInstanceTasks"]["responses"]["200"]["content"]["application/json"];
+export type ListWorkflowInstanceEventsResponse =
+  operations["listWorkflowInstanceEvents"]["responses"]["200"]["content"]["application/json"];
+export type ListWorkflowInstanceAuditEventsResponse =
+  operations["listWorkflowInstanceAuditEvents"]["responses"]["200"]["content"]["application/json"];
+export type ListCarePathwayTemplatesResponse =
+  operations["listCarePathwayTemplates"]["responses"]["200"]["content"]["application/json"];
+export type CreateCarePathwayTemplateResponse =
+  operations["createCarePathwayTemplate"]["responses"]["201"]["content"]["application/json"];
+export type GetCarePathwayTemplateResponse =
+  operations["getCarePathwayTemplate"]["responses"]["200"]["content"]["application/json"];
+export type UpdateCarePathwayTemplateResponse =
+  operations["updateCarePathwayTemplate"]["responses"]["200"]["content"]["application/json"];
+export type ListCarePathwayTemplateStepsResponse =
+  operations["listCarePathwayTemplateSteps"]["responses"]["200"]["content"]["application/json"];
+export type ListCarePathwayTemplateOrderSetTemplatesResponse =
+  operations["listCarePathwayTemplateOrderSetTemplates"]["responses"]["200"]["content"]["application/json"];
+export type ListCarePlansResponse =
+  operations["listCarePlans"]["responses"]["200"]["content"]["application/json"];
+export type CreateCarePlanResponse =
+  operations["createCarePlan"]["responses"]["201"]["content"]["application/json"];
+export type GetCarePlanResponse =
+  operations["getCarePlan"]["responses"]["200"]["content"]["application/json"];
+export type UpdateCarePlanResponse =
+  operations["updateCarePlan"]["responses"]["200"]["content"]["application/json"];
+export type ListCarePlanGoalsResponse =
+  operations["listCarePlanGoals"]["responses"]["200"]["content"]["application/json"];
+export type ListCarePlanTasksResponse =
+  operations["listCarePlanTasks"]["responses"]["200"]["content"]["application/json"];
+export type ListCarePlanChecklistsResponse =
+  operations["listCarePlanChecklists"]["responses"]["200"]["content"]["application/json"];
+export type ListEpisodesOfCareResponse =
+  operations["listEpisodesOfCare"]["responses"]["200"]["content"]["application/json"];
+export type CreateEpisodeOfCareResponse =
+  operations["createEpisodeOfCare"]["responses"]["201"]["content"]["application/json"];
+export type GetEpisodeOfCareResponse =
+  operations["getEpisodeOfCare"]["responses"]["200"]["content"]["application/json"];
+export type UpdateEpisodeOfCareResponse =
+  operations["updateEpisodeOfCare"]["responses"]["200"]["content"]["application/json"];
+export type ListEpisodeOfCareEncountersResponse =
+  operations["listEpisodeOfCareEncounters"]["responses"]["200"]["content"]["application/json"];
+export type ListEpisodeOfCareCarePlansResponse =
+  operations["listEpisodeOfCareCarePlans"]["responses"]["200"]["content"]["application/json"];
+export type ListEpisodeOfCareWorkflowInstancesResponse =
+  operations["listEpisodeOfCareWorkflowInstances"]["responses"]["200"]["content"]["application/json"];
+export type ListTasksResponse =
+  operations["listTasks"]["responses"]["200"]["content"]["application/json"];
+export type CreateTaskResponse =
+  operations["createTask"]["responses"]["201"]["content"]["application/json"];
+export type GetTaskResponse =
+  operations["getTask"]["responses"]["200"]["content"]["application/json"];
+export type UpdateTaskResponse =
+  operations["updateTask"]["responses"]["200"]["content"]["application/json"];
+export type ListTaskCommentsResponse =
+  operations["listTaskComments"]["responses"]["200"]["content"]["application/json"];
+export type ListTaskAuditEventsResponse =
+  operations["listTaskAuditEvents"]["responses"]["200"]["content"]["application/json"];
+export type ListTaskAssignmentsResponse =
+  operations["listTaskAssignments"]["responses"]["200"]["content"]["application/json"];
+export type CreateTaskAssignmentResponse =
+  operations["createTaskAssignment"]["responses"]["201"]["content"]["application/json"];
+export type GetTaskAssignmentResponse =
+  operations["getTaskAssignment"]["responses"]["200"]["content"]["application/json"];
+export type UpdateTaskAssignmentResponse =
+  operations["updateTaskAssignment"]["responses"]["200"]["content"]["application/json"];
+export type ListAlertsResponse =
+  operations["listAlerts"]["responses"]["200"]["content"]["application/json"];
+export type CreateAlertResponse =
+  operations["createAlert"]["responses"]["201"]["content"]["application/json"];
+export type GetAlertResponse =
+  operations["getAlert"]["responses"]["200"]["content"]["application/json"];
+export type UpdateAlertResponse =
+  operations["updateAlert"]["responses"]["200"]["content"]["application/json"];
+export type ListAlertExplanationsResponse =
+  operations["listAlertExplanations"]["responses"]["200"]["content"]["application/json"];
+export type ListAlertAuditEventsResponse =
+  operations["listAlertAuditEvents"]["responses"]["200"]["content"]["application/json"];
+export type ListHandoffsResponse =
+  operations["listHandoffs"]["responses"]["200"]["content"]["application/json"];
+export type CreateHandoffResponse =
+  operations["createHandoff"]["responses"]["201"]["content"]["application/json"];
+export type GetHandoffResponse =
+  operations["getHandoff"]["responses"]["200"]["content"]["application/json"];
+export type UpdateHandoffResponse =
+  operations["updateHandoff"]["responses"]["200"]["content"]["application/json"];
+export type ListHandoffTasksResponse =
+  operations["listHandoffTasks"]["responses"]["200"]["content"]["application/json"];
+export type ListChecklistTemplatesResponse =
+  operations["listChecklistTemplates"]["responses"]["200"]["content"]["application/json"];
+export type CreateChecklistTemplateResponse =
+  operations["createChecklistTemplate"]["responses"]["201"]["content"]["application/json"];
+export type GetChecklistTemplateResponse =
+  operations["getChecklistTemplate"]["responses"]["200"]["content"]["application/json"];
+export type UpdateChecklistTemplateResponse =
+  operations["updateChecklistTemplate"]["responses"]["200"]["content"]["application/json"];
+export type ListChecklistTemplateItemsResponse =
+  operations["listChecklistTemplateItems"]["responses"]["200"]["content"]["application/json"];
+export type ListChecklistInstancesResponse =
+  operations["listChecklistInstances"]["responses"]["200"]["content"]["application/json"];
+export type CreateChecklistInstanceResponse =
+  operations["createChecklistInstance"]["responses"]["201"]["content"]["application/json"];
+export type GetChecklistInstanceResponse =
+  operations["getChecklistInstance"]["responses"]["200"]["content"]["application/json"];
+export type UpdateChecklistInstanceResponse =
+  operations["updateChecklistInstance"]["responses"]["200"]["content"]["application/json"];
+export type ListChecklistInstanceItemsResponse =
+  operations["listChecklistInstanceItems"]["responses"]["200"]["content"]["application/json"];
+export type ListEscalationPoliciesResponse =
+  operations["listEscalationPolicies"]["responses"]["200"]["content"]["application/json"];
+export type CreateEscalationPolicyResponse =
+  operations["createEscalationPolicy"]["responses"]["201"]["content"]["application/json"];
+export type GetEscalationPolicyResponse =
+  operations["getEscalationPolicy"]["responses"]["200"]["content"]["application/json"];
+export type UpdateEscalationPolicyResponse =
+  operations["updateEscalationPolicy"]["responses"]["200"]["content"]["application/json"];
+export type ListEscalationPolicyRulesResponse =
+  operations["listEscalationPolicyRules"]["responses"]["200"]["content"]["application/json"];
+export type ListRoutingRulesResponse =
+  operations["listRoutingRules"]["responses"]["200"]["content"]["application/json"];
+export type CreateRoutingRuleResponse =
+  operations["createRoutingRule"]["responses"]["201"]["content"]["application/json"];
+export type GetRoutingRuleResponse =
+  operations["getRoutingRule"]["responses"]["200"]["content"]["application/json"];
+export type UpdateRoutingRuleResponse =
+  operations["updateRoutingRule"]["responses"]["200"]["content"]["application/json"];
+export type ListScheduleTemplatesResponse =
+  operations["listScheduleTemplates"]["responses"]["200"]["content"]["application/json"];
+export type CreateScheduleTemplateResponse =
+  operations["createScheduleTemplate"]["responses"]["201"]["content"]["application/json"];
+export type GetScheduleTemplateResponse =
+  operations["getScheduleTemplate"]["responses"]["200"]["content"]["application/json"];
+export type UpdateScheduleTemplateResponse =
+  operations["updateScheduleTemplate"]["responses"]["200"]["content"]["application/json"];
+export type ListWorkQueuesResponse =
+  operations["listWorkQueues"]["responses"]["200"]["content"]["application/json"];
+export type CreateWorkQueueResponse =
+  operations["createWorkQueue"]["responses"]["201"]["content"]["application/json"];
+export type GetWorkQueueResponse =
+  operations["getWorkQueue"]["responses"]["200"]["content"]["application/json"];
+export type UpdateWorkQueueResponse =
+  operations["updateWorkQueue"]["responses"]["200"]["content"]["application/json"];
+export type ListWorkQueueTasksResponse =
+  operations["listWorkQueueTasks"]["responses"]["200"]["content"]["application/json"];
+export type ListWorkQueueAlertsResponse =
+  operations["listWorkQueueAlerts"]["responses"]["200"]["content"]["application/json"];

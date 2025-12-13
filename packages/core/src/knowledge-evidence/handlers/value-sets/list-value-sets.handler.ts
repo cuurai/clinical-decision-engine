@@ -36,6 +36,6 @@ export async function listValueSets(
         limit: result.items.length,
       },
     },
-  };
+  } as ListValueSetsResponse;
 
 }

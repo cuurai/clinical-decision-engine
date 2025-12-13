@@ -35,6 +35,6 @@ export async function listFHIRMappingProfileRules(
         limit: result.items.length,
       },
     },
-  };
+  } as ListFHIRMappingProfileRulesResponse;
 
 }

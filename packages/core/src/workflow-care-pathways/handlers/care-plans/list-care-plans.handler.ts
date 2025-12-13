@@ -36,6 +36,6 @@ export async function listCarePlans(
         limit: result.items.length,
       },
     },
-  };
+  } as ListCarePlansResponse;
 
 }

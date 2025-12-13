@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/decision-intelligence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/decision-intelligence.schemas";
  * Description: Represents the DecisionSessionExplanation domain model.
  * Source: schemas.DecisionSessionExplanation
  */
-export const ZDecisionSessionExplanationEntitySchema = schemas.DecisionSessionExplanation;
+export const ZDecisionSessionExplanationEntitySchema = schemas.DecisionSessionExplanation as ZodType<any, any, any>;
 export type DecisionSessionExplanationEntity = z.infer<typeof ZDecisionSessionExplanationEntitySchema>;

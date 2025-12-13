@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
  * Description: Represents the TaskAuditEvent domain model.
  * Source: schemas.TaskAuditEvent
  */
-export const ZTaskAuditEventEntitySchema = schemas.TaskAuditEvent;
+export const ZTaskAuditEventEntitySchema = schemas.TaskAuditEvent as ZodType<any, any, any>;
 export type TaskAuditEventEntity = z.infer<typeof ZTaskAuditEventEntitySchema>;

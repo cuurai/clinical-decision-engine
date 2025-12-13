@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/integration-interoperability.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/integration-interoperability.schemas";
  * Description: Represents the HL7Message domain model.
  * Source: schemas.HL7Message
  */
-export const ZHL7MessageEntitySchema = schemas.HL7Message;
+export const ZHL7MessageEntitySchema = schemas.HL7Message as ZodType<any, any, any>;
 export type HL7MessageEntity = z.infer<typeof ZHL7MessageEntitySchema>;

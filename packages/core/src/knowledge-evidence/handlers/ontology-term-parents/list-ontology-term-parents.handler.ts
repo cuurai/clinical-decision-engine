@@ -35,6 +35,6 @@ export async function listOntologyTermParents(
         limit: result.items.length,
       },
     },
-  };
+  } as ListOntologyTermParentsResponse;
 
 }

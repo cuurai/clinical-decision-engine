@@ -36,6 +36,6 @@ export async function listKnowledgePackages(
         limit: result.items.length,
       },
     },
-  };
+  } as ListKnowledgePackagesResponse;
 
 }

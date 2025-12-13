@@ -35,6 +35,6 @@ export async function listHL7MessageSegments(
         limit: result.items.length,
       },
     },
-  };
+  } as ListHLMessageSegmentsResponse;
 
 }

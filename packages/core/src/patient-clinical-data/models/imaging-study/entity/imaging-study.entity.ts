@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/patient-clinical-data.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/patient-clinical-data.schemas";
  * Description: Represents the ImagingStudy domain model.
  * Source: schemas.ImagingStudy
  */
-export const ZImagingStudyEntitySchema = schemas.ImagingStudy;
+export const ZImagingStudyEntitySchema = schemas.ImagingStudy as ZodType<any, any, any>;
 export type ImagingStudyEntity = z.infer<typeof ZImagingStudyEntitySchema>;

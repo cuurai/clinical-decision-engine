@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/integration-interoperability.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/integration-interoperability.schemas";
  * Description: Represents the APIClient domain model.
  * Source: schemas.APIClient
  */
-export const ZAPIClientEntitySchema = schemas.APIClient;
+export const ZAPIClientEntitySchema = schemas.APIClient as ZodType<any, any, any>;
 export type APIClientEntity = z.infer<typeof ZAPIClientEntitySchema>;

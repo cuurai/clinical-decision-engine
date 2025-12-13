@@ -36,6 +36,6 @@ export async function listMedicationOrders(
         limit: result.items.length,
       },
     },
-  };
+  } as ListMedicationOrdersResponse;
 
 }

@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/decision-intelligence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/decision-intelligence.schemas";
  * Description: Represents the DecisionResultRiskAssessment domain model.
  * Source: schemas.DecisionResultRiskAssessment
  */
-export const ZDecisionResultRiskAssessmentEntitySchema = schemas.DecisionResultRiskAssessment;
+export const ZDecisionResultRiskAssessmentEntitySchema = schemas.DecisionResultRiskAssessment as ZodType<any, any, any>;
 export type DecisionResultRiskAssessmentEntity = z.infer<typeof ZDecisionResultRiskAssessmentEntitySchema>;

@@ -36,6 +36,6 @@ export async function listEscalationPolicies(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEscalationPoliciesResponse;
 
 }

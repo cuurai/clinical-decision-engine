@@ -35,6 +35,6 @@ export async function listMedicationAdministrations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListMedicationAdministrationsResponse;
 
 }

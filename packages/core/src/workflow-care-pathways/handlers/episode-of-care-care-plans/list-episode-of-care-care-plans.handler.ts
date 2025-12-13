@@ -35,6 +35,6 @@ export async function listEpisodeOfCareCarePlans(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEpisodeOfCareCarePlansResponse;
 
 }

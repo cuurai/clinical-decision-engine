@@ -35,6 +35,6 @@ export async function listCareProtocolOrderSets(
         limit: result.items.length,
       },
     },
-  };
+  } as ListCareProtocolOrderSetsResponse;
 
 }

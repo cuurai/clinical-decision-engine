@@ -35,6 +35,6 @@ export async function listPatientConditions(
         limit: result.items.length,
       },
     },
-  };
+  } as ListPatientConditionsResponse;
 
 }

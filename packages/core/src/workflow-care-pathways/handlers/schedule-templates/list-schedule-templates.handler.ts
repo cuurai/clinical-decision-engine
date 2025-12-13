@@ -36,6 +36,6 @@ export async function listScheduleTemplates(
         limit: result.items.length,
       },
     },
-  };
+  } as ListScheduleTemplatesResponse;
 
 }

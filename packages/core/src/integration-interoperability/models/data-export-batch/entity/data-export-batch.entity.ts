@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/integration-interoperability.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/integration-interoperability.schemas";
  * Description: Represents the DataExportBatch domain model.
  * Source: schemas.DataExportBatch
  */
-export const ZDataExportBatchEntitySchema = schemas.DataExportBatch;
+export const ZDataExportBatchEntitySchema = schemas.DataExportBatch as ZodType<any, any, any>;
 export type DataExportBatchEntity = z.infer<typeof ZDataExportBatchEntitySchema>;

@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/integration-interoperability.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/integration-interoperability.schemas";
  * Description: Represents the IntegrationRunError domain model.
  * Source: schemas.IntegrationRunError
  */
-export const ZIntegrationRunErrorEntitySchema = schemas.IntegrationRunError;
+export const ZIntegrationRunErrorEntitySchema = schemas.IntegrationRunError as ZodType<any, any, any>;
 export type IntegrationRunErrorEntity = z.infer<typeof ZIntegrationRunErrorEntitySchema>;

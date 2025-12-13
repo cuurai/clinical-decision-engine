@@ -35,6 +35,6 @@ export async function listClinicalRuleVersions(
         limit: result.items.length,
       },
     },
-  };
+  } as ListClinicalRuleVersionsResponse;
 
 }

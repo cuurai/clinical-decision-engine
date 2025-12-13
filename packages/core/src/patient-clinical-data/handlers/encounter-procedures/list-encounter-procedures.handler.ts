@@ -35,6 +35,6 @@ export async function listEncounterProcedures(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEncounterProceduresResponse;
 
 }

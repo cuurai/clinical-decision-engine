@@ -36,6 +36,6 @@ export async function listHL7Messages(
         limit: result.items.length,
       },
     },
-  };
+  } as ListHLMessagesResponse;
 
 }

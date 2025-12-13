@@ -36,6 +36,6 @@ export async function listEventSubscriptions(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEventSubscriptionsResponse;
 
 }

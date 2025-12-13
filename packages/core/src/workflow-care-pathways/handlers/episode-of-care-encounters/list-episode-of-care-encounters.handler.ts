@@ -35,6 +35,6 @@ export async function listEpisodeOfCareEncounters(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEpisodeOfCareEncountersResponse;
 
 }

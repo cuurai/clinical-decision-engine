@@ -35,6 +35,6 @@ export async function listHandoffTasks(
         limit: result.items.length,
       },
     },
-  };
+  } as ListHandoffTasksResponse;
 
 }

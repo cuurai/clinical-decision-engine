@@ -36,6 +36,6 @@ export async function listModelInvocations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListModelInvocationsResponse;
 
 }

@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/integration-interoperability.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/integration-interoperability.schemas";
  * Description: Represents the ExternalSystem domain model.
  * Source: schemas.ExternalSystem
  */
-export const ZExternalSystemEntitySchema = schemas.ExternalSystem;
+export const ZExternalSystemEntitySchema = schemas.ExternalSystem as ZodType<any, any, any>;
 export type ExternalSystemEntity = z.infer<typeof ZExternalSystemEntitySchema>;

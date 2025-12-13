@@ -36,6 +36,6 @@ export async function listExplanations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListExplanationsResponse;
 
 }

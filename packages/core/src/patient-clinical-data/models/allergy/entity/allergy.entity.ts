@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/patient-clinical-data.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/patient-clinical-data.schemas";
  * Description: Represents the Allergy domain model.
  * Source: schemas.Allergy
  */
-export const ZAllergyEntitySchema = schemas.Allergy;
+export const ZAllergyEntitySchema = schemas.Allergy as ZodType<any, any, any>;
 export type AllergyEntity = z.infer<typeof ZAllergyEntitySchema>;

@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
  * Description: Represents the EvidenceCitation domain model.
  * Source: schemas.EvidenceCitation
  */
-export const ZEvidenceCitationEntitySchema = schemas.EvidenceCitation;
+export const ZEvidenceCitationEntitySchema = schemas.EvidenceCitation as ZodType<any, any, any>;
 export type EvidenceCitationEntity = z.infer<typeof ZEvidenceCitationEntitySchema>;

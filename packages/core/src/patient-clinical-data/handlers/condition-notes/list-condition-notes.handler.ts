@@ -35,6 +35,6 @@ export async function listConditionNotes(
         limit: result.items.length,
       },
     },
-  };
+  } as ListConditionNotesResponse;
 
 }

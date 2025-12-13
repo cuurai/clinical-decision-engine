@@ -36,6 +36,6 @@ export async function listClinicalRules(
         limit: result.items.length,
       },
     },
-  };
+  } as ListClinicalRulesResponse;
 
 }

@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/decision-intelligence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/decision-intelligence.schemas";
  * Description: Represents the SimulationScenario domain model.
  * Source: schemas.SimulationScenario
  */
-export const ZSimulationScenarioEntitySchema = schemas.SimulationScenario;
+export const ZSimulationScenarioEntitySchema = schemas.SimulationScenario as ZodType<any, any, any>;
 export type SimulationScenarioEntity = z.infer<typeof ZSimulationScenarioEntitySchema>;

@@ -35,6 +35,6 @@ export async function listCarePathwayTemplateSteps(
         limit: result.items.length,
       },
     },
-  };
+  } as ListCarePathwayTemplateStepsResponse;
 
 }

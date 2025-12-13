@@ -35,6 +35,6 @@ export async function listHL7MessageMappingResults(
         limit: result.items.length,
       },
     },
-  };
+  } as ListHLMessageMappingResultsResponse;
 
 }

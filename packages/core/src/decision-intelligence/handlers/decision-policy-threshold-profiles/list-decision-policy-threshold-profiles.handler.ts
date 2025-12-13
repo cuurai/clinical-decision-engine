@@ -13,12 +13,11 @@ import { diTransactionId } from "../../../shared/helpers/id-generator.js";
  * List decision policy threshold profiles
  */
 export async function listDecisionPolicyThresholdProfiles(
-    repo: DecisionPolicyThresholdProfileRepository,
-    orgId: string
+  repo: DecisionPolicyThresholdProfileRepository,
+  orgId: string
 ): Promise<ListDecisionPolicyThresholdProfilesResponse> {
   // Call repository list method with params (if provided)
   const result = await repo.list(orgId, undefined);
-
 
   // Return paginated response matching OpenAPI response type
   // Structure matches ProviderAccountListResponse: { data: { items: [...] }, meta: { ... } }
@@ -35,6 +34,5 @@ export async function listDecisionPolicyThresholdProfiles(
         limit: result.items.length,
       },
     },
-  };
-
+  } as ListDecisionPolicyThresholdProfilesResponse;
 }

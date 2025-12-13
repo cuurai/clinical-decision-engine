@@ -912,7 +912,7 @@ export const schemas = {
   updateWorkQueue_Body,
 };
 
-const endpoints = makeApi([
+const endpoints: any = makeApi([
   {
     method: "get",
     path: "/alerts",

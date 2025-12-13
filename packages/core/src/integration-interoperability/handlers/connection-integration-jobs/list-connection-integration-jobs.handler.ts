@@ -35,6 +35,6 @@ export async function listConnectionIntegrationJobs(
         limit: result.items.length,
       },
     },
-  };
+  } as ListConnectionIntegrationJobsResponse;
 
 }

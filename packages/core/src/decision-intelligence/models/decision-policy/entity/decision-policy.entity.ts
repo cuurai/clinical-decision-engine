@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/decision-intelligence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/decision-intelligence.schemas";
  * Description: Represents the DecisionPolicy domain model.
  * Source: schemas.DecisionPolicy
  */
-export const ZDecisionPolicyEntitySchema = schemas.DecisionPolicy;
+export const ZDecisionPolicyEntitySchema = schemas.DecisionPolicy as ZodType<any, any, any>;
 export type DecisionPolicyEntity = z.infer<typeof ZDecisionPolicyEntitySchema>;

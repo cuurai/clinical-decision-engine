@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
  * Description: Represents the KnowledgePackageModelDefinition domain model.
  * Source: schemas.KnowledgePackageModelDefinition
  */
-export const ZKnowledgePackageModelDefinitionEntitySchema = schemas.KnowledgePackageModelDefinition;
+export const ZKnowledgePackageModelDefinitionEntitySchema = schemas.KnowledgePackageModelDefinition as ZodType<any, any, any>;
 export type KnowledgePackageModelDefinitionEntity = z.infer<typeof ZKnowledgePackageModelDefinitionEntitySchema>;

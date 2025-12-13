@@ -35,6 +35,6 @@ export async function listEpisodeOfCareWorkflowInstances(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEpisodeOfCareWorkflowInstancesResponse;
 
 }

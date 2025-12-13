@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
  * Description: Represents the ChecklistTemplateItem domain model.
  * Source: schemas.ChecklistTemplateItem
  */
-export const ZChecklistTemplateItemEntitySchema = schemas.ChecklistTemplateItem;
+export const ZChecklistTemplateItemEntitySchema = schemas.ChecklistTemplateItem as ZodType<any, any, any>;
 export type ChecklistTemplateItemEntity = z.infer<typeof ZChecklistTemplateItemEntitySchema>;

@@ -36,6 +36,6 @@ export async function listInterfaceErrors(
         limit: result.items.length,
       },
     },
-  };
+  } as ListInterfaceErrorsResponse;
 
 }

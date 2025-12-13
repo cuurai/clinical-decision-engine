@@ -35,6 +35,6 @@ export async function listEncounterObservations(
         limit: result.items.length,
       },
     },
-  };
+  } as ListEncounterObservationsResponse;
 
 }

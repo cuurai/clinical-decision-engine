@@ -36,6 +36,6 @@ export async function listDecisionPolicies(
         limit: result.items.length,
       },
     },
-  };
+  } as ListDecisionPoliciesResponse;
 
 }

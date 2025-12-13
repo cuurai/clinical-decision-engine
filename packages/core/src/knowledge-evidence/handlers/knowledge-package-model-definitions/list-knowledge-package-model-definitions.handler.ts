@@ -35,6 +35,6 @@ export async function listKnowledgePackageModelDefinitions(
         limit: result.items.length,
       },
     },
-  };
+  } as ListKnowledgePackageModelDefinitionsResponse;
 
 }

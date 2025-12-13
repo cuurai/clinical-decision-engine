@@ -35,6 +35,6 @@ export async function listChecklistTemplateItems(
         limit: result.items.length,
       },
     },
-  };
+  } as ListChecklistTemplateItemsResponse;
 
 }

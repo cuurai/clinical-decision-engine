@@ -35,6 +35,6 @@ export async function listOrderSetTemplateItems(
         limit: result.items.length,
       },
     },
-  };
+  } as ListOrderSetTemplateItemsResponse;
 
 }

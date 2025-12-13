@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z } from "zod";
+import { z, type ZodType } from "zod";
 import { schemas } from "../../../schemas/knowledge-evidence.schemas";
 
 /**
@@ -17,5 +17,5 @@ import { schemas } from "../../../schemas/knowledge-evidence.schemas";
  * Description: Represents the ConceptMap domain model.
  * Source: schemas.ConceptMap
  */
-export const ZConceptMapEntitySchema = schemas.ConceptMap;
+export const ZConceptMapEntitySchema = schemas.ConceptMap as ZodType<any, any, any>;
 export type ConceptMapEntity = z.infer<typeof ZConceptMapEntitySchema>;
