@@ -18,6 +18,15 @@
   overflow-y: auto;
   background-color: var(--color-background);
   min-width: 0;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+@media (min-width: 1025px) {
+  .settings-main.sidebar-open {
+    opacity: 0.6;
+    filter: brightness(0.85);
+    pointer-events: none;
+  }
 }
 
 .settings-content {

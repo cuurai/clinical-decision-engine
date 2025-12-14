@@ -35,7 +35,7 @@ export function ServiceDetail() {
       <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
       <div className="dashboard-layout">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <main className="dashboard-main">
+        <main className={`dashboard-main ${sidebarOpen ? "sidebar-open" : ""}`}>
           <div className="service-detail-content">
             <div className="service-detail-header">
               <Link to="/" className="back-link">

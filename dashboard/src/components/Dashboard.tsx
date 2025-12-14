@@ -25,7 +25,7 @@ export function Dashboard() {
       <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
       <div className="dashboard-layout">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <main className="dashboard-main">
+        <main className={`dashboard-main ${sidebarOpen ? "sidebar-open" : ""}`}>
           <div className="dashboard-content">
             <div className="dashboard-header">
               <h1 className="dashboard-title">All products</h1>

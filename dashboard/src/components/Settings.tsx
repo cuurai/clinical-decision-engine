@@ -13,7 +13,7 @@ export function Settings() {
       <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
       <div className="settings-layout">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <main className="settings-main">
+        <main className={`settings-main ${sidebarOpen ? "sidebar-open" : ""}`}>
           <div className="settings-content">
             <div className="settings-header">
               <h1 className="settings-title">Settings</h1>

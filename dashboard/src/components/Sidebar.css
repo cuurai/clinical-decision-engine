@@ -12,6 +12,12 @@
   }
 }
 
+@media (min-width: 1025px) {
+  .sidebar-overlay {
+    display: none;
+  }
+}
+
 .sidebar {
   position: fixed;
   left: 0;

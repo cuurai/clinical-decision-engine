@@ -42,7 +42,7 @@ export function ResourceDetail() {
       <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
       <div className="dashboard-layout">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <main className="dashboard-main">
+        <main className={`dashboard-main ${sidebarOpen ? "sidebar-open" : ""}`}>
           <div className="resource-detail-content">
             <div className="resource-detail-header">
               <Link to={`/service/${serviceId}`} className="back-link">
