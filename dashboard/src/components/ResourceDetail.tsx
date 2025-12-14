@@ -3,12 +3,16 @@ import { useParams, Link } from "react-router-dom";
 import { Header } from "./Header";
 import { Sidebar } from "./Sidebar";
 import { ResourceNav } from "./ResourceNav";
+import { RecordModal } from "./RecordModal";
+import { RecordsTable } from "./RecordsTable";
 import { getServiceById, getResourceById } from "../types/services";
 import { useResource } from "../hooks/useResource";
 import "./ResourceDetail.css";
 
 export function ResourceDetail() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState<any | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { serviceId, resourceId } = useParams<{ serviceId: string; resourceId: string }>();
   const service = serviceId ? getServiceById(serviceId) : null;
   const resource = serviceId && resourceId ? getResourceById(serviceId, resourceId) : null;
@@ -124,33 +128,14 @@ export function ResourceDetail() {
               {data && data.length > 0 && (
                 <div className="detail-section">
                   <h2 className="detail-section-title">Recent Records</h2>
-                  <div className="records-table">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Details</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {data.slice(0, 10).map((item: any, index: number) => (
-                          <tr key={item.id || index}>
-                            <td className="record-id">{item.id || `#${index + 1}`}</td>
-                            <td>
-                              <div className="record-preview">
-                                {JSON.stringify(item, null, 2).substring(0, 100)}
-                                {JSON.stringify(item, null, 2).length > 100 ? "..." : ""}
-                              </div>
-                            </td>
-                            <td>
-                              <button className="action-button small">View</button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                  <RecordsTable
+                    data={data}
+                    resourceId={resourceId}
+                    onViewRecord={(record) => {
+                      setSelectedRecord(record);
+                      setIsModalOpen(true);
+                    }}
+                  />
                 </div>
               )}
 
@@ -176,9 +161,22 @@ export function ResourceDetail() {
               )}
 
               <div className="detail-section">
-                <h2 className="detail-section-title">Actions</h2>
+                <h2 className="detail-section-title">Clinical Actions</h2>
                 <div className="action-buttons">
-                  <button className="action-button primary">Create New</button>
+                  <button
+                    className="action-button primary"
+                    onClick={() => {
+                      // Open modal with AI Actions tab
+                      const firstRecord = data && data.length > 0 ? data[0] : null;
+                      if (firstRecord) {
+                        setSelectedRecord(firstRecord);
+                        setIsModalOpen(true);
+                        // Note: Modal will need to support opening in actions mode
+                      }
+                    }}
+                  >
+                    🤖 AI Clinical Actions
+                  </button>
                   <button className="action-button">View API Documentation</button>
                   <button className="action-button">View Metrics</button>
                   <button className="action-button">View Logs</button>
@@ -188,6 +186,17 @@ export function ResourceDetail() {
           </div>
         </main>
       </div>
+      <RecordModal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedRecord(null);
+        }}
+        data={selectedRecord}
+        title={selectedRecord?.id ? `Record: ${selectedRecord.id}` : "Record Details"}
+        resourceId={resourceId}
+        serviceId={serviceId}
+      />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { PrismaClient } from '../platform/adapters/src/decision-intelligence/prisma/generated/index.js';
 import { readFileSync } from 'fs';
 
-const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://quub:quub123@localhost:5432/quub_identity';
+const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://postgres:cuurD%40v2025@db.skxcbvztdnhklffhwkdl.supabase.co:5432/postgres';
 const MIGRATION_FILE = process.argv[2];
 
 if (!MIGRATION_FILE) {

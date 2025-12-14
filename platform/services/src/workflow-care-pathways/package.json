@@ -6,7 +6,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "tsx watch src/main.ts",
+    "dev": "dotenv -e ../../../../.env -- tsx watch src/main.ts",
     "build": "tsc",
     "start": "node dist/main.js",
     "test": "vitest"

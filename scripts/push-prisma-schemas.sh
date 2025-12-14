@@ -5,7 +5,7 @@
 set -e
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-DATABASE_URL="${DATABASE_URL:-postgresql://quub:quub123@localhost:5432/quub_identity}"
+DATABASE_URL="${DATABASE_URL:-postgresql://postgres:cuurD%40v2025@db.skxcbvztdnhklffhwkdl.supabase.co:5432/postgres}"
 
 echo "🚀 Pushing Prisma schemas to database..."
 echo "   Database URL: ${DATABASE_URL}"

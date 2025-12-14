@@ -14,6 +14,13 @@ import type { FastifyRequest } from "fastify";
  * @returns Organization ID from JWT token, or empty string if not found
  */
 export function extractOrgId(request: FastifyRequest): string {
+  // First, check X-Org-Id header (used by UI/dashboard)
+  const xOrgId = request.headers["x-org-id"];
+  if (xOrgId && typeof xOrgId === "string" && xOrgId.trim() !== "") {
+    return xOrgId.trim();
+  }
+
+  // Fallback to JWT token extraction
   try {
     // Get Authorization header
     const authHeader = request.headers.authorization;

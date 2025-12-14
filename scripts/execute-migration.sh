@@ -2,7 +2,7 @@
 # Execute migration SQL with error handling for existing objects
 
 MIGRATION_FILE="$1"
-DATABASE_URL="${DATABASE_URL:-postgresql://quub:quub123@localhost:5432/quub_identity}"
+DATABASE_URL="${DATABASE_URL:-postgresql://postgres:cuurD%40v2025@db.skxcbvztdnhklffhwkdl.supabase.co:5432/postgres}"
 
 if [ ! -f "$MIGRATION_FILE" ]; then
   echo "Error: Migration file not found: $MIGRATION_FILE"
