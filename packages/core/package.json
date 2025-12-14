@@ -1,48 +1,29 @@
 {
-    "name": "@cuurai/clinical-decision-engine-core",
-    "version": "1.0.0",
-    "description": "Clinical Decision Engine - Core domain logic and types",
-    "type": "module",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "default": "./dist/index.js"
-        },
-        "./decision-intelligence/*": "./dist/decision-intelligence/*",
-        "./integration-interoperability/*": "./dist/integration-interoperability/*",
-        "./knowledge-evidence/*": "./dist/knowledge-evidence/*",
-        "./patient-clinical-data/*": "./dist/patient-clinical-data/*",
-        "./workflow-care-pathways/*": "./dist/workflow-care-pathways/*"
-    },
-    "scripts": {
-        "build": "tsc -p tsconfig.json",
-        "build:watch": "tsc -p tsconfig.json --watch",
-        "clean": "rm -rf dist",
-        "typecheck": "tsc -p tsconfig.json --noEmit"
-    },
-    "keywords": [
-        "clinical-decision-engine",
-        "openapi",
-        "typescript",
-        "healthcare"
-    ],
-    "author": "",
-    "license": "PRIVATE",
-    "private": true,
-    "dependencies": {
-        "@zodios/core": "^10.9.0",
-        "zod": "^3.23.8"
-    },
-    "devDependencies": {
-        "@types/node": "^20.11.0",
-        "axios": "^1.13.2",
-        "openapi-typescript": "^7.10.1",
-        "typescript": "^5.3.3"
-    },
-    "engines": {
-        "node": ">=18.0.0",
-        "npm": ">=9.0.0"
-    }
+  "name": "@cuurai/clinical-decision-engine-core",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./decision-intelligence/*": "./dist/decision-intelligence/*",
+    "./integration-interoperability/*": "./dist/integration-interoperability/*",
+    "./knowledge-evidence/*": "./dist/knowledge-evidence/*",
+    "./patient-clinical-data/*": "./dist/patient-clinical-data/*",
+    "./workflow-care-pathways/*": "./dist/workflow-care-pathways/*"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -p tsconfig.json --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@zodios/core": "^10.9.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
 }

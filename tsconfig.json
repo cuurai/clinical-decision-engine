@@ -1,25 +1,22 @@
 {
   "compilerOptions": {
-    /* Build output */
-    "rootDir": "./src",
-    "outDir": "./dist",
+    /* 🔒 Strictness & Standardization */
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true,
 
-    /* Project references */
-    "composite": true,
-
-    /* ESM correctness (CRITICAL) */
+    /* 🚀 NodeNext/ESM Configuration */
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "target": "ES2022",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
 
-    /* Types */
-    "declaration": true,
-    "declarationMap": true,
-
-    /* Safety */
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+    /* 📦 Output */
+    "lib": ["ES2022"],
+    "sourceMap": true,
+    "skipLibCheck": true
+  }
 }

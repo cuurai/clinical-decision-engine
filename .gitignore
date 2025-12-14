@@ -46,9 +46,22 @@ coverage/
 # TypeScript
 *.tsbuildinfo
 
+# Compiled TypeScript artifacts (recursive)
+# Declaration files and maps
+**/*.d.ts
+**/*.d.ts.map
+**/*.js.map
+
+# Compiled JavaScript from TypeScript (in src directories only)
+# Note: This excludes .js files in src/ that have corresponding .ts files
+# Legitimate .js source files should be in specific locations (e.g., platform/services/src/shared/)
+packages/core/src/**/*.js
+platform/adapters/src/**/*.js
+platform/services/src/*/src/**/*.js
+dashboard/src/**/*.js
+
 # Generated files
 *.mjs
-*.d.ts
 
 # Prisma generated files
 **/prisma/generated/
@@ -59,3 +72,7 @@ coverage/
 **/prisma/generated/**/*.node
 **/prisma/generated/**/query_engine_bg.*
 **/prisma/generated/**/libquery_engine-*
+
+# Exception: Allow legitimate .js source files
+!platform/services/src/shared/*.js
+!scripts/**/*.js

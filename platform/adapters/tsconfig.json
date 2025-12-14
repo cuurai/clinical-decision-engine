@@ -2,17 +2,20 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "rootDir": "./src",
     "composite": true,
     "declaration": true,
     "declarationMap": true,
+    "verbatimModuleSyntax": false,
     "baseUrl": "../../",
-    "rootDir": "../../",
     "paths": {
       "@cuur/core": ["packages/core/src/index.ts"],
       "@cuur/core/*": ["packages/core/src/*"]
-    },
-    "skipLibCheck": true
+    }
   },
+  "references": [
+    { "path": "../../packages/core" }
+  ],
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }

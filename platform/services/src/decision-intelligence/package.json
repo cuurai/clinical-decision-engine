@@ -1,10 +1,8 @@
 {
   "name": "@cuur/service-decision-intelligence",
   "version": "1.0.0",
-  "description": "Cuur Exchange - DecisionIntelligence API",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/main.js",
   "scripts": {
     "dev": "dotenv -e ../../../../.env -- tsx watch src/main.ts",
     "build": "tsc -p tsconfig.json",
