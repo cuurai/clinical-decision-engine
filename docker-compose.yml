@@ -1,0 +1,167 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: clinical-decision-engine-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-clinical_decision_engine}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - clinical-network
+
+  # Decision Intelligence Service
+  decision-intelligence:
+    build:
+      context: .
+      dockerfile: Dockerfile.service
+      args:
+        SERVICE_NAME: decision-intelligence
+    image: clinical-decision-engine-decision-intelligence:latest
+    container_name: decision-intelligence-service
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3000
+      - HOST=0.0.0.0
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - clinical-network
+    restart: unless-stopped
+
+  # Patient Clinical Data Service
+  patient-clinical-data:
+    build:
+      context: .
+      dockerfile: Dockerfile.service
+      args:
+        SERVICE_NAME: patient-clinical-data
+    image: clinical-decision-engine-patient-clinical-data:latest
+    container_name: patient-clinical-data-service
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3001
+      - HOST=0.0.0.0
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - clinical-network
+    restart: unless-stopped
+
+  # Knowledge Evidence Service
+  knowledge-evidence:
+    build:
+      context: .
+      dockerfile: Dockerfile.service
+      args:
+        SERVICE_NAME: knowledge-evidence
+    image: clinical-decision-engine-knowledge-evidence:latest
+    container_name: knowledge-evidence-service
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3002
+      - HOST=0.0.0.0
+    ports:
+      - "3002:3002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - clinical-network
+    restart: unless-stopped
+
+  # Workflow Care Pathways Service
+  workflow-care-pathways:
+    build:
+      context: .
+      dockerfile: Dockerfile.service
+      args:
+        SERVICE_NAME: workflow-care-pathways
+    image: clinical-decision-engine-workflow-care-pathways:latest
+    container_name: workflow-care-pathways-service
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3003
+      - HOST=0.0.0.0
+    ports:
+      - "3003:3003"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - clinical-network
+    restart: unless-stopped
+
+  # Integration Interoperability Service
+  integration-interoperability:
+    build:
+      context: .
+      dockerfile: Dockerfile.service
+      args:
+        SERVICE_NAME: integration-interoperability
+    image: clinical-decision-engine-integration-interoperability:latest
+    container_name: integration-interoperability-service
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3004
+      - HOST=0.0.0.0
+    ports:
+      - "3004:3004"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - clinical-network
+    restart: unless-stopped
+
+  # Dashboard (Frontend)
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    image: clinical-decision-engine-dashboard:latest
+    container_name: clinical-decision-engine-dashboard
+    environment:
+      - NODE_ENV=production
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://localhost:3000}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - decision-intelligence
+      - patient-clinical-data
+      - knowledge-evidence
+      - workflow-care-pathways
+      - integration-interoperability
+    networks:
+      - clinical-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  clinical-network:
+    driver: bridge
+

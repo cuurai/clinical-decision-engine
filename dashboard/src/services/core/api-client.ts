@@ -76,7 +76,7 @@ async function request<T>(
 
   // Get org ID from localStorage or use default
   const orgId = localStorage.getItem("orgId") || "test-org";
-  defaultHeaders["X-Org-Id"] = orgId;
+    defaultHeaders["X-Org-Id"] = orgId;
 
   const config: RequestInit = {
     method,

@@ -1,0 +1,59 @@
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+.pnp
+.pnp.js
+
+# Testing
+coverage
+.nyc_output
+
+# Production
+dist
+build
+*.log
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Git
+.git
+.gitignore
+
+# Documentation
+.docs
+*.md
+!README.md
+
+# Code generation
+.codegen
+.scripts
+
+# Tests
+platform/tests
+**/__tests__
+**/*.test.ts
+**/*.spec.ts
+
+# Prisma generated (will be regenerated in container)
+platform/adapters/**/prisma/generated
+
+# OpenAPI specs (not needed in container)
+openapi
+
+# Scripts (keep only essential ones)
+scripts/*.bak
+scripts/*.py
+

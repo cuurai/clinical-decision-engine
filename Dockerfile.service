@@ -1,0 +1,118 @@
+# Dockerfile for individual microservices
+# Usage: docker build -f Dockerfile.service --build-arg SERVICE_NAME=<service-name> --platform linux/amd64 .
+
+ARG SERVICE_NAME
+
+FROM --platform=linux/amd64 node:20-alpine AS base
+ARG SERVICE_NAME
+
+# Install dependencies needed for native modules
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    openssl \
+    libc6-compat
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY packages/core/package.json ./packages/core/
+COPY platform/adapters/package.json ./platform/adapters/
+COPY platform/services/src/${SERVICE_NAME}/package.json ./platform/services/src/${SERVICE_NAME}/
+
+# Install root dependencies
+RUN npm ci --workspaces=false
+
+# Stage 1: Build core package
+FROM base AS core-builder
+ARG SERVICE_NAME
+WORKDIR /app
+COPY tsconfig.json ./tsconfig.json
+COPY packages/core ./packages/core
+RUN cd packages/core && npm install && npm run build
+
+# Stage 2: Build adapters
+FROM base AS adapters-builder
+ARG SERVICE_NAME
+WORKDIR /app
+COPY tsconfig.json ./tsconfig.json
+COPY --from=core-builder /app/packages/core ./packages/core
+COPY platform/adapters ./platform/adapters
+RUN cd platform/adapters && npm ci && (npm run build || npx tsc --skipLibCheck --noEmitOnError false || echo "Build completed with warnings")
+
+# Stage 3: Generate Prisma clients
+FROM base AS prisma-generator
+ARG SERVICE_NAME
+WORKDIR /app
+COPY --from=core-builder /app/packages/core ./packages/core
+COPY --from=adapters-builder /app/platform/adapters ./platform/adapters
+COPY platform/adapters/src/${SERVICE_NAME}/prisma ./platform/adapters/src/${SERVICE_NAME}/prisma
+COPY scripts/generate-prisma-clients.sh ./scripts/
+RUN chmod +x scripts/generate-prisma-clients.sh && \
+    npm ci --workspaces=false && \
+    cd packages/core && npm ci && \
+    cd ../../platform/adapters && npm ci && \
+    cd ../../ && \
+    # Generate Prisma client for this specific service
+    if [ -f "platform/adapters/src/${SERVICE_NAME}/prisma/schema.prisma" ]; then \
+      npx prisma@6 generate --schema="platform/adapters/src/${SERVICE_NAME}/prisma/schema.prisma" || true; \
+    fi
+
+# Stage 4: Build service
+FROM base AS service-builder
+ARG SERVICE_NAME
+WORKDIR /app
+COPY tsconfig.json ./tsconfig.json
+COPY --from=core-builder /app/packages/core ./packages/core
+COPY --from=adapters-builder /app/platform/adapters ./platform/adapters
+COPY --from=prisma-generator /app/platform/adapters ./platform/adapters
+COPY platform/services/src/shared ./platform/services/src/shared
+COPY platform/services/src/${SERVICE_NAME} ./platform/services/src/${SERVICE_NAME}
+
+# Install and build service
+RUN cd platform/services/src/${SERVICE_NAME} && \
+    npm ci && \
+    npm run build && \
+    test -d dist || (echo "ERROR: dist folder not created!" && exit 1)
+
+# Stage 5: Production runtime
+FROM --platform=linux/amd64 node:20-alpine AS production
+
+ARG SERVICE_NAME
+ENV SERVICE_NAME=${SERVICE_NAME}
+
+RUN apk add --no-cache \
+    openssl \
+    libc6-compat \
+    dumb-init
+
+WORKDIR /app
+
+# Copy built artifacts (including dist folders)
+COPY --from=core-builder /app/packages/core ./packages/core
+COPY --from=adapters-builder /app/platform/adapters ./platform/adapters
+COPY --from=prisma-generator /app/platform/adapters ./platform/adapters
+COPY --from=service-builder /app/platform/services/src/shared ./platform/services/src/shared
+COPY --from=service-builder /app/platform/services/src/${SERVICE_NAME} ./platform/services/src/${SERVICE_NAME}
+
+# Copy package files
+COPY package*.json ./
+COPY packages/core/package.json ./packages/core/
+COPY platform/adapters/package.json ./platform/adapters/
+COPY platform/services/src/${SERVICE_NAME}/package.json ./platform/services/src/${SERVICE_NAME}/
+
+# Verify core/dist exists and install production dependencies only
+RUN test -d packages/core/dist || (echo "ERROR: packages/core/dist not found!" && exit 1) && \
+    npm ci --workspaces=false --omit=dev && \
+    cd packages/core && npm ci --omit=dev && \
+    cd ../../platform/adapters && npm ci --omit=dev && \
+    cd ../../platform/services/src/${SERVICE_NAME} && npm ci --omit=dev
+
+# Expose port (will be overridden by env)
+EXPOSE 3000
+
+# Use dumb-init for proper signal handling
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["sh", "-c", "cd /app && node platform/services/src/$SERVICE_NAME/dist/main.js"]

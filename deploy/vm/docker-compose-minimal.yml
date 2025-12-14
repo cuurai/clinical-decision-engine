@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+  decision-intelligence:
+    image: clinical-decision-engine-decision-intelligence:latest
+    container_name: clinical-decision-engine-decision-intelligence
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=3000
+      - HOST=0.0.0.0
+    ports:
+      - "3100:3000"
+    networks:
+      - clinical-decision-engine-network
+    restart: unless-stopped
+
+  patient-clinical-data:
+    image: clinical-decision-engine-patient-clinical-data:latest
+    container_name: clinical-decision-engine-patient-clinical-data
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=3001
+      - HOST=0.0.0.0
+    ports:
+      - "3101:3001"
+    networks:
+      - clinical-decision-engine-network
+    restart: unless-stopped
+
+  knowledge-evidence:
+    image: clinical-decision-engine-knowledge-evidence:latest
+    container_name: clinical-decision-engine-knowledge-evidence
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=3002
+      - HOST=0.0.0.0
+    ports:
+      - "3102:3002"
+    networks:
+      - clinical-decision-engine-network
+    restart: unless-stopped
+
+  integration-interoperability:
+    image: clinical-decision-engine-integration-interoperability:latest
+    container_name: clinical-decision-engine-integration-interoperability
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=3004
+      - HOST=0.0.0.0
+    ports:
+      - "3104:3004"
+    networks:
+      - clinical-decision-engine-network
+    restart: unless-stopped
+
+  dashboard:
+    image: clinical-decision-engine-dashboard:latest
+    container_name: clinical-decision-engine-dashboard
+    environment:
+      - NODE_ENV=production
+      - VITE_API_BASE_URL=http://34.136.153.216:3100
+    ports:
+      - "8081:8080"
+    networks:
+      - clinical-decision-engine-network
+    restart: unless-stopped
+
+networks:
+  clinical-decision-engine-network:
+    driver: bridge

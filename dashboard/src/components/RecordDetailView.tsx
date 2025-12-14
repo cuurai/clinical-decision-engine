@@ -478,3 +478,4 @@ export function RecordDetailView({
     </div>
   );
 }
+

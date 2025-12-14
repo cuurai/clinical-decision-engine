@@ -1,0 +1,142 @@
+# Docker Compose configuration for VM deployment
+# Uses different ports to avoid conflicts with existing apps
+
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: ${APP_NAME:-clinical-decision-engine}-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-clinical_decision_engine}
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432" # Changed to 5433 to avoid conflicts
+    volumes:
+      - ${APP_NAME:-clinical-decision-engine}_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+    restart: unless-stopped
+
+  # Decision Intelligence Service
+  decision-intelligence:
+    image: ${APP_NAME:-clinical-decision-engine}-decision-intelligence:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-decision-intelligence
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3000
+      - HOST=0.0.0.0
+    ports:
+      - "${DECISION_INTELLIGENCE_PORT:-3100}:3000" # Changed to 3100 to avoid conflicts
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+    restart: unless-stopped
+
+  # Patient Clinical Data Service
+  patient-clinical-data:
+    image: ${APP_NAME:-clinical-decision-engine}-patient-clinical-data:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-patient-clinical-data
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3001
+      - HOST=0.0.0.0
+    ports:
+      - "${PATIENT_CLINICAL_DATA_PORT:-3101}:3001" # Changed to 3101
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+    restart: unless-stopped
+
+  # Knowledge Evidence Service
+  knowledge-evidence:
+    image: ${APP_NAME:-clinical-decision-engine}-knowledge-evidence:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-knowledge-evidence
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3002
+      - HOST=0.0.0.0
+    ports:
+      - "${KNOWLEDGE_EVIDENCE_PORT:-3102}:3002" # Changed to 3102
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+    restart: unless-stopped
+
+  # Workflow Care Pathways Service
+  workflow-care-pathways:
+    image: ${APP_NAME:-clinical-decision-engine}-workflow-care-pathways:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-workflow-care-pathways
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3003
+      - HOST=0.0.0.0
+    ports:
+      - "${WORKFLOW_CARE_PATHWAYS_PORT:-3103}:3003" # Changed to 3103
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+    restart: unless-stopped
+
+  # Integration Interoperability Service
+  integration-interoperability:
+    image: ${APP_NAME:-clinical-decision-engine}-integration-interoperability:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-integration-interoperability
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3004
+      - HOST=0.0.0.0
+    ports:
+      - "${INTEGRATION_INTEROPERABILITY_PORT:-3104}:3004" # Changed to 3104
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+    restart: unless-stopped
+
+  # Dashboard (Frontend)
+  dashboard:
+    image: ${APP_NAME:-clinical-decision-engine}-dashboard:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-dashboard
+    environment:
+      - NODE_ENV=production
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://${VM_HOST:-34.136.153.216}:3100}
+    ports:
+      - "${DASHBOARD_PORT:-8081}:8080" # Changed to 8081 to avoid conflicts
+    depends_on:
+      - decision-intelligence
+      - patient-clinical-data
+      - knowledge-evidence
+      - workflow-care-pathways
+      - integration-interoperability
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+    restart: unless-stopped
+
+volumes:
+  ${APP_NAME:-clinical-decision-engine}_postgres_data:
+
+networks:
+  ${APP_NAME:-clinical-decision-engine}-network:
+    driver: bridge

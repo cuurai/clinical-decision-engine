@@ -1,0 +1,164 @@
+# Google Cloud Build configuration for Clinical Decision Engine
+# This builds and deploys all services and dashboard to GCP
+
+steps:
+  # Build and push Decision Intelligence Service
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-decision-intelligence"
+    args:
+      - "build"
+      - "-f"
+      - "Dockerfile.service"
+      - "--build-arg"
+      - "SERVICE_NAME=decision-intelligence"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-decision-intelligence:${SHORT_SHA}"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-decision-intelligence:latest"
+      - "."
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push-decision-intelligence"
+    args:
+      - "push"
+      - "--all-tags"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-decision-intelligence:${SHORT_SHA}"
+
+  # Build and push Patient Clinical Data Service
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-patient-clinical-data"
+    args:
+      - "build"
+      - "-f"
+      - "Dockerfile.service"
+      - "--build-arg"
+      - "SERVICE_NAME=patient-clinical-data"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-patient-clinical-data:${SHORT_SHA}"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-patient-clinical-data:latest"
+      - "."
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push-patient-clinical-data"
+    args:
+      - "push"
+      - "--all-tags"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-patient-clinical-data:${SHORT_SHA}"
+
+  # Build and push Knowledge Evidence Service
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-knowledge-evidence"
+    args:
+      - "build"
+      - "-f"
+      - "Dockerfile.service"
+      - "--build-arg"
+      - "SERVICE_NAME=knowledge-evidence"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-knowledge-evidence:${SHORT_SHA}"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-knowledge-evidence:latest"
+      - "."
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push-knowledge-evidence"
+    args:
+      - "push"
+      - "--all-tags"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-knowledge-evidence:${SHORT_SHA}"
+
+  # Build and push Workflow Care Pathways Service
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-workflow-care-pathways"
+    args:
+      - "build"
+      - "-f"
+      - "Dockerfile.service"
+      - "--build-arg"
+      - "SERVICE_NAME=workflow-care-pathways"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-workflow-care-pathways:${SHORT_SHA}"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-workflow-care-pathways:latest"
+      - "."
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push-workflow-care-pathways"
+    args:
+      - "push"
+      - "--all-tags"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-workflow-care-pathways:${SHORT_SHA}"
+
+  # Build and push Integration Interoperability Service
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-integration-interoperability"
+    args:
+      - "build"
+      - "-f"
+      - "Dockerfile.service"
+      - "--build-arg"
+      - "SERVICE_NAME=integration-interoperability"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-integration-interoperability:${SHORT_SHA}"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-integration-interoperability:latest"
+      - "."
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push-integration-interoperability"
+    args:
+      - "push"
+      - "--all-tags"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-integration-interoperability:${SHORT_SHA}"
+
+  # Build and push Dashboard
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-dashboard"
+    args:
+      - "build"
+      - "-f"
+      - "Dockerfile.dashboard"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-dashboard:${SHORT_SHA}"
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-dashboard:latest"
+      - "."
+
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push-dashboard"
+    args:
+      - "push"
+      - "--all-tags"
+      - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-dashboard:${SHORT_SHA}"
+
+# Substitutions
+substitutions:
+  _GCR_HOSTNAME: "gcr.io"
+  _GCP_PROJECT_ID: "your-gcp-project-id"
+  _IMAGE_NAME: "clinical-decision-engine"
+  _REGION: "us-central1"
+
+# Options
+options:
+  machineType: "N1_HIGHCPU_8"
+  logging: CLOUD_LOGGING_ONLY
+
+# Timeout
+timeout: "3600s"
+
+# Images to be pushed to GCR
+images:
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-decision-intelligence:${SHORT_SHA}"
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-decision-intelligence:latest"
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-patient-clinical-data:${SHORT_SHA}"
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-patient-clinical-data:latest"
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-knowledge-evidence:${SHORT_SHA}"
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-knowledge-evidence:latest"
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-workflow-care-pathways:${SHORT_SHA}"
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-workflow-care-pathways:latest"
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-integration-interoperability:${SHORT_SHA}"
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-integration-interoperability:latest"
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-dashboard:${SHORT_SHA}"
+  - "${_GCR_HOSTNAME}/${_GCP_PROJECT_ID}/${_IMAGE_NAME}-dashboard:latest"
+

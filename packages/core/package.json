@@ -37,6 +37,7 @@
     },
     "devDependencies": {
         "@types/node": "^20.11.0",
+        "axios": "^1.13.2",
         "openapi-typescript": "^7.10.1",
         "typescript": "^5.3.3"
     },

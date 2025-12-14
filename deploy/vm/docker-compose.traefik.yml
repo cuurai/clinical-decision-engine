@@ -1,0 +1,174 @@
+# Docker Compose configuration for VM deployment with Traefik
+# This version uses Traefik labels instead of exposing ports directly
+
+version: "3.8"
+
+services:
+  # PostgreSQL Database (internal only, no Traefik)
+  postgres:
+    image: postgres:15-alpine
+    container_name: ${APP_NAME:-clinical-decision-engine}-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-clinical_decision_engine}
+    volumes:
+      - ${APP_NAME:-clinical-decision-engine}_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+    restart: unless-stopped
+    # No ports exposed - internal only
+
+  # Decision Intelligence Service
+  decision-intelligence:
+    image: ${APP_NAME:-clinical-decision-engine}-decision-intelligence:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-decision-intelligence
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3000
+      - HOST=0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.decision-intelligence.rule=Host(`${TRAEFIK_DOMAIN:-34.136.153.216}`) && PathPrefix(`/api/v1/decision-intelligence`)"
+      - "traefik.http.routers.decision-intelligence.entrypoints=web"
+      - "traefik.http.services.decision-intelligence.loadbalancer.server.port=3000"
+      - "traefik.docker.network=${APP_NAME:-clinical-decision-engine}-network"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+      - traefik # Connect to Traefik network
+    restart: unless-stopped
+
+  # Patient Clinical Data Service
+  patient-clinical-data:
+    image: ${APP_NAME:-clinical-decision-engine}-patient-clinical-data:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-patient-clinical-data
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3001
+      - HOST=0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.patient-clinical-data.rule=Host(`${TRAEFIK_DOMAIN:-34.136.153.216}`) && PathPrefix(`/api/v1/patient-clinical-data`)"
+      - "traefik.http.routers.patient-clinical-data.entrypoints=web"
+      - "traefik.http.services.patient-clinical-data.loadbalancer.server.port=3001"
+      - "traefik.docker.network=${APP_NAME:-clinical-decision-engine}-network"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+      - traefik
+    restart: unless-stopped
+
+  # Knowledge Evidence Service
+  knowledge-evidence:
+    image: ${APP_NAME:-clinical-decision-engine}-knowledge-evidence:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-knowledge-evidence
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3002
+      - HOST=0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.knowledge-evidence.rule=Host(`${TRAEFIK_DOMAIN:-34.136.153.216}`) && PathPrefix(`/api/v1/knowledge-evidence`)"
+      - "traefik.http.routers.knowledge-evidence.entrypoints=web"
+      - "traefik.http.services.knowledge-evidence.loadbalancer.server.port=3002"
+      - "traefik.docker.network=${APP_NAME:-clinical-decision-engine}-network"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+      - traefik
+    restart: unless-stopped
+
+  # Workflow Care Pathways Service
+  workflow-care-pathways:
+    image: ${APP_NAME:-clinical-decision-engine}-workflow-care-pathways:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-workflow-care-pathways
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3003
+      - HOST=0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.workflow-care-pathways.rule=Host(`${TRAEFIK_DOMAIN:-34.136.153.216}`) && PathPrefix(`/api/v1/workflow-care-pathways`)"
+      - "traefik.http.routers.workflow-care-pathways.entrypoints=web"
+      - "traefik.http.services.workflow-care-pathways.loadbalancer.server.port=3003"
+      - "traefik.docker.network=${APP_NAME:-clinical-decision-engine}-network"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+      - traefik
+    restart: unless-stopped
+
+  # Integration Interoperability Service
+  integration-interoperability:
+    image: ${APP_NAME:-clinical-decision-engine}-integration-interoperability:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-integration-interoperability
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - PORT=3004
+      - HOST=0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.integration-interoperability.rule=Host(`${TRAEFIK_DOMAIN:-34.136.153.216}`) && PathPrefix(`/api/v1/integration-interoperability`)"
+      - "traefik.http.routers.integration-interoperability.entrypoints=web"
+      - "traefik.http.services.integration-interoperability.loadbalancer.server.port=3004"
+      - "traefik.docker.network=${APP_NAME:-clinical-decision-engine}-network"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+      - traefik
+    restart: unless-stopped
+
+  # Dashboard (Frontend)
+  dashboard:
+    image: ${APP_NAME:-clinical-decision-engine}-dashboard:latest
+    container_name: ${APP_NAME:-clinical-decision-engine}-dashboard
+    environment:
+      - NODE_ENV=production
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://${TRAEFIK_DOMAIN:-34.136.153.216}}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`${TRAEFIK_DOMAIN:-34.136.153.216}`) && PathPrefix(`/`)"
+      - "traefik.http.routers.dashboard.entrypoints=web"
+      - "traefik.http.services.dashboard.loadbalancer.server.port=8080"
+      - "traefik.docker.network=${APP_NAME:-clinical-decision-engine}-network"
+      - "traefik.http.routers.dashboard.priority=1" # Higher priority for root path
+    depends_on:
+      - decision-intelligence
+      - patient-clinical-data
+      - knowledge-evidence
+      - workflow-care-pathways
+      - integration-interoperability
+    networks:
+      - ${APP_NAME:-clinical-decision-engine}-network
+      - traefik
+    restart: unless-stopped
+
+volumes:
+  ${APP_NAME:-clinical-decision-engine}_postgres_data:
+
+networks:
+  ${APP_NAME:-clinical-decision-engine}-network:
+    driver: bridge
+  traefik:
+    external: true # Use existing Traefik network
