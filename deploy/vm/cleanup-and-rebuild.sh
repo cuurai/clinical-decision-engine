@@ -43,7 +43,7 @@ for service in "${SERVICES[@]}"; do
         -f Dockerfile.service \
         --build-arg SERVICE_NAME=$service \
         -t ${APP_NAME}-${service}:latest . 2>&1 | grep -E "(Step|Building|built|Successfully|ERROR|WARN)" | tail -3
-    
+
     if [ ${PIPESTATUS[0]} -eq 0 ]; then
         echo "   ✅ ${service} built successfully"
     else

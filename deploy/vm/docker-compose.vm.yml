@@ -1,5 +1,6 @@
 # Docker Compose configuration for VM deployment
 # Uses different ports to avoid conflicts with existing apps
+# Traefik path-based routing configured
 
 version: "3.8"
 
@@ -7,136 +8,180 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
-    container_name: ${APP_NAME:-clinical-decision-engine}-db
+    container_name: clinical-decision-engine-db
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_DB: ${POSTGRES_DB:-clinical_decision_engine}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: clinical_decision_engine
     ports:
-      - "${POSTGRES_PORT:-5433}:5432" # Changed to 5433 to avoid conflicts
+      - "5433:5432"
     volumes:
-      - ${APP_NAME:-clinical-decision-engine}_postgres_data:/var/lib/postgresql/data
+      - clinical_decision_engine_postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - ${APP_NAME:-clinical-decision-engine}-network
+      - clinical-decision-engine-network
     restart: unless-stopped
 
   # Decision Intelligence Service
   decision-intelligence:
-    image: ${APP_NAME:-clinical-decision-engine}-decision-intelligence:latest
-    container_name: ${APP_NAME:-clinical-decision-engine}-decision-intelligence
+    image: clinical-decision-engine-decision-intelligence:latest
+    container_name: clinical-decision-engine-decision-intelligence
+    pull_policy: never
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@postgres:5432/clinical_decision_engine}
       - PORT=3000
       - HOST=0.0.0.0
     ports:
-      - "${DECISION_INTELLIGENCE_PORT:-3100}:3000" # Changed to 3100 to avoid conflicts
+      - "3100:3000"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.decision-intelligence.rule=PathPrefix(`/api/decision-intelligence`)
+      - traefik.http.routers.decision-intelligence.entrypoints=web
+      - traefik.http.services.decision-intelligence.loadbalancer.server.port=3000
+      - traefik.http.routers.decision-intelligence.priority=5
     depends_on:
       postgres:
         condition: service_healthy
     networks:
-      - ${APP_NAME:-clinical-decision-engine}-network
+      - clinical-decision-engine-network
+      - mixpost_default
     restart: unless-stopped
 
   # Patient Clinical Data Service
   patient-clinical-data:
-    image: ${APP_NAME:-clinical-decision-engine}-patient-clinical-data:latest
-    container_name: ${APP_NAME:-clinical-decision-engine}-patient-clinical-data
+    image: clinical-decision-engine-patient-clinical-data:latest
+    container_name: clinical-decision-engine-patient-clinical-data
+    pull_policy: never
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/clinical_decision_engine
       - PORT=3001
       - HOST=0.0.0.0
     ports:
-      - "${PATIENT_CLINICAL_DATA_PORT:-3101}:3001" # Changed to 3101
+      - "3101:3001"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.patient-clinical-data.rule=PathPrefix(`/api/patient-clinical-data`)
+      - traefik.http.routers.patient-clinical-data.entrypoints=web
+      - traefik.http.services.patient-clinical-data.loadbalancer.server.port=3001
+      - traefik.http.routers.patient-clinical-data.priority=5
     depends_on:
       postgres:
         condition: service_healthy
     networks:
-      - ${APP_NAME:-clinical-decision-engine}-network
+      - clinical-decision-engine-network
+      - mixpost_default
     restart: unless-stopped
 
   # Knowledge Evidence Service
   knowledge-evidence:
-    image: ${APP_NAME:-clinical-decision-engine}-knowledge-evidence:latest
-    container_name: ${APP_NAME:-clinical-decision-engine}-knowledge-evidence
+    image: clinical-decision-engine-knowledge-evidence:latest
+    container_name: clinical-decision-engine-knowledge-evidence
+    pull_policy: never
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/clinical_decision_engine
       - PORT=3002
       - HOST=0.0.0.0
     ports:
-      - "${KNOWLEDGE_EVIDENCE_PORT:-3102}:3002" # Changed to 3102
+      - "3102:3002"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.knowledge-evidence.rule=PathPrefix(`/api/knowledge-evidence`)
+      - traefik.http.routers.knowledge-evidence.entrypoints=web
+      - traefik.http.services.knowledge-evidence.loadbalancer.server.port=3002
+      - traefik.http.routers.knowledge-evidence.priority=5
     depends_on:
       postgres:
         condition: service_healthy
     networks:
-      - ${APP_NAME:-clinical-decision-engine}-network
+      - clinical-decision-engine-network
+      - mixpost_default
     restart: unless-stopped
 
   # Workflow Care Pathways Service
   workflow-care-pathways:
-    image: ${APP_NAME:-clinical-decision-engine}-workflow-care-pathways:latest
-    container_name: ${APP_NAME:-clinical-decision-engine}-workflow-care-pathways
+    image: clinical-decision-engine-workflow-care-pathways:latest
+    container_name: clinical-decision-engine-workflow-care-pathways
+    pull_policy: never
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/clinical_decision_engine
       - PORT=3003
       - HOST=0.0.0.0
     ports:
-      - "${WORKFLOW_CARE_PATHWAYS_PORT:-3103}:3003" # Changed to 3103
+      - "3103:3003"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.workflow-care-pathways.rule=PathPrefix(`/api/workflow-care-pathways`)
+      - traefik.http.routers.workflow-care-pathways.entrypoints=web
+      - traefik.http.services.workflow-care-pathways.loadbalancer.server.port=3003
+      - traefik.http.routers.workflow-care-pathways.priority=5
     depends_on:
       postgres:
         condition: service_healthy
     networks:
-      - ${APP_NAME:-clinical-decision-engine}-network
+      - clinical-decision-engine-network
+      - mixpost_default
     restart: unless-stopped
 
   # Integration Interoperability Service
   integration-interoperability:
-    image: ${APP_NAME:-clinical-decision-engine}-integration-interoperability:latest
-    container_name: ${APP_NAME:-clinical-decision-engine}-integration-interoperability
+    image: clinical-decision-engine-integration-interoperability:latest
+    container_name: clinical-decision-engine-integration-interoperability
+    pull_policy: never
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-clinical_decision_engine}
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/clinical_decision_engine
       - PORT=3004
       - HOST=0.0.0.0
     ports:
-      - "${INTEGRATION_INTEROPERABILITY_PORT:-3104}:3004" # Changed to 3104
+      - "3104:3004"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.integration-interoperability.rule=PathPrefix(`/api/integration-interoperability`)
+      - traefik.http.routers.integration-interoperability.entrypoints=web
+      - traefik.http.services.integration-interoperability.loadbalancer.server.port=3004
+      - traefik.http.routers.integration-interoperability.priority=5
     depends_on:
       postgres:
         condition: service_healthy
     networks:
-      - ${APP_NAME:-clinical-decision-engine}-network
+      - clinical-decision-engine-network
+      - mixpost_default
     restart: unless-stopped
 
   # Dashboard (Frontend)
   dashboard:
-    image: ${APP_NAME:-clinical-decision-engine}-dashboard:latest
-    container_name: ${APP_NAME:-clinical-decision-engine}-dashboard
+    image: clinical-decision-engine-dashboard:latest
+    container_name: clinical-decision-engine-dashboard
+    pull_policy: never
     environment:
       - NODE_ENV=production
-      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://${VM_HOST:-34.136.153.216}:3100}
-    ports:
-      - "${DASHBOARD_PORT:-8081}:8080" # Changed to 8081 to avoid conflicts
-    depends_on:
-      - decision-intelligence
-      - patient-clinical-data
-      - knowledge-evidence
-      - workflow-care-pathways
-      - integration-interoperability
+      - VITE_API_BASE_URL=http://34.136.153.216/api/v1
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.cde.rule=Host(`34.136.153.216`) && PathPrefix(`/cde`)
+      - traefik.http.routers.cde.entrypoints=web
+      - traefik.http.services.cde.loadbalancer.server.port=8080
+      - traefik.http.routers.cde.priority=10
+      - traefik.http.middlewares.cde-strip.stripprefix.prefixes=/cde
+      - traefik.http.routers.cde.middlewares=cde-strip
     networks:
-      - ${APP_NAME:-clinical-decision-engine}-network
+      - clinical-decision-engine-network
+      - mixpost_default
     restart: unless-stopped
 
 volumes:
-  ${APP_NAME:-clinical-decision-engine}_postgres_data:
+  clinical_decision_engine_postgres_data:
 
 networks:
-  ${APP_NAME:-clinical-decision-engine}-network:
+  clinical-decision-engine-network:
     driver: bridge
+  mixpost_default:
+    external: true
