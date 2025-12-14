@@ -6,38 +6,42 @@
 
 :root {
   /* ============================================
-     BASE COLORS - Backgrounds & Surfaces
+     BASE COLORS - Backgrounds & Surfaces (Light Theme)
      ============================================ */
-  --color-bg-primary: #1e1e1e;
-  --color-bg-secondary: #2d2e30;
-  --color-bg-tertiary: #3c4043;
-  --color-bg-elevated: #2d2e30;
+  --color-background: #ffffff;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8f9fa;
+  --color-bg-tertiary: #f1f3f4;
+  --color-bg-elevated: #ffffff;
 
   /* Surface colors (for cards, panels, etc.) */
-  --color-surface: #2d2e30;
-  --color-surface-hover: #3c4043;
-  --color-surface-active: #4a4d50;
-  --color-surface-selected: #303134;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f8f9fa;
+  --color-surface-active: #f1f3f4;
+  --color-surface-selected: #e8f0fe;
 
   /* Border colors */
-  --color-border: #3c4043;
-  --color-border-light: #5f6368;
-  --color-border-subtle: #2d2e30;
+  --color-border: #e8eaed;
+  --color-border-light: #dadce0;
+  --color-border-subtle: #f1f3f4;
 
   /* Sidebar specific */
-  --color-sidebar: #202124;
-  --color-sidebar-hover: #2d2e30;
-  --color-sidebar-active: #303134;
-  --color-sidebar-border: #3c4043;
+  --color-sidebar: #ffffff;
+  --color-sidebar-hover: #f8f9fa;
+  --color-sidebar-active: #e8f0fe;
+  --color-sidebar-border: #e8eaed;
 
   /* ============================================
      TEXT COLORS
      ============================================ */
-  --color-text-primary: #e8eaed;
-  --color-text-secondary: #bdc1c6;
+  --color-text-primary: #202124;
+  --color-text-secondary: #5f6368;
   --color-text-tertiary: #9aa0a6;
-  --color-text-disabled: #5f6368;
-  --color-text-inverse: #202124;
+  --color-text-disabled: #bdc1c6;
+  --color-text-inverse: #ffffff;
+
+  /* Purple for gradients */
+  --color-purple: #c58af9;
 
   /* ============================================
      DOMAIN/Service ACCENT COLORS
@@ -284,6 +288,42 @@
 }
 
 /* ============================================
+   DARK THEME OVERRIDES
+   ============================================ */
+.dark {
+  /* Base colors */
+  --color-background: #1e1e1e;
+  --color-bg-primary: #1e1e1e;
+  --color-bg-secondary: #2d2e30;
+  --color-bg-tertiary: #3c4043;
+  --color-bg-elevated: #2d2e30;
+
+  /* Surface colors */
+  --color-surface: #2d2e30;
+  --color-surface-hover: #3c4043;
+  --color-surface-active: #4a4d50;
+  --color-surface-selected: #303134;
+
+  /* Border colors */
+  --color-border: #3c4043;
+  --color-border-light: #5f6368;
+  --color-border-subtle: #2d2e30;
+
+  /* Sidebar specific */
+  --color-sidebar: #202124;
+  --color-sidebar-hover: #2d2e30;
+  --color-sidebar-active: #303134;
+  --color-sidebar-border: #3c4043;
+
+  /* Text colors */
+  --color-text-primary: #e8eaed;
+  --color-text-secondary: #bdc1c6;
+  --color-text-tertiary: #9aa0a6;
+  --color-text-disabled: #5f6368;
+  --color-text-inverse: #202124;
+}
+
+/* ============================================
    BODY & BASE STYLES
    ============================================ */
 body {
@@ -291,7 +331,7 @@ body {
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
   color: var(--color-text-primary);
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -325,7 +365,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-background);
 }
 
 /* ============================================

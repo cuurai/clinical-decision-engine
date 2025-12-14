@@ -15,7 +15,7 @@
 
 @media (min-width: 1025px) {
   .dashboard-layout {
-    margin-left: 280px;
+    margin-left: 0;
   }
 }
 

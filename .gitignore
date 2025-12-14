@@ -53,3 +53,9 @@ coverage/
 # Prisma generated files
 **/prisma/generated/
 **/prisma/generated/**/*.js
+**/prisma/generated/**/*.d.ts
+**/prisma/generated/**/*.mjs
+**/prisma/generated/**/*.wasm
+**/prisma/generated/**/*.node
+**/prisma/generated/**/query_engine_bg.*
+**/prisma/generated/**/libquery_engine-*

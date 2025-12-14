@@ -22,7 +22,7 @@ export function Dashboard() {
 
   return (
     <div className="dashboard">
-      <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
+      <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} sidebarOpen={sidebarOpen} />
       <div className="dashboard-layout">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <main className="dashboard-main">

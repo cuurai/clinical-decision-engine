@@ -87,6 +87,13 @@ const generalNavItems = [
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const location = useLocation();
+
+  const handleClose = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("Sidebar close handler called");
+    onClose();
+  };
   const [pinnedServices] = useState<string[]>([
     "decision-intelligence",
     "knowledge-evidence",
@@ -252,8 +259,13 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       {isOpen && <div className="sidebar-overlay" onClick={onClose} />}
       <aside ref={sidebarRef} className={`sidebar ${isOpen ? "sidebar-open" : ""}`}>
         {/* Sidebar Header */}
-        <div className="sidebar-header">
-          <button className="sidebar-close-button" onClick={onClose} aria-label="Close sidebar">
+        <div className="sidebar-header" onClick={(e) => e.stopPropagation()}>
+          <button
+            className="sidebar-close-button"
+            onClick={handleClose}
+            aria-label="Close sidebar"
+            type="button"
+          >
             <svg
               width="20"
               height="20"
@@ -261,6 +273,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
+              pointerEvents="none"
             >
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -279,18 +292,13 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 />
                 <defs>
                   <linearGradient id="sidebarLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#4285f4" />
-                    <stop offset="100%" stopColor="#34a853" />
-                    <stop offset="50%" stopColor="#fbbc04" />
-                    <stop offset="75%" stopColor="#ea4335" />
+                    <stop offset="0%" stopColor="#8ab4f8" />
+                    <stop offset="100%" stopColor="#c58af9" />
                   </linearGradient>
                 </defs>
               </svg>
             </div>
-            <div className="sidebar-brand-text">
-              <span className="sidebar-brand-primary">cuur</span>
-              <span className="sidebar-brand-secondary">.ai</span>
-            </div>
+            <span className="sidebar-brand-text">cuur.ai</span>
           </div>
         </div>
 
