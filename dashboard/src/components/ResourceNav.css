@@ -217,7 +217,50 @@
 /* Sidebar overlays on top of everything, ResourceNav pushes content as normal */
 
 @media (max-width: 1024px) {
+  /* On mobile, ResourceNav starts minimized but can expand on hover (same as desktop) */
   .resource-nav {
-    display: none;
+    display: flex;
+    /* Start minimized, but allow expansion on hover */
+  }
+
+  /* Force initial minimized state on mobile */
+  .resource-nav:not(.resource-nav-minimized):not(.resource-nav-expanded) {
+    width: 64px;
+  }
+
+  /* When minimized and not hovered, show icons only */
+  .resource-nav-minimized:not(.resource-nav-expanded) .resource-nav-label {
+    display: none !important;
+  }
+
+  /* When minimized and not hovered, center items */
+  .resource-nav-minimized:not(.resource-nav-expanded) .resource-nav-item {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  /* When minimized and not hovered, hide fixed items labels */
+  .resource-nav-minimized:not(.resource-nav-expanded) .resource-nav-fixed .resource-nav-label {
+    display: none !important;
+  }
+
+  .resource-nav-minimized:not(.resource-nav-expanded) .resource-nav-fixed .resource-nav-item {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  /* Adjust content margin based on actual expanded state */
+  .dashboard-main.has-resource-nav {
+    margin-left: 64px; /* Start with minimized width */
+    transition: margin-left 0.2s ease;
+  }
+
+  /* When expanded via hover, use full width */
+  .resource-nav-minimized.resource-nav-expanded {
+    width: 240px !important;
+  }
+
+  .dashboard-main.has-resource-nav.has-resource-nav-hover-expanded {
+    margin-left: 240px !important;
   }
 }

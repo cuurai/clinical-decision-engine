@@ -61,6 +61,8 @@
   }
 }
 
+/* Sidebar keeps normal overlay behavior on mobile - no changes */
+
 /* Sidebar Header */
 .sidebar-header {
   display: flex;

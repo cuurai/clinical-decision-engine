@@ -4,13 +4,32 @@ import { getServiceById } from "../types/services";
 import "./ResourceNav.css";
 
 export function ResourceNav() {
-  const [isMinimized, setIsMinimized] = useState(false);
+  // Start minimized on mobile, expanded on desktop
+  const [isMinimized, setIsMinimized] = useState(() => {
+    return window.innerWidth <= 1024;
+  });
   const [isHovered, setIsHovered] = useState(false);
   const { serviceId, resourceId } = useParams<{ serviceId: string; resourceId: string }>();
   const service = serviceId ? getServiceById(serviceId) : null;
 
   // Determine if nav should be expanded (either not minimized, or minimized but hovered)
   const isExpanded = !isMinimized || (isMinimized && isHovered);
+
+  // Update minimized state based on window size
+  useEffect(() => {
+    const handleResize = () => {
+      // On mobile (<=1024px), start minimized; on desktop, start expanded
+      if (window.innerWidth <= 1024 && !isMinimized) {
+        setIsMinimized(true);
+      } else if (window.innerWidth > 1024 && isMinimized && !isHovered) {
+        // Only auto-expand on desktop if not currently hovered
+        setIsMinimized(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isMinimized, isHovered]);
 
   // ResourceNav overlays - no need to adjust margins
   // Just add class for styling purposes if needed
@@ -50,13 +69,13 @@ export function ResourceNav() {
           isExpanded ? "resource-nav-expanded" : ""
         }`}
         onMouseEnter={() => {
-          // Only expand on hover if minimized
+          // Expand on hover if minimized (works on both mobile and desktop)
           if (isMinimized) {
             setIsHovered(true);
           }
         }}
         onMouseLeave={() => {
-          // Only collapse hover expansion if minimized
+          // Collapse hover expansion if minimized
           if (isMinimized) {
             setIsHovered(false);
           }

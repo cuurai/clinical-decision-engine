@@ -13,6 +13,8 @@
   /* No margin adjustments - sidebar overlays on top */
 }
 
+/* Dashboard layout unchanged on mobile - sidebar overlays */
+
 .dashboard-main {
   flex: 1;
   overflow-y: auto;
