@@ -28,6 +28,29 @@
   width: 240px;
 }
 
+/* Fixed service label at top */
+.resource-nav-fixed-top {
+  flex-shrink: 0;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  z-index: 1;
+  position: relative;
+}
+
+.resource-nav-service-label {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-hover);
+}
+
+.resource-nav-service-label:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
 .resource-nav-list {
   flex: 1;
   overflow-y: auto;
@@ -119,6 +142,7 @@
   cursor: pointer;
   width: 100%;
   text-align: left;
+  flex: 1;
 }
 
 .resource-nav-item:hover {

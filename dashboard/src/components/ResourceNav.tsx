@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getServiceById } from "../types/services";
+import { getResourceIcon } from "../config/resourceIcons";
 import "./ResourceNav.css";
 
 export function ResourceNav() {
@@ -81,6 +82,33 @@ export function ResourceNav() {
           }
         }}
       >
+        {/* Fixed service label at top */}
+        <div className="resource-nav-fixed-top">
+          <Link
+            to={`/service/${serviceId}`}
+            className="resource-nav-item resource-nav-service-label"
+            title={isMinimized ? service.name : undefined}
+          >
+            <span className="resource-nav-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+            </span>
+            {isExpanded && <span className="resource-nav-label">{service.name}</span>}
+          </Link>
+        </div>
+
+        {/* Scrollable resources list */}
         <nav className="resource-nav-list">
           {service.resources.map((resource) => (
             <Link
@@ -90,19 +118,23 @@ export function ResourceNav() {
               title={isMinimized ? resource.name : undefined}
             >
               <span className="resource-nav-icon">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="9" y1="3" x2="9" y2="21"></line>
-                </svg>
+                {serviceId ? (
+                  getResourceIcon(serviceId, resource.id).content
+                ) : (
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="9" y1="3" x2="9" y2="21"></line>
+                  </svg>
+                )}
               </span>
               {isExpanded && <span className="resource-nav-label">{resource.name}</span>}
             </Link>
