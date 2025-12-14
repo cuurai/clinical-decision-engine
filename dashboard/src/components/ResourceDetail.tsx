@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Header } from "./Header";
 import { Sidebar } from "./Sidebar";
+import { ResourceNav } from "./ResourceNav";
 import { getServiceById, getResourceById } from "../types/services";
 import { useResource } from "../hooks/useResource";
 import "./ResourceDetail.css";
@@ -42,7 +43,8 @@ export function ResourceDetail() {
       <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
       <div className="dashboard-layout">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <main className={`dashboard-main ${sidebarOpen ? "sidebar-open" : ""}`}>
+        <ResourceNav />
+        <main className={`dashboard-main has-resource-nav ${sidebarOpen ? "sidebar-open" : ""}`}>
           <div className="resource-detail-content">
             <div className="resource-detail-header">
               <Link to={`/service/${serviceId}`} className="back-link">

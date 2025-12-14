@@ -103,11 +103,13 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
   ]);
   const [hoveredServiceId, setHoveredServiceId] = useState<string | null>(null);
   const [openSubmenuId, setOpenSubmenuId] = useState<string | null>(null);
+  const [submenuHoveredId, setSubmenuHoveredId] = useState<string | null>(null);
   const [submenuPositions, setSubmenuPositions] = useState<
     Record<string, { top: number; left: number }>
   >({});
   const submenuRefs = useRef<Record<string, HTMLElement | null>>({});
   const sidebarRef = useRef<HTMLElement>(null);
+  const submenuCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const pinnedProducts = services.filter((service) => pinnedServices.includes(service.id));
 
@@ -229,29 +231,70 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     }
   }, [openSubmenuId]);
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (submenuCloseTimeoutRef.current) {
+        clearTimeout(submenuCloseTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const isActive = (path: string) => {
     return location.pathname === path || location.pathname.startsWith(path + "/");
   };
 
   const handleServiceClick = (serviceId: string, e: React.MouseEvent) => {
-    e.preventDefault();
+    // Don't prevent default - let Link handle navigation
     e.stopPropagation();
+    // Close sidebar when navigating to service
+    onClose();
+    // Close submenu if open
     if (openSubmenuId === serviceId) {
       setOpenSubmenuId(null);
-    } else {
-      setOpenSubmenuId(serviceId);
     }
   };
 
   const handleServiceMouseEnter = (serviceId: string) => {
-    setHoveredServiceId(serviceId);
+    // Cancel any pending close timeout
+    if (submenuCloseTimeoutRef.current) {
+      clearTimeout(submenuCloseTimeoutRef.current);
+      submenuCloseTimeoutRef.current = null;
+    }
+    // Only set hover if not explicitly opened (to allow closing when leaving main nav)
+    if (!openSubmenuId || openSubmenuId !== serviceId) {
+      setHoveredServiceId(serviceId);
+    }
   };
 
   const handleServiceMouseLeave = () => {
-    // Don't close if submenu is explicitly opened
-    if (!openSubmenuId) {
-      setHoveredServiceId(null);
+    // Add a very short delay to allow moving to submenu
+    // But close immediately if mouse doesn't enter submenu
+    if (submenuCloseTimeoutRef.current) {
+      clearTimeout(submenuCloseTimeoutRef.current);
     }
+    submenuCloseTimeoutRef.current = setTimeout(() => {
+      // Close submenu if mouse hasn't entered submenu area
+      if (!submenuHoveredId) {
+        setHoveredServiceId(null);
+        setSubmenuHoveredId(null);
+      }
+      submenuCloseTimeoutRef.current = null;
+    }, 50); // Very short delay - just enough for smooth transition
+  };
+
+  const handleSubmenuMouseLeave = () => {
+    // Close submenu immediately when mouse leaves submenu area
+    // This ensures submenu closes first, before main nav
+    if (submenuCloseTimeoutRef.current) {
+      clearTimeout(submenuCloseTimeoutRef.current);
+      submenuCloseTimeoutRef.current = null;
+    }
+    // Clear hover states - submenu will close unless explicitly opened
+    setHoveredServiceId(null);
+    // Close explicitly opened submenu when mouse leaves submenu area
+    // This ensures submenu closes when user moves away, even if it was clicked open
+    setOpenSubmenuId(null);
   };
 
   return (
@@ -310,6 +353,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                 key={item.id}
                 to={item.id === "solutions" ? "/" : `#${item.id}`}
                 className="sidebar-nav-item"
+                onClick={onClose}
               >
                 <span className="sidebar-nav-icon-wrapper">{item.icon}</span>
                 <span className="sidebar-nav-text">{item.name}</span>
@@ -350,7 +394,13 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               {pinnedProducts.map((service) => {
                 const isHovered = hoveredServiceId === service.id;
                 const isSubmenuOpen = openSubmenuId === service.id;
-                const showSubmenu = isHovered || isSubmenuOpen;
+                const isSubmenuHovered = submenuHoveredId === service.id;
+                // Show submenu if:
+                // 1. Mouse is over main nav item, OR
+                // 2. Mouse is over submenu (for smooth transition), OR
+                // 3. Explicitly opened via click
+                // But submenu will close when mouse leaves main nav (via timeout)
+                const showSubmenu = isHovered || isSubmenuHovered || isSubmenuOpen;
 
                 return (
                   <div
@@ -359,7 +409,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                     onMouseEnter={() => handleServiceMouseEnter(service.id)}
                     onMouseLeave={handleServiceMouseLeave}
                   >
-                    <div
+                    <Link
                       ref={(el) => {
                         if (el) {
                           submenuRefs.current[service.id] = el;
@@ -367,6 +417,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                           delete submenuRefs.current[service.id];
                         }
                       }}
+                      to={`/service/${service.id}`}
                       className={`sidebar-pinned-item ${
                         isActive(`/service/${service.id}`) ? "active" : ""
                       } ${isSubmenuOpen ? "submenu-open" : ""}`}
@@ -397,7 +448,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                       >
                         <polyline points="9 18 15 12 9 6"></polyline>
                       </svg>
-                    </div>
+                    </Link>
 
                     {/* Submenu - rendered via portal to float above everything */}
                     {showSubmenu &&
@@ -410,13 +461,20 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                             left: `${submenuPositions[service.id]?.left || 280}px`,
                           }}
                           onMouseEnter={() => {
-                            handleServiceMouseEnter(service.id);
+                            // Track that mouse is over submenu
+                            setSubmenuHoveredId(service.id);
+                            // Cancel any pending close timeout from main nav leave
+                            if (submenuCloseTimeoutRef.current) {
+                              clearTimeout(submenuCloseTimeoutRef.current);
+                              submenuCloseTimeoutRef.current = null;
+                            }
+                            // Also set hovered state to keep submenu visible
+                            setHoveredServiceId(service.id);
                           }}
                           onMouseLeave={() => {
-                            // Only close on mouse leave if not explicitly opened
-                            if (!openSubmenuId) {
-                              handleServiceMouseLeave();
-                            }
+                            // Clear submenu hover state when mouse leaves submenu
+                            setSubmenuHoveredId(null);
+                            handleSubmenuMouseLeave();
                           }}
                         >
                           <div className="sidebar-submenu-header">
@@ -432,7 +490,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                                     ? "active"
                                     : ""
                                 }`}
-                                onClick={() => setOpenSubmenuId(null)}
+                                onClick={() => {
+                                  setOpenSubmenuId(null);
+                                  onClose();
+                                }}
                               >
                                 <span className="sidebar-submenu-text">{resource.name}</span>
                               </Link>
@@ -450,7 +511,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
         {/* View All Products Button */}
         <div className="sidebar-footer">
-          <Link to="/" className="sidebar-view-all-button">
+          <Link to="/" className="sidebar-view-all-button" onClick={onClose}>
             View all products
           </Link>
         </div>

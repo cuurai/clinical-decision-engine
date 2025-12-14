@@ -10,13 +10,7 @@
   flex: 1;
   overflow: hidden;
   margin-left: 0;
-  transition: margin-left 0.3s ease;
-}
-
-@media (min-width: 1025px) {
-  .dashboard-layout {
-    margin-left: 0;
-  }
+  /* No margin adjustments - sidebar overlays on top */
 }
 
 .dashboard-main {
@@ -29,8 +23,8 @@
 
 @media (min-width: 1025px) {
   .dashboard-main.sidebar-open {
-    opacity: 0.6;
-    filter: brightness(0.85);
+    opacity: 0.35;
+    filter: brightness(0.65);
     pointer-events: none;
   }
 }

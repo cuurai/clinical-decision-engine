@@ -1,0 +1,223 @@
+.resource-nav {
+  position: fixed;
+  left: 0;
+  top: 64px; /* Below header */
+  bottom: 0;
+  width: 240px;
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 100; /* Below sidebar (1030) - sidebar overlays on top when open */
+  transition: width 0.2s ease;
+  overflow: hidden;
+}
+
+.resource-nav-minimized.resource-nav-expanded {
+  transition: width 0.2s ease;
+}
+
+/* ResourceNav is independent - does NOT shift when sidebar opens */
+/* It's part of the page content, not attached to sidebar */
+
+.resource-nav-minimized {
+  width: 64px;
+}
+
+.resource-nav-minimized.resource-nav-expanded {
+  width: 240px;
+}
+
+.resource-nav-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 0; /* Allow flex shrinking */
+  /* Ensure scrollbar doesn't overlap fixed items */
+  margin-bottom: 0;
+}
+
+/* Fixed items section at bottom */
+.resource-nav-fixed {
+  flex-shrink: 0;
+  padding: 8px 0;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background-color: var(--color-surface);
+  z-index: 1;
+  position: relative;
+  /* Ensure fixed items stay at bottom */
+  margin-top: auto;
+  pointer-events: auto;
+}
+
+.resource-nav-fixed-item {
+  /* Same styling as regular items */
+}
+
+/* Toggle button styling when part of fixed items */
+.resource-nav-fixed .resource-nav-toggle {
+  position: static;
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 10px 16px;
+  min-height: 40px;
+  justify-content: flex-start;
+  text-align: left;
+  cursor: pointer;
+  pointer-events: auto !important;
+  z-index: 10;
+  position: relative;
+}
+
+.resource-nav-fixed .resource-nav-toggle:hover {
+  background-color: var(--color-surface-hover);
+  box-shadow: none;
+}
+
+.resource-nav-fixed .resource-nav-toggle:active {
+  background-color: var(--color-surface-hover);
+  opacity: 0.9;
+}
+
+.resource-nav-fixed .resource-nav-toggle:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.resource-nav-minimized:not(.resource-nav-expanded) .resource-nav-fixed .resource-nav-toggle {
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+}
+
+.resource-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  position: relative;
+  min-height: 40px;
+  white-space: nowrap;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.resource-nav-item:hover {
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.resource-nav-item.active {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.resource-nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--color-primary);
+}
+
+.resource-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: inherit;
+}
+
+.resource-nav-label {
+  flex: 1;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resource-nav-minimized:not(.resource-nav-expanded) .resource-nav-label {
+  display: none;
+}
+
+.resource-nav-minimized:not(.resource-nav-expanded) .resource-nav-item {
+  justify-content: center;
+  padding: 10px;
+}
+
+/* Toggle button is now part of fixed items, so remove old fixed positioning styles */
+
+/* Ensure fixed items are visible when minimized */
+.resource-nav-minimized:not(.resource-nav-expanded) .resource-nav-fixed {
+  border-top: 1px solid var(--color-border);
+}
+
+.resource-nav-minimized:not(.resource-nav-expanded) .resource-nav-fixed-item {
+  justify-content: center;
+  padding: 10px;
+}
+
+/* Scrollbar styling */
+.resource-nav-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.resource-nav-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.resource-nav-list::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+.resource-nav-list::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* ResourceNav PUSHES content - separate logic from main nav */
+/* Main nav overlays, ResourceNav pushes */
+.dashboard-main.has-resource-nav {
+  margin-left: 240px;
+  transition: margin-left 0.2s ease;
+}
+
+.dashboard-main.has-resource-nav.has-resource-nav-minimized {
+  margin-left: 64px;
+}
+
+.dashboard-main.has-resource-nav.has-resource-nav-hover-expanded {
+  margin-left: 240px !important;
+}
+
+/* ResourceNav pushes content independently - sidebar state doesn't affect margins */
+/* Sidebar overlays on top of everything, ResourceNav pushes content as normal */
+
+@media (max-width: 1024px) {
+  .resource-nav {
+    display: none;
+  }
+}
