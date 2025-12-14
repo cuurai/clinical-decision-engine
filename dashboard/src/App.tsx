@@ -10,7 +10,7 @@ import "./App.css";
 function App() {
   return (
     <ThemeProvider>
-      <Router>
+      <Router basename="/cde">
         <div className="app">
           <Routes>
             <Route path="/login" element={<Login />} />

@@ -1,0 +1,104 @@
+version: "3.8"
+
+services:
+  decision-intelligence:
+    image: clinical-decision-engine-decision-intelligence:latest
+    container_name: clinical-decision-engine-decision-intelligence
+    pull_policy: never
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=3000
+      - HOST=0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.decision-intelligence.rule=Host(`34.136.153.216`) && PathPrefix(`/api/v1/decision-intelligence`)"
+      - "traefik.http.routers.decision-intelligence.entrypoints=web"
+      - "traefik.http.services.decision-intelligence.loadbalancer.server.port=3000"
+    networks:
+      - clinical-decision-engine-network
+      - mixpost_default
+    restart: unless-stopped
+
+  patient-clinical-data:
+    image: clinical-decision-engine-patient-clinical-data:latest
+    container_name: clinical-decision-engine-patient-clinical-data
+    pull_policy: never
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=3001
+      - HOST=0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.patient-clinical-data.rule=Host(`34.136.153.216`) && PathPrefix(`/api/v1/patient-clinical-data`)"
+      - "traefik.http.routers.patient-clinical-data.entrypoints=web"
+      - "traefik.http.services.patient-clinical-data.loadbalancer.server.port=3001"
+    networks:
+      - clinical-decision-engine-network
+      - mixpost_default
+    restart: unless-stopped
+
+  knowledge-evidence:
+    image: clinical-decision-engine-knowledge-evidence:latest
+    container_name: clinical-decision-engine-knowledge-evidence
+    pull_policy: never
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=3002
+      - HOST=0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.knowledge-evidence.rule=Host(`34.136.153.216`) && PathPrefix(`/api/v1/knowledge-evidence`)"
+      - "traefik.http.routers.knowledge-evidence.entrypoints=web"
+      - "traefik.http.services.knowledge-evidence.loadbalancer.server.port=3002"
+    networks:
+      - clinical-decision-engine-network
+      - mixpost_default
+    restart: unless-stopped
+
+  integration-interoperability:
+    image: clinical-decision-engine-integration-interoperability:latest
+    container_name: clinical-decision-engine-integration-interoperability
+    pull_policy: never
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=3004
+      - HOST=0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.integration-interoperability.rule=Host(`34.136.153.216`) && PathPrefix(`/api/v1/integration-interoperability`)"
+      - "traefik.http.routers.integration-interoperability.entrypoints=web"
+      - "traefik.http.services.integration-interoperability.loadbalancer.server.port=3004"
+    networks:
+      - clinical-decision-engine-network
+      - mixpost_default
+    restart: unless-stopped
+
+  dashboard:
+    image: clinical-decision-engine-dashboard:latest
+    container_name: clinical-decision-engine-dashboard
+    pull_policy: never
+    environment:
+      - NODE_ENV=production
+      - VITE_API_BASE_URL=http://34.136.153.216/api/v1
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cde.rule=PathPrefix(`/cde`)"
+      - "traefik.http.routers.cde.entrypoints=web"
+      - "traefik.http.routers.cde.priority=10"
+      - "traefik.http.middlewares.cde-strip.stripprefix.prefixes=/cde"
+      - "traefik.http.routers.cde.middlewares=cde-strip"
+      - "traefik.http.services.cde.loadbalancer.server.port=8080"
+    networks:
+      - clinical-decision-engine-network
+      - mixpost_default
+    restart: unless-stopped
+
+networks:
+  clinical-decision-engine-network:
+    driver: bridge
+  mixpost_default:
+    external: true
