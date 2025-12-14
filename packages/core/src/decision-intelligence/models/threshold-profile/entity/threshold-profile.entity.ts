@@ -10,7 +10,7 @@
  */
 
 import { z, type ZodType } from "zod";
-import { schemas } from "../../../schemas/decision-intelligence.schemas";
+import { schemas } from "../../../schemas/decision-intelligence.schemas.js";
 
 /**
  * Entity: ThresholdProfileEntity

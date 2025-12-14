@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/apicredential.entity";
-export * from "./dto/list-apicredential.dto";
-export * from "./dto/get-apicredential.dto";
-export * from "./dto/delete-apicredential.dto";
+export * from "./entity/apicredential.entity.js";
+export * from "./dto/list-apicredential.dto.js";
+export * from "./dto/get-apicredential.dto.js";
+export * from "./dto/delete-apicredential.dto.js";

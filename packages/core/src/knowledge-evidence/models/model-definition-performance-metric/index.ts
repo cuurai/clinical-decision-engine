@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/model-definition-performance-metric.entity";
-export * from "./dto/list-model-definition-performance-metric.dto";
+export * from "./entity/model-definition-performance-metric.entity.js";
+export * from "./dto/list-model-definition-performance-metric.dto.js";

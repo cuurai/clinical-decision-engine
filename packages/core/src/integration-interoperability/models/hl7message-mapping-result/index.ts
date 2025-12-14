@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/hl7message-mapping-result.entity";
-export * from "./dto/list-hl7message-mapping-result.dto";
+export * from "./entity/hl7message-mapping-result.entity.js";
+export * from "./dto/list-hl7message-mapping-result.dto.js";

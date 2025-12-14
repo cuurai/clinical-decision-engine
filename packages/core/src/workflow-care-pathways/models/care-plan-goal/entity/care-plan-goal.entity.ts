@@ -10,7 +10,7 @@
  */
 
 import { z, type ZodType } from "zod";
-import { schemas } from "../../../schemas/workflow-care-pathways.schemas";
+import { schemas } from "../../../schemas/workflow-care-pathways.schemas.js";
 
 /**
  * Entity: CarePlanGoalEntity

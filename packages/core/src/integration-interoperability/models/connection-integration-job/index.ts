@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/connection-integration-job.entity";
-export * from "./dto/list-connection-integration-job.dto";
+export * from "./entity/connection-integration-job.entity.js";
+export * from "./dto/list-connection-integration-job.dto.js";

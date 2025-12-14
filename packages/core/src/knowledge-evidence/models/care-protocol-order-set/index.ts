@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/care-protocol-order-set.entity";
-export * from "./dto/list-care-protocol-order-set.dto";
+export * from "./entity/care-protocol-order-set.entity.js";
+export * from "./dto/list-care-protocol-order-set.dto.js";

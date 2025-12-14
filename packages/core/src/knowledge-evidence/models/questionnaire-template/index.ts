@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/questionnaire-template.entity";
-export * from "./dto/list-questionnaire-template.dto";
-export * from "./dto/get-questionnaire-template.dto";
-export * from "./dto/delete-questionnaire-template.dto";
+export * from "./entity/questionnaire-template.entity.js";
+export * from "./dto/list-questionnaire-template.dto.js";
+export * from "./dto/get-questionnaire-template.dto.js";
+export * from "./dto/delete-questionnaire-template.dto.js";

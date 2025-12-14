@@ -10,7 +10,7 @@
  * ⚠️ DO NOT EDIT MANUALLY - this file is auto-generated
  */
 
-import type { components, operations } from "./_master.types";
+import type { components, operations } from "./_master.types.js";
 
 // ============================================================================
 // Re-export all generated types

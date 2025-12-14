@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/simulation-run-metric.entity";
-export * from "./dto/list-simulation-run-metric.dto";
+export * from "./entity/simulation-run-metric.entity.js";
+export * from "./dto/list-simulation-run-metric.dto.js";

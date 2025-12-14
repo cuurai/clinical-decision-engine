@@ -1,3 +1,3 @@
-export * from "./id-generator";
-export * from "./core-converters";
-export * from "./response-wrapper";
+export * from "./id-generator.js";
+export * from "./core-converters.js";
+export * from "./response-wrapper.js";

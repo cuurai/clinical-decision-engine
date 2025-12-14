@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/concept-map.entity";
-export * from "./dto/list-concept-map.dto";
-export * from "./dto/get-concept-map.dto";
-export * from "./dto/delete-concept-map.dto";
+export * from "./entity/concept-map.entity.js";
+export * from "./dto/list-concept-map.dto.js";
+export * from "./dto/get-concept-map.dto.js";
+export * from "./dto/delete-concept-map.dto.js";

@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/knowledge-package-model-definition.entity";
-export * from "./dto/list-knowledge-package-model-definition.dto";
+export * from "./entity/knowledge-package-model-definition.entity.js";
+export * from "./dto/list-knowledge-package-model-definition.dto.js";

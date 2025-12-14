@@ -10,7 +10,7 @@
  * ⚠️ DO NOT EDIT MANUALLY - this file is auto-generated
  */
 
-import type { components, operations } from "../openapi/knowledge-evidence.openapi.types";
+import type { components, operations } from "../openapi/knowledge-evidence.openapi.types.js";
 
 // ============================================================================
 // Re-export all generated types

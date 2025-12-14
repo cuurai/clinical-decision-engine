@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/care-team.entity";
-export * from "./dto/list-care-team.dto";
-export * from "./dto/get-care-team.dto";
-export * from "./dto/delete-care-team.dto";
+export * from "./entity/care-team.entity.js";
+export * from "./dto/list-care-team.dto.js";
+export * from "./dto/get-care-team.dto.js";
+export * from "./dto/delete-care-team.dto.js";

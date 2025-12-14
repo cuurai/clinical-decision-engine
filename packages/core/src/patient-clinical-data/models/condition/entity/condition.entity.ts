@@ -10,7 +10,7 @@
  */
 
 import { z, type ZodType } from "zod";
-import { schemas } from "../../../schemas/patient-clinical-data.schemas";
+import { schemas } from "../../../schemas/patient-clinical-data.schemas.js";
 
 /**
  * Entity: ConditionEntity

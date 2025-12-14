@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/questionnaire-template-question.entity";
-export * from "./dto/list-questionnaire-template-question.dto";
+export * from "./entity/questionnaire-template-question.entity.js";
+export * from "./dto/list-questionnaire-template-question.dto.js";

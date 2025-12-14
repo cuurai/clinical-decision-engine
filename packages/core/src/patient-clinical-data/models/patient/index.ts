@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/patient.entity";
-export * from "./dto/list-patient.dto";
-export * from "./dto/get-patient.dto";
-export * from "./dto/delete-patient.dto";
+export * from "./entity/patient.entity.js";
+export * from "./dto/list-patient.dto.js";
+export * from "./dto/get-patient.dto.js";
+export * from "./dto/delete-patient.dto.js";

@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/episode-of-care-workflow-instance.entity";
-export * from "./dto/list-episode-of-care-workflow-instance.dto";
+export * from "./entity/episode-of-care-workflow-instance.entity.js";
+export * from "./dto/list-episode-of-care-workflow-instance.dto.js";

@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/hl7mapping-profile.entity";
-export * from "./dto/list-hl7mapping-profile.dto";
-export * from "./dto/get-hl7mapping-profile.dto";
-export * from "./dto/delete-hl7mapping-profile.dto";
+export * from "./entity/hl7mapping-profile.entity.js";
+export * from "./dto/list-hl7mapping-profile.dto.js";
+export * from "./dto/get-hl7mapping-profile.dto.js";
+export * from "./dto/delete-hl7mapping-profile.dto.js";

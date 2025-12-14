@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/knowledge-package-value-set.entity";
-export * from "./dto/list-knowledge-package-value-set.dto";
+export * from "./entity/knowledge-package-value-set.entity.js";
+export * from "./dto/list-knowledge-package-value-set.dto.js";

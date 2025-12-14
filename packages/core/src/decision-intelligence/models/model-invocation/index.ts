@@ -10,6 +10,6 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/model-invocation.entity";
-export * from "./dto/list-model-invocation.dto";
-export * from "./dto/get-model-invocation.dto";
+export * from "./entity/model-invocation.entity.js";
+export * from "./dto/list-model-invocation.dto.js";
+export * from "./dto/get-model-invocation.dto.js";

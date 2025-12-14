@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/data-import-batch.entity";
-export * from "./dto/list-data-import-batch.dto";
-export * from "./dto/get-data-import-batch.dto";
-export * from "./dto/delete-data-import-batch.dto";
+export * from "./entity/data-import-batch.entity.js";
+export * from "./dto/list-data-import-batch.dto.js";
+export * from "./dto/get-data-import-batch.dto.js";
+export * from "./dto/delete-data-import-batch.dto.js";

@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/fhirmapping-profile.entity";
-export * from "./dto/list-fhirmapping-profile.dto";
-export * from "./dto/get-fhirmapping-profile.dto";
-export * from "./dto/delete-fhirmapping-profile.dto";
+export * from "./entity/fhirmapping-profile.entity.js";
+export * from "./dto/list-fhirmapping-profile.dto.js";
+export * from "./dto/get-fhirmapping-profile.dto.js";
+export * from "./dto/delete-fhirmapping-profile.dto.js";

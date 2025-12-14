@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/care-pathway-template.entity";
-export * from "./dto/list-care-pathway-template.dto";
-export * from "./dto/get-care-pathway-template.dto";
-export * from "./dto/delete-care-pathway-template.dto";
+export * from "./entity/care-pathway-template.entity.js";
+export * from "./dto/list-care-pathway-template.dto.js";
+export * from "./dto/get-care-pathway-template.dto.js";
+export * from "./dto/delete-care-pathway-template.dto.js";

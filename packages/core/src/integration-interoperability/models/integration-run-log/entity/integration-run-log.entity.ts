@@ -10,7 +10,7 @@
  */
 
 import { z, type ZodType } from "zod";
-import { schemas } from "../../../schemas/integration-interoperability.schemas";
+import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
 
 /**
  * Entity: IntegrationRunLogEntity

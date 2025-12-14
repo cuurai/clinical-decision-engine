@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/task-comment.entity";
-export * from "./dto/list-task-comment.dto";
+export * from "./entity/task-comment.entity.js";
+export * from "./dto/list-task-comment.dto.js";

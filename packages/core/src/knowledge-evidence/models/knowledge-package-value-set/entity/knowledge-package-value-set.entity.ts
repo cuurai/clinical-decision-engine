@@ -10,7 +10,7 @@
  */
 
 import { z, type ZodType } from "zod";
-import { schemas } from "../../../schemas/knowledge-evidence.schemas";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: KnowledgePackageValueSetEntity

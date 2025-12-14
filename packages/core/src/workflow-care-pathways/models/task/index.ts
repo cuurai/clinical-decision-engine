@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/task.entity";
-export * from "./dto/list-task.dto";
-export * from "./dto/get-task.dto";
-export * from "./dto/delete-task.dto";
+export * from "./entity/task.entity.js";
+export * from "./dto/list-task.dto.js";
+export * from "./dto/get-task.dto.js";
+export * from "./dto/delete-task.dto.js";

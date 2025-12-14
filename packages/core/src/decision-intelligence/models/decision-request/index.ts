@@ -10,6 +10,6 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/decision-request.entity";
-export * from "./dto/list-decision-request.dto";
-export * from "./dto/get-decision-request.dto";
+export * from "./entity/decision-request.entity.js";
+export * from "./dto/list-decision-request.dto.js";
+export * from "./dto/get-decision-request.dto.js";

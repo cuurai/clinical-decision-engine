@@ -10,7 +10,7 @@
  * ⚠️ DO NOT EDIT MANUALLY - this file is auto-generated
  */
 
-import type { components, operations } from "../openapi/workflow-care-pathways.openapi.types";
+import type { components, operations } from "../openapi/workflow-care-pathways.openapi.types.js";
 
 // ============================================================================
 // Re-export all generated types

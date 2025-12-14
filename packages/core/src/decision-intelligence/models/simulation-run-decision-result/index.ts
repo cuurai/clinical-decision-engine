@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/simulation-run-decision-result.entity";
-export * from "./dto/list-simulation-run-decision-result.dto";
+export * from "./entity/simulation-run-decision-result.entity.js";
+export * from "./dto/list-simulation-run-decision-result.dto.js";

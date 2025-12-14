@@ -10,6 +10,6 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/ontology-term.entity";
-export * from "./dto/list-ontology-term.dto";
-export * from "./dto/get-ontology-term.dto";
+export * from "./entity/ontology-term.entity.js";
+export * from "./dto/list-ontology-term.dto.js";
+export * from "./dto/get-ontology-term.dto.js";

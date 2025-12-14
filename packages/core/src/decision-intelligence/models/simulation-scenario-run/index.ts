@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/simulation-scenario-run.entity";
-export * from "./dto/list-simulation-scenario-run.dto";
+export * from "./entity/simulation-scenario-run.entity.js";
+export * from "./dto/list-simulation-scenario-run.dto.js";

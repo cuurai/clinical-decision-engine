@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/workflow-definition.entity";
-export * from "./dto/list-workflow-definition.dto";
-export * from "./dto/get-workflow-definition.dto";
-export * from "./dto/delete-workflow-definition.dto";
+export * from "./entity/workflow-definition.entity.js";
+export * from "./dto/list-workflow-definition.dto.js";
+export * from "./dto/get-workflow-definition.dto.js";
+export * from "./dto/delete-workflow-definition.dto.js";

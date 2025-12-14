@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/work-queue-alert.entity";
-export * from "./dto/list-work-queue-alert.dto";
+export * from "./entity/work-queue-alert.entity.js";
+export * from "./dto/list-work-queue-alert.dto.js";

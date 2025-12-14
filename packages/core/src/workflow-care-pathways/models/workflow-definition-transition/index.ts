@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/workflow-definition-transition.entity";
-export * from "./dto/list-workflow-definition-transition.dto";
+export * from "./entity/workflow-definition-transition.entity.js";
+export * from "./dto/list-workflow-definition-transition.dto.js";

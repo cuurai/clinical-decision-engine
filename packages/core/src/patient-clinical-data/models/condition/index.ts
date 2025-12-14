@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/condition.entity";
-export * from "./dto/list-condition.dto";
-export * from "./dto/get-condition.dto";
-export * from "./dto/delete-condition.dto";
+export * from "./entity/condition.entity.js";
+export * from "./dto/list-condition.dto.js";
+export * from "./dto/get-condition.dto.js";
+export * from "./dto/delete-condition.dto.js";

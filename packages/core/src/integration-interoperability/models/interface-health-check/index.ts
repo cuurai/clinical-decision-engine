@@ -10,6 +10,6 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/interface-health-check.entity";
-export * from "./dto/list-interface-health-check.dto";
-export * from "./dto/get-interface-health-check.dto";
+export * from "./entity/interface-health-check.entity.js";
+export * from "./dto/list-interface-health-check.dto.js";
+export * from "./dto/get-interface-health-check.dto.js";

@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/value-set.entity";
-export * from "./dto/list-value-set.dto";
-export * from "./dto/get-value-set.dto";
-export * from "./dto/delete-value-set.dto";
+export * from "./entity/value-set.entity.js";
+export * from "./dto/list-value-set.dto.js";
+export * from "./dto/get-value-set.dto.js";
+export * from "./dto/delete-value-set.dto.js";

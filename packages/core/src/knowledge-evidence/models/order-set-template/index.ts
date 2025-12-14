@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/order-set-template.entity";
-export * from "./dto/list-order-set-template.dto";
-export * from "./dto/get-order-set-template.dto";
-export * from "./dto/delete-order-set-template.dto";
+export * from "./entity/order-set-template.entity.js";
+export * from "./dto/list-order-set-template.dto.js";
+export * from "./dto/get-order-set-template.dto.js";
+export * from "./dto/delete-order-set-template.dto.js";

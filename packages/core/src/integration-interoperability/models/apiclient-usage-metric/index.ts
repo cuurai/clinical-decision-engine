@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/apiclient-usage-metric.entity";
-export * from "./dto/list-apiclient-usage-metric.dto";
+export * from "./entity/apiclient-usage-metric.entity.js";
+export * from "./dto/list-apiclient-usage-metric.dto.js";

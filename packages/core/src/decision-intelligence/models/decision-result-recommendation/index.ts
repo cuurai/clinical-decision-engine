@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/decision-result-recommendation.entity";
-export * from "./dto/list-decision-result-recommendation.dto";
+export * from "./entity/decision-result-recommendation.entity.js";
+export * from "./dto/list-decision-result-recommendation.dto.js";

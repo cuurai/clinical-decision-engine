@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/event-subscription.entity";
-export * from "./dto/list-event-subscription.dto";
-export * from "./dto/get-event-subscription.dto";
-export * from "./dto/delete-event-subscription.dto";
+export * from "./entity/event-subscription.entity.js";
+export * from "./dto/list-event-subscription.dto.js";
+export * from "./dto/get-event-subscription.dto.js";
+export * from "./dto/delete-event-subscription.dto.js";

@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/alert-evaluation.entity";
-export * from "./dto/list-alert-evaluation.dto";
-export * from "./dto/get-alert-evaluation.dto";
-export * from "./dto/delete-alert-evaluation.dto";
+export * from "./entity/alert-evaluation.entity.js";
+export * from "./dto/list-alert-evaluation.dto.js";
+export * from "./dto/get-alert-evaluation.dto.js";
+export * from "./dto/delete-alert-evaluation.dto.js";

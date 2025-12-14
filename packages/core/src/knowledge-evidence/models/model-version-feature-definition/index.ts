@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/model-version-feature-definition.entity";
-export * from "./dto/list-model-version-feature-definition.dto";
+export * from "./entity/model-version-feature-definition.entity.js";
+export * from "./dto/list-model-version-feature-definition.dto.js";

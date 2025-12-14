@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/routing-rule.entity";
-export * from "./dto/list-routing-rule.dto";
-export * from "./dto/get-routing-rule.dto";
-export * from "./dto/delete-routing-rule.dto";
+export * from "./entity/routing-rule.entity.js";
+export * from "./dto/list-routing-rule.dto.js";
+export * from "./dto/get-routing-rule.dto.js";
+export * from "./dto/delete-routing-rule.dto.js";

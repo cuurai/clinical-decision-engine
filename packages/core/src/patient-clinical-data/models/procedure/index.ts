@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/procedure.entity";
-export * from "./dto/list-procedure.dto";
-export * from "./dto/get-procedure.dto";
-export * from "./dto/delete-procedure.dto";
+export * from "./entity/procedure.entity.js";
+export * from "./dto/list-procedure.dto.js";
+export * from "./dto/get-procedure.dto.js";
+export * from "./dto/delete-procedure.dto.js";

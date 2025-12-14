@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/external-system.entity";
-export * from "./dto/list-external-system.dto";
-export * from "./dto/get-external-system.dto";
-export * from "./dto/delete-external-system.dto";
+export * from "./entity/external-system.entity.js";
+export * from "./dto/list-external-system.dto.js";
+export * from "./dto/get-external-system.dto.js";
+export * from "./dto/delete-external-system.dto.js";

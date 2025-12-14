@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/rule-set.entity";
-export * from "./dto/list-rule-set.dto";
-export * from "./dto/get-rule-set.dto";
-export * from "./dto/delete-rule-set.dto";
+export * from "./entity/rule-set.entity.js";
+export * from "./dto/list-rule-set.dto.js";
+export * from "./dto/get-rule-set.dto.js";
+export * from "./dto/delete-rule-set.dto.js";

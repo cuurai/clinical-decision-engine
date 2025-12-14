@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/handoff-task.entity";
-export * from "./dto/list-handoff-task.dto";
+export * from "./entity/handoff-task.entity.js";
+export * from "./dto/list-handoff-task.dto.js";

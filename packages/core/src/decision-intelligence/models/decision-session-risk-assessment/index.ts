@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/decision-session-risk-assessment.entity";
-export * from "./dto/list-decision-session-risk-assessment.dto";
+export * from "./entity/decision-session-risk-assessment.entity.js";
+export * from "./dto/list-decision-session-risk-assessment.dto.js";

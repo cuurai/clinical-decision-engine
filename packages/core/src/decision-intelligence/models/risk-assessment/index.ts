@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/risk-assessment.entity";
-export * from "./dto/list-risk-assessment.dto";
-export * from "./dto/get-risk-assessment.dto";
-export * from "./dto/delete-risk-assessment.dto";
+export * from "./entity/risk-assessment.entity.js";
+export * from "./dto/list-risk-assessment.dto.js";
+export * from "./dto/get-risk-assessment.dto.js";
+export * from "./dto/delete-risk-assessment.dto.js";

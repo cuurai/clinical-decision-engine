@@ -10,6 +10,6 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/explanation.entity";
-export * from "./dto/list-explanation.dto";
-export * from "./dto/get-explanation.dto";
+export * from "./entity/explanation.entity.js";
+export * from "./dto/list-explanation.dto.js";
+export * from "./dto/get-explanation.dto.js";

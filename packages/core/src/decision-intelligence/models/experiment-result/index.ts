@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/experiment-result.entity";
-export * from "./dto/list-experiment-result.dto";
+export * from "./entity/experiment-result.entity.js";
+export * from "./dto/list-experiment-result.dto.js";

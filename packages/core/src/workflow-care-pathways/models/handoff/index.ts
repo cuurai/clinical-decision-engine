@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/handoff.entity";
-export * from "./dto/list-handoff.dto";
-export * from "./dto/get-handoff.dto";
-export * from "./dto/delete-handoff.dto";
+export * from "./entity/handoff.entity.js";
+export * from "./dto/list-handoff.dto.js";
+export * from "./dto/get-handoff.dto.js";
+export * from "./dto/delete-handoff.dto.js";

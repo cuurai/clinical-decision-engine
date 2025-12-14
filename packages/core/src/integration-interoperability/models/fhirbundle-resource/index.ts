@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/fhirbundle-resource.entity";
-export * from "./dto/list-fhirbundle-resource.dto";
+export * from "./entity/fhirbundle-resource.entity.js";
+export * from "./dto/list-fhirbundle-resource.dto.js";

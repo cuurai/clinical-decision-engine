@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/data-export-batch-error.entity";
-export * from "./dto/list-data-export-batch-error.dto";
+export * from "./entity/data-export-batch-error.entity.js";
+export * from "./dto/list-data-export-batch-error.dto.js";

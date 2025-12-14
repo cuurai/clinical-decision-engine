@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/imaging-study.entity";
-export * from "./dto/list-imaging-study.dto";
-export * from "./dto/get-imaging-study.dto";
-export * from "./dto/delete-imaging-study.dto";
+export * from "./entity/imaging-study.entity.js";
+export * from "./dto/list-imaging-study.dto.js";
+export * from "./dto/get-imaging-study.dto.js";
+export * from "./dto/delete-imaging-study.dto.js";

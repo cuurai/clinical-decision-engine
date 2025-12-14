@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/guideline.entity";
-export * from "./dto/list-guideline.dto";
-export * from "./dto/get-guideline.dto";
-export * from "./dto/delete-guideline.dto";
+export * from "./entity/guideline.entity.js";
+export * from "./dto/list-guideline.dto.js";
+export * from "./dto/get-guideline.dto.js";
+export * from "./dto/delete-guideline.dto.js";

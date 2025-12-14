@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/alert-explanation.entity";
-export * from "./dto/list-alert-explanation.dto";
+export * from "./entity/alert-explanation.entity.js";
+export * from "./dto/list-alert-explanation.dto.js";

@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/experiment.entity";
-export * from "./dto/list-experiment.dto";
-export * from "./dto/get-experiment.dto";
-export * from "./dto/delete-experiment.dto";
+export * from "./entity/experiment.entity.js";
+export * from "./dto/list-experiment.dto.js";
+export * from "./dto/get-experiment.dto.js";
+export * from "./dto/delete-experiment.dto.js";

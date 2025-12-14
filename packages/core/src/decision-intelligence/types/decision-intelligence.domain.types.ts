@@ -10,7 +10,7 @@
  * ⚠️ DO NOT EDIT MANUALLY - this file is auto-generated
  */
 
-import type { components, operations } from "../openapi/decision-intelligence.openapi.types";
+import type { components, operations } from "../openapi/decision-intelligence.openapi.types.js";
 
 // ============================================================================
 // Domain Types Export - Domain-specific types only (excludes components/operations)

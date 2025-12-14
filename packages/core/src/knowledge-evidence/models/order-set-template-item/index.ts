@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/order-set-template-item.entity";
-export * from "./dto/list-order-set-template-item.dto";
+export * from "./entity/order-set-template-item.entity.js";
+export * from "./dto/list-order-set-template-item.dto.js";

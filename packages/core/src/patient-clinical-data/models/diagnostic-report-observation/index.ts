@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/diagnostic-report-observation.entity";
-export * from "./dto/list-diagnostic-report-observation.dto";
+export * from "./entity/diagnostic-report-observation.entity.js";
+export * from "./dto/list-diagnostic-report-observation.dto.js";

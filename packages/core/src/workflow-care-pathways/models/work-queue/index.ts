@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/work-queue.entity";
-export * from "./dto/list-work-queue.dto";
-export * from "./dto/get-work-queue.dto";
-export * from "./dto/delete-work-queue.dto";
+export * from "./entity/work-queue.entity.js";
+export * from "./dto/list-work-queue.dto.js";
+export * from "./dto/get-work-queue.dto.js";
+export * from "./dto/delete-work-queue.dto.js";

@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/data-import-batch-record.entity";
-export * from "./dto/list-data-import-batch-record.dto";
+export * from "./entity/data-import-batch-record.entity.js";
+export * from "./dto/list-data-import-batch-record.dto.js";

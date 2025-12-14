@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/escalation-policy-rule.entity";
-export * from "./dto/list-escalation-policy-rule.dto";
+export * from "./entity/escalation-policy-rule.entity.js";
+export * from "./dto/list-escalation-policy-rule.dto.js";

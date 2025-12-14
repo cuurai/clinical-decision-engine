@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/integration-run-error.entity";
-export * from "./dto/list-integration-run-error.dto";
+export * from "./entity/integration-run-error.entity.js";
+export * from "./dto/list-integration-run-error.dto.js";

@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/model-version-test.entity";
-export * from "./dto/list-model-version-test.dto";
+export * from "./entity/model-version-test.entity.js";
+export * from "./dto/list-model-version-test.dto.js";

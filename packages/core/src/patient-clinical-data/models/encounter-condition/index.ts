@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/encounter-condition.entity";
-export * from "./dto/list-encounter-condition.dto";
+export * from "./entity/encounter-condition.entity.js";
+export * from "./dto/list-encounter-condition.dto.js";

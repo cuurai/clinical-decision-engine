@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/guideline-evidence-citation.entity";
-export * from "./dto/list-guideline-evidence-citation.dto";
+export * from "./entity/guideline-evidence-citation.entity.js";
+export * from "./dto/list-guideline-evidence-citation.dto.js";

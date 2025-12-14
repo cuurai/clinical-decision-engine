@@ -5,7 +5,7 @@
  * { data: T, meta?: { correlationId?: string } }
  */
 
-import type { ApiResponse, ApiListResponse } from "./core-converters";
+import type { ApiResponse, ApiListResponse } from "./core-converters.js";
 export type WrapResponse<T> = ApiResponse<T>;
 
 /**

@@ -10,6 +10,6 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/event-delivery.entity";
-export * from "./dto/list-event-delivery.dto";
-export * from "./dto/get-event-delivery.dto";
+export * from "./entity/event-delivery.entity.js";
+export * from "./dto/list-event-delivery.dto.js";
+export * from "./dto/get-event-delivery.dto.js";

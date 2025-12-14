@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/checklist-instance-item.entity";
-export * from "./dto/list-checklist-instance-item.dto";
+export * from "./entity/checklist-instance-item.entity.js";
+export * from "./dto/list-checklist-instance-item.dto.js";

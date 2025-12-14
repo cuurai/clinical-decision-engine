@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/immunization.entity";
-export * from "./dto/list-immunization.dto";
-export * from "./dto/get-immunization.dto";
-export * from "./dto/delete-immunization.dto";
+export * from "./entity/immunization.entity.js";
+export * from "./dto/list-immunization.dto.js";
+export * from "./dto/get-immunization.dto.js";
+export * from "./dto/delete-immunization.dto.js";

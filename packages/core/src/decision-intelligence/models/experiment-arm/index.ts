@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/experiment-arm.entity";
-export * from "./dto/list-experiment-arm.dto";
+export * from "./entity/experiment-arm.entity.js";
+export * from "./dto/list-experiment-arm.dto.js";

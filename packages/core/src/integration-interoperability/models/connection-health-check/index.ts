@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/connection-health-check.entity";
-export * from "./dto/list-connection-health-check.dto";
+export * from "./entity/connection-health-check.entity.js";
+export * from "./dto/list-connection-health-check.dto.js";

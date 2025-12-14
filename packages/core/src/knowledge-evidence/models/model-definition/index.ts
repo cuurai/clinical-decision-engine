@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/model-definition.entity";
-export * from "./dto/list-model-definition.dto";
-export * from "./dto/get-model-definition.dto";
-export * from "./dto/delete-model-definition.dto";
+export * from "./entity/model-definition.entity.js";
+export * from "./dto/list-model-definition.dto.js";
+export * from "./dto/get-model-definition.dto.js";
+export * from "./dto/delete-model-definition.dto.js";

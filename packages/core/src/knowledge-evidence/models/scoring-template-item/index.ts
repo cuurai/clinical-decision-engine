@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/scoring-template-item.entity";
-export * from "./dto/list-scoring-template-item.dto";
+export * from "./entity/scoring-template-item.entity.js";
+export * from "./dto/list-scoring-template-item.dto.js";

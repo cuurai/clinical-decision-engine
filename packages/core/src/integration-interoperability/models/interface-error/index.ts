@@ -10,6 +10,6 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/interface-error.entity";
-export * from "./dto/list-interface-error.dto";
-export * from "./dto/get-interface-error.dto";
+export * from "./entity/interface-error.entity.js";
+export * from "./dto/list-interface-error.dto.js";
+export * from "./dto/get-interface-error.dto.js";

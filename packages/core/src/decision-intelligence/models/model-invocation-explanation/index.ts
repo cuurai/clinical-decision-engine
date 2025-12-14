@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/model-invocation-explanation.entity";
-export * from "./dto/list-model-invocation-explanation.dto";
+export * from "./entity/model-invocation-explanation.entity.js";
+export * from "./dto/list-model-invocation-explanation.dto.js";

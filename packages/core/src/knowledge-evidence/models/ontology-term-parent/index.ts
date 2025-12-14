@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/ontology-term-parent.entity";
-export * from "./dto/list-ontology-term-parent.dto";
+export * from "./entity/ontology-term-parent.entity.js";
+export * from "./dto/list-ontology-term-parent.dto.js";

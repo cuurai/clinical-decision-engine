@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/knowledge-package.entity";
-export * from "./dto/list-knowledge-package.dto";
-export * from "./dto/get-knowledge-package.dto";
-export * from "./dto/delete-knowledge-package.dto";
+export * from "./entity/knowledge-package.entity.js";
+export * from "./dto/list-knowledge-package.dto.js";
+export * from "./dto/get-knowledge-package.dto.js";
+export * from "./dto/delete-knowledge-package.dto.js";

@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/condition-note.entity";
-export * from "./dto/list-condition-note.dto";
+export * from "./entity/condition-note.entity.js";
+export * from "./dto/list-condition-note.dto.js";

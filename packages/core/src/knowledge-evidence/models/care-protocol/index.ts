@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/care-protocol.entity";
-export * from "./dto/list-care-protocol.dto";
-export * from "./dto/get-care-protocol.dto";
-export * from "./dto/delete-care-protocol.dto";
+export * from "./entity/care-protocol.entity.js";
+export * from "./dto/list-care-protocol.dto.js";
+export * from "./dto/get-care-protocol.dto.js";
+export * from "./dto/delete-care-protocol.dto.js";

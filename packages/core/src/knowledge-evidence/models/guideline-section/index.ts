@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/guideline-section.entity";
-export * from "./dto/list-guideline-section.dto";
+export * from "./entity/guideline-section.entity.js";
+export * from "./dto/list-guideline-section.dto.js";

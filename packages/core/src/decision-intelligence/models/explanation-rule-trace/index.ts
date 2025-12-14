@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/explanation-rule-trace.entity";
-export * from "./dto/list-explanation-rule-trace.dto";
+export * from "./entity/explanation-rule-trace.entity.js";
+export * from "./dto/list-explanation-rule-trace.dto.js";

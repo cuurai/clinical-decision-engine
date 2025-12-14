@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/decision-policy-threshold-profile.entity";
-export * from "./dto/list-decision-policy-threshold-profile.dto";
+export * from "./entity/decision-policy-threshold-profile.entity.js";
+export * from "./dto/list-decision-policy-threshold-profile.dto.js";

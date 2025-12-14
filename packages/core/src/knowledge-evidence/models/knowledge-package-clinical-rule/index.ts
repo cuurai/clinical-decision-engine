@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/knowledge-package-clinical-rule.entity";
-export * from "./dto/list-knowledge-package-clinical-rule.dto";
+export * from "./entity/knowledge-package-clinical-rule.entity.js";
+export * from "./dto/list-knowledge-package-clinical-rule.dto.js";

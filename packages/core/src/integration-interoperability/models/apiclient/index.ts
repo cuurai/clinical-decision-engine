@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/apiclient.entity";
-export * from "./dto/list-apiclient.dto";
-export * from "./dto/get-apiclient.dto";
-export * from "./dto/delete-apiclient.dto";
+export * from "./entity/apiclient.entity.js";
+export * from "./dto/list-apiclient.dto.js";
+export * from "./dto/get-apiclient.dto.js";
+export * from "./dto/delete-apiclient.dto.js";

@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/model-version.entity";
-export * from "./dto/list-model-version.dto";
-export * from "./dto/get-model-version.dto";
-export * from "./dto/delete-model-version.dto";
+export * from "./entity/model-version.entity.js";
+export * from "./dto/list-model-version.dto.js";
+export * from "./dto/get-model-version.dto.js";
+export * from "./dto/delete-model-version.dto.js";

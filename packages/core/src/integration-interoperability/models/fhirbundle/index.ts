@@ -10,8 +10,8 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/fhirbundle.entity";
-export * from "./dto/list-fhirbundle.dto";
-export * from "./dto/create-fhirbundle.dto";
-export * from "./dto/get-fhirbundle.dto";
-export * from "./dto/delete-fhirbundle.dto";
+export * from "./entity/fhirbundle.entity.js";
+export * from "./dto/list-fhirbundle.dto.js";
+export * from "./dto/create-fhirbundle.dto.js";
+export * from "./dto/get-fhirbundle.dto.js";
+export * from "./dto/delete-fhirbundle.dto.js";

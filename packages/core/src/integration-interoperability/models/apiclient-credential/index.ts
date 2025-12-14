@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/apiclient-credential.entity";
-export * from "./dto/list-apiclient-credential.dto";
+export * from "./entity/apiclient-credential.entity.js";
+export * from "./dto/list-apiclient-credential.dto.js";

@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/workflow-instance-audit-event.entity";
-export * from "./dto/list-workflow-instance-audit-event.dto";
+export * from "./entity/workflow-instance-audit-event.entity.js";
+export * from "./dto/list-workflow-instance-audit-event.dto.js";

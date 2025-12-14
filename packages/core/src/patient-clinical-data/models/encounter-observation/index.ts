@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/encounter-observation.entity";
-export * from "./dto/list-encounter-observation.dto";
+export * from "./entity/encounter-observation.entity.js";
+export * from "./dto/list-encounter-observation.dto.js";

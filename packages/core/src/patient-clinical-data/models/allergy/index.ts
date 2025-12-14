@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/allergy.entity";
-export * from "./dto/list-allergy.dto";
-export * from "./dto/get-allergy.dto";
-export * from "./dto/delete-allergy.dto";
+export * from "./entity/allergy.entity.js";
+export * from "./dto/list-allergy.dto.js";
+export * from "./dto/get-allergy.dto.js";
+export * from "./dto/delete-allergy.dto.js";

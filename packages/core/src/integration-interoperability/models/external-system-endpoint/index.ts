@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/external-system-endpoint.entity";
-export * from "./dto/list-external-system-endpoint.dto";
+export * from "./entity/external-system-endpoint.entity.js";
+export * from "./dto/list-external-system-endpoint.dto.js";

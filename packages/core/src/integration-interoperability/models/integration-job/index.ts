@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/integration-job.entity";
-export * from "./dto/list-integration-job.dto";
-export * from "./dto/get-integration-job.dto";
-export * from "./dto/delete-integration-job.dto";
+export * from "./entity/integration-job.entity.js";
+export * from "./dto/list-integration-job.dto.js";
+export * from "./dto/get-integration-job.dto.js";
+export * from "./dto/delete-integration-job.dto.js";

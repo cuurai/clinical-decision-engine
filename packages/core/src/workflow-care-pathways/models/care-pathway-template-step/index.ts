@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/care-pathway-template-step.entity";
-export * from "./dto/list-care-pathway-template-step.dto";
+export * from "./entity/care-pathway-template-step.entity.js";
+export * from "./dto/list-care-pathway-template-step.dto.js";

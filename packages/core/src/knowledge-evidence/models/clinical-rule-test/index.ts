@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/clinical-rule-test.entity";
-export * from "./dto/list-clinical-rule-test.dto";
+export * from "./entity/clinical-rule-test.entity.js";
+export * from "./dto/list-clinical-rule-test.dto.js";

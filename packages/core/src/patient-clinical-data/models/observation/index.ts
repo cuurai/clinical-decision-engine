@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/observation.entity";
-export * from "./dto/list-observation.dto";
-export * from "./dto/get-observation.dto";
-export * from "./dto/delete-observation.dto";
+export * from "./entity/observation.entity.js";
+export * from "./dto/list-observation.dto.js";
+export * from "./dto/get-observation.dto.js";
+export * from "./dto/delete-observation.dto.js";

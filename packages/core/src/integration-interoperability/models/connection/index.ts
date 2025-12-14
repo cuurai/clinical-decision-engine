@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/connection.entity";
-export * from "./dto/list-connection.dto";
-export * from "./dto/get-connection.dto";
-export * from "./dto/delete-connection.dto";
+export * from "./entity/connection.entity.js";
+export * from "./dto/list-connection.dto.js";
+export * from "./dto/get-connection.dto.js";
+export * from "./dto/delete-connection.dto.js";

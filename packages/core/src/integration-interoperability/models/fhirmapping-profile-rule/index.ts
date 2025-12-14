@@ -10,5 +10,5 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/fhirmapping-profile-rule.entity";
-export * from "./dto/list-fhirmapping-profile-rule.dto";
+export * from "./entity/fhirmapping-profile-rule.entity.js";
+export * from "./dto/list-fhirmapping-profile-rule.dto.js";

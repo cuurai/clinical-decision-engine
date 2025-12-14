@@ -10,7 +10,7 @@
  */
 
 // Auto-generated barrel export
-export * from "./entity/schedule-template.entity";
-export * from "./dto/list-schedule-template.dto";
-export * from "./dto/get-schedule-template.dto";
-export * from "./dto/delete-schedule-template.dto";
+export * from "./entity/schedule-template.entity.js";
+export * from "./dto/list-schedule-template.dto.js";
+export * from "./dto/get-schedule-template.dto.js";
+export * from "./dto/delete-schedule-template.dto.js";
