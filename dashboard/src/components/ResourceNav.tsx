@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { getServiceById } from "../types/services";
 import { getResourceIcon } from "../config/resourceIcons";
 import "./ResourceNav.css";
@@ -10,45 +10,68 @@ export function ResourceNav() {
     return window.innerWidth <= 1024;
   });
   const [isHovered, setIsHovered] = useState(false);
+  const [isCollapsing, setIsCollapsing] = useState(false);
   const { serviceId, resourceId } = useParams<{ serviceId: string; resourceId: string }>();
+  const location = useLocation();
   const service = serviceId ? getServiceById(serviceId) : null;
 
   // Determine if nav should be expanded (either not minimized, or minimized but hovered)
   const isExpanded = !isMinimized || (isMinimized && isHovered);
 
-  // Update minimized state based on window size
+  // Update minimized state based on window size (only on initial mount and resize)
   useEffect(() => {
     const handleResize = () => {
-      // On mobile (<=1024px), start minimized; on desktop, start expanded
-      if (window.innerWidth <= 1024 && !isMinimized) {
+      // On mobile (<=1024px), force minimized; on desktop, respect current state
+      if (window.innerWidth <= 1024) {
         setIsMinimized(true);
-      } else if (window.innerWidth > 1024 && isMinimized && !isHovered) {
-        // Only auto-expand on desktop if not currently hovered
-        setIsMinimized(false);
       }
+      // Don't auto-expand on desktop resize - let user control it
     };
+
+    // Set initial state based on window size
+    if (window.innerWidth <= 1024) {
+      setIsMinimized(true);
+    }
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [isMinimized, isHovered]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run on mount
 
-  // ResourceNav overlays - no need to adjust margins
-  // Just add class for styling purposes if needed
+  // Collapse on route change if starting from collapsed mode
+  useEffect(() => {
+    // If minimized, collapse back to icon-only on route change
+    if (isMinimized) {
+      setIsCollapsing(true);
+      setIsHovered(false);
+      // Reset collapsing flag after a short delay
+      setTimeout(() => setIsCollapsing(false), 300);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]); // Trigger on route change
+
+  // ResourceNav always pushes content - update margin classes based on state
   useEffect(() => {
     const mainElement = document.querySelector(".dashboard-main.has-resource-nav");
-    if (mainElement) {
-      // Keep classes for potential styling, but margins stay at 0
+    if (!mainElement) return;
+
+    // Use requestAnimationFrame to batch DOM updates and prevent visual glitches
+    requestAnimationFrame(() => {
+      // Always apply margin classes to push content (never overlay)
       if (isMinimized && isHovered) {
+        // Minimized but hover-expanded: push with full width
         mainElement.classList.remove("has-resource-nav-minimized");
         mainElement.classList.add("has-resource-nav-hover-expanded");
       } else if (isMinimized && !isHovered) {
+        // Minimized: push with minimized width
         mainElement.classList.add("has-resource-nav-minimized");
         mainElement.classList.remove("has-resource-nav-hover-expanded");
       } else if (!isMinimized) {
+        // Expanded: push with full width
         mainElement.classList.remove("has-resource-nav-minimized");
         mainElement.classList.remove("has-resource-nav-hover-expanded");
       }
-    }
+    });
   }, [isExpanded, isMinimized, isHovered]);
 
   // ResourceNav is independent - no need to track sidebar state
@@ -71,7 +94,8 @@ export function ResourceNav() {
         }`}
         onMouseEnter={() => {
           // Expand on hover if minimized (works on both mobile and desktop)
-          if (isMinimized) {
+          // Don't expand if we're in the process of collapsing
+          if (isMinimized && !isCollapsing) {
             setIsHovered(true);
           }
         }}
@@ -88,6 +112,15 @@ export function ResourceNav() {
             to={`/service/${serviceId}`}
             className="resource-nav-item resource-nav-service-label"
             title={isMinimized ? service.name : undefined}
+            onClick={() => {
+              // If starting from collapsed mode and user clicks, collapse back to icon-only
+              if (isMinimized) {
+                setIsCollapsing(true);
+                setIsHovered(false);
+                // Reset collapsing flag after a short delay
+                setTimeout(() => setIsCollapsing(false), 300);
+              }
+            }}
           >
             <span className="resource-nav-icon">
               <svg
@@ -116,6 +149,15 @@ export function ResourceNav() {
               to={`/service/${serviceId}/resource/${resource.id}`}
               className={`resource-nav-item ${isActive(resource.id) ? "active" : ""}`}
               title={isMinimized ? resource.name : undefined}
+              onClick={() => {
+                // If starting from collapsed mode and user clicks an item, collapse back to icon-only
+                if (isMinimized) {
+                  setIsCollapsing(true);
+                  setIsHovered(false);
+                  // Reset collapsing flag after a short delay
+                  setTimeout(() => setIsCollapsing(false), 300);
+                }
+              }}
             >
               <span className="resource-nav-icon">
                 {serviceId ? (
@@ -147,6 +189,15 @@ export function ResourceNav() {
             to={`/service/${serviceId}`}
             className="resource-nav-item resource-nav-fixed-item"
             title={isMinimized ? "Manage Resources" : undefined}
+            onClick={() => {
+              // If starting from collapsed mode and user clicks, collapse back to icon-only
+              if (isMinimized) {
+                setIsCollapsing(true);
+                setIsHovered(false);
+                // Reset collapsing flag after a short delay
+                setTimeout(() => setIsCollapsing(false), 300);
+              }
+            }}
           >
             <span className="resource-nav-icon">
               <svg
@@ -169,6 +220,15 @@ export function ResourceNav() {
             to="/settings"
             className="resource-nav-item resource-nav-fixed-item"
             title={isMinimized ? "Release Notes" : undefined}
+            onClick={() => {
+              // If starting from collapsed mode and user clicks, collapse back to icon-only
+              if (isMinimized) {
+                setIsCollapsing(true);
+                setIsHovered(false);
+                // Reset collapsing flag after a short delay
+                setTimeout(() => setIsCollapsing(false), 300);
+              }
+            }}
           >
             <span className="resource-nav-icon">
               <svg
@@ -196,17 +256,13 @@ export function ResourceNav() {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              // Always clear hover state first to prevent conflicts
+              // Use a single state update to prevent race conditions
               setIsHovered(false);
-              // Then toggle minimized state
-              setIsMinimized((prev) => {
-                const newState = !prev;
-                console.log("Toggle clicked - changing minimized from", prev, "to", newState);
-                return newState;
-              });
+              setIsMinimized((prev) => !prev);
             }}
             onMouseDown={(e) => {
-              // Ensure click works even if parent has handlers
+              // Prevent event bubbling but allow click
+              e.preventDefault();
               e.stopPropagation();
             }}
             aria-label={isMinimized ? "Expand navigation" : "Collapse navigation"}

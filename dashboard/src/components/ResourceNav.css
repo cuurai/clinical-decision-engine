@@ -11,6 +11,7 @@
   z-index: 100; /* Below sidebar (1030) - sidebar overlays on top when open */
   transition: width 0.2s ease;
   overflow: hidden;
+  /* ResourceNav pushes content via margin-left on .dashboard-main, never overlays */
 }
 
 .resource-nav-minimized.resource-nav-expanded {
@@ -101,6 +102,13 @@
   pointer-events: auto !important;
   z-index: 10;
   position: relative;
+  /* Ensure entire button area is clickable */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.resource-nav-fixed .resource-nav-toggle * {
+  pointer-events: none; /* Prevent child elements from intercepting clicks */
 }
 
 .resource-nav-fixed .resource-nav-toggle:hover {
@@ -222,23 +230,23 @@
   background: var(--color-text-tertiary);
 }
 
-/* ResourceNav PUSHES content - separate logic from main nav */
-/* Main nav overlays, ResourceNav pushes */
+/* ResourceNav ALWAYS PUSHES content - never overlays */
+/* Main nav overlays, ResourceNav always pushes */
 .dashboard-main.has-resource-nav {
-  margin-left: 240px;
+  margin-left: 240px !important; /* Always push with full width by default */
   transition: margin-left 0.2s ease;
 }
 
 .dashboard-main.has-resource-nav.has-resource-nav-minimized {
-  margin-left: 64px;
+  margin-left: 64px !important; /* Push with minimized width */
 }
 
 .dashboard-main.has-resource-nav.has-resource-nav-hover-expanded {
-  margin-left: 240px !important;
+  margin-left: 240px !important; /* Push with full width when hover-expanded */
 }
 
 /* ResourceNav pushes content independently - sidebar state doesn't affect margins */
-/* Sidebar overlays on top of everything, ResourceNav pushes content as normal */
+/* Sidebar overlays on top of everything, ResourceNav always pushes content */
 
 @media (max-width: 1024px) {
   /* On mobile, ResourceNav starts minimized but can expand on hover (same as desktop) */
