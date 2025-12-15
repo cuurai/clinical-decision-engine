@@ -5,6 +5,7 @@ import { Dashboard } from "./components/Dashboard";
 import { ServiceDetail } from "./components/ServiceDetail";
 import { ResourceDetail } from "./components/ResourceDetail";
 import { Settings } from "./components/Settings";
+import { DebugPage } from "./pages/DebugPage";
 import "./App.css";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="/service/:serviceId" element={<ServiceDetail />} />
             <Route path="/service/:serviceId/resource/:resourceId" element={<ResourceDetail />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/debug" element={<DebugPage />} />
           </Routes>
         </div>
       </Router>

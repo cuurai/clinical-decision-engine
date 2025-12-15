@@ -12,14 +12,37 @@ export const API_CONFIG = {
   timeout: 30000,
 };
 
+// DEBUG: Log the actual env var value
+console.log("🔍 DEBUG: import.meta.env.VITE_API_BASE_URL =", import.meta.env.VITE_API_BASE_URL);
+console.log("🔍 DEBUG: API_CONFIG.baseURL =", API_CONFIG.baseURL);
+
 // Get base URL for a specific service
 export function getServiceBaseURL(serviceId?: string): string {
   if (!serviceId) {
     return API_CONFIG.baseURL;
   }
+
+  // If base URL already includes /api path (Traefik/API gateway routing)
+  // Include the service ID in the path so the gateway can route correctly
+  if (API_CONFIG.baseURL.includes("/api")) {
+    const baseURL = new URL(API_CONFIG.baseURL);
+    // Add service ID to path: /api -> /api/decision-intelligence
+    baseURL.pathname = `/api/${serviceId}`;
+    const result = baseURL.toString().replace(/\/$/, "");
+    console.log("🔍 DEBUG: getServiceBaseURL (with serviceId in path) (", serviceId, ") =", result);
+    return result;
+  }
+
+  // Otherwise, use service-specific port (for direct access)
   const port = SERVICE_PORTS[serviceId];
   if (port) {
-    return `http://localhost:${port}`;
+    // Use the base URL host/port pattern, replacing port if needed
+    const baseURL = new URL(API_CONFIG.baseURL);
+    baseURL.port = port.toString();
+    const result = baseURL.toString().replace(/\/$/, ""); // Remove trailing slash
+    // DEBUG: Log the constructed URL
+    console.log("🔍 DEBUG: getServiceBaseURL (port changed) (", serviceId, ") =", result);
+    return result;
   }
   return API_CONFIG.baseURL;
 }
@@ -60,6 +83,8 @@ async function request<T>(
 
   // Build URL with query parameters
   const url = new URL(`${baseURL}${endpoint}`);
+  // DEBUG: Log the final URL being used
+  console.log("🔍 DEBUG: request() final URL =", url.toString());
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
@@ -76,7 +101,7 @@ async function request<T>(
 
   // Get org ID from localStorage or use default
   const orgId = localStorage.getItem("orgId") || "test-org";
-    defaultHeaders["X-Org-Id"] = orgId;
+  defaultHeaders["X-Org-Id"] = orgId;
 
   const config: RequestInit = {
     method,

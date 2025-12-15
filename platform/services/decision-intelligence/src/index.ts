@@ -38,19 +38,7 @@ export async function createServer(
 
   // Register CORS
   await fastify.register(cors, {
-    origin: (origin, cb) => {
-      // Allow all localhost origins in development
-      if (
-        !origin ||
-        origin.startsWith("http://localhost:") ||
-        origin.startsWith("http://127.0.0.1:")
-      ) {
-        cb(null, true);
-        return;
-      }
-      // Reject other origins
-      cb(new Error("Not allowed by CORS"), false);
-    },
+    origin: true, // Allow all origins for now (can be restricted later)
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Org-Id"],
