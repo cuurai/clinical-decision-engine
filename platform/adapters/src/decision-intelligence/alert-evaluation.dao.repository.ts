@@ -14,7 +14,7 @@ import type { AlertEvaluationRepository } from "@cuur/core/decision-intelligence
 import type {
   AlertEvaluation,
   AlertEvaluationInput,
-  AlertEvaluationUpdate,
+  UpdateAlertEvaluationRequest,
   ListAlertEvaluationsParams,
 } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
@@ -43,7 +43,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor
+        ...(params && "cursor" in params && params.cursor
           ? {
               skip: 1,
               cursor: { id: params.cursor },
@@ -52,7 +52,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
@@ -90,7 +90,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
     try {
       const record = await this.dao.alertEvaluationInput.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
         },
       });
@@ -100,7 +100,11 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: AlertEvaluationUpdate): Promise<AlertEvaluation> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateAlertEvaluationRequest
+  ): Promise<AlertEvaluation> {
     try {
       const record = await this.dao.alertEvaluationInput.update({
         where: { id, orgId },

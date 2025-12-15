@@ -9,18 +9,16 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
 import type {
   DecisionPolicyRepository,
+  UpdateDecisionPolicyRequest,
 } from "@cuur/core/decision-intelligence/repositories/index.js";
 import type {
   DecisionPolicyInput,
   DecisionPolicyUpdate,
-  DecisionPolicy, Timestamps,
+  DecisionPolicy,
+  Timestamps,
 } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +32,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<DecisionPolicy>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<DecisionPolicy>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +43,17 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        items: records.map((r: any) => this.toDomain(r)),
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -95,9 +90,8 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
     try {
       const record = await this.dao.decisionPolicyInput.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -106,13 +100,16 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: DecisionPolicyUpdate): Promise<DecisionPolicy> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateDecisionPolicyRequest
+  ): Promise<DecisionPolicy> {
     try {
       const record = await this.dao.decisionPolicyInput.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +125,6 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -138,35 +134,32 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
   }
   async createMany(orgId: OrgId, items: Array<DecisionPolicyInput>): Promise<DecisionPolicy[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.decisionPolicyInput.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: DecisionPolicy[] = [];
+        for (const item of items) {
+          const record = await tx.decisionPolicyInput.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.decisionPolicyInput.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
     } catch (error) {
       handleDatabaseError(error);
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DecisionPolicyUpdate }>): Promise<DecisionPolicy[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: DecisionPolicyUpdate }>
+  ): Promise<DecisionPolicy[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: DecisionPolicy[] = [];
         for (const { id, data } of updates) {
           const record = await tx.decisionPolicy.update({
@@ -192,7 +185,6 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -203,12 +195,13 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
   private toDomain(model: any): DecisionPolicy {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as DecisionPolicy;
   }
 }

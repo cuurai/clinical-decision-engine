@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { DecisionMetricRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
 import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  DecisionMetricRepository,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
-import type {
-  DecisionMetric,
+  DecisionMetricSnapshot,
+  ListDecisionMetricsParams,
 } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,8 +29,8 @@ export class DaoDecisionMetricRepository implements DecisionMetricRepository {
 
   async list(
     orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<DecisionMetric>> {
+    params?: ListDecisionMetricsParams
+  ): Promise<PaginatedResult<DecisionMetricSnapshot>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -46,17 +41,17 @@ export class DaoDecisionMetricRepository implements DecisionMetricRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        items: records.map((r: any) => this.toDomain(r)),
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -64,7 +59,7 @@ export class DaoDecisionMetricRepository implements DecisionMetricRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<DecisionMetric | null> {
+  async findById(orgId: OrgId, id: string): Promise<DecisionMetricSnapshot | null> {
     try {
       const record = await this.dao.decisionMetricSnapshotInput.findFirst({
         where: {
@@ -79,22 +74,18 @@ export class DaoDecisionMetricRepository implements DecisionMetricRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<DecisionMetric | null> {
+  async get(orgId: OrgId, id: string): Promise<DecisionMetricSnapshot | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
       throw new NotFoundError("DecisionMetric", id);
     }
     return result;
   }
-  private toDomain(model: any): DecisionMetric {
+  private toDomain(model: any): DecisionMetricSnapshot {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as DecisionMetric;
+      createdAt: model.createdAt instanceof Date ? model.createdAt.toISOString() : model.createdAt,
+      updatedAt: model.updatedAt instanceof Date ? model.updatedAt.toISOString() : model.updatedAt,
+    } as DecisionMetricSnapshot;
   }
 }

@@ -16,7 +16,8 @@ import type {
 } from "@cuur/core";
 import type {
   CareProtocolRepository,
-} from "@cuur/core/knowledge-evidence/repositories/index.js";
+
+  UpdateCareProtocolTemplateRequest,} from "@cuur/core/knowledge-evidence/repositories/index.js";
 import type {
   CareProtocolTemplateInput,
   CareProtocolTemplateUpdate,
@@ -48,14 +49,14 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -103,7 +104,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: CareProtocolUpdate): Promise<CareProtocol> {
+  async update(orgId: OrgId, id: string, data: UpdateCareProtocolTemplateRequest): Promise<CareProtocol> {
     try {
       const record = await this.dao.careProtocol.update({
         where: { id, orgId },
@@ -135,26 +136,23 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
   }
   async createMany(orgId: OrgId, items: Array<CareProtocolTemplateInput>): Promise<CareProtocol[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.careProtocol.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: CareProtocol[] = [];
+        for (const item of items) {
+          const record = await tx.careProtocol.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.careProtocol.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -163,7 +161,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: CareProtocolTemplateUpdate }>): Promise<CareProtocol[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: CareProtocol[] = [];
         for (const { id, data } of updates) {
           const record = await tx.careProtocol.update({

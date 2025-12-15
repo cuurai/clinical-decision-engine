@@ -48,14 +48,14 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -95,7 +95,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
     try {
       const record = await this.dao.scheduleTemplate.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
           
         },
@@ -106,12 +106,12 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: ScheduleTemplateUpdate): Promise<ScheduleTemplate> {
+  async update(orgId: OrgId, id: string, data: UpdateScheduleTemplateRequest): Promise<ScheduleTemplate> {
     try {
       const record = await this.dao.scheduleTemplate.update({
         where: { id, orgId },
         data: {
-          ...inputData,
+          ...data,
           
         },
       });
@@ -138,26 +138,23 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
   }
   async createMany(orgId: OrgId, items: Array<ScheduleTemplateInput>): Promise<ScheduleTemplate[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.scheduleTemplate.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: ScheduleTemplate[] = [];
+        for (const item of items) {
+          const record = await tx.scheduleTemplate.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.scheduleTemplate.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -166,7 +163,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ScheduleTemplateUpdate }>): Promise<ScheduleTemplate[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ScheduleTemplate[] = [];
         for (const { id, data } of updates) {
           const record = await tx.scheduleTemplate.update({

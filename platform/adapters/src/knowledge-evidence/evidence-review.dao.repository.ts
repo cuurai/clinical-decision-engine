@@ -16,7 +16,8 @@ import type {
 } from "@cuur/core";
 import type {
   EvidenceReviewRepository,
-} from "@cuur/core/knowledge-evidence/repositories/index.js";
+
+  UpdateEvidenceReviewRequest,} from "@cuur/core/knowledge-evidence/repositories/index.js";
 import type {
   EvidenceReviewInput,
   EvidenceReviewUpdate,
@@ -48,14 +49,14 @@ export class DaoEvidenceReviewRepository implements EvidenceReviewRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -95,7 +96,7 @@ export class DaoEvidenceReviewRepository implements EvidenceReviewRepository {
     try {
       const record = await this.dao.evidenceReview.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
           
         },
@@ -106,7 +107,7 @@ export class DaoEvidenceReviewRepository implements EvidenceReviewRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: EvidenceReviewUpdate): Promise<EvidenceReview> {
+  async update(orgId: OrgId, id: string, data: UpdateEvidenceReviewRequest): Promise<EvidenceReview> {
     try {
       const record = await this.dao.evidenceReview.update({
         where: { id, orgId },
@@ -138,26 +139,23 @@ export class DaoEvidenceReviewRepository implements EvidenceReviewRepository {
   }
   async createMany(orgId: OrgId, items: Array<EvidenceReviewInput>): Promise<EvidenceReview[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.evidenceReview.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: EvidenceReview[] = [];
+        for (const item of items) {
+          const record = await tx.evidenceReview.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.evidenceReview.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -166,7 +164,7 @@ export class DaoEvidenceReviewRepository implements EvidenceReviewRepository {
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: EvidenceReviewUpdate }>): Promise<EvidenceReview[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: EvidenceReview[] = [];
         for (const { id, data } of updates) {
           const record = await tx.evidenceReview.update({

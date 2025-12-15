@@ -18,8 +18,8 @@ import type {
   GuidelineRepository,
 } from "@cuur/core/knowledge-evidence/repositories/index.js";
 import type {
-  ClinicalGuidelineInput,
-  ClinicalGuidelineUpdate,
+  ClinicalClinicalGuidelineInput,
+  ClinicalClinicalGuidelineUpdate,
   Guideline, Timestamps,
 } from "@cuur/core/knowledge-evidence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
@@ -48,14 +48,14 @@ export class DaoGuidelineRepository implements GuidelineRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -91,11 +91,11 @@ export class DaoGuidelineRepository implements GuidelineRepository {
   async create(orgId: OrgId, data: Guideline): Promise<Guideline> {
     // Note: Repository interface expects Guideline, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as GuidelineInput;
+    const inputData = data as unknown as ClinicalGuidelineInput;
     try {
       const record = await this.dao.guideline.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
           
         },
@@ -106,7 +106,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: GuidelineUpdate): Promise<Guideline> {
+  async update(orgId: OrgId, id: string, data: ClinicalGuidelineUpdate): Promise<Guideline> {
     try {
       const record = await this.dao.guideline.update({
         where: { id, orgId },
@@ -136,37 +136,34 @@ export class DaoGuidelineRepository implements GuidelineRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<ClinicalGuidelineInput>): Promise<Guideline[]> {
+  async createMany(orgId: OrgId, items: Array<ClinicalClinicalGuidelineInput>): Promise<Guideline[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.guideline.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: Guideline[] = [];
+        for (const item of items) {
+          const record = await tx.guideline.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.guideline.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ClinicalGuidelineUpdate }>): Promise<Guideline[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ClinicalClinicalGuidelineUpdate }>): Promise<Guideline[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Guideline[] = [];
         for (const { id, data } of updates) {
           const record = await tx.guideline.update({

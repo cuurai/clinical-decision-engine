@@ -48,14 +48,14 @@ export class DaoTaskRepository implements TaskRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -95,7 +95,7 @@ export class DaoTaskRepository implements TaskRepository {
     try {
       const record = await this.dao.task.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
           
         },
@@ -106,12 +106,12 @@ export class DaoTaskRepository implements TaskRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: TaskUpdate): Promise<Task> {
+  async update(orgId: OrgId, id: string, data: UpdateTaskRequest): Promise<Task> {
     try {
       const record = await this.dao.task.update({
         where: { id, orgId },
         data: {
-          ...inputData,
+          ...data,
           
         },
       });
@@ -138,26 +138,23 @@ export class DaoTaskRepository implements TaskRepository {
   }
   async createMany(orgId: OrgId, items: Array<TaskInput>): Promise<Task[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.task.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: Task[] = [];
+        for (const item of items) {
+          const record = await tx.task.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.task.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -166,7 +163,7 @@ export class DaoTaskRepository implements TaskRepository {
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: TaskUpdate }>): Promise<Task[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Task[] = [];
         for (const { id, data } of updates) {
           const record = await tx.task.update({

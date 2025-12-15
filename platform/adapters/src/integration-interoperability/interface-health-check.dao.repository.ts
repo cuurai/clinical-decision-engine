@@ -41,7 +41,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor
+        ...(params && 'cursor' in params && params.cursor
           ? {
               skip: 1,
               cursor: { id: params.cursor },
@@ -50,7 +50,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
@@ -88,7 +88,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
     try {
       const record = await this.dao.interfaceHealthCheck.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
         },
       });
@@ -105,7 +105,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
     try {
       // Use createMany for better performance
       await this.dao.interfaceHealthCheck.createMany({
-        data: items.map((item) => ({
+        data: items.map((item: any) => ({
           ...item,
           orgId,
         })),
@@ -113,8 +113,8 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
       });
 
       // Fetch created records
-      const ids = items.map((item) => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
+      const ids = items.map((item: any) => item.id).filter(Boolean) as string[];
+      // Query recently created records// This is approximate - for exact results, use individual creates// if (ids.length === 0) {
         return [];
       }
 
@@ -122,7 +122,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
         where: { id: { in: ids }, orgId },
       });
 
-      return records.map((r) => this.toDomain(r));
+      return records.map((r: any) => this.toDomain(r));
     } catch (error) {
       handleDatabaseError(error);
       throw error;

@@ -47,14 +47,14 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -94,7 +94,7 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
     try {
       const record = await this.dao.simulationRunInput.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
           
         },
@@ -107,26 +107,23 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
   }
   async createMany(orgId: OrgId, items: Array<SimulationRunInput>): Promise<SimulationRun[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.simulationRunInput.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: SimulationRun[] = [];
+        for (const item of items) {
+          const record = await tx.simulationRunInput.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.simulationRunInput.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;

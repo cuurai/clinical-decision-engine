@@ -16,7 +16,8 @@ import type {
 } from "@cuur/core";
 import type {
   ValueSetRepository,
-} from "@cuur/core/knowledge-evidence/repositories/index.js";
+
+  UpdateValueSetRequest,} from "@cuur/core/knowledge-evidence/repositories/index.js";
 import type {
   ValueSet, Timestamps,
   ValueSetInput,
@@ -48,14 +49,14 @@ export class DaoValueSetRepository implements ValueSetRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -95,7 +96,7 @@ export class DaoValueSetRepository implements ValueSetRepository {
     try {
       const record = await this.dao.valueSet.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
           
         },
@@ -106,7 +107,7 @@ export class DaoValueSetRepository implements ValueSetRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: ValueSetUpdate): Promise<ValueSet> {
+  async update(orgId: OrgId, id: string, data: UpdateValueSetRequest): Promise<ValueSet> {
     try {
       const record = await this.dao.valueSet.update({
         where: { id, orgId },
@@ -138,26 +139,23 @@ export class DaoValueSetRepository implements ValueSetRepository {
   }
   async createMany(orgId: OrgId, items: Array<ValueSetInput>): Promise<ValueSet[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.valueSet.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: ValueSet[] = [];
+        for (const item of items) {
+          const record = await tx.valueSet.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.valueSet.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -166,7 +164,7 @@ export class DaoValueSetRepository implements ValueSetRepository {
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ValueSetUpdate }>): Promise<ValueSet[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ValueSet[] = [];
         for (const { id, data } of updates) {
           const record = await tx.valueSet.update({

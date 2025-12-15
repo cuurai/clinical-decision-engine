@@ -20,7 +20,7 @@ import type {
 import type {
   APICredentialInput,
   APICredentialUpdate,
-  Apicredential, Timestamps,
+  APICredential, Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Apicredential>> {
+  ): Promise<PaginatedResult<APICredential>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,14 +48,14 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -66,7 +66,7 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Apicredential | null> {
+  async findById(orgId: OrgId, id: string): Promise<APICredential | null> {
     try {
       const record = await this.dao.apicredential.findFirst({
         where: {
@@ -81,14 +81,14 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Apicredential | null> {
+  async get(orgId: OrgId, id: string): Promise<APICredential | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Apicredential", id);
+      throw new NotFoundError("APICredential", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: Apicredential): Promise<Apicredential> {
+  async create(orgId: OrgId, data: APICredential): Promise<APICredential> {
     try {
       const record = await this.dao.apicredential.create({
         data: {
@@ -103,7 +103,7 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: ApicredentialUpdate): Promise<Apicredential> {
+  async update(orgId: OrgId, id: string, data: APICredentialUpdate): Promise<APICredential> {
     try {
       const record = await this.dao.apicredential.update({
         where: { id, orgId },
@@ -133,38 +133,35 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<APICredentialInput>): Promise<Apicredential[]> {
+  async createMany(orgId: OrgId, items: Array<APICredentialInput>): Promise<APICredential[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.apicredential.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: APICredential[] = [];
+        for (const item of items) {
+          const record = await tx.apicredential.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.apicredential.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: APICredentialUpdate }>): Promise<Apicredential[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: APICredentialUpdate }>): Promise<APICredential[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Apicredential[] = [];
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: APICredential[] = [];
         for (const { id, data } of updates) {
           const record = await tx.apicredential.update({
             where: { id, orgId },
@@ -197,7 +194,7 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Apicredential {
+  private toDomain(model: any): APICredential {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +203,6 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Apicredential;
+    } as APICredential;
   }
 }

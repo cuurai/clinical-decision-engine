@@ -48,14 +48,14 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -95,7 +95,7 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
     try {
       const record = await this.dao.medicationOrder.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
           
         },
@@ -106,12 +106,12 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: MedicationOrderUpdate): Promise<MedicationOrder> {
+  async update(orgId: OrgId, id: string, data: UpdateMedicationOrderRequest): Promise<MedicationOrder> {
     try {
       const record = await this.dao.medicationOrder.update({
         where: { id, orgId },
         data: {
-          ...inputData,
+          ...data,
           
         },
       });
@@ -138,26 +138,23 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
   }
   async createMany(orgId: OrgId, items: Array<MedicationOrderInput>): Promise<MedicationOrder[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.medicationOrder.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: MedicationOrder[] = [];
+        for (const item of items) {
+          const record = await tx.medicationOrder.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.medicationOrder.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -166,7 +163,7 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: MedicationOrderUpdate }>): Promise<MedicationOrder[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: MedicationOrder[] = [];
         for (const { id, data } of updates) {
           const record = await tx.medicationOrder.update({

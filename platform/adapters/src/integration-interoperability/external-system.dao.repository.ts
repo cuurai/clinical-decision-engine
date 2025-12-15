@@ -16,7 +16,8 @@ import type {
 } from "@cuur/core";
 import type {
   ExternalSystemRepository,
-} from "@cuur/core/integration-interoperability/repositories/index.js";
+
+  UpdateExternalSystemRequest,} from "@cuur/core/integration-interoperability/repositories/index.js";
 import type {
   ExternalSystemInput,
   ExternalSystemUpdate,
@@ -48,14 +49,14 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -95,7 +96,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
     try {
       const record = await this.dao.externalSystem.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
           
         },
@@ -106,12 +107,12 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: ExternalSystemUpdate): Promise<ExternalSystem> {
+  async update(orgId: OrgId, id: string, data: UpdateExternalSystemRequest): Promise<ExternalSystem> {
     try {
       const record = await this.dao.externalSystem.update({
         where: { id, orgId },
         data: {
-          ...inputData,
+          ...data,
           
         },
       });
@@ -138,26 +139,23 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
   }
   async createMany(orgId: OrgId, items: Array<ExternalSystemInput>): Promise<ExternalSystem[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.externalSystem.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: ExternalSystem[] = [];
+        for (const item of items) {
+          const record = await tx.externalSystem.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.externalSystem.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -166,7 +164,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ExternalSystemUpdate }>): Promise<ExternalSystem[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ExternalSystem[] = [];
         for (const { id, data } of updates) {
           const record = await tx.externalSystem.update({

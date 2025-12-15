@@ -20,7 +20,7 @@ import type {
 import type {
   APIClientInput,
   APIClientUpdate,
-  Apiclient, Timestamps,
+  APIClient, Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +37,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<Apiclient>> {
+  ): Promise<PaginatedResult<APIClient>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,14 +48,14 @@ export class DaoAPIClientRepository implements APIClientRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -66,7 +66,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Apiclient | null> {
+  async findById(orgId: OrgId, id: string): Promise<APIClient | null> {
     try {
       const record = await this.dao.apiclient.findFirst({
         where: {
@@ -81,14 +81,14 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Apiclient | null> {
+  async get(orgId: OrgId, id: string): Promise<APIClient | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Apiclient", id);
+      throw new NotFoundError("APIClient", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: Apiclient): Promise<Apiclient> {
+  async create(orgId: OrgId, data: APIClient): Promise<APIClient> {
     try {
       const record = await this.dao.apiclient.create({
         data: {
@@ -103,7 +103,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: ApiclientUpdate): Promise<Apiclient> {
+  async update(orgId: OrgId, id: string, data: APIClientUpdate): Promise<APIClient> {
     try {
       const record = await this.dao.apiclient.update({
         where: { id, orgId },
@@ -133,38 +133,35 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<APIClientInput>): Promise<Apiclient[]> {
+  async createMany(orgId: OrgId, items: Array<APIClientInput>): Promise<APIClient[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.apiclient.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: APIClient[] = [];
+        for (const item of items) {
+          const record = await tx.apiclient.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.apiclient.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: APIClientUpdate }>): Promise<Apiclient[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: APIClientUpdate }>): Promise<APIClient[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
-        const results: Apiclient[] = [];
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: APIClient[] = [];
         for (const { id, data } of updates) {
           const record = await tx.apiclient.update({
             where: { id, orgId },
@@ -197,7 +194,7 @@ export class DaoAPIClientRepository implements APIClientRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Apiclient {
+  private toDomain(model: any): APIClient {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date
@@ -206,6 +203,6 @@ export class DaoAPIClientRepository implements APIClientRepository {
       updatedAt: model.updatedAt instanceof Date
         ? model.updatedAt
         : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Apiclient;
+    } as APIClient;
   }
 }

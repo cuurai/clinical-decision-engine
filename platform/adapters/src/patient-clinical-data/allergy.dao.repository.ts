@@ -48,14 +48,14 @@ export class DaoAllergyRepository implements AllergyRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -95,7 +95,7 @@ export class DaoAllergyRepository implements AllergyRepository {
     try {
       const record = await this.dao.allergy.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
           
         },
@@ -106,12 +106,12 @@ export class DaoAllergyRepository implements AllergyRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: AllergyUpdate): Promise<Allergy> {
+  async update(orgId: OrgId, id: string, data: UpdateAllergyRequest): Promise<Allergy> {
     try {
       const record = await this.dao.allergy.update({
         where: { id, orgId },
         data: {
-          ...inputData,
+          ...data,
           
         },
       });
@@ -138,26 +138,23 @@ export class DaoAllergyRepository implements AllergyRepository {
   }
   async createMany(orgId: OrgId, items: Array<AllergyInput>): Promise<Allergy[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.allergy.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: Allergy[] = [];
+        for (const item of items) {
+          const record = await tx.allergy.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.allergy.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -166,7 +163,7 @@ export class DaoAllergyRepository implements AllergyRepository {
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: AllergyUpdate }>): Promise<Allergy[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Allergy[] = [];
         for (const { id, data } of updates) {
           const record = await tx.allergy.update({

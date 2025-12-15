@@ -10,7 +10,8 @@
  */
 
 import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
-import type { IntegrationJobRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { IntegrationJobRepository ,
+  UpdateIntegrationJobRequest} from "@cuur/core/integration-interoperability/repositories/index.js";
 import type {
   IntegrationJobInput,
   IntegrationJobUpdate,
@@ -40,7 +41,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor
+        ...(params && 'cursor' in params && params.cursor
           ? {
               skip: 1,
               cursor: { id: params.cursor },
@@ -49,7 +50,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
@@ -87,7 +88,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
     try {
       const record = await this.dao.integrationJob.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
         },
       });
@@ -97,7 +98,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: IntegrationJobUpdate): Promise<IntegrationJob> {
+  async update(orgId: OrgId, id: string, data: UpdateIntegrationJobRequest): Promise<IntegrationJob> {
     try {
       const record = await this.dao.integrationJob.update({
         where: { id, orgId },
@@ -127,7 +128,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
     try {
       // Use createMany for better performance
       await this.dao.integrationJob.createMany({
-        data: items.map((item) => ({
+        data: items.map((item: any) => ({
           ...item,
           orgId,
         })),
@@ -135,8 +136,8 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
       });
 
       // Fetch created records
-      const ids = items.map((item) => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
+      const ids = items.map((item: any) => item.id).filter(Boolean) as string[];
+      // Query recently created records// This is approximate - for exact results, use individual creates// if (ids.length === 0) {
         return [];
       }
 
@@ -144,7 +145,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
         where: { id: { in: ids }, orgId },
       });
 
-      return records.map((r) => this.toDomain(r));
+      return records.map((r: any) => this.toDomain(r));
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -156,7 +157,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
   ): Promise<IntegrationJob[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: IntegrationJob[] = [];
         for (const { id, data } of updates) {
           const record = await tx.integrationJob.update({

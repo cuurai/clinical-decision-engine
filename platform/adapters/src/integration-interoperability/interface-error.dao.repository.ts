@@ -10,12 +10,15 @@
  */
 
 import type {
-  InterfaceErrorInput,
-  InterfaceErrorUpdate,
   OrgId,
   PaginatedResult,
   PaginationParams,
 } from "@cuur/core";
+import type {
+  InterfaceError,
+  InterfaceErrorInput,
+  UpdateInterfaceErrorRequest,
+} from "@cuur/core/integration-interoperability/types/index.js";
 import type {
   InterfaceErrorRepository,
 } from "@cuur/core/integration-interoperability/repositories/index.js";
@@ -48,14 +51,14 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -95,7 +98,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
     try {
       const record = await this.dao.interfaceError.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
           
         },
@@ -106,12 +109,12 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: InterfaceErrorUpdate): Promise<InterfaceError> {
+  async update(orgId: OrgId, id: string, data: UpdateInterfaceErrorRequest): Promise<InterfaceError> {
     try {
       const record = await this.dao.interfaceError.update({
         where: { id, orgId },
         data: {
-          ...inputData,
+          ...data,
           
         },
       });
@@ -123,35 +126,29 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
   }
   async createMany(orgId: OrgId, items: Array<InterfaceErrorInput>): Promise<InterfaceError[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.interfaceError.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: InterfaceError[] = [];
+        for (const item of items) {
+          const record = await tx.interfaceError.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.interfaceError.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
     } catch (error) {
       handleDatabaseError(error);
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: InterfaceErrorUpdate }>): Promise<InterfaceError[]> {
+  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: UpdateInterfaceErrorRequest }>): Promise<InterfaceError[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: InterfaceError[] = [];
         for (const { id, data } of updates) {
           const record = await tx.interfaceError.update({

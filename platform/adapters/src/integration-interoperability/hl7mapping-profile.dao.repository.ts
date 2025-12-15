@@ -48,14 +48,14 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -135,26 +135,23 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
   }
   async createMany(orgId: OrgId, items: Array<HL7MappingProfileInput>): Promise<Hl7mappingProfile[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.hl7mappingProfile.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: Hl7mappingProfile[] = [];
+        for (const item of items) {
+          const record = await tx.hl7mappingProfile.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.hl7mappingProfile.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -163,7 +160,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: HL7MappingProfileUpdate }>): Promise<Hl7mappingProfile[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Hl7mappingProfile[] = [];
         for (const { id, data } of updates) {
           const record = await tx.hl7mappingProfile.update({

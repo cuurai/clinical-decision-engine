@@ -38,7 +38,7 @@ export class DaoRiskAssessmentExplanationRepository implements RiskAssessmentExp
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor
+        ...(params && 'cursor' in params && params.cursor
           ? {
               skip: 1,
               cursor: { id: params.cursor },
@@ -47,7 +47,7 @@ export class DaoRiskAssessmentExplanationRepository implements RiskAssessmentExp
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };

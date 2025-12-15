@@ -16,7 +16,8 @@ import type {
 } from "@cuur/core";
 import type {
   DataImportBatchRepository,
-} from "@cuur/core/integration-interoperability/repositories/index.js";
+
+  UpdateDataImportBatchRequest,} from "@cuur/core/integration-interoperability/repositories/index.js";
 import type {
   DataImportBatchInput,
   DataImportBatchUpdate,
@@ -48,14 +49,14 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
+        ...(params && 'cursor' in params && params.cursor ? {
           skip: 1,
           cursor: { id: params.cursor },
         } : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
+        items: records.map((r: any) => this.toDomain(r)),
         nextCursor: records.length === limit
           ? records[records.length - 1]?.id
           : undefined,
@@ -95,7 +96,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
     try {
       const record = await this.dao.dataImportBatch.create({
         data: {
-          ...inputData,
+          ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
           
         },
@@ -106,12 +107,12 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: DataImportBatchUpdate): Promise<DataImportBatch> {
+  async update(orgId: OrgId, id: string, data: UpdateDataImportBatchRequest): Promise<DataImportBatch> {
     try {
       const record = await this.dao.dataImportBatch.update({
         where: { id, orgId },
         data: {
-          ...inputData,
+          ...data,
           
         },
       });
@@ -138,26 +139,23 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
   }
   async createMany(orgId: OrgId, items: Array<DataImportBatchInput>): Promise<DataImportBatch[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.dataImportBatch.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: DataImportBatch[] = [];
+        for (const item of items) {
+          const record = await tx.dataImportBatch.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.dataImportBatch.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -166,7 +164,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DataImportBatchUpdate }>): Promise<DataImportBatch[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: DataImportBatch[] = [];
         for (const { id, data } of updates) {
           const record = await tx.dataImportBatch.update({
