@@ -7,7 +7,7 @@
 
 import type { UpdateThresholdProfileResponse } from "../../types/index.js";
 import type { ThresholdProfileRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
  */

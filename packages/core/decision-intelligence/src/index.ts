@@ -14,7 +14,7 @@ import * as Types from "./types/index.js";
 import * as Models from "./models/index.js";
 import * as Repositories from "./repositories/index.js";
 import * as Handlers from "./handlers/index.js";
-import { schemas as decisionintelligenceSchemas } from "./schemas/decision-intelligence.schemas.js";
+import { schemas as decisionIntelligenceSchemas } from "./schemas/decision-intelligence.schemas.js";
 import type * as OpenAPITypes from "./openapi/decision-intelligence.openapi.types.js";
 import * as OpenAPISchemas from "./openapi/decision-intelligence.zod.schema.js";
 import * as Converters from "./utils/decision-intelligence-converters.js";
@@ -24,7 +24,7 @@ export * from "./types/index.js";
 export * from "./models/index.js";
 export * from "./repositories/index.js";
 export * from "./handlers/index.js";
-export { schemas as decisionintelligenceSchemas } from "./schemas/decision-intelligence.schemas.js";
+export { schemas as decisionIntelligenceSchemas } from "./schemas/decision-intelligence.schemas.js";
 export type * from "./openapi/decision-intelligence.openapi.types.js";
 export * from "./openapi/decision-intelligence.zod.schema.js";
 export * from "./utils/decision-intelligence-converters.js";
@@ -35,9 +35,8 @@ export const DecisionIntelligence = {
   models: Models,
   repositories: Repositories,
   handlers: Handlers,
-  schemas: decisionintelligenceSchemas,
+  schemas: decisionIntelligenceSchemas,
   openapi: {
-    types: OpenAPITypes,
     schemas: OpenAPISchemas,
   },
   converters: Converters,

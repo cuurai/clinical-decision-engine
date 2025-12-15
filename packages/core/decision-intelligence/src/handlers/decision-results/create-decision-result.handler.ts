@@ -7,7 +7,7 @@
 
 import type { CreateDecisionResultResponse } from "../../types/index.js";
 import type { DecisionResultRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
  */

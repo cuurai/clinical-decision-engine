@@ -7,7 +7,7 @@
 
 import type { CreateExperimentResponse } from "../../types/index.js";
 import type { ExperimentRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
 /**
  * Mapper: input → validated
  */

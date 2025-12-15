@@ -14,7 +14,7 @@ import * as Types from "./types/index.js";
 import * as Models from "./models/index.js";
 import * as Repositories from "./repositories/index.js";
 import * as Handlers from "./handlers/index.js";
-import { schemas as workflowcarepathwaysSchemas } from "./schemas/workflow-care-pathways.schemas.js";
+import { schemas as workflowCarePathwaysSchemas } from "./schemas/workflow-care-pathways.schemas.js";
 import type * as OpenAPITypes from "./openapi/workflow-care-pathways.openapi.types.js";
 import * as OpenAPISchemas from "./openapi/workflow-care-pathways.zod.schema.js";
 import * as Converters from "./utils/workflow-care-pathways-converters.js";
@@ -24,7 +24,7 @@ export * from "./types/index.js";
 export * from "./models/index.js";
 export * from "./repositories/index.js";
 export * from "./handlers/index.js";
-export { schemas as workflowcarepathwaysSchemas } from "./schemas/workflow-care-pathways.schemas.js";
+export { schemas as workflowCarePathwaysSchemas } from "./schemas/workflow-care-pathways.schemas.js";
 export type * from "./openapi/workflow-care-pathways.openapi.types.js";
 export * from "./openapi/workflow-care-pathways.zod.schema.js";
 export * from "./utils/workflow-care-pathways-converters.js";
@@ -35,7 +35,7 @@ export const WorkflowCarePathways = {
   models: Models,
   repositories: Repositories,
   handlers: Handlers,
-  schemas: workflowcarepathwaysSchemas,
+  schemas: workflowCarePathwaysSchemas,
   openapi: {
     types: OpenAPITypes,
     schemas: OpenAPISchemas,

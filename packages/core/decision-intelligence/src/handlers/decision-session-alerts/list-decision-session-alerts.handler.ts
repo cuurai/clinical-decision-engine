@@ -7,7 +7,7 @@
 
 import type { ListDecisionSessionAlertsResponse } from "../../types/index.js";
 import type { DecisionSessionAlertRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
 
 /**
  * List decision session alerts

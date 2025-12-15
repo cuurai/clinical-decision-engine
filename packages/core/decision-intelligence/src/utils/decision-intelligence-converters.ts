@@ -7,7 +7,7 @@
  * Naming convention: {entity}ToApi (camelCase)
  */
 
-import { ConverterPresets } from "../../shared/helpers/core-converters.js";
+import { ConverterPresets } from "../../../_shared/helpers/core-converters.js";
 import type {
   AlertEvaluationInput,
   AlertEvaluationUpdate,

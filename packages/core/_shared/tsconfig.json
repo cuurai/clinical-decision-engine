@@ -2,6 +2,7 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
+    "rootDir": "./src",
     "noEmit": false,
     "composite": true,
     "declaration": true,
@@ -9,6 +10,6 @@
     "verbatimModuleSyntax": false,
     "baseUrl": "."
   },
-  "include": ["src/**/*", "../_shared/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }

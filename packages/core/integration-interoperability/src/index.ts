@@ -14,7 +14,7 @@ import * as Types from "./types/index.js";
 import * as Models from "./models/index.js";
 import * as Repositories from "./repositories/index.js";
 import * as Handlers from "./handlers/index.js";
-import { schemas as integrationinteroperabilitySchemas } from "./schemas/integration-interoperability.schemas.js";
+import { schemas as integrationInteroperabilitySchemas } from "./schemas/integration-interoperability.schemas.js";
 import type * as OpenAPITypes from "./openapi/integration-interoperability.openapi.types.js";
 import * as OpenAPISchemas from "./openapi/integration-interoperability.zod.schema.js";
 import * as Converters from "./utils/integration-interoperability-converters.js";
@@ -24,7 +24,7 @@ export * from "./types/index.js";
 export * from "./models/index.js";
 export * from "./repositories/index.js";
 export * from "./handlers/index.js";
-export { schemas as integrationinteroperabilitySchemas } from "./schemas/integration-interoperability.schemas.js";
+export { schemas as integrationInteroperabilitySchemas } from "./schemas/integration-interoperability.schemas.js";
 export type * from "./openapi/integration-interoperability.openapi.types.js";
 export * from "./openapi/integration-interoperability.zod.schema.js";
 export * from "./utils/integration-interoperability-converters.js";
@@ -35,7 +35,7 @@ export const IntegrationInteroperability = {
   models: Models,
   repositories: Repositories,
   handlers: Handlers,
-  schemas: integrationinteroperabilitySchemas,
+  schemas: integrationInteroperabilitySchemas,
   openapi: {
     types: OpenAPITypes,
     schemas: OpenAPISchemas,

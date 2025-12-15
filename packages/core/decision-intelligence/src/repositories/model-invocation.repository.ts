@@ -11,7 +11,7 @@
 
 import type {
   CreateReadRepository,
-} from "../../shared/repositories/_base-repository.js";
+} from "../../../_shared/repositories/_base-repository.js";
 
 import type {
   ModelInvocation,

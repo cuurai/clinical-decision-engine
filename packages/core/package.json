@@ -1,7 +1,0 @@
-{
-  "name": "@cuurai-cde/clinical-decision-engine-core",
-  "version": "1.0.0",
-  "type": "module",
-  "private": true,
-  "description": "Core domains package - each domain builds independently"
-}

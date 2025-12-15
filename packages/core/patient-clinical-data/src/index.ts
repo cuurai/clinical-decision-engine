@@ -14,7 +14,7 @@ import * as Types from "./types/index.js";
 import * as Models from "./models/index.js";
 import * as Repositories from "./repositories/index.js";
 import * as Handlers from "./handlers/index.js";
-import { schemas as patientclinicaldataSchemas } from "./schemas/patient-clinical-data.schemas.js";
+import { schemas as patientClinicalDataSchemas } from "./schemas/patient-clinical-data.schemas.js";
 import type * as OpenAPITypes from "./openapi/patient-clinical-data.openapi.types.js";
 import * as OpenAPISchemas from "./openapi/patient-clinical-data.zod.schema.js";
 import * as Converters from "./utils/patient-clinical-data-converters.js";
@@ -24,7 +24,7 @@ export * from "./types/index.js";
 export * from "./models/index.js";
 export * from "./repositories/index.js";
 export * from "./handlers/index.js";
-export { schemas as patientclinicaldataSchemas } from "./schemas/patient-clinical-data.schemas.js";
+export { schemas as patientClinicalDataSchemas } from "./schemas/patient-clinical-data.schemas.js";
 export type * from "./openapi/patient-clinical-data.openapi.types.js";
 export * from "./openapi/patient-clinical-data.zod.schema.js";
 export * from "./utils/patient-clinical-data-converters.js";
@@ -35,7 +35,7 @@ export const PatientClinicalData = {
   models: Models,
   repositories: Repositories,
   handlers: Handlers,
-  schemas: patientclinicaldataSchemas,
+  schemas: patientClinicalDataSchemas,
   openapi: {
     types: OpenAPITypes,
     schemas: OpenAPISchemas,

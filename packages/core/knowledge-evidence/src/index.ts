@@ -14,7 +14,7 @@ import * as Types from "./types/index.js";
 import * as Models from "./models/index.js";
 import * as Repositories from "./repositories/index.js";
 import * as Handlers from "./handlers/index.js";
-import { schemas as knowledgeevidenceSchemas } from "./schemas/knowledge-evidence.schemas.js";
+import { schemas as knowledgeEvidenceSchemas } from "./schemas/knowledge-evidence.schemas.js";
 import type * as OpenAPITypes from "./openapi/knowledge-evidence.openapi.types.js";
 import * as OpenAPISchemas from "./openapi/knowledge-evidence.zod.schema.js";
 import * as Converters from "./utils/knowledge-evidence-converters.js";
@@ -24,7 +24,7 @@ export * from "./types/index.js";
 export * from "./models/index.js";
 export * from "./repositories/index.js";
 export * from "./handlers/index.js";
-export { schemas as knowledgeevidenceSchemas } from "./schemas/knowledge-evidence.schemas.js";
+export { schemas as knowledgeEvidenceSchemas } from "./schemas/knowledge-evidence.schemas.js";
 export type * from "./openapi/knowledge-evidence.openapi.types.js";
 export * from "./openapi/knowledge-evidence.zod.schema.js";
 export * from "./utils/knowledge-evidence-converters.js";
@@ -35,7 +35,7 @@ export const KnowledgeEvidence = {
   models: Models,
   repositories: Repositories,
   handlers: Handlers,
-  schemas: knowledgeevidenceSchemas,
+  schemas: knowledgeEvidenceSchemas,
   openapi: {
     types: OpenAPITypes,
     schemas: OpenAPISchemas,

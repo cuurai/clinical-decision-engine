@@ -7,7 +7,7 @@
 
 import type { ListSimulationRunMetricsResponse } from "../../types/index.js";
 import type { SimulationRunMetricRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
 
 /**
  * List simulation run metrics
