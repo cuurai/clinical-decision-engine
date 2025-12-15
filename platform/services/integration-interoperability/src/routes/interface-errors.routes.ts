@@ -12,7 +12,7 @@
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createInterfaceError, getInterfaceError, listInterfaceErrors, updateInterfaceError } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
-import type { InterfaceErrorInput, InterfaceErrorUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
+import type { CreateInterfaceErrorInput, UpdateInterfaceErrorInput } from "@cuur-cde/core/integration-interoperability/types/index.js";
 import { extractOrgId } from "../extract-org-id.js";
 export async function interfaceErrorsRoutes(
   fastify: FastifyInstance,
@@ -27,7 +27,7 @@ export async function interfaceErrorsRoutes(
   // POST /interface-errors
   fastify.post("/interface-errors", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createInterfaceError(deps.interfaceErrorRepo, orgId, request.body as InterfaceErrorInput);
+    const result = await createInterfaceError(deps.interfaceErrorRepo, orgId, request.body as CreateInterfaceErrorInput);
     return reply.code(201).send(result);
   });
   // GET /interface-errors/{id}
@@ -41,7 +41,7 @@ export async function interfaceErrorsRoutes(
   fastify.patch("/interface-errors/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateInterfaceError(deps.interfaceErrorRepo, orgId, id, request.body as InterfaceErrorUpdate);
+        const result = await updateInterfaceError(deps.interfaceErrorRepo, orgId, id, request.body as UpdateInterfaceErrorInput);
     return reply.code(200).send(result);
   });
 
