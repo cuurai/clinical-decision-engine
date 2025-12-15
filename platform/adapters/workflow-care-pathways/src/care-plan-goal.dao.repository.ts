@@ -13,7 +13,7 @@ import type {
   OrgId,
   PaginatedResult,
   PaginationParams,
-} from "@cuur-cde/core/_shared";
+} from "@cuur/adapters-shared";
 import type {
   CarePlanGoalRepository,
 } from "@cuur-cde/core/workflow-care-pathways/repositories/index.js";
@@ -21,7 +21,7 @@ import type {
   CarePlanGoal,
 } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
 import type { DaoClient } from "../../_shared/src/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur/adapters-shared";
 
 const DEFAULT_LIMIT = 50;
 

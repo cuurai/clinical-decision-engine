@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createQuestionnaireTemplate, deleteQuestionnaireTemplate, getQuestionnaireTemplate, listQuestionnaireTemplates, updateQuestionnaireTemplate } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { QuestionnaireTemplateInput, QuestionnaireTemplateUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function questionnaireTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function questionnaireTemplatesRoutes(
   // POST /questionnaire-templates
   fastify.post("/questionnaire-templates", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId, request.body as CreateQuestionnaireTemplateInput);
+    const result = await createQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId, request.body as QuestionnaireTemplateInput);
     return reply.code(201).send(result);
   });
   // GET /questionnaire-templates/{id}
@@ -41,7 +41,7 @@ export async function questionnaireTemplatesRoutes(
   fastify.patch("/questionnaire-templates/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId, id, request.body as UpdateQuestionnaireTemplateInput);
+        const result = await updateQuestionnaireTemplate(deps.questionnaireTemplateRepo, orgId, id, request.body as QuestionnaireTemplateUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /questionnaire-templates/{id}

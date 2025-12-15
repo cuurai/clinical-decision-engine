@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createCareProtocol, deleteCareProtocol, getCareProtocol, listCareProtocols, updateCareProtocol } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { CareProtocolTemplateInput, CareProtocolTemplateUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function careProtocolsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function careProtocolsRoutes(
   // POST /care-protocols
   fastify.post("/care-protocols", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createCareProtocol(deps.careProtocolRepo, orgId, request.body as CreateCareProtocolTemplateInput);
+    const result = await createCareProtocol(deps.careProtocolRepo, orgId, request.body as CareProtocolTemplateInput);
     return reply.code(201).send(result);
   });
   // GET /care-protocols/{id}
@@ -41,7 +41,7 @@ export async function careProtocolsRoutes(
   fastify.patch("/care-protocols/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateCareProtocol(deps.careProtocolRepo, orgId, id, request.body as UpdateCareProtocolInput);
+        const result = await updateCareProtocol(deps.careProtocolRepo, orgId, id, request.body as CareProtocolTemplateUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /care-protocols/{id}

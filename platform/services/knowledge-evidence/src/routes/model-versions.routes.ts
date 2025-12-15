@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createModelVersion, deleteModelVersion, getModelVersion, listModelVersions, updateModelVersion } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { ModelVersionInput, ModelVersionUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function modelVersionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function modelVersionsRoutes(
   // POST /model-versions
   fastify.post("/model-versions", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createModelVersion(deps.modelVersionRepo, orgId, request.body as CreateModelVersionInput);
+    const result = await createModelVersion(deps.modelVersionRepo, orgId, request.body as ModelVersionInput);
     return reply.code(201).send(result);
   });
   // GET /model-versions/{id}
@@ -41,7 +41,7 @@ export async function modelVersionsRoutes(
   fastify.patch("/model-versions/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateModelVersion(deps.modelVersionRepo, orgId, id, request.body as UpdateModelVersionInput);
+        const result = await updateModelVersion(deps.modelVersionRepo, orgId, id, request.body as ModelVersionUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /model-versions/{id}

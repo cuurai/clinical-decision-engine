@@ -10,6 +10,7 @@
  */
 
 import type { FastifyInstance } from "fastify";
+import { extractOrgId } from "../extract-org-id.js";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { listExperimentResults } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 export async function experimentResultsRoutes(

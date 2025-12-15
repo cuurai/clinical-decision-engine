@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createFHIRMappingProfile, deleteFHIRMappingProfile, getFHIRMappingProfile, listFHIRMappingProfiles, updateFHIRMappingProfile } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { FHIRMappingProfileInput, FHIRMappingProfileUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function fHIRMappingProfilesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function fHIRMappingProfilesRoutes(
   // POST /fhir-mapping-profiles
   fastify.post("/fhir-mapping-profiles", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, request.body as CreateFHIRMappingProfileInput);
+    const result = await createFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, request.body as FHIRMappingProfileInput);
     return reply.code(201).send(result);
   });
   // GET /fhir-mapping-profiles/{id}
@@ -41,7 +41,7 @@ export async function fHIRMappingProfilesRoutes(
   fastify.patch("/fhir-mapping-profiles/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, id, request.body as UpdateFHirmappingProfileInput);
+        const result = await updateFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, id, request.body as FHirmappingProfileUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /fhir-mapping-profiles/{id}

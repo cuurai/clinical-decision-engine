@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createDataImportBatch, deleteDataImportBatch, getDataImportBatch, listDataImportBatches, updateDataImportBatch } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { DataImportBatchInput, DataImportBatchUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function dataImportBatchesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function dataImportBatchesRoutes(
   // POST /data-import-batches
   fastify.post("/data-import-batches", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createDataImportBatch(deps.dataImportBatchRepo, orgId, request.body as CreateDataImportBatchInput);
+    const result = await createDataImportBatch(deps.dataImportBatchRepo, orgId, request.body as DataImportBatchInput);
     return reply.code(201).send(result);
   });
   // GET /data-import-batches/{id}
@@ -41,7 +41,7 @@ export async function dataImportBatchesRoutes(
   fastify.patch("/data-import-batches/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateDataImportBatch(deps.dataImportBatchRepo, orgId, id, request.body as UpdateDataImportBatcheInput);
+        const result = await updateDataImportBatch(deps.dataImportBatchRepo, orgId, id, request.body as DataImportBatcheUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /data-import-batches/{id}

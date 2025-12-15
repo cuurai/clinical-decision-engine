@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createTaskAssignment, deleteTaskAssignment, getTaskAssignment, listTaskAssignments, updateTaskAssignment } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type { TaskAssignmentInput, TaskAssignmentUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function taskAssignmentsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function taskAssignmentsRoutes(
   // POST /task-assignments
   fastify.post("/task-assignments", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createTaskAssignment(deps.taskAssignmentRepo, orgId, request.body as CreateTaskAssignmentInput);
+    const result = await createTaskAssignment(deps.taskAssignmentRepo, orgId, request.body as TaskAssignmentInput);
     return reply.code(201).send(result);
   });
   // GET /task-assignments/{id}
@@ -41,7 +41,7 @@ export async function taskAssignmentsRoutes(
   fastify.patch("/task-assignments/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-    const result = await updateTaskAssignment(deps.taskAssignmentRepo, orgId, id, request.body as UpdateTaskAssignmentInput);
+    const result = await updateTaskAssignment(deps.taskAssignmentRepo, orgId, id, request.body as TaskAssignmentUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /task-assignments/{id}

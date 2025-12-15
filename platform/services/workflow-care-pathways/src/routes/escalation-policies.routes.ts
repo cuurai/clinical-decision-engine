@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createEscalationPolicy, deleteEscalationPolicy, getEscalationPolicy, listEscalationPolicies, updateEscalationPolicy } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type { EscalationPolicyInput, EscalationPolicyUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function escalationPoliciesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function escalationPoliciesRoutes(
   // POST /escalation-policies
   fastify.post("/escalation-policies", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createEscalationPolicy(deps.escalationPolicyRepo, orgId, request.body as CreateEscalationPolicyInput);
+    const result = await createEscalationPolicy(deps.escalationPolicyRepo, orgId, request.body as EscalationPolicyInput);
     return reply.code(201).send(result);
   });
   // GET /escalation-policies/{id}
@@ -41,7 +41,7 @@ export async function escalationPoliciesRoutes(
   fastify.patch("/escalation-policies/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-    const result = await updateEscalationPolicy(deps.escalationPolicyRepo, orgId, id, request.body as UpdateEscalationPolicieInput);
+    const result = await updateEscalationPolicy(deps.escalationPolicyRepo, orgId, id, request.body as EscalationPolicyUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /escalation-policies/{id}

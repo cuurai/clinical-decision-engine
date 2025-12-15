@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createCarePlan, deleteCarePlan, getCarePlan, listCarePlans, updateCarePlan } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type { CarePlanInput, CarePlanUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function carePlansRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function carePlansRoutes(
   // POST /care-plans
   fastify.post("/care-plans", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createCarePlan(deps.carePlanRepo, orgId, request.body as CreateCarePlanInput);
+    const result = await createCarePlan(deps.carePlanRepo, orgId, request.body as CarePlanInput);
     return reply.code(201).send(result);
   });
   // GET /care-plans/{id}
@@ -41,7 +41,7 @@ export async function carePlansRoutes(
   fastify.patch("/care-plans/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateCarePlan(deps.carePlanRepo, orgId, id, request.body as UpdateCarePlanInput);
+        const result = await updateCarePlan(deps.carePlanRepo, orgId, id, request.body as CarePlanUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /care-plans/{id}

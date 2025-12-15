@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createModelInvocation, getModelInvocation, listModelInvocations } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { ModelInvocationInput } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function modelInvocationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function modelInvocationsRoutes(
   // POST /model-invocations
   fastify.post("/model-invocations", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createModelInvocation(deps.modelInvocationRepo, orgId, request.body as CreateModelInvocationInput);
+    const result = await createModelInvocation(deps.modelInvocationRepo, orgId, request.body as ModelInvocationInput);
     return reply.code(201).send(result);
   });
   // GET /model-invocations/{id}

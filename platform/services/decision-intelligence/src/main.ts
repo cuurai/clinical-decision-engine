@@ -22,7 +22,7 @@
 // Import Prisma client from adapters-generated client
 import { PrismaClient } from "@prisma/client";
 import { startService, createDependencies } from "./index.js";
-import type { DaoClient } from "@cuur/adapters-shared/dao-client.js";
+import type { DaoClient } from "@cuur/adapters-shared";
 import {
   DaoAlertEvaluationRepository,
   DaoDecisionMetricRepository,

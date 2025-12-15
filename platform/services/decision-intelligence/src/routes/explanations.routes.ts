@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createExplanation, getExplanation, listExplanations } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { ExplanationInput } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function explanationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function explanationsRoutes(
   // POST /explanations
   fastify.post("/explanations", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createExplanation(deps.explanationRepo, orgId, request.body as CreateExplanationInput);
+    const result = await createExplanation(deps.explanationRepo, orgId, request.body as ExplanationInput);
     return reply.code(201).send(result);
   });
   // GET /explanations/{id}

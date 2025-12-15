@@ -10,6 +10,9 @@
 
 import type { DaoClient } from "./dao-client.js";
 
+// Re-export DaoClient type
+export type { DaoClient } from "./dao-client.js";
+
 // Re-export shared types from core/_shared
 export type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared";
 

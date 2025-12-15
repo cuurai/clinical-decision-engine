@@ -10,6 +10,7 @@
  */
 
 import type { FastifyInstance } from "fastify";
+import { extractOrgId } from "../extract-org-id.js";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { getPatientSummary } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 export async function patientSummariesRoutes(
@@ -19,7 +20,8 @@ export async function patientSummariesRoutes(
   // GET /patients/{id}/summary
   fastify.get("/patients/:id/summary", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await getPatientSummary(deps.patientSummaryRepo, orgId);
+    const id = (request.params as any).id;
+    const result = await getPatientSummary(deps.patientSummaryRepo, orgId, id);
     return reply.code(200).send(result);
   });
 

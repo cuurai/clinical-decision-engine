@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createEpisodeOfCare, deleteEpisodeOfCare, getEpisodeOfCare, updateEpisodeOfCare } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type { EpisodeOfCareInput, EpisodeOfCareUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function episodeOfCaresRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -21,7 +21,7 @@ export async function episodeOfCaresRoutes(
   // POST /episodes-of-care
   fastify.post("/episodes-of-care", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createEpisodeOfCare(deps.episodeOfCareRepo, orgId, request.body as CreateEpisodeOfCareInput);
+    const result = await createEpisodeOfCare(deps.episodeOfCareRepo, orgId, request.body as EpisodeOfCareInput);
     return reply.code(201).send(result);
   });
   // GET /episodes-of-care/{id}
@@ -35,7 +35,7 @@ export async function episodeOfCaresRoutes(
   fastify.patch("/episodes-of-care/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-    const result = await updateEpisodeOfCare(deps.episodeOfCareRepo, orgId, id, request.body as UpdateEpisodeOfCareInput);
+    const result = await updateEpisodeOfCare(deps.episodeOfCareRepo, orgId, id, request.body as EpisodeOfCareUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /episodes-of-care/{id}

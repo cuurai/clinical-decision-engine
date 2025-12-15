@@ -19,10 +19,10 @@ import {
   updateChecklistInstance,
 } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type {
-  CreateChecklistInstanceInput,
-  UpdateChecklistInstanceInput,
+  ChecklistInstanceInput,
+  ChecklistInstanceUpdate,
 } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 
 export async function checklistInstancesRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /checklist-instances
@@ -41,7 +41,7 @@ export async function checklistInstancesRoutes(fastify: FastifyInstance, deps: D
     const result = await createChecklistInstance(
       deps.checklistInstanceRepo,
       orgId,
-      request.body as CreateChecklistInstanceInput
+      request.body as ChecklistInstanceInput
     );
     return reply.code(201).send(result);
   });
@@ -60,7 +60,7 @@ export async function checklistInstancesRoutes(fastify: FastifyInstance, deps: D
       deps.checklistInstanceRepo,
       orgId,
       id,
-      request.body as UpdateChecklistInstanceInput
+      request.body as ChecklistInstanceUpdate
     );
     return reply.code(200).send(result);
   });

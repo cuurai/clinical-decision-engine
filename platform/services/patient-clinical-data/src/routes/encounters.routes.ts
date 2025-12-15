@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createEncounter, deleteEncounter, getEncounter, listEncounters, updateEncounter } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { EncounterInput, EncounterUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function encountersRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function encountersRoutes(
   // POST /encounters
   fastify.post("/encounters", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createEncounter(deps.encounterRepo, orgId, request.body as CreateEncounterInput);
+    const result = await createEncounter(deps.encounterRepo, orgId, request.body as EncounterInput);
     return reply.code(201).send(result);
   });
   // GET /encounters/{id}
@@ -41,7 +41,7 @@ export async function encountersRoutes(
   fastify.patch("/encounters/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateEncounter(deps.encounterRepo, orgId, id, request.body as UpdateEncounterInput);
+        const result = await updateEncounter(deps.encounterRepo, orgId, id, request.body as EncounterUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /encounters/{id}

@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createAPIClient, deleteAPIClient, getAPIClient, listAPIClients, updateAPIClient } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { APIClientInput, APIClientUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function aPIClientsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function aPIClientsRoutes(
   // POST /api-clients
   fastify.post("/api-clients", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createAPIClient(deps.aPIClientRepo, orgId, request.body as CreateAPIClientInput);
+    const result = await createAPIClient(deps.aPIClientRepo, orgId, request.body as APIClientInput);
     return reply.code(201).send(result);
   });
   // GET /api-clients/{id}
@@ -41,7 +41,7 @@ export async function aPIClientsRoutes(
   fastify.patch("/api-clients/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateAPIClient(deps.aPIClientRepo, orgId, id, request.body as UpdateAPiclientInput);
+        const result = await updateAPIClient(deps.aPIClientRepo, orgId, id, request.body as APIClientUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /api-clients/{id}

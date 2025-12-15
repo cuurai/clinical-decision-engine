@@ -12,7 +12,7 @@
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { listDecisionSessionAlerts } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function decisionSessionAlertsRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /decision-sessions/{id}/alerts
   fastify.get("/decision-sessions/:id/alerts", async (request, reply) => {

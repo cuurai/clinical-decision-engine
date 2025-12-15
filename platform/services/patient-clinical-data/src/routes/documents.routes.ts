@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createDocument, deleteDocument, getDocument, listDocuments, updateDocument } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { DocumentReferenceInput, DocumentReferenceUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function documentsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function documentsRoutes(
   // POST /documents
   fastify.post("/documents", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createDocument(deps.documentRepo, orgId, request.body as CreateDocumentReferenceInput);
+    const result = await createDocument(deps.documentRepo, orgId, request.body as DocumentReferenceInput);
     return reply.code(201).send(result);
   });
   // GET /documents/{id}
@@ -41,7 +41,7 @@ export async function documentsRoutes(
   fastify.patch("/documents/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateDocument(deps.documentRepo, orgId, id, request.body as UpdateDocumentInput);
+        const result = await updateDocument(deps.documentRepo, orgId, id, request.body as DocumentReferenceUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /documents/{id}

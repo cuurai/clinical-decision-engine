@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createValueSet, deleteValueSet, getValueSet, listValueSets, updateValueSet } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { ValueSetInput, ValueSetUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function valueSetsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function valueSetsRoutes(
   // POST /value-sets
   fastify.post("/value-sets", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createValueSet(deps.valueSetRepo, orgId, request.body as CreateValueSetInput);
+    const result = await createValueSet(deps.valueSetRepo, orgId, request.body as ValueSetInput);
     return reply.code(201).send(result);
   });
   // GET /value-sets/{id}
@@ -41,7 +41,7 @@ export async function valueSetsRoutes(
   fastify.patch("/value-sets/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateValueSet(deps.valueSetRepo, orgId, id, request.body as UpdateValueSetInput);
+        const result = await updateValueSet(deps.valueSetRepo, orgId, id, request.body as ValueSetUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /value-sets/{id}

@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createHL7MappingProfile, deleteHL7MappingProfile, getHL7MappingProfile, listHL7MappingProfiles, updateHL7MappingProfile } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { HL7MappingProfileInput, HL7MappingProfileUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function hLMappingProfilesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -41,7 +41,7 @@ export async function hLMappingProfilesRoutes(
   fastify.patch("/hl7-mapping-profiles/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateHL7MappingProfile(deps.hLMappingProfileRepo, orgId, id, request.body as UpdateHLmappingProfileInput);
+        const result = await updateHL7MappingProfile(deps.hLMappingProfileRepo, orgId, id, request.body as HLmappingProfileUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /hl7-mapping-profiles/{id}

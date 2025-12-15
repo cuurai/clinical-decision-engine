@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createScheduleTemplate, deleteScheduleTemplate, getScheduleTemplate, listScheduleTemplates, updateScheduleTemplate } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type { ScheduleTemplateInput, ScheduleTemplateUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function scheduleTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function scheduleTemplatesRoutes(
   // POST /schedule-templates
   fastify.post("/schedule-templates", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createScheduleTemplate(deps.scheduleTemplateRepo, orgId, request.body as CreateScheduleTemplateInput);
+    const result = await createScheduleTemplate(deps.scheduleTemplateRepo, orgId, request.body as ScheduleTemplateInput);
     return reply.code(201).send(result);
   });
   // GET /schedule-templates/{id}
@@ -41,7 +41,7 @@ export async function scheduleTemplatesRoutes(
   fastify.patch("/schedule-templates/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-    const result = await updateScheduleTemplate(deps.scheduleTemplateRepo, orgId, id, request.body as UpdateScheduleTemplateInput);
+    const result = await updateScheduleTemplate(deps.scheduleTemplateRepo, orgId, id, request.body as ScheduleTemplateUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /schedule-templates/{id}

@@ -16,8 +16,8 @@ import {
   getInterfaceHealthCheck,
   listInterfaceHealthChecks,
 } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
-import type { CreateInterfaceHealthCheckInput } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import type { InterfaceHealthCheckInput } from "@cuur-cde/core/integration-interoperability/types/index.js";
+import { extractOrgId } from "../extract-org-id.js";
 
 export async function interfaceHealthChecksRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /interface-health-checks
@@ -36,7 +36,7 @@ export async function interfaceHealthChecksRoutes(fastify: FastifyInstance, deps
     const result = await createInterfaceHealthCheck(
       deps.interfaceHealthCheckRepo,
       orgId,
-      request.body as CreateInterfaceHealthCheckInput
+      request.body as InterfaceHealthCheckInput
     );
     return reply.code(201).send(result);
   });

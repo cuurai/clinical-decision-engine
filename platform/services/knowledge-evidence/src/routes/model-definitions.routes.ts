@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createModelDefinition, deleteModelDefinition, getModelDefinition, listModelDefinitions, updateModelDefinition } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { ModelDefinitionInput, ModelDefinitionUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function modelDefinitionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function modelDefinitionsRoutes(
   // POST /model-definitions
   fastify.post("/model-definitions", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createModelDefinition(deps.modelDefinitionRepo, orgId, request.body as CreateModelDefinitionInput);
+    const result = await createModelDefinition(deps.modelDefinitionRepo, orgId, request.body as ModelDefinitionInput);
     return reply.code(201).send(result);
   });
   // GET /model-definitions/{id}
@@ -41,7 +41,7 @@ export async function modelDefinitionsRoutes(
   fastify.patch("/model-definitions/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateModelDefinition(deps.modelDefinitionRepo, orgId, id, request.body as UpdateModelDefinitionInput);
+        const result = await updateModelDefinition(deps.modelDefinitionRepo, orgId, id, request.body as ModelDefinitionUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /model-definitions/{id}

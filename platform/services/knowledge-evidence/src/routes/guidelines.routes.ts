@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createGuideline, deleteGuideline, getGuideline, listGuidelines, updateGuideline } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { ClinicalGuidelineInput, ClinicalGuidelineUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function guidelinesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function guidelinesRoutes(
   // POST /guidelines
   fastify.post("/guidelines", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createGuideline(deps.guidelineRepo, orgId, request.body as CreateClinicalGuidelineInput);
+    const result = await createGuideline(deps.guidelineRepo, orgId, request.body as ClinicalGuidelineInput);
     return reply.code(201).send(result);
   });
   // GET /guidelines/{id}
@@ -41,7 +41,7 @@ export async function guidelinesRoutes(
   fastify.patch("/guidelines/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateGuideline(deps.guidelineRepo, orgId, id, request.body as UpdateGuidelineInput);
+        const result = await updateGuideline(deps.guidelineRepo, orgId, id, request.body as ClinicalGuidelineUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /guidelines/{id}

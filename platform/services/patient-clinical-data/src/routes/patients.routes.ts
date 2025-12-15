@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createPatient, deletePatient, getPatient, listPatients, updatePatient } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { PatientInput, PatientUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function patientsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function patientsRoutes(
   // POST /patients
   fastify.post("/patients", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createPatient(deps.patientRepo, orgId, request.body as CreatePatientInput);
+    const result = await createPatient(deps.patientRepo, orgId, request.body as PatientInput);
     return reply.code(201).send(result);
   });
   // GET /patients/{id}
@@ -41,7 +41,7 @@ export async function patientsRoutes(
   fastify.patch("/patients/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updatePatient(deps.patientRepo, orgId, id, request.body as UpdatePatientInput);
+        const result = await updatePatient(deps.patientRepo, orgId, id, request.body as PatientUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /patients/{id}

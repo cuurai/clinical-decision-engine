@@ -9,14 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/adapters-shared";
 import type { InterfaceHealthCheckRepository } from "@cuur-cde/core/integration-interoperability/repositories/index.js";
 import type {
   InterfaceHealthCheckInput,
   InterfaceHealthCheck,
 } from "@cuur-cde/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../../_shared/src/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur/adapters-shared";
 
 const DEFAULT_LIMIT = 50;
 

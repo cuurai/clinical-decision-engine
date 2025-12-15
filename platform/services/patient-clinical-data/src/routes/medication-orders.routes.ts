@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createMedicationOrder, deleteMedicationOrder, getMedicationOrder, listMedicationOrders, updateMedicationOrder } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { MedicationOrderInput, MedicationOrderUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function medicationOrdersRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function medicationOrdersRoutes(
   // POST /medication-orders
   fastify.post("/medication-orders", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createMedicationOrder(deps.medicationOrderRepo, orgId, request.body as CreateMedicationOrderInput);
+    const result = await createMedicationOrder(deps.medicationOrderRepo, orgId, request.body as MedicationOrderInput);
     return reply.code(201).send(result);
   });
   // GET /medication-orders/{id}
@@ -41,7 +41,7 @@ export async function medicationOrdersRoutes(
   fastify.patch("/medication-orders/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateMedicationOrder(deps.medicationOrderRepo, orgId, id, request.body as UpdateMedicationOrderInput);
+        const result = await updateMedicationOrder(deps.medicationOrderRepo, orgId, id, request.body as MedicationOrderUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /medication-orders/{id}

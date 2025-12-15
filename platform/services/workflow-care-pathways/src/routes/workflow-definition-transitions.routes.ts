@@ -10,6 +10,7 @@
  */
 
 import type { FastifyInstance } from "fastify";
+import { extractOrgId } from "../extract-org-id.js";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { listWorkflowDefinitionTransitions } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 export async function workflowDefinitionTransitionsRoutes(

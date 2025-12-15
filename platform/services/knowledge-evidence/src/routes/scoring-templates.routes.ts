@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createScoringTemplate, deleteScoringTemplate, getScoringTemplate, listScoringTemplates, updateScoringTemplate } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { ScoringTemplateInput, ScoringTemplateUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function scoringTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function scoringTemplatesRoutes(
   // POST /scoring-templates
   fastify.post("/scoring-templates", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createScoringTemplate(deps.scoringTemplateRepo, orgId, request.body as CreateScoringTemplateInput);
+    const result = await createScoringTemplate(deps.scoringTemplateRepo, orgId, request.body as ScoringTemplateInput);
     return reply.code(201).send(result);
   });
   // GET /scoring-templates/{id}
@@ -41,7 +41,7 @@ export async function scoringTemplatesRoutes(
   fastify.patch("/scoring-templates/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateScoringTemplate(deps.scoringTemplateRepo, orgId, id, request.body as UpdateScoringTemplateInput);
+        const result = await updateScoringTemplate(deps.scoringTemplateRepo, orgId, id, request.body as ScoringTemplateUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /scoring-templates/{id}

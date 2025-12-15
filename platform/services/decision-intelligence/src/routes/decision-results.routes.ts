@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createDecisionResult, deleteDecisionResult, getDecisionResult, listDecisionResults, updateDecisionResult } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { DecisionResultInput, DecisionResultUpdate } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function decisionResultsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function decisionResultsRoutes(
   // POST /decision-results
   fastify.post("/decision-results", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createDecisionResult(deps.decisionResultRepo, orgId, request.body as CreateDecisionResultInput);
+    const result = await createDecisionResult(deps.decisionResultRepo, orgId, request.body as DecisionResultInput);
     return reply.code(201).send(result);
   });
   // GET /decision-results/{id}
@@ -41,7 +41,7 @@ export async function decisionResultsRoutes(
   fastify.patch("/decision-results/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateDecisionResult(deps.decisionResultRepo, orgId, id, request.body as UpdateDecisionResultInput);
+        const result = await updateDecisionResult(deps.decisionResultRepo, orgId, id, request.body as DecisionResultUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /decision-results/{id}

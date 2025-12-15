@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createConceptMap, deleteConceptMap, getConceptMap, listConceptMaps, updateConceptMap } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { ConceptMapInput, ConceptMapUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function conceptMapsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function conceptMapsRoutes(
   // POST /concept-maps
   fastify.post("/concept-maps", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createConceptMap(deps.conceptMapRepo, orgId, request.body as CreateConceptMapInput);
+    const result = await createConceptMap(deps.conceptMapRepo, orgId, request.body as ConceptMapInput);
     return reply.code(201).send(result);
   });
   // GET /concept-maps/{id}
@@ -41,7 +41,7 @@ export async function conceptMapsRoutes(
   fastify.patch("/concept-maps/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateConceptMap(deps.conceptMapRepo, orgId, id, request.body as UpdateConceptMapInput);
+        const result = await updateConceptMap(deps.conceptMapRepo, orgId, id, request.body as ConceptMapUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /concept-maps/{id}

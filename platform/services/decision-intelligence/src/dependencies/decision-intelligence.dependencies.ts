@@ -42,7 +42,6 @@ import type {
   DecisionPolicyThresholdProfileRepository,
   ThresholdProfileRepository,
   DecisionMetricRepository,
-  DecisionMetricSnapshotRepository,
   ExperimentRepository,
   ExperimentArmRepository,
   ExperimentResultRepository
@@ -84,7 +83,6 @@ export interface Dependencies {
   decisionPolicyThresholdProfileRepo: DecisionPolicyThresholdProfileRepository;
   thresholdProfileRepo: ThresholdProfileRepository;
   decisionMetricRepo: DecisionMetricRepository;
-  decisionMetricSnapshotRepo: DecisionMetricSnapshotRepository;
   experimentRepo: ExperimentRepository;
   experimentArmRepo: ExperimentArmRepository;
   experimentResultRepo: ExperimentResultRepository;
@@ -130,7 +128,6 @@ export function createDependencies(
     decisionPolicyThresholdProfileRepo: DecisionPolicyThresholdProfileRepository;
     thresholdProfileRepo: ThresholdProfileRepository;
     decisionMetricRepo: DecisionMetricRepository;
-    decisionMetricSnapshotRepo: DecisionMetricSnapshotRepository;
     experimentRepo: ExperimentRepository;
     experimentArmRepo: ExperimentArmRepository;
     experimentResultRepo: ExperimentResultRepository;
@@ -169,7 +166,6 @@ export function createDependencies(
     decisionPolicyThresholdProfileRepo: repos.decisionPolicyThresholdProfileRepo,
     thresholdProfileRepo: repos.thresholdProfileRepo,
     decisionMetricRepo: repos.decisionMetricRepo,
-    decisionMetricSnapshotRepo: repos.decisionMetricSnapshotRepo,
     experimentRepo: repos.experimentRepo,
     experimentArmRepo: repos.experimentArmRepo,
     experimentResultRepo: repos.experimentResultRepo,

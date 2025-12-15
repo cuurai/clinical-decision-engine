@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createConnection, deleteConnection, getConnection, listConnections, updateConnection } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { ConnectionInput, ConnectionUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function connectionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function connectionsRoutes(
   // POST /connections
   fastify.post("/connections", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createConnection(deps.connectionRepo, orgId, request.body as CreateConnectionInput);
+    const result = await createConnection(deps.connectionRepo, orgId, request.body as ConnectionInput);
     return reply.code(201).send(result);
   });
   // GET /connections/{id}
@@ -41,7 +41,7 @@ export async function connectionsRoutes(
   fastify.patch("/connections/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateConnection(deps.connectionRepo, orgId, id, request.body as UpdateConnectionInput);
+        const result = await updateConnection(deps.connectionRepo, orgId, id, request.body as ConnectionUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /connections/{id}

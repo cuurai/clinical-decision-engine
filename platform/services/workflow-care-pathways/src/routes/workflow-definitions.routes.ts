@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createWorkflowDefinition, deleteWorkflowDefinition, getWorkflowDefinition, listWorkflowDefinitions, updateWorkflowDefinition } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type { WorkflowDefinitionInput, WorkflowDefinitionUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function workflowDefinitionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function workflowDefinitionsRoutes(
   // POST /workflow-definitions
   fastify.post("/workflow-definitions", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createWorkflowDefinition(deps.workflowDefinitionRepo, orgId, request.body as CreateWorkflowDefinitionInput);
+    const result = await createWorkflowDefinition(deps.workflowDefinitionRepo, orgId, request.body as WorkflowDefinitionInput);
     return reply.code(201).send(result);
   });
   // GET /workflow-definitions/{id}
@@ -41,7 +41,7 @@ export async function workflowDefinitionsRoutes(
   fastify.patch("/workflow-definitions/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-    const result = await updateWorkflowDefinition(deps.workflowDefinitionRepo, orgId, id, request.body as UpdateWorkflowDefinitionInput);
+    const result = await updateWorkflowDefinition(deps.workflowDefinitionRepo, orgId, id, request.body as WorkflowDefinitionUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /workflow-definitions/{id}

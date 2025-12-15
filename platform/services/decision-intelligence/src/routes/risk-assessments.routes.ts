@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createRiskAssessment, deleteRiskAssessment, getRiskAssessment, listRiskAssessments, updateRiskAssessment } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { RiskAssessmentInput, RiskAssessmentUpdate } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function riskAssessmentsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function riskAssessmentsRoutes(
   // POST /risk-assessments
   fastify.post("/risk-assessments", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createRiskAssessment(deps.riskAssessmentRepo, orgId, request.body as CreateRiskAssessmentInput);
+    const result = await createRiskAssessment(deps.riskAssessmentRepo, orgId, request.body as RiskAssessmentInput);
     return reply.code(201).send(result);
   });
   // GET /risk-assessments/{id}
@@ -41,7 +41,7 @@ export async function riskAssessmentsRoutes(
   fastify.patch("/risk-assessments/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateRiskAssessment(deps.riskAssessmentRepo, orgId, id, request.body as UpdateRiskAssessmentInput);
+        const result = await updateRiskAssessment(deps.riskAssessmentRepo, orgId, id, request.body as RiskAssessmentUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /risk-assessments/{id}

@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createObservation, deleteObservation, getObservation, listObservations, updateObservation } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { ObservationInput, ObservationUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function observationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function observationsRoutes(
   // POST /observations
   fastify.post("/observations", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createObservation(deps.observationRepo, orgId, request.body as CreateObservationInput);
+    const result = await createObservation(deps.observationRepo, orgId, request.body as ObservationInput);
     return reply.code(201).send(result);
   });
   // GET /observations/{id}
@@ -41,7 +41,7 @@ export async function observationsRoutes(
   fastify.patch("/observations/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateObservation(deps.observationRepo, orgId, id, request.body as UpdateObservationInput);
+        const result = await updateObservation(deps.observationRepo, orgId, id, request.body as ObservationUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /observations/{id}

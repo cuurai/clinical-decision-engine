@@ -10,6 +10,7 @@
  */
 
 import type { FastifyInstance } from "fastify";
+import { extractOrgId } from "../extract-org-id.js";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { listFHIRMappingProfileRules } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 export async function fHIRMappingProfileRulesRoutes(

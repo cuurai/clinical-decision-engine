@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createEventSubscription, deleteEventSubscription, getEventSubscription, listEventSubscriptions, updateEventSubscription } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { EventSubscriptionInput, EventSubscriptionUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function eventSubscriptionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function eventSubscriptionsRoutes(
   // POST /event-subscriptions
   fastify.post("/event-subscriptions", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createEventSubscription(deps.eventSubscriptionRepo, orgId, request.body as CreateEventSubscriptionInput);
+    const result = await createEventSubscription(deps.eventSubscriptionRepo, orgId, request.body as EventSubscriptionInput);
     return reply.code(201).send(result);
   });
   // GET /event-subscriptions/{id}
@@ -41,7 +41,7 @@ export async function eventSubscriptionsRoutes(
   fastify.patch("/event-subscriptions/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateEventSubscription(deps.eventSubscriptionRepo, orgId, id, request.body as UpdateEventSubscriptionInput);
+        const result = await updateEventSubscription(deps.eventSubscriptionRepo, orgId, id, request.body as EventSubscriptionUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /event-subscriptions/{id}

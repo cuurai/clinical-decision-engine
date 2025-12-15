@@ -10,6 +10,7 @@
  */
 
 import type { FastifyInstance } from "fastify";
+import { extractOrgId } from "../extract-org-id.js";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { listQuestionnaireTemplateQuestions } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 export async function questionnaireTemplateQuestionsRoutes(

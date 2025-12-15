@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createImmunization, deleteImmunization, getImmunization, listImmunizations, updateImmunization } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { ImmunizationInput, ImmunizationUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function immunizationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function immunizationsRoutes(
   // POST /immunizations
   fastify.post("/immunizations", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createImmunization(deps.immunizationRepo, orgId, request.body as CreateImmunizationInput);
+    const result = await createImmunization(deps.immunizationRepo, orgId, request.body as ImmunizationInput);
     return reply.code(201).send(result);
   });
   // GET /immunizations/{id}
@@ -41,7 +41,7 @@ export async function immunizationsRoutes(
   fastify.patch("/immunizations/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateImmunization(deps.immunizationRepo, orgId, id, request.body as UpdateImmunizationInput);
+        const result = await updateImmunization(deps.immunizationRepo, orgId, id, request.body as ImmunizationUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /immunizations/{id}

@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createIntegrationJob, deleteIntegrationJob, getIntegrationJob, listIntegrationJobs, updateIntegrationJob } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { IntegrationJobInput, IntegrationJobUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function integrationJobsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function integrationJobsRoutes(
   // POST /integration-jobs
   fastify.post("/integration-jobs", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createIntegrationJob(deps.integrationJobRepo, orgId, request.body as CreateIntegrationJobInput);
+    const result = await createIntegrationJob(deps.integrationJobRepo, orgId, request.body as IntegrationJobInput);
     return reply.code(201).send(result);
   });
   // GET /integration-jobs/{id}
@@ -41,7 +41,7 @@ export async function integrationJobsRoutes(
   fastify.patch("/integration-jobs/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateIntegrationJob(deps.integrationJobRepo, orgId, id, request.body as UpdateIntegrationJobInput);
+        const result = await updateIntegrationJob(deps.integrationJobRepo, orgId, id, request.body as IntegrationJobUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /integration-jobs/{id}

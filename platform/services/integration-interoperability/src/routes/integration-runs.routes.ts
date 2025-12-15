@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createIntegrationRun, getIntegrationRun, listIntegrationRuns } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { IntegrationRunInput } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function integrationRunsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function integrationRunsRoutes(
   // POST /integration-runs
   fastify.post("/integration-runs", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createIntegrationRun(deps.integrationRunRepo, orgId, request.body as CreateIntegrationRunInput);
+    const result = await createIntegrationRun(deps.integrationRunRepo, orgId, request.body as IntegrationRunInput);
     return reply.code(201).send(result);
   });
   // GET /integration-runs/{id}

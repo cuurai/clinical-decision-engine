@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createFHIRBundle, deleteFHIRBundle, getFHIRBundle, listFHIRBundles } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { FHIRBundleInput } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function fHIRBundlesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function fHIRBundlesRoutes(
   // POST /fhir-bundles
   fastify.post("/fhir-bundles", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createFHIRBundle(deps.fHIRBundleRepo, orgId, request.body as CreateFHIRBundleInput);
+    const result = await createFHIRBundle(deps.fHIRBundleRepo, orgId, request.body as FHIRBundleInput);
     return reply.code(201).send(result);
   });
   // GET /fhir-bundles/{id}

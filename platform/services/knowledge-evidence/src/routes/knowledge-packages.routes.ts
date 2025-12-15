@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createKnowledgePackage, deleteKnowledgePackage, getKnowledgePackage, listKnowledgePackages, updateKnowledgePackage } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { KnowledgePackageInput, KnowledgePackageUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function knowledgePackagesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function knowledgePackagesRoutes(
   // POST /knowledge-packages
   fastify.post("/knowledge-packages", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createKnowledgePackage(deps.knowledgePackageRepo, orgId, request.body as CreateKnowledgePackageInput);
+    const result = await createKnowledgePackage(deps.knowledgePackageRepo, orgId, request.body as KnowledgePackageInput);
     return reply.code(201).send(result);
   });
   // GET /knowledge-packages/{id}
@@ -41,7 +41,7 @@ export async function knowledgePackagesRoutes(
   fastify.patch("/knowledge-packages/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateKnowledgePackage(deps.knowledgePackageRepo, orgId, id, request.body as UpdateKnowledgePackageInput);
+        const result = await updateKnowledgePackage(deps.knowledgePackageRepo, orgId, id, request.body as KnowledgePackageUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /knowledge-packages/{id}

@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createRoutingRule, deleteRoutingRule, getRoutingRule, listRoutingRules, updateRoutingRule } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type { RoutingRuleInput, RoutingRuleUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function routingRulesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function routingRulesRoutes(
   // POST /routing-rules
   fastify.post("/routing-rules", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createRoutingRule(deps.routingRuleRepo, orgId, request.body as CreateRoutingRuleInput);
+    const result = await createRoutingRule(deps.routingRuleRepo, orgId, request.body as RoutingRuleInput);
     return reply.code(201).send(result);
   });
   // GET /routing-rules/{id}
@@ -41,7 +41,7 @@ export async function routingRulesRoutes(
   fastify.patch("/routing-rules/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-    const result = await updateRoutingRule(deps.routingRuleRepo, orgId, id, request.body as UpdateRoutingRuleInput);
+    const result = await updateRoutingRule(deps.routingRuleRepo, orgId, id, request.body as RoutingRuleUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /routing-rules/{id}

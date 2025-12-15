@@ -12,7 +12,7 @@
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { listRiskAssessmentExplanations } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function riskAssessmentExplanationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

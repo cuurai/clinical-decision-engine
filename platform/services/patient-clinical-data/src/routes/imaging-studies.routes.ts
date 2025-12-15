@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createImagingStudy, deleteImagingStudy, getImagingStudy, listImagingStudies, updateImagingStudy } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { ImagingStudyInput, ImagingStudyUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function imagingStudiesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function imagingStudiesRoutes(
   // POST /imaging-studies
   fastify.post("/imaging-studies", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createImagingStudy(deps.imagingStudyRepo, orgId, request.body as CreateImagingStudyInput);
+    const result = await createImagingStudy(deps.imagingStudyRepo, orgId, request.body as ImagingStudyInput);
     return reply.code(201).send(result);
   });
   // GET /imaging-studies/{id}
@@ -41,7 +41,7 @@ export async function imagingStudiesRoutes(
   fastify.patch("/imaging-studies/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateImagingStudy(deps.imagingStudyRepo, orgId, id, request.body as UpdateImagingStudieInput);
+        const result = await updateImagingStudy(deps.imagingStudyRepo, orgId, id, request.body as ImagingStudyUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /imaging-studies/{id}

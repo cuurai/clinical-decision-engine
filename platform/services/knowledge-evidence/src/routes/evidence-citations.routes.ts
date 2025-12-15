@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createEvidenceCitation, deleteEvidenceCitation, getEvidenceCitation, listEvidenceCitations, updateEvidenceCitation } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { EvidenceCitationInput, EvidenceCitationUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function evidenceCitationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function evidenceCitationsRoutes(
   // POST /evidence-citations
   fastify.post("/evidence-citations", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createEvidenceCitation(deps.evidenceCitationRepo, orgId, request.body as CreateEvidenceCitationInput);
+    const result = await createEvidenceCitation(deps.evidenceCitationRepo, orgId, request.body as EvidenceCitationInput);
     return reply.code(201).send(result);
   });
   // GET /evidence-citations/{id}
@@ -41,7 +41,7 @@ export async function evidenceCitationsRoutes(
   fastify.patch("/evidence-citations/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateEvidenceCitation(deps.evidenceCitationRepo, orgId, id, request.body as UpdateEvidenceCitationInput);
+        const result = await updateEvidenceCitation(deps.evidenceCitationRepo, orgId, id, request.body as EvidenceCitationUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /evidence-citations/{id}

@@ -22,7 +22,7 @@
 // Import Prisma client from adapters-generated client
 import { PrismaClient } from "@prisma/client";
 import { startService, createDependencies } from "./index.js";
-import type { DaoClient } from "@cuur/adapters-shared/dao-client.js";
+import type { DaoClient } from "@cuur/adapters-shared";
 import {
   DaoAlertAuditEventRepository,
   DaoAlertExplanationRepository,
@@ -40,9 +40,8 @@ import {
   DaoChecklistTemplateRepository,
   DaoEpisodeOfCareCarePlanRepository,
   DaoEpisodeOfCareEncounterRepository,
-  DaoEpisodeOfCareRepository,
-  DaoEpisodeOfCareWorkflowInstanceRepository,
   DaoEpisodesOfCareRepository,
+  DaoEpisodeOfCareWorkflowInstanceRepository,
   DaoEscalationPolicyRepository,
   DaoEscalationPolicyRuleRepository,
   DaoHandoffRepository,
@@ -118,7 +117,7 @@ async function main() {
     checklistTemplateRepo: new DaoChecklistTemplateRepository(daoClient),
     episodeOfCareCarePlanRepo: new DaoEpisodeOfCareCarePlanRepository(daoClient),
     episodeOfCareEncounterRepo: new DaoEpisodeOfCareEncounterRepository(daoClient),
-    episodeOfCareRepo: new DaoEpisodeOfCareRepository(daoClient),
+    episodeOfCareRepo: new DaoEpisodesOfCareRepository(daoClient),
     episodeOfCareWorkflowInstanceRepo: new DaoEpisodeOfCareWorkflowInstanceRepository(daoClient),
     episodesOfCareRepo: new DaoEpisodesOfCareRepository(daoClient),
     escalationPolicyRepo: new DaoEscalationPolicyRepository(daoClient),

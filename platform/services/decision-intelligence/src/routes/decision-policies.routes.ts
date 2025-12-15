@@ -22,7 +22,7 @@ import type {
   DecisionPolicyInput,
   DecisionPolicyUpdate,
 } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function decisionPoliciesRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /decision-policies
   fastify.get("/decision-policies", async (request, reply) => {
@@ -36,7 +36,7 @@ export async function decisionPoliciesRoutes(fastify: FastifyInstance, deps: Dep
     const result = await createDecisionPolicy(
       deps.decisionPolicyRepo,
       orgId,
-      request.body as CreateDecisionPolicyInput
+      request.body as DecisionPolicyInput
     );
     return reply.code(201).send(result);
   });
@@ -55,7 +55,7 @@ export async function decisionPoliciesRoutes(fastify: FastifyInstance, deps: Dep
       deps.decisionPolicyRepo,
       orgId,
       id,
-      request.body as UpdateDecisionPolicieInput
+      request.body as DecisionPolicyUpdate
     );
     return reply.code(200).send(result);
   });

@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createEvidenceReview, deleteEvidenceReview, getEvidenceReview, listEvidenceReviews, updateEvidenceReview } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { EvidenceReviewInput, EvidenceReviewUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function evidenceReviewsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function evidenceReviewsRoutes(
   // POST /evidence-reviews
   fastify.post("/evidence-reviews", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createEvidenceReview(deps.evidenceReviewRepo, orgId, request.body as CreateEvidenceReviewInput);
+    const result = await createEvidenceReview(deps.evidenceReviewRepo, orgId, request.body as EvidenceReviewInput);
     return reply.code(201).send(result);
   });
   // GET /evidence-reviews/{id}
@@ -41,7 +41,7 @@ export async function evidenceReviewsRoutes(
   fastify.patch("/evidence-reviews/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateEvidenceReview(deps.evidenceReviewRepo, orgId, id, request.body as UpdateEvidenceReviewInput);
+        const result = await updateEvidenceReview(deps.evidenceReviewRepo, orgId, id, request.body as EvidenceReviewUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /evidence-reviews/{id}

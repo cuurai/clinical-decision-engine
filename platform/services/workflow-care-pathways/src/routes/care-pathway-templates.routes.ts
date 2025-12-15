@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createCarePathwayTemplate, deleteCarePathwayTemplate, getCarePathwayTemplate, listCarePathwayTemplates, updateCarePathwayTemplate } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type { CarePathwayTemplateInput, CarePathwayTemplateUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function carePathwayTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function carePathwayTemplatesRoutes(
   // POST /care-pathway-templates
   fastify.post("/care-pathway-templates", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId, request.body as CreateCarePathwayTemplateInput);
+    const result = await createCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId, request.body as CarePathwayTemplateInput);
     return reply.code(201).send(result);
   });
   // GET /care-pathway-templates/{id}
@@ -41,7 +41,7 @@ export async function carePathwayTemplatesRoutes(
   fastify.patch("/care-pathway-templates/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId, id, request.body as UpdateCarePathwayTemplateInput);
+        const result = await updateCarePathwayTemplate(deps.carePathwayTemplateRepo, orgId, id, request.body as CarePathwayTemplateUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /care-pathway-templates/{id}

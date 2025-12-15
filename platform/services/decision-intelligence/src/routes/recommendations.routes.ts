@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createRecommendation, deleteRecommendation, getRecommendation, listRecommendations, updateRecommendation } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { RecommendationInput, RecommendationUpdate } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function recommendationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function recommendationsRoutes(
   // POST /recommendations
   fastify.post("/recommendations", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createRecommendation(deps.recommendationRepo, orgId, request.body as CreateRecommendationInput);
+    const result = await createRecommendation(deps.recommendationRepo, orgId, request.body as RecommendationInput);
     return reply.code(201).send(result);
   });
   // GET /recommendations/{id}
@@ -41,7 +41,7 @@ export async function recommendationsRoutes(
   fastify.patch("/recommendations/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateRecommendation(deps.recommendationRepo, orgId, id, request.body as UpdateRecommendationInput);
+        const result = await updateRecommendation(deps.recommendationRepo, orgId, id, request.body as RecommendationUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /recommendations/{id}

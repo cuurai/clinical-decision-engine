@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createCareTeam, deleteCareTeam, getCareTeam, listCareTeams, updateCareTeam } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { CareTeamInput, CareTeamUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function careTeamsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function careTeamsRoutes(
   // POST /care-teams
   fastify.post("/care-teams", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createCareTeam(deps.careTeamRepo, orgId, request.body as CreateCareTeamInput);
+    const result = await createCareTeam(deps.careTeamRepo, orgId, request.body as CareTeamInput);
     return reply.code(201).send(result);
   });
   // GET /care-teams/{id}
@@ -41,7 +41,7 @@ export async function careTeamsRoutes(
   fastify.patch("/care-teams/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateCareTeam(deps.careTeamRepo, orgId, id, request.body as UpdateCareTeamInput);
+        const result = await updateCareTeam(deps.careTeamRepo, orgId, id, request.body as CareTeamUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /care-teams/{id}

@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createEventDelivery, getEventDelivery, listEventDeliveries, updateEventDelivery } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { EventDeliveryInput, EventDeliveryUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function eventDeliveriesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function eventDeliveriesRoutes(
   // POST /event-deliveries
   fastify.post("/event-deliveries", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createEventDelivery(deps.eventDeliveryRepo, orgId, request.body as CreateEventDeliveryInput);
+    const result = await createEventDelivery(deps.eventDeliveryRepo, orgId, request.body as EventDeliveryInput);
     return reply.code(201).send(result);
   });
   // GET /event-deliveries/{id}
@@ -41,7 +41,7 @@ export async function eventDeliveriesRoutes(
   fastify.patch("/event-deliveries/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateEventDelivery(deps.eventDeliveryRepo, orgId, id, request.body as UpdateEventDeliverieInput);
+        const result = await updateEventDelivery(deps.eventDeliveryRepo, orgId, id, request.body as EventDeliverieUpdate);
     return reply.code(200).send(result);
   });
 

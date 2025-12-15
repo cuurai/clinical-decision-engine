@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createThresholdProfile, deleteThresholdProfile, getThresholdProfile, listThresholdProfiles, updateThresholdProfile } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { ThresholdProfileInput, ThresholdProfileUpdate } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function thresholdProfilesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function thresholdProfilesRoutes(
   // POST /threshold-profiles
   fastify.post("/threshold-profiles", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createThresholdProfile(deps.thresholdProfileRepo, orgId, request.body as CreateThresholdProfileInput);
+    const result = await createThresholdProfile(deps.thresholdProfileRepo, orgId, request.body as ThresholdProfileInput);
     return reply.code(201).send(result);
   });
   // GET /threshold-profiles/{id}
@@ -41,7 +41,7 @@ export async function thresholdProfilesRoutes(
   fastify.patch("/threshold-profiles/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateThresholdProfile(deps.thresholdProfileRepo, orgId, id, request.body as UpdateThresholdProfileInput);
+        const result = await updateThresholdProfile(deps.thresholdProfileRepo, orgId, id, request.body as ThresholdProfileUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /threshold-profiles/{id}

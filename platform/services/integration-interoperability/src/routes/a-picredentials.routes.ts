@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createAPICredential, deleteAPICredential, getAPICredential, listAPICredentials, updateAPICredential } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { APICredentialInput, APICredentialUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function aPICredentialsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function aPICredentialsRoutes(
   // POST /api-credentials
   fastify.post("/api-credentials", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createAPICredential(deps.aPICredentialRepo, orgId, request.body as CreateAPICredentialInput);
+    const result = await createAPICredential(deps.aPICredentialRepo, orgId, request.body as APICredentialInput);
     return reply.code(201).send(result);
   });
   // GET /api-credentials/{id}
@@ -41,7 +41,7 @@ export async function aPICredentialsRoutes(
   fastify.patch("/api-credentials/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateAPICredential(deps.aPICredentialRepo, orgId, id, request.body as UpdateAPicredentialInput);
+        const result = await updateAPICredential(deps.aPICredentialRepo, orgId, id, request.body as APICredentialUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /api-credentials/{id}

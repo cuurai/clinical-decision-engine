@@ -19,10 +19,10 @@ import {
   updateAlertEvaluation,
 } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type {
-  CreateAlertEvaluationInput,
-  UpdateAlertEvaluationInput,
+  AlertEvaluationInput,
+  AlertEvaluationUpdate,
 } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 
 export async function alertEvaluationsRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /alert-evaluations
@@ -37,7 +37,7 @@ export async function alertEvaluationsRoutes(fastify: FastifyInstance, deps: Dep
     const result = await createAlertEvaluation(
       deps.alertEvaluationRepo,
       orgId,
-      request.body as CreateAlertEvaluationInput
+      request.body as AlertEvaluationInput
     );
     return reply.code(201).send(result);
   });
@@ -56,7 +56,7 @@ export async function alertEvaluationsRoutes(fastify: FastifyInstance, deps: Dep
       deps.alertEvaluationRepo,
       orgId,
       id,
-      request.body as UpdateAlertEvaluationInput
+      request.body as AlertEvaluationUpdate
     );
     return reply.code(200).send(result);
   });

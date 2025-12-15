@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createTask, deleteTask, getTask, listTasks, updateTask } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type { TaskInput, TaskUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function tasksRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function tasksRoutes(
   // POST /tasks
   fastify.post("/tasks", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createTask(deps.taskRepo, orgId, request.body as CreateTaskInput);
+    const result = await createTask(deps.taskRepo, orgId, request.body as TaskInput);
     return reply.code(201).send(result);
   });
   // GET /tasks/{id}
@@ -41,7 +41,7 @@ export async function tasksRoutes(
   fastify.patch("/tasks/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-    const result = await updateTask(deps.taskRepo, orgId, id, request.body as UpdateTaskInput);
+    const result = await updateTask(deps.taskRepo, orgId, id, request.body as TaskUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /tasks/{id}

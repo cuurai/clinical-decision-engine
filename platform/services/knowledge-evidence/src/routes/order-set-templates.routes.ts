@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createOrderSetTemplate, deleteOrderSetTemplate, getOrderSetTemplate, listOrderSetTemplates, updateOrderSetTemplate } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { OrderSetTemplateInput, OrderSetTemplateUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function orderSetTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function orderSetTemplatesRoutes(
   // POST /order-set-templates
   fastify.post("/order-set-templates", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createOrderSetTemplate(deps.orderSetTemplateRepo, orgId, request.body as CreateOrderSetTemplateInput);
+    const result = await createOrderSetTemplate(deps.orderSetTemplateRepo, orgId, request.body as OrderSetTemplateInput);
     return reply.code(201).send(result);
   });
   // GET /order-set-templates/{id}
@@ -41,7 +41,7 @@ export async function orderSetTemplatesRoutes(
   fastify.patch("/order-set-templates/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateOrderSetTemplate(deps.orderSetTemplateRepo, orgId, id, request.body as UpdateOrderSetTemplateInput);
+        const result = await updateOrderSetTemplate(deps.orderSetTemplateRepo, orgId, id, request.body as OrderSetTemplateUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /order-set-templates/{id}

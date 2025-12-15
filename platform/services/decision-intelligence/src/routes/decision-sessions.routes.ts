@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createDecisionSession, deleteDecisionSession, getDecisionSession, listDecisionSessions, updateDecisionSession } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { DecisionSessionInput, DecisionSessionUpdate } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function decisionSessionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function decisionSessionsRoutes(
   // POST /decision-sessions
   fastify.post("/decision-sessions", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createDecisionSession(deps.decisionSessionRepo, orgId, request.body as CreateDecisionSessionInput);
+    const result = await createDecisionSession(deps.decisionSessionRepo, orgId, request.body as DecisionSessionInput);
     return reply.code(201).send(result);
   });
   // GET /decision-sessions/{id}
@@ -41,7 +41,7 @@ export async function decisionSessionsRoutes(
   fastify.patch("/decision-sessions/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateDecisionSession(deps.decisionSessionRepo, orgId, id, request.body as UpdateDecisionSessionInput);
+        const result = await updateDecisionSession(deps.decisionSessionRepo, orgId, id, request.body as DecisionSessionUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /decision-sessions/{id}

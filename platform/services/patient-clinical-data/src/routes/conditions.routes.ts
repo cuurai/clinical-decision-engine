@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createCondition, deleteCondition, getCondition, listConditions, updateCondition } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { ConditionInput, ConditionUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function conditionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function conditionsRoutes(
   // POST /conditions
   fastify.post("/conditions", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createCondition(deps.conditionRepo, orgId, request.body as CreateConditionInput);
+    const result = await createCondition(deps.conditionRepo, orgId, request.body as ConditionInput);
     return reply.code(201).send(result);
   });
   // GET /conditions/{id}
@@ -41,7 +41,7 @@ export async function conditionsRoutes(
   fastify.patch("/conditions/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateCondition(deps.conditionRepo, orgId, id, request.body as UpdateConditionInput);
+        const result = await updateCondition(deps.conditionRepo, orgId, id, request.body as ConditionUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /conditions/{id}

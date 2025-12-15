@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createRuleSet, deleteRuleSet, getRuleSet, listRuleSets, updateRuleSet } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { RuleSetInput, RuleSetUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function ruleSetsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function ruleSetsRoutes(
   // POST /rule-sets
   fastify.post("/rule-sets", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createRuleSet(deps.ruleSetRepo, orgId, request.body as CreateRuleSetInput);
+    const result = await createRuleSet(deps.ruleSetRepo, orgId, request.body as RuleSetInput);
     return reply.code(201).send(result);
   });
   // GET /rule-sets/{id}
@@ -41,7 +41,7 @@ export async function ruleSetsRoutes(
   fastify.patch("/rule-sets/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateRuleSet(deps.ruleSetRepo, orgId, id, request.body as UpdateRuleSetInput);
+        const result = await updateRuleSet(deps.ruleSetRepo, orgId, id, request.body as RuleSetUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /rule-sets/{id}

@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createWorkQueue, deleteWorkQueue, getWorkQueue, listWorkQueues, updateWorkQueue } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type { WorkQueueInput, WorkQueueUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function workQueuesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function workQueuesRoutes(
   // POST /work-queues
   fastify.post("/work-queues", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createWorkQueue(deps.workQueueRepo, orgId, request.body as CreateWorkQueueInput);
+    const result = await createWorkQueue(deps.workQueueRepo, orgId, request.body as WorkQueueInput);
     return reply.code(201).send(result);
   });
   // GET /work-queues/{id}
@@ -41,7 +41,7 @@ export async function workQueuesRoutes(
   fastify.patch("/work-queues/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-    const result = await updateWorkQueue(deps.workQueueRepo, orgId, id, request.body as UpdateWorkQueueInput);
+    const result = await updateWorkQueue(deps.workQueueRepo, orgId, id, request.body as WorkQueueUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /work-queues/{id}

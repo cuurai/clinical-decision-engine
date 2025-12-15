@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createAllergy, deleteAllergy, getAllergy, listAllergies, updateAllergy } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { AllergyInput, AllergyUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function allergiesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function allergiesRoutes(
   // POST /allergies
   fastify.post("/allergies", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createAllergy(deps.allergyRepo, orgId, request.body as CreateAllergyInput);
+    const result = await createAllergy(deps.allergyRepo, orgId, request.body as AllergyInput);
     return reply.code(201).send(result);
   });
   // GET /allergies/{id}
@@ -41,7 +41,7 @@ export async function allergiesRoutes(
   fastify.patch("/allergies/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateAllergy(deps.allergyRepo, orgId, id, request.body as UpdateAllergieInput);
+        const result = await updateAllergy(deps.allergyRepo, orgId, id, request.body as AllergyUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /allergies/{id}

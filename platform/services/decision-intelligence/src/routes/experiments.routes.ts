@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createExperiment, deleteExperiment, getExperiment, listExperiments, updateExperiment } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { ExperimentInput, ExperimentUpdate } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function experimentsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function experimentsRoutes(
   // POST /experiments
   fastify.post("/experiments", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createExperiment(deps.experimentRepo, orgId, request.body as CreateExperimentInput);
+    const result = await createExperiment(deps.experimentRepo, orgId, request.body as ExperimentInput);
     return reply.code(201).send(result);
   });
   // GET /experiments/{id}
@@ -41,7 +41,7 @@ export async function experimentsRoutes(
   fastify.patch("/experiments/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateExperiment(deps.experimentRepo, orgId, id, request.body as UpdateExperimentInput);
+        const result = await updateExperiment(deps.experimentRepo, orgId, id, request.body as ExperimentUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /experiments/{id}

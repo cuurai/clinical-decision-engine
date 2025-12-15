@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createSimulationRun, getSimulationRun, listSimulationRuns } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { SimulationRunInput } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function simulationRunsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function simulationRunsRoutes(
   // POST /simulation-runs
   fastify.post("/simulation-runs", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createSimulationRun(deps.simulationRunRepo, orgId, request.body as CreateSimulationRunInput);
+    const result = await createSimulationRun(deps.simulationRunRepo, orgId, request.body as SimulationRunInput);
     return reply.code(201).send(result);
   });
   // GET /simulation-runs/{id}

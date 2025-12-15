@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createProcedure, deleteProcedure, getProcedure, listProcedures, updateProcedure } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { ProcedureInput, ProcedureUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function proceduresRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function proceduresRoutes(
   // POST /procedures
   fastify.post("/procedures", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createProcedure(deps.procedureRepo, orgId, request.body as CreateProcedureInput);
+    const result = await createProcedure(deps.procedureRepo, orgId, request.body as ProcedureInput);
     return reply.code(201).send(result);
   });
   // GET /procedures/{id}
@@ -41,7 +41,7 @@ export async function proceduresRoutes(
   fastify.patch("/procedures/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateProcedure(deps.procedureRepo, orgId, id, request.body as UpdateProcedureInput);
+        const result = await updateProcedure(deps.procedureRepo, orgId, id, request.body as ProcedureUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /procedures/{id}

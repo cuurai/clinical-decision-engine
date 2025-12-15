@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createNote, deleteNote, getNote, listNotes, updateNote } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { ClinicalNoteInput, ClinicalNoteUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../../../shared/extract-org-id.js";
+import { extractOrgId } from "../extract-org-id.js";
 export async function notesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
@@ -27,7 +27,7 @@ export async function notesRoutes(
   // POST /notes
   fastify.post("/notes", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createNote(deps.noteRepo, orgId, request.body as CreateClinicalNoteInput);
+    const result = await createNote(deps.noteRepo, orgId, request.body as ClinicalNoteInput);
     return reply.code(201).send(result);
   });
   // GET /notes/{id}
@@ -41,7 +41,7 @@ export async function notesRoutes(
   fastify.patch("/notes/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateNote(deps.noteRepo, orgId, id, request.body as UpdateNoteInput);
+        const result = await updateNote(deps.noteRepo, orgId, id, request.body as ClinicalNoteUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /notes/{id}
