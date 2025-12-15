@@ -14,6 +14,7 @@ import type { RoutingRuleRepository } from "@cuur/core/workflow-care-pathways/re
 import type {
   RoutingRuleInput,
   RoutingRuleUpdate,
+  UpdateRoutingRuleRequest,
   RoutingRule,
   Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";

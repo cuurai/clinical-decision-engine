@@ -14,6 +14,7 @@ import type { CarePlanRepository } from "@cuur/core/workflow-care-pathways/repos
 import type {
   CarePlanInput,
   CarePlanUpdate,
+  UpdateCarePlanRequest,
   CarePlan,
   Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";

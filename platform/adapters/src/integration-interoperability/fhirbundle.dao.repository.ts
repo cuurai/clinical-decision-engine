@@ -79,7 +79,7 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
     }
     return result;
   }
-  async create(orgId: OrgId, data: FHIRBundle): Promise<FHIRBundle> {
+  async create(orgId: OrgId, data: FHIRBundleInput): Promise<FHIRBundle> {
     try {
       const record = await this.dao.fhirbundle.create({
         data: {

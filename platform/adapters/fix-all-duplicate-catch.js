@@ -18,7 +18,7 @@ async function fixFile(filePath) {
   // Fix duplicate catch blocks - look for pattern: } catch (error) { ... } catch (error) { ... }
   // Match the entire catch block including the closing brace
   const duplicateCatchRegex = /(\} catch \(error\) \{\s*handleDatabaseError\(error\);\s*throw error;\s*\})\s+\} catch \(error\) \{\s*handleDatabaseError\(error\);\s*throw error;\s*\}/g;
-  
+
   if (duplicateCatchRegex.test(content)) {
     content = content.replace(duplicateCatchRegex, '$1');
     modified = true;
@@ -26,7 +26,7 @@ async function fixFile(filePath) {
 
   // Also check for cases where there might be extra whitespace
   const duplicateCatchRegex2 = /(\} catch \(error\) \{[\s\S]*?handleDatabaseError\(error\);[\s\S]*?throw error;[\s\S]*?\})\s*\} catch \(error\) \{[\s\S]*?handleDatabaseError\(error\);[\s\S]*?throw error;[\s\S]*?\}/g;
-  
+
   if (duplicateCatchRegex2.test(content)) {
     content = content.replace(duplicateCatchRegex2, '$1');
     modified = true;

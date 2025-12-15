@@ -9,18 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  DocumentRepository,
-} from "@cuur/core/patient-clinical-data/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { DocumentRepository } from "@cuur/core/patient-clinical-data/repositories/index.js";
 import type {
   DocumentReferenceInput,
   DocumentReferenceUpdate,
-  Document, Timestamps,
+  UpdateDocumentReferenceRequest,
+  DocumentReference,
+  Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +30,7 @@ export class DaoDocumentRepository implements DocumentRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<Document>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<DocumentReference>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +41,17 @@ export class DaoDocumentRepository implements DocumentRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -66,7 +59,7 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Document | null> {
+  async findById(orgId: OrgId, id: string): Promise<DocumentReference | null> {
     try {
       const record = await this.dao.document.findFirst({
         where: {
@@ -81,20 +74,22 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Document | null> {
+  async get(orgId: OrgId, id: string): Promise<DocumentReference | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Document", id);
+      throw new NotFoundError("DocumentReference", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: Document): Promise<Document> {
+  async create(orgId: OrgId, data: DocumentReference): Promise<DocumentReference> {
+    // Note: Repository interface expects DocumentReference, but we only use input fields
+    // Extract only the input fields to avoid including id, createdAt, updatedAt
+    const inputData = data as unknown as DocumentReferenceInput;
     try {
       const record = await this.dao.document.create({
         data: {
-          ...data,
-          orgId, // Set orgId after spread to ensure it's always set correctly
-          
+          ...inputData,
+          orgId,
         },
       });
       return this.toDomain(record);
@@ -103,13 +98,16 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: DocumentUpdate): Promise<Document> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateDocumentReferenceRequest
+  ): Promise<DocumentReference> {
     try {
       const record = await this.dao.document.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -125,7 +123,6 @@ export class DaoDocumentRepository implements DocumentRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -133,11 +130,14 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<DocumentReferenceInput>): Promise<Document[]> {
+  async createMany(
+    orgId: OrgId,
+    items: Array<DocumentReferenceInput>
+  ): Promise<DocumentReference[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
-        const results: Document[] = [];
+        const results: DocumentReference[] = [];
         for (const item of items) {
           const record = await tx.document.create({
             data: {
@@ -154,11 +154,14 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DocumentReferenceUpdate }>): Promise<Document[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: UpdateDocumentReferenceRequest }>
+  ): Promise<DocumentReference[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
-        const results: Document[] = [];
+        const results: DocumentReference[] = [];
         for (const { id, data } of updates) {
           const record = await tx.document.update({
             where: { id, orgId },
@@ -183,7 +186,6 @@ export class DaoDocumentRepository implements DocumentRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -191,15 +193,16 @@ export class DaoDocumentRepository implements DocumentRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Document {
+  private toDomain(model: any): DocumentReference {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Document;
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
+    } as DocumentReference;
   }
 }

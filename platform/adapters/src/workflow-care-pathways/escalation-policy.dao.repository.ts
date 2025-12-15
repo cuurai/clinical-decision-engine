@@ -14,6 +14,7 @@ import type { EscalationPolicyRepository } from "@cuur/core/workflow-care-pathwa
 import type {
   EscalationPolicyInput,
   EscalationPolicyUpdate,
+  UpdateEscalationPolicyRequest,
   EscalationPolicy,
   Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";

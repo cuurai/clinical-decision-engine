@@ -9,18 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  AllergyRepository,
-} from "@cuur/core/patient-clinical-data/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { AllergyRepository } from "@cuur/core/patient-clinical-data/repositories/index.js";
 import type {
   AllergyInput,
   AllergyUpdate,
-  Allergy, Timestamps,
+  UpdateAllergyRequest,
+  Allergy,
+  Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +30,7 @@ export class DaoAllergyRepository implements AllergyRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<Allergy>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<Allergy>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +41,17 @@ export class DaoAllergyRepository implements AllergyRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +90,6 @@ export class DaoAllergyRepository implements AllergyRepository {
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -112,7 +104,6 @@ export class DaoAllergyRepository implements AllergyRepository {
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +119,6 @@ export class DaoAllergyRepository implements AllergyRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -157,7 +147,10 @@ export class DaoAllergyRepository implements AllergyRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: AllergyUpdate }>): Promise<Allergy[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: AllergyUpdate }>
+  ): Promise<Allergy[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -186,7 +179,6 @@ export class DaoAllergyRepository implements AllergyRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -197,12 +189,13 @@ export class DaoAllergyRepository implements AllergyRepository {
   private toDomain(model: any): Allergy {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as Allergy;
   }
 }

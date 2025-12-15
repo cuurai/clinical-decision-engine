@@ -14,6 +14,7 @@ import type { ProcedureRepository } from "@cuur/core/patient-clinical-data/repos
 import type {
   ProcedureInput,
   ProcedureUpdate,
+  UpdateProcedureRequest,
   Procedure,
   Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";

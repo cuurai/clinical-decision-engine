@@ -17,7 +17,7 @@ async function fixFile(filePath) {
 
   // Fix duplicate catch blocks: } catch (error) { ... } catch (error) { ... }
   const duplicateCatchPattern = /(\} catch \(error\) \{[\s\S]*?handleDatabaseError\(error\);[\s\S]*?throw error;[\s\S]*?\})\s+\} catch \(error\) \{[\s\S]*?handleDatabaseError\(error\);[\s\S]*?throw error;[\s\S]*?\}/g;
-  
+
   if (duplicateCatchPattern.test(content)) {
     content = content.replace(duplicateCatchPattern, '$1');
     modified = true;

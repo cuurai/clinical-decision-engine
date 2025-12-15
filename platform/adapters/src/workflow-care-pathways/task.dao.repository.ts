@@ -14,6 +14,7 @@ import type { TaskRepository } from "@cuur/core/workflow-care-pathways/repositor
 import type {
   TaskInput,
   TaskUpdate,
+  UpdateTaskRequest,
   Task,
   Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";

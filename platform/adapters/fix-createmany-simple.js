@@ -13,7 +13,7 @@ const __dirname = dirname(__filename);
 
 async function fixFile(filePath) {
   let content = readFileSync(filePath, 'utf-8');
-  
+
   if (!content.includes("Note: createMany doesn't return created records")) {
     return false;
   }
@@ -22,7 +22,7 @@ async function fixFile(filePath) {
   const entityMatch = content.match(/Promise<(\w+)\[\]>/);
   const daoMatch = content.match(/this\.dao\.(\w+)\.createMany/);
   const inputMatch = content.match(/Array<(\w+Input)>/);
-  
+
   if (!entityMatch || !daoMatch || !inputMatch) {
     console.log(`Skipping ${filePath} - couldn't extract types`);
     return false;
@@ -35,10 +35,10 @@ async function fixFile(filePath) {
   // Find the broken section - from "// Fetch created records" to "return records.map"
   const startMarker = "// Fetch created records";
   const endMarker = "return records.map((r: any) => this.toDomain(r));";
-  
+
   const startIdx = content.indexOf(startMarker);
   const endIdx = content.indexOf(endMarker);
-  
+
   if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
     console.log(`Skipping ${filePath} - couldn't find markers`);
     return false;
@@ -75,7 +75,7 @@ async function fixFile(filePath) {
   // Replace the entire method body
   const beforeMethod = content.substring(0, tryStart);
   const afterMethod = content.substring(catchEnd + 1);
-  
+
   const newMethodBody = `try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -97,7 +97,7 @@ async function fixFile(filePath) {
     }`;
 
   const newContent = beforeMethod + newMethodBody + afterMethod;
-  
+
   writeFileSync(filePath, newContent, 'utf-8');
   console.log(`Fixed: ${filePath}`);
   return true;

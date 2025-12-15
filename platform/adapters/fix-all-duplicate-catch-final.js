@@ -14,11 +14,11 @@ const __dirname = dirname(__filename);
 async function fixFile(filePath) {
   let content = readFileSync(filePath, 'utf-8');
   const originalContent = content;
-  
+
   // Fix duplicate catch blocks - match the exact pattern with proper whitespace
   // Pattern: } catch (error) { handleDatabaseError(error); throw error; } catch (error) { handleDatabaseError(error); throw error; }
   const pattern = /(\} catch \(error\) \{[\s\S]*?handleDatabaseError\(error\);[\s\S]*?throw error;[\s\S]*?\})\s*\} catch \(error\) \{[\s\S]*?handleDatabaseError\(error\);[\s\S]*?throw error;[\s\S]*?\}/g;
-  
+
   content = content.replace(pattern, '$1');
 
   if (content !== originalContent) {

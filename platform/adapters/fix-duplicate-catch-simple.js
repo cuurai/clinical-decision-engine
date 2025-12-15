@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 async function fixFile(filePath) {
   let content = readFileSync(filePath, 'utf-8');
   const originalContent = content;
-  
+
   // Simple pattern: } catch (error) { ... } catch (error) { ... }
   // Replace with just one catch block
   content = content.replace(

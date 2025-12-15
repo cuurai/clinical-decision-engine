@@ -14,6 +14,7 @@ import type { TaskAssignmentRepository } from "@cuur/core/workflow-care-pathways
 import type {
   TaskAssignmentInput,
   TaskAssignmentUpdate,
+  UpdateTaskAssignmentRequest,
   TaskAssignment,
   Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";

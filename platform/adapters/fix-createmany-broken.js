@@ -23,7 +23,7 @@ async function fixFile(filePath) {
   // Extract entity name and DAO model name
   const entityMatch = content.match(/async createMany\([^)]+\): Promise<(\w+)\[\]>/);
   const daoMatch = content.match(/await this\.dao\.(\w+)\.createMany/);
-  
+
   if (!entityMatch || !daoMatch) {
     console.log(`Skipping ${filePath} - couldn't extract types`);
     return false;
@@ -62,12 +62,12 @@ async function fixFile(filePath) {
 
   // Try a simpler pattern match
   const simplePattern = /(\/\/ Fetch created records\s*\/\/ Note: createMany doesn't return created records[^\n]*\n[^\n]*\n[^\n]*\n\s*return \[\];\s*\n\s*\}\s*\n\s*const records = await this\.dao\.\w+\.findMany\(\{\s*where: \{ id: \{ in: ids \}, orgId \},\s+\}\);)/s;
-  
+
   if (simplePattern.test(content)) {
     // Find the input type name
     const inputTypeMatch = content.match(/Array<(\w+Input)>/);
     const inputType = inputTypeMatch ? inputTypeMatch[1] : `${entityName.replace(/Repository$/, '').replace(/Dao$/, '')}Input`;
-    
+
     const newCode = `// Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ${entityName}[] = [];
@@ -82,7 +82,7 @@ async function fixFile(filePath) {
         }
         return results;
       });`;
-    
+
     content = content.replace(simplePattern, newCode);
     modified = true;
   }
@@ -92,7 +92,7 @@ async function fixFile(filePath) {
     console.log(`Fixed: ${filePath}`);
     return true;
   }
-  
+
   return false;
 }
 

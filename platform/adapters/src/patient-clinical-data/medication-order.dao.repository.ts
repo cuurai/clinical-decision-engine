@@ -14,6 +14,7 @@ import type { MedicationOrderRepository } from "@cuur/core/patient-clinical-data
 import type {
   MedicationOrderInput,
   MedicationOrderUpdate,
+  UpdateMedicationOrderRequest,
   MedicationOrder,
   Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";

@@ -14,6 +14,7 @@ import type { ImmunizationRepository } from "@cuur/core/patient-clinical-data/re
 import type {
   ImmunizationInput,
   ImmunizationUpdate,
+  UpdateImmunizationRequest,
   Immunization,
   Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";

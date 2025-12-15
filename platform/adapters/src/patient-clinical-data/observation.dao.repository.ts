@@ -14,6 +14,7 @@ import type { ObservationRepository } from "@cuur/core/patient-clinical-data/rep
 import type {
   ObservationInput,
   ObservationUpdate,
+  UpdateObservationRequest,
   Observation,
   Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";

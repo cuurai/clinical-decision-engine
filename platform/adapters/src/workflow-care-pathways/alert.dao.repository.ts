@@ -14,6 +14,7 @@ import type { AlertRepository } from "@cuur/core/workflow-care-pathways/reposito
 import type {
   AlertInput,
   AlertUpdate,
+  UpdateAlertRequest,
   Alert,
   Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";

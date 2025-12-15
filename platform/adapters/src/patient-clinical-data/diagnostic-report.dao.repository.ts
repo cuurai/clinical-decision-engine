@@ -9,18 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  DiagnosticReportRepository,
-} from "@cuur/core/patient-clinical-data/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { DiagnosticReportRepository } from "@cuur/core/patient-clinical-data/repositories/index.js";
 import type {
   DiagnosticReportInput,
   DiagnosticReportUpdate,
-  DiagnosticReport, Timestamps,
+  UpdateDiagnosticReportRequest,
+  DiagnosticReport,
+  Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +30,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<DiagnosticReport>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<DiagnosticReport>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +41,17 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +90,6 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -106,13 +98,16 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateDiagnosticReportRequest): Promise<DiagnosticReport> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateDiagnosticReportRequest
+  ): Promise<DiagnosticReport> {
     try {
       const record = await this.dao.diagnosticReport.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +123,6 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -157,7 +151,10 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DiagnosticReportUpdate }>): Promise<DiagnosticReport[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: DiagnosticReportUpdate }>
+  ): Promise<DiagnosticReport[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -186,7 +183,6 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -197,12 +193,13 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
   private toDomain(model: any): DiagnosticReport {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as DiagnosticReport;
   }
 }

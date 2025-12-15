@@ -14,6 +14,7 @@ import type { PatientRepository } from "@cuur/core/patient-clinical-data/reposit
 import type {
   PatientInput,
   PatientUpdate,
+  UpdatePatientRequest,
   Patient,
   Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";

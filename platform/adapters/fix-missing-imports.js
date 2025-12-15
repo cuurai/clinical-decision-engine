@@ -53,21 +53,21 @@ async function fixFile(filePath) {
   for (const [oldType, newType] of Object.entries(typeMappings)) {
     // Check if newType is used in the file
     const usesNewType = new RegExp(`\\b${newType}\\b`).test(content);
-    
+
     if (usesNewType) {
       // Check if it's already imported
       const alreadyImported = new RegExp(`import[^}]*\\b${newType}\\b`).test(content);
-      
+
       if (!alreadyImported) {
         // Find the import statement from @cuur/core
         const importPattern = /(import type\s*\{[^}]*)(\} from "@cuur\/core\/[^"]+")/;
         const match = content.match(importPattern);
-        
+
         if (match) {
           // Add the new type to the import
           const beforeBrace = match[1];
           const afterBrace = match[2];
-          
+
           // Check if there's already a newline before the closing brace
           if (beforeBrace.trim().endsWith(',')) {
             content = content.replace(importPattern, `$1\n  ${newType},$2`);

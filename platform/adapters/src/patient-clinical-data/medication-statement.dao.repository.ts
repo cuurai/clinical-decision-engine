@@ -14,6 +14,7 @@ import type { MedicationStatementRepository } from "@cuur/core/patient-clinical-
 import type {
   MedicationStatementInput,
   MedicationStatementUpdate,
+  UpdateMedicationStatementRequest,
   MedicationStatement,
   Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";

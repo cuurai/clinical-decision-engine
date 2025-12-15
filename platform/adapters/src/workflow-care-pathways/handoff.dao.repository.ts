@@ -14,6 +14,7 @@ import type { HandoffRepository } from "@cuur/core/workflow-care-pathways/reposi
 import type {
   HandoffInput,
   HandoffUpdate,
+  UpdateHandoffRequest,
   Handoff,
   Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";

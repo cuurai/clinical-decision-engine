@@ -14,6 +14,7 @@ import type { ImagingStudyRepository } from "@cuur/core/patient-clinical-data/re
 import type {
   ImagingStudyInput,
   ImagingStudyUpdate,
+  UpdateImagingStudyRequest,
   ImagingStudy,
   Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";

@@ -10,10 +10,8 @@
  */
 
 import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
-import type {
-  ValueSetRepository,
-  UpdateValueSetRequest,
-} from "@cuur/core/knowledge-evidence/repositories/index.js";
+import type { ValueSetRepository } from "@cuur/core/knowledge-evidence/repositories/index.js";
+import type { UpdateValueSetRequest } from "@cuur/core/knowledge-evidence/types/index.js";
 import type {
   ValueSet,
   Timestamps,

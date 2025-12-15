@@ -14,6 +14,7 @@ import type { CarePathwayTemplateRepository } from "@cuur/core/workflow-care-pat
 import type {
   CarePathwayTemplateInput,
   CarePathwayTemplateUpdate,
+  UpdateCarePathwayTemplateRequest,
   CarePathwayTemplate,
   Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";

@@ -15,7 +15,7 @@ const __dirname = dirname(__filename);
 async function fixFile(filePath) {
   let content = readFileSync(filePath, 'utf-8');
   const originalContent = content;
-  
+
   // Remove redundant throw error; after handleDatabaseError(error);
   // Pattern: handleDatabaseError(error);\n      throw error;
   content = content.replace(

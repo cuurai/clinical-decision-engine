@@ -9,17 +9,12 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  IntegrationRunRepository,
-} from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { IntegrationRunRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
 import type {
   IntegrationRunInput,
-  IntegrationRun, Timestamps,
+  IntegrationRun,
+  Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -33,10 +28,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<IntegrationRun>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<IntegrationRun>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -47,17 +39,17 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -96,7 +88,6 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -129,12 +120,13 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
   private toDomain(model: any): IntegrationRun {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as IntegrationRun;
   }
 }

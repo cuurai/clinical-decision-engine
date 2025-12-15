@@ -14,6 +14,7 @@ import type { ChecklistInstanceRepository } from "@cuur/core/workflow-care-pathw
 import type {
   ChecklistInstanceInput,
   ChecklistInstanceUpdate,
+  UpdateChecklistInstanceRequest,
   ChecklistInstance,
   Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";
@@ -80,15 +81,12 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
     }
     return result;
   }
-  async create(orgId: OrgId, data: ChecklistInstance): Promise<ChecklistInstance> {
-    // Note: Repository interface expects ChecklistInstance, but we only use input fields
-    // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as ChecklistInstanceInput;
+  async create(orgId: OrgId, data: ChecklistInstanceInput): Promise<ChecklistInstance> {
     try {
       const record = await this.dao.checklistInstance.create({
         data: {
           ...data,
-          orgId, // Set orgId after spread to ensure it's always set correctly
+          orgId,
         },
       });
       return this.toDomain(record);

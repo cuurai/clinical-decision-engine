@@ -14,7 +14,8 @@ import type { NoteRepository } from "@cuur/core/patient-clinical-data/repositori
 import type {
   ClinicalNoteInput,
   ClinicalNoteUpdate,
-  Note,
+  UpdateClinicalNoteRequest,
+  ClinicalNote,
   Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
@@ -29,7 +30,7 @@ export class DaoNoteRepository implements NoteRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<Note>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<ClinicalNote>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -58,7 +59,7 @@ export class DaoNoteRepository implements NoteRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Note | null> {
+  async findById(orgId: OrgId, id: string): Promise<ClinicalNote | null> {
     try {
       const record = await this.dao.note.findFirst({
         where: {
@@ -73,22 +74,22 @@ export class DaoNoteRepository implements NoteRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Note | null> {
+  async get(orgId: OrgId, id: string): Promise<ClinicalNote | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Note", id);
+      throw new NotFoundError("ClinicalNote", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: Note): Promise<Note> {
-    // Note: Repository interface expects Note, but we only use input fields
+  async create(orgId: OrgId, data: ClinicalNote): Promise<ClinicalNote> {
+    // Note: Repository interface expects ClinicalNote, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as NoteInput;
+    const inputData = data as unknown as ClinicalNoteInput;
     try {
       const record = await this.dao.note.create({
         data: {
-          ...data,
-          orgId, // Set orgId after spread to ensure it's always set correctly
+          ...inputData,
+          orgId,
         },
       });
       return this.toDomain(record);
@@ -97,7 +98,7 @@ export class DaoNoteRepository implements NoteRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: NoteUpdate): Promise<Note> {
+  async update(orgId: OrgId, id: string, data: UpdateClinicalNoteRequest): Promise<ClinicalNote> {
     try {
       const record = await this.dao.note.update({
         where: { id, orgId },
@@ -125,11 +126,11 @@ export class DaoNoteRepository implements NoteRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<ClinicalNoteInput>): Promise<Note[]> {
+  async createMany(orgId: OrgId, items: Array<ClinicalNoteInput>): Promise<ClinicalNote[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
-        const results: Note[] = [];
+        const results: ClinicalNote[] = [];
         for (const item of items) {
           const record = await tx.note.create({
             data: {
@@ -148,12 +149,12 @@ export class DaoNoteRepository implements NoteRepository {
   }
   async updateMany(
     orgId: OrgId,
-    updates: Array<{ id: string; data: ClinicalNoteUpdate }>
-  ): Promise<Note[]> {
+    updates: Array<{ id: string; data: UpdateClinicalNoteRequest }>
+  ): Promise<ClinicalNote[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
-        const results: Note[] = [];
+        const results: ClinicalNote[] = [];
         for (const { id, data } of updates) {
           const record = await tx.note.update({
             where: { id, orgId },
@@ -185,7 +186,7 @@ export class DaoNoteRepository implements NoteRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Note {
+  private toDomain(model: any): ClinicalNote {
     return {
       ...model,
       createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
@@ -195,6 +196,6 @@ export class DaoNoteRepository implements NoteRepository {
           : model.updatedAt
           ? new Date(model.updatedAt)
           : undefined,
-    } as Note;
+    } as ClinicalNote;
   }
 }

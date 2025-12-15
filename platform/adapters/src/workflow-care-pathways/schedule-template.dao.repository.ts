@@ -14,6 +14,7 @@ import type { ScheduleTemplateRepository } from "@cuur/core/workflow-care-pathwa
 import type {
   ScheduleTemplateInput,
   ScheduleTemplateUpdate,
+  UpdateScheduleTemplateRequest,
   ScheduleTemplate,
   Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";

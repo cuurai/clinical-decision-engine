@@ -16,6 +16,7 @@ import type {
   Timestamps,
   WorkflowInstanceInput,
   WorkflowInstanceUpdate,
+  UpdateWorkflowInstanceRequest,
 } from "@cuur/core/workflow-care-pathways/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";

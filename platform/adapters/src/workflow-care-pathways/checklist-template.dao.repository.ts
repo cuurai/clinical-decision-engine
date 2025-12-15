@@ -14,6 +14,7 @@ import type { ChecklistTemplateRepository } from "@cuur/core/workflow-care-pathw
 import type {
   ChecklistTemplateInput,
   ChecklistTemplateUpdate,
+  UpdateChecklistTemplateRequest,
   ChecklistTemplate,
   Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";
