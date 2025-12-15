@@ -1,6 +1,8 @@
 packages:
   # Core root package (@cuur-cde/core)
   - "packages/core"
+  # Shared database package (@cde/db)
+  - "packages/database"
   # Core domain packages
   - "packages/core/_shared"
   - "packages/core/decision-intelligence"

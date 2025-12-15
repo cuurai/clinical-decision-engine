@@ -20,7 +20,7 @@
  */
 
 // Import Prisma client from adapters-generated client
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@cde/db";
 import { startService, createDependencies } from "./index.js";
 import type { DaoClient } from "@cuur/adapters-shared";
 import {
@@ -65,15 +65,6 @@ import {
 /**
  * Initialize Prisma client with environment-specific configuration
  */
-function createPrismaClient(): PrismaClient {
-  const isDevelopment = process.env.NODE_ENV === "development";
-  const isTest = process.env.NODE_ENV === "test";
-
-  return new PrismaClient({
-    log: isDevelopment ? ["query", "info", "warn", "error"] : ["error"],
-    errorFormat: isDevelopment ? "pretty" : "minimal",
-  });
-}
 
 /**
  * Main service startup
@@ -84,7 +75,7 @@ async function main() {
   console.log(`   Node Version: ${process.version}`);
 
   // Initialize database connection
-  const prisma = createPrismaClient();
+  // Using shared Prisma client from @cde/db
 
   try {
     // Test database connection

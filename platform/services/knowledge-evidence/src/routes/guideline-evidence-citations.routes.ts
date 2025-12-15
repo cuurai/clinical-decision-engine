@@ -17,8 +17,15 @@ export async function guidelineEvidenceCitationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /guidelines/{id}/evidence-citations
+  // GET /guidelines/{id}/evidence-citations (nested route)
   fastify.get("/guidelines/:id/evidence-citations", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listGuidelineEvidenceCitations(deps.guidelineEvidenceCitationRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /guideline-evidence-citations (standalone route for dashboard)
+  fastify.get("/guideline-evidence-citations", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listGuidelineEvidenceCitations(deps.guidelineEvidenceCitationRepo, orgId);
     return reply.code(200).send(result);
