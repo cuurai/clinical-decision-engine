@@ -16,6 +16,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@cuur-cde/core": "workspace:*",
     "@prisma/client": "^6.0.1"
   },
   "devDependencies": {

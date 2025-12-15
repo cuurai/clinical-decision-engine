@@ -9,16 +9,16 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
-import type { APICredentialRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared";
+import type { APICredentialRepository } from "@cuur-cde/core/integration-interoperability/repositories/index.js";
 import type {
   APICredentialInput,
   UpdateAPICredentialRequest,
   APICredential,
   Timestamps,
-} from "@cuur/core/integration-interoperability/types/index.js";
-import type { DaoClient } from "../shared/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
+} from "@cuur-cde/core/integration-interoperability/types/index.js";
+import type { DaoClient } from "../../_shared/src/dao-client.js";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 

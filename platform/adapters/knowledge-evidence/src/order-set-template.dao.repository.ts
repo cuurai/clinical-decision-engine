@@ -9,17 +9,17 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
-import type { OrderSetTemplateRepository } from "@cuur/core/knowledge-evidence/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared";
+import type { OrderSetTemplateRepository } from "@cuur-cde/core/knowledge-evidence/repositories/index.js";
 import type {
   OrderSetTemplateInput,
   OrderSetTemplateUpdate,
   UpdateOrderSetTemplateRequest,
   OrderSetTemplate,
   Timestamps,
-} from "@cuur/core/knowledge-evidence/types/index.js";
-import type { DaoClient } from "../shared/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
+} from "@cuur-cde/core/knowledge-evidence/types/index.js";
+import type { DaoClient } from "../../_shared/src/dao-client.js";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 

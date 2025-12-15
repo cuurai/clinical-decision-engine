@@ -9,17 +9,17 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
-import type { DecisionPolicyRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
-import type { UpdateDecisionPolicyRequest } from "@cuur/core/decision-intelligence/types/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "../../_shared/src/index.js";
+import type { DecisionPolicyRepository } from "@cuur-cde/core/decision-intelligence/repositories/index.js";
+import type { UpdateDecisionPolicyRequest } from "@cuur-cde/core/decision-intelligence/types/index.js";
 import type {
   DecisionPolicyInput,
   DecisionPolicyUpdate,
   DecisionPolicy,
   Timestamps,
-} from "@cuur/core/decision-intelligence/types/index.js";
-import type { DaoClient } from "../../shared/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../../shared/index.js";
+} from "@cuur-cde/core/decision-intelligence/types/index.js";
+import type { DaoClient } from "../../_shared/src/dao-client.js";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "../../_shared/src/index.js";
 
 const DEFAULT_LIMIT = 50;
 

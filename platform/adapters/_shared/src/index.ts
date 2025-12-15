@@ -5,9 +5,13 @@
  * - NotFoundError: Custom error for 404 cases
  * - TransactionManager: Manages database transactions
  * - handleDatabaseError: Centralized error handling for database operations
+ * - Shared types: OrgId, PaginatedResult, PaginationParams
  */
 
 import type { DaoClient } from "./dao-client.js";
+
+// Re-export shared types from core/_shared
+export type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared";
 
 /**
  * Custom error class for resource not found scenarios

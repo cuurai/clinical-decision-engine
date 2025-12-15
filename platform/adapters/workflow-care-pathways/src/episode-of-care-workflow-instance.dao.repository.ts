@@ -13,15 +13,15 @@ import type {
   OrgId,
   PaginatedResult,
   PaginationParams,
-} from "@cuur/core";
+} from "@cuur-cde/core/_shared";
 import type {
   EpisodeOfCareWorkflowInstanceRepository,
-} from "@cuur/core/workflow-care-pathways/repositories/index.js";
+} from "@cuur-cde/core/workflow-care-pathways/repositories/index.js";
 import type {
   EpisodeOfCareWorkflowInstance,
-} from "@cuur/core/workflow-care-pathways/types/index.js";
-import type { DaoClient } from "../shared/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
+} from "@cuur-cde/core/workflow-care-pathways/types/index.js";
+import type { DaoClient } from "../../_shared/src/dao-client.js";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 

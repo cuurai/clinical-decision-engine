@@ -1,0 +1,23 @@
+{
+  "name": "@cuur/adapters-patient-clinical-data",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build tsconfig.json && npm run build:cleanup",
+    "build:cleanup": "find src -type f \\( -name '*.js' -o -name '*.d.ts' -o -name '*.js.map' -o -name '*.d.ts.map' \\) -delete 2>/dev/null || true",
+    "build:watch": "tsc -p tsconfig.json --watch",
+    "clean": "rm -rf dist && find src -type f \\( -name '*.js' -o -name '*.d.ts' -o -name '*.js.map' -o -name '*.d.ts.map' \\) -delete 2>/dev/null || true",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@cuur-cde/core": "workspace:*",
+    "@cuur/adapters-shared": "workspace:*",
+    "@prisma/client": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.3"
+  }
+}

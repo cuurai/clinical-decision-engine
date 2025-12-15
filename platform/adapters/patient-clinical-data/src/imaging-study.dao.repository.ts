@@ -9,17 +9,17 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
-import type { ImagingStudyRepository } from "@cuur/core/patient-clinical-data/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared";
+import type { ImagingStudyRepository } from "@cuur-cde/core/patient-clinical-data/repositories/index.js";
 import type {
   ImagingStudyInput,
   ImagingStudyUpdate,
   UpdateImagingStudyRequest,
   ImagingStudy,
   Timestamps,
-} from "@cuur/core/patient-clinical-data/types/index.js";
-import type { DaoClient } from "../shared/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
+} from "@cuur-cde/core/patient-clinical-data/types/index.js";
+import type { DaoClient } from "../../_shared/src/dao-client.js";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 

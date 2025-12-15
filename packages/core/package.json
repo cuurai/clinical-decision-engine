@@ -1,0 +1,61 @@
+{
+  "name": "@cuur-cde/core",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./_shared/dist/index.js",
+  "types": "./_shared/dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./_shared/dist/index.d.ts",
+      "default": "./_shared/dist/index.js"
+    },
+    "./_shared": {
+      "types": "./_shared/dist/index.d.ts",
+      "default": "./_shared/dist/index.js"
+    },
+    "./_shared/*": {
+      "types": "./_shared/dist/*.d.ts",
+      "default": "./_shared/dist/*.js"
+    },
+    "./decision-intelligence": {
+      "types": "./decision-intelligence/dist/index.d.ts",
+      "default": "./decision-intelligence/dist/index.js"
+    },
+    "./decision-intelligence/*": {
+      "types": "./decision-intelligence/dist/*.d.ts",
+      "default": "./decision-intelligence/dist/*.js"
+    },
+    "./integration-interoperability": {
+      "types": "./integration-interoperability/dist/index.d.ts",
+      "default": "./integration-interoperability/dist/index.js"
+    },
+    "./integration-interoperability/*": {
+      "types": "./integration-interoperability/dist/*.d.ts",
+      "default": "./integration-interoperability/dist/*.js"
+    },
+    "./knowledge-evidence": {
+      "types": "./knowledge-evidence/dist/index.d.ts",
+      "default": "./knowledge-evidence/dist/index.js"
+    },
+    "./knowledge-evidence/*": {
+      "types": "./knowledge-evidence/dist/*.d.ts",
+      "default": "./knowledge-evidence/dist/*.js"
+    },
+    "./patient-clinical-data": {
+      "types": "./patient-clinical-data/dist/index.d.ts",
+      "default": "./patient-clinical-data/dist/index.js"
+    },
+    "./patient-clinical-data/*": {
+      "types": "./patient-clinical-data/dist/*.d.ts",
+      "default": "./patient-clinical-data/dist/*.js"
+    },
+    "./workflow-care-pathways": {
+      "types": "./workflow-care-pathways/dist/index.d.ts",
+      "default": "./workflow-care-pathways/dist/index.js"
+    },
+    "./workflow-care-pathways/*": {
+      "types": "./workflow-care-pathways/dist/*.d.ts",
+      "default": "./workflow-care-pathways/dist/*.js"
+    }
+  }
+}

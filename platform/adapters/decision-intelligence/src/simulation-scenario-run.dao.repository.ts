@@ -13,15 +13,15 @@ import type {
   OrgId,
   PaginatedResult,
   PaginationParams,
-} from "@cuur/core";
+} from "../../_shared/src/index.js";
 import type {
   SimulationScenarioRunRepository,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
+} from "@cuur-cde/core/decision-intelligence/repositories/index.js";
 import type {
   SimulationScenarioRun,
-} from "@cuur/core/decision-intelligence/types/index.js";
-import type { DaoClient } from "../shared/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
+} from "@cuur-cde/core/decision-intelligence/types/index.js";
+import type { DaoClient } from "../../_shared/src/dao-client.js";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "../../_shared/src/index.js";
 
 const DEFAULT_LIMIT = 50;
 

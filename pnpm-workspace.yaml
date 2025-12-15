@@ -1,0 +1,19 @@
+packages:
+  # Core root package (@cuur-cde/core)
+  - "packages/core"
+  # Core domain packages
+  - "packages/core/_shared"
+  - "packages/core/decision-intelligence"
+  - "packages/core/integration-interoperability"
+  - "packages/core/knowledge-evidence"
+  - "packages/core/patient-clinical-data"
+  - "packages/core/workflow-care-pathways"
+  # Adapter packages
+  - "platform/adapters/_shared"
+  - "platform/adapters/decision-intelligence"
+  - "platform/adapters/integration-interoperability"
+  - "platform/adapters/knowledge-evidence"
+  - "platform/adapters/patient-clinical-data"
+  - "platform/adapters/workflow-care-pathways"
+  # Service packages (if needed)
+  - "platform/services/src/*"
