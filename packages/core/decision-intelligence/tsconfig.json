@@ -1,16 +1,12 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
     "noEmit": false,
     "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "verbatimModuleSyntax": false,
-    "baseUrl": "."
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"],
+  "include": ["src/**/*.ts"],
   "references": [{ "path": "../_shared" }]
 }
