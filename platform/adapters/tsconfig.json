@@ -1,21 +1,24 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "composite": true,
+    "noEmit": true,
+    "composite": false,
     "declaration": true,
     "declarationMap": true,
     "verbatimModuleSyntax": false,
     "baseUrl": "../../",
-    "paths": {
-      "@cuur/core": ["packages/core/src/index.ts"],
-      "@cuur/core/*": ["packages/core/src/*"]
-    }
+    "emitDeclarationOnly": false
   },
-  "references": [
-    { "path": "../../packages/core" }
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/dist/**",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.js",
+    "**/*.d.ts",
+    "**/*.js.map",
+    "**/*.d.ts.map"
   ],
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+  "include": []
 }
