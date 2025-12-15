@@ -1,29 +1,7 @@
 {
-  "name": "@cuurai/clinical-decision-engine-core",
+  "name": "@cuurai-cde/clinical-decision-engine-core",
   "version": "1.0.0",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js",
-    "./decision-intelligence/*": "./dist/decision-intelligence/*",
-    "./integration-interoperability/*": "./dist/integration-interoperability/*",
-    "./knowledge-evidence/*": "./dist/knowledge-evidence/*",
-    "./patient-clinical-data/*": "./dist/patient-clinical-data/*",
-    "./workflow-care-pathways/*": "./dist/workflow-care-pathways/*"
-  },
-  "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "build:watch": "tsc -p tsconfig.json --watch",
-    "clean": "rm -rf dist",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
-  },
-  "dependencies": {
-    "@zodios/core": "^10.9.0",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.0",
-    "typescript": "^5.3.3"
-  }
+  "private": true,
+  "description": "Core domains package - each domain builds independently"
 }
