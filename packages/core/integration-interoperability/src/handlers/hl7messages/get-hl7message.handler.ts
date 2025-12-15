@@ -7,7 +7,7 @@
 
 import type { GetHLMessageResponse } from "../../types/index.js";
 import type { HL7MessageRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { iiTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Get HL7 message by ID

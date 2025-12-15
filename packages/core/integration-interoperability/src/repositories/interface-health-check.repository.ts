@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { CreateReadRepository } from "../../shared/repositories/_base-repository.js";
+import type { CreateReadRepository } from "../../../_shared/src/repositories/_base-repository.js";
 
 import type {
   InterfaceHealthCheck,

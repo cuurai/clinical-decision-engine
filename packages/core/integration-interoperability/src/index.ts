@@ -37,7 +37,6 @@ export const IntegrationInteroperability = {
   handlers: Handlers,
   schemas: integrationInteroperabilitySchemas,
   openapi: {
-    types: OpenAPITypes,
     schemas: OpenAPISchemas,
   },
   converters: Converters,

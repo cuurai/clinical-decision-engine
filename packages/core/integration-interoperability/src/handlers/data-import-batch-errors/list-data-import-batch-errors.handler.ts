@@ -7,7 +7,7 @@
 
 import type { ListDataImportBatchErrorsResponse } from "../../types/index.js";
 import type { DataImportBatchErrorRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { iiTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List data import batch errors

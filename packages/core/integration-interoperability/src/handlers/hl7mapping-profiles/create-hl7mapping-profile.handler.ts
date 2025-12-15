@@ -7,7 +7,7 @@
 
 import type { CreateHLMappingProfileResponse } from "../../types/index.js";
 import type { HL7MappingProfileRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { iiTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 /**
  * Mapper: input → validated
  */

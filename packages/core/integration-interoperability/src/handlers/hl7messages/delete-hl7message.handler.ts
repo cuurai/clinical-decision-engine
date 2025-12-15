@@ -6,7 +6,7 @@
  */
 
 import type { HL7MessageRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { iiTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Delete HL7 message

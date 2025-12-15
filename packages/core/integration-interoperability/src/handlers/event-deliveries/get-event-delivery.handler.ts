@@ -7,7 +7,7 @@
 
 import type { GetEventDeliveryResponse } from "../../types/index.js";
 import type { EventDeliveryRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { iiTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Get event delivery by ID

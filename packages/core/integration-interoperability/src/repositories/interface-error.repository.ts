@@ -11,7 +11,7 @@
 
 import type {
   CreateUpdateReadRepository,
-} from "../../shared/repositories/_base-repository.js";
+} from "../../../_shared/src/repositories/_base-repository.js";
 
 import type {
   InterfaceError,

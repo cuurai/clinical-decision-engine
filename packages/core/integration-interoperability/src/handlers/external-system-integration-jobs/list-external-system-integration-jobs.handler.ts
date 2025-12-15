@@ -7,7 +7,7 @@
 
 import type { ListExternalSystemIntegrationJobsResponse } from "../../types/index.js";
 import type { ExternalSystemIntegrationJobRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { iiTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List external system integration jobs

@@ -7,7 +7,7 @@
 
 import type { ListAPIClientUsageMetricsResponse } from "../../types/index.js";
 import type { APIClientUsageMetricRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { iiTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List API client usage metrics

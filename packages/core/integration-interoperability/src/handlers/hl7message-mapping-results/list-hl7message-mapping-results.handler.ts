@@ -7,7 +7,7 @@
 
 import type { ListHLMessageMappingResultsResponse } from "../../types/index.js";
 import type { HL7MessageMappingResultRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { iiTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List HL7 message mapping results

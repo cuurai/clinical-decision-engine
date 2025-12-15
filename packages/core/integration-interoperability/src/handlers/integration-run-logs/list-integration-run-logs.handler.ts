@@ -7,7 +7,7 @@
 
 import type { ListIntegrationRunLogsResponse } from "../../types/index.js";
 import type { IntegrationRunLogRepository } from "../../repositories/index.js";
-import { iiTransactionId } from "../../../shared/helpers/id-generator.js";
+import { iiTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List integration run logs
