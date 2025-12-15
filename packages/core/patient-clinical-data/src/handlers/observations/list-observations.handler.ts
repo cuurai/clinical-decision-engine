@@ -7,7 +7,7 @@
 
 import type { ListObservationsParams, ListObservationsResponse } from "../../types/index.js";
 import type { ObservationRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List observations

@@ -7,7 +7,7 @@
 
 import type { GetImagingStudyResponse } from "../../types/index.js";
 import type { ImagingStudyRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Get imaging study by ID

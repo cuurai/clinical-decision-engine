@@ -7,7 +7,7 @@
 
 import type { ListGuidelineSectionsResponse } from "../../types/index.js";
 import type { GuidelineSectionRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { keTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List guideline sections

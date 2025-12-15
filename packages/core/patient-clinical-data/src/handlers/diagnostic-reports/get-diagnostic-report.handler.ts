@@ -7,7 +7,7 @@
 
 import type { GetDiagnosticReportResponse } from "../../types/index.js";
 import type { DiagnosticReportRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Get diagnostic report by ID

@@ -7,7 +7,7 @@
 
 import type { GetDocumentResponse } from "../../types/index.js";
 import type { DocumentRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Get document reference by ID

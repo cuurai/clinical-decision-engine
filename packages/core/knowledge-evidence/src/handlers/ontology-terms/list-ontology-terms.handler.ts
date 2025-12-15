@@ -7,7 +7,7 @@
 
 import type { SearchOntologyTermsParams, SearchOntologyTermsResponse } from "../../types/index.js";
 import type { OntologyTermRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { keTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Search/browse ontology terms

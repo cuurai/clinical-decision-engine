@@ -7,7 +7,7 @@
 
 import type { CreateAllergyResponse } from "../../types/index.js";
 import type { AllergyRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 /**
  * Mapper: input → validated
  */

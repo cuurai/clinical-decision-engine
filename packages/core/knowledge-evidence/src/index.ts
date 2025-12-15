@@ -19,15 +19,9 @@ import type * as OpenAPITypes from "./openapi/knowledge-evidence.openapi.types.j
 import * as OpenAPISchemas from "./openapi/knowledge-evidence.zod.schema.js";
 import * as Converters from "./utils/knowledge-evidence-converters.js";
 
-// Flat exports (for direct imports)
-export * from "./types/index.js";
-export * from "./models/index.js";
-export * from "./repositories/index.js";
-export * from "./handlers/index.js";
-export { schemas as knowledgeEvidenceSchemas } from "./schemas/knowledge-evidence.schemas.js";
-export type * from "./openapi/knowledge-evidence.openapi.types.js";
-export * from "./openapi/knowledge-evidence.zod.schema.js";
-export * from "./utils/knowledge-evidence-converters.js";
+// No wildcard re-exports - use the KnowledgeEvidence namespace or import directly from sub-modules
+// Example: import { KnowledgeEvidence } from "./index.js" then use KnowledgeEvidence.types.TypeName
+// Or: import type { TypeName } from "./types/index.js"
 
 // Named domain export (namespace containing all domain exports)
 export const KnowledgeEvidence = {
@@ -37,7 +31,6 @@ export const KnowledgeEvidence = {
   handlers: Handlers,
   schemas: knowledgeEvidenceSchemas,
   openapi: {
-    types: OpenAPITypes,
     schemas: OpenAPISchemas,
   },
   converters: Converters,

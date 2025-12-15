@@ -7,7 +7,7 @@
 
 import type { ListPatientImmunizationsResponse } from "../../types/index.js";
 import type { PatientImmunizationRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List patient immunizations

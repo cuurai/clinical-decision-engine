@@ -7,7 +7,7 @@
 
 import type { GetModelVersionResponse } from "../../types/index.js";
 import type { ModelVersionRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { keTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Get model version by ID

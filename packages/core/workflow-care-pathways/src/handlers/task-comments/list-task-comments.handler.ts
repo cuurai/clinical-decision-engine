@@ -7,7 +7,7 @@
 
 import type { ListTaskCommentsResponse } from "../../types/index.js";
 import type { TaskCommentRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { wcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List task comments

@@ -7,7 +7,7 @@
 
 import type { ListConditionsParams, ListConditionsResponse } from "../../types/index.js";
 import type { ConditionRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List conditions

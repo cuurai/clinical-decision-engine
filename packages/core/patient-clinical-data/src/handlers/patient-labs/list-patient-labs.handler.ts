@@ -7,7 +7,7 @@
 
 import type { ListPatientLabsResponse } from "../../types/index.js";
 import type { PatientLabRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List patient lab results

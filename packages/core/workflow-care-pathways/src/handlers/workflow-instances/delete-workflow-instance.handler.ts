@@ -6,7 +6,7 @@
  */
 
 import type { WorkflowInstanceRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { wcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Delete workflow instance

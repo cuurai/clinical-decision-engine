@@ -19,15 +19,9 @@ import type * as OpenAPITypes from "./openapi/patient-clinical-data.openapi.type
 import * as OpenAPISchemas from "./openapi/patient-clinical-data.zod.schema.js";
 import * as Converters from "./utils/patient-clinical-data-converters.js";
 
-// Flat exports (for direct imports)
-export * from "./types/index.js";
-export * from "./models/index.js";
-export * from "./repositories/index.js";
-export * from "./handlers/index.js";
-export { schemas as patientClinicalDataSchemas } from "./schemas/patient-clinical-data.schemas.js";
-export type * from "./openapi/patient-clinical-data.openapi.types.js";
-export * from "./openapi/patient-clinical-data.zod.schema.js";
-export * from "./utils/patient-clinical-data-converters.js";
+// No wildcard re-exports - use the PatientClinicalData namespace or import directly from sub-modules
+// Example: import { PatientClinicalData } from "./index.js" then use PatientClinicalData.types.TypeName
+// Or: import type { TypeName } from "./types/index.js"
 
 // Named domain export (namespace containing all domain exports)
 export const PatientClinicalData = {
@@ -37,7 +31,6 @@ export const PatientClinicalData = {
   handlers: Handlers,
   schemas: patientClinicalDataSchemas,
   openapi: {
-    types: OpenAPITypes,
     schemas: OpenAPISchemas,
   },
   converters: Converters,

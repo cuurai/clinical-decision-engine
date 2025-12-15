@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { CrudRepository } from "../../shared/repositories/_base-repository.js";
+import type { CrudRepository } from "../../../_shared/src/repositories/_base-repository.js";
 
 import type {
   ChecklistTemplate,

@@ -7,7 +7,7 @@
 
 import type { CreateWorkflowDefinitionResponse } from "../../types/index.js";
 import type { WorkflowDefinitionRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { wcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 /**
  * Mapper: input → validated
  */

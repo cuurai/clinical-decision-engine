@@ -7,7 +7,7 @@
 
 import type { CreateScoringTemplateResponse } from "../../types/index.js";
 import type { ScoringTemplateRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { keTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 /**
  * Mapper: input → validated
  */

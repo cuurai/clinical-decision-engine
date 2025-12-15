@@ -7,7 +7,7 @@
 
 import type { ListPatientDiagnosticReportsResponse } from "../../types/index.js";
 import type { PatientDiagnosticReportRepository } from "../../repositories/index.js";
-import { pcTransactionId } from "../../../shared/helpers/id-generator.js";
+import { pcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List patient diagnostic reports

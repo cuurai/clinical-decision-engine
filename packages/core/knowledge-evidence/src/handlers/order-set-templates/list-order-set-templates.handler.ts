@@ -7,7 +7,7 @@
 
 import type { ListOrderSetTemplatesParams, ListOrderSetTemplatesResponse } from "../../types/index.js";
 import type { OrderSetTemplateRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../shared/helpers/id-generator.js";
+import { keTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List order set templates

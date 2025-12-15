@@ -19,15 +19,9 @@ import type * as OpenAPITypes from "./openapi/workflow-care-pathways.openapi.typ
 import * as OpenAPISchemas from "./openapi/workflow-care-pathways.zod.schema.js";
 import * as Converters from "./utils/workflow-care-pathways-converters.js";
 
-// Flat exports (for direct imports)
-export * from "./types/index.js";
-export * from "./models/index.js";
-export * from "./repositories/index.js";
-export * from "./handlers/index.js";
-export { schemas as workflowCarePathwaysSchemas } from "./schemas/workflow-care-pathways.schemas.js";
-export type * from "./openapi/workflow-care-pathways.openapi.types.js";
-export * from "./openapi/workflow-care-pathways.zod.schema.js";
-export * from "./utils/workflow-care-pathways-converters.js";
+// No wildcard re-exports - use the WorkflowCarePathways namespace or import directly from sub-modules
+// Example: import { WorkflowCarePathways } from "./index.js" then use WorkflowCarePathways.types.TypeName
+// Or: import type { TypeName } from "./types/index.js"
 
 // Named domain export (namespace containing all domain exports)
 export const WorkflowCarePathways = {
@@ -37,7 +31,6 @@ export const WorkflowCarePathways = {
   handlers: Handlers,
   schemas: workflowCarePathwaysSchemas,
   openapi: {
-    types: OpenAPITypes,
     schemas: OpenAPISchemas,
   },
   converters: Converters,
