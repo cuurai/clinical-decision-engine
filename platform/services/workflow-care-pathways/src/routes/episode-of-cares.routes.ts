@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
-import { createEpisodeOfCare, deleteEpisodeOfCare, getEpisodeOfCare, updateEpisodeOfCare } from "@cuur/core/workflow-care-pathways/handlers/index.js";
-import type { EpisodeOfCareInput, EpisodeOfCareUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { createEpisodeOfCare, deleteEpisodeOfCare, getEpisodeOfCare, updateEpisodeOfCare } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
+import type { EpisodeOfCareInput, EpisodeOfCareUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function episodeOfCaresRoutes(
   fastify: FastifyInstance,

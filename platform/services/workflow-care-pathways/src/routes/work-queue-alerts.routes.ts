@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
-import { listWorkQueueAlerts } from "@cuur/core/workflow-care-pathways/handlers/index.js";
+import { listWorkQueueAlerts } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 export async function workQueueAlertsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

@@ -15,5 +15,9 @@ packages:
   - "platform/adapters/knowledge-evidence"
   - "platform/adapters/patient-clinical-data"
   - "platform/adapters/workflow-care-pathways"
-  # Service packages (if needed)
-  - "platform/services/src/*"
+  # Service packages
+  - "platform/services/decision-intelligence"
+  - "platform/services/integration-interoperability"
+  - "platform/services/knowledge-evidence"
+  - "platform/services/patient-clinical-data"
+  - "platform/services/workflow-care-pathways"

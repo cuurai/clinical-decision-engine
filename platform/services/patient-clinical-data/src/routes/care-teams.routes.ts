@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { createCareTeam, deleteCareTeam, getCareTeam, listCareTeams, updateCareTeam } from "@cuur/core/patient-clinical-data/handlers/index.js";
-import type { CareTeamInput, CareTeamUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { createCareTeam, deleteCareTeam, getCareTeam, listCareTeams, updateCareTeam } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
+import type { CareTeamInput, CareTeamUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function careTeamsRoutes(
   fastify: FastifyInstance,

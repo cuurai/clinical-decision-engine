@@ -20,9 +20,9 @@
  */
 
 // Import Prisma client from adapters-generated client
-import { PrismaClient } from "../../../../adapters/src/knowledge-evidence/prisma/generated/index.js";
+import { PrismaClient } from "@prisma/client";
 import { startService, createDependencies } from "./index.js";
-import type { DaoClient } from "@cuur/adapters/shared/dao-client.js";
+import type { DaoClient } from "@cuur/adapters-shared/dao-client.js";
 import {
   DaoCareProtocolOrderSetRepository,
   DaoCareProtocolRepository,
@@ -61,7 +61,7 @@ import {
   DaoScoringTemplateRepository,
   DaoValueSetCodeRepository,
   DaoValueSetRepository,
-} from "@cuur/adapters";
+} from "@cuur/adapters-knowledge-evidence";
 
 /**
  * Initialize Prisma client with environment-specific configuration

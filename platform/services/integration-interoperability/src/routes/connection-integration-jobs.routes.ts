@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { listConnectionIntegrationJobs } from "@cuur/core/integration-interoperability/handlers/index.js";
+import { listConnectionIntegrationJobs } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 export async function connectionIntegrationJobsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

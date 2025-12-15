@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { listKnowledgePackageModelDefinitions } from "@cuur/core/knowledge-evidence/handlers/index.js";
+import { listKnowledgePackageModelDefinitions } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 export async function knowledgePackageModelDefinitionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

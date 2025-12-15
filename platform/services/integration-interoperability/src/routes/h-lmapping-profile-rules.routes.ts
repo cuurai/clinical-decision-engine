@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { listHL7MappingProfileRules } from "@cuur/core/integration-interoperability/handlers/index.js";
+import { listHL7MappingProfileRules } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 export async function hLMappingProfileRulesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

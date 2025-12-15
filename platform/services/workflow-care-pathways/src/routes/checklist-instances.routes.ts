@@ -17,11 +17,11 @@ import {
   getChecklistInstance,
   listChecklistInstances,
   updateChecklistInstance,
-} from "@cuur/core/workflow-care-pathways/handlers/index.js";
+} from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type {
   CreateChecklistInstanceInput,
   UpdateChecklistInstanceInput,
-} from "@cuur/core/workflow-care-pathways/types/index.js";
+} from "@cuur-cde/core/workflow-care-pathways/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 
 export async function checklistInstancesRoutes(fastify: FastifyInstance, deps: Dependencies) {

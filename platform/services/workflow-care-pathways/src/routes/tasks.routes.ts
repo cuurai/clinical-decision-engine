@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
-import { createTask, deleteTask, getTask, listTasks, updateTask } from "@cuur/core/workflow-care-pathways/handlers/index.js";
-import type { TaskInput, TaskUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { createTask, deleteTask, getTask, listTasks, updateTask } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
+import type { TaskInput, TaskUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function tasksRoutes(
   fastify: FastifyInstance,

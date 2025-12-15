@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { createEncounter, deleteEncounter, getEncounter, listEncounters, updateEncounter } from "@cuur/core/patient-clinical-data/handlers/index.js";
-import type { EncounterInput, EncounterUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { createEncounter, deleteEncounter, getEncounter, listEncounters, updateEncounter } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
+import type { EncounterInput, EncounterUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function encountersRoutes(
   fastify: FastifyInstance,

@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
-import { createSimulationScenario, deleteSimulationScenario, getSimulationScenario, listSimulationScenarios, updateSimulationScenario } from "@cuur/core/decision-intelligence/handlers/index.js";
-import type { SimulationScenarioInput, SimulationScenarioUpdate } from "@cuur/core/decision-intelligence/types/index.js";
+import { createSimulationScenario, deleteSimulationScenario, getSimulationScenario, listSimulationScenarios, updateSimulationScenario } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
+import type { SimulationScenarioInput, SimulationScenarioUpdate } from "@cuur-cde/core/decision-intelligence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function simulationScenariosRoutes(
   fastify: FastifyInstance,

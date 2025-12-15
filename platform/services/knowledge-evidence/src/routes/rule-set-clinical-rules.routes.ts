@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { listRuleSetClinicalRules } from "@cuur/core/knowledge-evidence/handlers/index.js";
+import { listRuleSetClinicalRules } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 export async function ruleSetClinicalRulesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

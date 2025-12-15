@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { listModelVersionTests } from "@cuur/core/knowledge-evidence/handlers/index.js";
+import { listModelVersionTests } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 export async function modelVersionTestsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

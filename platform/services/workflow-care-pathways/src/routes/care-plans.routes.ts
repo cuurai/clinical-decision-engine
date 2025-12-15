@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
-import { createCarePlan, deleteCarePlan, getCarePlan, listCarePlans, updateCarePlan } from "@cuur/core/workflow-care-pathways/handlers/index.js";
-import type { CarePlanInput, CarePlanUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { createCarePlan, deleteCarePlan, getCarePlan, listCarePlans, updateCarePlan } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
+import type { CarePlanInput, CarePlanUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function carePlansRoutes(
   fastify: FastifyInstance,

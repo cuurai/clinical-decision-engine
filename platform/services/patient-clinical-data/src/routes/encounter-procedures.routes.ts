@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { listEncounterProcedures } from "@cuur/core/patient-clinical-data/handlers/index.js";
+import { listEncounterProcedures } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 export async function encounterProceduresRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

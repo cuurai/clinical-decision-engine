@@ -20,9 +20,9 @@
  */
 
 // Import Prisma client from adapters-generated client
-import { PrismaClient } from "../../../../adapters/src/patient-clinical-data/prisma/generated/index.js";
+import { PrismaClient } from "@prisma/client";
 import { startService, createDependencies } from "./index.js";
-import type { DaoClient } from "@cuur/adapters/shared/dao-client.js";
+import type { DaoClient } from "@cuur/adapters-shared/dao-client.js";
 import {
   DaoAllergyRepository,
   DaoCareTeamRepository,
@@ -62,7 +62,7 @@ import {
   DaoPatientSummaryRepository,
   DaoPatientVitalRepository,
   DaoProcedureRepository,
-} from "@cuur/adapters";
+} from "@cuur/adapters-patient-clinical-data";
 
 /**
  * Initialize Prisma client with environment-specific configuration

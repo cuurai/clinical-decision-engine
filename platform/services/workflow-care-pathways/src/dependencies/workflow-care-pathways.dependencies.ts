@@ -49,7 +49,7 @@ import type {
   WorkQueueRepository,
   WorkQueueTaskRepository,
   WorkQueueAlertRepository
-} from "@cuur/core/workflow-care-pathways/repositories/index.js";
+} from "@cuur-cde/core/workflow-care-pathways/repositories/index.js";
 
 /**
  * Service dependencies interface

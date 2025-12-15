@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { createAPIClient, deleteAPIClient, getAPIClient, listAPIClients, updateAPIClient } from "@cuur/core/integration-interoperability/handlers/index.js";
-import type { APIClientInput, APIClientUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { createAPIClient, deleteAPIClient, getAPIClient, listAPIClients, updateAPIClient } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
+import type { APIClientInput, APIClientUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function aPIClientsRoutes(
   fastify: FastifyInstance,

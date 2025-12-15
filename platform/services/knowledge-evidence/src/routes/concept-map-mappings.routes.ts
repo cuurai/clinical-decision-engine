@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { listConceptMapMappings } from "@cuur/core/knowledge-evidence/handlers/index.js";
+import { listConceptMapMappings } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 export async function conceptMapMappingsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

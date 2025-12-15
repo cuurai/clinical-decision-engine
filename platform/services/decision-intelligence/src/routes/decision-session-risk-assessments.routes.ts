@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
-import { listDecisionSessionRiskAssessments } from "@cuur/core/decision-intelligence/handlers/index.js";
+import { listDecisionSessionRiskAssessments } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function decisionSessionRiskAssessmentsRoutes(
   fastify: FastifyInstance,

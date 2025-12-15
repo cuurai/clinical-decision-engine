@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { createDataImportBatch, deleteDataImportBatch, getDataImportBatch, listDataImportBatches, updateDataImportBatch } from "@cuur/core/integration-interoperability/handlers/index.js";
-import type { DataImportBatchInput, DataImportBatchUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { createDataImportBatch, deleteDataImportBatch, getDataImportBatch, listDataImportBatches, updateDataImportBatch } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
+import type { DataImportBatchInput, DataImportBatchUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function dataImportBatchesRoutes(
   fastify: FastifyInstance,

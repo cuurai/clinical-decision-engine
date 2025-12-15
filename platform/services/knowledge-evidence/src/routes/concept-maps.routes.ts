@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { createConceptMap, deleteConceptMap, getConceptMap, listConceptMaps, updateConceptMap } from "@cuur/core/knowledge-evidence/handlers/index.js";
-import type { ConceptMapInput, ConceptMapUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { createConceptMap, deleteConceptMap, getConceptMap, listConceptMaps, updateConceptMap } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
+import type { ConceptMapInput, ConceptMapUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function conceptMapsRoutes(
   fastify: FastifyInstance,

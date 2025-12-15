@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { listAPIClientUsageMetrics } from "@cuur/core/integration-interoperability/handlers/index.js";
+import { listAPIClientUsageMetrics } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 export async function aPIClientUsageMetricsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

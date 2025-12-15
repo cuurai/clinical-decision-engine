@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
-import { listDecisionMetrics } from "@cuur/core/decision-intelligence/handlers/index.js";
+import { listDecisionMetrics } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 export async function decisionMetricsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

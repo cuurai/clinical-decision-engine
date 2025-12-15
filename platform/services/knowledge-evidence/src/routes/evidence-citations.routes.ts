@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { createEvidenceCitation, deleteEvidenceCitation, getEvidenceCitation, listEvidenceCitations, updateEvidenceCitation } from "@cuur/core/knowledge-evidence/handlers/index.js";
-import type { EvidenceCitationInput, EvidenceCitationUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { createEvidenceCitation, deleteEvidenceCitation, getEvidenceCitation, listEvidenceCitations, updateEvidenceCitation } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
+import type { EvidenceCitationInput, EvidenceCitationUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function evidenceCitationsRoutes(
   fastify: FastifyInstance,

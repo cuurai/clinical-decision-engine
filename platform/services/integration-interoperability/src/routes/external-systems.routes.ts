@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { createExternalSystem, deleteExternalSystem, getExternalSystem, listExternalSystems, updateExternalSystem } from "@cuur/core/integration-interoperability/handlers/index.js";
-import type { ExternalSystemInput, ExternalSystemUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { createExternalSystem, deleteExternalSystem, getExternalSystem, listExternalSystems, updateExternalSystem } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
+import type { ExternalSystemInput, ExternalSystemUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function externalSystemsRoutes(
   fastify: FastifyInstance,

@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { listIntegrationRunLogs } from "@cuur/core/integration-interoperability/handlers/index.js";
+import { listIntegrationRunLogs } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 export async function integrationRunLogsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

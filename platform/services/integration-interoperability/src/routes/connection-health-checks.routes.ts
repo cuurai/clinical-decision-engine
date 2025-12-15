@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { listConnectionHealthChecks } from "@cuur/core/integration-interoperability/handlers/index.js";
+import { listConnectionHealthChecks } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 export async function connectionHealthChecksRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

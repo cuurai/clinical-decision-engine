@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { createProcedure, deleteProcedure, getProcedure, listProcedures, updateProcedure } from "@cuur/core/patient-clinical-data/handlers/index.js";
-import type { ProcedureInput, ProcedureUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { createProcedure, deleteProcedure, getProcedure, listProcedures, updateProcedure } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
+import type { ProcedureInput, ProcedureUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function proceduresRoutes(
   fastify: FastifyInstance,

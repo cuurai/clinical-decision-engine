@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
-import { createCarePathwayTemplate, deleteCarePathwayTemplate, getCarePathwayTemplate, listCarePathwayTemplates, updateCarePathwayTemplate } from "@cuur/core/workflow-care-pathways/handlers/index.js";
-import type { CarePathwayTemplateInput, CarePathwayTemplateUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { createCarePathwayTemplate, deleteCarePathwayTemplate, getCarePathwayTemplate, listCarePathwayTemplates, updateCarePathwayTemplate } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
+import type { CarePathwayTemplateInput, CarePathwayTemplateUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function carePathwayTemplatesRoutes(
   fastify: FastifyInstance,

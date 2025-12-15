@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
-import { createEscalationPolicy, deleteEscalationPolicy, getEscalationPolicy, listEscalationPolicies, updateEscalationPolicy } from "@cuur/core/workflow-care-pathways/handlers/index.js";
-import type { EscalationPolicyInput, EscalationPolicyUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { createEscalationPolicy, deleteEscalationPolicy, getEscalationPolicy, listEscalationPolicies, updateEscalationPolicy } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
+import type { EscalationPolicyInput, EscalationPolicyUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function escalationPoliciesRoutes(
   fastify: FastifyInstance,

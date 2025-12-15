@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { listDataImportBatchRecords } from "@cuur/core/integration-interoperability/handlers/index.js";
+import { listDataImportBatchRecords } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 export async function dataImportBatchRecordsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

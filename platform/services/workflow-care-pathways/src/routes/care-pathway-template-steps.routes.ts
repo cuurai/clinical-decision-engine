@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
-import { listCarePathwayTemplateSteps } from "@cuur/core/workflow-care-pathways/handlers/index.js";
+import { listCarePathwayTemplateSteps } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 export async function carePathwayTemplateStepsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

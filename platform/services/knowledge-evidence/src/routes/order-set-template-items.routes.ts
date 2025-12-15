@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { listOrderSetTemplateItems } from "@cuur/core/knowledge-evidence/handlers/index.js";
+import { listOrderSetTemplateItems } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 export async function orderSetTemplateItemsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

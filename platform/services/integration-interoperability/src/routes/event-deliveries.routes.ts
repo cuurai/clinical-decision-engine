@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { createEventDelivery, getEventDelivery, listEventDeliveries, updateEventDelivery } from "@cuur/core/integration-interoperability/handlers/index.js";
-import type { EventDeliveryInput, EventDeliveryUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { createEventDelivery, getEventDelivery, listEventDeliveries, updateEventDelivery } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
+import type { EventDeliveryInput, EventDeliveryUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function eventDeliveriesRoutes(
   fastify: FastifyInstance,

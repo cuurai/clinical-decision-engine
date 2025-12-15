@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { createCareProtocol, deleteCareProtocol, getCareProtocol, listCareProtocols, updateCareProtocol } from "@cuur/core/knowledge-evidence/handlers/index.js";
-import type { CareProtocolTemplateInput, CareProtocolTemplateUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { createCareProtocol, deleteCareProtocol, getCareProtocol, listCareProtocols, updateCareProtocol } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
+import type { CareProtocolTemplateInput, CareProtocolTemplateUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function careProtocolsRoutes(
   fastify: FastifyInstance,

@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
-import { listSimulationScenarioRuns } from "@cuur/core/decision-intelligence/handlers/index.js";
+import { listSimulationScenarioRuns } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 export async function simulationScenarioRunsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

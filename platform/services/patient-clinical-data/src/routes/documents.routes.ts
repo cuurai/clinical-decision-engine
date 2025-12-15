@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { createDocument, deleteDocument, getDocument, listDocuments, updateDocument } from "@cuur/core/patient-clinical-data/handlers/index.js";
-import type { DocumentReferenceInput, DocumentReferenceUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { createDocument, deleteDocument, getDocument, listDocuments, updateDocument } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
+import type { DocumentReferenceInput, DocumentReferenceUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function documentsRoutes(
   fastify: FastifyInstance,

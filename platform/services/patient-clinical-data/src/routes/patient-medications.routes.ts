@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { listPatientMedications } from "@cuur/core/patient-clinical-data/handlers/index.js";
+import { listPatientMedications } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 export async function patientMedicationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

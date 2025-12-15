@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { createImagingStudy, deleteImagingStudy, getImagingStudy, listImagingStudies, updateImagingStudy } from "@cuur/core/patient-clinical-data/handlers/index.js";
-import type { ImagingStudyInput, ImagingStudyUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { createImagingStudy, deleteImagingStudy, getImagingStudy, listImagingStudies, updateImagingStudy } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
+import type { ImagingStudyInput, ImagingStudyUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function imagingStudiesRoutes(
   fastify: FastifyInstance,

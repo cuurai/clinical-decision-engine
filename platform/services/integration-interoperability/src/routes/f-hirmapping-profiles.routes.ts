@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { createFHIRMappingProfile, deleteFHIRMappingProfile, getFHIRMappingProfile, listFHIRMappingProfiles, updateFHIRMappingProfile } from "@cuur/core/integration-interoperability/handlers/index.js";
-import type { FHIRMappingProfileInput, FHIRMappingProfileUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { createFHIRMappingProfile, deleteFHIRMappingProfile, getFHIRMappingProfile, listFHIRMappingProfiles, updateFHIRMappingProfile } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
+import type { FHIRMappingProfileInput, FHIRMappingProfileUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function fHIRMappingProfilesRoutes(
   fastify: FastifyInstance,

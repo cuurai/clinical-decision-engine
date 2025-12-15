@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { createHL7Message, deleteHL7Message, getHL7Message, listHL7Messages } from "@cuur/core/integration-interoperability/handlers/index.js";
-import type { HL7MessageInput } from "@cuur/core/integration-interoperability/types/index.js";
+import { createHL7Message, deleteHL7Message, getHL7Message, listHL7Messages } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
+import type { HL7MessageInput } from "@cuur-cde/core/integration-interoperability/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function hLMessagesRoutes(
   fastify: FastifyInstance,

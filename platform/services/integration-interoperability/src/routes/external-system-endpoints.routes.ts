@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { listExternalSystemEndpoints } from "@cuur/core/integration-interoperability/handlers/index.js";
+import { listExternalSystemEndpoints } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 export async function externalSystemEndpointsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { createDiagnosticReport, deleteDiagnosticReport, getDiagnosticReport, listDiagnosticReports, updateDiagnosticReport } from "@cuur/core/patient-clinical-data/handlers/index.js";
-import type { DiagnosticReportInput, DiagnosticReportUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { createDiagnosticReport, deleteDiagnosticReport, getDiagnosticReport, listDiagnosticReports, updateDiagnosticReport } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
+import type { DiagnosticReportInput, DiagnosticReportUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function diagnosticReportsRoutes(
   fastify: FastifyInstance,

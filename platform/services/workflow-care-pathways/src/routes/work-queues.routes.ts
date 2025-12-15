@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
-import { createWorkQueue, deleteWorkQueue, getWorkQueue, listWorkQueues, updateWorkQueue } from "@cuur/core/workflow-care-pathways/handlers/index.js";
-import type { WorkQueueInput, WorkQueueUpdate } from "@cuur/core/workflow-care-pathways/types/index.js";
+import { createWorkQueue, deleteWorkQueue, getWorkQueue, listWorkQueues, updateWorkQueue } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
+import type { WorkQueueInput, WorkQueueUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function workQueuesRoutes(
   fastify: FastifyInstance,

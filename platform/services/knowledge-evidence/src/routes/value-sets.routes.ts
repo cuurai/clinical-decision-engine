@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { createValueSet, deleteValueSet, getValueSet, listValueSets, updateValueSet } from "@cuur/core/knowledge-evidence/handlers/index.js";
-import type { ValueSetInput, ValueSetUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { createValueSet, deleteValueSet, getValueSet, listValueSets, updateValueSet } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
+import type { ValueSetInput, ValueSetUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function valueSetsRoutes(
   fastify: FastifyInstance,

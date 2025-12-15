@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { createRuleSet, deleteRuleSet, getRuleSet, listRuleSets, updateRuleSet } from "@cuur/core/knowledge-evidence/handlers/index.js";
-import type { RuleSetInput, RuleSetUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { createRuleSet, deleteRuleSet, getRuleSet, listRuleSets, updateRuleSet } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
+import type { RuleSetInput, RuleSetUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function ruleSetsRoutes(
   fastify: FastifyInstance,

@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { createAPICredential, deleteAPICredential, getAPICredential, listAPICredentials, updateAPICredential } from "@cuur/core/integration-interoperability/handlers/index.js";
-import type { APICredentialInput, APICredentialUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { createAPICredential, deleteAPICredential, getAPICredential, listAPICredentials, updateAPICredential } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
+import type { APICredentialInput, APICredentialUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function aPICredentialsRoutes(
   fastify: FastifyInstance,

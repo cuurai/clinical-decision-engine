@@ -46,7 +46,7 @@ import type {
   ExperimentRepository,
   ExperimentArmRepository,
   ExperimentResultRepository
-} from "@cuur/core/decision-intelligence/repositories/index.js";
+} from "@cuur-cde/core/decision-intelligence/repositories/index.js";
 
 /**
  * Service dependencies interface

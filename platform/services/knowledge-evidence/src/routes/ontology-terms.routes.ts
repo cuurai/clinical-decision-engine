@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { getOntologyTerm } from "@cuur/core/knowledge-evidence/handlers/index.js";
+import { getOntologyTerm } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 export async function ontologyTermsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

@@ -17,11 +17,11 @@ import {
   getAlertEvaluation,
   listAlertEvaluations,
   updateAlertEvaluation,
-} from "@cuur/core/decision-intelligence/handlers/index.js";
+} from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type {
   CreateAlertEvaluationInput,
   UpdateAlertEvaluationInput,
-} from "@cuur/core/decision-intelligence/types/index.js";
+} from "@cuur-cde/core/decision-intelligence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 
 export async function alertEvaluationsRoutes(fastify: FastifyInstance, deps: Dependencies) {

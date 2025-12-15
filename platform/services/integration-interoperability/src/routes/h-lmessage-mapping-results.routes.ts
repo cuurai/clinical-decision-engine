@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { listHL7MessageMappingResults } from "@cuur/core/integration-interoperability/handlers/index.js";
+import { listHL7MessageMappingResults } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 export async function hLMessageMappingResultsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { createObservation, deleteObservation, getObservation, listObservations, updateObservation } from "@cuur/core/patient-clinical-data/handlers/index.js";
-import type { ObservationInput, ObservationUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { createObservation, deleteObservation, getObservation, listObservations, updateObservation } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
+import type { ObservationInput, ObservationUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function observationsRoutes(
   fastify: FastifyInstance,

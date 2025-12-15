@@ -20,9 +20,9 @@
  */
 
 // Import Prisma client from adapters-generated client
-import { PrismaClient } from "../../../../adapters/src/integration-interoperability/prisma/generated/index.js";
+import { PrismaClient } from "@prisma/client";
 import { startService, createDependencies } from "./index.js";
-import type { DaoClient } from "@cuur/adapters/shared/dao-client.js";
+import type { DaoClient } from "@cuur/adapters-shared/dao-client.js";
 import {
   DaoAPIClientCredentialRepository,
   DaoAPIClientRepository,
@@ -60,7 +60,7 @@ import {
   DaoIntegrationRunRepository,
   DaoInterfaceErrorRepository,
   DaoInterfaceHealthCheckRepository,
-} from "@cuur/adapters";
+} from "@cuur/adapters-integration-interoperability";
 
 /**
  * Initialize Prisma client with environment-specific configuration

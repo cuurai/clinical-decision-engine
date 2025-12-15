@@ -46,7 +46,7 @@ import type {
   APICredentialRepository,
   InterfaceErrorRepository,
   InterfaceHealthCheckRepository
-} from "@cuur/core/integration-interoperability/repositories/index.js";
+} from "@cuur-cde/core/integration-interoperability/repositories/index.js";
 
 /**
  * Service dependencies interface

@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { createCondition, deleteCondition, getCondition, listConditions, updateCondition } from "@cuur/core/patient-clinical-data/handlers/index.js";
-import type { ConditionInput, ConditionUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { createCondition, deleteCondition, getCondition, listConditions, updateCondition } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
+import type { ConditionInput, ConditionUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function conditionsRoutes(
   fastify: FastifyInstance,

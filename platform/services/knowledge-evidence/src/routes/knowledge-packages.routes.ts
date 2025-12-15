@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
-import { createKnowledgePackage, deleteKnowledgePackage, getKnowledgePackage, listKnowledgePackages, updateKnowledgePackage } from "@cuur/core/knowledge-evidence/handlers/index.js";
-import type { KnowledgePackageInput, KnowledgePackageUpdate } from "@cuur/core/knowledge-evidence/types/index.js";
+import { createKnowledgePackage, deleteKnowledgePackage, getKnowledgePackage, listKnowledgePackages, updateKnowledgePackage } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
+import type { KnowledgePackageInput, KnowledgePackageUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function knowledgePackagesRoutes(
   fastify: FastifyInstance,

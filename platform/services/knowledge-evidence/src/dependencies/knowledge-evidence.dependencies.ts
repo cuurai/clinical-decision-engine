@@ -47,7 +47,7 @@ import type {
   KnowledgePackageClinicalRuleRepository,
   KnowledgePackageModelDefinitionRepository,
   KnowledgePackageValueSetRepository
-} from "@cuur/core/knowledge-evidence/repositories/index.js";
+} from "@cuur-cde/core/knowledge-evidence/repositories/index.js";
 
 /**
  * Service dependencies interface

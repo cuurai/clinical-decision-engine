@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
-import { createDecisionRequest, getDecisionRequest, listDecisionRequests } from "@cuur/core/decision-intelligence/handlers/index.js";
-import type { DecisionRequestInput } from "@cuur/core/decision-intelligence/types/index.js";
+import { createDecisionRequest, getDecisionRequest, listDecisionRequests } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
+import type { DecisionRequestInput } from "@cuur-cde/core/decision-intelligence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function decisionRequestsRoutes(
   fastify: FastifyInstance,

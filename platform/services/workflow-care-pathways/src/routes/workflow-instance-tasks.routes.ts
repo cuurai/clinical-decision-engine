@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
-import { listWorkflowInstanceTasks } from "@cuur/core/workflow-care-pathways/handlers/index.js";
+import { listWorkflowInstanceTasks } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 export async function workflowInstanceTasksRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

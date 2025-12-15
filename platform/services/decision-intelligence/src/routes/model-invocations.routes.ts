@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
-import { createModelInvocation, getModelInvocation, listModelInvocations } from "@cuur/core/decision-intelligence/handlers/index.js";
-import type { ModelInvocationInput } from "@cuur/core/decision-intelligence/types/index.js";
+import { createModelInvocation, getModelInvocation, listModelInvocations } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
+import type { ModelInvocationInput } from "@cuur-cde/core/decision-intelligence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function modelInvocationsRoutes(
   fastify: FastifyInstance,

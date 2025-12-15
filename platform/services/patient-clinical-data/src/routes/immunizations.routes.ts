@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { createImmunization, deleteImmunization, getImmunization, listImmunizations, updateImmunization } from "@cuur/core/patient-clinical-data/handlers/index.js";
-import type { ImmunizationInput, ImmunizationUpdate } from "@cuur/core/patient-clinical-data/types/index.js";
+import { createImmunization, deleteImmunization, getImmunization, listImmunizations, updateImmunization } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
+import type { ImmunizationInput, ImmunizationUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function immunizationsRoutes(
   fastify: FastifyInstance,

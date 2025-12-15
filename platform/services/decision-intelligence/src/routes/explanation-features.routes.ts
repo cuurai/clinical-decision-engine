@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
-import { listExplanationFeatures } from "@cuur/core/decision-intelligence/handlers/index.js";
+import { listExplanationFeatures } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 export async function explanationFeaturesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

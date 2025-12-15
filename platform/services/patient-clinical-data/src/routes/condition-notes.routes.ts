@@ -11,7 +11,7 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
-import { listConditionNotes } from "@cuur/core/patient-clinical-data/handlers/index.js";
+import { listConditionNotes } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 export async function conditionNotesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

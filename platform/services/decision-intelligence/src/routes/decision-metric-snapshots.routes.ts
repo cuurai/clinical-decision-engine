@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
-import { createDecisionMetricSnapshot, getDecisionMetricSnapshot } from "@cuur/core/decision-intelligence/handlers/index.js";
-import type { DecisionMetricSnapshotInput } from "@cuur/core/decision-intelligence/types/index.js";
+import { createDecisionMetricSnapshot, getDecisionMetricSnapshot } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
+import type { DecisionMetricSnapshotInput } from "@cuur-cde/core/decision-intelligence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function decisionMetricSnapshotsRoutes(
   fastify: FastifyInstance,

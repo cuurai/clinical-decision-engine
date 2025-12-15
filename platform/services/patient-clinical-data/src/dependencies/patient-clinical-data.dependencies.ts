@@ -48,7 +48,7 @@ import type {
   NoteRepository,
   CareTeamRepository,
   DocumentRepository
-} from "@cuur/core/patient-clinical-data/repositories/index.js";
+} from "@cuur-cde/core/patient-clinical-data/repositories/index.js";
 
 /**
  * Service dependencies interface

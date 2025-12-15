@@ -17,11 +17,11 @@ import {
   getChecklistTemplate,
   listChecklistTemplates,
   updateChecklistTemplate,
-} from "@cuur/core/workflow-care-pathways/handlers/index.js";
+} from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type {
   CreateChecklistTemplateInput,
   UpdateChecklistTemplateInput,
-} from "@cuur/core/workflow-care-pathways/types/index.js";
+} from "@cuur-cde/core/workflow-care-pathways/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 
 export async function checklistTemplatesRoutes(fastify: FastifyInstance, deps: Dependencies) {

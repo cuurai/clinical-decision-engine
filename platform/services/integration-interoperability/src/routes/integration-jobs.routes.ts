@@ -11,8 +11,8 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
-import { createIntegrationJob, deleteIntegrationJob, getIntegrationJob, listIntegrationJobs, updateIntegrationJob } from "@cuur/core/integration-interoperability/handlers/index.js";
-import type { IntegrationJobInput, IntegrationJobUpdate } from "@cuur/core/integration-interoperability/types/index.js";
+import { createIntegrationJob, deleteIntegrationJob, getIntegrationJob, listIntegrationJobs, updateIntegrationJob } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
+import type { IntegrationJobInput, IntegrationJobUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function integrationJobsRoutes(
   fastify: FastifyInstance,

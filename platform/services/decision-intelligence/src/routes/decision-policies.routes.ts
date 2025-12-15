@@ -17,11 +17,11 @@ import {
   getDecisionPolicy,
   listDecisionPolicies,
   updateDecisionPolicy,
-} from "@cuur/core/decision-intelligence/handlers/index.js";
+} from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type {
   DecisionPolicyInput,
   DecisionPolicyUpdate,
-} from "@cuur/core/decision-intelligence/types/index.js";
+} from "@cuur-cde/core/decision-intelligence/types/index.js";
 import { extractOrgId } from "../../../shared/extract-org-id.js";
 export async function decisionPoliciesRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /decision-policies
