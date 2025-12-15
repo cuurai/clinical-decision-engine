@@ -15,10 +15,9 @@ import type { components, operations } from "../openapi/integration-interoperabi
 // ============================================================================
 // Re-export all generated types
 // ============================================================================
-// Note: components and operations are exported here but should be accessed via namespace
-// in main index.ts to avoid duplicate export errors (e.g., blockchain.types.components)
-
-export type { components, operations };
+// Note: components and operations are NOT exported here to avoid duplicate export errors
+// Access via: IntegrationInteroperability.types.components or import type { components } from "../openapi/integration-interoperability.openapi.types.js"
+// Individual type aliases are exported below for convenience
 
 // ============================================================================
 // Convenient Type Aliases for Schemas

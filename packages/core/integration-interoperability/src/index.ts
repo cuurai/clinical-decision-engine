@@ -19,15 +19,9 @@ import type * as OpenAPITypes from "./openapi/integration-interoperability.opena
 import * as OpenAPISchemas from "./openapi/integration-interoperability.zod.schema.js";
 import * as Converters from "./utils/integration-interoperability-converters.js";
 
-// Flat exports (for direct imports)
-export * from "./types/index.js";
-export * from "./models/index.js";
-export * from "./repositories/index.js";
-export * from "./handlers/index.js";
-export { schemas as integrationInteroperabilitySchemas } from "./schemas/integration-interoperability.schemas.js";
-export type * from "./openapi/integration-interoperability.openapi.types.js";
-export * from "./openapi/integration-interoperability.zod.schema.js";
-export * from "./utils/integration-interoperability-converters.js";
+// No wildcard re-exports - use the IntegrationInteroperability namespace or import directly from sub-modules
+// Example: import { IntegrationInteroperability } from "./index.js" then use IntegrationInteroperability.types.FHIRBundleInput
+// Or: import type { FHIRBundleInput } from "./types/index.js"
 
 // Named domain export (namespace containing all domain exports)
 export const IntegrationInteroperability = {
