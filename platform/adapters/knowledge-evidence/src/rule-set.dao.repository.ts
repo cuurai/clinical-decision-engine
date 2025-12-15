@@ -34,7 +34,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.ruleSet.findMany({
+      const records = await this.dao.ruleSetInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<RuleSet | null> {
     try {
-      const record = await this.dao.ruleSet.findFirst({
+      const record = await this.dao.ruleSetInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as RuleSetInput;
     try {
-      const record = await this.dao.ruleSet.create({
+      const record = await this.dao.ruleSetInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -100,7 +100,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateRuleSetRequest): Promise<RuleSet> {
     try {
-      const record = await this.dao.ruleSet.update({
+      const record = await this.dao.ruleSetInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -115,7 +115,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.ruleSet.update({
+      await this.dao.ruleSetInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -132,7 +132,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: RuleSet[] = [];
         for (const item of items) {
-          const record = await tx.ruleSet.create({
+          const record = await tx.ruleSetInput.create({
             data: {
               ...item,
               orgId,
@@ -156,7 +156,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: RuleSet[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.ruleSet.update({
+          const record = await tx.ruleSetInput.update({
             where: { id, orgId },
             data,
           });
@@ -172,7 +172,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.ruleSet.updateMany({
+      await this.dao.ruleSetInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

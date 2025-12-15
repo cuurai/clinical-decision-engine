@@ -34,7 +34,7 @@ export class DaoDocumentRepository implements DocumentRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.document.findMany({
+      const records = await this.dao.documentReferenceInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoDocumentRepository implements DocumentRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<DocumentReference | null> {
     try {
-      const record = await this.dao.document.findFirst({
+      const record = await this.dao.documentReferenceInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoDocumentRepository implements DocumentRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DocumentReferenceInput;
     try {
-      const record = await this.dao.document.create({
+      const record = await this.dao.documentReferenceInput.create({
         data: {
           ...inputData,
           orgId,
@@ -104,7 +104,7 @@ export class DaoDocumentRepository implements DocumentRepository {
     data: UpdateDocumentReferenceRequest
   ): Promise<DocumentReference> {
     try {
-      const record = await this.dao.document.update({
+      const record = await this.dao.documentReferenceInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -119,7 +119,7 @@ export class DaoDocumentRepository implements DocumentRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.document.update({
+      await this.dao.documentReferenceInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -139,7 +139,7 @@ export class DaoDocumentRepository implements DocumentRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: DocumentReference[] = [];
         for (const item of items) {
-          const record = await tx.document.create({
+          const record = await tx.documentReferenceInput.create({
             data: {
               ...item,
               orgId,
@@ -163,7 +163,7 @@ export class DaoDocumentRepository implements DocumentRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: DocumentReference[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.document.update({
+          const record = await tx.documentReferenceInput.update({
             where: { id, orgId },
             data,
           });
@@ -179,7 +179,7 @@ export class DaoDocumentRepository implements DocumentRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.document.updateMany({
+      await this.dao.documentReferenceInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

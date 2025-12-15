@@ -34,7 +34,7 @@ export class DaoHandoffRepository implements HandoffRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.handoff.findMany({
+      const records = await this.dao.handoffInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoHandoffRepository implements HandoffRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<Handoff | null> {
     try {
-      const record = await this.dao.handoff.findFirst({
+      const record = await this.dao.handoffInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoHandoffRepository implements HandoffRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as HandoffInput;
     try {
-      const record = await this.dao.handoff.create({
+      const record = await this.dao.handoffInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -100,7 +100,7 @@ export class DaoHandoffRepository implements HandoffRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateHandoffRequest): Promise<Handoff> {
     try {
-      const record = await this.dao.handoff.update({
+      const record = await this.dao.handoffInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -115,7 +115,7 @@ export class DaoHandoffRepository implements HandoffRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.handoff.update({
+      await this.dao.handoffInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -132,7 +132,7 @@ export class DaoHandoffRepository implements HandoffRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Handoff[] = [];
         for (const item of items) {
-          const record = await tx.handoff.create({
+          const record = await tx.handoffInput.create({
             data: {
               ...item,
               orgId,
@@ -156,7 +156,7 @@ export class DaoHandoffRepository implements HandoffRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Handoff[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.handoff.update({
+          const record = await tx.handoffInput.update({
             where: { id, orgId },
             data,
           });
@@ -172,7 +172,7 @@ export class DaoHandoffRepository implements HandoffRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.handoff.updateMany({
+      await this.dao.handoffInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

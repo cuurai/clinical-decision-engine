@@ -34,7 +34,7 @@ export class DaoAllergyRepository implements AllergyRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.allergy.findMany({
+      const records = await this.dao.allergyInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoAllergyRepository implements AllergyRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<Allergy | null> {
     try {
-      const record = await this.dao.allergy.findFirst({
+      const record = await this.dao.allergyInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoAllergyRepository implements AllergyRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as AllergyInput;
     try {
-      const record = await this.dao.allergy.create({
+      const record = await this.dao.allergyInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -100,7 +100,7 @@ export class DaoAllergyRepository implements AllergyRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateAllergyRequest): Promise<Allergy> {
     try {
-      const record = await this.dao.allergy.update({
+      const record = await this.dao.allergyInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -115,7 +115,7 @@ export class DaoAllergyRepository implements AllergyRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.allergy.update({
+      await this.dao.allergyInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -132,7 +132,7 @@ export class DaoAllergyRepository implements AllergyRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Allergy[] = [];
         for (const item of items) {
-          const record = await tx.allergy.create({
+          const record = await tx.allergyInput.create({
             data: {
               ...item,
               orgId,
@@ -156,7 +156,7 @@ export class DaoAllergyRepository implements AllergyRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Allergy[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.allergy.update({
+          const record = await tx.allergyInput.update({
             where: { id, orgId },
             data,
           });
@@ -172,7 +172,7 @@ export class DaoAllergyRepository implements AllergyRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.allergy.updateMany({
+      await this.dao.allergyInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

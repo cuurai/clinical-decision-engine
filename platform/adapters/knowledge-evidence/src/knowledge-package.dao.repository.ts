@@ -34,7 +34,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.knowledgePackage.findMany({
+      const records = await this.dao.knowledgePackageInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
   }
   async findById(orgId: OrgId, id: string): Promise<KnowledgePackage | null> {
     try {
-      const record = await this.dao.knowledgePackage.findFirst({
+      const record = await this.dao.knowledgePackageInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as KnowledgePackageInput;
     try {
-      const record = await this.dao.knowledgePackage.create({
+      const record = await this.dao.knowledgePackageInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -104,7 +104,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
     data: UpdateKnowledgePackageRequest
   ): Promise<KnowledgePackage> {
     try {
-      const record = await this.dao.knowledgePackage.update({
+      const record = await this.dao.knowledgePackageInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -119,7 +119,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.knowledgePackage.update({
+      await this.dao.knowledgePackageInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -136,7 +136,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: KnowledgePackage[] = [];
         for (const item of items) {
-          const record = await tx.knowledgePackage.create({
+          const record = await tx.knowledgePackageInput.create({
             data: {
               ...item,
               orgId,
@@ -160,7 +160,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: KnowledgePackage[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.knowledgePackage.update({
+          const record = await tx.knowledgePackageInput.update({
             where: { id, orgId },
             data,
           });
@@ -176,7 +176,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.knowledgePackage.updateMany({
+      await this.dao.knowledgePackageInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

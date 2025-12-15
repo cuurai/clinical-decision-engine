@@ -34,7 +34,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.eventDelivery.findMany({
+      const records = await this.dao.eventDeliveryInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<EventDelivery | null> {
     try {
-      const record = await this.dao.eventDelivery.findFirst({
+      const record = await this.dao.eventDeliveryInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as EventDeliveryInput;
     try {
-      const record = await this.dao.eventDelivery.create({
+      const record = await this.dao.eventDeliveryInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -100,7 +100,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateEventDeliveryRequest): Promise<EventDelivery> {
     try {
-      const record = await this.dao.eventDelivery.update({
+      const record = await this.dao.eventDeliveryInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -118,7 +118,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: EventDelivery[] = [];
         for (const item of items) {
-          const record = await tx.eventDelivery.create({
+          const record = await tx.eventDeliveryInput.create({
             data: {
               ...item,
               orgId,
@@ -142,7 +142,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: EventDelivery[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.eventDelivery.update({
+          const record = await tx.eventDeliveryInput.update({
             where: { id, orgId },
             data,
           });

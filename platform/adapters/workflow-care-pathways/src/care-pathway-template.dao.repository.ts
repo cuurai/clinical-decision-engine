@@ -37,7 +37,7 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.carePathwayTemplate.findMany({
+      const records = await this.dao.carePathwayTemplateInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
   }
   async findById(orgId: OrgId, id: string): Promise<CarePathwayTemplate | null> {
     try {
-      const record = await this.dao.carePathwayTemplate.findFirst({
+      const record = await this.dao.carePathwayTemplateInput.findFirst({
         where: {
           orgId,
           id,
@@ -89,7 +89,7 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as CarePathwayTemplateInput;
     try {
-      const record = await this.dao.carePathwayTemplate.create({
+      const record = await this.dao.carePathwayTemplateInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -107,7 +107,7 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
     data: UpdateCarePathwayTemplateRequest
   ): Promise<CarePathwayTemplate> {
     try {
-      const record = await this.dao.carePathwayTemplate.update({
+      const record = await this.dao.carePathwayTemplateInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -122,7 +122,7 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.carePathwayTemplate.update({
+      await this.dao.carePathwayTemplateInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -142,7 +142,7 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: CarePathwayTemplate[] = [];
         for (const item of items) {
-          const record = await tx.carePathwayTemplate.create({
+          const record = await tx.carePathwayTemplateInput.create({
             data: {
               ...item,
               orgId,
@@ -166,7 +166,7 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: CarePathwayTemplate[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.carePathwayTemplate.update({
+          const record = await tx.carePathwayTemplateInput.update({
             where: { id, orgId },
             data,
           });
@@ -182,7 +182,7 @@ export class DaoCarePathwayTemplateRepository implements CarePathwayTemplateRepo
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.carePathwayTemplate.updateMany({
+      await this.dao.carePathwayTemplateInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

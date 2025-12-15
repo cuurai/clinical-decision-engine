@@ -37,7 +37,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.questionnaireTemplate.findMany({
+      const records = await this.dao.questionnaireTemplateInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
   }
   async findById(orgId: OrgId, id: string): Promise<QuestionnaireTemplate | null> {
     try {
-      const record = await this.dao.questionnaireTemplate.findFirst({
+      const record = await this.dao.questionnaireTemplateInput.findFirst({
         where: {
           orgId,
           id,
@@ -89,7 +89,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as QuestionnaireTemplateInput;
     try {
-      const record = await this.dao.questionnaireTemplate.create({
+      const record = await this.dao.questionnaireTemplateInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -107,7 +107,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
     data: UpdateQuestionnaireTemplateRequest
   ): Promise<QuestionnaireTemplate> {
     try {
-      const record = await this.dao.questionnaireTemplate.update({
+      const record = await this.dao.questionnaireTemplateInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -122,7 +122,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.questionnaireTemplate.update({
+      await this.dao.questionnaireTemplateInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -142,7 +142,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: QuestionnaireTemplate[] = [];
         for (const item of items) {
-          const record = await tx.questionnaireTemplate.create({
+          const record = await tx.questionnaireTemplateInput.create({
             data: {
               ...item,
               orgId,
@@ -166,7 +166,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: QuestionnaireTemplate[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.questionnaireTemplate.update({
+          const record = await tx.questionnaireTemplateInput.update({
             where: { id, orgId },
             data,
           });
@@ -182,7 +182,7 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.questionnaireTemplate.updateMany({
+      await this.dao.questionnaireTemplateInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

@@ -34,7 +34,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.workflowInstance.findMany({
+      const records = await this.dao.workflowInstanceInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
   }
   async findById(orgId: OrgId, id: string): Promise<WorkflowInstance | null> {
     try {
-      const record = await this.dao.workflowInstance.findFirst({
+      const record = await this.dao.workflowInstanceInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as WorkflowInstanceInput;
     try {
-      const record = await this.dao.workflowInstance.create({
+      const record = await this.dao.workflowInstanceInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -104,7 +104,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
     data: UpdateWorkflowInstanceRequest
   ): Promise<WorkflowInstance> {
     try {
-      const record = await this.dao.workflowInstance.update({
+      const record = await this.dao.workflowInstanceInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -119,7 +119,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.workflowInstance.update({
+      await this.dao.workflowInstanceInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -136,7 +136,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: WorkflowInstance[] = [];
         for (const item of items) {
-          const record = await tx.workflowInstance.create({
+          const record = await tx.workflowInstanceInput.create({
             data: {
               ...item,
               orgId,
@@ -160,7 +160,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: WorkflowInstance[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.workflowInstance.update({
+          const record = await tx.workflowInstanceInput.update({
             where: { id, orgId },
             data,
           });
@@ -176,7 +176,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.workflowInstance.updateMany({
+      await this.dao.workflowInstanceInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

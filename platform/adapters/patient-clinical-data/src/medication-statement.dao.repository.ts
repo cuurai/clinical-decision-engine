@@ -37,7 +37,7 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.medicationStatement.findMany({
+      const records = await this.dao.medicationStatementInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
   }
   async findById(orgId: OrgId, id: string): Promise<MedicationStatement | null> {
     try {
-      const record = await this.dao.medicationStatement.findFirst({
+      const record = await this.dao.medicationStatementInput.findFirst({
         where: {
           orgId,
           id,
@@ -89,7 +89,7 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as MedicationStatementInput;
     try {
-      const record = await this.dao.medicationStatement.create({
+      const record = await this.dao.medicationStatementInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -107,7 +107,7 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
     data: UpdateMedicationStatementRequest
   ): Promise<MedicationStatement> {
     try {
-      const record = await this.dao.medicationStatement.update({
+      const record = await this.dao.medicationStatementInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -122,7 +122,7 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.medicationStatement.update({
+      await this.dao.medicationStatementInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -142,7 +142,7 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: MedicationStatement[] = [];
         for (const item of items) {
-          const record = await tx.medicationStatement.create({
+          const record = await tx.medicationStatementInput.create({
             data: {
               ...item,
               orgId,
@@ -166,7 +166,7 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: MedicationStatement[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.medicationStatement.update({
+          const record = await tx.medicationStatementInput.update({
             where: { id, orgId },
             data,
           });
@@ -182,7 +182,7 @@ export class DaoMedicationStatementRepository implements MedicationStatementRepo
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.medicationStatement.updateMany({
+      await this.dao.medicationStatementInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

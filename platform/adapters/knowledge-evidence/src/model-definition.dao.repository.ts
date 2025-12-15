@@ -34,7 +34,7 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.modelDefinition.findMany({
+      const records = await this.dao.modelDefinitionInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<ModelDefinition | null> {
     try {
-      const record = await this.dao.modelDefinition.findFirst({
+      const record = await this.dao.modelDefinitionInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ModelDefinitionInput;
     try {
-      const record = await this.dao.modelDefinition.create({
+      const record = await this.dao.modelDefinitionInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -104,7 +104,7 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
     data: UpdateModelDefinitionRequest
   ): Promise<ModelDefinition> {
     try {
-      const record = await this.dao.modelDefinition.update({
+      const record = await this.dao.modelDefinitionInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -119,7 +119,7 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.modelDefinition.update({
+      await this.dao.modelDefinitionInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -136,7 +136,7 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ModelDefinition[] = [];
         for (const item of items) {
-          const record = await tx.modelDefinition.create({
+          const record = await tx.modelDefinitionInput.create({
             data: {
               ...item,
               orgId,
@@ -160,7 +160,7 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ModelDefinition[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.modelDefinition.update({
+          const record = await tx.modelDefinitionInput.update({
             where: { id, orgId },
             data,
           });
@@ -176,7 +176,7 @@ export class DaoModelDefinitionRepository implements ModelDefinitionRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.modelDefinition.updateMany({
+      await this.dao.modelDefinitionInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

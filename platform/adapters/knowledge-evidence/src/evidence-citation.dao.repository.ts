@@ -34,7 +34,7 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.evidenceCitation.findMany({
+      const records = await this.dao.evidenceCitationInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
   }
   async findById(orgId: OrgId, id: string): Promise<EvidenceCitation | null> {
     try {
-      const record = await this.dao.evidenceCitation.findFirst({
+      const record = await this.dao.evidenceCitationInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as EvidenceCitationInput;
     try {
-      const record = await this.dao.evidenceCitation.create({
+      const record = await this.dao.evidenceCitationInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -104,7 +104,7 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
     data: UpdateEvidenceCitationRequest
   ): Promise<EvidenceCitation> {
     try {
-      const record = await this.dao.evidenceCitation.update({
+      const record = await this.dao.evidenceCitationInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -119,7 +119,7 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.evidenceCitation.update({
+      await this.dao.evidenceCitationInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -136,7 +136,7 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: EvidenceCitation[] = [];
         for (const item of items) {
-          const record = await tx.evidenceCitation.create({
+          const record = await tx.evidenceCitationInput.create({
             data: {
               ...item,
               orgId,
@@ -160,7 +160,7 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: EvidenceCitation[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.evidenceCitation.update({
+          const record = await tx.evidenceCitationInput.update({
             where: { id, orgId },
             data,
           });
@@ -176,7 +176,7 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.evidenceCitation.updateMany({
+      await this.dao.evidenceCitationInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

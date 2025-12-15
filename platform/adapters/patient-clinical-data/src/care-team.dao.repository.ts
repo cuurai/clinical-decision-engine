@@ -34,7 +34,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.careTeam.findMany({
+      const records = await this.dao.careTeamInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<CareTeam | null> {
     try {
-      const record = await this.dao.careTeam.findFirst({
+      const record = await this.dao.careTeamInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as CareTeamInput;
     try {
-      const record = await this.dao.careTeam.create({
+      const record = await this.dao.careTeamInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -100,7 +100,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateCareTeamRequest): Promise<CareTeam> {
     try {
-      const record = await this.dao.careTeam.update({
+      const record = await this.dao.careTeamInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -115,7 +115,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.careTeam.update({
+      await this.dao.careTeamInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -132,7 +132,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: CareTeam[] = [];
         for (const item of items) {
-          const record = await tx.careTeam.create({
+          const record = await tx.careTeamInput.create({
             data: {
               ...item,
               orgId,
@@ -156,7 +156,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: CareTeam[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.careTeam.update({
+          const record = await tx.careTeamInput.update({
             where: { id, orgId },
             data,
           });
@@ -172,7 +172,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.careTeam.updateMany({
+      await this.dao.careTeamInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

@@ -34,7 +34,7 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.modelVersion.findMany({
+      const records = await this.dao.modelVersionInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<ModelVersion | null> {
     try {
-      const record = await this.dao.modelVersion.findFirst({
+      const record = await this.dao.modelVersionInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ModelVersionInput;
     try {
-      const record = await this.dao.modelVersion.create({
+      const record = await this.dao.modelVersionInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -100,7 +100,7 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateModelVersionRequest): Promise<ModelVersion> {
     try {
-      const record = await this.dao.modelVersion.update({
+      const record = await this.dao.modelVersionInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -115,7 +115,7 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.modelVersion.update({
+      await this.dao.modelVersionInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -132,7 +132,7 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ModelVersion[] = [];
         for (const item of items) {
-          const record = await tx.modelVersion.create({
+          const record = await tx.modelVersionInput.create({
             data: {
               ...item,
               orgId,
@@ -156,7 +156,7 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ModelVersion[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.modelVersion.update({
+          const record = await tx.modelVersionInput.update({
             where: { id, orgId },
             data,
           });
@@ -172,7 +172,7 @@ export class DaoModelVersionRepository implements ModelVersionRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.modelVersion.updateMany({
+      await this.dao.modelVersionInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

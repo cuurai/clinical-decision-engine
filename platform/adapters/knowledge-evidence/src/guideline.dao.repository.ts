@@ -34,7 +34,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.guideline.findMany({
+      const records = await this.dao.clinicalGuidelineInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<ClinicalGuideline | null> {
     try {
-      const record = await this.dao.guideline.findFirst({
+      const record = await this.dao.clinicalGuidelineInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ClinicalGuidelineInput;
     try {
-      const record = await this.dao.guideline.create({
+      const record = await this.dao.clinicalGuidelineInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -104,7 +104,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
     data: UpdateClinicalGuidelineRequest
   ): Promise<ClinicalGuideline> {
     try {
-      const record = await this.dao.guideline.update({
+      const record = await this.dao.clinicalGuidelineInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -119,7 +119,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.guideline.update({
+      await this.dao.clinicalGuidelineInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -139,7 +139,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ClinicalGuideline[] = [];
         for (const item of items) {
-          const record = await tx.guideline.create({
+          const record = await tx.clinicalGuidelineInput.create({
             data: {
               ...item,
               orgId,
@@ -163,7 +163,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ClinicalGuideline[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.guideline.update({
+          const record = await tx.clinicalGuidelineInput.update({
             where: { id, orgId },
             data,
           });
@@ -179,7 +179,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.guideline.updateMany({
+      await this.dao.clinicalGuidelineInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

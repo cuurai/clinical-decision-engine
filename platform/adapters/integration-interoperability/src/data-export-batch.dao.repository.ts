@@ -34,7 +34,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.dataExportBatch.findMany({
+      const records = await this.dao.dataExportBatchInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<DataExportBatch | null> {
     try {
-      const record = await this.dao.dataExportBatch.findFirst({
+      const record = await this.dao.dataExportBatchInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DataExportBatchInput;
     try {
-      const record = await this.dao.dataExportBatch.create({
+      const record = await this.dao.dataExportBatchInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -104,7 +104,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
     data: UpdateDataExportBatchRequest
   ): Promise<DataExportBatch> {
     try {
-      const record = await this.dao.dataExportBatch.update({
+      const record = await this.dao.dataExportBatchInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -119,7 +119,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.dataExportBatch.update({
+      await this.dao.dataExportBatchInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -136,7 +136,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: DataExportBatch[] = [];
         for (const item of items) {
-          const record = await tx.dataExportBatch.create({
+          const record = await tx.dataExportBatchInput.create({
             data: {
               ...item,
               orgId,
@@ -160,7 +160,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: DataExportBatch[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.dataExportBatch.update({
+          const record = await tx.dataExportBatchInput.update({
             where: { id, orgId },
             data,
           });
@@ -176,7 +176,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.dataExportBatch.updateMany({
+      await this.dao.dataExportBatchInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

@@ -34,7 +34,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.eventSubscription.findMany({
+      const records = await this.dao.eventSubscriptionInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
   }
   async findById(orgId: OrgId, id: string): Promise<EventSubscription | null> {
     try {
-      const record = await this.dao.eventSubscription.findFirst({
+      const record = await this.dao.eventSubscriptionInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as EventSubscriptionInput;
     try {
-      const record = await this.dao.eventSubscription.create({
+      const record = await this.dao.eventSubscriptionInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -104,7 +104,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
     data: UpdateEventSubscriptionRequest
   ): Promise<EventSubscription> {
     try {
-      const record = await this.dao.eventSubscription.update({
+      const record = await this.dao.eventSubscriptionInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -119,7 +119,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.eventSubscription.update({
+      await this.dao.eventSubscriptionInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -139,7 +139,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: EventSubscription[] = [];
         for (const item of items) {
-          const record = await tx.eventSubscription.create({
+          const record = await tx.eventSubscriptionInput.create({
             data: {
               ...item,
               orgId,
@@ -163,7 +163,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: EventSubscription[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.eventSubscription.update({
+          const record = await tx.eventSubscriptionInput.update({
             where: { id, orgId },
             data,
           });
@@ -179,7 +179,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.eventSubscription.updateMany({
+      await this.dao.eventSubscriptionInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

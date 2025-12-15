@@ -34,7 +34,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.scheduleTemplate.findMany({
+      const records = await this.dao.scheduleTemplateInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
   }
   async findById(orgId: OrgId, id: string): Promise<ScheduleTemplate | null> {
     try {
-      const record = await this.dao.scheduleTemplate.findFirst({
+      const record = await this.dao.scheduleTemplateInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ScheduleTemplateInput;
     try {
-      const record = await this.dao.scheduleTemplate.create({
+      const record = await this.dao.scheduleTemplateInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -104,7 +104,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
     data: UpdateScheduleTemplateRequest
   ): Promise<ScheduleTemplate> {
     try {
-      const record = await this.dao.scheduleTemplate.update({
+      const record = await this.dao.scheduleTemplateInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -119,7 +119,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.scheduleTemplate.update({
+      await this.dao.scheduleTemplateInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -136,7 +136,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ScheduleTemplate[] = [];
         for (const item of items) {
-          const record = await tx.scheduleTemplate.create({
+          const record = await tx.scheduleTemplateInput.create({
             data: {
               ...item,
               orgId,
@@ -160,7 +160,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ScheduleTemplate[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.scheduleTemplate.update({
+          const record = await tx.scheduleTemplateInput.update({
             where: { id, orgId },
             data,
           });
@@ -176,7 +176,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.scheduleTemplate.updateMany({
+      await this.dao.scheduleTemplateInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

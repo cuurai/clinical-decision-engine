@@ -33,7 +33,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.interfaceError.findMany({
+      const records = await this.dao.interfaceErrorInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -60,7 +60,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<InterfaceError | null> {
     try {
-      const record = await this.dao.interfaceError.findFirst({
+      const record = await this.dao.interfaceErrorInput.findFirst({
         where: {
           orgId,
           id,
@@ -85,7 +85,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as CreateInterfaceErrorInput;
     try {
-      const record = await this.dao.interfaceError.create({
+      const record = await this.dao.interfaceErrorInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -103,7 +103,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
     data: UpdateInterfaceErrorRequest
   ): Promise<InterfaceError> {
     try {
-      const record = await this.dao.interfaceError.update({
+      const record = await this.dao.interfaceErrorInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -124,7 +124,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: InterfaceError[] = [];
         for (const item of items) {
-          const record = await tx.interfaceError.create({
+          const record = await tx.interfaceErrorInput.create({
             data: {
               ...item,
               orgId,
@@ -148,7 +148,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: InterfaceError[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.interfaceError.update({
+          const record = await tx.interfaceErrorInput.update({
             where: { id, orgId },
             data,
           });

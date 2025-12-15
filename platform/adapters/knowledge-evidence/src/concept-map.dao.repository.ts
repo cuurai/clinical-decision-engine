@@ -34,7 +34,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.conceptMap.findMany({
+      const records = await this.dao.conceptMapInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<ConceptMap | null> {
     try {
-      const record = await this.dao.conceptMap.findFirst({
+      const record = await this.dao.conceptMapInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ConceptMapInput;
     try {
-      const record = await this.dao.conceptMap.create({
+      const record = await this.dao.conceptMapInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -100,7 +100,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateConceptMapRequest): Promise<ConceptMap> {
     try {
-      const record = await this.dao.conceptMap.update({
+      const record = await this.dao.conceptMapInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -115,7 +115,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.conceptMap.update({
+      await this.dao.conceptMapInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -132,7 +132,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ConceptMap[] = [];
         for (const item of items) {
-          const record = await tx.conceptMap.create({
+          const record = await tx.conceptMapInput.create({
             data: {
               ...item,
               orgId,
@@ -156,7 +156,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ConceptMap[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.conceptMap.update({
+          const record = await tx.conceptMapInput.update({
             where: { id, orgId },
             data,
           });
@@ -172,7 +172,7 @@ export class DaoConceptMapRepository implements ConceptMapRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.conceptMap.updateMany({
+      await this.dao.conceptMapInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

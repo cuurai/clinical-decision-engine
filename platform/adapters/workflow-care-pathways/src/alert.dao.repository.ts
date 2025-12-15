@@ -34,7 +34,7 @@ export class DaoAlertRepository implements AlertRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.alert.findMany({
+      const records = await this.dao.alertInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoAlertRepository implements AlertRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<Alert | null> {
     try {
-      const record = await this.dao.alert.findFirst({
+      const record = await this.dao.alertInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoAlertRepository implements AlertRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as AlertInput;
     try {
-      const record = await this.dao.alert.create({
+      const record = await this.dao.alertInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -100,7 +100,7 @@ export class DaoAlertRepository implements AlertRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateAlertRequest): Promise<Alert> {
     try {
-      const record = await this.dao.alert.update({
+      const record = await this.dao.alertInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -115,7 +115,7 @@ export class DaoAlertRepository implements AlertRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.alert.update({
+      await this.dao.alertInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -132,7 +132,7 @@ export class DaoAlertRepository implements AlertRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Alert[] = [];
         for (const item of items) {
-          const record = await tx.alert.create({
+          const record = await tx.alertInput.create({
             data: {
               ...item,
               orgId,
@@ -156,7 +156,7 @@ export class DaoAlertRepository implements AlertRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Alert[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.alert.update({
+          const record = await tx.alertInput.update({
             where: { id, orgId },
             data,
           });
@@ -172,7 +172,7 @@ export class DaoAlertRepository implements AlertRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.alert.updateMany({
+      await this.dao.alertInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

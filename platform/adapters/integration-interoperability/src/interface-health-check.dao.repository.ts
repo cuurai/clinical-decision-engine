@@ -34,7 +34,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.interfaceHealthCheck.findMany({
+      const records = await this.dao.interfaceHealthCheckInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
   }
   async findById(orgId: OrgId, id: string): Promise<InterfaceHealthCheck | null> {
     try {
-      const record = await this.dao.interfaceHealthCheck.findFirst({
+      const record = await this.dao.interfaceHealthCheckInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as InterfaceHealthCheckInput;
     try {
-      const record = await this.dao.interfaceHealthCheck.create({
+      const record = await this.dao.interfaceHealthCheckInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -107,7 +107,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: InterfaceHealthCheck[] = [];
         for (const item of items) {
-          const record = await tx.interfaceHealthCheck.create({
+          const record = await tx.interfaceHealthCheckInput.create({
             data: {
               ...item,
               orgId,

@@ -32,7 +32,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.integrationRun.findMany({
+      const records = await this.dao.integrationRunInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -59,7 +59,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<IntegrationRun | null> {
     try {
-      const record = await this.dao.integrationRun.findFirst({
+      const record = await this.dao.integrationRunInput.findFirst({
         where: {
           orgId,
           id,
@@ -84,7 +84,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as IntegrationRunInput;
     try {
-      const record = await this.dao.integrationRun.create({
+      const record = await this.dao.integrationRunInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -102,7 +102,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: IntegrationRun[] = [];
         for (const item of items) {
-          const record = await tx.integrationRun.create({
+          const record = await tx.integrationRunInput.create({
             data: {
               ...item,
               orgId,

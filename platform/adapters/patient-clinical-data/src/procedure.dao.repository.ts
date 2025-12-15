@@ -34,7 +34,7 @@ export class DaoProcedureRepository implements ProcedureRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.procedure.findMany({
+      const records = await this.dao.procedureInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoProcedureRepository implements ProcedureRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<Procedure | null> {
     try {
-      const record = await this.dao.procedure.findFirst({
+      const record = await this.dao.procedureInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoProcedureRepository implements ProcedureRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ProcedureInput;
     try {
-      const record = await this.dao.procedure.create({
+      const record = await this.dao.procedureInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -100,7 +100,7 @@ export class DaoProcedureRepository implements ProcedureRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateProcedureRequest): Promise<Procedure> {
     try {
-      const record = await this.dao.procedure.update({
+      const record = await this.dao.procedureInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -115,7 +115,7 @@ export class DaoProcedureRepository implements ProcedureRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.procedure.update({
+      await this.dao.procedureInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -132,7 +132,7 @@ export class DaoProcedureRepository implements ProcedureRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Procedure[] = [];
         for (const item of items) {
-          const record = await tx.procedure.create({
+          const record = await tx.procedureInput.create({
             data: {
               ...item,
               orgId,
@@ -156,7 +156,7 @@ export class DaoProcedureRepository implements ProcedureRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Procedure[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.procedure.update({
+          const record = await tx.procedureInput.update({
             where: { id, orgId },
             data,
           });
@@ -172,7 +172,7 @@ export class DaoProcedureRepository implements ProcedureRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.procedure.updateMany({
+      await this.dao.procedureInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

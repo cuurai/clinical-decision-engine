@@ -34,7 +34,7 @@ export class DaoNoteRepository implements NoteRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.note.findMany({
+      const records = await this.dao.clinicalNoteInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoNoteRepository implements NoteRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<ClinicalNote | null> {
     try {
-      const record = await this.dao.note.findFirst({
+      const record = await this.dao.clinicalNoteInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoNoteRepository implements NoteRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ClinicalNoteInput;
     try {
-      const record = await this.dao.note.create({
+      const record = await this.dao.clinicalNoteInput.create({
         data: {
           ...inputData,
           orgId,
@@ -100,7 +100,7 @@ export class DaoNoteRepository implements NoteRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateClinicalNoteRequest): Promise<ClinicalNote> {
     try {
-      const record = await this.dao.note.update({
+      const record = await this.dao.clinicalNoteInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -115,7 +115,7 @@ export class DaoNoteRepository implements NoteRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.note.update({
+      await this.dao.clinicalNoteInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -132,7 +132,7 @@ export class DaoNoteRepository implements NoteRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ClinicalNote[] = [];
         for (const item of items) {
-          const record = await tx.note.create({
+          const record = await tx.clinicalNoteInput.create({
             data: {
               ...item,
               orgId,
@@ -156,7 +156,7 @@ export class DaoNoteRepository implements NoteRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ClinicalNote[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.note.update({
+          const record = await tx.clinicalNoteInput.update({
             where: { id, orgId },
             data,
           });
@@ -172,7 +172,7 @@ export class DaoNoteRepository implements NoteRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.note.updateMany({
+      await this.dao.clinicalNoteInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

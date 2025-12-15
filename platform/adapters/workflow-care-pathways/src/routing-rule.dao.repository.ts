@@ -34,7 +34,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.routingRule.findMany({
+      const records = await this.dao.routingRuleInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<RoutingRule | null> {
     try {
-      const record = await this.dao.routingRule.findFirst({
+      const record = await this.dao.routingRuleInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as RoutingRuleInput;
     try {
-      const record = await this.dao.routingRule.create({
+      const record = await this.dao.routingRuleInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -100,7 +100,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateRoutingRuleRequest): Promise<RoutingRule> {
     try {
-      const record = await this.dao.routingRule.update({
+      const record = await this.dao.routingRuleInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -115,7 +115,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.routingRule.update({
+      await this.dao.routingRuleInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -132,7 +132,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: RoutingRule[] = [];
         for (const item of items) {
-          const record = await tx.routingRule.create({
+          const record = await tx.routingRuleInput.create({
             data: {
               ...item,
               orgId,
@@ -156,7 +156,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: RoutingRule[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.routingRule.update({
+          const record = await tx.routingRuleInput.update({
             where: { id, orgId },
             data,
           });
@@ -172,7 +172,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.routingRule.updateMany({
+      await this.dao.routingRuleInput.updateMany({
         where: {
           id: { in: ids },
           orgId,

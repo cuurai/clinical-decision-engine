@@ -34,7 +34,7 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.clinicalRule.findMany({
+      const records = await this.dao.clinicalRuleInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<ClinicalRule | null> {
     try {
-      const record = await this.dao.clinicalRule.findFirst({
+      const record = await this.dao.clinicalRuleInput.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ClinicalRuleInput;
     try {
-      const record = await this.dao.clinicalRule.create({
+      const record = await this.dao.clinicalRuleInput.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -100,7 +100,7 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateClinicalRuleRequest): Promise<ClinicalRule> {
     try {
-      const record = await this.dao.clinicalRule.update({
+      const record = await this.dao.clinicalRuleInput.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -115,7 +115,7 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.clinicalRule.update({
+      await this.dao.clinicalRuleInput.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -132,7 +132,7 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ClinicalRule[] = [];
         for (const item of items) {
-          const record = await tx.clinicalRule.create({
+                    const record = await tx.clinicalRuleInput.create({
             data: {
               ...item,
               orgId,
@@ -156,7 +156,7 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
       return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: ClinicalRule[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.clinicalRule.update({
+                    const record = await tx.clinicalRuleInput.update({
             where: { id, orgId },
             data,
           });
@@ -172,7 +172,7 @@ export class DaoClinicalRuleRepository implements ClinicalRuleRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.clinicalRule.updateMany({
+      await this.dao.clinicalRuleInput.updateMany({
         where: {
           id: { in: ids },
           orgId,
