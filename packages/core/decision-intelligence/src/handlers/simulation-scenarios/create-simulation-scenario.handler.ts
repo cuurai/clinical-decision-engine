@@ -7,7 +7,7 @@
 
 import type { CreateSimulationScenarioResponse } from "../../types/index.js";
 import type { SimulationScenarioRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 /**
  * Mapper: input → validated
  */

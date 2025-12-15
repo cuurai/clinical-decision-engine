@@ -7,7 +7,7 @@
 
 import type { ListDecisionResultRecommendationsResponse } from "../../types/index.js";
 import type { DecisionResultRecommendationRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List decision result recommendations

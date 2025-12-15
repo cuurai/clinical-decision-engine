@@ -7,7 +7,7 @@
 
 import type { GetRecommendationResponse } from "../../types/index.js";
 import type { RecommendationRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Get recommendation by ID

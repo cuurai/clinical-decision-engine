@@ -7,7 +7,7 @@
 
 import type { GetModelInvocationResponse } from "../../types/index.js";
 import type { ModelInvocationRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Get model invocation by ID

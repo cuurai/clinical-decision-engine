@@ -7,7 +7,7 @@
 
 import type { ListAlertEvaluationsParams, ListAlertEvaluationsResponse } from "../../types/index.js";
 import type { AlertEvaluationRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List alert evaluations

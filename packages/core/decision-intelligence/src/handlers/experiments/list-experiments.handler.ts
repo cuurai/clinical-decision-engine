@@ -7,7 +7,7 @@
 
 import type { ListExperimentsParams, ListExperimentsResponse } from "../../types/index.js";
 import type { ExperimentRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List experiments

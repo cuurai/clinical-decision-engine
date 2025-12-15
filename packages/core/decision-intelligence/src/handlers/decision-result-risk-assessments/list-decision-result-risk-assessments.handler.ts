@@ -7,7 +7,7 @@
 
 import type { ListDecisionResultRiskAssessmentsResponse } from "../../types/index.js";
 import type { DecisionResultRiskAssessmentRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List decision result risk assessments

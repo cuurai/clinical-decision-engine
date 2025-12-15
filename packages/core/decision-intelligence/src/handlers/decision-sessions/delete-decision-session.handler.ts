@@ -6,7 +6,7 @@
  */
 
 import type { DecisionSessionRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * Delete decision session

@@ -7,7 +7,7 @@
 
 import type { ListThresholdProfilesParams, ListThresholdProfilesResponse } from "../../types/index.js";
 import type { ThresholdProfileRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../../_shared/helpers/id-generator.js";
+import { diTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
 
 /**
  * List threshold profiles
