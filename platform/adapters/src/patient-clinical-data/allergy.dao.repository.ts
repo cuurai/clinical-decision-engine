@@ -155,9 +155,6 @@ export class DaoAllergyRepository implements AllergyRepository {
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: AllergyUpdate }>): Promise<Allergy[]> {

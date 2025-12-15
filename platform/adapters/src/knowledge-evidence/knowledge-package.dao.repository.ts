@@ -156,9 +156,6 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: KnowledgePackageUpdate }>): Promise<KnowledgePackage[]> {

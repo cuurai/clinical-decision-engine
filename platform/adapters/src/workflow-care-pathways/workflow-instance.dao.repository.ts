@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { WorkflowInstanceRepository } from "@cuur/core/workflow-care-pathways/repositories/index.js";
 import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  WorkflowInstanceRepository,
-} from "@cuur/core/workflow-care-pathways/repositories/index.js";
-import type {
-  WorkflowInstance, Timestamps,
+  WorkflowInstance,
+  Timestamps,
   WorkflowInstanceInput,
   WorkflowInstanceUpdate,
 } from "@cuur/core/workflow-care-pathways/types/index.js";
@@ -34,10 +29,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<WorkflowInstance>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<WorkflowInstance>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +40,17 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +89,6 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -106,13 +97,16 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateWorkflowInstanceRequest): Promise<WorkflowInstance> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateWorkflowInstanceRequest
+  ): Promise<WorkflowInstance> {
     try {
       const record = await this.dao.workflowInstance.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +122,6 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -155,12 +148,12 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: WorkflowInstanceUpdate }>): Promise<WorkflowInstance[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: WorkflowInstanceUpdate }>
+  ): Promise<WorkflowInstance[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -189,7 +182,6 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -200,12 +192,13 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
   private toDomain(model: any): WorkflowInstance {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as WorkflowInstance;
   }
 }

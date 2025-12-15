@@ -9,19 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  DataExportBatchRepository,
-
-  UpdateDataExportBatchRequest,} from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { DataExportBatchRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { UpdateDataExportBatchRequest } from "@cuur/core/integration-interoperability/types/index.js";
 import type {
   DataExportBatchInput,
   DataExportBatchUpdate,
-  DataExportBatch, Timestamps,
+  DataExportBatch,
+  Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -35,10 +30,7 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<DataExportBatch>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<DataExportBatch>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -49,17 +41,17 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -98,7 +90,6 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -107,13 +98,16 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateDataExportBatchRequest): Promise<DataExportBatch> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateDataExportBatchRequest
+  ): Promise<DataExportBatch> {
     try {
       const record = await this.dao.dataExportBatch.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -129,7 +123,6 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -156,12 +149,12 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DataExportBatchUpdate }>): Promise<DataExportBatch[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: DataExportBatchUpdate }>
+  ): Promise<DataExportBatch[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -190,7 +183,6 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -201,12 +193,13 @@ export class DaoDataExportBatchRepository implements DataExportBatchRepository {
   private toDomain(model: any): DataExportBatch {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as DataExportBatch;
   }
 }

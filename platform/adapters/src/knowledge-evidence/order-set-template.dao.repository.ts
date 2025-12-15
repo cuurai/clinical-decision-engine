@@ -155,9 +155,6 @@ export class DaoOrderSetTemplateRepository implements OrderSetTemplateRepository
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: OrderSetTemplateUpdate }>): Promise<OrderSetTemplate[]> {

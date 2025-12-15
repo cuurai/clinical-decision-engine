@@ -9,18 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  EscalationPolicyRepository,
-} from "@cuur/core/workflow-care-pathways/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { EscalationPolicyRepository } from "@cuur/core/workflow-care-pathways/repositories/index.js";
 import type {
   EscalationPolicyInput,
   EscalationPolicyUpdate,
-  EscalationPolicy, Timestamps,
+  EscalationPolicy,
+  Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +29,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<EscalationPolicy>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<EscalationPolicy>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +40,17 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +89,6 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -106,13 +97,16 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateEscalationPolicyRequest): Promise<EscalationPolicy> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateEscalationPolicyRequest
+  ): Promise<EscalationPolicy> {
     try {
       const record = await this.dao.escalationPolicy.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +122,6 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -155,12 +148,12 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: EscalationPolicyUpdate }>): Promise<EscalationPolicy[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: EscalationPolicyUpdate }>
+  ): Promise<EscalationPolicy[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -189,7 +182,6 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -200,12 +192,13 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
   private toDomain(model: any): EscalationPolicy {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as EscalationPolicy;
   }
 }

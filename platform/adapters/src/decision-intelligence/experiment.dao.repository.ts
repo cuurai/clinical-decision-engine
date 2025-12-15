@@ -9,18 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  ExperimentRepository,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { ExperimentRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
 import type {
   ExperimentInput,
-  ExperimentUpdate,
-  Experiment, Timestamps,
+  UpdateExperimentRequest,
+  Experiment,
+  Timestamps,
 } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +29,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<Experiment>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<Experiment>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +40,17 @@ export class DaoExperimentRepository implements ExperimentRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params?.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        items: records.map((r: any) => this.toDomain(r)),
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +89,6 @@ export class DaoExperimentRepository implements ExperimentRepository {
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -106,13 +97,12 @@ export class DaoExperimentRepository implements ExperimentRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: ExperimentUpdate): Promise<Experiment> {
+  async update(orgId: OrgId, id: string, data: UpdateExperimentRequest): Promise<Experiment> {
     try {
       const record = await this.dao.experimentInput.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +118,6 @@ export class DaoExperimentRepository implements ExperimentRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -138,35 +127,32 @@ export class DaoExperimentRepository implements ExperimentRepository {
   }
   async createMany(orgId: OrgId, items: Array<ExperimentInput>): Promise<Experiment[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.experimentInput.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: Experiment[] = [];
+        for (const item of items) {
+          const record = await tx.experimentInput.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.experimentInput.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
     } catch (error) {
       handleDatabaseError(error);
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ExperimentUpdate }>): Promise<Experiment[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: UpdateExperimentRequest }>
+  ): Promise<Experiment[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Experiment[] = [];
         for (const { id, data } of updates) {
           const record = await tx.experiment.update({
@@ -192,7 +178,6 @@ export class DaoExperimentRepository implements ExperimentRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -203,12 +188,13 @@ export class DaoExperimentRepository implements ExperimentRepository {
   private toDomain(model: any): Experiment {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as Experiment;
   }
 }

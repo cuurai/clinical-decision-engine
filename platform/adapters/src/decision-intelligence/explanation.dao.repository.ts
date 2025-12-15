@@ -9,17 +9,12 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  ExplanationRepository,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { ExplanationRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
 import type {
   ExplanationInput,
-  Explanation, Timestamps,
+  Explanation,
+  Timestamps,
 } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -33,10 +28,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<Explanation>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<Explanation>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -47,17 +39,17 @@ export class DaoExplanationRepository implements ExplanationRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params?.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        items: records.map((r: any) => this.toDomain(r)),
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -96,7 +88,6 @@ export class DaoExplanationRepository implements ExplanationRepository {
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -107,26 +98,20 @@ export class DaoExplanationRepository implements ExplanationRepository {
   }
   async createMany(orgId: OrgId, items: Array<ExplanationInput>): Promise<Explanation[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.explanationInput.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: Explanation[] = [];
+        for (const item of items) {
+          const record = await tx.explanationInput.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.explanationInput.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -135,12 +120,13 @@ export class DaoExplanationRepository implements ExplanationRepository {
   private toDomain(model: any): Explanation {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as Explanation;
   }
 }

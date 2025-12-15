@@ -9,18 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  SimulationScenarioRepository,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { SimulationScenarioRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
 import type {
   SimulationScenarioInput,
-  SimulationScenarioUpdate,
-  SimulationScenario, Timestamps,
+  UpdateSimulationScenarioRequest,
+  SimulationScenario,
+  Timestamps,
 } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -48,17 +43,17 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params?.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        items: records.map((r: any) => this.toDomain(r)),
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +92,6 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -106,13 +100,16 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: SimulationScenarioUpdate): Promise<SimulationScenario> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateSimulationScenarioRequest
+  ): Promise<SimulationScenario> {
     try {
       const record = await this.dao.simulationScenarioInput.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +125,6 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -136,37 +132,37 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<SimulationScenarioInput>): Promise<SimulationScenario[]> {
+  async createMany(
+    orgId: OrgId,
+    items: Array<SimulationScenarioInput>
+  ): Promise<SimulationScenario[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.simulationScenarioInput.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: SimulationScenario[] = [];
+        for (const item of items) {
+          const record = await tx.simulationScenarioInput.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.simulationScenarioInput.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
     } catch (error) {
       handleDatabaseError(error);
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: SimulationScenarioUpdate }>): Promise<SimulationScenario[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: UpdateSimulationScenarioRequest }>
+  ): Promise<SimulationScenario[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: SimulationScenario[] = [];
         for (const { id, data } of updates) {
           const record = await tx.simulationScenario.update({
@@ -192,7 +188,6 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -203,12 +198,13 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
   private toDomain(model: any): SimulationScenario {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as SimulationScenario;
   }
 }

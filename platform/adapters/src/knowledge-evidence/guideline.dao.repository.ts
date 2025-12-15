@@ -155,9 +155,6 @@ export class DaoGuidelineRepository implements GuidelineRepository {
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ClinicalClinicalGuidelineUpdate }>): Promise<Guideline[]> {

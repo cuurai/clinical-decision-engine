@@ -9,17 +9,12 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  FHIRBundleRepository,
-} from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { FHIRBundleRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
 import type {
   FHIRBundleInput,
-  Fhirbundle, Timestamps,
+  FHIRBundle,
+  Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -33,10 +28,7 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<Fhirbundle>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<FHIRBundle>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -47,17 +39,17 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -65,7 +57,7 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Fhirbundle | null> {
+  async findById(orgId: OrgId, id: string): Promise<FHIRBundle | null> {
     try {
       const record = await this.dao.fhirbundle.findFirst({
         where: {
@@ -80,20 +72,19 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Fhirbundle | null> {
+  async get(orgId: OrgId, id: string): Promise<FHIRBundle | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Fhirbundle", id);
+      throw new NotFoundError("FHIRBundle", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: Fhirbundle): Promise<Fhirbundle> {
+  async create(orgId: OrgId, data: FHIRBundle): Promise<FHIRBundle> {
     try {
       const record = await this.dao.fhirbundle.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -109,7 +100,6 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -117,11 +107,11 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<FHIRBundleInput>): Promise<Fhirbundle[]> {
+  async createMany(orgId: OrgId, items: Array<FHIRBundleInput>): Promise<FHIRBundle[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
-        const results: Fhirbundle[] = [];
+        const results: FHIRBundle[] = [];
         for (const item of items) {
           const record = await tx.fhirbundle.create({
             data: {
@@ -133,9 +123,6 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
         }
         return results;
       });
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -151,7 +138,6 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -159,15 +145,16 @@ export class DaoFHIRBundleRepository implements FHIRBundleRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Fhirbundle {
+  private toDomain(model: any): FHIRBundle {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Fhirbundle;
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
+    } as FHIRBundle;
   }
 }

@@ -9,17 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
 import type {
   ValueSetRepository,
-
-  UpdateValueSetRequest,} from "@cuur/core/knowledge-evidence/repositories/index.js";
+  UpdateValueSetRequest,
+} from "@cuur/core/knowledge-evidence/repositories/index.js";
 import type {
-  ValueSet, Timestamps,
+  ValueSet,
+  Timestamps,
   ValueSetInput,
   ValueSetUpdate,
 } from "@cuur/core/knowledge-evidence/types/index.js";
@@ -35,10 +32,7 @@ export class DaoValueSetRepository implements ValueSetRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<ValueSet>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<ValueSet>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -49,17 +43,17 @@ export class DaoValueSetRepository implements ValueSetRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -98,7 +92,6 @@ export class DaoValueSetRepository implements ValueSetRepository {
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -113,7 +106,6 @@ export class DaoValueSetRepository implements ValueSetRepository {
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -129,7 +121,6 @@ export class DaoValueSetRepository implements ValueSetRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -156,12 +147,12 @@ export class DaoValueSetRepository implements ValueSetRepository {
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ValueSetUpdate }>): Promise<ValueSet[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: ValueSetUpdate }>
+  ): Promise<ValueSet[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -190,7 +181,6 @@ export class DaoValueSetRepository implements ValueSetRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -201,12 +191,13 @@ export class DaoValueSetRepository implements ValueSetRepository {
   private toDomain(model: any): ValueSet {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as ValueSet;
   }
 }

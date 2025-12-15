@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { WorkflowDefinitionRepository } from "@cuur/core/workflow-care-pathways/repositories/index.js";
 import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  WorkflowDefinitionRepository,
-} from "@cuur/core/workflow-care-pathways/repositories/index.js";
-import type {
-  WorkflowDefinition, Timestamps,
+  WorkflowDefinition,
+  Timestamps,
   WorkflowDefinitionInput,
   WorkflowDefinitionUpdate,
 } from "@cuur/core/workflow-care-pathways/types/index.js";
@@ -48,17 +43,17 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +92,6 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -106,13 +100,16 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateWorkflowDefinitionRequest): Promise<WorkflowDefinition> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateWorkflowDefinitionRequest
+  ): Promise<WorkflowDefinition> {
     try {
       const record = await this.dao.workflowDefinition.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +125,6 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -136,7 +132,10 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<WorkflowDefinitionInput>): Promise<WorkflowDefinition[]> {
+  async createMany(
+    orgId: OrgId,
+    items: Array<WorkflowDefinitionInput>
+  ): Promise<WorkflowDefinition[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -155,12 +154,12 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: WorkflowDefinitionUpdate }>): Promise<WorkflowDefinition[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: WorkflowDefinitionUpdate }>
+  ): Promise<WorkflowDefinition[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -189,7 +188,6 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -200,12 +198,13 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
   private toDomain(model: any): WorkflowDefinition {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as WorkflowDefinition;
   }
 }

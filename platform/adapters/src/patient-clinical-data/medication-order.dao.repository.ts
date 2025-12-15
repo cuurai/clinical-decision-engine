@@ -9,18 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  MedicationOrderRepository,
-} from "@cuur/core/patient-clinical-data/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { MedicationOrderRepository } from "@cuur/core/patient-clinical-data/repositories/index.js";
 import type {
   MedicationOrderInput,
   MedicationOrderUpdate,
-  MedicationOrder, Timestamps,
+  MedicationOrder,
+  Timestamps,
 } from "@cuur/core/patient-clinical-data/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +29,7 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<MedicationOrder>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<MedicationOrder>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +40,17 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +89,6 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -106,13 +97,16 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateMedicationOrderRequest): Promise<MedicationOrder> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateMedicationOrderRequest
+  ): Promise<MedicationOrder> {
     try {
       const record = await this.dao.medicationOrder.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +122,6 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -155,12 +148,12 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: MedicationOrderUpdate }>): Promise<MedicationOrder[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: MedicationOrderUpdate }>
+  ): Promise<MedicationOrder[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -189,7 +182,6 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -200,12 +192,13 @@ export class DaoMedicationOrderRepository implements MedicationOrderRepository {
   private toDomain(model: any): MedicationOrder {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as MedicationOrder;
   }
 }

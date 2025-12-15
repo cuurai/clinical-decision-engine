@@ -9,19 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  ConnectionRepository,
-
-  UpdateConnectionRequest,} from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { ConnectionRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { UpdateConnectionRequest } from "@cuur/core/integration-interoperability/types/index.js";
 import type {
   ConnectionInput,
   ConnectionUpdate,
-  Connection, Timestamps,
+  Connection,
+  Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -35,10 +30,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<Connection>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<Connection>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -49,17 +41,17 @@ export class DaoConnectionRepository implements ConnectionRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -98,7 +90,6 @@ export class DaoConnectionRepository implements ConnectionRepository {
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -113,7 +104,6 @@ export class DaoConnectionRepository implements ConnectionRepository {
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -129,7 +119,6 @@ export class DaoConnectionRepository implements ConnectionRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -158,7 +147,10 @@ export class DaoConnectionRepository implements ConnectionRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ConnectionUpdate }>): Promise<Connection[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: ConnectionUpdate }>
+  ): Promise<Connection[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -187,7 +179,6 @@ export class DaoConnectionRepository implements ConnectionRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -198,12 +189,13 @@ export class DaoConnectionRepository implements ConnectionRepository {
   private toDomain(model: any): Connection {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as Connection;
   }
 }

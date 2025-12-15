@@ -9,18 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  ScheduleTemplateRepository,
-} from "@cuur/core/workflow-care-pathways/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { ScheduleTemplateRepository } from "@cuur/core/workflow-care-pathways/repositories/index.js";
 import type {
   ScheduleTemplateInput,
   ScheduleTemplateUpdate,
-  ScheduleTemplate, Timestamps,
+  ScheduleTemplate,
+  Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +29,7 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<ScheduleTemplate>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<ScheduleTemplate>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +40,17 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +89,6 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -106,13 +97,16 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateScheduleTemplateRequest): Promise<ScheduleTemplate> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateScheduleTemplateRequest
+  ): Promise<ScheduleTemplate> {
     try {
       const record = await this.dao.scheduleTemplate.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +122,6 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -155,12 +148,12 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ScheduleTemplateUpdate }>): Promise<ScheduleTemplate[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: ScheduleTemplateUpdate }>
+  ): Promise<ScheduleTemplate[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -189,7 +182,6 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -200,12 +192,13 @@ export class DaoScheduleTemplateRepository implements ScheduleTemplateRepository
   private toDomain(model: any): ScheduleTemplate {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as ScheduleTemplate;
   }
 }

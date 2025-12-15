@@ -156,9 +156,6 @@ export class DaoEvidenceCitationRepository implements EvidenceCitationRepository
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: EvidenceCitationUpdate }>): Promise<EvidenceCitation[]> {

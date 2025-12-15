@@ -52,17 +52,26 @@ export class TransactionManager {
  * Handle database errors consistently across all DAO repositories
  *
  * This function provides centralized error handling and logging for database operations.
- * It can be extended to handle specific error types (e.g., unique constraint violations,
- * foreign key violations) and provide more meaningful error messages.
+ * It logs the error and can be extended in the future to transform specific error types
+ * (e.g., unique constraint violations, foreign key violations) into more user-friendly messages.
+ *
+ * Callers should throw the error after calling this function:
+ * ```ts
+ * } catch (error) {
+ *   handleDatabaseError(error);
+ *   throw error;
+ * }
+ * ```
  *
  * @param error - The error that occurred during database operation
- * @throws The error (possibly transformed) to be handled by the caller
  */
-export function handleDatabaseError(error: unknown): never {
+export function handleDatabaseError(error: unknown): void {
   // Log the error for debugging purposes
   console.error("Database error:", error);
 
-  // Re-throw the error to be handled by the caller
-  // In the future, this could transform specific Prisma errors into more user-friendly messages
-  throw error;
+  // In the future, this could:
+  // - Transform Prisma errors into domain-specific errors
+  // - Add error context/metadata
+  // - Send to error tracking service
+  // - Handle specific error types differently
 }

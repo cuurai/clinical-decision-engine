@@ -9,17 +9,12 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  HL7MessageRepository,
-} from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { HL7MessageRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
 import type {
   HL7MessageInput,
-  Hl7message, Timestamps,
+  HL7Message,
+  Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -33,10 +28,7 @@ export class DaoHL7MessageRepository implements HL7MessageRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<Hl7message>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<HL7Message>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -47,17 +39,17 @@ export class DaoHL7MessageRepository implements HL7MessageRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -65,7 +57,7 @@ export class DaoHL7MessageRepository implements HL7MessageRepository {
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<Hl7message | null> {
+  async findById(orgId: OrgId, id: string): Promise<HL7Message | null> {
     try {
       const record = await this.dao.hl7message.findFirst({
         where: {
@@ -80,20 +72,19 @@ export class DaoHL7MessageRepository implements HL7MessageRepository {
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<Hl7message | null> {
+  async get(orgId: OrgId, id: string): Promise<HL7Message | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("Hl7message", id);
+      throw new NotFoundError("HL7Message", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: Hl7message): Promise<Hl7message> {
+  async create(orgId: OrgId, data: HL7Message): Promise<HL7Message> {
     try {
       const record = await this.dao.hl7message.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -109,7 +100,6 @@ export class DaoHL7MessageRepository implements HL7MessageRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -117,11 +107,11 @@ export class DaoHL7MessageRepository implements HL7MessageRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<HL7MessageInput>): Promise<Hl7message[]> {
+  async createMany(orgId: OrgId, items: Array<HL7MessageInput>): Promise<HL7Message[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
-        const results: Hl7message[] = [];
+        const results: HL7Message[] = [];
         for (const item of items) {
           const record = await tx.hl7message.create({
             data: {
@@ -133,9 +123,6 @@ export class DaoHL7MessageRepository implements HL7MessageRepository {
         }
         return results;
       });
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     } catch (error) {
       handleDatabaseError(error);
       throw error;
@@ -151,7 +138,6 @@ export class DaoHL7MessageRepository implements HL7MessageRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -159,15 +145,16 @@ export class DaoHL7MessageRepository implements HL7MessageRepository {
       throw error;
     }
   }
-  private toDomain(model: any): Hl7message {
+  private toDomain(model: any): HL7Message {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as Hl7message;
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
+    } as HL7Message;
   }
 }

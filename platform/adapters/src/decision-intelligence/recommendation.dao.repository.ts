@@ -9,18 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  RecommendationRepository,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { RecommendationRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
 import type {
   RecommendationInput,
-  RecommendationUpdate,
-  Recommendation, Timestamps,
+  UpdateRecommendationRequest,
+  Recommendation,
+  Timestamps,
 } from "@cuur/core/decision-intelligence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +29,7 @@ export class DaoRecommendationRepository implements RecommendationRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<Recommendation>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<Recommendation>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +40,17 @@ export class DaoRecommendationRepository implements RecommendationRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params?.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params?.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
-        items: records.map((r) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        items: records.map((r: any) => this.toDomain(r)),
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +89,6 @@ export class DaoRecommendationRepository implements RecommendationRepository {
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -106,13 +97,16 @@ export class DaoRecommendationRepository implements RecommendationRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: RecommendationUpdate): Promise<Recommendation> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateRecommendationRequest
+  ): Promise<Recommendation> {
     try {
       const record = await this.dao.recommendationInput.update({
         where: { id, orgId },
         data: {
-          ...inputData,
-          
+          ...data,
         },
       });
       return this.toDomain(record);
@@ -128,7 +122,6 @@ export class DaoRecommendationRepository implements RecommendationRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -138,35 +131,32 @@ export class DaoRecommendationRepository implements RecommendationRepository {
   }
   async createMany(orgId: OrgId, items: Array<RecommendationInput>): Promise<Recommendation[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.recommendationInput.createMany({
-        data: items.map(item => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: Recommendation[] = [];
+        for (const item of items) {
+          const record = await tx.recommendationInput.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map(item => item.id).filter(Boolean) as string[];
-      if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.recommendationInput.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r) => this.toDomain(r));
     } catch (error) {
       handleDatabaseError(error);
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: RecommendationUpdate }>): Promise<Recommendation[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: UpdateRecommendationRequest }>
+  ): Promise<Recommendation[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.execute(orgId, async (tx) => {
+      return await this.transactionManager.executeInTransaction(async (tx) => {
         const results: Recommendation[] = [];
         for (const { id, data } of updates) {
           const record = await tx.recommendation.update({
@@ -192,7 +182,6 @@ export class DaoRecommendationRepository implements RecommendationRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -203,12 +192,13 @@ export class DaoRecommendationRepository implements RecommendationRepository {
   private toDomain(model: any): Recommendation {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as Recommendation;
   }
 }

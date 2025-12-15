@@ -103,26 +103,20 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
     items: Array<InterfaceHealthCheckInput>
   ): Promise<InterfaceHealthCheck[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.interfaceHealthCheck.createMany({
-        data: items.map((item: any) => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: InterfaceHealthCheck[] = [];
+        for (const item of items) {
+          const record = await tx.interfaceHealthCheck.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map((item: any) => item.id).filter(Boolean) as string[];
-      // Query recently created records// This is approximate - for exact results, use individual creates// if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.interfaceHealthCheck.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r: any) => this.toDomain(r));
     } catch (error) {
       handleDatabaseError(error);
       throw error;

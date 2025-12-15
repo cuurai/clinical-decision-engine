@@ -9,18 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  ChecklistInstanceRepository,
-} from "@cuur/core/workflow-care-pathways/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { ChecklistInstanceRepository } from "@cuur/core/workflow-care-pathways/repositories/index.js";
 import type {
   ChecklistInstanceInput,
   ChecklistInstanceUpdate,
-  ChecklistInstance, Timestamps,
+  ChecklistInstance,
+  Timestamps,
 } from "@cuur/core/workflow-care-pathways/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +29,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<ChecklistInstance>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<ChecklistInstance>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +40,17 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +89,6 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -106,13 +97,16 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateChecklistInstanceRequest): Promise<ChecklistInstance> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateChecklistInstanceRequest
+  ): Promise<ChecklistInstance> {
     try {
       const record = await this.dao.checklistInstance.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +122,6 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -136,7 +129,10 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<ChecklistInstanceInput>): Promise<ChecklistInstance[]> {
+  async createMany(
+    orgId: OrgId,
+    items: Array<ChecklistInstanceInput>
+  ): Promise<ChecklistInstance[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -155,12 +151,12 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ChecklistInstanceUpdate }>): Promise<ChecklistInstance[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: ChecklistInstanceUpdate }>
+  ): Promise<ChecklistInstance[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -189,7 +185,6 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -200,12 +195,13 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
   private toDomain(model: any): ChecklistInstance {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as ChecklistInstance;
   }
 }

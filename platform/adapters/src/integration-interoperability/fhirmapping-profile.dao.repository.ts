@@ -9,18 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  FHIRMappingProfileRepository,
-} from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { FHIRMappingProfileRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
 import type {
   FHIRMappingProfileInput,
-  FHIRMappingProfileUpdate,
-  FhirmappingProfile, Timestamps,
+  UpdateFHIRMappingProfileRequest,
+  FHIRMappingProfile,
+  Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -37,7 +32,7 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
   async list(
     orgId: OrgId,
     params?: PaginationParams
-  ): Promise<PaginatedResult<FhirmappingProfile>> {
+  ): Promise<PaginatedResult<FHIRMappingProfile>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +43,17 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -66,7 +61,7 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
       throw error;
     }
   }
-  async findById(orgId: OrgId, id: string): Promise<FhirmappingProfile | null> {
+  async findById(orgId: OrgId, id: string): Promise<FHIRMappingProfile | null> {
     try {
       const record = await this.dao.fhirmappingProfile.findFirst({
         where: {
@@ -81,20 +76,19 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
       throw error;
     }
   }
-  async get(orgId: OrgId, id: string): Promise<FhirmappingProfile | null> {
+  async get(orgId: OrgId, id: string): Promise<FHIRMappingProfile | null> {
     const result = await this.findById(orgId, id);
     if (!result) {
-      throw new NotFoundError("FhirmappingProfile", id);
+      throw new NotFoundError("FHIRMappingProfile", id);
     }
     return result;
   }
-  async create(orgId: OrgId, data: FhirmappingProfile): Promise<FhirmappingProfile> {
+  async create(orgId: OrgId, data: FHIRMappingProfile): Promise<FHIRMappingProfile> {
     try {
       const record = await this.dao.fhirmappingProfile.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -103,13 +97,16 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: FhirmappingProfileUpdate): Promise<FhirmappingProfile> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateFHIRMappingProfileRequest
+  ): Promise<FHIRMappingProfile> {
     try {
       const record = await this.dao.fhirmappingProfile.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -125,7 +122,6 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -133,11 +129,14 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<FHIRMappingProfileInput>): Promise<FhirmappingProfile[]> {
+  async createMany(
+    orgId: OrgId,
+    items: Array<FHIRMappingProfileInput>
+  ): Promise<FHIRMappingProfile[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
-        const results: FhirmappingProfile[] = [];
+        const results: FHIRMappingProfile[] = [];
         for (const item of items) {
           const record = await tx.fhirmappingProfile.create({
             data: {
@@ -152,16 +151,16 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: FHIRMappingProfileUpdate }>): Promise<FhirmappingProfile[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: UpdateFHIRMappingProfileRequest }>
+  ): Promise<FHIRMappingProfile[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
-        const results: FhirmappingProfile[] = [];
+        const results: FHIRMappingProfile[] = [];
         for (const { id, data } of updates) {
           const record = await tx.fhirmappingProfile.update({
             where: { id, orgId },
@@ -186,7 +185,6 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -194,15 +192,16 @@ export class DaoFHIRMappingProfileRepository implements FHIRMappingProfileReposi
       throw error;
     }
   }
-  private toDomain(model: any): FhirmappingProfile {
+  private toDomain(model: any): FHIRMappingProfile {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
-    } as FhirmappingProfile;
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
+    } as FHIRMappingProfile;
   }
 }

@@ -10,10 +10,8 @@
  */
 
 import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
-import type {
-  DecisionPolicyRepository,
-  UpdateDecisionPolicyRequest,
-} from "@cuur/core/decision-intelligence/repositories/index.js";
+import type { DecisionPolicyRepository } from "@cuur/core/decision-intelligence/repositories/index.js";
+import type { UpdateDecisionPolicyRequest } from "@cuur/core/decision-intelligence/types/index.js";
 import type {
   DecisionPolicyInput,
   DecisionPolicyUpdate,

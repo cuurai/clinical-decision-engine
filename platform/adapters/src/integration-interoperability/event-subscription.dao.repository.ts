@@ -9,19 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  EventSubscriptionRepository,
-
-  UpdateEventSubscriptionRequest,} from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { EventSubscriptionRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { UpdateEventSubscriptionRequest } from "@cuur/core/integration-interoperability/types/index.js";
 import type {
   EventSubscriptionInput,
   EventSubscriptionUpdate,
-  EventSubscription, Timestamps,
+  EventSubscription,
+  Timestamps,
 } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -35,10 +30,7 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<EventSubscription>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<EventSubscription>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -49,17 +41,17 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -98,7 +90,6 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -107,13 +98,16 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateEventSubscriptionRequest): Promise<EventSubscription> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateEventSubscriptionRequest
+  ): Promise<EventSubscription> {
     try {
       const record = await this.dao.eventSubscription.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -129,7 +123,6 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -137,7 +130,10 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<EventSubscriptionInput>): Promise<EventSubscription[]> {
+  async createMany(
+    orgId: OrgId,
+    items: Array<EventSubscriptionInput>
+  ): Promise<EventSubscription[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -156,12 +152,12 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: EventSubscriptionUpdate }>): Promise<EventSubscription[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: EventSubscriptionUpdate }>
+  ): Promise<EventSubscription[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -190,7 +186,6 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -201,12 +196,13 @@ export class DaoEventSubscriptionRepository implements EventSubscriptionReposito
   private toDomain(model: any): EventSubscription {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as EventSubscription;
   }
 }

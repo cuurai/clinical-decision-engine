@@ -10,8 +10,8 @@
  */
 
 import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
-import type { IntegrationJobRepository ,
-  UpdateIntegrationJobRequest} from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { IntegrationJobRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { UpdateIntegrationJobRequest } from "@cuur/core/integration-interoperability/types/index.js";
 import type {
   IntegrationJobInput,
   IntegrationJobUpdate,
@@ -41,7 +41,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor
+        ...(params && "cursor" in params && params.cursor
           ? {
               skip: 1,
               cursor: { id: params.cursor },
@@ -98,7 +98,11 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateIntegrationJobRequest): Promise<IntegrationJob> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateIntegrationJobRequest
+  ): Promise<IntegrationJob> {
     try {
       const record = await this.dao.integrationJob.update({
         where: { id, orgId },
@@ -126,26 +130,20 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
   }
   async createMany(orgId: OrgId, items: Array<IntegrationJobInput>): Promise<IntegrationJob[]> {
     try {
-      // Use createMany for better performance
-      await this.dao.integrationJob.createMany({
-        data: items.map((item: any) => ({
-          ...item,
-          orgId,
-        })),
-        skipDuplicates: true,
+      // Use transaction with individual creates to get created records with IDs
+      return await this.transactionManager.executeInTransaction(async (tx) => {
+        const results: IntegrationJob[] = [];
+        for (const item of items) {
+          const record = await tx.integrationJob.create({
+            data: {
+              ...item,
+              orgId,
+            },
+          });
+          results.push(this.toDomain(record));
+        }
+        return results;
       });
-
-      // Fetch created records
-      const ids = items.map((item: any) => item.id).filter(Boolean) as string[];
-      // Query recently created records// This is approximate - for exact results, use individual creates// if (ids.length === 0) {
-        return [];
-      }
-
-      const records = await this.dao.integrationJob.findMany({
-        where: { id: { in: ids }, orgId },
-      });
-
-      return records.map((r: any) => this.toDomain(r));
     } catch (error) {
       handleDatabaseError(error);
       throw error;

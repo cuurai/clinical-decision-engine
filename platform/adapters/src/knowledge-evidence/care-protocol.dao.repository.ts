@@ -153,9 +153,6 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: CareProtocolTemplateUpdate }>): Promise<CareProtocol[]> {

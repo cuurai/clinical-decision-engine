@@ -124,9 +124,6 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
   private toDomain(model: any): IntegrationRun {

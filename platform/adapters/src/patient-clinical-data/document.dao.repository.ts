@@ -152,9 +152,6 @@ export class DaoDocumentRepository implements DocumentRepository {
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
   async updateMany(orgId: OrgId, updates: Array<{ id: string; data: DocumentReferenceUpdate }>): Promise<Document[]> {

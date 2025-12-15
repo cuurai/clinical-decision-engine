@@ -124,9 +124,6 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
     } catch (error) {
       handleDatabaseError(error);
       throw error;
-    } catch (error) {
-      handleDatabaseError(error);
-      throw error;
     }
   }
   private toDomain(model: any): SimulationRun {
