@@ -9,19 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  QuestionnaireTemplateRepository,
-
-  UpdateQuestionnaireTemplateRequest,} from "@cuur/core/knowledge-evidence/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { QuestionnaireTemplateRepository } from "@cuur/core/knowledge-evidence/repositories/index.js";
+import type { UpdateQuestionnaireTemplateRequest } from "@cuur/core/knowledge-evidence/types/index.js";
 import type {
   QuestionnaireTemplateInput,
   QuestionnaireTemplateUpdate,
-  QuestionnaireTemplate, Timestamps,
+  QuestionnaireTemplate,
+  Timestamps,
 } from "@cuur/core/knowledge-evidence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -49,17 +44,17 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -98,7 +93,6 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -107,13 +101,16 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateQuestionnaireTemplateRequest): Promise<QuestionnaireTemplate> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateQuestionnaireTemplateRequest
+  ): Promise<QuestionnaireTemplate> {
     try {
       const record = await this.dao.questionnaireTemplate.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -129,7 +126,6 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -137,7 +133,10 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<QuestionnaireTemplateInput>): Promise<QuestionnaireTemplate[]> {
+  async createMany(
+    orgId: OrgId,
+    items: Array<QuestionnaireTemplateInput>
+  ): Promise<QuestionnaireTemplate[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -158,7 +157,10 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: QuestionnaireTemplateUpdate }>): Promise<QuestionnaireTemplate[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: QuestionnaireTemplateUpdate }>
+  ): Promise<QuestionnaireTemplate[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -187,7 +189,6 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -198,12 +199,13 @@ export class DaoQuestionnaireTemplateRepository implements QuestionnaireTemplate
   private toDomain(model: any): QuestionnaireTemplate {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as QuestionnaireTemplate;
   }
 }

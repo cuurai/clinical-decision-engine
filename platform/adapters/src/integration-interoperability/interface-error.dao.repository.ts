@@ -9,22 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
 import type {
   InterfaceError,
-  InterfaceErrorInput,
+  CreateInterfaceErrorInput,
   UpdateInterfaceErrorRequest,
 } from "@cuur/core/integration-interoperability/types/index.js";
-import type {
-  InterfaceErrorRepository,
-} from "@cuur/core/integration-interoperability/repositories/index.js";
-import type {
-  Timestamps,
-} from "@cuur/core/integration-interoperability/types/index.js";
+import type { InterfaceErrorRepository } from "@cuur/core/integration-interoperability/repositories/index.js";
+import type { Timestamps } from "@cuur/core/integration-interoperability/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
 
@@ -37,10 +29,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<InterfaceError>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<InterfaceError>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -51,17 +40,17 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -94,13 +83,12 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
   async create(orgId: OrgId, data: InterfaceError): Promise<InterfaceError> {
     // Note: Repository interface expects InterfaceError, but we only use input fields
     // Extract only the input fields to avoid including id, createdAt, updatedAt
-    const inputData = data as unknown as InterfaceErrorInput;
+    const inputData = data as unknown as CreateInterfaceErrorInput;
     try {
       const record = await this.dao.interfaceError.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -109,13 +97,16 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateInterfaceErrorRequest): Promise<InterfaceError> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateInterfaceErrorRequest
+  ): Promise<InterfaceError> {
     try {
       const record = await this.dao.interfaceError.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -124,7 +115,10 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<InterfaceErrorInput>): Promise<InterfaceError[]> {
+  async createMany(
+    orgId: OrgId,
+    items: Array<CreateInterfaceErrorInput>
+  ): Promise<InterfaceError[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -145,7 +139,10 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: UpdateInterfaceErrorRequest }>): Promise<InterfaceError[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: UpdateInterfaceErrorRequest }>
+  ): Promise<InterfaceError[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -167,12 +164,13 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
   private toDomain(model: any): InterfaceError {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as InterfaceError;
   }
 }

@@ -9,19 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  KnowledgePackageRepository,
-
-  UpdateKnowledgePackageRequest,} from "@cuur/core/knowledge-evidence/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { KnowledgePackageRepository } from "@cuur/core/knowledge-evidence/repositories/index.js";
+import type { UpdateKnowledgePackageRequest } from "@cuur/core/knowledge-evidence/types/index.js";
 import type {
   KnowledgePackageInput,
   KnowledgePackageUpdate,
-  KnowledgePackage, Timestamps,
+  KnowledgePackage,
+  Timestamps,
 } from "@cuur/core/knowledge-evidence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -35,10 +30,7 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<KnowledgePackage>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<KnowledgePackage>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -49,17 +41,17 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -98,7 +90,6 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -107,13 +98,16 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
       throw error;
     }
   }
-  async update(orgId: OrgId, id: string, data: UpdateKnowledgePackageRequest): Promise<KnowledgePackage> {
+  async update(
+    orgId: OrgId,
+    id: string,
+    data: UpdateKnowledgePackageRequest
+  ): Promise<KnowledgePackage> {
     try {
       const record = await this.dao.knowledgePackage.update({
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -129,7 +123,6 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -158,7 +151,10 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: KnowledgePackageUpdate }>): Promise<KnowledgePackage[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: KnowledgePackageUpdate }>
+  ): Promise<KnowledgePackage[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -187,7 +183,6 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -198,12 +193,13 @@ export class DaoKnowledgePackageRepository implements KnowledgePackageRepository
   private toDomain(model: any): KnowledgePackage {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as KnowledgePackage;
   }
 }

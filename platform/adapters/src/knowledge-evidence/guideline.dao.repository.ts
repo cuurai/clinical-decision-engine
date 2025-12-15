@@ -9,18 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/core";
+import type { GuidelineRepository } from "@cuur/core/knowledge-evidence/repositories/index.js";
 import type {
-  OrgId,
-  PaginatedResult,
-  PaginationParams,
-} from "@cuur/core";
-import type {
-  GuidelineRepository,
-} from "@cuur/core/knowledge-evidence/repositories/index.js";
-import type {
-  ClinicalClinicalGuidelineInput,
-  ClinicalClinicalGuidelineUpdate,
-  Guideline, Timestamps,
+  ClinicalGuidelineInput,
+  ClinicalGuidelineUpdate,
+  Guideline,
+  Timestamps,
 } from "@cuur/core/knowledge-evidence/types/index.js";
 import type { DaoClient } from "../shared/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../shared/index.js";
@@ -34,10 +29,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
     this.transactionManager = new TransactionManager(dao);
   }
 
-  async list(
-    orgId: OrgId,
-    params?: PaginationParams
-  ): Promise<PaginatedResult<Guideline>> {
+  async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<Guideline>> {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
@@ -48,17 +40,17 @@ export class DaoGuidelineRepository implements GuidelineRepository {
         },
         orderBy: { createdAt: "desc" },
         take: limit,
-        ...(params && 'cursor' in params && params.cursor ? {
-          skip: 1,
-          cursor: { id: params.cursor },
-        } : {}),
+        ...(params && "cursor" in params && params.cursor
+          ? {
+              skip: 1,
+              cursor: { id: params.cursor },
+            }
+          : {}),
       });
 
       return {
         items: records.map((r: any) => this.toDomain(r)),
-        nextCursor: records.length === limit
-          ? records[records.length - 1]?.id
-          : undefined,
+        nextCursor: records.length === limit ? records[records.length - 1]?.id : undefined,
         prevCursor: undefined,
       };
     } catch (error) {
@@ -97,7 +89,6 @@ export class DaoGuidelineRepository implements GuidelineRepository {
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
-          
         },
       });
       return this.toDomain(record);
@@ -112,7 +103,6 @@ export class DaoGuidelineRepository implements GuidelineRepository {
         where: { id, orgId },
         data: {
           ...data,
-          
         },
       });
       return this.toDomain(record);
@@ -128,7 +118,6 @@ export class DaoGuidelineRepository implements GuidelineRepository {
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -136,7 +125,7 @@ export class DaoGuidelineRepository implements GuidelineRepository {
       throw error;
     }
   }
-  async createMany(orgId: OrgId, items: Array<ClinicalClinicalGuidelineInput>): Promise<Guideline[]> {
+  async createMany(orgId: OrgId, items: Array<ClinicalGuidelineInput>): Promise<Guideline[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -157,7 +146,10 @@ export class DaoGuidelineRepository implements GuidelineRepository {
       throw error;
     }
   }
-  async updateMany(orgId: OrgId, updates: Array<{ id: string; data: ClinicalClinicalGuidelineUpdate }>): Promise<Guideline[]> {
+  async updateMany(
+    orgId: OrgId,
+    updates: Array<{ id: string; data: ClinicalGuidelineUpdate }>
+  ): Promise<Guideline[]> {
     try {
       // Use transaction for atomic batch updates
       return await this.transactionManager.executeInTransaction(async (tx) => {
@@ -186,7 +178,6 @@ export class DaoGuidelineRepository implements GuidelineRepository {
         },
         data: {
           deletedAt: new Date(),
-          
         },
       });
     } catch (error) {
@@ -197,12 +188,13 @@ export class DaoGuidelineRepository implements GuidelineRepository {
   private toDomain(model: any): Guideline {
     return {
       ...model,
-      createdAt: model.createdAt instanceof Date
-        ? model.createdAt
-        : new Date(model.createdAt),
-      updatedAt: model.updatedAt instanceof Date
-        ? model.updatedAt
-        : model.updatedAt ? new Date(model.updatedAt) : undefined,
+      createdAt: model.createdAt instanceof Date ? model.createdAt : new Date(model.createdAt),
+      updatedAt:
+        model.updatedAt instanceof Date
+          ? model.updatedAt
+          : model.updatedAt
+          ? new Date(model.updatedAt)
+          : undefined,
     } as Guideline;
   }
 }
