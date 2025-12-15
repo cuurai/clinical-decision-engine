@@ -21,3 +21,9 @@ packages:
   - "platform/services/knowledge-evidence"
   - "platform/services/patient-clinical-data"
   - "platform/services/workflow-care-pathways"
+  # Test packages
+  - "platform/tests/decision-intelligence"
+  - "platform/tests/integration-interoperability"
+  - "platform/tests/knowledge-evidence"
+  - "platform/tests/patient-clinical-data"
+  - "platform/tests/workflow-care-pathways"
