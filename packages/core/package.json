@@ -15,7 +15,7 @@
     },
     "./_shared/*": {
       "types": "./_shared/dist/*.d.ts",
-      "default": "./_shared/dist/*.js"
+      "default": "./_shared/dist/*"
     },
     "./decision-intelligence": {
       "types": "./decision-intelligence/dist/index.d.ts",
@@ -23,7 +23,7 @@
     },
     "./decision-intelligence/*": {
       "types": "./decision-intelligence/dist/*.d.ts",
-      "default": "./decision-intelligence/dist/*.js"
+      "default": "./decision-intelligence/dist/*"
     },
     "./integration-interoperability": {
       "types": "./integration-interoperability/dist/index.d.ts",
@@ -31,7 +31,7 @@
     },
     "./integration-interoperability/*": {
       "types": "./integration-interoperability/dist/*.d.ts",
-      "default": "./integration-interoperability/dist/*.js"
+      "default": "./integration-interoperability/dist/*"
     },
     "./knowledge-evidence": {
       "types": "./knowledge-evidence/dist/index.d.ts",
@@ -39,7 +39,7 @@
     },
     "./knowledge-evidence/*": {
       "types": "./knowledge-evidence/dist/*.d.ts",
-      "default": "./knowledge-evidence/dist/*.js"
+      "default": "./knowledge-evidence/dist/*"
     },
     "./patient-clinical-data": {
       "types": "./patient-clinical-data/dist/index.d.ts",
@@ -47,7 +47,7 @@
     },
     "./patient-clinical-data/*": {
       "types": "./patient-clinical-data/dist/*.d.ts",
-      "default": "./patient-clinical-data/dist/*.js"
+      "default": "./patient-clinical-data/dist/*"
     },
     "./workflow-care-pathways": {
       "types": "./workflow-care-pathways/dist/index.d.ts",
@@ -55,7 +55,7 @@
     },
     "./workflow-care-pathways/*": {
       "types": "./workflow-care-pathways/dist/*.d.ts",
-      "default": "./workflow-care-pathways/dist/*.js"
+      "default": "./workflow-care-pathways/dist/*"
     }
   }
 }
