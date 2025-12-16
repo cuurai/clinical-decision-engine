@@ -11,26 +11,14 @@
 
 import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
-import { createDecisionMetricSnapshot, getDecisionMetricSnapshot } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
-import type { DecisionMetricSnapshotInput } from "@cuur-cde/core/decision-intelligence/types/index.js";
+import { listDecisionMetrics } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import { extractOrgId } from "../extract-org-id.js";
-export async function decisionMetricSnapshotsRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
-  // TODO: DecisionMetricSnapshotRepository DAO adapter needs to be created
-  // POST /decision-metrics
-  // fastify.post("/decision-metrics", async (request, reply) => {
-  //   const orgId = extractOrgId(request);
-  //   const result = await createDecisionMetricSnapshot(deps.decisionMetricSnapshotRepo, orgId, request.body as DecisionMetricSnapshotInput);
-  //   return reply.code(201).send(result);
-  // });
-  // GET /decision-metrics/{id}
-  // fastify.get("/decision-metrics/:id", async (request, reply) => {
-  //   const orgId = extractOrgId(request);
-  //   const id = (request.params as any).id;
-  //   const result = await getDecisionMetricSnapshot(deps.decisionMetricSnapshotRepo, orgId, id);
-  //   return reply.code(200).send(result);
-  // });
-
+export async function decisionMetricSnapshotsRoutes(fastify: FastifyInstance, deps: Dependencies) {
+  // GET /decision-metric-snapshots (flat route for dashboard)
+  // Uses decisionMetricRepo which returns DecisionMetricSnapshot items
+  fastify.get("/decision-metric-snapshots", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listDecisionMetrics(deps.decisionMetricRepo, orgId, request.query || {});
+    return reply.code(200).send(result);
+  });
 }

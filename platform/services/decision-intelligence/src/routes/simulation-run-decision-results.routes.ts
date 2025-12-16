@@ -17,11 +17,23 @@ export async function simulationRunDecisionResultsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /simulation-runs/{id}/decision-results
+  // GET /simulation-runs/{id}/decision-results (nested route)
   fastify.get("/simulation-runs/:id/decision-results", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await listSimulationRunDecisionResults(deps.simulationRunDecisionResultRepo, orgId);
+    const result = await listSimulationRunDecisionResults(
+      deps.simulationRunDecisionResultRepo,
+      orgId
+    );
     return reply.code(200).send(result);
   });
 
+  // GET /simulation-run-decision-results (flat route for dashboard)
+  fastify.get("/simulation-run-decision-results", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listSimulationRunDecisionResults(
+      deps.simulationRunDecisionResultRepo,
+      orgId
+    );
+    return reply.code(200).send(result);
+  });
 }

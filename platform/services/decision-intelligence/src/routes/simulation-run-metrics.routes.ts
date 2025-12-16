@@ -13,15 +13,18 @@ import type { FastifyInstance } from "fastify";
 import { extractOrgId } from "../extract-org-id.js";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { listSimulationRunMetrics } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
-export async function simulationRunMetricsRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
-  // GET /simulation-runs/{id}/metrics
+export async function simulationRunMetricsRoutes(fastify: FastifyInstance, deps: Dependencies) {
+  // GET /simulation-runs/{id}/metrics (nested route)
   fastify.get("/simulation-runs/:id/metrics", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listSimulationRunMetrics(deps.simulationRunMetricRepo, orgId);
     return reply.code(200).send(result);
   });
 
+  // GET /simulation-run-metrics (flat route for dashboard)
+  fastify.get("/simulation-run-metrics", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listSimulationRunMetrics(deps.simulationRunMetricRepo, orgId);
+    return reply.code(200).send(result);
+  });
 }

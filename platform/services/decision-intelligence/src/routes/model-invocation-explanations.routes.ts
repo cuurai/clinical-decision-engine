@@ -17,11 +17,23 @@ export async function modelInvocationExplanationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /model-invocations/{id}/explanations
+  // GET /model-invocations/{id}/explanations (nested route)
   fastify.get("/model-invocations/:id/explanations", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await listModelInvocationExplanations(deps.modelInvocationExplanationRepo, orgId);
+    const result = await listModelInvocationExplanations(
+      deps.modelInvocationExplanationRepo,
+      orgId
+    );
     return reply.code(200).send(result);
   });
 
+  // GET /model-invocation-explanations (flat route for dashboard)
+  fastify.get("/model-invocation-explanations", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listModelInvocationExplanations(
+      deps.modelInvocationExplanationRepo,
+      orgId
+    );
+    return reply.code(200).send(result);
+  });
 }

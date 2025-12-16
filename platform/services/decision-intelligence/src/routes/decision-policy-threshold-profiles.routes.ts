@@ -17,11 +17,23 @@ export async function decisionPolicyThresholdProfilesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /decision-policies/{id}/threshold-profiles
+  // GET /decision-policies/{id}/threshold-profiles (nested route)
   fastify.get("/decision-policies/:id/threshold-profiles", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await listDecisionPolicyThresholdProfiles(deps.decisionPolicyThresholdProfileRepo, orgId);
+    const result = await listDecisionPolicyThresholdProfiles(
+      deps.decisionPolicyThresholdProfileRepo,
+      orgId
+    );
     return reply.code(200).send(result);
   });
 
+  // GET /decision-policy-threshold-profiles (flat route for dashboard)
+  fastify.get("/decision-policy-threshold-profiles", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listDecisionPolicyThresholdProfiles(
+      deps.decisionPolicyThresholdProfileRepo,
+      orgId
+    );
+    return reply.code(200).send(result);
+  });
 }

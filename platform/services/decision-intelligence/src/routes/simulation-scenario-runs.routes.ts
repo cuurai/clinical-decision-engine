@@ -13,15 +13,18 @@ import type { FastifyInstance } from "fastify";
 import { extractOrgId } from "../extract-org-id.js";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { listSimulationScenarioRuns } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
-export async function simulationScenarioRunsRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
-  // GET /simulation-scenarios/{id}/simulation-runs
+export async function simulationScenarioRunsRoutes(fastify: FastifyInstance, deps: Dependencies) {
+  // GET /simulation-scenarios/{id}/simulation-runs (nested route)
   fastify.get("/simulation-scenarios/:id/simulation-runs", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listSimulationScenarioRuns(deps.simulationScenarioRunRepo, orgId);
     return reply.code(200).send(result);
   });
 
+  // GET /simulation-scenario-runs (flat route for dashboard)
+  fastify.get("/simulation-scenario-runs", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listSimulationScenarioRuns(deps.simulationScenarioRunRepo, orgId);
+    return reply.code(200).send(result);
+  });
 }

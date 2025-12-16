@@ -13,15 +13,18 @@ import type { FastifyInstance } from "fastify";
 import { extractOrgId } from "../extract-org-id.js";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { listExperimentResults } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
-export async function experimentResultsRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
-  // GET /experiments/{id}/results
+export async function experimentResultsRoutes(fastify: FastifyInstance, deps: Dependencies) {
+  // GET /experiments/{id}/results (nested route)
   fastify.get("/experiments/:id/results", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listExperimentResults(deps.experimentResultRepo, orgId);
     return reply.code(200).send(result);
   });
 
+  // GET /experiment-results (flat route for dashboard)
+  fastify.get("/experiment-results", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listExperimentResults(deps.experimentResultRepo, orgId);
+    return reply.code(200).send(result);
+  });
 }
