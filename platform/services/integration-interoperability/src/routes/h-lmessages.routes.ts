@@ -27,7 +27,7 @@ export async function hLMessagesRoutes(
   // POST /hl7-messages
   fastify.post("/hl7-messages", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createHL7Message(deps.hLMessageRepo, orgId, request.body as CreateHL7MessageInput);
+    const result = await createHL7Message(deps.hLMessageRepo, orgId, request.body as HL7MessageInput);
     return reply.code(201).send(result);
   });
   // GET /hl7-messages/{id}

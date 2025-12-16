@@ -10,14 +10,14 @@
  */
 
 import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/adapters-shared";
-import type { EpisodesOfCareRepository } from "@cuur-cde/core/workflow-care-pathways/repositories/index.js";
-import type { EpisodeOfCare } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
+import type { EpisodesOfCareRepository, EpisodeOfCareRepository } from "@cuur-cde/core/workflow-care-pathways/repositories/index.js";
+import type { EpisodeOfCare, UpdateEpisodeOfCareRequest } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
 import type { DaoClient } from "../../_shared/src/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur/adapters-shared";
 
 const DEFAULT_LIMIT = 50;
 
-export class DaoEpisodesOfCareRepository implements EpisodesOfCareRepository {
+export class DaoEpisodesOfCareRepository implements EpisodesOfCareRepository, EpisodeOfCareRepository {
   private transactionManager: TransactionManager;
 
   constructor(private readonly dao: DaoClient) {
@@ -28,7 +28,7 @@ export class DaoEpisodesOfCareRepository implements EpisodesOfCareRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.episodesOfCare.findMany({
+      const records = await this.dao.episodeOfCareInput.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -55,7 +55,7 @@ export class DaoEpisodesOfCareRepository implements EpisodesOfCareRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<EpisodeOfCare | null> {
     try {
-      const record = await this.dao.episodesOfCare.findFirst({
+      const record = await this.dao.episodeOfCareInput.findFirst({
         where: {
           orgId,
           id,
@@ -75,6 +75,63 @@ export class DaoEpisodesOfCareRepository implements EpisodesOfCareRepository {
     }
     return result;
   }
+  async create(orgId: OrgId, data: EpisodeOfCare): Promise<EpisodeOfCare> {
+    const inputData = data as any;
+    try {
+      const record = await this.dao.episodeOfCareInput.create({
+        data: {
+          ...inputData,
+          orgId,
+        },
+      });
+      return this.toDomain(record);
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
+    }
+  }
+
+  async update(orgId: OrgId, id: string, data: UpdateEpisodeOfCareRequest): Promise<EpisodeOfCare> {
+    try {
+      const existing = await this.dao.episodeOfCareInput.findFirst({
+        where: { orgId, id, deletedAt: null },
+      });
+      if (!existing) {
+        throw new NotFoundError("EpisodeOfCare", id);
+      }
+
+      const record = await this.dao.episodeOfCareInput.update({
+        where: { id, orgId },
+        data: {
+          ...data,
+        },
+      });
+      return this.toDomain(record);
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
+    }
+  }
+
+  async delete(orgId: OrgId, id: string): Promise<void> {
+    try {
+      const existing = await this.dao.episodeOfCareInput.findFirst({
+        where: { orgId, id, deletedAt: null },
+      });
+      if (!existing) {
+        throw new NotFoundError("EpisodeOfCare", id);
+      }
+
+      await this.dao.episodeOfCareInput.update({
+        where: { id, orgId },
+        data: { deletedAt: new Date() },
+      });
+    } catch (error) {
+      handleDatabaseError(error);
+      throw error;
+    }
+  }
+
   private toDomain(model: any): EpisodeOfCare {
     return {
       ...model,

@@ -27,7 +27,7 @@ export async function hLMappingProfilesRoutes(
   // POST /hl7-mapping-profiles
   fastify.post("/hl7-mapping-profiles", async (request, reply) => {
     const orgId = extractOrgId(request);
-    const result = await createHL7MappingProfile(deps.hLMappingProfileRepo, orgId, request.body as CreateHL7MappingProfileInput);
+    const result = await createHL7MappingProfile(deps.hLMappingProfileRepo, orgId, request.body as HL7MappingProfileInput);
     return reply.code(201).send(result);
   });
   // GET /hl7-mapping-profiles/{id}
@@ -41,7 +41,7 @@ export async function hLMappingProfilesRoutes(
   fastify.patch("/hl7-mapping-profiles/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateHL7MappingProfile(deps.hLMappingProfileRepo, orgId, id, request.body as HLmappingProfileUpdate);
+        const result = await updateHL7MappingProfile(deps.hLMappingProfileRepo, orgId, id, request.body as HL7MappingProfileUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /hl7-mapping-profiles/{id}
