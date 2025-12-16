@@ -21,9 +21,11 @@ const DEFAULT_LIMIT = 50;
 export class DaoDecisionResultRiskAssessmentRepository
   implements DecisionResultRiskAssessmentRepository
 {
-  private readonly tx: TransactionManager;
 
-  constructor(private readonly dao: DaoClient) {
+  constructor(
+    private readonly dao: DaoClient,
+    private readonly tx: TransactionManager
+  ) {
   }
 
   async list(

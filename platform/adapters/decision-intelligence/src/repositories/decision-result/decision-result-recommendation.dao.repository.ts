@@ -21,7 +21,6 @@ const DEFAULT_LIMIT = 50;
 export class DaoDecisionResultRecommendationRepository
   implements DecisionResultRecommendationRepository
 {
-  private readonly tx: TransactionManager;
 
   constructor(
     private readonly dao: DaoClient,

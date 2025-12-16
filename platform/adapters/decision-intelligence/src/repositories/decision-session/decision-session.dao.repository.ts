@@ -24,9 +24,11 @@ import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 const DEFAULT_LIMIT = 50;
 
 export class DaoDecisionSessionRepository implements DecisionSessionRepository {
-  private readonly tx: TransactionManager;
 
-  constructor(private readonly dao: DaoClient) {
+  constructor(
+    private readonly dao: DaoClient,
+    private readonly tx: TransactionManager
+  ) {
   }
 
   async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<DecisionSession>> {

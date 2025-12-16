@@ -21,9 +21,11 @@ import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 const DEFAULT_LIMIT = 50;
 
 export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRepository {
-  private readonly tx: TransactionManager;
 
-  constructor(private readonly dao: DaoClient) {
+  constructor(
+    private readonly dao: DaoClient,
+    private readonly tx: TransactionManager
+  ) {
   }
 
   async list(

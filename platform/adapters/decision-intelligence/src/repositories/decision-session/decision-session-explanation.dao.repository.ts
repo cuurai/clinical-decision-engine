@@ -21,7 +21,6 @@ const DEFAULT_LIMIT = 50;
 export class DaoDecisionSessionExplanationRepository
   implements DecisionSessionExplanationRepository
 {
-  private readonly tx: TransactionManager;
 
   constructor(
     private readonly dao: DaoClient,

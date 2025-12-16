@@ -23,7 +23,6 @@ import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 const DEFAULT_LIMIT = 50;
 
 export class DaoDecisionRequestRepository implements DecisionRequestRepository {
-  private readonly tx: TransactionManager;
 
   constructor(
     private readonly dao: DaoClient,
