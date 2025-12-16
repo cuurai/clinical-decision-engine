@@ -13,10 +13,7 @@ import type { FastifyInstance } from "fastify";
 import { extractOrgId } from "../extract-org-id.js";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { listExternalSystemEndpoints } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
-export async function externalSystemEndpointsRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
+export async function externalSystemEndpointsRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /external-systems/{id}/endpoints (nested route)
   fastify.get("/external-systems/:id/endpoints", async (request, reply) => {
     const orgId = extractOrgId(request);
@@ -30,5 +27,4 @@ export async function externalSystemEndpointsRoutes(
     const result = await listExternalSystemEndpoints(deps.externalSystemEndpointRepo, orgId);
     return reply.code(200).send(result);
   });
-
 }

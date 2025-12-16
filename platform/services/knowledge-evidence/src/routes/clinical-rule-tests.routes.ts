@@ -13,10 +13,7 @@ import type { FastifyInstance } from "fastify";
 import { extractOrgId } from "../extract-org-id.js";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { listClinicalRuleTests } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
-export async function clinicalRuleTestsRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
+export async function clinicalRuleTestsRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /clinical-rules/{id}/tests (nested route)
   fastify.get("/clinical-rules/:id/tests", async (request, reply) => {
     const orgId = extractOrgId(request);
@@ -30,5 +27,4 @@ export async function clinicalRuleTestsRoutes(
     const result = await listClinicalRuleTests(deps.clinicalRuleTestRepo, orgId);
     return reply.code(200).send(result);
   });
-
 }

@@ -13,10 +13,7 @@ import type { FastifyInstance } from "fastify";
 import { extractOrgId } from "../extract-org-id.js";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { listWorkflowDefinitionStates } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
-export async function workflowDefinitionStatesRoutes(
-  fastify: FastifyInstance,
-  deps: Dependencies
-) {
+export async function workflowDefinitionStatesRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /workflow-definitions/{id}/states (nested route)
   fastify.get("/workflow-definitions/:id/states", async (request, reply) => {
     const orgId = extractOrgId(request);
@@ -30,5 +27,4 @@ export async function workflowDefinitionStatesRoutes(
     const result = await listWorkflowDefinitionStates(deps.workflowDefinitionStateRepo, orgId);
     return reply.code(200).send(result);
   });
-
 }
