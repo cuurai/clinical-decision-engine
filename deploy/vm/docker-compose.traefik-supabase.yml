@@ -14,6 +14,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.decision-intelligence.rule=Host(`34.136.153.216`) && PathPrefix(`/api/v1/decision-intelligence`)"
       - "traefik.http.routers.decision-intelligence.entrypoints=web"
+      - "traefik.http.middlewares.decision-intelligence-strip.stripprefix.prefixes=/api/v1/decision-intelligence"
+      - "traefik.http.routers.decision-intelligence.middlewares=decision-intelligence-strip"
       - "traefik.http.services.decision-intelligence.loadbalancer.server.port=3000"
     networks:
       - clinical-decision-engine-network
@@ -33,6 +35,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.patient-clinical-data.rule=Host(`34.136.153.216`) && PathPrefix(`/api/v1/patient-clinical-data`)"
       - "traefik.http.routers.patient-clinical-data.entrypoints=web"
+      - "traefik.http.middlewares.patient-clinical-data-strip.stripprefix.prefixes=/api/v1/patient-clinical-data"
+      - "traefik.http.routers.patient-clinical-data.middlewares=patient-clinical-data-strip"
       - "traefik.http.services.patient-clinical-data.loadbalancer.server.port=3001"
     networks:
       - clinical-decision-engine-network
@@ -52,6 +56,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.knowledge-evidence.rule=Host(`34.136.153.216`) && PathPrefix(`/api/v1/knowledge-evidence`)"
       - "traefik.http.routers.knowledge-evidence.entrypoints=web"
+      - "traefik.http.middlewares.knowledge-evidence-strip.stripprefix.prefixes=/api/v1/knowledge-evidence"
+      - "traefik.http.routers.knowledge-evidence.middlewares=knowledge-evidence-strip"
       - "traefik.http.services.knowledge-evidence.loadbalancer.server.port=3002"
     networks:
       - clinical-decision-engine-network
@@ -71,6 +77,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.integration-interoperability.rule=Host(`34.136.153.216`) && PathPrefix(`/api/v1/integration-interoperability`)"
       - "traefik.http.routers.integration-interoperability.entrypoints=web"
+      - "traefik.http.middlewares.integration-interoperability-strip.stripprefix.prefixes=/api/v1/integration-interoperability"
+      - "traefik.http.routers.integration-interoperability.middlewares=integration-interoperability-strip"
       - "traefik.http.services.integration-interoperability.loadbalancer.server.port=3004"
     networks:
       - clinical-decision-engine-network
@@ -83,7 +91,7 @@ services:
     pull_policy: never
     environment:
       - NODE_ENV=production
-      - VITE_API_BASE_URL=http://34.136.153.216/api/v1
+      - VITE_API_BASE_URL=http://34.136.153.216
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.cde.rule=PathPrefix(`/cde`)"

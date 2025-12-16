@@ -22,25 +22,36 @@ export function getServiceBaseURL(serviceId?: string): string {
     return API_CONFIG.baseURL;
   }
 
-  // If base URL already includes /api path (Traefik/API gateway routing)
-  // Include the service ID in the path so the gateway can route correctly
-  if (API_CONFIG.baseURL.includes("/api")) {
-    const baseURL = new URL(API_CONFIG.baseURL);
-    // Add service ID to path: /api -> /api/decision-intelligence
-    baseURL.pathname = `/api/${serviceId}`;
+  const baseURL = new URL(API_CONFIG.baseURL);
+  
+  // If base URL includes /api path, preserve it and add service ID
+  if (baseURL.pathname.includes("/api")) {
+    // Base: /api or /api/v1 → Result: /api/{serviceId} or /api/v1/{serviceId}
+    if (baseURL.pathname.includes("/v1")) {
+      baseURL.pathname = `/api/v1/${serviceId}`;
+    } else {
+      baseURL.pathname = `/api/${serviceId}`;
+    }
     const result = baseURL.toString().replace(/\/$/, "");
     console.log("🔍 DEBUG: getServiceBaseURL (with serviceId in path) (", serviceId, ") =", result);
     return result;
   }
 
-  // Otherwise, use service-specific port (for direct access)
+  // If base URL is just the host (no path), use Traefik routing: /api/{serviceId}
+  // Traefik handles the /api routing layer
+  if (!baseURL.pathname || baseURL.pathname === "/") {
+    baseURL.pathname = `/api/${serviceId}`;
+    const result = baseURL.toString().replace(/\/$/, "");
+    console.log("🔍 DEBUG: getServiceBaseURL (Traefik routing) (", serviceId, ") =", result);
+    return result;
+  }
+
+  // Otherwise, use service-specific port (for direct access/development)
   const port = SERVICE_PORTS[serviceId];
   if (port) {
-    // Use the base URL host/port pattern, replacing port if needed
     const baseURL = new URL(API_CONFIG.baseURL);
     baseURL.port = port.toString();
-    const result = baseURL.toString().replace(/\/$/, ""); // Remove trailing slash
-    // DEBUG: Log the constructed URL
+    const result = baseURL.toString().replace(/\/$/, "");
     console.log("🔍 DEBUG: getServiceBaseURL (port changed) (", serviceId, ") =", result);
     return result;
   }
