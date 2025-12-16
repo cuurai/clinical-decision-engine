@@ -2,10 +2,10 @@ import {
   createDecisionRequest,
   getDecisionRequest,
   listDecisionRequests,
-} from "@cuur-cde/core/decision-intelligence/handlers/index.js";
+} from "@cuur-cde/core/decision-intelligence";
 
-import type { DecisionRequestInput } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import type { DecisionRequestRepository } from "@cuur-cde/core/decision-intelligence/repositories/index.js";
+import type { DecisionRequestInput } from "@cuur-cde/core/decision-intelligence";
+import type { DecisionRequestRepository } from "@cuur-cde/core/decision-intelligence";
 
 export class DecisionRequestUseCase {
   constructor(private readonly decisionRequestRepo: DecisionRequestRepository) {}

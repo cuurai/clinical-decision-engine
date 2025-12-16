@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/workflow-care-pathways/schemas/workflow-care-pathways.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/workflow-care-pathways.schemas.js";
 
 /**
  * Entity: ChecklistInstanceItemEntity
  * Description: Represents the ChecklistInstanceItem domain model.
  * Source: schemas.ChecklistInstanceItem
  */
-export const ZChecklistInstanceItemEntitySchema = schemas.ChecklistInstanceItem as ZodType<any, any, any>;
+export const ZChecklistInstanceItemEntitySchema = schemas.ChecklistInstanceItem as ZodTypeAny;
 export type ChecklistInstanceItemEntity = z.infer<typeof ZChecklistInstanceItemEntitySchema>;

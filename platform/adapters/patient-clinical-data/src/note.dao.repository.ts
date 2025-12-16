@@ -9,15 +9,15 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared/src/repositories/_base-repository.js";
-import type { NoteRepository } from "@cuur-cde/core/patient-clinical-data/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared";
+import type { NoteRepository } from "@cuur-cde/core/patient-clinical-data";
 import type {
   ClinicalNoteInput,
   ClinicalNoteUpdate,
   UpdateClinicalNoteRequest,
   ClinicalNote,
   Timestamps,
-} from "@cuur-cde/core/patient-clinical-data/types/index.js";
+} from "@cuur-cde/core/patient-clinical-data";
 import type { DaoClient } from "../db/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
 

@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: EvidenceReviewEntity
  * Description: Represents the EvidenceReview domain model.
  * Source: schemas.EvidenceReview
  */
-export const ZEvidenceReviewEntitySchema = schemas.EvidenceReview as ZodType<any, any, any>;
+export const ZEvidenceReviewEntitySchema = schemas.EvidenceReview as ZodTypeAny;
 export type EvidenceReviewEntity = z.infer<typeof ZEvidenceReviewEntitySchema>;

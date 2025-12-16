@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/patient-clinical-data/schemas/patient-clinical-data.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/patient-clinical-data.schemas.js";
 
 /**
  * Entity: ProcedureEntity
  * Description: Represents the Procedure domain model.
  * Source: schemas.Procedure
  */
-export const ZProcedureEntitySchema = schemas.Procedure as ZodType<any, any, any>;
+export const ZProcedureEntitySchema = schemas.Procedure as ZodTypeAny;
 export type ProcedureEntity = z.infer<typeof ZProcedureEntitySchema>;

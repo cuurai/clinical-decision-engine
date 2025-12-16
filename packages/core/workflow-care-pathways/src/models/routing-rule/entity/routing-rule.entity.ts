@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/workflow-care-pathways/schemas/workflow-care-pathways.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/workflow-care-pathways.schemas.js";
 
 /**
  * Entity: RoutingRuleEntity
  * Description: Represents the RoutingRule domain model.
  * Source: schemas.RoutingRule
  */
-export const ZRoutingRuleEntitySchema = schemas.RoutingRule as ZodType<any, any, any>;
+export const ZRoutingRuleEntitySchema = schemas.RoutingRule as ZodTypeAny;
 export type RoutingRuleEntity = z.infer<typeof ZRoutingRuleEntitySchema>;

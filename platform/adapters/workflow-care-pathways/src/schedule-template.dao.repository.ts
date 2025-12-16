@@ -9,15 +9,15 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared/src/repositories/_base-repository.js";
-import type { ScheduleTemplateRepository } from "@cuur-cde/core/workflow-care-pathways/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared";
+import type { ScheduleTemplateRepository } from "@cuur-cde/core/workflow-care-pathways";
 import type {
   ScheduleTemplateInput,
   ScheduleTemplateUpdate,
   UpdateScheduleTemplateRequest,
   ScheduleTemplate,
   Timestamps,
-} from "@cuur-cde/core/workflow-care-pathways/types/index.js";
+} from "@cuur-cde/core/workflow-care-pathways";
 import type { DaoClient } from "../db/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
 

@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: ConceptMapEntity
  * Description: Represents the ConceptMap domain model.
  * Source: schemas.ConceptMap
  */
-export const ZConceptMapEntitySchema = schemas.ConceptMap as ZodType<any, any, any>;
+export const ZConceptMapEntitySchema = schemas.ConceptMap as ZodTypeAny;
 export type ConceptMapEntity = z.infer<typeof ZConceptMapEntitySchema>;

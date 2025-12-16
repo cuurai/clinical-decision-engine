@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/integration-interoperability/schemas/integration-interoperability.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
 
 /**
  * Entity: APIClientCredentialEntity
  * Description: Represents the APIClientCredential domain model.
  * Source: schemas.APIClientCredential
  */
-export const ZAPIClientCredentialEntitySchema = schemas.APIClientCredential as ZodType<any, any, any>;
+export const ZAPIClientCredentialEntitySchema = schemas.APIClientCredential as ZodTypeAny;
 export type APIClientCredentialEntity = z.infer<typeof ZAPIClientCredentialEntitySchema>;

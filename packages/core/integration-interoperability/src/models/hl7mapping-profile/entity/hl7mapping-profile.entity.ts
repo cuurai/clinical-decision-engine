@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/integration-interoperability/schemas/integration-interoperability.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
 
 /**
  * Entity: HL7MappingProfileEntity
  * Description: Represents the HL7MappingProfile domain model.
  * Source: schemas.HL7MappingProfile
  */
-export const ZHL7MappingProfileEntitySchema = schemas.HL7MappingProfile as ZodType<any, any, any>;
+export const ZHL7MappingProfileEntitySchema = schemas.HL7MappingProfile as ZodTypeAny;
 export type HL7MappingProfileEntity = z.infer<typeof ZHL7MappingProfileEntitySchema>;

@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: QuestionnaireTemplateQuestionEntity
  * Description: Represents the QuestionnaireTemplateQuestion domain model.
  * Source: schemas.QuestionnaireTemplateQuestion
  */
-export const ZQuestionnaireTemplateQuestionEntitySchema = schemas.QuestionnaireTemplateQuestion as ZodType<any, any, any>;
+export const ZQuestionnaireTemplateQuestionEntitySchema = schemas.QuestionnaireTemplateQuestion as ZodTypeAny;
 export type QuestionnaireTemplateQuestionEntity = z.infer<typeof ZQuestionnaireTemplateQuestionEntitySchema>;

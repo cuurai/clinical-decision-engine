@@ -13,13 +13,13 @@ import type {
   OrgId,
   PaginatedResult,
   PaginationParams,
-} from "@cuur-cde/core/_shared/src/repositories/_base-repository.js";
+} from "@cuur-cde/core/_shared";
 import type {
   TaskAuditEventRepository,
-} from "@cuur-cde/core/workflow-care-pathways/repositories/index.js";
+} from "@cuur-cde/core/workflow-care-pathways";
 import type {
   TaskAuditEvent,
-} from "@cuur-cde/core/workflow-care-pathways/types/index.js";
+} from "@cuur-cde/core/workflow-care-pathways";
 import type { DaoClient } from "../db/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
 

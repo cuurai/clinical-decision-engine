@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: ValueSetCodeEntity
  * Description: Represents the ValueSetCode domain model.
  * Source: schemas.ValueSetCode
  */
-export const ZValueSetCodeEntitySchema = schemas.ValueSetCode as ZodType<any, any, any>;
+export const ZValueSetCodeEntitySchema = schemas.ValueSetCode as ZodTypeAny;
 export type ValueSetCodeEntity = z.infer<typeof ZValueSetCodeEntitySchema>;

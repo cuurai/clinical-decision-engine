@@ -9,14 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { OrgId, PaginatedResult, PaginationParams } from "../../_shared/src/index.js";
-import type { DecisionMetricRepository } from "@cuur-cde/core/decision-intelligence/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared";
+import type { DecisionMetricRepository } from "@cuur-cde/core/decision-intelligence";
 import type {
   DecisionMetricSnapshot,
   ListDecisionMetricsParams,
-} from "@cuur-cde/core/decision-intelligence/types/index.js";
+} from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "../db/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../../_shared/src/index.js";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 

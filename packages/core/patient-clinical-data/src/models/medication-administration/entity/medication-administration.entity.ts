@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/patient-clinical-data/schemas/patient-clinical-data.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/patient-clinical-data.schemas.js";
 
 /**
  * Entity: MedicationAdministrationEntity
  * Description: Represents the MedicationAdministration domain model.
  * Source: schemas.MedicationAdministration
  */
-export const ZMedicationAdministrationEntitySchema = schemas.MedicationAdministration as ZodType<any, any, any>;
+export const ZMedicationAdministrationEntitySchema = schemas.MedicationAdministration as ZodTypeAny;
 export type MedicationAdministrationEntity = z.infer<typeof ZMedicationAdministrationEntitySchema>;

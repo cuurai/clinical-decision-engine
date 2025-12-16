@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: ModelDefinitionEntity
  * Description: Represents the ModelDefinition domain model.
  * Source: schemas.ModelDefinition
  */
-export const ZModelDefinitionEntitySchema = schemas.ModelDefinition as ZodType<any, any, any>;
+export const ZModelDefinitionEntitySchema = schemas.ModelDefinition as ZodTypeAny;
 export type ModelDefinitionEntity = z.infer<typeof ZModelDefinitionEntitySchema>;

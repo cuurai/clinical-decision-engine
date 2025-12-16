@@ -10,7 +10,7 @@
  * ⚠️ DO NOT EDIT MANUALLY - this file is auto-generated
  */
 
-import type { components, operations } from "@cuur-cde/core/decision-intelligence/openapi/decision-intelligence.openapi.types";
+import type { components, operations } from "../openapi/decision-intelligence.openapi.types.js";
 
 // ============================================================================
 // Re-export all generated types

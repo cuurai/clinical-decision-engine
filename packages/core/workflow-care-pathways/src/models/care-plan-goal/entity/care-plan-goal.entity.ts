@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/workflow-care-pathways/schemas/workflow-care-pathways.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/workflow-care-pathways.schemas.js";
 
 /**
  * Entity: CarePlanGoalEntity
  * Description: Represents the CarePlanGoal domain model.
  * Source: schemas.CarePlanGoal
  */
-export const ZCarePlanGoalEntitySchema = schemas.CarePlanGoal as ZodType<any, any, any>;
+export const ZCarePlanGoalEntitySchema = schemas.CarePlanGoal as ZodTypeAny;
 export type CarePlanGoalEntity = z.infer<typeof ZCarePlanGoalEntitySchema>;

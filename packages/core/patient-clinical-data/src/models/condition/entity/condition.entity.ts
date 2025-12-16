@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/patient-clinical-data/schemas/patient-clinical-data.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/patient-clinical-data.schemas.js";
 
 /**
  * Entity: ConditionEntity
  * Description: Represents the Condition domain model.
  * Source: schemas.Condition
  */
-export const ZConditionEntitySchema = schemas.Condition as ZodType<any, any, any>;
+export const ZConditionEntitySchema = schemas.Condition as ZodTypeAny;
 export type ConditionEntity = z.infer<typeof ZConditionEntitySchema>;

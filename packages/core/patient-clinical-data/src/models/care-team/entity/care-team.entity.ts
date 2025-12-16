@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/patient-clinical-data/schemas/patient-clinical-data.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/patient-clinical-data.schemas.js";
 
 /**
  * Entity: CareTeamEntity
  * Description: Represents the CareTeam domain model.
  * Source: schemas.CareTeam
  */
-export const ZCareTeamEntitySchema = schemas.CareTeam as ZodType<any, any, any>;
+export const ZCareTeamEntitySchema = schemas.CareTeam as ZodTypeAny;
 export type CareTeamEntity = z.infer<typeof ZCareTeamEntitySchema>;

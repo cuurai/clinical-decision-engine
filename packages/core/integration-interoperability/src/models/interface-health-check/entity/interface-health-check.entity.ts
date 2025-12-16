@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/integration-interoperability/schemas/integration-interoperability.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
 
 /**
  * Entity: InterfaceHealthCheckEntity
  * Description: Represents the InterfaceHealthCheck domain model.
  * Source: schemas.InterfaceHealthCheck
  */
-export const ZInterfaceHealthCheckEntitySchema = schemas.InterfaceHealthCheck as ZodType<any, any, any>;
+export const ZInterfaceHealthCheckEntitySchema = schemas.InterfaceHealthCheck as ZodTypeAny;
 export type InterfaceHealthCheckEntity = z.infer<typeof ZInterfaceHealthCheckEntitySchema>;

@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/decision-intelligence/schemas/decision-intelligence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/decision-intelligence.schemas.js";
 
 /**
  * Entity: ExperimentResultEntity
  * Description: Represents the ExperimentResult domain model.
  * Source: schemas.ExperimentResult
  */
-export const ZExperimentResultEntitySchema = schemas.ExperimentResult as ZodType<any, any, any>;
+export const ZExperimentResultEntitySchema = schemas.ExperimentResult as ZodTypeAny;
 export type ExperimentResultEntity = z.infer<typeof ZExperimentResultEntitySchema>;

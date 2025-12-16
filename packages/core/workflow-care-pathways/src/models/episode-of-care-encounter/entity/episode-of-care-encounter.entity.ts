@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/workflow-care-pathways/schemas/workflow-care-pathways.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/workflow-care-pathways.schemas.js";
 
 /**
  * Entity: EpisodeOfCareEncounterEntity
  * Description: Represents the EpisodeOfCareEncounter domain model.
  * Source: schemas.EpisodeOfCareEncounter
  */
-export const ZEpisodeOfCareEncounterEntitySchema = schemas.EpisodeOfCareEncounter as ZodType<any, any, any>;
+export const ZEpisodeOfCareEncounterEntitySchema = schemas.EpisodeOfCareEncounter as ZodTypeAny;
 export type EpisodeOfCareEncounterEntity = z.infer<typeof ZEpisodeOfCareEncounterEntitySchema>;

@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/decision-intelligence/schemas/decision-intelligence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/decision-intelligence.schemas.js";
 
 /**
  * Entity: SimulationRunDecisionResultEntity
  * Description: Represents the SimulationRunDecisionResult domain model.
  * Source: schemas.SimulationRunDecisionResult
  */
-export const ZSimulationRunDecisionResultEntitySchema = schemas.SimulationRunDecisionResult as ZodType<any, any, any>;
+export const ZSimulationRunDecisionResultEntitySchema = schemas.SimulationRunDecisionResult as ZodTypeAny;
 export type SimulationRunDecisionResultEntity = z.infer<typeof ZSimulationRunDecisionResultEntitySchema>;

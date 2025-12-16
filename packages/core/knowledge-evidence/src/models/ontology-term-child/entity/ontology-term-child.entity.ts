@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: OntologyTermChildEntity
  * Description: Represents the OntologyTermChild domain model.
  * Source: schemas.OntologyTermChild
  */
-export const ZOntologyTermChildEntitySchema = schemas.OntologyTermChild as ZodType<any, any, any>;
+export const ZOntologyTermChildEntitySchema = schemas.OntologyTermChild as ZodTypeAny;
 export type OntologyTermChildEntity = z.infer<typeof ZOntologyTermChildEntitySchema>;

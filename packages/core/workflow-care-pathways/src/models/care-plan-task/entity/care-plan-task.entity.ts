@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/workflow-care-pathways/schemas/workflow-care-pathways.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/workflow-care-pathways.schemas.js";
 
 /**
  * Entity: CarePlanTaskEntity
  * Description: Represents the CarePlanTask domain model.
  * Source: schemas.CarePlanTask
  */
-export const ZCarePlanTaskEntitySchema = schemas.CarePlanTask as ZodType<any, any, any>;
+export const ZCarePlanTaskEntitySchema = schemas.CarePlanTask as ZodTypeAny;
 export type CarePlanTaskEntity = z.infer<typeof ZCarePlanTaskEntitySchema>;

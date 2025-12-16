@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: RuleSetClinicalRuleEntity
  * Description: Represents the RuleSetClinicalRule domain model.
  * Source: schemas.RuleSetClinicalRule
  */
-export const ZRuleSetClinicalRuleEntitySchema = schemas.RuleSetClinicalRule as ZodType<any, any, any>;
+export const ZRuleSetClinicalRuleEntitySchema = schemas.RuleSetClinicalRule as ZodTypeAny;
 export type RuleSetClinicalRuleEntity = z.infer<typeof ZRuleSetClinicalRuleEntitySchema>;

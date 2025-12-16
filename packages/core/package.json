@@ -27,5 +27,8 @@
       "types": "./workflow-care-pathways/dist/index.d.ts",
       "default": "./workflow-care-pathways/dist/index.js"
     }
+  },
+  "scripts": {
+    "build": "pnpm -w exec -- tsc -b ."
   }
 }

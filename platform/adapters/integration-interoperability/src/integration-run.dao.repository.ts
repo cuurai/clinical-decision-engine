@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared/src/repositories/_base-repository.js";
-import type { IntegrationRunRepository } from "@cuur-cde/core/integration-interoperability/repositories/index.js";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared";
+import type { IntegrationRunRepository } from "@cuur-cde/core/integration-interoperability";
 import type {
   IntegrationRunInput,
   IntegrationRun,
   Timestamps,
-} from "@cuur-cde/core/integration-interoperability/types/index.js";
+} from "@cuur-cde/core/integration-interoperability";
 import type { DaoClient } from "../db/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
 

@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/workflow-care-pathways/schemas/workflow-care-pathways.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/workflow-care-pathways.schemas.js";
 
 /**
  * Entity: EscalationPolicyRuleEntity
  * Description: Represents the EscalationPolicyRule domain model.
  * Source: schemas.EscalationPolicyRule
  */
-export const ZEscalationPolicyRuleEntitySchema = schemas.EscalationPolicyRule as ZodType<any, any, any>;
+export const ZEscalationPolicyRuleEntitySchema = schemas.EscalationPolicyRule as ZodTypeAny;
 export type EscalationPolicyRuleEntity = z.infer<typeof ZEscalationPolicyRuleEntitySchema>;

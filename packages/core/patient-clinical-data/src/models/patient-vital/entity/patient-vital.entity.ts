@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/patient-clinical-data/schemas/patient-clinical-data.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/patient-clinical-data.schemas.js";
 
 /**
  * Entity: PatientVitalEntity
  * Description: Represents the PatientVital domain model.
  * Source: schemas.PatientVital
  */
-export const ZPatientVitalEntitySchema = schemas.PatientVital as ZodType<any, any, any>;
+export const ZPatientVitalEntitySchema = schemas.PatientVital as ZodTypeAny;
 export type PatientVitalEntity = z.infer<typeof ZPatientVitalEntitySchema>;

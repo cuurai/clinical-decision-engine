@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/integration-interoperability/schemas/integration-interoperability.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
 
 /**
  * Entity: FHIRMappingProfileEntity
  * Description: Represents the FHIRMappingProfile domain model.
  * Source: schemas.FHIRMappingProfile
  */
-export const ZFHIRMappingProfileEntitySchema = schemas.FHIRMappingProfile as ZodType<any, any, any>;
+export const ZFHIRMappingProfileEntitySchema = schemas.FHIRMappingProfile as ZodTypeAny;
 export type FHIRMappingProfileEntity = z.infer<typeof ZFHIRMappingProfileEntitySchema>;

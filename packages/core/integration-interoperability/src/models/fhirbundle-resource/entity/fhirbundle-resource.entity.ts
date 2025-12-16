@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/integration-interoperability/schemas/integration-interoperability.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
 
 /**
  * Entity: FHIRBundleResourceEntity
  * Description: Represents the FHIRBundleResource domain model.
  * Source: schemas.FHIRBundleResource
  */
-export const ZFHIRBundleResourceEntitySchema = schemas.FHIRBundleResource as ZodType<any, any, any>;
+export const ZFHIRBundleResourceEntitySchema = schemas.FHIRBundleResource as ZodTypeAny;
 export type FHIRBundleResourceEntity = z.infer<typeof ZFHIRBundleResourceEntitySchema>;

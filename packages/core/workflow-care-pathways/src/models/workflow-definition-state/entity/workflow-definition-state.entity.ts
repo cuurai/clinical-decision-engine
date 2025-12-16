@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/workflow-care-pathways/schemas/workflow-care-pathways.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/workflow-care-pathways.schemas.js";
 
 /**
  * Entity: WorkflowDefinitionStateEntity
  * Description: Represents the WorkflowDefinitionState domain model.
  * Source: schemas.WorkflowDefinitionState
  */
-export const ZWorkflowDefinitionStateEntitySchema = schemas.WorkflowDefinitionState as ZodType<any, any, any>;
+export const ZWorkflowDefinitionStateEntitySchema = schemas.WorkflowDefinitionState as ZodTypeAny;
 export type WorkflowDefinitionStateEntity = z.infer<typeof ZWorkflowDefinitionStateEntitySchema>;

@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/decision-intelligence/schemas/decision-intelligence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/decision-intelligence.schemas.js";
 
 /**
  * Entity: DecisionSessionAlertEntity
  * Description: Represents the DecisionSessionAlert domain model.
  * Source: schemas.DecisionSessionAlert
  */
-export const ZDecisionSessionAlertEntitySchema = schemas.DecisionSessionAlert as ZodType<any, any, any>;
+export const ZDecisionSessionAlertEntitySchema = schemas.DecisionSessionAlert as ZodTypeAny;
 export type DecisionSessionAlertEntity = z.infer<typeof ZDecisionSessionAlertEntitySchema>;

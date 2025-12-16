@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: ModelDefinitionPerformanceMetricEntity
  * Description: Represents the ModelDefinitionPerformanceMetric domain model.
  * Source: schemas.ModelDefinitionPerformanceMetric
  */
-export const ZModelDefinitionPerformanceMetricEntitySchema = schemas.ModelDefinitionPerformanceMetric as ZodType<any, any, any>;
+export const ZModelDefinitionPerformanceMetricEntitySchema = schemas.ModelDefinitionPerformanceMetric as ZodTypeAny;
 export type ModelDefinitionPerformanceMetricEntity = z.infer<typeof ZModelDefinitionPerformanceMetricEntitySchema>;

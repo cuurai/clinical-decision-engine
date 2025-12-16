@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: KnowledgePackageEntity
  * Description: Represents the KnowledgePackage domain model.
  * Source: schemas.KnowledgePackage
  */
-export const ZKnowledgePackageEntitySchema = schemas.KnowledgePackage as ZodType<any, any, any>;
+export const ZKnowledgePackageEntitySchema = schemas.KnowledgePackage as ZodTypeAny;
 export type KnowledgePackageEntity = z.infer<typeof ZKnowledgePackageEntitySchema>;

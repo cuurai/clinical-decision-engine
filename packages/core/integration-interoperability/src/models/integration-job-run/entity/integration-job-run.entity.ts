@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/integration-interoperability/schemas/integration-interoperability.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
 
 /**
  * Entity: IntegrationJobRunEntity
  * Description: Represents the IntegrationJobRun domain model.
  * Source: schemas.IntegrationJobRun
  */
-export const ZIntegrationJobRunEntitySchema = schemas.IntegrationJobRun as ZodType<any, any, any>;
+export const ZIntegrationJobRunEntitySchema = schemas.IntegrationJobRun as ZodTypeAny;
 export type IntegrationJobRunEntity = z.infer<typeof ZIntegrationJobRunEntitySchema>;

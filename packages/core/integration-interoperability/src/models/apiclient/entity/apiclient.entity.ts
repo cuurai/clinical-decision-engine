@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/integration-interoperability/schemas/integration-interoperability.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
 
 /**
  * Entity: APIClientEntity
  * Description: Represents the APIClient domain model.
  * Source: schemas.APIClient
  */
-export const ZAPIClientEntitySchema = schemas.APIClient as ZodType<any, any, any>;
+export const ZAPIClientEntitySchema = schemas.APIClient as ZodTypeAny;
 export type APIClientEntity = z.infer<typeof ZAPIClientEntitySchema>;

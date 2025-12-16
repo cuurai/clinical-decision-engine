@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/patient-clinical-data/schemas/patient-clinical-data.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/patient-clinical-data.schemas.js";
 
 /**
  * Entity: PatientAllergyEntity
  * Description: Represents the PatientAllergy domain model.
  * Source: schemas.PatientAllergy
  */
-export const ZPatientAllergyEntitySchema = schemas.PatientAllergy as ZodType<any, any, any>;
+export const ZPatientAllergyEntitySchema = schemas.PatientAllergy as ZodTypeAny;
 export type PatientAllergyEntity = z.infer<typeof ZPatientAllergyEntitySchema>;

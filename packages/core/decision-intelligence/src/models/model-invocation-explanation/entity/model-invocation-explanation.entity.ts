@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/decision-intelligence/schemas/decision-intelligence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/decision-intelligence.schemas.js";
 
 /**
  * Entity: ModelInvocationExplanationEntity
  * Description: Represents the ModelInvocationExplanation domain model.
  * Source: schemas.ModelInvocationExplanation
  */
-export const ZModelInvocationExplanationEntitySchema = schemas.ModelInvocationExplanation as ZodType<any, any, any>;
+export const ZModelInvocationExplanationEntitySchema = schemas.ModelInvocationExplanation as ZodTypeAny;
 export type ModelInvocationExplanationEntity = z.infer<typeof ZModelInvocationExplanationEntitySchema>;

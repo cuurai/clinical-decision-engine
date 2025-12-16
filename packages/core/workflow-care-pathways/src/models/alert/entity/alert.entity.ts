@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/workflow-care-pathways/schemas/workflow-care-pathways.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/workflow-care-pathways.schemas.js";
 
 /**
  * Entity: AlertEntity
  * Description: Represents the Alert domain model.
  * Source: schemas.Alert
  */
-export const ZAlertEntitySchema = schemas.Alert as ZodType<any, any, any>;
+export const ZAlertEntitySchema = schemas.Alert as ZodTypeAny;
 export type AlertEntity = z.infer<typeof ZAlertEntitySchema>;

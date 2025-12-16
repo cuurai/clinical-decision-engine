@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/integration-interoperability/schemas/integration-interoperability.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
 
 /**
  * Entity: DataExportBatchEntity
  * Description: Represents the DataExportBatch domain model.
  * Source: schemas.DataExportBatch
  */
-export const ZDataExportBatchEntitySchema = schemas.DataExportBatch as ZodType<any, any, any>;
+export const ZDataExportBatchEntitySchema = schemas.DataExportBatch as ZodTypeAny;
 export type DataExportBatchEntity = z.infer<typeof ZDataExportBatchEntitySchema>;

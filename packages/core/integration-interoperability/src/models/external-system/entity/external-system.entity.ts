@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/integration-interoperability/schemas/integration-interoperability.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
 
 /**
  * Entity: ExternalSystemEntity
  * Description: Represents the ExternalSystem domain model.
  * Source: schemas.ExternalSystem
  */
-export const ZExternalSystemEntitySchema = schemas.ExternalSystem as ZodType<any, any, any>;
+export const ZExternalSystemEntitySchema = schemas.ExternalSystem as ZodTypeAny;
 export type ExternalSystemEntity = z.infer<typeof ZExternalSystemEntitySchema>;

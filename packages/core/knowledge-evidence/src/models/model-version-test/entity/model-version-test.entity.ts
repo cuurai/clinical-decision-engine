@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: ModelVersionTestEntity
  * Description: Represents the ModelVersionTest domain model.
  * Source: schemas.ModelVersionTest
  */
-export const ZModelVersionTestEntitySchema = schemas.ModelVersionTest as ZodType<any, any, any>;
+export const ZModelVersionTestEntitySchema = schemas.ModelVersionTest as ZodTypeAny;
 export type ModelVersionTestEntity = z.infer<typeof ZModelVersionTestEntitySchema>;

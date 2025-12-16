@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/workflow-care-pathways/schemas/workflow-care-pathways.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/workflow-care-pathways.schemas.js";
 
 /**
  * Entity: CarePathwayTemplateOrderSetTemplateEntity
  * Description: Represents the CarePathwayTemplateOrderSetTemplate domain model.
  * Source: schemas.CarePathwayTemplateOrderSetTemplate
  */
-export const ZCarePathwayTemplateOrderSetTemplateEntitySchema = schemas.CarePathwayTemplateOrderSetTemplate as ZodType<any, any, any>;
+export const ZCarePathwayTemplateOrderSetTemplateEntitySchema = schemas.CarePathwayTemplateOrderSetTemplate as ZodTypeAny;
 export type CarePathwayTemplateOrderSetTemplateEntity = z.infer<typeof ZCarePathwayTemplateOrderSetTemplateEntitySchema>;

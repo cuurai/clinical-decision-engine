@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/decision-intelligence/schemas/decision-intelligence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/decision-intelligence.schemas.js";
 
 /**
  * Entity: RecommendationEntity
  * Description: Represents the Recommendation domain model.
  * Source: schemas.Recommendation
  */
-export const ZRecommendationEntitySchema = schemas.Recommendation as ZodType<any, any, any>;
+export const ZRecommendationEntitySchema = schemas.Recommendation as ZodTypeAny;
 export type RecommendationEntity = z.infer<typeof ZRecommendationEntitySchema>;

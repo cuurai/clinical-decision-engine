@@ -10,13 +10,13 @@
  * ⚠️ DO NOT EDIT MANUALLY - this file is auto-generated
  */
 
-import type { components, operations } from "@cuur-cde/core/integration-interoperability/openapi/integration-interoperability.openapi.types";
+import type { components, operations } from "../openapi/integration-interoperability.openapi.types.js";
 
 // ============================================================================
 // Re-export all generated types
 // ============================================================================
 // Note: components and operations are NOT exported here to avoid duplicate export errors
-// Access via: IntegrationInteroperability.types.components or import type { components } from "@cuur-cde/core/integration-interoperability/openapi/integration-interoperability.openapi.types"
+// Access via: IntegrationInteroperability.types.components or import type { components } from "../openapi/integration-interoperability.openapi.types.js"
 // Individual type aliases are exported below for convenience
 
 // ============================================================================

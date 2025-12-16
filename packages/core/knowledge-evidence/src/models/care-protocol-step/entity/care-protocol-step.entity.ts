@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: CareProtocolStepEntity
  * Description: Represents the CareProtocolStep domain model.
  * Source: schemas.CareProtocolStep
  */
-export const ZCareProtocolStepEntitySchema = schemas.CareProtocolStep as ZodType<any, any, any>;
+export const ZCareProtocolStepEntitySchema = schemas.CareProtocolStep as ZodTypeAny;
 export type CareProtocolStepEntity = z.infer<typeof ZCareProtocolStepEntitySchema>;

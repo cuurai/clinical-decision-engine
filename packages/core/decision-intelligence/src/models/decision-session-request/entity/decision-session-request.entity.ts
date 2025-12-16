@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/decision-intelligence/schemas/decision-intelligence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/decision-intelligence.schemas.js";
 
 /**
  * Entity: DecisionSessionRequestEntity
  * Description: Represents the DecisionSessionRequest domain model.
  * Source: schemas.DecisionSessionRequest
  */
-export const ZDecisionSessionRequestEntitySchema = schemas.DecisionSessionRequest as ZodType<any, any, any>;
+export const ZDecisionSessionRequestEntitySchema = schemas.DecisionSessionRequest as ZodTypeAny;
 export type DecisionSessionRequestEntity = z.infer<typeof ZDecisionSessionRequestEntitySchema>;

@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/decision-intelligence/schemas/decision-intelligence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/decision-intelligence.schemas.js";
 
 /**
  * Entity: DecisionMetricSnapshotEntity
  * Description: Represents the DecisionMetricSnapshot domain model.
  * Source: schemas.DecisionMetricSnapshot
  */
-export const ZDecisionMetricSnapshotEntitySchema = schemas.DecisionMetricSnapshot as ZodType<any, any, any>;
+export const ZDecisionMetricSnapshotEntitySchema = schemas.DecisionMetricSnapshot as ZodTypeAny;
 export type DecisionMetricSnapshotEntity = z.infer<typeof ZDecisionMetricSnapshotEntitySchema>;

@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/decision-intelligence/schemas/decision-intelligence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/decision-intelligence.schemas.js";
 
 /**
  * Entity: ThresholdProfileEntity
  * Description: Represents the ThresholdProfile domain model.
  * Source: schemas.ThresholdProfile
  */
-export const ZThresholdProfileEntitySchema = schemas.ThresholdProfile as ZodType<any, any, any>;
+export const ZThresholdProfileEntitySchema = schemas.ThresholdProfile as ZodTypeAny;
 export type ThresholdProfileEntity = z.infer<typeof ZThresholdProfileEntitySchema>;

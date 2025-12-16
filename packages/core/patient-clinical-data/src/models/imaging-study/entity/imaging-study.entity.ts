@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/patient-clinical-data/schemas/patient-clinical-data.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/patient-clinical-data.schemas.js";
 
 /**
  * Entity: ImagingStudyEntity
  * Description: Represents the ImagingStudy domain model.
  * Source: schemas.ImagingStudy
  */
-export const ZImagingStudyEntitySchema = schemas.ImagingStudy as ZodType<any, any, any>;
+export const ZImagingStudyEntitySchema = schemas.ImagingStudy as ZodTypeAny;
 export type ImagingStudyEntity = z.infer<typeof ZImagingStudyEntitySchema>;

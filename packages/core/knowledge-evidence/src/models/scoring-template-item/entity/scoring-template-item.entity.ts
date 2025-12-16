@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: ScoringTemplateItemEntity
  * Description: Represents the ScoringTemplateItem domain model.
  * Source: schemas.ScoringTemplateItem
  */
-export const ZScoringTemplateItemEntitySchema = schemas.ScoringTemplateItem as ZodType<any, any, any>;
+export const ZScoringTemplateItemEntitySchema = schemas.ScoringTemplateItem as ZodTypeAny;
 export type ScoringTemplateItemEntity = z.infer<typeof ZScoringTemplateItemEntitySchema>;

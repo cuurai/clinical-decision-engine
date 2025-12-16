@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/integration-interoperability/schemas/integration-interoperability.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
 
 /**
  * Entity: IntegrationRunErrorEntity
  * Description: Represents the IntegrationRunError domain model.
  * Source: schemas.IntegrationRunError
  */
-export const ZIntegrationRunErrorEntitySchema = schemas.IntegrationRunError as ZodType<any, any, any>;
+export const ZIntegrationRunErrorEntitySchema = schemas.IntegrationRunError as ZodTypeAny;
 export type IntegrationRunErrorEntity = z.infer<typeof ZIntegrationRunErrorEntitySchema>;

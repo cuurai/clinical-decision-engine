@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import { z, type ZodType } from "zod";
-import { schemas } from "@cuur-cde/core/knowledge-evidence/schemas/knowledge-evidence.schemas";
+import { z, type ZodTypeAny } from "zod";
+import { schemas } from "../../../schemas/knowledge-evidence.schemas.js";
 
 /**
  * Entity: GuidelineEvidenceCitationEntity
  * Description: Represents the GuidelineEvidenceCitation domain model.
  * Source: schemas.GuidelineEvidenceCitation
  */
-export const ZGuidelineEvidenceCitationEntitySchema = schemas.GuidelineEvidenceCitation as ZodType<any, any, any>;
+export const ZGuidelineEvidenceCitationEntitySchema = schemas.GuidelineEvidenceCitation as ZodTypeAny;
 export type GuidelineEvidenceCitationEntity = z.infer<typeof ZGuidelineEvidenceCitationEntitySchema>;
