@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/adapters-shared";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared/src/repositories/_base-repository.js";
 import type {
   InterfaceError,
   CreateInterfaceErrorInput,
@@ -17,8 +17,8 @@ import type {
 } from "@cuur-cde/core/integration-interoperability/types/index.js";
 import type { InterfaceErrorRepository } from "@cuur-cde/core/integration-interoperability/repositories/index.js";
 import type { Timestamps } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import type { DaoClient } from "../../_shared/src/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur/adapters-shared";
+import type { DaoClient } from "../db/dao-client.js";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
 
 const DEFAULT_LIMIT = 50;
 

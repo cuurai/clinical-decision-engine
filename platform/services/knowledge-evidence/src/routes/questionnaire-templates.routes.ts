@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createQuestionnaireTemplate, deleteQuestionnaireTemplate, getQuestionnaireTemplate, listQuestionnaireTemplates, updateQuestionnaireTemplate } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { QuestionnaireTemplateInput, QuestionnaireTemplateUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 export async function questionnaireTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

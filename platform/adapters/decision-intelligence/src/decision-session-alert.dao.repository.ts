@@ -12,7 +12,7 @@
 import type { OrgId, PaginatedResult, PaginationParams } from "../../_shared/src/index.js";
 import type { DecisionSessionAlertRepository } from "@cuur-cde/core/decision-intelligence/repositories/index.js";
 import type { DecisionSessionAlert } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import type { DaoClient } from "../../_shared/src/dao-client.js";
+import type { DaoClient } from "../db/dao-client.js";
 import { NotFoundError, TransactionManager, handleDatabaseError } from "../../_shared/src/index.js";
 
 const DEFAULT_LIMIT = 50;

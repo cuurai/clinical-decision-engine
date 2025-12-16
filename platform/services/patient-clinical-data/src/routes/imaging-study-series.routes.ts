@@ -10,7 +10,7 @@
  */
 
 import type { FastifyInstance } from "fastify";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { listImagingStudySeries } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 export async function imagingStudySeriesRoutes(

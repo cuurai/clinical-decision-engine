@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/patient-clinical-data.dependencies.js";
 import { createNote, deleteNote, getNote, listNotes, updateNote } from "@cuur-cde/core/patient-clinical-data/handlers/index.js";
 import type { ClinicalNoteInput, ClinicalNoteUpdate } from "@cuur-cde/core/patient-clinical-data/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 export async function notesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

@@ -17,7 +17,7 @@ import {
   listInterfaceHealthChecks,
 } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { InterfaceHealthCheckInput } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 
 export async function interfaceHealthChecksRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /interface-health-checks

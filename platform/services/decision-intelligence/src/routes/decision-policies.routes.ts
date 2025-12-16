@@ -22,7 +22,7 @@ import type {
   DecisionPolicyInput,
   DecisionPolicyUpdate,
 } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 export async function decisionPoliciesRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /decision-policies
   fastify.get("/decision-policies", async (request, reply) => {

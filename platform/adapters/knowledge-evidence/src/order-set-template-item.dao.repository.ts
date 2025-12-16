@@ -13,15 +13,15 @@ import type {
   OrgId,
   PaginatedResult,
   PaginationParams,
-} from "@cuur/adapters-shared";
+} from "@cuur-cde/core/_shared/src/repositories/_base-repository.js";
 import type {
   OrderSetTemplateItemRepository,
 } from "@cuur-cde/core/knowledge-evidence/repositories/index.js";
 import type {
   OrderSetTemplateItem,
 } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import type { DaoClient } from "../../_shared/src/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur/adapters-shared";
+import type { DaoClient } from "../db/dao-client.js";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
 
 const DEFAULT_LIMIT = 50;
 

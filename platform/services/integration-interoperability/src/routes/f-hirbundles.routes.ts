@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createFHIRBundle, deleteFHIRBundle, getFHIRBundle, listFHIRBundles } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { FHIRBundleInput } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 export async function fHIRBundlesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

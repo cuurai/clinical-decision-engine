@@ -9,7 +9,7 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { OrgId, PaginatedResult, PaginationParams } from "@cuur/adapters-shared";
+import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_shared/src/repositories/_base-repository.js";
 import type { RuleSetRepository } from "@cuur-cde/core/knowledge-evidence/repositories/index.js";
 import type { UpdateRuleSetRequest } from "@cuur-cde/core/knowledge-evidence/types/index.js";
 import type {
@@ -18,8 +18,8 @@ import type {
   RuleSet,
   Timestamps,
 } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import type { DaoClient } from "../../_shared/src/dao-client.js";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur/adapters-shared";
+import type { DaoClient } from "../db/dao-client.js";
+import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
 
 const DEFAULT_LIMIT = 50;
 

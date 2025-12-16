@@ -22,7 +22,7 @@ import type {
   ChecklistInstanceInput,
   ChecklistInstanceUpdate,
 } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 
 export async function checklistInstancesRoutes(fastify: FastifyInstance, deps: Dependencies) {
   // GET /checklist-instances

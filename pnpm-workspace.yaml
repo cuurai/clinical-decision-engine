@@ -11,7 +11,6 @@ packages:
   - "packages/core/patient-clinical-data"
   - "packages/core/workflow-care-pathways"
   # Adapter packages
-  - "platform/adapters/_shared"
   - "platform/adapters/decision-intelligence"
   - "platform/adapters/integration-interoperability"
   - "platform/adapters/knowledge-evidence"

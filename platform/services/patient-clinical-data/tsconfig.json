@@ -1,15 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
     "rootDir": "./src",
-    "noEmit": false,
+    "outDir": "./dist",
     "composite": true,
+    "noEmit": false,
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
-  "references": [
-    { "path": "../../adapters/_shared" },
-    { "path": "../../adapters/patient-clinical-data" }
-  ]
+  "references": [{ "path": "../../adapters/patient-clinical-data" }]
 }

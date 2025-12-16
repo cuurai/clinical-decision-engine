@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@cuur-cde/core": "workspace:*",
-    "@cuur/adapters-shared": "workspace:*",
     "@prisma/client": "^6.0.1"
   },
   "devDependencies": {

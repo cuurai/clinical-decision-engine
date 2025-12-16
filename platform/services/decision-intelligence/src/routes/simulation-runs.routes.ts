@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createSimulationRun, getSimulationRun, listSimulationRuns } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { SimulationRunInput } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 export async function simulationRunsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

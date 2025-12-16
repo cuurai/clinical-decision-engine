@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createSimulationScenario, deleteSimulationScenario, getSimulationScenario, listSimulationScenarios, updateSimulationScenario } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { SimulationScenarioInput, SimulationScenarioUpdate } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 export async function simulationScenariosRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

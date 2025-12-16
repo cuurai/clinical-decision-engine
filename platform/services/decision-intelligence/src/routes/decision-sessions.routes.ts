@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/decision-intelligence.dependencies.js";
 import { createDecisionSession, deleteDecisionSession, getDecisionSession, listDecisionSessions, updateDecisionSession } from "@cuur-cde/core/decision-intelligence/handlers/index.js";
 import type { DecisionSessionInput, DecisionSessionUpdate } from "@cuur-cde/core/decision-intelligence/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 export async function decisionSessionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

@@ -8,7 +8,6 @@
     "packages/core",
     "packages/core/*",
     "packages/database",
-    "platform/adapters/_shared",
     "platform/adapters/decision-intelligence",
     "platform/adapters/integration-interoperability",
     "platform/adapters/knowledge-evidence",

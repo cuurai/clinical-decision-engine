@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/workflow-care-pathways.dependencies.js";
 import { createScheduleTemplate, deleteScheduleTemplate, getScheduleTemplate, listScheduleTemplates, updateScheduleTemplate } from "@cuur-cde/core/workflow-care-pathways/handlers/index.js";
 import type { ScheduleTemplateInput, ScheduleTemplateUpdate } from "@cuur-cde/core/workflow-care-pathways/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 export async function scheduleTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

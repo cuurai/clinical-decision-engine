@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { createDataExportBatch, deleteDataExportBatch, getDataExportBatch, listDataExportBatches, updateDataExportBatch } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 import type { DataExportBatchInput, DataExportBatchUpdate } from "@cuur-cde/core/integration-interoperability/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 export async function dataExportBatchesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

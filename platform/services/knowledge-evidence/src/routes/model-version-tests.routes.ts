@@ -10,7 +10,7 @@
  */
 
 import type { FastifyInstance } from "fastify";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { listModelVersionTests } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 export async function modelVersionTestsRoutes(

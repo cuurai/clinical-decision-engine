@@ -7,6 +7,5 @@
     "composite": true,
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
-  "include": ["src/**/*.ts"],
-  "references": [{ "path": "../_shared" }]
+  "include": ["src/**/*.ts"]
 }

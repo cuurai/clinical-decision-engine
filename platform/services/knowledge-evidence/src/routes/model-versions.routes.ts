@@ -13,7 +13,7 @@ import type { FastifyInstance } from "fastify";
 import type { Dependencies } from "../dependencies/knowledge-evidence.dependencies.js";
 import { createModelVersion, deleteModelVersion, getModelVersion, listModelVersions, updateModelVersion } from "@cuur-cde/core/knowledge-evidence/handlers/index.js";
 import type { ModelVersionInput, ModelVersionUpdate } from "@cuur-cde/core/knowledge-evidence/types/index.js";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 export async function modelVersionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies

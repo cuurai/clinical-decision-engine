@@ -10,7 +10,7 @@
  */
 
 import type { FastifyInstance } from "fastify";
-import { extractOrgId } from "../extract-org-id.js";
+import { extractOrgId } from "../context/org-context.js";
 import type { Dependencies } from "../dependencies/integration-interoperability.dependencies.js";
 import { listExternalSystemEndpoints } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
 export async function externalSystemEndpointsRoutes(fastify: FastifyInstance, deps: Dependencies) {
