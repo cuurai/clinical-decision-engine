@@ -17,8 +17,15 @@ export async function fHIRBundleResourcesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /fhir-bundles/{id}/resources
+  // GET /fhir-bundles/{id}/resources (nested route)
   fastify.get("/fhir-bundles/:id/resources", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listFHIRBundleResources(deps.fHIRBundleResourceRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /f-hirbundle-resources (flat route for dashboard)
+  fastify.get("/f-hirbundle-resources", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listFHIRBundleResources(deps.fHIRBundleResourceRepo, orgId);
     return reply.code(200).send(result);

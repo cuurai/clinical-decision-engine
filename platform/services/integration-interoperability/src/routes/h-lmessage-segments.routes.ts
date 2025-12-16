@@ -17,8 +17,15 @@ export async function hLMessageSegmentsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /hl7-messages/{id}/segments
+  // GET /hl7-messages/{id}/segments (nested route)
   fastify.get("/hl7-messages/:id/segments", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listHL7MessageSegments(deps.hLMessageSegmentRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /h-lmessage-segments (flat route for dashboard)
+  fastify.get("/h-lmessage-segments", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listHL7MessageSegments(deps.hLMessageSegmentRepo, orgId);
     return reply.code(200).send(result);

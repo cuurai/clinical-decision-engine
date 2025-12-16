@@ -17,8 +17,15 @@ export async function hLMessageMappingResultsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /hl7-messages/{id}/mapping-results
+  // GET /hl7-messages/{id}/mapping-results (nested route)
   fastify.get("/hl7-messages/:id/mapping-results", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listHL7MessageMappingResults(deps.hLMessageMappingResultRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /h-lmessage-mapping-results (flat route for dashboard)
+  fastify.get("/h-lmessage-mapping-results", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listHL7MessageMappingResults(deps.hLMessageMappingResultRepo, orgId);
     return reply.code(200).send(result);

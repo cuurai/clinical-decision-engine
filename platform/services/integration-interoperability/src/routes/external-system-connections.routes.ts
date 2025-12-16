@@ -17,8 +17,15 @@ export async function externalSystemConnectionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /external-systems/{id}/connections
+  // GET /external-systems/{id}/connections (nested route)
   fastify.get("/external-systems/:id/connections", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listExternalSystemConnections(deps.externalSystemConnectionRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /external-system-connections (flat route for dashboard)
+  fastify.get("/external-system-connections", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listExternalSystemConnections(deps.externalSystemConnectionRepo, orgId);
     return reply.code(200).send(result);

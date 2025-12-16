@@ -17,8 +17,15 @@ export async function externalSystemIntegrationJobsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /external-systems/{id}/integration-jobs
+  // GET /external-systems/{id}/integration-jobs (nested route)
   fastify.get("/external-systems/:id/integration-jobs", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listExternalSystemIntegrationJobs(deps.externalSystemIntegrationJobRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /external-system-integration-jobs (flat route for dashboard)
+  fastify.get("/external-system-integration-jobs", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listExternalSystemIntegrationJobs(deps.externalSystemIntegrationJobRepo, orgId);
     return reply.code(200).send(result);

@@ -17,8 +17,15 @@ export async function eventSubscriptionDeliveriesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /event-subscriptions/{id}/deliveries
+  // GET /event-subscriptions/{id}/deliveries (nested route)
   fastify.get("/event-subscriptions/:id/deliveries", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listEventSubscriptionDeliveries(deps.eventSubscriptionDeliveryRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /event-subscription-deliveries (flat route for dashboard)
+  fastify.get("/event-subscription-deliveries", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listEventSubscriptionDeliveries(deps.eventSubscriptionDeliveryRepo, orgId);
     return reply.code(200).send(result);

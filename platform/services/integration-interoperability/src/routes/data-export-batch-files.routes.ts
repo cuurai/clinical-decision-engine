@@ -17,8 +17,15 @@ export async function dataExportBatchFilesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /data-export-batches/{id}/files
+  // GET /data-export-batches/{id}/files (nested route)
   fastify.get("/data-export-batches/:id/files", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listDataExportBatchFiles(deps.dataExportBatchFileRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /data-export-batch-files (flat route for dashboard)
+  fastify.get("/data-export-batch-files", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listDataExportBatchFiles(deps.dataExportBatchFileRepo, orgId);
     return reply.code(200).send(result);

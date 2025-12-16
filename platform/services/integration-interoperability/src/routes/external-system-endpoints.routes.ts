@@ -17,8 +17,15 @@ export async function externalSystemEndpointsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /external-systems/{id}/endpoints
+  // GET /external-systems/{id}/endpoints (nested route)
   fastify.get("/external-systems/:id/endpoints", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listExternalSystemEndpoints(deps.externalSystemEndpointRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /external-system-endpoints (flat route for dashboard)
+  fastify.get("/external-system-endpoints", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listExternalSystemEndpoints(deps.externalSystemEndpointRepo, orgId);
     return reply.code(200).send(result);

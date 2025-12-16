@@ -17,8 +17,15 @@ export async function connectionIntegrationJobsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /connections/{id}/integration-jobs
+  // GET /connections/{id}/integration-jobs (nested route)
   fastify.get("/connections/:id/integration-jobs", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listConnectionIntegrationJobs(deps.connectionIntegrationJobRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /connection-integration-jobs (flat route for dashboard)
+  fastify.get("/connection-integration-jobs", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listConnectionIntegrationJobs(deps.connectionIntegrationJobRepo, orgId);
     return reply.code(200).send(result);

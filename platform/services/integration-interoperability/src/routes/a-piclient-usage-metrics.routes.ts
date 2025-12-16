@@ -17,8 +17,15 @@ export async function aPIClientUsageMetricsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /api-clients/{id}/usage-metrics
+  // GET /api-clients/{id}/usage-metrics (nested route)
   fastify.get("/api-clients/:id/usage-metrics", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listAPIClientUsageMetrics(deps.aPIClientUsageMetricRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /a-piclient-usage-metrics (flat route for dashboard)
+  fastify.get("/a-piclient-usage-metrics", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listAPIClientUsageMetrics(deps.aPIClientUsageMetricRepo, orgId);
     return reply.code(200).send(result);

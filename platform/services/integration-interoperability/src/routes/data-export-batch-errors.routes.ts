@@ -17,8 +17,15 @@ export async function dataExportBatchErrorsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /data-export-batches/{id}/errors
+  // GET /data-export-batches/{id}/errors (nested route)
   fastify.get("/data-export-batches/:id/errors", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listDataExportBatchErrors(deps.dataExportBatchErrorRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /data-export-batch-errors (flat route for dashboard)
+  fastify.get("/data-export-batch-errors", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listDataExportBatchErrors(deps.dataExportBatchErrorRepo, orgId);
     return reply.code(200).send(result);

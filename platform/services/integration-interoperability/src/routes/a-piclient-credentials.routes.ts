@@ -17,8 +17,15 @@ export async function aPIClientCredentialsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /api-clients/{id}/credentials
+  // GET /api-clients/{id}/credentials (nested route)
   fastify.get("/api-clients/:id/credentials", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listAPIClientCredentials(deps.aPIClientCredentialRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /a-piclient-credentials (flat route for dashboard)
+  fastify.get("/a-piclient-credentials", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listAPIClientCredentials(deps.aPIClientCredentialRepo, orgId);
     return reply.code(200).send(result);

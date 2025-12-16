@@ -17,8 +17,15 @@ export async function connectionHealthChecksRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /connections/{id}/health-checks
+  // GET /connections/{id}/health-checks (nested route)
   fastify.get("/connections/:id/health-checks", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listConnectionHealthChecks(deps.connectionHealthCheckRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /connection-health-checks (flat route for dashboard)
+  fastify.get("/connection-health-checks", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listConnectionHealthChecks(deps.connectionHealthCheckRepo, orgId);
     return reply.code(200).send(result);

@@ -17,8 +17,15 @@ export async function fHIRMappingProfileRulesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /fhir-mapping-profiles/{id}/rules
+  // GET /fhir-mapping-profiles/{id}/rules (nested route)
   fastify.get("/fhir-mapping-profiles/:id/rules", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listFHIRMappingProfileRules(deps.fHIRMappingProfileRuleRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /f-hirmapping-profile-rules (flat route for dashboard)
+  fastify.get("/f-hirmapping-profile-rules", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listFHIRMappingProfileRules(deps.fHIRMappingProfileRuleRepo, orgId);
     return reply.code(200).send(result);

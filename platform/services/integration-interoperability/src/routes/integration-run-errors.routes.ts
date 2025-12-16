@@ -17,8 +17,15 @@ export async function integrationRunErrorsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /integration-runs/{id}/errors
+  // GET /integration-runs/{id}/errors (nested route)
   fastify.get("/integration-runs/:id/errors", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listIntegrationRunErrors(deps.integrationRunErrorRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /integration-run-errors (flat route for dashboard)
+  fastify.get("/integration-run-errors", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listIntegrationRunErrors(deps.integrationRunErrorRepo, orgId);
     return reply.code(200).send(result);
