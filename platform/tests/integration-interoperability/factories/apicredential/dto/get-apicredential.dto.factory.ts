@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetAPICredentialPath, ZGetAPICredentialPathSchema } from "@cuur-cde/core/integration-interoperability/models/apicredential/index.js";
+import { GetAPICredentialPath, ZGetAPICredentialPathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetAPICredentialPath(overrides: Partial<GetAPICredentialPath> = {}) {

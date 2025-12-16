@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteAPIClient, ZDeleteAPIClientSchema } from "@cuur-cde/core/integration-interoperability/models/apiclient/index.js";
+import { DeleteAPIClient, ZDeleteAPIClientSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createDeleteAPIClient(overrides: Partial<DeleteAPIClient> = {}) {

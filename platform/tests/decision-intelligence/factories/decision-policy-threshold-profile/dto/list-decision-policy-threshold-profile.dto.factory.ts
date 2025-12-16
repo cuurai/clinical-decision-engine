@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListDecisionPolicyThresholdProfileParams, ZListDecisionPolicyThresholdProfileParamsSchema } from "@cuur-cde/core/decision-intelligence/models/decision-policy-threshold-profile/index.js";
+import { ListDecisionPolicyThresholdProfileParams, ZListDecisionPolicyThresholdProfileParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListDecisionPolicyThresholdProfileParams(overrides: Partial<ListDecisionPolicyThresholdProfileParams> = {}) {

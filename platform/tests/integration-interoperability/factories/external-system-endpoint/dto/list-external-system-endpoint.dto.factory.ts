@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListExternalSystemEndpointParams, ZListExternalSystemEndpointParamsSchema } from "@cuur-cde/core/integration-interoperability/models/external-system-endpoint/index.js";
+import { ListExternalSystemEndpointParams, ZListExternalSystemEndpointParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListExternalSystemEndpointParams(overrides: Partial<ListExternalSystemEndpointParams> = {}) {

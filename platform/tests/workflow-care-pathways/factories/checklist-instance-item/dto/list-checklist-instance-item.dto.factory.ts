@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListChecklistInstanceItemParams, ZListChecklistInstanceItemParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/checklist-instance-item/index.js";
+import { ListChecklistInstanceItemParams, ZListChecklistInstanceItemParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListChecklistInstanceItemParams(overrides: Partial<ListChecklistInstanceItemParams> = {}) {

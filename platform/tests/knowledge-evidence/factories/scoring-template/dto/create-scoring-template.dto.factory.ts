@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ScoringTemplateInput } from "@cuur-cde/core/knowledge-evidence/models/scoring-template/index.js";
+import { ScoringTemplateInput } from "@cuur-cde/core/knowledge-evidence";
 import { knowledgeevidenceSchemas as schemas } from "@cuur-cde/core/knowledge-evidence/index.js";
 import { z } from "zod";
 

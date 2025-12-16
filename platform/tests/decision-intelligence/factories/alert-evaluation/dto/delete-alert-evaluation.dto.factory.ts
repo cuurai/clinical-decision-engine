@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteAlertEvaluation, ZDeleteAlertEvaluationSchema } from "@cuur-cde/core/decision-intelligence/models/alert-evaluation/index.js";
+import { DeleteAlertEvaluation, ZDeleteAlertEvaluationSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createDeleteAlertEvaluation(overrides: Partial<DeleteAlertEvaluation> = {}) {

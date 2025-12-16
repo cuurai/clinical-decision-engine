@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DataExportBatchUpdate } from "@cuur-cde/core/integration-interoperability/models/data-export-batch/index.js";
+import { DataExportBatchUpdate } from "@cuur-cde/core/integration-interoperability";
 import { integrationinteroperabilitySchemas as schemas } from "@cuur-cde/core/integration-interoperability/index.js";
 import { z } from "zod";
 

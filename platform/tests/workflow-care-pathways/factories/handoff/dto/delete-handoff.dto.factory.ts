@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteHandoff, ZDeleteHandoffSchema } from "@cuur-cde/core/workflow-care-pathways/models/handoff/index.js";
+import { DeleteHandoff, ZDeleteHandoffSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createDeleteHandoff(overrides: Partial<DeleteHandoff> = {}) {

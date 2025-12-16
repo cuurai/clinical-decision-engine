@@ -17,7 +17,7 @@ import type {
   SimulationScenario,
   ListSimulationScenariosParams,
   UpdateSimulationScenarioRequest
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * SimulationScenarioRepository Interface
  */

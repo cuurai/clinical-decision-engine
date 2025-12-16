@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetDataExportBatchPath, ZGetDataExportBatchPathSchema } from "@cuur-cde/core/integration-interoperability/models/data-export-batch/index.js";
+import { GetDataExportBatchPath, ZGetDataExportBatchPathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetDataExportBatchPath(overrides: Partial<GetDataExportBatchPath> = {}) {

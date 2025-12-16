@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteAPICredential, ZDeleteAPICredentialSchema } from "@cuur-cde/core/integration-interoperability/models/apicredential/index.js";
+import { DeleteAPICredential, ZDeleteAPICredentialSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createDeleteAPICredential(overrides: Partial<DeleteAPICredential> = {}) {

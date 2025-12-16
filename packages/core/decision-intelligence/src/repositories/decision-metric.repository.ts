@@ -16,7 +16,7 @@ import type {
 import type {
   DecisionMetricSnapshot,
   ListDecisionMetricsParams
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * DecisionMetricRepository Interface
  */

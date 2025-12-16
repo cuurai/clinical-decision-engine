@@ -15,7 +15,7 @@ import type {
 
 import type {
   WorkflowDefinitionState
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * WorkflowDefinitionStateRepository Interface
  */

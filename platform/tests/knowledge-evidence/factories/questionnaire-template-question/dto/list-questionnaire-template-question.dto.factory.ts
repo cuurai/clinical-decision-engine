@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListQuestionnaireTemplateQuestionParams, ZListQuestionnaireTemplateQuestionParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/questionnaire-template-question/index.js";
+import { ListQuestionnaireTemplateQuestionParams, ZListQuestionnaireTemplateQuestionParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListQuestionnaireTemplateQuestionParams(overrides: Partial<ListQuestionnaireTemplateQuestionParams> = {}) {

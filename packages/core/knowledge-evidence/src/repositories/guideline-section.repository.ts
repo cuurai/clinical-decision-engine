@@ -15,7 +15,7 @@ import type {
 
 import type {
   GuidelineSection
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * GuidelineSectionRepository Interface
  */

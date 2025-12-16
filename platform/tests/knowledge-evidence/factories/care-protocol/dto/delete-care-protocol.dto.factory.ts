@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteCareProtocol, ZDeleteCareProtocolSchema } from "@cuur-cde/core/knowledge-evidence/models/care-protocol/index.js";
+import { DeleteCareProtocol, ZDeleteCareProtocolSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createDeleteCareProtocol(overrides: Partial<DeleteCareProtocol> = {}) {

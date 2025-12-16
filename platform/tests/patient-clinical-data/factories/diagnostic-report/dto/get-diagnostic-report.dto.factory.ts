@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetDiagnosticReportPath, ZGetDiagnosticReportPathSchema } from "@cuur-cde/core/patient-clinical-data/models/diagnostic-report/index.js";
+import { GetDiagnosticReportPath, ZGetDiagnosticReportPathSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createGetDiagnosticReportPath(overrides: Partial<GetDiagnosticReportPath> = {}) {

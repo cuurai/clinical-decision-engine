@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListDecisionSessionRequestParams, ZListDecisionSessionRequestParamsSchema } from "@cuur-cde/core/decision-intelligence/models/decision-session-request/index.js";
+import { ListDecisionSessionRequestParams, ZListDecisionSessionRequestParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListDecisionSessionRequestParams(overrides: Partial<ListDecisionSessionRequestParams> = {}) {

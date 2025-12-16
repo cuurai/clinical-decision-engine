@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListWorkflowDefinitionStateParams, ZListWorkflowDefinitionStateParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/workflow-definition-state/index.js";
+import { ListWorkflowDefinitionStateParams, ZListWorkflowDefinitionStateParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListWorkflowDefinitionStateParams(overrides: Partial<ListWorkflowDefinitionStateParams> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DecisionPolicyInput } from "@cuur-cde/core/decision-intelligence/models/decision-policy/index.js";
+import { DecisionPolicyInput } from "@cuur-cde/core/decision-intelligence";
 import { decisionintelligenceSchemas as schemas } from "@cuur-cde/core/decision-intelligence/index.js";
 import { z } from "zod";
 

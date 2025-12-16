@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteValueSet, ZDeleteValueSetSchema } from "@cuur-cde/core/knowledge-evidence/models/value-set/index.js";
+import { DeleteValueSet, ZDeleteValueSetSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createDeleteValueSet(overrides: Partial<DeleteValueSet> = {}) {

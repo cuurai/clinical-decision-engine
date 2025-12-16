@@ -17,7 +17,7 @@ import type {
   DecisionSession,
   ListDecisionSessionsParams,
   UpdateDecisionSessionRequest
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * DecisionSessionRepository Interface
  */

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetModelVersionPath, ZGetModelVersionPathSchema } from "@cuur-cde/core/knowledge-evidence/models/model-version/index.js";
+import { GetModelVersionPath, ZGetModelVersionPathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetModelVersionPath(overrides: Partial<GetModelVersionPath> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { AllergyInput } from "@cuur-cde/core/patient-clinical-data/models/allergy/index.js";
+import { AllergyInput } from "@cuur-cde/core/patient-clinical-data";
 import { patientclinicaldataSchemas as schemas } from "@cuur-cde/core/patient-clinical-data/index.js";
 import { z } from "zod";
 

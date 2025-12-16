@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListRiskAssessmentExplanationParams, ZListRiskAssessmentExplanationParamsSchema } from "@cuur-cde/core/decision-intelligence/models/risk-assessment-explanation/index.js";
+import { ListRiskAssessmentExplanationParams, ZListRiskAssessmentExplanationParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListRiskAssessmentExplanationParams(overrides: Partial<ListRiskAssessmentExplanationParams> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListConceptMapParams, ZListConceptMapParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/concept-map/index.js";
+import { ListConceptMapParams, ZListConceptMapParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListConceptMapParams(overrides: Partial<ListConceptMapParams> = {}) {

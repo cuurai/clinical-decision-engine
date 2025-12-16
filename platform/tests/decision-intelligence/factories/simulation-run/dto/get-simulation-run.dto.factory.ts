@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetSimulationRunPath, ZGetSimulationRunPathSchema } from "@cuur-cde/core/decision-intelligence/models/simulation-run/index.js";
+import { GetSimulationRunPath, ZGetSimulationRunPathSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createGetSimulationRunPath(overrides: Partial<GetSimulationRunPath> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetExternalSystemPath, ZGetExternalSystemPathSchema } from "@cuur-cde/core/integration-interoperability/models/external-system/index.js";
+import { GetExternalSystemPath, ZGetExternalSystemPathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetExternalSystemPath(overrides: Partial<GetExternalSystemPath> = {}) {

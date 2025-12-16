@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetScoringTemplatePath, ZGetScoringTemplatePathSchema } from "@cuur-cde/core/knowledge-evidence/models/scoring-template/index.js";
+import { GetScoringTemplatePath, ZGetScoringTemplatePathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetScoringTemplatePath(overrides: Partial<GetScoringTemplatePath> = {}) {

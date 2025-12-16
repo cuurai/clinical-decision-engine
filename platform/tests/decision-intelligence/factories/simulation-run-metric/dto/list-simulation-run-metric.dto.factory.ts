@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListSimulationRunMetricParams, ZListSimulationRunMetricParamsSchema } from "@cuur-cde/core/decision-intelligence/models/simulation-run-metric/index.js";
+import { ListSimulationRunMetricParams, ZListSimulationRunMetricParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListSimulationRunMetricParams(overrides: Partial<ListSimulationRunMetricParams> = {}) {

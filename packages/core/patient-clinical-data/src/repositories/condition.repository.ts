@@ -17,7 +17,7 @@ import type {
   Condition,
   ListConditionsParams,
   UpdateConditionRequest
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * ConditionRepository Interface
  */

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteModelVersion, ZDeleteModelVersionSchema } from "@cuur-cde/core/knowledge-evidence/models/model-version/index.js";
+import { DeleteModelVersion, ZDeleteModelVersionSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createDeleteModelVersion(overrides: Partial<DeleteModelVersion> = {}) {

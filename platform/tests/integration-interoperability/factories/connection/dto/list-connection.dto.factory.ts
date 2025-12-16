@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListConnectionParams, ZListConnectionParamsSchema } from "@cuur-cde/core/integration-interoperability/models/connection/index.js";
+import { ListConnectionParams, ZListConnectionParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListConnectionParams(overrides: Partial<ListConnectionParams> = {}) {

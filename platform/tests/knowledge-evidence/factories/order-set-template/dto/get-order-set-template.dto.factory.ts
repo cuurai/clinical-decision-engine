@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetOrderSetTemplatePath, ZGetOrderSetTemplatePathSchema } from "@cuur-cde/core/knowledge-evidence/models/order-set-template/index.js";
+import { GetOrderSetTemplatePath, ZGetOrderSetTemplatePathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetOrderSetTemplatePath(overrides: Partial<GetOrderSetTemplatePath> = {}) {

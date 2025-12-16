@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListAPIClientUsageMetricParams, ZListAPIClientUsageMetricParamsSchema } from "@cuur-cde/core/integration-interoperability/models/apiclient-usage-metric/index.js";
+import { ListAPIClientUsageMetricParams, ZListAPIClientUsageMetricParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListAPIClientUsageMetricParams(overrides: Partial<ListAPIClientUsageMetricParams> = {}) {

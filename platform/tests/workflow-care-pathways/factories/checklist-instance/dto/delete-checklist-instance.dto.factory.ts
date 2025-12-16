@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteChecklistInstance, ZDeleteChecklistInstanceSchema } from "@cuur-cde/core/workflow-care-pathways/models/checklist-instance/index.js";
+import { DeleteChecklistInstance, ZDeleteChecklistInstanceSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createDeleteChecklistInstance(overrides: Partial<DeleteChecklistInstance> = {}) {

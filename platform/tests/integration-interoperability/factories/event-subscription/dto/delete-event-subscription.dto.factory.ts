@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteEventSubscription, ZDeleteEventSubscriptionSchema } from "@cuur-cde/core/integration-interoperability/models/event-subscription/index.js";
+import { DeleteEventSubscription, ZDeleteEventSubscriptionSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createDeleteEventSubscription(overrides: Partial<DeleteEventSubscription> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { InterfaceErrorInput } from "@cuur-cde/core/integration-interoperability/models/interface-error/index.js";
+import { InterfaceErrorInput } from "@cuur-cde/core/integration-interoperability";
 import { integrationinteroperabilitySchemas as schemas } from "@cuur-cde/core/integration-interoperability/index.js";
 import { z } from "zod";
 

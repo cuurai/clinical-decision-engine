@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteGuideline, ZDeleteGuidelineSchema } from "@cuur-cde/core/knowledge-evidence/models/guideline/index.js";
+import { DeleteGuideline, ZDeleteGuidelineSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createDeleteGuideline(overrides: Partial<DeleteGuideline> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListDataExportBatchErrorParams, ZListDataExportBatchErrorParamsSchema } from "@cuur-cde/core/integration-interoperability/models/data-export-batch-error/index.js";
+import { ListDataExportBatchErrorParams, ZListDataExportBatchErrorParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListDataExportBatchErrorParams(overrides: Partial<ListDataExportBatchErrorParams> = {}) {

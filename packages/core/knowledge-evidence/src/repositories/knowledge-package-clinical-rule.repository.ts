@@ -15,7 +15,7 @@ import type {
 
 import type {
   KnowledgePackageClinicalRule
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * KnowledgePackageClinicalRuleRepository Interface
  */

@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-patient-clinical-data.json
  */
 
-import type { ListEncounterDiagnosticReportsResponse } from "@cuur-cde/core/patient-clinical-data/types";
-import type { EncounterDiagnosticReportRepository } from "@cuur-cde/core/patient-clinical-data/repositories";
-import { pcTransactionId } from "@cuur-cde/core/patient-clinical-data/utils/transaction-id";
+import type { ListEncounterDiagnosticReportsResponse } from "@cuur-cde/core/patient-clinical-data";
+import type { EncounterDiagnosticReportRepository } from "@cuur-cde/core/patient-clinical-data";
+import { pcTransactionId } from "@cuur-cde/core/patient-clinical-data";
 
 /**
  * List encounter diagnostic reports

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetTaskAssignmentPath, ZGetTaskAssignmentPathSchema } from "@cuur-cde/core/workflow-care-pathways/models/task-assignment/index.js";
+import { GetTaskAssignmentPath, ZGetTaskAssignmentPathSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createGetTaskAssignmentPath(overrides: Partial<GetTaskAssignmentPath> = {}) {

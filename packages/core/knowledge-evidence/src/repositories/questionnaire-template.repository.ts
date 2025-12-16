@@ -17,7 +17,7 @@ import type {
   QuestionnaireTemplate,
   ListQuestionnaireTemplatesParams,
   UpdateQuestionnaireTemplateRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * QuestionnaireTemplateRepository Interface
  */

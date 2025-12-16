@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteDiagnosticReport, ZDeleteDiagnosticReportSchema } from "@cuur-cde/core/patient-clinical-data/models/diagnostic-report/index.js";
+import { DeleteDiagnosticReport, ZDeleteDiagnosticReportSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createDeleteDiagnosticReport(overrides: Partial<DeleteDiagnosticReport> = {}) {

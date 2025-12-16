@@ -15,7 +15,7 @@ import type {
 
 import type {
   KnowledgePackageModelDefinition
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * KnowledgePackageModelDefinitionRepository Interface
  */

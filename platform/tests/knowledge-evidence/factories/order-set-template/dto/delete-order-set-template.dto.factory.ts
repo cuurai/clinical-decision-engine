@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteOrderSetTemplate, ZDeleteOrderSetTemplateSchema } from "@cuur-cde/core/knowledge-evidence/models/order-set-template/index.js";
+import { DeleteOrderSetTemplate, ZDeleteOrderSetTemplateSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createDeleteOrderSetTemplate(overrides: Partial<DeleteOrderSetTemplate> = {}) {

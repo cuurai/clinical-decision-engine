@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetGuidelinePath, ZGetGuidelinePathSchema } from "@cuur-cde/core/knowledge-evidence/models/guideline/index.js";
+import { GetGuidelinePath, ZGetGuidelinePathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetGuidelinePath(overrides: Partial<GetGuidelinePath> = {}) {

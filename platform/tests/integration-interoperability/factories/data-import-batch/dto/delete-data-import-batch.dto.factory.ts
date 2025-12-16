@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteDataImportBatch, ZDeleteDataImportBatchSchema } from "@cuur-cde/core/integration-interoperability/models/data-import-batch/index.js";
+import { DeleteDataImportBatch, ZDeleteDataImportBatchSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createDeleteDataImportBatch(overrides: Partial<DeleteDataImportBatch> = {}) {

@@ -15,7 +15,7 @@ import type {
 
 import type {
   ClinicalRuleVersion
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * ClinicalRuleVersionRepository Interface
  */

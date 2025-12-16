@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetAllergyPath, ZGetAllergyPathSchema } from "@cuur-cde/core/patient-clinical-data/models/allergy/index.js";
+import { GetAllergyPath, ZGetAllergyPathSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createGetAllergyPath(overrides: Partial<GetAllergyPath> = {}) {

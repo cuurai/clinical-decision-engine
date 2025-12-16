@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListEventDeliveryParams, ZListEventDeliveryParamsSchema } from "@cuur-cde/core/integration-interoperability/models/event-delivery/index.js";
+import { ListEventDeliveryParams, ZListEventDeliveryParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListEventDeliveryParams(overrides: Partial<ListEventDeliveryParams> = {}) {

@@ -15,7 +15,7 @@ import type {
 
 import type {
   HL7MappingProfileRule
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * HL7MappingProfileRuleRepository Interface
  */

@@ -16,7 +16,7 @@ import type {
   ChecklistTemplateInput,
   ListChecklistTemplatesParams,
   UpdateChecklistTemplateRequest,
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * ChecklistTemplateRepository Interface
  */

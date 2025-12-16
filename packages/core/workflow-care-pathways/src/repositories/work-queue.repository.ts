@@ -17,7 +17,7 @@ import type {
   WorkQueue,
   ListWorkQueuesParams,
   UpdateWorkQueueRequest
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * WorkQueueRepository Interface
  */

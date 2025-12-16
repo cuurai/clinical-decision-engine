@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ThresholdProfileUpdate } from "@cuur-cde/core/decision-intelligence/models/threshold-profile/index.js";
+import { ThresholdProfileUpdate } from "@cuur-cde/core/decision-intelligence";
 import { decisionintelligenceSchemas as schemas } from "@cuur-cde/core/decision-intelligence/index.js";
 import { z } from "zod";
 

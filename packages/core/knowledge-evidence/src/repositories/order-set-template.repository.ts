@@ -17,7 +17,7 @@ import type {
   OrderSetTemplate,
   ListOrderSetTemplatesParams,
   UpdateOrderSetTemplateRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * OrderSetTemplateRepository Interface
  */

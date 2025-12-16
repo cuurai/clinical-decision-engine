@@ -15,7 +15,7 @@ import type {
 
 import type {
   FHIRMappingProfileRule
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * FHIRMappingProfileRuleRepository Interface
  */

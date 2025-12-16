@@ -53,7 +53,7 @@ import type {
   WorkflowInstanceUpdate,
   WorkflowState,
   WorkflowTransition,
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 
 /**
  * Convert AlertInput domain entity to API response

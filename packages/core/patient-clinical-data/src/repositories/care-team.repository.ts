@@ -17,7 +17,7 @@ import type {
   CareTeam,
   ListCareTeamsParams,
   UpdateCareTeamRequest
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * CareTeamRepository Interface
  */

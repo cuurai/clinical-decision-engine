@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetQuestionnaireTemplatePath, ZGetQuestionnaireTemplatePathSchema } from "@cuur-cde/core/knowledge-evidence/models/questionnaire-template/index.js";
+import { GetQuestionnaireTemplatePath, ZGetQuestionnaireTemplatePathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetQuestionnaireTemplatePath(overrides: Partial<GetQuestionnaireTemplatePath> = {}) {

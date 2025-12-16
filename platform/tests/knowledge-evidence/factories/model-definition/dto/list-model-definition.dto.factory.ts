@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListModelDefinitionParams, ZListModelDefinitionParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/model-definition/index.js";
+import { ListModelDefinitionParams, ZListModelDefinitionParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListModelDefinitionParams(overrides: Partial<ListModelDefinitionParams> = {}) {

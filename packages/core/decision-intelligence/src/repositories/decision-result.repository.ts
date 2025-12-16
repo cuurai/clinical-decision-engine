@@ -17,7 +17,7 @@ import type {
   DecisionResult,
   ListDecisionResultsParams,
   UpdateDecisionResultRequest
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * DecisionResultRepository Interface
  */

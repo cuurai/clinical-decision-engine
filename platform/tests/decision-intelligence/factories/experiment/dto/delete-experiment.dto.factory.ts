@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteExperiment, ZDeleteExperimentSchema } from "@cuur-cde/core/decision-intelligence/models/experiment/index.js";
+import { DeleteExperiment, ZDeleteExperimentSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createDeleteExperiment(overrides: Partial<DeleteExperiment> = {}) {

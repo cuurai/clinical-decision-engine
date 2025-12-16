@@ -17,7 +17,7 @@ import type {
   Handoff,
   ListHandoffsParams,
   UpdateHandoffRequest
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * HandoffRepository Interface
  */

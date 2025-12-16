@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetFHIRBundlePath, ZGetFHIRBundlePathSchema } from "@cuur-cde/core/integration-interoperability/models/fhirbundle/index.js";
+import { GetFHIRBundlePath, ZGetFHIRBundlePathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetFHIRBundlePath(overrides: Partial<GetFHIRBundlePath> = {}) {

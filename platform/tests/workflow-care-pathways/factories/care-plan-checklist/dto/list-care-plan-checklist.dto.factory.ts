@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListCarePlanChecklistParams, ZListCarePlanChecklistParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/care-plan-checklist/index.js";
+import { ListCarePlanChecklistParams, ZListCarePlanChecklistParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListCarePlanChecklistParams(overrides: Partial<ListCarePlanChecklistParams> = {}) {

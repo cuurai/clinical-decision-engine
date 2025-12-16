@@ -40,7 +40,7 @@ import type {
   SystemEndpoint,
   Timestamps,
   UsageMetric,
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 
 /**
  * Convert APIClientInput domain entity to API response

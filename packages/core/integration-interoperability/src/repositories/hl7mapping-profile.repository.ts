@@ -17,7 +17,7 @@ import type {
   HL7MappingProfile,
   ListHLMappingProfilesParams,
   UpdateHL7MappingProfileRequest
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * HL7MappingProfileRepository Interface
  */

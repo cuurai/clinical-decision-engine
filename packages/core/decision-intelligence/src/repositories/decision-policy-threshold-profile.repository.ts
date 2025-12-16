@@ -15,7 +15,7 @@ import type {
 
 import type {
   DecisionPolicyThresholdProfile
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * DecisionPolicyThresholdProfileRepository Interface
  */

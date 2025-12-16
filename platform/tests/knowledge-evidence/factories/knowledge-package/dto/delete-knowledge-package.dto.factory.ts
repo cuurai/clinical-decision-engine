@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteKnowledgePackage, ZDeleteKnowledgePackageSchema } from "@cuur-cde/core/knowledge-evidence/models/knowledge-package/index.js";
+import { DeleteKnowledgePackage, ZDeleteKnowledgePackageSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createDeleteKnowledgePackage(overrides: Partial<DeleteKnowledgePackage> = {}) {

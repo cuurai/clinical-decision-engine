@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListAlertEvaluationParams, ZListAlertEvaluationParamsSchema } from "@cuur-cde/core/decision-intelligence/models/alert-evaluation/index.js";
+import { ListAlertEvaluationParams, ZListAlertEvaluationParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListAlertEvaluationParams(overrides: Partial<ListAlertEvaluationParams> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListModelDefinitionPerformanceMetricParams, ZListModelDefinitionPerformanceMetricParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/model-definition-performance-metric/index.js";
+import { ListModelDefinitionPerformanceMetricParams, ZListModelDefinitionPerformanceMetricParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListModelDefinitionPerformanceMetricParams(overrides: Partial<ListModelDefinitionPerformanceMetricParams> = {}) {

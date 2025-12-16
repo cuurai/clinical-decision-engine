@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { KnowledgePackageInput } from "@cuur-cde/core/knowledge-evidence/models/knowledge-package/index.js";
+import { KnowledgePackageInput } from "@cuur-cde/core/knowledge-evidence";
 import { knowledgeevidenceSchemas as schemas } from "@cuur-cde/core/knowledge-evidence/index.js";
 import { z } from "zod";
 

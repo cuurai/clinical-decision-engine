@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ExperimentArmEntity } from "@cuur-cde/core/decision-intelligence/models/experiment-arm/index.js";
+import { ExperimentArmEntity } from "@cuur-cde/core/decision-intelligence";
 import { decisionintelligenceSchemas as schemas } from "@cuur-cde/core/decision-intelligence/index.js";
 import { z } from "zod";
 

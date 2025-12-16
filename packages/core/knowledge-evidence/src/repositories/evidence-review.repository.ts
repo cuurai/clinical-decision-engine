@@ -17,7 +17,7 @@ import type {
   EvidenceReview,
   ListEvidenceReviewsParams,
   UpdateEvidenceReviewRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * EvidenceReviewRepository Interface
  */

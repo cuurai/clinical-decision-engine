@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteNote, ZDeleteNoteSchema } from "@cuur-cde/core/patient-clinical-data/models/note/index.js";
+import { DeleteNote, ZDeleteNoteSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createDeleteNote(overrides: Partial<DeleteNote> = {}) {

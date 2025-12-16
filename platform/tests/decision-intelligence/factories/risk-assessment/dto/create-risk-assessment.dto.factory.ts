@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { RiskAssessmentInput } from "@cuur-cde/core/decision-intelligence/models/risk-assessment/index.js";
+import { RiskAssessmentInput } from "@cuur-cde/core/decision-intelligence";
 import { decisionintelligenceSchemas as schemas } from "@cuur-cde/core/decision-intelligence/index.js";
 import { z } from "zod";
 

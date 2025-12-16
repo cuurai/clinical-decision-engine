@@ -15,7 +15,7 @@ import type {
 
 import type {
   ExternalSystemConnection
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * ExternalSystemConnectionRepository Interface
  */

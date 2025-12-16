@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteCarePathwayTemplate, ZDeleteCarePathwayTemplateSchema } from "@cuur-cde/core/workflow-care-pathways/models/care-pathway-template/index.js";
+import { DeleteCarePathwayTemplate, ZDeleteCarePathwayTemplateSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createDeleteCarePathwayTemplate(overrides: Partial<DeleteCarePathwayTemplate> = {}) {

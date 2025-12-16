@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListSimulationScenarioRunParams, ZListSimulationScenarioRunParamsSchema } from "@cuur-cde/core/decision-intelligence/models/simulation-scenario-run/index.js";
+import { ListSimulationScenarioRunParams, ZListSimulationScenarioRunParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListSimulationScenarioRunParams(overrides: Partial<ListSimulationScenarioRunParams> = {}) {

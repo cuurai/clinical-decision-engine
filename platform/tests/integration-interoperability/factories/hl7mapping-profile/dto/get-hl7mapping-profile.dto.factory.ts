@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetHL7MappingProfilePath, ZGetHL7MappingProfilePathSchema } from "@cuur-cde/core/integration-interoperability/models/hl7mapping-profile/index.js";
+import { GetHL7MappingProfilePath, ZGetHL7MappingProfilePathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetHL7MappingProfilePath(overrides: Partial<GetHL7MappingProfilePath> = {}) {

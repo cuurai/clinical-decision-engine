@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetModelInvocationPath, ZGetModelInvocationPathSchema } from "@cuur-cde/core/decision-intelligence/models/model-invocation/index.js";
+import { GetModelInvocationPath, ZGetModelInvocationPathSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createGetModelInvocationPath(overrides: Partial<GetModelInvocationPath> = {}) {

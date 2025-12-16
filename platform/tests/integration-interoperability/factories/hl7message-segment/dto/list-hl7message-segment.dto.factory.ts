@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListHL7MessageSegmentParams, ZListHL7MessageSegmentParamsSchema } from "@cuur-cde/core/integration-interoperability/models/hl7message-segment/index.js";
+import { ListHL7MessageSegmentParams, ZListHL7MessageSegmentParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListHL7MessageSegmentParams(overrides: Partial<ListHL7MessageSegmentParams> = {}) {

@@ -15,7 +15,7 @@ import type {
 
 import type {
   EscalationPolicyRule
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * EscalationPolicyRuleRepository Interface
  */

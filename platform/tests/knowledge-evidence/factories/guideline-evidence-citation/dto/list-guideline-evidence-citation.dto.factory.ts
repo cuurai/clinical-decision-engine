@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListGuidelineEvidenceCitationParams, ZListGuidelineEvidenceCitationParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/guideline-evidence-citation/index.js";
+import { ListGuidelineEvidenceCitationParams, ZListGuidelineEvidenceCitationParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListGuidelineEvidenceCitationParams(overrides: Partial<ListGuidelineEvidenceCitationParams> = {}) {

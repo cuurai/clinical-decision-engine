@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { RuleSetUpdate } from "@cuur-cde/core/knowledge-evidence/models/rule-set/index.js";
+import { RuleSetUpdate } from "@cuur-cde/core/knowledge-evidence";
 import { knowledgeevidenceSchemas as schemas } from "@cuur-cde/core/knowledge-evidence/index.js";
 import { z } from "zod";
 

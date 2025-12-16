@@ -17,7 +17,7 @@ import type {
   InterfaceError,
   ListInterfaceErrorsParams,
   UpdateInterfaceErrorRequest
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * InterfaceErrorRepository Interface
  */

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetDecisionResultPath, ZGetDecisionResultPathSchema } from "@cuur-cde/core/decision-intelligence/models/decision-result/index.js";
+import { GetDecisionResultPath, ZGetDecisionResultPathSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createGetDecisionResultPath(overrides: Partial<GetDecisionResultPath> = {}) {

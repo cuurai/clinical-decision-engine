@@ -15,7 +15,7 @@ import type {
 
 import type {
   PatientCondition
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * PatientConditionRepository Interface
  */

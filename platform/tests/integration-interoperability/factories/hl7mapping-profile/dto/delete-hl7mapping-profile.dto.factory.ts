@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteHL7MappingProfile, ZDeleteHL7MappingProfileSchema } from "@cuur-cde/core/integration-interoperability/models/hl7mapping-profile/index.js";
+import { DeleteHL7MappingProfile, ZDeleteHL7MappingProfileSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createDeleteHL7MappingProfile(overrides: Partial<DeleteHL7MappingProfile> = {}) {

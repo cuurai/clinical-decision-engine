@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ValueSetCodeEntity } from "@cuur-cde/core/knowledge-evidence/models/value-set-code/index.js";
+import { ValueSetCodeEntity } from "@cuur-cde/core/knowledge-evidence";
 import { knowledgeevidenceSchemas as schemas } from "@cuur-cde/core/knowledge-evidence/index.js";
 import { z } from "zod";
 

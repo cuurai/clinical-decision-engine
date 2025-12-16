@@ -15,7 +15,7 @@ import type {
 
 import type {
   MedicationAdministration
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * MedicationAdministrationRepository Interface
  */

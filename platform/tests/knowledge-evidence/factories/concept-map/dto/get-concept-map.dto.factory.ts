@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetConceptMapPath, ZGetConceptMapPathSchema } from "@cuur-cde/core/knowledge-evidence/models/concept-map/index.js";
+import { GetConceptMapPath, ZGetConceptMapPathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetConceptMapPath(overrides: Partial<GetConceptMapPath> = {}) {

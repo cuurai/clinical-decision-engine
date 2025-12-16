@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListEscalationPolicyParams, ZListEscalationPolicyParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/escalation-policy/index.js";
+import { ListEscalationPolicyParams, ZListEscalationPolicyParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListEscalationPolicyParams(overrides: Partial<ListEscalationPolicyParams> = {}) {

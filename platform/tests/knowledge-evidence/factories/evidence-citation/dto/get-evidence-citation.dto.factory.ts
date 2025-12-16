@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetEvidenceCitationPath, ZGetEvidenceCitationPathSchema } from "@cuur-cde/core/knowledge-evidence/models/evidence-citation/index.js";
+import { GetEvidenceCitationPath, ZGetEvidenceCitationPathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetEvidenceCitationPath(overrides: Partial<GetEvidenceCitationPath> = {}) {

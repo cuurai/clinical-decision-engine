@@ -17,7 +17,7 @@ import type {
   ScheduleTemplate,
   ListScheduleTemplatesParams,
   UpdateScheduleTemplateRequest
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * ScheduleTemplateRepository Interface
  */

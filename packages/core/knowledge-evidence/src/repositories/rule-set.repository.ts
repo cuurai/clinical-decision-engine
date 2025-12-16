@@ -17,7 +17,7 @@ import type {
   RuleSet,
   ListRuleSetsParams,
   UpdateRuleSetRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * RuleSetRepository Interface
  */

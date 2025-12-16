@@ -17,7 +17,7 @@ import type {
   WorkflowInstance,
   ListWorkflowInstancesParams,
   UpdateWorkflowInstanceRequest
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * WorkflowInstanceRepository Interface
  */

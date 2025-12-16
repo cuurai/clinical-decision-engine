@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { GetWorkQueueResponse } from "@cuur-cde/core/workflow-care-pathways/types";
-import type { WorkQueueRepository } from "@cuur-cde/core/workflow-care-pathways/repositories";
-import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways/utils/transaction-id";
+import type { GetWorkQueueResponse } from "@cuur-cde/core/workflow-care-pathways";
+import type { WorkQueueRepository } from "@cuur-cde/core/workflow-care-pathways";
+import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways";
 
 /**
  * Get work queue by ID

@@ -17,7 +17,7 @@ import type {
   RiskAssessment,
   ListRiskAssessmentsParams,
   UpdateRiskAssessmentRequest
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * RiskAssessmentRepository Interface
  */

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListSimulationRunDecisionResultParams, ZListSimulationRunDecisionResultParamsSchema } from "@cuur-cde/core/decision-intelligence/models/simulation-run-decision-result/index.js";
+import { ListSimulationRunDecisionResultParams, ZListSimulationRunDecisionResultParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListSimulationRunDecisionResultParams(overrides: Partial<ListSimulationRunDecisionResultParams> = {}) {

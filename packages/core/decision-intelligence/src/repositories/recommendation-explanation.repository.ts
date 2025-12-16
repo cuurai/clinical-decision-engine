@@ -15,7 +15,7 @@ import type {
 
 import type {
   RecommendationExplanation
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * RecommendationExplanationRepository Interface
  */

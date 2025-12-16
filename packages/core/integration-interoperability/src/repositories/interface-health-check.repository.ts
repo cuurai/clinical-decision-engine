@@ -15,7 +15,7 @@ import type {
   InterfaceHealthCheck,
   InterfaceHealthCheckInput,
   ListInterfaceHealthChecksParams,
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * InterfaceHealthCheckRepository Interface
  */

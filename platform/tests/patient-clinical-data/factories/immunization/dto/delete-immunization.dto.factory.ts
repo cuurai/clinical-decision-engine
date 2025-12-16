@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteImmunization, ZDeleteImmunizationSchema } from "@cuur-cde/core/patient-clinical-data/models/immunization/index.js";
+import { DeleteImmunization, ZDeleteImmunizationSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createDeleteImmunization(overrides: Partial<DeleteImmunization> = {}) {

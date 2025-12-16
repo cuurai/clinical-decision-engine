@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetExperimentPath, ZGetExperimentPathSchema } from "@cuur-cde/core/decision-intelligence/models/experiment/index.js";
+import { GetExperimentPath, ZGetExperimentPathSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createGetExperimentPath(overrides: Partial<GetExperimentPath> = {}) {

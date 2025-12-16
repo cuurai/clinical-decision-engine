@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListClinicalRuleTestParams, ZListClinicalRuleTestParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/clinical-rule-test/index.js";
+import { ListClinicalRuleTestParams, ZListClinicalRuleTestParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListClinicalRuleTestParams(overrides: Partial<ListClinicalRuleTestParams> = {}) {

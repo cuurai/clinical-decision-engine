@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListDataImportBatchRecordParams, ZListDataImportBatchRecordParamsSchema } from "@cuur-cde/core/integration-interoperability/models/data-import-batch-record/index.js";
+import { ListDataImportBatchRecordParams, ZListDataImportBatchRecordParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListDataImportBatchRecordParams(overrides: Partial<ListDataImportBatchRecordParams> = {}) {

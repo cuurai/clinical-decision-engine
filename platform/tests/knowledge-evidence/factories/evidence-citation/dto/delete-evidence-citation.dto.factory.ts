@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteEvidenceCitation, ZDeleteEvidenceCitationSchema } from "@cuur-cde/core/knowledge-evidence/models/evidence-citation/index.js";
+import { DeleteEvidenceCitation, ZDeleteEvidenceCitationSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createDeleteEvidenceCitation(overrides: Partial<DeleteEvidenceCitation> = {}) {

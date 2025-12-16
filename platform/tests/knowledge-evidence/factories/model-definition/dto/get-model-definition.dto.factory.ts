@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetModelDefinitionPath, ZGetModelDefinitionPathSchema } from "@cuur-cde/core/knowledge-evidence/models/model-definition/index.js";
+import { GetModelDefinitionPath, ZGetModelDefinitionPathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetModelDefinitionPath(overrides: Partial<GetModelDefinitionPath> = {}) {

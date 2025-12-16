@@ -15,7 +15,7 @@ import type {
 
 import type {
   DecisionSessionExplanation
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * DecisionSessionExplanationRepository Interface
  */

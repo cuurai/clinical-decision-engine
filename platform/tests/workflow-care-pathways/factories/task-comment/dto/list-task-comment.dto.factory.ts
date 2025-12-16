@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListTaskCommentParams, ZListTaskCommentParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/task-comment/index.js";
+import { ListTaskCommentParams, ZListTaskCommentParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListTaskCommentParams(overrides: Partial<ListTaskCommentParams> = {}) {

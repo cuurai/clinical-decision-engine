@@ -17,7 +17,7 @@ import type {
   TaskAssignment,
   ListTaskAssignmentsParams,
   UpdateTaskAssignmentRequest
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * TaskAssignmentRepository Interface
  */

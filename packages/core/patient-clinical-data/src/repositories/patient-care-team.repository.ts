@@ -15,7 +15,7 @@ import type {
 
 import type {
   PatientCareTeam
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * PatientCareTeamRepository Interface
  */

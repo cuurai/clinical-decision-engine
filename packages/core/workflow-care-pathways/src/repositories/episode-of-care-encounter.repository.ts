@@ -15,7 +15,7 @@ import type {
 
 import type {
   EpisodeOfCareEncounter
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * EpisodeOfCareEncounterRepository Interface
  */

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteScoringTemplate, ZDeleteScoringTemplateSchema } from "@cuur-cde/core/knowledge-evidence/models/scoring-template/index.js";
+import { DeleteScoringTemplate, ZDeleteScoringTemplateSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createDeleteScoringTemplate(overrides: Partial<DeleteScoringTemplate> = {}) {

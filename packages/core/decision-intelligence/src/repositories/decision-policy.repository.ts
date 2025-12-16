@@ -17,7 +17,7 @@ import type {
   DecisionPolicy,
   ListDecisionPoliciesParams,
   UpdateDecisionPolicyRequest
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * DecisionPolicyRepository Interface
  */

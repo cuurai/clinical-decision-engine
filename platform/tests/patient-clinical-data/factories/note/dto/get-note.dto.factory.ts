@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetNotePath, ZGetNotePathSchema } from "@cuur-cde/core/patient-clinical-data/models/note/index.js";
+import { GetNotePath, ZGetNotePathSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createGetNotePath(overrides: Partial<GetNotePath> = {}) {

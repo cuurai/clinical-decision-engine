@@ -15,7 +15,7 @@ import type {
 
 import type {
   DataImportBatchRecord
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * DataImportBatchRecordRepository Interface
  */

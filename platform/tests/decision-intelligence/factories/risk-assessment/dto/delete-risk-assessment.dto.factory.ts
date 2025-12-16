@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteRiskAssessment, ZDeleteRiskAssessmentSchema } from "@cuur-cde/core/decision-intelligence/models/risk-assessment/index.js";
+import { DeleteRiskAssessment, ZDeleteRiskAssessmentSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createDeleteRiskAssessment(overrides: Partial<DeleteRiskAssessment> = {}) {

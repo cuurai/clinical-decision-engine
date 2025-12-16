@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DocumentReferenceUpdate } from "@cuur-cde/core/patient-clinical-data/models/document/index.js";
+import { DocumentReferenceUpdate } from "@cuur-cde/core/patient-clinical-data";
 import { patientclinicaldataSchemas as schemas } from "@cuur-cde/core/patient-clinical-data/index.js";
 import { z } from "zod";
 

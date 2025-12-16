@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { HL7MappingProfileUpdate } from "@cuur-cde/core/integration-interoperability/models/hl7mapping-profile/index.js";
+import { HL7MappingProfileUpdate } from "@cuur-cde/core/integration-interoperability";
 import { integrationinteroperabilitySchemas as schemas } from "@cuur-cde/core/integration-interoperability/index.js";
 import { z } from "zod";
 

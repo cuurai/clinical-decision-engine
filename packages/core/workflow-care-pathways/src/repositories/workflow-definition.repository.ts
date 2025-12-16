@@ -17,7 +17,7 @@ import type {
   WorkflowDefinition,
   ListWorkflowDefinitionsParams,
   UpdateWorkflowDefinitionRequest
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * WorkflowDefinitionRepository Interface
  */

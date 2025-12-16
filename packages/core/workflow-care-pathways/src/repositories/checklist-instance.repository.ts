@@ -16,7 +16,7 @@ import type {
   ChecklistInstanceInput,
   ListChecklistInstancesParams,
   UpdateChecklistInstanceRequest,
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * ChecklistInstanceRepository Interface
  */

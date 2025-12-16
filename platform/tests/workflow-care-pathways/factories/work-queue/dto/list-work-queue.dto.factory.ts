@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListWorkQueueParams, ZListWorkQueueParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/work-queue/index.js";
+import { ListWorkQueueParams, ZListWorkQueueParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListWorkQueueParams(overrides: Partial<ListWorkQueueParams> = {}) {

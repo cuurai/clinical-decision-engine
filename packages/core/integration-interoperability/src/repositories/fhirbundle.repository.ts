@@ -17,7 +17,7 @@ import type {
   FHIRBundle,
   ListFHIRBundlesParams,
   FHIRBundleInput
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * FHIRBundleRepository Interface
  */

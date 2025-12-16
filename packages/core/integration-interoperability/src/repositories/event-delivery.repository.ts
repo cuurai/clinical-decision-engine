@@ -17,7 +17,7 @@ import type {
   EventDelivery,
   ListEventDeliveriesParams,
   UpdateEventDeliveryRequest
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * EventDeliveryRepository Interface
  */

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListScheduleTemplateParams, ZListScheduleTemplateParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/schedule-template/index.js";
+import { ListScheduleTemplateParams, ZListScheduleTemplateParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListScheduleTemplateParams(overrides: Partial<ListScheduleTemplateParams> = {}) {

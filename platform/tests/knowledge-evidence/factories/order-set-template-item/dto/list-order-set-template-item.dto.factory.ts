@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListOrderSetTemplateItemParams, ZListOrderSetTemplateItemParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/order-set-template-item/index.js";
+import { ListOrderSetTemplateItemParams, ZListOrderSetTemplateItemParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListOrderSetTemplateItemParams(overrides: Partial<ListOrderSetTemplateItemParams> = {}) {

@@ -17,7 +17,7 @@ import type {
   EvidenceCitation,
   ListEvidenceCitationsParams,
   UpdateEvidenceCitationRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * EvidenceCitationRepository Interface
  */

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetMedicationOrderPath, ZGetMedicationOrderPathSchema } from "@cuur-cde/core/patient-clinical-data/models/medication-order/index.js";
+import { GetMedicationOrderPath, ZGetMedicationOrderPathSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createGetMedicationOrderPath(overrides: Partial<GetMedicationOrderPath> = {}) {

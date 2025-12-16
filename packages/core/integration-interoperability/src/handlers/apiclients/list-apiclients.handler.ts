@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { ListAPIClientsParams, ListAPIClientsResponse } from "@cuur-cde/core/integration-interoperability/types";
-import type { APIClientRepository } from "@cuur-cde/core/integration-interoperability/repositories";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability/utils/transaction-id";
+import type { ListAPIClientsParams, ListAPIClientsResponse } from "@cuur-cde/core/integration-interoperability";
+import type { APIClientRepository } from "@cuur-cde/core/integration-interoperability";
+import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
 
 /**
  * List API clients

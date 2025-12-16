@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetValueSetPath, ZGetValueSetPathSchema } from "@cuur-cde/core/knowledge-evidence/models/value-set/index.js";
+import { GetValueSetPath, ZGetValueSetPathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetValueSetPath(overrides: Partial<GetValueSetPath> = {}) {

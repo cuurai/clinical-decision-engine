@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetCarePlanPath, ZGetCarePlanPathSchema } from "@cuur-cde/core/workflow-care-pathways/models/care-plan/index.js";
+import { GetCarePlanPath, ZGetCarePlanPathSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createGetCarePlanPath(overrides: Partial<GetCarePlanPath> = {}) {

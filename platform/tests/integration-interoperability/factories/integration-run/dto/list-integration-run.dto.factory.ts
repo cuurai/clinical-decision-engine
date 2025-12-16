@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListIntegrationRunParams, ZListIntegrationRunParamsSchema } from "@cuur-cde/core/integration-interoperability/models/integration-run/index.js";
+import { ListIntegrationRunParams, ZListIntegrationRunParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListIntegrationRunParams(overrides: Partial<ListIntegrationRunParams> = {}) {

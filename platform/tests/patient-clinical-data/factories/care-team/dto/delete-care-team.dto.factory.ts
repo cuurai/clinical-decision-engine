@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteCareTeam, ZDeleteCareTeamSchema } from "@cuur-cde/core/patient-clinical-data/models/care-team/index.js";
+import { DeleteCareTeam, ZDeleteCareTeamSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createDeleteCareTeam(overrides: Partial<DeleteCareTeam> = {}) {

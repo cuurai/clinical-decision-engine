@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetHL7MessagePath, ZGetHL7MessagePathSchema } from "@cuur-cde/core/integration-interoperability/models/hl7message/index.js";
+import { GetHL7MessagePath, ZGetHL7MessagePathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetHL7MessagePath(overrides: Partial<GetHL7MessagePath> = {}) {

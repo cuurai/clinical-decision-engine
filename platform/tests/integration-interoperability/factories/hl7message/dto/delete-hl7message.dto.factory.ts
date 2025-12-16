@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteHL7Message, ZDeleteHL7MessageSchema } from "@cuur-cde/core/integration-interoperability/models/hl7message/index.js";
+import { DeleteHL7Message, ZDeleteHL7MessageSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createDeleteHL7Message(overrides: Partial<DeleteHL7Message> = {}) {

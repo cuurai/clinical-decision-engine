@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { APICredentialInput } from "@cuur-cde/core/integration-interoperability/models/apicredential/index.js";
+import { APICredentialInput } from "@cuur-cde/core/integration-interoperability";
 import { integrationinteroperabilitySchemas as schemas } from "@cuur-cde/core/integration-interoperability/index.js";
 import { z } from "zod";
 

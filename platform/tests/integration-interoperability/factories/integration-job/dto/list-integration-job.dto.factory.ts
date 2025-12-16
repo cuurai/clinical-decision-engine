@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListIntegrationJobParams, ZListIntegrationJobParamsSchema } from "@cuur-cde/core/integration-interoperability/models/integration-job/index.js";
+import { ListIntegrationJobParams, ZListIntegrationJobParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListIntegrationJobParams(overrides: Partial<ListIntegrationJobParams> = {}) {

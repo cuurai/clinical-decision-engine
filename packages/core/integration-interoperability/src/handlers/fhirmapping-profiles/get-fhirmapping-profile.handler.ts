@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { GetFHIRMappingProfileResponse } from "@cuur-cde/core/integration-interoperability/types";
-import type { FHIRMappingProfileRepository } from "@cuur-cde/core/integration-interoperability/repositories";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability/utils/transaction-id";
+import type { GetFHIRMappingProfileResponse } from "@cuur-cde/core/integration-interoperability";
+import type { FHIRMappingProfileRepository } from "@cuur-cde/core/integration-interoperability";
+import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
 
 /**
  * Get FHIR mapping profile by ID

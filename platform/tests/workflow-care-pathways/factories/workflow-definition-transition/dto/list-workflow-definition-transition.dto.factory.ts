@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListWorkflowDefinitionTransitionParams, ZListWorkflowDefinitionTransitionParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/workflow-definition-transition/index.js";
+import { ListWorkflowDefinitionTransitionParams, ZListWorkflowDefinitionTransitionParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListWorkflowDefinitionTransitionParams(overrides: Partial<ListWorkflowDefinitionTransitionParams> = {}) {

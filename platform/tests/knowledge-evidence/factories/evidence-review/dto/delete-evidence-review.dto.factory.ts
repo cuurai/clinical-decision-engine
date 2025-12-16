@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteEvidenceReview, ZDeleteEvidenceReviewSchema } from "@cuur-cde/core/knowledge-evidence/models/evidence-review/index.js";
+import { DeleteEvidenceReview, ZDeleteEvidenceReviewSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createDeleteEvidenceReview(overrides: Partial<DeleteEvidenceReview> = {}) {

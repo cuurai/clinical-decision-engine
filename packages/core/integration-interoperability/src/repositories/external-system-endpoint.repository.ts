@@ -15,7 +15,7 @@ import type {
 
 import type {
   ExternalSystemEndpoint
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * ExternalSystemEndpointRepository Interface
  */

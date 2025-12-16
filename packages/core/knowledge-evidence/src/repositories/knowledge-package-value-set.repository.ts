@@ -15,7 +15,7 @@ import type {
 
 import type {
   KnowledgePackageValueSet
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * KnowledgePackageValueSetRepository Interface
  */

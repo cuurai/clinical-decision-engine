@@ -15,7 +15,7 @@ import type {
 
 import type {
   WorkflowInstanceTask
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * WorkflowInstanceTaskRepository Interface
  */

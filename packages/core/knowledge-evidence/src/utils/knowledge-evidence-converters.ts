@@ -54,7 +54,7 @@ import type {
   ValueSetCode,
   ValueSetInput,
   ValueSetUpdate,
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 
 /**
  * Convert CareProtocolTemplateInput domain entity to API response

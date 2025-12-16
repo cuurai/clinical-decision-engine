@@ -17,7 +17,7 @@ import type {
   FHIRMappingProfile,
   ListFHIRMappingProfilesParams,
   UpdateFHIRMappingProfileRequest
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * FHIRMappingProfileRepository Interface
  */

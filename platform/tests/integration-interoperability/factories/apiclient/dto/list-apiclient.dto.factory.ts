@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListAPIClientParams, ZListAPIClientParamsSchema } from "@cuur-cde/core/integration-interoperability/models/apiclient/index.js";
+import { ListAPIClientParams, ZListAPIClientParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListAPIClientParams(overrides: Partial<ListAPIClientParams> = {}) {

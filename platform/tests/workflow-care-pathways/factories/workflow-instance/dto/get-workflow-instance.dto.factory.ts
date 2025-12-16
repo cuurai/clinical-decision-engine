@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetWorkflowInstancePath, ZGetWorkflowInstancePathSchema } from "@cuur-cde/core/workflow-care-pathways/models/workflow-instance/index.js";
+import { GetWorkflowInstancePath, ZGetWorkflowInstancePathSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createGetWorkflowInstancePath(overrides: Partial<GetWorkflowInstancePath> = {}) {

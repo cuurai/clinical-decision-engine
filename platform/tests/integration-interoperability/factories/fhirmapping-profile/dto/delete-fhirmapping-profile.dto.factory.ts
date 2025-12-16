@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteFHIRMappingProfile, ZDeleteFHIRMappingProfileSchema } from "@cuur-cde/core/integration-interoperability/models/fhirmapping-profile/index.js";
+import { DeleteFHIRMappingProfile, ZDeleteFHIRMappingProfileSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createDeleteFHIRMappingProfile(overrides: Partial<DeleteFHIRMappingProfile> = {}) {

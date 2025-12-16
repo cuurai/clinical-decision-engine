@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteDocument, ZDeleteDocumentSchema } from "@cuur-cde/core/patient-clinical-data/models/document/index.js";
+import { DeleteDocument, ZDeleteDocumentSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createDeleteDocument(overrides: Partial<DeleteDocument> = {}) {

@@ -17,7 +17,7 @@ import type {
   RoutingRule,
   ListRoutingRulesParams,
   UpdateRoutingRuleRequest
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * RoutingRuleRepository Interface
  */

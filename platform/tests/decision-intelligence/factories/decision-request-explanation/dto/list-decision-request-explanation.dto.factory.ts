@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListDecisionRequestExplanationParams, ZListDecisionRequestExplanationParamsSchema } from "@cuur-cde/core/decision-intelligence/models/decision-request-explanation/index.js";
+import { ListDecisionRequestExplanationParams, ZListDecisionRequestExplanationParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListDecisionRequestExplanationParams(overrides: Partial<ListDecisionRequestExplanationParams> = {}) {

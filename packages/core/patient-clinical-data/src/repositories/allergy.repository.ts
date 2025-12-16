@@ -17,7 +17,7 @@ import type {
   Allergy,
   ListAllergiesParams,
   UpdateAllergyRequest
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * AllergyRepository Interface
  */

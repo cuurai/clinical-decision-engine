@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetCareProtocolPath, ZGetCareProtocolPathSchema } from "@cuur-cde/core/knowledge-evidence/models/care-protocol/index.js";
+import { GetCareProtocolPath, ZGetCareProtocolPathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetCareProtocolPath(overrides: Partial<GetCareProtocolPath> = {}) {

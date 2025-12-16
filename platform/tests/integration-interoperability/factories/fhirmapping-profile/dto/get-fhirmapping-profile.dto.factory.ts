@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetFHIRMappingProfilePath, ZGetFHIRMappingProfilePathSchema } from "@cuur-cde/core/integration-interoperability/models/fhirmapping-profile/index.js";
+import { GetFHIRMappingProfilePath, ZGetFHIRMappingProfilePathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetFHIRMappingProfilePath(overrides: Partial<GetFHIRMappingProfilePath> = {}) {

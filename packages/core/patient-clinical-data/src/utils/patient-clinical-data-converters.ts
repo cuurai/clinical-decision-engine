@@ -56,7 +56,7 @@ import type {
   ProcedureUpdate,
   Quantity,
   Timestamps,
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 
 /**
  * Convert Address domain entity to API response

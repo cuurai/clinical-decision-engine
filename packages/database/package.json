@@ -1,5 +1,5 @@
 {
-  "name": "@cuur-cde/db",
+  "name": "@cuur-cde/database",
   "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",

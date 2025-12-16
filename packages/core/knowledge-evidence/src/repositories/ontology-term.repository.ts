@@ -16,7 +16,7 @@ import type {
 import type {
   OntologyTerm,
   SearchOntologyTermsParams
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * OntologyTermRepository Interface
  */

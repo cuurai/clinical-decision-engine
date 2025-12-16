@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteScheduleTemplate, ZDeleteScheduleTemplateSchema } from "@cuur-cde/core/workflow-care-pathways/models/schedule-template/index.js";
+import { DeleteScheduleTemplate, ZDeleteScheduleTemplateSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createDeleteScheduleTemplate(overrides: Partial<DeleteScheduleTemplate> = {}) {

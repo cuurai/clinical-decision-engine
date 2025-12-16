@@ -17,7 +17,7 @@ import type {
   Recommendation,
   ListRecommendationsParams,
   UpdateRecommendationRequest
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * RecommendationRepository Interface
  */

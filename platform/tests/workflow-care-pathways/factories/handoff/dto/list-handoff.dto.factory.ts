@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListHandoffParams, ZListHandoffParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/handoff/index.js";
+import { ListHandoffParams, ZListHandoffParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListHandoffParams(overrides: Partial<ListHandoffParams> = {}) {

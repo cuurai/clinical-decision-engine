@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListDecisionMetricParams, ZListDecisionMetricParamsSchema } from "@cuur-cde/core/decision-intelligence/models/decision-metric/index.js";
+import { ListDecisionMetricParams, ZListDecisionMetricParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListDecisionMetricParams(overrides: Partial<ListDecisionMetricParams> = {}) {

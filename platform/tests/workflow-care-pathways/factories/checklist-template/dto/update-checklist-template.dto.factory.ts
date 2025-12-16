@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ChecklistTemplateUpdate } from "@cuur-cde/core/workflow-care-pathways/models/checklist-template/index.js";
+import { ChecklistTemplateUpdate } from "@cuur-cde/core/workflow-care-pathways";
 import { workflowcarepathwaysSchemas as schemas } from "@cuur-cde/core/workflow-care-pathways/index.js";
 import { z } from "zod";
 

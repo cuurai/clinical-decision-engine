@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { SimulationScenarioInput } from "@cuur-cde/core/decision-intelligence/models/simulation-scenario/index.js";
+import { SimulationScenarioInput } from "@cuur-cde/core/decision-intelligence";
 import { decisionintelligenceSchemas as schemas } from "@cuur-cde/core/decision-intelligence/index.js";
 import { z } from "zod";
 

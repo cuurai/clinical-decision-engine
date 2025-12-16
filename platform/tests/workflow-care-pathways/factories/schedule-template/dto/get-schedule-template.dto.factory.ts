@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetScheduleTemplatePath, ZGetScheduleTemplatePathSchema } from "@cuur-cde/core/workflow-care-pathways/models/schedule-template/index.js";
+import { GetScheduleTemplatePath, ZGetScheduleTemplatePathSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createGetScheduleTemplatePath(overrides: Partial<GetScheduleTemplatePath> = {}) {

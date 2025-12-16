@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetTaskPath, ZGetTaskPathSchema } from "@cuur-cde/core/workflow-care-pathways/models/task/index.js";
+import { GetTaskPath, ZGetTaskPathSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createGetTaskPath(overrides: Partial<GetTaskPath> = {}) {

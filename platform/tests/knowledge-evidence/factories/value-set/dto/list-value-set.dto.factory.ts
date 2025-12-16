@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListValueSetParams, ZListValueSetParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/value-set/index.js";
+import { ListValueSetParams, ZListValueSetParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListValueSetParams(overrides: Partial<ListValueSetParams> = {}) {

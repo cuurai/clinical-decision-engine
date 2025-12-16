@@ -15,7 +15,7 @@ import type {
 
 import type {
   ModelDefinitionPerformanceMetric
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * ModelDefinitionPerformanceMetricRepository Interface
  */

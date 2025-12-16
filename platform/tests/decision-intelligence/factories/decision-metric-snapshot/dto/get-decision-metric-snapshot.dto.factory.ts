@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetDecisionMetricSnapshotPath, ZGetDecisionMetricSnapshotPathSchema } from "@cuur-cde/core/decision-intelligence/models/decision-metric-snapshot/index.js";
+import { GetDecisionMetricSnapshotPath, ZGetDecisionMetricSnapshotPathSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createGetDecisionMetricSnapshotPath(overrides: Partial<GetDecisionMetricSnapshotPath> = {}) {

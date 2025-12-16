@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteQuestionnaireTemplate, ZDeleteQuestionnaireTemplateSchema } from "@cuur-cde/core/knowledge-evidence/models/questionnaire-template/index.js";
+import { DeleteQuestionnaireTemplate, ZDeleteQuestionnaireTemplateSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createDeleteQuestionnaireTemplate(overrides: Partial<DeleteQuestionnaireTemplate> = {}) {

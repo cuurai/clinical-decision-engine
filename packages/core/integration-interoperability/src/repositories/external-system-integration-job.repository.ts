@@ -15,7 +15,7 @@ import type {
 
 import type {
   ExternalSystemIntegrationJob
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * ExternalSystemIntegrationJobRepository Interface
  */

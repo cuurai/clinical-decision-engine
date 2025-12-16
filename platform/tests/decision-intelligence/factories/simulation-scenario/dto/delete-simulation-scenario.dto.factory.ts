@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteSimulationScenario, ZDeleteSimulationScenarioSchema } from "@cuur-cde/core/decision-intelligence/models/simulation-scenario/index.js";
+import { DeleteSimulationScenario, ZDeleteSimulationScenarioSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createDeleteSimulationScenario(overrides: Partial<DeleteSimulationScenario> = {}) {

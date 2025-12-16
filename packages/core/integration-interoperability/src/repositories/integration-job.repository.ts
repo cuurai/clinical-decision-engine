@@ -17,7 +17,7 @@ import type {
   IntegrationJob,
   ListIntegrationJobsParams,
   UpdateIntegrationJobRequest
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * IntegrationJobRepository Interface
  */

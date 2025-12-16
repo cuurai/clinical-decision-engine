@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { InterfaceHealthCheckInput } from "@cuur-cde/core/integration-interoperability/models/interface-health-check/index.js";
+import { InterfaceHealthCheckInput } from "@cuur-cde/core/integration-interoperability";
 import { integrationinteroperabilitySchemas as schemas } from "@cuur-cde/core/integration-interoperability/index.js";
 import { z } from "zod";
 

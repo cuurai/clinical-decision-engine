@@ -17,7 +17,7 @@ import type {
   APIClient,
   ListAPIClientsParams,
   UpdateAPIClientRequest
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * APIClientRepository Interface
  */

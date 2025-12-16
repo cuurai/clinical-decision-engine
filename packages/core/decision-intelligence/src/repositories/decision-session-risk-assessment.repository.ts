@@ -15,7 +15,7 @@ import type {
 
 import type {
   DecisionSessionRiskAssessment
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * DecisionSessionRiskAssessmentRepository Interface
  */

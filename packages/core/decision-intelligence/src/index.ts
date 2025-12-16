@@ -5,3 +5,4 @@ export * from "./handlers/index.js";
 export { schemas as decisionIntelligenceSchemas } from "./schemas/decision-intelligence.schemas.js";
 export * from "./openapi/decision-intelligence.zod.schema.js";
 export * from "./utils/decision-intelligence-converters.js";
+export * from "./utils/transaction-id.js";

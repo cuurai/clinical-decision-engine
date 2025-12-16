@@ -17,7 +17,7 @@ import type {
   ClinicalGuideline,
   ListGuidelinesParams,
   UpdateClinicalGuidelineRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * GuidelineRepository Interface
  */

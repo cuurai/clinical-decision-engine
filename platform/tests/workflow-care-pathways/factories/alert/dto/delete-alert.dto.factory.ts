@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteAlert, ZDeleteAlertSchema } from "@cuur-cde/core/workflow-care-pathways/models/alert/index.js";
+import { DeleteAlert, ZDeleteAlertSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createDeleteAlert(overrides: Partial<DeleteAlert> = {}) {

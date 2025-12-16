@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteWorkflowInstance, ZDeleteWorkflowInstanceSchema } from "@cuur-cde/core/workflow-care-pathways/models/workflow-instance/index.js";
+import { DeleteWorkflowInstance, ZDeleteWorkflowInstanceSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createDeleteWorkflowInstance(overrides: Partial<DeleteWorkflowInstance> = {}) {

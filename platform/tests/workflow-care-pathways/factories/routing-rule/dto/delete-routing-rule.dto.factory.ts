@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteRoutingRule, ZDeleteRoutingRuleSchema } from "@cuur-cde/core/workflow-care-pathways/models/routing-rule/index.js";
+import { DeleteRoutingRule, ZDeleteRoutingRuleSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createDeleteRoutingRule(overrides: Partial<DeleteRoutingRule> = {}) {

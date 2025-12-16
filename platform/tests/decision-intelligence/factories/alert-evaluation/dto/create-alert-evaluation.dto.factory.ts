@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { AlertEvaluationInput } from "@cuur-cde/core/decision-intelligence/models/alert-evaluation/index.js";
+import { AlertEvaluationInput } from "@cuur-cde/core/decision-intelligence";
 import { decisionintelligenceSchemas as schemas } from "@cuur-cde/core/decision-intelligence/index.js";
 import { z } from "zod";
 

@@ -15,7 +15,7 @@ import type {
 
 import type {
   PatientAllergy
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * PatientAllergyRepository Interface
  */

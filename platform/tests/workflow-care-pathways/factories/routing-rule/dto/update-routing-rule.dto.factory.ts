@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { RoutingRuleUpdate } from "@cuur-cde/core/workflow-care-pathways/models/routing-rule/index.js";
+import { RoutingRuleUpdate } from "@cuur-cde/core/workflow-care-pathways";
 import { workflowcarepathwaysSchemas as schemas } from "@cuur-cde/core/workflow-care-pathways/index.js";
 import { z } from "zod";
 

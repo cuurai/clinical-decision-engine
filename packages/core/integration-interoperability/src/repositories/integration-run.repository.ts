@@ -16,7 +16,7 @@ import type {
 import type {
   IntegrationRun,
   ListIntegrationRunsParams
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * IntegrationRunRepository Interface
  */

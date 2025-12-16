@@ -16,7 +16,7 @@ import type {
 import type {
   Explanation,
   ListExplanationsParams
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * ExplanationRepository Interface
  */

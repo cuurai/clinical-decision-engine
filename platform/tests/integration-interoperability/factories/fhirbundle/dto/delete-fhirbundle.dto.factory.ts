@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteFHIRBundle, ZDeleteFHIRBundleSchema } from "@cuur-cde/core/integration-interoperability/models/fhirbundle/index.js";
+import { DeleteFHIRBundle, ZDeleteFHIRBundleSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createDeleteFHIRBundle(overrides: Partial<DeleteFHIRBundle> = {}) {

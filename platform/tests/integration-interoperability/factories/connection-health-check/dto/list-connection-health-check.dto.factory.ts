@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListConnectionHealthCheckParams, ZListConnectionHealthCheckParamsSchema } from "@cuur-cde/core/integration-interoperability/models/connection-health-check/index.js";
+import { ListConnectionHealthCheckParams, ZListConnectionHealthCheckParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListConnectionHealthCheckParams(overrides: Partial<ListConnectionHealthCheckParams> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListOntologyTermParams, ZListOntologyTermParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/ontology-term/index.js";
+import { ListOntologyTermParams, ZListOntologyTermParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListOntologyTermParams(overrides: Partial<ListOntologyTermParams> = {}) {

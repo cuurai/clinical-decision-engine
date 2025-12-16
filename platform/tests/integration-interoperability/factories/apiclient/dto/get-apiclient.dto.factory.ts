@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetAPIClientPath, ZGetAPIClientPathSchema } from "@cuur-cde/core/integration-interoperability/models/apiclient/index.js";
+import { GetAPIClientPath, ZGetAPIClientPathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetAPIClientPath(overrides: Partial<GetAPIClientPath> = {}) {

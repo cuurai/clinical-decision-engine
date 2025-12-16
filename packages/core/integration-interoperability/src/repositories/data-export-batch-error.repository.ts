@@ -15,7 +15,7 @@ import type {
 
 import type {
   DataExportBatchError
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * DataExportBatchErrorRepository Interface
  */

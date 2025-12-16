@@ -15,7 +15,7 @@ import type {
 
 import type {
   HL7MessageSegment
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * HL7MessageSegmentRepository Interface
  */

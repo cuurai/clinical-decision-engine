@@ -17,7 +17,7 @@ import type {
   APICredential,
   ListAPICredentialsParams,
   UpdateAPICredentialRequest
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * APICredentialRepository Interface
  */

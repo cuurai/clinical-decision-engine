@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { CreateAPICredentialResponse } from "@cuur-cde/core/integration-interoperability/types";
-import type { APICredentialRepository } from "@cuur-cde/core/integration-interoperability/repositories";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability/utils/transaction-id";
+import type { CreateAPICredentialResponse } from "@cuur-cde/core/integration-interoperability";
+import type { APICredentialRepository } from "@cuur-cde/core/integration-interoperability";
+import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
 /**
  * Mapper: input → validated
  */

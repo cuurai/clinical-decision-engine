@@ -15,7 +15,7 @@ import type {
 
 import type {
   DecisionSessionAlert
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * DecisionSessionAlertRepository Interface
  */

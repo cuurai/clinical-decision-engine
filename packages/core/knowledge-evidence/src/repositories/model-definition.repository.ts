@@ -17,7 +17,7 @@ import type {
   ModelDefinition,
   ListModelDefinitionsParams,
   UpdateModelDefinitionRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * ModelDefinitionRepository Interface
  */

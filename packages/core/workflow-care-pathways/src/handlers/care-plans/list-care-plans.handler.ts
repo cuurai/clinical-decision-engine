@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { ListCarePlansParams, ListCarePlansResponse } from "@cuur-cde/core/workflow-care-pathways/types";
-import type { CarePlanRepository } from "@cuur-cde/core/workflow-care-pathways/repositories";
-import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways/utils/transaction-id";
+import type { ListCarePlansParams, ListCarePlansResponse } from "@cuur-cde/core/workflow-care-pathways";
+import type { CarePlanRepository } from "@cuur-cde/core/workflow-care-pathways";
+import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways";
 
 /**
  * List care plans

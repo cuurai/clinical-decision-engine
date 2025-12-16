@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetEventSubscriptionPath, ZGetEventSubscriptionPathSchema } from "@cuur-cde/core/integration-interoperability/models/event-subscription/index.js";
+import { GetEventSubscriptionPath, ZGetEventSubscriptionPathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetEventSubscriptionPath(overrides: Partial<GetEventSubscriptionPath> = {}) {

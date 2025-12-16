@@ -46,7 +46,7 @@ import type {
   IntegrationRunLogRepository,
   DataImportBatchErrorRepository,
   EventSubscriptionDeliveryRepository,
-} from "@cuur-cde/core/integration-interoperability/repositories/index.js";
+} from "@cuur-cde/core/integration-interoperability";
 import type {
   Apiclient,
   ApiclientCredential,
@@ -104,7 +104,7 @@ import type {
   FHIRMappingProfileUpdate,
   HL7MappingProfileUpdate,
   IntegrationJobUpdate,
-} from "@cuur-cde/core/integration-interoperability/types/index.js";
+} from "@cuur-cde/core/integration-interoperability";
 import type {
   EventDeliveryUpdate,
   InterfaceErrorUpdate,
@@ -120,8 +120,8 @@ import type {
   ListIntegrationJobsParams,
   PaginationParams,
   PaginatedResult,
-} from "@cuur-cde/core/shared/helpers/index.js";
-import { iiTransactionId } from "@cuur-cde/core/shared/helpers/id-generator.js";
+} from "@cuur-cde/core/_shared";
+import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
 
 
 /**
@@ -1995,4 +1995,3 @@ import { iiTransactionId } from "@cuur-cde/core/shared/helpers/id-generator.js";
     return this.findById(orgId, id);
   }
 }
-

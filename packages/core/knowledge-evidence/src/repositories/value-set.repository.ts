@@ -17,7 +17,7 @@ import type {
   ValueSet,
   ListValueSetsParams,
   UpdateValueSetRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * ValueSetRepository Interface
  */

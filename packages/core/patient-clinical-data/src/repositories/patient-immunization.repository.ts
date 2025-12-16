@@ -15,7 +15,7 @@ import type {
 
 import type {
   PatientImmunization
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * PatientImmunizationRepository Interface
  */

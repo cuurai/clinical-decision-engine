@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetAlertEvaluationPath, ZGetAlertEvaluationPathSchema } from "@cuur-cde/core/decision-intelligence/models/alert-evaluation/index.js";
+import { GetAlertEvaluationPath, ZGetAlertEvaluationPathSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createGetAlertEvaluationPath(overrides: Partial<GetAlertEvaluationPath> = {}) {

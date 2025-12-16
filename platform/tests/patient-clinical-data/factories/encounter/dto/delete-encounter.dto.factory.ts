@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteEncounter, ZDeleteEncounterSchema } from "@cuur-cde/core/patient-clinical-data/models/encounter/index.js";
+import { DeleteEncounter, ZDeleteEncounterSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createDeleteEncounter(overrides: Partial<DeleteEncounter> = {}) {

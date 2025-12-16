@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { FHIRMappingProfileUpdate } from "@cuur-cde/core/integration-interoperability/models/fhirmapping-profile/index.js";
+import { FHIRMappingProfileUpdate } from "@cuur-cde/core/integration-interoperability";
 import { integrationinteroperabilitySchemas as schemas } from "@cuur-cde/core/integration-interoperability/index.js";
 import { z } from "zod";
 

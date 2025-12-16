@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListRoutingRuleParams, ZListRoutingRuleParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/routing-rule/index.js";
+import { ListRoutingRuleParams, ZListRoutingRuleParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListRoutingRuleParams(overrides: Partial<ListRoutingRuleParams> = {}) {

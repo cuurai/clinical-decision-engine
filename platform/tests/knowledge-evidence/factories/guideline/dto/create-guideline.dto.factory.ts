@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ClinicalGuidelineInput } from "@cuur-cde/core/knowledge-evidence/models/guideline/index.js";
+import { ClinicalGuidelineInput } from "@cuur-cde/core/knowledge-evidence";
 import { knowledgeevidenceSchemas as schemas } from "@cuur-cde/core/knowledge-evidence/index.js";
 import { z } from "zod";
 

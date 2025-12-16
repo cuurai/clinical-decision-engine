@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetPatientSummaryPath, ZGetPatientSummaryPathSchema } from "@cuur-cde/core/patient-clinical-data/models/patient-summary/index.js";
+import { GetPatientSummaryPath, ZGetPatientSummaryPathSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createGetPatientSummaryPath(overrides: Partial<GetPatientSummaryPath> = {}) {

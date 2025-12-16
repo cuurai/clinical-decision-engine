@@ -10,7 +10,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@cuur-cde/db": "workspace:*",
+    "@cuur-cde/database": "workspace:*",
     "@cuur-cde/core": "workspace:*",
     "@cuur/adapters-decision-intelligence": "workspace:*",
     "fastify": "^4.28.0",

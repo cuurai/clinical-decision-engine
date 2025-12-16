@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteTask, ZDeleteTaskSchema } from "@cuur-cde/core/workflow-care-pathways/models/task/index.js";
+import { DeleteTask, ZDeleteTaskSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createDeleteTask(overrides: Partial<DeleteTask> = {}) {

@@ -16,7 +16,7 @@ import type {
 import type {
   PatientObservation,
   ListPatientObservationsParams
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * PatientObservationRepository Interface
  */

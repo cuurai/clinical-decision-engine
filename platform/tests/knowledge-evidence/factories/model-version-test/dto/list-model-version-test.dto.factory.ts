@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListModelVersionTestParams, ZListModelVersionTestParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/model-version-test/index.js";
+import { ListModelVersionTestParams, ZListModelVersionTestParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListModelVersionTestParams(overrides: Partial<ListModelVersionTestParams> = {}) {

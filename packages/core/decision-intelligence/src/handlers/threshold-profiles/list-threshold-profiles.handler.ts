@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { ListThresholdProfilesParams, ListThresholdProfilesResponse } from "@cuur-cde/core/decision-intelligence/types";
-import type { ThresholdProfileRepository } from "@cuur-cde/core/decision-intelligence/repositories";
-import { diTransactionId } from "@cuur-cde/core/decision-intelligence/utils/transaction-id";
+import type { ListThresholdProfilesParams, ListThresholdProfilesResponse } from "@cuur-cde/core/decision-intelligence";
+import type { ThresholdProfileRepository } from "@cuur-cde/core/decision-intelligence";
+import { diTransactionId } from "@cuur-cde/core/decision-intelligence";
 
 /**
  * List threshold profiles

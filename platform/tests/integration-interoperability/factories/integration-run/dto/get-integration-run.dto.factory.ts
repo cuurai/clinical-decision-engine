@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetIntegrationRunPath, ZGetIntegrationRunPathSchema } from "@cuur-cde/core/integration-interoperability/models/integration-run/index.js";
+import { GetIntegrationRunPath, ZGetIntegrationRunPathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetIntegrationRunPath(overrides: Partial<GetIntegrationRunPath> = {}) {

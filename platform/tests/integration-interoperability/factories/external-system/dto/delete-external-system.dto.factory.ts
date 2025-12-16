@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteExternalSystem, ZDeleteExternalSystemSchema } from "@cuur-cde/core/integration-interoperability/models/external-system/index.js";
+import { DeleteExternalSystem, ZDeleteExternalSystemSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createDeleteExternalSystem(overrides: Partial<DeleteExternalSystem> = {}) {

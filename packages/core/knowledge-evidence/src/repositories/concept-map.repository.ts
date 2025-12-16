@@ -17,7 +17,7 @@ import type {
   ConceptMap,
   ListConceptMapsParams,
   UpdateConceptMapRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * ConceptMapRepository Interface
  */

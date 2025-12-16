@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { EscalationPolicyUpdate } from "@cuur-cde/core/workflow-care-pathways/models/escalation-policy/index.js";
+import { EscalationPolicyUpdate } from "@cuur-cde/core/workflow-care-pathways";
 import { workflowcarepathwaysSchemas as schemas } from "@cuur-cde/core/workflow-care-pathways/index.js";
 import { z } from "zod";
 

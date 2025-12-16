@@ -8,9 +8,9 @@
 import type {
   CreateInterfaceHealthCheckResponse,
   CreateInterfaceHealthCheckInput,
-} from "@cuur-cde/core/integration-interoperability/types";
-import type { InterfaceHealthCheckRepository } from "@cuur-cde/core/integration-interoperability/repositories";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability/utils/transaction-id";
+} from "@cuur-cde/core/integration-interoperability";
+import type { InterfaceHealthCheckRepository } from "@cuur-cde/core/integration-interoperability";
+import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
 /**
  * Mapper: input → validated
  */

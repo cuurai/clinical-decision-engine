@@ -16,7 +16,7 @@ import type {
 import type {
   HL7Message,
   ListHLMessagesParams
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * HL7MessageRepository Interface
  */

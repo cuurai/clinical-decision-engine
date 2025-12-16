@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetRuleSetPath, ZGetRuleSetPathSchema } from "@cuur-cde/core/knowledge-evidence/models/rule-set/index.js";
+import { GetRuleSetPath, ZGetRuleSetPathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetRuleSetPath(overrides: Partial<GetRuleSetPath> = {}) {

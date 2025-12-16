@@ -15,7 +15,7 @@ import type {
 
 import type {
   EncounterProcedure
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * EncounterProcedureRepository Interface
  */

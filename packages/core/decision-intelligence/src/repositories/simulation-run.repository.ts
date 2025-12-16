@@ -16,7 +16,7 @@ import type {
 import type {
   SimulationRun,
   ListSimulationRunsParams
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * SimulationRunRepository Interface
  */

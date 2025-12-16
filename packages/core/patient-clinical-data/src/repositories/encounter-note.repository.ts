@@ -15,7 +15,7 @@ import type {
 
 import type {
   EncounterNote
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * EncounterNoteRepository Interface
  */

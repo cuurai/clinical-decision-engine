@@ -17,7 +17,7 @@ import type {
   ExternalSystem,
   ListExternalSystemsParams,
   UpdateExternalSystemRequest
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * ExternalSystemRepository Interface
  */

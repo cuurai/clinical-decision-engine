@@ -17,7 +17,7 @@ import type {
   ModelVersion,
   ListModelVersionsParams,
   UpdateModelVersionRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * ModelVersionRepository Interface
  */

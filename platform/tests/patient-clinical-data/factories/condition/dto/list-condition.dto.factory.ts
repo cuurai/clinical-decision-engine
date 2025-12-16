@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListConditionParams, ZListConditionParamsSchema } from "@cuur-cde/core/patient-clinical-data/models/condition/index.js";
+import { ListConditionParams, ZListConditionParamsSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createListConditionParams(overrides: Partial<ListConditionParams> = {}) {

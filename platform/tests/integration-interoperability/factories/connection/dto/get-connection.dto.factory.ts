@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetConnectionPath, ZGetConnectionPathSchema } from "@cuur-cde/core/integration-interoperability/models/connection/index.js";
+import { GetConnectionPath, ZGetConnectionPathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetConnectionPath(overrides: Partial<GetConnectionPath> = {}) {

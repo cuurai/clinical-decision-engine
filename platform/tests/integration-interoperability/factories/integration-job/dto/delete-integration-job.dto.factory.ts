@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteIntegrationJob, ZDeleteIntegrationJobSchema } from "@cuur-cde/core/integration-interoperability/models/integration-job/index.js";
+import { DeleteIntegrationJob, ZDeleteIntegrationJobSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createDeleteIntegrationJob(overrides: Partial<DeleteIntegrationJob> = {}) {

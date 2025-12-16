@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteTaskAssignment, ZDeleteTaskAssignmentSchema } from "@cuur-cde/core/workflow-care-pathways/models/task-assignment/index.js";
+import { DeleteTaskAssignment, ZDeleteTaskAssignmentSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createDeleteTaskAssignment(overrides: Partial<DeleteTaskAssignment> = {}) {

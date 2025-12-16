@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteRecommendation, ZDeleteRecommendationSchema } from "@cuur-cde/core/decision-intelligence/models/recommendation/index.js";
+import { DeleteRecommendation, ZDeleteRecommendationSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createDeleteRecommendation(overrides: Partial<DeleteRecommendation> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ExternalSystemUpdate } from "@cuur-cde/core/integration-interoperability/models/external-system/index.js";
+import { ExternalSystemUpdate } from "@cuur-cde/core/integration-interoperability";
 import { integrationinteroperabilitySchemas as schemas } from "@cuur-cde/core/integration-interoperability/index.js";
 import { z } from "zod";
 

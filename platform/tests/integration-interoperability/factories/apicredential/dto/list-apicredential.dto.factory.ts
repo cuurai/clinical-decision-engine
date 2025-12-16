@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListAPICredentialParams, ZListAPICredentialParamsSchema } from "@cuur-cde/core/integration-interoperability/models/apicredential/index.js";
+import { ListAPICredentialParams, ZListAPICredentialParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListAPICredentialParams(overrides: Partial<ListAPICredentialParams> = {}) {

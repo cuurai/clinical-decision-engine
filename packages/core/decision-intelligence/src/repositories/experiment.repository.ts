@@ -17,7 +17,7 @@ import type {
   Experiment,
   ListExperimentsParams,
   UpdateExperimentRequest
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * ExperimentRepository Interface
  */

@@ -1,5 +1,5 @@
 /**
- * @cuur-cde/db - Shared Database Package
+ * @cuur-cde/database - Shared Database Package
  *
  * Exports the Prisma client and types for use across all services.
  */

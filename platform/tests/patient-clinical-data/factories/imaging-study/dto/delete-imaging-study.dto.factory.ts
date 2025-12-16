@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteImagingStudy, ZDeleteImagingStudySchema } from "@cuur-cde/core/patient-clinical-data/models/imaging-study/index.js";
+import { DeleteImagingStudy, ZDeleteImagingStudySchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createDeleteImagingStudy(overrides: Partial<DeleteImagingStudy> = {}) {

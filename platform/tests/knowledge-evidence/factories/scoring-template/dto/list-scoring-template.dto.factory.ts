@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListScoringTemplateParams, ZListScoringTemplateParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/scoring-template/index.js";
+import { ListScoringTemplateParams, ZListScoringTemplateParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListScoringTemplateParams(overrides: Partial<ListScoringTemplateParams> = {}) {

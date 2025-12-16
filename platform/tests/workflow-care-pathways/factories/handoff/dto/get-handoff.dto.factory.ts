@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetHandoffPath, ZGetHandoffPathSchema } from "@cuur-cde/core/workflow-care-pathways/models/handoff/index.js";
+import { GetHandoffPath, ZGetHandoffPathSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createGetHandoffPath(overrides: Partial<GetHandoffPath> = {}) {

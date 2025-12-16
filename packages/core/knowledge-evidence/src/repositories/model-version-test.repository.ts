@@ -15,7 +15,7 @@ import type {
 
 import type {
   ModelVersionTest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * ModelVersionTestRepository Interface
  */

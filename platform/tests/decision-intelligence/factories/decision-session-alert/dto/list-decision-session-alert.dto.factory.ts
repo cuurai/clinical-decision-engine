@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListDecisionSessionAlertParams, ZListDecisionSessionAlertParamsSchema } from "@cuur-cde/core/decision-intelligence/models/decision-session-alert/index.js";
+import { ListDecisionSessionAlertParams, ZListDecisionSessionAlertParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListDecisionSessionAlertParams(overrides: Partial<ListDecisionSessionAlertParams> = {}) {

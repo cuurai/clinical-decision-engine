@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { EpisodeOfCareInput } from "@cuur-cde/core/workflow-care-pathways/models/episode-of-care/index.js";
+import { EpisodeOfCareInput } from "@cuur-cde/core/workflow-care-pathways";
 import { workflowcarepathwaysSchemas as schemas } from "@cuur-cde/core/workflow-care-pathways/index.js";
 import { z } from "zod";
 

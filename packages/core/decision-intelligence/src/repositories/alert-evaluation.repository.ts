@@ -17,7 +17,7 @@ import type {
   AlertEvaluation,
   ListAlertEvaluationsParams,
   UpdateAlertEvaluationRequest
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * AlertEvaluationRepository Interface
  */

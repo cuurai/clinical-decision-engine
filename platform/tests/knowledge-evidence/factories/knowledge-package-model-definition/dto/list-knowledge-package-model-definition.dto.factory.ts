@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListKnowledgePackageModelDefinitionParams, ZListKnowledgePackageModelDefinitionParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/knowledge-package-model-definition/index.js";
+import { ListKnowledgePackageModelDefinitionParams, ZListKnowledgePackageModelDefinitionParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListKnowledgePackageModelDefinitionParams(overrides: Partial<ListKnowledgePackageModelDefinitionParams> = {}) {

@@ -18,7 +18,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { listEventDeliveries as listEventDeliveriesHandler } from "@cuur-cde/core/integration-interoperability/handlers/index.js";
+import { listEventDeliveries as listEventDeliveriesHandler } from "@cuur-cde/core/integration-interoperability";
 
 import { seedFaker } from "../../factories/faker-helpers.js";
 

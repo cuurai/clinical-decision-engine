@@ -17,7 +17,7 @@ import type {
   Procedure,
   ListProceduresParams,
   UpdateProcedureRequest
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * ProcedureRepository Interface
  */

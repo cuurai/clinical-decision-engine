@@ -15,7 +15,7 @@ import type {
 
 import type {
   EncounterDiagnosticReport
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * EncounterDiagnosticReportRepository Interface
  */

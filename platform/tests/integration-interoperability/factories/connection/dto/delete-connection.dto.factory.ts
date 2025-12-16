@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteConnection, ZDeleteConnectionSchema } from "@cuur-cde/core/integration-interoperability/models/connection/index.js";
+import { DeleteConnection, ZDeleteConnectionSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createDeleteConnection(overrides: Partial<DeleteConnection> = {}) {

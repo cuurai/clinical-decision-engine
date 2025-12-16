@@ -17,7 +17,7 @@ import type {
   ClinicalNote,
   ListNotesParams,
   UpdateClinicalNoteRequest
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * NoteRepository Interface
  */

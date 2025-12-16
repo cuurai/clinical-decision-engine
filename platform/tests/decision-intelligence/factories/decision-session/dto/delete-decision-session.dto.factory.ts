@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteDecisionSession, ZDeleteDecisionSessionSchema } from "@cuur-cde/core/decision-intelligence/models/decision-session/index.js";
+import { DeleteDecisionSession, ZDeleteDecisionSessionSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createDeleteDecisionSession(overrides: Partial<DeleteDecisionSession> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteThresholdProfile, ZDeleteThresholdProfileSchema } from "@cuur-cde/core/decision-intelligence/models/threshold-profile/index.js";
+import { DeleteThresholdProfile, ZDeleteThresholdProfileSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createDeleteThresholdProfile(overrides: Partial<DeleteThresholdProfile> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetWorkQueuePath, ZGetWorkQueuePathSchema } from "@cuur-cde/core/workflow-care-pathways/models/work-queue/index.js";
+import { GetWorkQueuePath, ZGetWorkQueuePathSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createGetWorkQueuePath(overrides: Partial<GetWorkQueuePath> = {}) {

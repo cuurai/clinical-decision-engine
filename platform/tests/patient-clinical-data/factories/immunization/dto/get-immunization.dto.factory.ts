@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetImmunizationPath, ZGetImmunizationPathSchema } from "@cuur-cde/core/patient-clinical-data/models/immunization/index.js";
+import { GetImmunizationPath, ZGetImmunizationPathSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createGetImmunizationPath(overrides: Partial<GetImmunizationPath> = {}) {

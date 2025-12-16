@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ScheduleTemplateUpdate } from "@cuur-cde/core/workflow-care-pathways/models/schedule-template/index.js";
+import { ScheduleTemplateUpdate } from "@cuur-cde/core/workflow-care-pathways";
 import { workflowcarepathwaysSchemas as schemas } from "@cuur-cde/core/workflow-care-pathways/index.js";
 import { z } from "zod";
 

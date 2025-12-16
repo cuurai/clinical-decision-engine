@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListModelVersionFeatureDefinitionParams, ZListModelVersionFeatureDefinitionParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/model-version-feature-definition/index.js";
+import { ListModelVersionFeatureDefinitionParams, ZListModelVersionFeatureDefinitionParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListModelVersionFeatureDefinitionParams(overrides: Partial<ListModelVersionFeatureDefinitionParams> = {}) {

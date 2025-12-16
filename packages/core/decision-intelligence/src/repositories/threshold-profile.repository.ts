@@ -17,7 +17,7 @@ import type {
   ThresholdProfile,
   ListThresholdProfilesParams,
   UpdateThresholdProfileRequest
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 /**
  * ThresholdProfileRepository Interface
  */

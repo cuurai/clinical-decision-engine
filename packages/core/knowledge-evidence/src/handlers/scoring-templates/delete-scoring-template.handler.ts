@@ -5,8 +5,8 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { ScoringTemplateRepository } from "@cuur-cde/core/knowledge-evidence/repositories";
-import { keTransactionId } from "@cuur-cde/core/knowledge-evidence/utils/transaction-id";
+import type { ScoringTemplateRepository } from "@cuur-cde/core/knowledge-evidence";
+import { keTransactionId } from "@cuur-cde/core/knowledge-evidence";
 
 /**
  * Delete scoring template

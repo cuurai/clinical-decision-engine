@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListPatientAllergyParams, ZListPatientAllergyParamsSchema } from "@cuur-cde/core/patient-clinical-data/models/patient-allergy/index.js";
+import { ListPatientAllergyParams, ZListPatientAllergyParamsSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createListPatientAllergyParams(overrides: Partial<ListPatientAllergyParams> = {}) {

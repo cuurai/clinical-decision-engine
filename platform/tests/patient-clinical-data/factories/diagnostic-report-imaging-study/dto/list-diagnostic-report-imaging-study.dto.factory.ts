@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListDiagnosticReportImagingStudyParams, ZListDiagnosticReportImagingStudyParamsSchema } from "@cuur-cde/core/patient-clinical-data/models/diagnostic-report-imaging-study/index.js";
+import { ListDiagnosticReportImagingStudyParams, ZListDiagnosticReportImagingStudyParamsSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createListDiagnosticReportImagingStudyParams(overrides: Partial<ListDiagnosticReportImagingStudyParams> = {}) {

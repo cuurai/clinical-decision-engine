@@ -17,7 +17,7 @@ import type {
   Connection,
   ListConnectionsParams,
   UpdateConnectionRequest
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * ConnectionRepository Interface
  */

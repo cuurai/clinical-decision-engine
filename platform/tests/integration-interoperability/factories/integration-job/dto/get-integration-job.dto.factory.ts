@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetIntegrationJobPath, ZGetIntegrationJobPathSchema } from "@cuur-cde/core/integration-interoperability/models/integration-job/index.js";
+import { GetIntegrationJobPath, ZGetIntegrationJobPathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetIntegrationJobPath(overrides: Partial<GetIntegrationJobPath> = {}) {

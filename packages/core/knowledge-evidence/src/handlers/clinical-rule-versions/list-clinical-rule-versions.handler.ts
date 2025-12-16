@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { ListClinicalRuleVersionsResponse } from "@cuur-cde/core/knowledge-evidence/types";
-import type { ClinicalRuleVersionRepository } from "@cuur-cde/core/knowledge-evidence/repositories";
-import { keTransactionId } from "@cuur-cde/core/knowledge-evidence/utils/transaction-id";
+import type { ListClinicalRuleVersionsResponse } from "@cuur-cde/core/knowledge-evidence";
+import type { ClinicalRuleVersionRepository } from "@cuur-cde/core/knowledge-evidence";
+import { keTransactionId } from "@cuur-cde/core/knowledge-evidence";
 
 /**
  * List clinical rule versions

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetRoutingRulePath, ZGetRoutingRulePathSchema } from "@cuur-cde/core/workflow-care-pathways/models/routing-rule/index.js";
+import { GetRoutingRulePath, ZGetRoutingRulePathSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createGetRoutingRulePath(overrides: Partial<GetRoutingRulePath> = {}) {

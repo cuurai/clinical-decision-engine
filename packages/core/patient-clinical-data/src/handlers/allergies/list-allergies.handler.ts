@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-patient-clinical-data.json
  */
 
-import type { ListAllergiesParams, ListAllergiesResponse } from "@cuur-cde/core/patient-clinical-data/types";
-import type { AllergyRepository } from "@cuur-cde/core/patient-clinical-data/repositories";
-import { pcTransactionId } from "@cuur-cde/core/patient-clinical-data/utils/transaction-id";
+import type { ListAllergiesParams, ListAllergiesResponse } from "@cuur-cde/core/patient-clinical-data";
+import type { AllergyRepository } from "@cuur-cde/core/patient-clinical-data";
+import { pcTransactionId } from "@cuur-cde/core/patient-clinical-data";
 
 /**
  * List allergies

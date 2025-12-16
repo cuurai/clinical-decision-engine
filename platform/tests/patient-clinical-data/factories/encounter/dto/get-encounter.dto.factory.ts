@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetEncounterPath, ZGetEncounterPathSchema } from "@cuur-cde/core/patient-clinical-data/models/encounter/index.js";
+import { GetEncounterPath, ZGetEncounterPathSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createGetEncounterPath(overrides: Partial<GetEncounterPath> = {}) {

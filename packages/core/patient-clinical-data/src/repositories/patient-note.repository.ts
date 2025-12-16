@@ -15,7 +15,7 @@ import type {
 
 import type {
   PatientNote
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * PatientNoteRepository Interface
  */

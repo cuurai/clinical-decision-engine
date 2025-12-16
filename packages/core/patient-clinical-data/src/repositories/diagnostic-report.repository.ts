@@ -17,7 +17,7 @@ import type {
   DiagnosticReport,
   ListDiagnosticReportsParams,
   UpdateDiagnosticReportRequest
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * DiagnosticReportRepository Interface
  */

@@ -15,7 +15,7 @@ import type {
 
 import type {
   CareProtocolStep
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * CareProtocolStepRepository Interface
  */

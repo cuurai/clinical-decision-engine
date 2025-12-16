@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetAlertPath, ZGetAlertPathSchema } from "@cuur-cde/core/workflow-care-pathways/models/alert/index.js";
+import { GetAlertPath, ZGetAlertPathSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createGetAlertPath(overrides: Partial<GetAlertPath> = {}) {

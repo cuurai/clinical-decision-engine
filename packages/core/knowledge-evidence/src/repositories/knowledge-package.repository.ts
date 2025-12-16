@@ -17,7 +17,7 @@ import type {
   KnowledgePackage,
   ListKnowledgePackagesParams,
   UpdateKnowledgePackageRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * KnowledgePackageRepository Interface
  */

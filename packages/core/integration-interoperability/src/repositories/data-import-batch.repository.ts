@@ -17,7 +17,7 @@ import type {
   DataImportBatch,
   ListDataImportBatchesParams,
   UpdateDataImportBatchRequest
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * DataImportBatchRepository Interface
  */

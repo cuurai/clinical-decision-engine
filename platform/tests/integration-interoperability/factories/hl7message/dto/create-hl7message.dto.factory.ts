@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { HL7MessageInput } from "@cuur-cde/core/integration-interoperability/models/hl7message/index.js";
+import { HL7MessageInput } from "@cuur-cde/core/integration-interoperability";
 import { integrationinteroperabilitySchemas as schemas } from "@cuur-cde/core/integration-interoperability/index.js";
 import { z } from "zod";
 

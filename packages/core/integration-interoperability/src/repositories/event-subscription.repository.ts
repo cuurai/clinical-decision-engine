@@ -17,7 +17,7 @@ import type {
   EventSubscription,
   ListEventSubscriptionsParams,
   UpdateEventSubscriptionRequest
-} from "@cuur-cde/core/integration-interoperability/types";
+} from "@cuur-cde/core/integration-interoperability";
 /**
  * EventSubscriptionRepository Interface
  */

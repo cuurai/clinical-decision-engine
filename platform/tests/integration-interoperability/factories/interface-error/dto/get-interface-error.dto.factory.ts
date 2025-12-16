@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetInterfaceErrorPath, ZGetInterfaceErrorPathSchema } from "@cuur-cde/core/integration-interoperability/models/interface-error/index.js";
+import { GetInterfaceErrorPath, ZGetInterfaceErrorPathSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createGetInterfaceErrorPath(overrides: Partial<GetInterfaceErrorPath> = {}) {

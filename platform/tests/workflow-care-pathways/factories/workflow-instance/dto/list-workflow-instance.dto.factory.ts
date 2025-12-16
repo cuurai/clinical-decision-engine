@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListWorkflowInstanceParams, ZListWorkflowInstanceParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/workflow-instance/index.js";
+import { ListWorkflowInstanceParams, ZListWorkflowInstanceParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListWorkflowInstanceParams(overrides: Partial<ListWorkflowInstanceParams> = {}) {

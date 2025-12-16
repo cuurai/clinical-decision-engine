@@ -17,7 +17,7 @@ import type {
   Patient,
   ListPatientsParams,
   UpdatePatientRequest
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 
 /**
  * TODO: Schema mismatch detected: GET operations return 'Patient' but LIST operations return 'PatientList'. Using 'Patient' from GET operations. TODO: Fix schema mismatch in API - listSchedules should return Schedule[] not Job[]

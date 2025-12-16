@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListInterfaceHealthCheckParams, ZListInterfaceHealthCheckParamsSchema } from "@cuur-cde/core/integration-interoperability/models/interface-health-check/index.js";
+import { ListInterfaceHealthCheckParams, ZListInterfaceHealthCheckParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListInterfaceHealthCheckParams(overrides: Partial<ListInterfaceHealthCheckParams> = {}) {

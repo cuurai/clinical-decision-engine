@@ -37,7 +37,7 @@ import type {
   ThresholdProfileInput,
   ThresholdProfileUpdate,
   Timestamps,
-} from "@cuur-cde/core/decision-intelligence/types";
+} from "@cuur-cde/core/decision-intelligence";
 
 /**
  * Convert AlertEvaluationInput domain entity to API response

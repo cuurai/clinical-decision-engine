@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteCarePlan, ZDeleteCarePlanSchema } from "@cuur-cde/core/workflow-care-pathways/models/care-plan/index.js";
+import { DeleteCarePlan, ZDeleteCarePlanSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createDeleteCarePlan(overrides: Partial<DeleteCarePlan> = {}) {

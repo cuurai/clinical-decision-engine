@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetDocumentPath, ZGetDocumentPathSchema } from "@cuur-cde/core/patient-clinical-data/models/document/index.js";
+import { GetDocumentPath, ZGetDocumentPathSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createGetDocumentPath(overrides: Partial<GetDocumentPath> = {}) {

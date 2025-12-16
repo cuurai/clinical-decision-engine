@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListCareProtocolParams, ZListCareProtocolParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/care-protocol/index.js";
+import { ListCareProtocolParams, ZListCareProtocolParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListCareProtocolParams(overrides: Partial<ListCareProtocolParams> = {}) {

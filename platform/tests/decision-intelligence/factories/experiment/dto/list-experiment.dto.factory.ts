@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListExperimentParams, ZListExperimentParamsSchema } from "@cuur-cde/core/decision-intelligence/models/experiment/index.js";
+import { ListExperimentParams, ZListExperimentParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListExperimentParams(overrides: Partial<ListExperimentParams> = {}) {

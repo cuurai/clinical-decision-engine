@@ -17,7 +17,7 @@ import type {
   ScoringTemplate,
   ListScoringTemplatesParams,
   UpdateScoringTemplateRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * ScoringTemplateRepository Interface
  */

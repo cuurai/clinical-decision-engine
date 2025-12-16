@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteDecisionResult, ZDeleteDecisionResultSchema } from "@cuur-cde/core/decision-intelligence/models/decision-result/index.js";
+import { DeleteDecisionResult, ZDeleteDecisionResultSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createDeleteDecisionResult(overrides: Partial<DeleteDecisionResult> = {}) {

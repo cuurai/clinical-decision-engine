@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteWorkQueue, ZDeleteWorkQueueSchema } from "@cuur-cde/core/workflow-care-pathways/models/work-queue/index.js";
+import { DeleteWorkQueue, ZDeleteWorkQueueSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createDeleteWorkQueue(overrides: Partial<DeleteWorkQueue> = {}) {

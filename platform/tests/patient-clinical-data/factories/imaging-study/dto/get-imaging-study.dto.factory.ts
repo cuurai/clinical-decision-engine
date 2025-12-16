@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetImagingStudyPath, ZGetImagingStudyPathSchema } from "@cuur-cde/core/patient-clinical-data/models/imaging-study/index.js";
+import { GetImagingStudyPath, ZGetImagingStudyPathSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createGetImagingStudyPath(overrides: Partial<GetImagingStudyPath> = {}) {

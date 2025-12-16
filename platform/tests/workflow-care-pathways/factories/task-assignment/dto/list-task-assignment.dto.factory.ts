@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListTaskAssignmentParams, ZListTaskAssignmentParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/task-assignment/index.js";
+import { ListTaskAssignmentParams, ZListTaskAssignmentParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListTaskAssignmentParams(overrides: Partial<ListTaskAssignmentParams> = {}) {

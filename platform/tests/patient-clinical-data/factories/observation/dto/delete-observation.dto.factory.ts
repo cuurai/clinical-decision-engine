@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteObservation, ZDeleteObservationSchema } from "@cuur-cde/core/patient-clinical-data/models/observation/index.js";
+import { DeleteObservation, ZDeleteObservationSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createDeleteObservation(overrides: Partial<DeleteObservation> = {}) {

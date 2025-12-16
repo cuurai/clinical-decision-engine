@@ -15,7 +15,7 @@ import type {
 
 import type {
   ConceptMapMapping
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * ConceptMapMappingRepository Interface
  */

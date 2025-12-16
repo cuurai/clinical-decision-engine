@@ -17,7 +17,7 @@ import type {
   EscalationPolicy,
   ListEscalationPoliciesParams,
   UpdateEscalationPolicyRequest
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * EscalationPolicyRepository Interface
  */

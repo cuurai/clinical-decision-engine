@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListInterfaceErrorParams, ZListInterfaceErrorParamsSchema } from "@cuur-cde/core/integration-interoperability/models/interface-error/index.js";
+import { ListInterfaceErrorParams, ZListInterfaceErrorParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListInterfaceErrorParams(overrides: Partial<ListInterfaceErrorParams> = {}) {

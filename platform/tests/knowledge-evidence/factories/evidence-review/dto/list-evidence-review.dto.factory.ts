@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListEvidenceReviewParams, ZListEvidenceReviewParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/evidence-review/index.js";
+import { ListEvidenceReviewParams, ZListEvidenceReviewParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListEvidenceReviewParams(overrides: Partial<ListEvidenceReviewParams> = {}) {

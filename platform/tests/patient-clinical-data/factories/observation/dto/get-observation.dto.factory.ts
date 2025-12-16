@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetObservationPath, ZGetObservationPathSchema } from "@cuur-cde/core/patient-clinical-data/models/observation/index.js";
+import { GetObservationPath, ZGetObservationPathSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createGetObservationPath(overrides: Partial<GetObservationPath> = {}) {

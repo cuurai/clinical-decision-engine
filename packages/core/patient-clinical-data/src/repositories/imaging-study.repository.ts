@@ -17,7 +17,7 @@ import type {
   ImagingStudy,
   ListImagingStudiesParams,
   UpdateImagingStudyRequest
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * ImagingStudyRepository Interface
  */

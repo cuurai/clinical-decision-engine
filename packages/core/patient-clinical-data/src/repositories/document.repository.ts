@@ -17,7 +17,7 @@ import type {
   DocumentReference,
   ListDocumentsParams,
   UpdateDocumentReferenceRequest
-} from "@cuur-cde/core/patient-clinical-data/types";
+} from "@cuur-cde/core/patient-clinical-data";
 /**
  * DocumentRepository Interface
  */

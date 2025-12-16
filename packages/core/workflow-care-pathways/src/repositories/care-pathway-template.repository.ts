@@ -17,7 +17,7 @@ import type {
   CarePathwayTemplate,
   ListCarePathwayTemplatesParams,
   UpdateCarePathwayTemplateRequest
-} from "@cuur-cde/core/workflow-care-pathways/types";
+} from "@cuur-cde/core/workflow-care-pathways";
 /**
  * CarePathwayTemplateRepository Interface
  */

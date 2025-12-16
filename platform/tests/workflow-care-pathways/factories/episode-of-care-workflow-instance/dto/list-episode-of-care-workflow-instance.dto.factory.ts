@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListEpisodeOfCareWorkflowInstanceParams, ZListEpisodeOfCareWorkflowInstanceParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/episode-of-care-workflow-instance/index.js";
+import { ListEpisodeOfCareWorkflowInstanceParams, ZListEpisodeOfCareWorkflowInstanceParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListEpisodeOfCareWorkflowInstanceParams(overrides: Partial<ListEpisodeOfCareWorkflowInstanceParams> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteClinicalRule, ZDeleteClinicalRuleSchema } from "@cuur-cde/core/knowledge-evidence/models/clinical-rule/index.js";
+import { DeleteClinicalRule, ZDeleteClinicalRuleSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createDeleteClinicalRule(overrides: Partial<DeleteClinicalRule> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListAlertExplanationParams, ZListAlertExplanationParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/alert-explanation/index.js";
+import { ListAlertExplanationParams, ZListAlertExplanationParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListAlertExplanationParams(overrides: Partial<ListAlertExplanationParams> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetEpisodeOfCarePath, ZGetEpisodeOfCarePathSchema } from "@cuur-cde/core/workflow-care-pathways/models/episode-of-care/index.js";
+import { GetEpisodeOfCarePath, ZGetEpisodeOfCarePathSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createGetEpisodeOfCarePath(overrides: Partial<GetEpisodeOfCarePath> = {}) {

@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListExplanationRuleTraceParams, ZListExplanationRuleTraceParamsSchema } from "@cuur-cde/core/decision-intelligence/models/explanation-rule-trace/index.js";
+import { ListExplanationRuleTraceParams, ZListExplanationRuleTraceParamsSchema } from "@cuur-cde/core/decision-intelligence";
 import { z } from "zod";
 
 export function createListExplanationRuleTraceParams(overrides: Partial<ListExplanationRuleTraceParams> = {}) {

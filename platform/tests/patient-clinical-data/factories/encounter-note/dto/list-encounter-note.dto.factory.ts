@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListEncounterNoteParams, ZListEncounterNoteParamsSchema } from "@cuur-cde/core/patient-clinical-data/models/encounter-note/index.js";
+import { ListEncounterNoteParams, ZListEncounterNoteParamsSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createListEncounterNoteParams(overrides: Partial<ListEncounterNoteParams> = {}) {

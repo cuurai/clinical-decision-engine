@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListExternalSystemConnectionParams, ZListExternalSystemConnectionParamsSchema } from "@cuur-cde/core/integration-interoperability/models/external-system-connection/index.js";
+import { ListExternalSystemConnectionParams, ZListExternalSystemConnectionParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListExternalSystemConnectionParams(overrides: Partial<ListExternalSystemConnectionParams> = {}) {

@@ -17,7 +17,7 @@ import type {
   ClinicalRule,
   ListClinicalRulesParams,
   UpdateClinicalRuleRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * ClinicalRuleRepository Interface
  */

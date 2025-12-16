@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListCarePathwayTemplateOrderSetTemplateParams, ZListCarePathwayTemplateOrderSetTemplateParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/care-pathway-template-order-set-template/index.js";
+import { ListCarePathwayTemplateOrderSetTemplateParams, ZListCarePathwayTemplateOrderSetTemplateParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListCarePathwayTemplateOrderSetTemplateParams(overrides: Partial<ListCarePathwayTemplateOrderSetTemplateParams> = {}) {

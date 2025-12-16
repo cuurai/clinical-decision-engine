@@ -17,7 +17,7 @@ import type {
   CareProtocolTemplate,
   ListCareProtocolsParams,
   UpdateCareProtocolTemplateRequest
-} from "@cuur-cde/core/knowledge-evidence/types";
+} from "@cuur-cde/core/knowledge-evidence";
 /**
  * CareProtocolRepository Interface
  */

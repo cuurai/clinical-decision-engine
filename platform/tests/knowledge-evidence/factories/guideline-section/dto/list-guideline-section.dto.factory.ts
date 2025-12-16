@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListGuidelineSectionParams, ZListGuidelineSectionParamsSchema } from "@cuur-cde/core/knowledge-evidence/models/guideline-section/index.js";
+import { ListGuidelineSectionParams, ZListGuidelineSectionParamsSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createListGuidelineSectionParams(overrides: Partial<ListGuidelineSectionParams> = {}) {

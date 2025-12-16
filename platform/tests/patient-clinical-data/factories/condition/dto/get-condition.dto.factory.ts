@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetConditionPath, ZGetConditionPathSchema } from "@cuur-cde/core/patient-clinical-data/models/condition/index.js";
+import { GetConditionPath, ZGetConditionPathSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createGetConditionPath(overrides: Partial<GetConditionPath> = {}) {

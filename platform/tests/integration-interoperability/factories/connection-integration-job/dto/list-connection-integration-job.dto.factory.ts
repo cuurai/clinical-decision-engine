@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListConnectionIntegrationJobParams, ZListConnectionIntegrationJobParamsSchema } from "@cuur-cde/core/integration-interoperability/models/connection-integration-job/index.js";
+import { ListConnectionIntegrationJobParams, ZListConnectionIntegrationJobParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListConnectionIntegrationJobParams(overrides: Partial<ListConnectionIntegrationJobParams> = {}) {

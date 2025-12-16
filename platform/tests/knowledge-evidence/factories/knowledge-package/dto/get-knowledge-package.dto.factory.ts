@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetKnowledgePackagePath, ZGetKnowledgePackagePathSchema } from "@cuur-cde/core/knowledge-evidence/models/knowledge-package/index.js";
+import { GetKnowledgePackagePath, ZGetKnowledgePackagePathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetKnowledgePackagePath(overrides: Partial<GetKnowledgePackagePath> = {}) {

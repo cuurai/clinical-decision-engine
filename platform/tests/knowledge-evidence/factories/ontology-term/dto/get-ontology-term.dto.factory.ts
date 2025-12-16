@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { GetOntologyTermPath, ZGetOntologyTermPathSchema } from "@cuur-cde/core/knowledge-evidence/models/ontology-term/index.js";
+import { GetOntologyTermPath, ZGetOntologyTermPathSchema } from "@cuur-cde/core/knowledge-evidence";
 import { z } from "zod";
 
 export function createGetOntologyTermPath(overrides: Partial<GetOntologyTermPath> = {}) {

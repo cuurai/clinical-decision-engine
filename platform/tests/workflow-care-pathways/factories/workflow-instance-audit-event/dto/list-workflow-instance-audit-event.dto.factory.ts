@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListWorkflowInstanceAuditEventParams, ZListWorkflowInstanceAuditEventParamsSchema } from "@cuur-cde/core/workflow-care-pathways/models/workflow-instance-audit-event/index.js";
+import { ListWorkflowInstanceAuditEventParams, ZListWorkflowInstanceAuditEventParamsSchema } from "@cuur-cde/core/workflow-care-pathways";
 import { z } from "zod";
 
 export function createListWorkflowInstanceAuditEventParams(overrides: Partial<ListWorkflowInstanceAuditEventParams> = {}) {

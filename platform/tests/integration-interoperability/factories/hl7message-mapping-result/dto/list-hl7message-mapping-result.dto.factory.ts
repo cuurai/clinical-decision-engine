@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { ListHL7MessageMappingResultParams, ZListHL7MessageMappingResultParamsSchema } from "@cuur-cde/core/integration-interoperability/models/hl7message-mapping-result/index.js";
+import { ListHL7MessageMappingResultParams, ZListHL7MessageMappingResultParamsSchema } from "@cuur-cde/core/integration-interoperability";
 import { z } from "zod";
 
 export function createListHL7MessageMappingResultParams(overrides: Partial<ListHL7MessageMappingResultParams> = {}) {

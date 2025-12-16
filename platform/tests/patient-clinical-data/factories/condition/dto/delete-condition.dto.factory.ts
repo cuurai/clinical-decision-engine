@@ -12,7 +12,7 @@
 
 
 import { faker } from "@faker-js/faker";
-import { DeleteCondition, ZDeleteConditionSchema } from "@cuur-cde/core/patient-clinical-data/models/condition/index.js";
+import { DeleteCondition, ZDeleteConditionSchema } from "@cuur-cde/core/patient-clinical-data";
 import { z } from "zod";
 
 export function createDeleteCondition(overrides: Partial<DeleteCondition> = {}) {
