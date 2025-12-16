@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { getServiceById } from "../types/services";
-import { getResourceIcon } from "../config/resourceIcons";
+import { getResourceIcon } from "../config/resourceIcons.tsx";
 import "./ResourceNav.css";
 
 export function ResourceNav() {

@@ -1,7 +1,7 @@
 packages:
   # Core root package (@cuur-cde/core)
   - "packages/core"
-  # Shared database package (@cde/db)
+  # Shared database package (@cuur-cde/db)
   - "packages/database"
   # Core domain packages
   - "packages/core/_shared"

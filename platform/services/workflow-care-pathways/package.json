@@ -10,6 +10,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@cuur-cde/db": "workspace:*",
     "@cuur-cde/core": "workspace:*",
     "@cuur/adapters-workflow-care-pathways": "workspace:*",
     "@cuur/adapters-shared": "workspace:*",

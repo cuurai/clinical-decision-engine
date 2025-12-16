@@ -1,5 +1,5 @@
 {
-  "name": "@cde/db",
+  "name": "@cuur-cde/db",
   "version": "1.0.0",
   "type": "module",
   "description": "Shared Prisma database client for Clinical Decision Engine",

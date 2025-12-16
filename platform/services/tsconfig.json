@@ -1,23 +1,14 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "noEmit": true,
-    "composite": false,
-    "declaration": true,
-    "declarationMap": true,
-    "verbatimModuleSyntax": false,
-    "emitDeclarationOnly": false
+    "composite": true,
+    "noEmit": true
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/dist/**",
-    "**/*.test.ts",
-    "**/*.spec.ts",
-    "**/*.js",
-    "**/*.d.ts",
-    "**/*.js.map",
-    "**/*.d.ts.map"
-  ],
-  "include": []
+  "references": [
+    { "path": "./decision-intelligence" },
+    { "path": "./knowledge-evidence" },
+    { "path": "./patient-clinical-data" },
+    { "path": "./workflow-care-pathways" },
+    { "path": "./integration-interoperability" }
+  ]
 }

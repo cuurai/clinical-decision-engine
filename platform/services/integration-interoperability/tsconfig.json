@@ -8,5 +8,8 @@
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
-  "references": []
+  "references": [
+    { "path": "../../adapters/_shared" },
+    { "path": "../../adapters/integration-interoperability" }
+  ]
 }

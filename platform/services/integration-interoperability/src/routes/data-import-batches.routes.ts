@@ -41,7 +41,7 @@ export async function dataImportBatchesRoutes(
   fastify.patch("/data-import-batches/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateDataImportBatch(deps.dataImportBatchRepo, orgId, id, request.body as DataImportBatcheUpdate);
+        const result = await updateDataImportBatch(deps.dataImportBatchRepo, orgId, id, request.body as DataImportBatchUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /data-import-batches/{id}

@@ -41,7 +41,7 @@ export async function fHIRMappingProfilesRoutes(
   fastify.patch("/fhir-mapping-profiles/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, id, request.body as FHirmappingProfileUpdate);
+        const result = await updateFHIRMappingProfile(deps.fHIRMappingProfileRepo, orgId, id, request.body as FHIRMappingProfileUpdate);
     return reply.code(200).send(result);
   });
   // DELETE /fhir-mapping-profiles/{id}

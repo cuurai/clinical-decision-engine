@@ -29,9 +29,9 @@ const { PrismaClient } = pkg;
 
 **After:**
 ```typescript
-import { prisma } from '@cde/db';
+import { prisma } from '@cuur-cde/db';
 // Or if you need the type:
-import type { PrismaClient } from '@cde/db';
+import type { PrismaClient } from '@cuur-cde/db';
 ```
 
 ### 4. Update service main.ts files
@@ -41,14 +41,14 @@ Replace Prisma client creation:
 // Before
 const prisma = createPrismaClient();
 
-// After  
-import { prisma } from '@cde/db';
+// After
+import { prisma } from '@cuur-cde/db';
 // Remove createPrismaClient() function
 ```
 
 ### 5. Update adapter repositories
 
-Adapters should continue using `DaoClient` type, but the Prisma client passed to them should come from `@cde/db`.
+Adapters should continue using `DaoClient` type, but the Prisma client passed to them should come from `@cuur-cde/db`.
 
 ## Benefits
 
@@ -70,4 +70,4 @@ packages/database/
 └── package.json
 ```
 
-All services import from `@cde/db` instead of `@prisma/client`.
+All services import from `@cuur-cde/db` instead of `@prisma/client`.

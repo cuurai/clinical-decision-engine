@@ -41,7 +41,7 @@ export async function eventDeliveriesRoutes(
   fastify.patch("/event-deliveries/:id", async (request, reply) => {
     const orgId = extractOrgId(request);
         const id = (request.params as any).id;
-        const result = await updateEventDelivery(deps.eventDeliveryRepo, orgId, id, request.body as EventDeliverieUpdate);
+        const result = await updateEventDelivery(deps.eventDeliveryRepo, orgId, id, request.body as EventDeliveryUpdate);
     return reply.code(200).send(result);
   });
 

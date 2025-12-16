@@ -10,6 +10,7 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@cuur-cde/db": "workspace:*",
     "@cuur-cde/core": "workspace:*",
     "@cuur/adapters-knowledge-evidence": "workspace:*",
     "@cuur/adapters-shared": "workspace:*",

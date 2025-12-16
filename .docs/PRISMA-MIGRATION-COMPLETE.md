@@ -18,7 +18,7 @@ Successfully migrated from multiple Prisma schemas (one per domain) to a unified
   - Workflow & Care Pathways
   - Patient Clinical Data
 
-### 2. Created `@cde/db` Package
+### 2. Created `@cuur-cde/db` Package
 - **Location**: `packages/database/`
 - **Purpose**: Shared Prisma client package for all services
 - **Features**:
@@ -27,7 +27,7 @@ Successfully migrated from multiple Prisma schemas (one per domain) to a unified
   - Type-safe exports
 
 ### 3. Updated All Services
-All 5 services now import from `@cde/db` instead of `@prisma/client`:
+All 5 services now import from `@cuur-cde/db` instead of `@prisma/client`:
 - `platform/services/decision-intelligence/src/main.ts`
 - `platform/services/integration-interoperability/src/main.ts`
 - `platform/services/knowledge-evidence/src/main.ts`
@@ -58,7 +58,7 @@ packages/database/
 
 All Services
     ↓
-import { prisma } from '@cde/db'
+import { prisma } from '@cuur-cde/db'
     ↓
 Unified Prisma Client
     ↓
