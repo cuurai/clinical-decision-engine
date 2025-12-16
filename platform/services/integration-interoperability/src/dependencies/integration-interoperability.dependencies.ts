@@ -21,11 +21,11 @@ import type {
   FHIRBundleResourceRepository,
   FHIRMappingProfileRepository,
   FHIRMappingProfileRuleRepository,
-  HLMessageRepository,
-  HLMessageSegmentRepository,
-  HLMessageMappingResultRepository,
-  HLMappingProfileRepository,
-  HLMappingProfileRuleRepository,
+  HL7MessageRepository,
+  HL7MessageSegmentRepository,
+  HL7MessageMappingResultRepository,
+  HL7MappingProfileRepository,
+  HL7MappingProfileRuleRepository,
   IntegrationJobRepository,
   IntegrationJobRunRepository,
   IntegrationRunRepository,
@@ -45,7 +45,7 @@ import type {
   APIClientUsageMetricRepository,
   APICredentialRepository,
   InterfaceErrorRepository,
-  InterfaceHealthCheckRepository
+  InterfaceHealthCheckRepository,
 } from "@cuur-cde/core/integration-interoperability/repositories/index.js";
 
 /**
@@ -63,11 +63,11 @@ export interface Dependencies {
   fHIRBundleResourceRepo: FHIRBundleResourceRepository;
   fHIRMappingProfileRepo: FHIRMappingProfileRepository;
   fHIRMappingProfileRuleRepo: FHIRMappingProfileRuleRepository;
-  hLMessageRepo: HLMessageRepository;
-  hLMessageSegmentRepo: HLMessageSegmentRepository;
-  hLMessageMappingResultRepo: HLMessageMappingResultRepository;
-  hLMappingProfileRepo: HLMappingProfileRepository;
-  hLMappingProfileRuleRepo: HLMappingProfileRuleRepository;
+  hLMessageRepo: HL7MessageRepository;
+  hLMessageSegmentRepo: HL7MessageSegmentRepository;
+  hLMessageMappingResultRepo: HL7MessageMappingResultRepository;
+  hLMappingProfileRepo: HL7MappingProfileRepository;
+  hLMappingProfileRuleRepo: HL7MappingProfileRuleRepository;
   integrationJobRepo: IntegrationJobRepository;
   integrationJobRunRepo: IntegrationJobRunRepository;
   integrationRunRepo: IntegrationRunRepository;
@@ -96,46 +96,44 @@ export interface Dependencies {
  * In production, this would initialize actual repository implementations.
  * For now, we provide a factory function that accepts implementations.
  */
-export function createDependencies(
-  repos: {
-    externalSystemRepo: ExternalSystemRepository;
-    externalSystemEndpointRepo: ExternalSystemEndpointRepository;
-    externalSystemConnectionRepo: ExternalSystemConnectionRepository;
-    externalSystemIntegrationJobRepo: ExternalSystemIntegrationJobRepository;
-    connectionRepo: ConnectionRepository;
-    connectionHealthCheckRepo: ConnectionHealthCheckRepository;
-    connectionIntegrationJobRepo: ConnectionIntegrationJobRepository;
-    fHIRBundleRepo: FHIRBundleRepository;
-    fHIRBundleResourceRepo: FHIRBundleResourceRepository;
-    fHIRMappingProfileRepo: FHIRMappingProfileRepository;
-    fHIRMappingProfileRuleRepo: FHIRMappingProfileRuleRepository;
-    hLMessageRepo: HLMessageRepository;
-    hLMessageSegmentRepo: HLMessageSegmentRepository;
-    hLMessageMappingResultRepo: HLMessageMappingResultRepository;
-    hLMappingProfileRepo: HLMappingProfileRepository;
-    hLMappingProfileRuleRepo: HLMappingProfileRuleRepository;
-    integrationJobRepo: IntegrationJobRepository;
-    integrationJobRunRepo: IntegrationJobRunRepository;
-    integrationRunRepo: IntegrationRunRepository;
-    integrationRunLogRepo: IntegrationRunLogRepository;
-    integrationRunErrorRepo: IntegrationRunErrorRepository;
-    dataImportBatchRepo: DataImportBatchRepository;
-    dataImportBatchRecordRepo: DataImportBatchRecordRepository;
-    dataImportBatchErrorRepo: DataImportBatchErrorRepository;
-    dataExportBatchRepo: DataExportBatchRepository;
-    dataExportBatchFileRepo: DataExportBatchFileRepository;
-    dataExportBatchErrorRepo: DataExportBatchErrorRepository;
-    eventSubscriptionRepo: EventSubscriptionRepository;
-    eventSubscriptionDeliveryRepo: EventSubscriptionDeliveryRepository;
-    eventDeliveryRepo: EventDeliveryRepository;
-    aPIClientRepo: APIClientRepository;
-    aPIClientCredentialRepo: APIClientCredentialRepository;
-    aPIClientUsageMetricRepo: APIClientUsageMetricRepository;
-    aPICredentialRepo: APICredentialRepository;
-    interfaceErrorRepo: InterfaceErrorRepository;
-    interfaceHealthCheckRepo: InterfaceHealthCheckRepository;
-  }
-): Dependencies {
+export function createDependencies(repos: {
+  externalSystemRepo: ExternalSystemRepository;
+  externalSystemEndpointRepo: ExternalSystemEndpointRepository;
+  externalSystemConnectionRepo: ExternalSystemConnectionRepository;
+  externalSystemIntegrationJobRepo: ExternalSystemIntegrationJobRepository;
+  connectionRepo: ConnectionRepository;
+  connectionHealthCheckRepo: ConnectionHealthCheckRepository;
+  connectionIntegrationJobRepo: ConnectionIntegrationJobRepository;
+  fHIRBundleRepo: FHIRBundleRepository;
+  fHIRBundleResourceRepo: FHIRBundleResourceRepository;
+  fHIRMappingProfileRepo: FHIRMappingProfileRepository;
+  fHIRMappingProfileRuleRepo: FHIRMappingProfileRuleRepository;
+  hLMessageRepo: HL7MessageRepository;
+  hLMessageSegmentRepo: HL7MessageSegmentRepository;
+  hLMessageMappingResultRepo: HL7MessageMappingResultRepository;
+  hLMappingProfileRepo: HL7MappingProfileRepository;
+  hLMappingProfileRuleRepo: HL7MappingProfileRuleRepository;
+  integrationJobRepo: IntegrationJobRepository;
+  integrationJobRunRepo: IntegrationJobRunRepository;
+  integrationRunRepo: IntegrationRunRepository;
+  integrationRunLogRepo: IntegrationRunLogRepository;
+  integrationRunErrorRepo: IntegrationRunErrorRepository;
+  dataImportBatchRepo: DataImportBatchRepository;
+  dataImportBatchRecordRepo: DataImportBatchRecordRepository;
+  dataImportBatchErrorRepo: DataImportBatchErrorRepository;
+  dataExportBatchRepo: DataExportBatchRepository;
+  dataExportBatchFileRepo: DataExportBatchFileRepository;
+  dataExportBatchErrorRepo: DataExportBatchErrorRepository;
+  eventSubscriptionRepo: EventSubscriptionRepository;
+  eventSubscriptionDeliveryRepo: EventSubscriptionDeliveryRepository;
+  eventDeliveryRepo: EventDeliveryRepository;
+  aPIClientRepo: APIClientRepository;
+  aPIClientCredentialRepo: APIClientCredentialRepository;
+  aPIClientUsageMetricRepo: APIClientUsageMetricRepository;
+  aPICredentialRepo: APICredentialRepository;
+  interfaceErrorRepo: InterfaceErrorRepository;
+  interfaceHealthCheckRepo: InterfaceHealthCheckRepository;
+}): Dependencies {
   return {
     externalSystemRepo: repos.externalSystemRepo,
     externalSystemEndpointRepo: repos.externalSystemEndpointRepo,
