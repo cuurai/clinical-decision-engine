@@ -11,11 +11,11 @@
 
 import type {
   ReadRepository,
-} from "../../../_shared/src/repositories/_base-repository.js";
+} from "@cuur-cde/core/_shared";
 
 import type {
   EscalationPolicyRule
-} from "../types/index.js";
+} from "@cuur-cde/core/workflow-care-pathways/types";
 /**
  * EscalationPolicyRuleRepository Interface
  */

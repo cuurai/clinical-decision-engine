@@ -5,8 +5,8 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { RiskAssessmentRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
+import type { RiskAssessmentRepository } from "@cuur-cde/core/decision-intelligence/repositories";
+import { diTransactionId } from "@cuur-cde/core/decision-intelligence/utils/transaction-id";
 
 /**
  * Delete risk assessment

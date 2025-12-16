@@ -8,9 +8,9 @@
 import type {
   CreateChecklistTemplateResponse,
   CreateChecklistTemplateInput,
-} from "../../types/index.js";
-import type { ChecklistTemplateRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
+} from "@cuur-cde/core/workflow-care-pathways/types";
+import type { ChecklistTemplateRepository } from "@cuur-cde/core/workflow-care-pathways/repositories";
+import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways/utils/transaction-id";
 /**
  * Mapper: input → validated
  */

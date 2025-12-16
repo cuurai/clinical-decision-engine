@@ -9,14 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { CrudRepository } from "../../../_shared/src/repositories/_base-repository.js";
+import type { CrudRepository } from "@cuur-cde/core/_shared";
 
 import type {
   ChecklistInstance,
   ChecklistInstanceInput,
   ListChecklistInstancesParams,
   UpdateChecklistInstanceRequest,
-} from "../types/index.js";
+} from "@cuur-cde/core/workflow-care-pathways/types";
 /**
  * ChecklistInstanceRepository Interface
  */

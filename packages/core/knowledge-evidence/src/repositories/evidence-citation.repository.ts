@@ -11,13 +11,13 @@
 
 import type {
   CrudRepository,
-} from "../../../_shared/src/repositories/_base-repository.js";
+} from "@cuur-cde/core/_shared";
 
 import type {
   EvidenceCitation,
   ListEvidenceCitationsParams,
   UpdateEvidenceCitationRequest
-} from "../types/index.js";
+} from "@cuur-cde/core/knowledge-evidence/types";
 /**
  * EvidenceCitationRepository Interface
  */

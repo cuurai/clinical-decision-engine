@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { ListCareProtocolOrderSetsResponse } from "../../types/index.js";
-import type { CareProtocolOrderSetRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
+import type { ListCareProtocolOrderSetsResponse } from "@cuur-cde/core/knowledge-evidence/types";
+import type { CareProtocolOrderSetRepository } from "@cuur-cde/core/knowledge-evidence/repositories";
+import { keTransactionId } from "@cuur-cde/core/knowledge-evidence/utils/transaction-id";
 
 /**
  * List care protocol order sets

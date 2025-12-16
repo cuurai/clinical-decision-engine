@@ -11,11 +11,11 @@
 
 import type {
   ReadRepository,
-} from "../../../_shared/src/repositories/_base-repository.js";
+} from "@cuur-cde/core/_shared";
 
 import type {
   ModelVersionTest
-} from "../types/index.js";
+} from "@cuur-cde/core/knowledge-evidence/types";
 /**
  * ModelVersionTestRepository Interface
  */

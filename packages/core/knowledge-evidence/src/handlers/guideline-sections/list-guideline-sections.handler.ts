@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { ListGuidelineSectionsResponse } from "../../types/index.js";
-import type { GuidelineSectionRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
+import type { ListGuidelineSectionsResponse } from "@cuur-cde/core/knowledge-evidence/types";
+import type { GuidelineSectionRepository } from "@cuur-cde/core/knowledge-evidence/repositories";
+import { keTransactionId } from "@cuur-cde/core/knowledge-evidence/utils/transaction-id";
 
 /**
  * List guideline sections

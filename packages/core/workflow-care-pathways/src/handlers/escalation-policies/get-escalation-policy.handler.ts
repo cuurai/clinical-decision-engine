@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { GetEscalationPolicyResponse } from "../../types/index.js";
-import type { EscalationPolicyRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
+import type { GetEscalationPolicyResponse } from "@cuur-cde/core/workflow-care-pathways/types";
+import type { EscalationPolicyRepository } from "@cuur-cde/core/workflow-care-pathways/repositories";
+import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways/utils/transaction-id";
 
 /**
  * Get escalation policy by ID

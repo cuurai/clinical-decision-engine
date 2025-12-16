@@ -11,11 +11,11 @@
 
 import type {
   ReadRepository,
-} from "../../../_shared/src/repositories/_base-repository.js";
+} from "@cuur-cde/core/_shared";
 
 import type {
   ExperimentResult
-} from "../types/index.js";
+} from "@cuur-cde/core/decision-intelligence/types";
 /**
  * ExperimentResultRepository Interface
  */

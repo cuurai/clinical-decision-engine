@@ -10,7 +10,7 @@
  */
 
 import { z, type ZodType } from "zod";
-import { schemas } from "../../../schemas/decision-intelligence.schemas.js";
+import { schemas } from "@cuur-cde/core/decision-intelligence/schemas/decision-intelligence.schemas";
 
 /**
  * Entity: DecisionPolicyEntity

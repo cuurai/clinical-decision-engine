@@ -7,7 +7,7 @@
  * Naming convention: {entity}ToApi (camelCase)
  */
 
-import { ConverterPresets } from "../../../_shared/src/helpers/core-converters.js";
+import { ConverterPresets } from "@cuur-cde/core/_shared";
 import type {
   AlertInput,
   AlertUpdate,
@@ -53,7 +53,7 @@ import type {
   WorkflowInstanceUpdate,
   WorkflowState,
   WorkflowTransition,
-} from "../types/index.js";
+} from "@cuur-cde/core/workflow-care-pathways/types";
 
 /**
  * Convert AlertInput domain entity to API response

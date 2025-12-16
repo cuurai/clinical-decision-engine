@@ -11,11 +11,11 @@
 
 import type {
   CreateReadRepository,
-} from "../../../_shared/src/repositories/_base-repository.js";
+} from "@cuur-cde/core/_shared";
 
 import type {
   DecisionMetricSnapshot
-} from "../types/index.js";
+} from "@cuur-cde/core/decision-intelligence/types";
 /**
  * DecisionMetricSnapshotRepository Interface
  */

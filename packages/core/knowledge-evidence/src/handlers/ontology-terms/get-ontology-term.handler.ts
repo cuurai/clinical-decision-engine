@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { GetOntologyTermResponse } from "../../types/index.js";
-import type { OntologyTermRepository } from "../../repositories/index.js";
-import { keTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
+import type { GetOntologyTermResponse } from "@cuur-cde/core/knowledge-evidence/types";
+import type { OntologyTermRepository } from "@cuur-cde/core/knowledge-evidence/repositories";
+import { keTransactionId } from "@cuur-cde/core/knowledge-evidence/utils/transaction-id";
 
 /**
  * Get ontology term by ID

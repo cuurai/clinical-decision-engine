@@ -7,7 +7,7 @@
  * Naming convention: {entity}ToApi (camelCase)
  */
 
-import { ConverterPresets } from "../../../_shared/src/helpers/core-converters.js";
+import { ConverterPresets } from "@cuur-cde/core/_shared";
 import type {
   AlertEvaluationInput,
   AlertEvaluationUpdate,
@@ -37,7 +37,7 @@ import type {
   ThresholdProfileInput,
   ThresholdProfileUpdate,
   Timestamps,
-} from "../types/index.js";
+} from "@cuur-cde/core/decision-intelligence/types";
 
 /**
  * Convert AlertEvaluationInput domain entity to API response

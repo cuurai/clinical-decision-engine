@@ -9,13 +9,13 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type { CreateReadRepository } from "../../../_shared/src/repositories/_base-repository.js";
+import type { CreateReadRepository } from "@cuur-cde/core/_shared";
 
 import type {
   InterfaceHealthCheck,
   InterfaceHealthCheckInput,
   ListInterfaceHealthChecksParams,
-} from "../types/index.js";
+} from "@cuur-cde/core/integration-interoperability/types";
 /**
  * InterfaceHealthCheckRepository Interface
  */

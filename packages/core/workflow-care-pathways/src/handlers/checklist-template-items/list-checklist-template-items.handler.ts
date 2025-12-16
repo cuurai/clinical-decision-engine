@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { ListChecklistTemplateItemsResponse } from "../../types/index.js";
-import type { ChecklistTemplateItemRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
+import type { ListChecklistTemplateItemsResponse } from "@cuur-cde/core/workflow-care-pathways/types";
+import type { ChecklistTemplateItemRepository } from "@cuur-cde/core/workflow-care-pathways/repositories";
+import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways/utils/transaction-id";
 
 /**
  * List checklist template items

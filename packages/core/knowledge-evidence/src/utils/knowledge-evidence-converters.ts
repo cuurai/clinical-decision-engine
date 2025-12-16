@@ -7,7 +7,7 @@
  * Naming convention: {entity}ToApi (camelCase)
  */
 
-import { ConverterPresets } from "../../../_shared/src/helpers/core-converters.js";
+import { ConverterPresets } from "@cuur-cde/core/_shared";
 import type {
   CareProtocolTemplateInput,
   CareProtocolTemplateUpdate,
@@ -54,7 +54,7 @@ import type {
   ValueSetCode,
   ValueSetInput,
   ValueSetUpdate,
-} from "../types/index.js";
+} from "@cuur-cde/core/knowledge-evidence/types";
 
 /**
  * Convert CareProtocolTemplateInput domain entity to API response

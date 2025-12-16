@@ -7,7 +7,7 @@
  * Naming convention: {entity}ToApi (camelCase)
  */
 
-import { ConverterPresets } from "../../../_shared/src/helpers/core-converters.js";
+import { ConverterPresets } from "@cuur-cde/core/_shared";
 import type {
   Address,
   AllergyInput,
@@ -56,7 +56,7 @@ import type {
   ProcedureUpdate,
   Quantity,
   Timestamps,
-} from "../types/index.js";
+} from "@cuur-cde/core/patient-clinical-data/types";
 
 /**
  * Convert Address domain entity to API response

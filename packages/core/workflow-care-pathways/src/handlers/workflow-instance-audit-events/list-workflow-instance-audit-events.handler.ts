@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { ListWorkflowInstanceAuditEventsResponse } from "../../types/index.js";
-import type { WorkflowInstanceAuditEventRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
+import type { ListWorkflowInstanceAuditEventsResponse } from "@cuur-cde/core/workflow-care-pathways/types";
+import type { WorkflowInstanceAuditEventRepository } from "@cuur-cde/core/workflow-care-pathways/repositories";
+import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways/utils/transaction-id";
 
 /**
  * List workflow instance audit events

@@ -11,12 +11,12 @@
 
 import type {
   ReadRepository,
-} from "../../../_shared/src/repositories/_base-repository.js";
+} from "@cuur-cde/core/_shared";
 
 import type {
   EpisodeOfCare,
   ListEpisodesOfCareParams
-} from "../types/index.js";
+} from "@cuur-cde/core/workflow-care-pathways/types";
 /**
  * EpisodesOfCareRepository Interface
  */

@@ -11,13 +11,13 @@
 
 import type {
   CrudRepository,
-} from "../../../_shared/src/repositories/_base-repository.js";
+} from "@cuur-cde/core/_shared";
 
 import type {
   Patient,
   ListPatientsParams,
   UpdatePatientRequest
-} from "../types/index.js";
+} from "@cuur-cde/core/patient-clinical-data/types";
 
 /**
  * TODO: Schema mismatch detected: GET operations return 'Patient' but LIST operations return 'PatientList'. Using 'Patient' from GET operations. TODO: Fix schema mismatch in API - listSchedules should return Schedule[] not Job[]

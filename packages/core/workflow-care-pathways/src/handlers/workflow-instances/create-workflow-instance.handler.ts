@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { CreateWorkflowInstanceResponse } from "../../types/index.js";
-import type { WorkflowInstanceRepository } from "../../repositories/index.js";
-import { wcTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
+import type { CreateWorkflowInstanceResponse } from "@cuur-cde/core/workflow-care-pathways/types";
+import type { WorkflowInstanceRepository } from "@cuur-cde/core/workflow-care-pathways/repositories";
+import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways/utils/transaction-id";
 /**
  * Mapper: input → validated
  */

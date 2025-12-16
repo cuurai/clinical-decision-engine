@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { ListRiskAssessmentsParams, ListRiskAssessmentsResponse } from "../../types/index.js";
-import type { RiskAssessmentRepository } from "../../repositories/index.js";
-import { diTransactionId } from "../../../../_shared/src/helpers/id-generator.js";
+import type { ListRiskAssessmentsParams, ListRiskAssessmentsResponse } from "@cuur-cde/core/decision-intelligence/types";
+import type { RiskAssessmentRepository } from "@cuur-cde/core/decision-intelligence/repositories";
+import { diTransactionId } from "@cuur-cde/core/decision-intelligence/utils/transaction-id";
 
 /**
  * List risk assessments

@@ -11,13 +11,13 @@
 
 import type {
   CreateUpdateReadRepository,
-} from "../../../_shared/src/repositories/_base-repository.js";
+} from "@cuur-cde/core/_shared";
 
 import type {
   EventDelivery,
   ListEventDeliveriesParams,
   UpdateEventDeliveryRequest
-} from "../types/index.js";
+} from "@cuur-cde/core/integration-interoperability/types";
 /**
  * EventDeliveryRepository Interface
  */

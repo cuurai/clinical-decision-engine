@@ -11,13 +11,13 @@
 
 import type {
   CrudRepository,
-} from "../../../_shared/src/repositories/_base-repository.js";
+} from "@cuur-cde/core/_shared";
 
 import type {
   Immunization,
   ListImmunizationsParams,
   UpdateImmunizationRequest
-} from "../types/index.js";
+} from "@cuur-cde/core/patient-clinical-data/types";
 /**
  * ImmunizationRepository Interface
  */

@@ -10,7 +10,7 @@
  * ⚠️ DO NOT EDIT MANUALLY - this file is auto-generated
  */
 
-import type { components, operations } from "../openapi/patient-clinical-data.openapi.types.js";
+import type { components, operations } from "@cuur-cde/core/patient-clinical-data/openapi/patient-clinical-data.openapi.types";
 
 // ============================================================================
 // Domain Types Export - Domain-specific types only (excludes components/operations)

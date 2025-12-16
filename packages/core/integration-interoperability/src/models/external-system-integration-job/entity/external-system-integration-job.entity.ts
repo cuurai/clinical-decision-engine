@@ -10,7 +10,7 @@
  */
 
 import { z, type ZodType } from "zod";
-import { schemas } from "../../../schemas/integration-interoperability.schemas.js";
+import { schemas } from "@cuur-cde/core/integration-interoperability/schemas/integration-interoperability.schemas";
 
 /**
  * Entity: ExternalSystemIntegrationJobEntity

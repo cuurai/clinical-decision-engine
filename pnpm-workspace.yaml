@@ -1,30 +1,33 @@
 packages:
-  # Core root package (@cuur-cde/core)
-  - "packages/core"
-  # Shared database package (@cuur-cde/db)
-  - "packages/database"
-  # Core domain packages
-  - "packages/core/_shared"
-  - "packages/core/decision-intelligence"
-  - "packages/core/integration-interoperability"
-  - "packages/core/knowledge-evidence"
-  - "packages/core/patient-clinical-data"
-  - "packages/core/workflow-care-pathways"
-  # Adapter packages
-  - "platform/adapters/decision-intelligence"
-  - "platform/adapters/integration-interoperability"
-  - "platform/adapters/knowledge-evidence"
-  - "platform/adapters/patient-clinical-data"
-  - "platform/adapters/workflow-care-pathways"
-  # Service packages
-  - "platform/services/decision-intelligence"
-  - "platform/services/integration-interoperability"
-  - "platform/services/knowledge-evidence"
-  - "platform/services/patient-clinical-data"
-  - "platform/services/workflow-care-pathways"
-  # Test packages
-  - "platform/tests/decision-intelligence"
-  - "platform/tests/integration-interoperability"
-  - "platform/tests/knowledge-evidence"
-  - "platform/tests/patient-clinical-data"
-  - "platform/tests/workflow-care-pathways"
+  - packages/core
+  - packages/database
+  - packages/core/_shared
+  - packages/core/decision-intelligence
+  - packages/core/integration-interoperability
+  - packages/core/knowledge-evidence
+  - packages/core/patient-clinical-data
+  - packages/core/workflow-care-pathways
+  - platform/adapters/decision-intelligence
+  - platform/adapters/integration-interoperability
+  - platform/adapters/knowledge-evidence
+  - platform/adapters/patient-clinical-data
+  - platform/adapters/workflow-care-pathways
+  - platform/services/decision-intelligence
+  - platform/services/integration-interoperability
+  - platform/services/knowledge-evidence
+  - platform/services/patient-clinical-data
+  - platform/services/workflow-care-pathways
+  - platform/tests/decision-intelligence
+  - platform/tests/integration-interoperability
+  - platform/tests/knowledge-evidence
+  - platform/tests/patient-clinical-data
+  - platform/tests/workflow-care-pathways
+
+ignoredBuiltDependencies:
+  - '@prisma/client'
+  - '@prisma/engines'
+  - cpu-features
+  - esbuild
+  - prisma
+  - protobufjs
+  - ssh2

@@ -10,7 +10,7 @@
  * ⚠️ DO NOT EDIT MANUALLY - this file is auto-generated
  */
 
-import type { components, operations } from "../openapi/knowledge-evidence.openapi.types.js";
+import type { components, operations } from "@cuur-cde/core/knowledge-evidence/openapi/knowledge-evidence.openapi.types";
 
 // ============================================================================
 // Domain Types Export - Domain-specific types only (excludes components/operations)

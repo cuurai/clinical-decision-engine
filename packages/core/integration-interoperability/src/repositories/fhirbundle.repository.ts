@@ -11,13 +11,13 @@
 
 import type {
   CreateDeleteReadRepository,
-} from "../../../_shared/src/repositories/_base-repository.js";
+} from "@cuur-cde/core/_shared";
 
 import type {
   FHIRBundle,
   ListFHIRBundlesParams,
   FHIRBundleInput
-} from "../types/index.js";
+} from "@cuur-cde/core/integration-interoperability/types";
 /**
  * FHIRBundleRepository Interface
  */
