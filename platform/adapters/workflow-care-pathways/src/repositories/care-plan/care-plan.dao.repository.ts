@@ -19,6 +19,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/workflow-care-pathways";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
@@ -130,10 +131,11 @@ export class DaoCarePlanRepository implements CarePlanRepository {
   async createMany(orgId: OrgId, items: Array<CarePlanInput>): Promise<CarePlan[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: CarePlan[] = [];
         for (const item of items) {
-          const record = await tx.carePlanInput.create({
+          const record = await txClient.carePlanInput.create({
             data: {
               ...item,
               orgId,
@@ -154,10 +156,11 @@ export class DaoCarePlanRepository implements CarePlanRepository {
   ): Promise<CarePlan[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: CarePlan[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.carePlanInput.update({
+          const record = await txClient.carePlanInput.update({
             where: { id, orgId },
             data,
           });

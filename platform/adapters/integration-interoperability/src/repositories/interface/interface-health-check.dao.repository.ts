@@ -16,6 +16,7 @@ import type {
   InterfaceHealthCheck,
 } from "@cuur-cde/core/integration-interoperability";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
@@ -105,10 +106,11 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
   ): Promise<InterfaceHealthCheck[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: InterfaceHealthCheck[] = [];
         for (const item of items) {
-          const record = await tx.interfaceHealthCheckInput.create({
+          const record = await txClient.interfaceHealthCheckInput.create({
             data: {
               ...item,
               orgId,

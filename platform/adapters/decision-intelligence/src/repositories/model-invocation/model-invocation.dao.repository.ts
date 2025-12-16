@@ -17,6 +17,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import type { TransactionManager } from "@cuur-cde/core/_shared";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
@@ -101,10 +102,11 @@ export class DaoModelInvocationRepository implements ModelInvocationRepository {
   async createMany(orgId: OrgId, items: Array<ModelInvocationInput>): Promise<ModelInvocation[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: ModelInvocation[] = [];
         for (const item of items) {
-          const record = await tx.modelInvocationInput.create({
+          const record = await txClient.modelInvocationInput.create({
             data: {
               ...item,
               orgId,

@@ -17,6 +17,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import type { TransactionManager } from "@cuur-cde/core/_shared";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
@@ -101,10 +102,11 @@ export class DaoDecisionRequestRepository implements DecisionRequestRepository {
   async createMany(orgId: OrgId, items: Array<DecisionRequestInput>): Promise<DecisionRequest[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: DecisionRequest[] = [];
         for (const item of items) {
-          const record = await tx.decisionRequestInput.create({
+          const record = await txClient.decisionRequestInput.create({
             data: {
               ...item,
               orgId,

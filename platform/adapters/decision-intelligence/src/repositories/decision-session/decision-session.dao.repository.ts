@@ -18,6 +18,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import type { TransactionManager } from "@cuur-cde/core/_shared";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
@@ -134,10 +135,11 @@ export class DaoDecisionSessionRepository implements DecisionSessionRepository {
   async createMany(orgId: OrgId, items: Array<DecisionSessionInput>): Promise<DecisionSession[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: DecisionSession[] = [];
         for (const item of items) {
-          const record = await tx.decisionSessionInput.create({
+          const record = await txClient.decisionSessionInput.create({
             data: {
               ...item,
               orgId,
@@ -158,10 +160,11 @@ export class DaoDecisionSessionRepository implements DecisionSessionRepository {
   ): Promise<DecisionSession[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: DecisionSession[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.decisionSession.update({
+          const record = await txClient.decisionSession.update({
             where: { id, orgId },
             data,
           });

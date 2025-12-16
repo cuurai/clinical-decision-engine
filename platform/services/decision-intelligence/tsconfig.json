@@ -8,5 +8,8 @@
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
-  "references": [{ "path": "../../adapters/decision-intelligence" }]
+  "references": [
+    { "path": "../../adapters/decision-intelligence" },
+    { "path": "../../../packages/core" }
+  ]
 }

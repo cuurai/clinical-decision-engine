@@ -18,6 +18,7 @@ import type {
 import type { InterfaceErrorRepository } from "@cuur-cde/core/integration-interoperability";
 import type { Timestamps } from "@cuur-cde/core/integration-interoperability";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
@@ -122,10 +123,11 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
   ): Promise<InterfaceError[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: InterfaceError[] = [];
         for (const item of items) {
-          const record = await tx.interfaceErrorInput.create({
+          const record = await txClient.interfaceErrorInput.create({
             data: {
               ...item,
               orgId,
@@ -146,10 +148,11 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
   ): Promise<InterfaceError[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: InterfaceError[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.interfaceErrorInput.update({
+          const record = await txClient.interfaceErrorInput.update({
             where: { id, orgId },
             data,
           });

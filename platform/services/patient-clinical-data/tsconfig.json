@@ -8,5 +8,8 @@
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
-  "references": [{ "path": "../../adapters/patient-clinical-data" }]
+  "references": [
+    { "path": "../../adapters/patient-clinical-data" },
+    { "path": "../../../packages/core" }
+  ]
 }

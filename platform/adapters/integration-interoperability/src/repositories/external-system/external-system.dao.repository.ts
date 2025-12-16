@@ -19,6 +19,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/integration-interoperability";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
@@ -135,9 +136,10 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: ExternalSystem[] = [];
         for (const item of items) {
-          const record = await tx.externalSystemInput.create({
+          const record = await txClient.externalSystemInput.create({
             data: {
               ...item,
               orgId,
@@ -159,9 +161,10 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
     try {
       // Use transaction for atomic batch updates
       return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: ExternalSystem[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.externalSystemInput.update({
+          const record = await txClient.externalSystemInput.update({
             where: { id, orgId },
             data,
           });

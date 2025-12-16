@@ -18,6 +18,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/integration-interoperability";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
@@ -127,10 +128,11 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
   async createMany(orgId: OrgId, items: Array<APICredentialInput>): Promise<APICredential[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: APICredential[] = [];
         for (const item of items) {
-          const record = await tx.apicredential.create({
+          const record = await txClient.apicredential.create({
             data: {
               ...item,
               orgId,
@@ -151,10 +153,11 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
   ): Promise<APICredential[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: APICredential[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.apicredential.update({
+          const record = await txClient.apicredential.update({
             where: { id, orgId },
             data,
           });

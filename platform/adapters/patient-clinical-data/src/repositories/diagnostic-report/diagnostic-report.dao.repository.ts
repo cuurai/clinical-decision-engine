@@ -19,6 +19,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/patient-clinical-data";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
@@ -134,10 +135,11 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
   async createMany(orgId: OrgId, items: Array<DiagnosticReportInput>): Promise<DiagnosticReport[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: DiagnosticReport[] = [];
         for (const item of items) {
-          const record = await tx.diagnosticReportInput.create({
+          const record = await txClient.diagnosticReportInput.create({
             data: {
               ...item,
               orgId,
@@ -158,10 +160,11 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
   ): Promise<DiagnosticReport[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: DiagnosticReport[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.diagnosticReportInput.update({
+          const record = await txClient.diagnosticReportInput.update({
             where: { id, orgId },
             data,
           });

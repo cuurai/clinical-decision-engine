@@ -18,6 +18,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import type { TransactionManager } from "@cuur-cde/core/_shared";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
@@ -134,10 +135,11 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
   async createMany(orgId: OrgId, items: Array<RiskAssessmentInput>): Promise<RiskAssessment[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: RiskAssessment[] = [];
         for (const item of items) {
-          const record = await tx.riskAssessmentInput.create({
+          const record = await txClient.riskAssessmentInput.create({
             data: {
               ...item,
               orgId,
@@ -158,10 +160,11 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
   ): Promise<RiskAssessment[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: RiskAssessment[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.riskAssessment.update({
+          const record = await txClient.riskAssessment.update({
             where: { id, orgId },
             data,
           });

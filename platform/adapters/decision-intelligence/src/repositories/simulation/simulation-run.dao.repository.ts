@@ -17,6 +17,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import type { TransactionManager } from "@cuur-cde/core/_shared";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
@@ -102,9 +103,10 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: SimulationRun[] = [];
         for (const item of items) {
-          const record = await tx.simulationRunInput.create({
+          const record = await txClient.simulationRunInput.create({
             data: {
               ...item,
               orgId,

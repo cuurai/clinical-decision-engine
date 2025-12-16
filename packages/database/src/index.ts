@@ -9,3 +9,4 @@ export { prisma } from "./client.js";
 export type { DaoClient } from "./dao-client.js";
 export type { PrismaClient } from "./client.js";
 export { PrismaTransactionManager } from "./transaction-manager.prisma.js";
+export type { PrismaTransactionClient } from "./transaction-manager.prisma.js";

@@ -19,6 +19,7 @@ import type {
   UpdateWorkflowDefinitionRequest,
 } from "@cuur-cde/core/workflow-care-pathways";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
@@ -142,9 +143,10 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: WorkflowDefinition[] = [];
         for (const item of items) {
-          const record = await tx.workflowDefinition.create({
+          const record = await txClient.workflowDefinition.create({
             data: {
               ...item,
               orgId,
@@ -166,9 +168,10 @@ export class DaoWorkflowDefinitionRepository implements WorkflowDefinitionReposi
     try {
       // Use transaction for atomic batch updates
       return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: WorkflowDefinition[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.workflowDefinition.update({
+          const record = await txClient.workflowDefinition.update({
             where: { id, orgId },
             data,
           });

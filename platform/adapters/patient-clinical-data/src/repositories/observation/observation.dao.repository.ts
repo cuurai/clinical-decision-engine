@@ -19,6 +19,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/patient-clinical-data";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
@@ -131,9 +132,10 @@ export class DaoObservationRepository implements ObservationRepository {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: Observation[] = [];
         for (const item of items) {
-          const record = await tx.observation.create({
+          const record = await txClient.observation.create({
             data: {
               ...item,
               orgId,
@@ -155,9 +157,10 @@ export class DaoObservationRepository implements ObservationRepository {
     try {
       // Use transaction for atomic batch updates
       return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: Observation[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.observation.update({
+          const record = await txClient.observation.update({
             where: { id, orgId },
             data,
           });

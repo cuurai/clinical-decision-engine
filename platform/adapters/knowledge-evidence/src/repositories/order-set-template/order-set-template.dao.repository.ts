@@ -19,6 +19,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/knowledge-evidence";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
@@ -134,10 +135,11 @@ export class DaoOrderSetTemplateRepository implements OrderSetTemplateRepository
   async createMany(orgId: OrgId, items: Array<OrderSetTemplateInput>): Promise<OrderSetTemplate[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: OrderSetTemplate[] = [];
         for (const item of items) {
-          const record = await tx.orderSetTemplate.create({
+          const record = await txClient.orderSetTemplate.create({
             data: {
               ...item,
               orgId,
@@ -158,10 +160,11 @@ export class DaoOrderSetTemplateRepository implements OrderSetTemplateRepository
   ): Promise<OrderSetTemplate[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: OrderSetTemplate[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.orderSetTemplate.update({
+          const record = await txClient.orderSetTemplate.update({
             where: { id, orgId },
             data,
           });

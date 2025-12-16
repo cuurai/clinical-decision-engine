@@ -19,6 +19,7 @@ import type {
   ValueSetUpdate,
 } from "@cuur-cde/core/knowledge-evidence";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
@@ -131,9 +132,10 @@ export class DaoValueSetRepository implements ValueSetRepository {
     try {
       // Use transaction with individual creates to get created records with IDs
       return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: ValueSet[] = [];
         for (const item of items) {
-          const record = await tx.valueSet.create({
+          const record = await txClient.valueSet.create({
             data: {
               ...item,
               orgId,
@@ -155,9 +157,10 @@ export class DaoValueSetRepository implements ValueSetRepository {
     try {
       // Use transaction for atomic batch updates
       return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: ValueSet[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.valueSet.update({
+          const record = await txClient.valueSet.update({
             where: { id, orgId },
             data,
           });

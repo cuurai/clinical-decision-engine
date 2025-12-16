@@ -19,6 +19,7 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/integration-interoperability";
 import type { DaoClient } from "@cuur-cde/database";
+import type { PrismaTransactionClient } from "@cuur-cde/database";
 import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
@@ -130,10 +131,11 @@ export class DaoConnectionRepository implements ConnectionRepository {
   async createMany(orgId: OrgId, items: Array<ConnectionInput>): Promise<Connection[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: Connection[] = [];
         for (const item of items) {
-          const record = await tx.connectionInput.create({
+          const record = await txClient.connectionInput.create({
             data: {
               ...item,
               orgId,
@@ -154,10 +156,11 @@ export class DaoConnectionRepository implements ConnectionRepository {
   ): Promise<Connection[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.run(async (tx) => {
+      return await this.tx.run(async (tx) => {
+        const txClient = tx as PrismaTransactionClient;
         const results: Connection[] = [];
         for (const { id, data } of updates) {
-          const record = await tx.connectionInput.update({
+          const record = await txClient.connectionInput.update({
             where: { id, orgId },
             data,
           });

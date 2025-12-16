@@ -10,9 +10,10 @@ import type { TransactionManager } from "@cuur-cde/core/_shared";
 
 /**
  * Transaction client type - Prisma's transaction client omits certain methods
- * This is the type that Prisma passes to the transaction callback
+ * This is the type that Prisma passes to the transaction callback.
+ * Adapters use this type to type their transaction callbacks.
  */
-type PrismaTransactionClient = Omit<
+export type PrismaTransactionClient = Omit<
   Prisma.PrismaClient,
   "$connect" | "$disconnect" | "$on" | "$transaction" | "$extends"
 >;
@@ -30,15 +31,7 @@ type PrismaTransactionClient = Omit<
 export class PrismaTransactionManager implements TransactionManager {
   constructor(private readonly prisma: Prisma.PrismaClient) {}
 
-  async run<T>(fn: () => Promise<T>): Promise<T> {
-    // Prisma's $transaction requires passing the transaction client to operations
-    // The interface doesn't allow passing tx to fn(), so operations inside fn()
-    // will need to use a mechanism to access the transaction client (e.g., context)
-    // For now, we execute fn() within Prisma's transaction context
-    return this.prisma.$transaction(async (tx: PrismaTransactionClient) => {
-      // Note: Operations inside fn() that need transaction isolation should use
-      // a transaction-aware client accessed via context or dependency injection
-      return fn();
-    });
+  async run<T>(fn: (tx: PrismaTransactionClient) => Promise<T>): Promise<T> {
+    return this.prisma.$transaction(fn);
   }
 }
