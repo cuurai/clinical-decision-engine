@@ -17,8 +17,15 @@ export async function knowledgePackageModelDefinitionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /knowledge-packages/{id}/model-definitions
+  // GET /knowledge-packages/{id}/model-definitions (nested route)
   fastify.get("/knowledge-packages/:id/model-definitions", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listKnowledgePackageModelDefinitions(deps.knowledgePackageModelDefinitionRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /knowledge-package-model-definitions (flat route for dashboard)
+  fastify.get("/knowledge-package-model-definitions", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listKnowledgePackageModelDefinitions(deps.knowledgePackageModelDefinitionRepo, orgId);
     return reply.code(200).send(result);

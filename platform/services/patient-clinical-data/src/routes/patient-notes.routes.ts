@@ -17,8 +17,15 @@ export async function patientNotesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /patients/{id}/notes
+  // GET /patients/{id}/notes (nested route)
   fastify.get("/patients/:id/notes", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listPatientNotes(deps.patientNoteRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /patient-notes (flat route for dashboard)
+  fastify.get("/patient-notes", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listPatientNotes(deps.patientNoteRepo, orgId);
     return reply.code(200).send(result);

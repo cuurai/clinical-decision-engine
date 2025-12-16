@@ -17,8 +17,15 @@ export async function careProtocolStepsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /care-protocols/{id}/steps
+  // GET /care-protocols/{id}/steps (nested route)
   fastify.get("/care-protocols/:id/steps", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listCareProtocolSteps(deps.careProtocolStepRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /care-protocol-steps (flat route for dashboard)
+  fastify.get("/care-protocol-steps", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listCareProtocolSteps(deps.careProtocolStepRepo, orgId);
     return reply.code(200).send(result);

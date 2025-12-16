@@ -17,8 +17,15 @@ export async function ontologyTermParentsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /ontology-terms/{id}/parents
+  // GET /ontology-terms/{id}/parents (nested route)
   fastify.get("/ontology-terms/:id/parents", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listOntologyTermParents(deps.ontologyTermParentRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /ontology-term-parents (flat route for dashboard)
+  fastify.get("/ontology-term-parents", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listOntologyTermParents(deps.ontologyTermParentRepo, orgId);
     return reply.code(200).send(result);

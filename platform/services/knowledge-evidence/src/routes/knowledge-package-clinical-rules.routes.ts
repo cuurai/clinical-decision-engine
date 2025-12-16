@@ -17,8 +17,15 @@ export async function knowledgePackageClinicalRulesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /knowledge-packages/{id}/clinical-rules
+  // GET /knowledge-packages/{id}/clinical-rules (nested route)
   fastify.get("/knowledge-packages/:id/clinical-rules", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listKnowledgePackageClinicalRules(deps.knowledgePackageClinicalRuleRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /knowledge-package-clinical-rules (flat route for dashboard)
+  fastify.get("/knowledge-package-clinical-rules", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listKnowledgePackageClinicalRules(deps.knowledgePackageClinicalRuleRepo, orgId);
     return reply.code(200).send(result);

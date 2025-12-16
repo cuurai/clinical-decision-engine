@@ -17,8 +17,15 @@ export async function orderSetTemplateItemsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /order-set-templates/{id}/items
+  // GET /order-set-templates/{id}/items (nested route)
   fastify.get("/order-set-templates/:id/items", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listOrderSetTemplateItems(deps.orderSetTemplateItemRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /order-set-template-items (flat route for dashboard)
+  fastify.get("/order-set-template-items", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listOrderSetTemplateItems(deps.orderSetTemplateItemRepo, orgId);
     return reply.code(200).send(result);

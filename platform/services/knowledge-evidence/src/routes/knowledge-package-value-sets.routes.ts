@@ -17,8 +17,15 @@ export async function knowledgePackageValueSetsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /knowledge-packages/{id}/value-sets
+  // GET /knowledge-packages/{id}/value-sets (nested route)
   fastify.get("/knowledge-packages/:id/value-sets", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listKnowledgePackageValueSets(deps.knowledgePackageValueSetRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /knowledge-package-value-sets (flat route for dashboard)
+  fastify.get("/knowledge-package-value-sets", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listKnowledgePackageValueSets(deps.knowledgePackageValueSetRepo, orgId);
     return reply.code(200).send(result);

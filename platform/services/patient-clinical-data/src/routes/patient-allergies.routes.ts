@@ -17,8 +17,15 @@ export async function patientAllergiesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /patients/{id}/allergies
+  // GET /patients/{id}/allergies (nested route)
   fastify.get("/patients/:id/allergies", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listPatientAllergies(deps.patientAllergyRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /patient-allergies (flat route for dashboard)
+  fastify.get("/patient-allergies", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listPatientAllergies(deps.patientAllergyRepo, orgId);
     return reply.code(200).send(result);

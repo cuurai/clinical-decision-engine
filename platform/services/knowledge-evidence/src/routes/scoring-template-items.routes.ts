@@ -17,8 +17,15 @@ export async function scoringTemplateItemsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /scoring-templates/{id}/items
+  // GET /scoring-templates/{id}/items (nested route)
   fastify.get("/scoring-templates/:id/items", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listScoringTemplateItems(deps.scoringTemplateItemRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /scoring-template-items (flat route for dashboard)
+  fastify.get("/scoring-template-items", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listScoringTemplateItems(deps.scoringTemplateItemRepo, orgId);
     return reply.code(200).send(result);

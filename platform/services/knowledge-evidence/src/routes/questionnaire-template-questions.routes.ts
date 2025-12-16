@@ -17,8 +17,15 @@ export async function questionnaireTemplateQuestionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /questionnaire-templates/{id}/questions
+  // GET /questionnaire-templates/{id}/questions (nested route)
   fastify.get("/questionnaire-templates/:id/questions", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listQuestionnaireTemplateQuestions(deps.questionnaireTemplateQuestionRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /questionnaire-template-questions (flat route for dashboard)
+  fastify.get("/questionnaire-template-questions", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listQuestionnaireTemplateQuestions(deps.questionnaireTemplateQuestionRepo, orgId);
     return reply.code(200).send(result);

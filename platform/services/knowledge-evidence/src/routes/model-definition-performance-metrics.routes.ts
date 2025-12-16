@@ -17,8 +17,15 @@ export async function modelDefinitionPerformanceMetricsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /model-definitions/{id}/performance-metrics
+  // GET /model-definitions/{id}/performance-metrics (nested route)
   fastify.get("/model-definitions/:id/performance-metrics", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listModelDefinitionPerformanceMetrics(deps.modelDefinitionPerformanceMetricRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /model-definition-performance-metrics (flat route for dashboard)
+  fastify.get("/model-definition-performance-metrics", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listModelDefinitionPerformanceMetrics(deps.modelDefinitionPerformanceMetricRepo, orgId);
     return reply.code(200).send(result);

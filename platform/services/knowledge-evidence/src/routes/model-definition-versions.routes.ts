@@ -17,8 +17,15 @@ export async function modelDefinitionVersionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /model-definitions/{id}/versions
+  // GET /model-definitions/{id}/versions (nested route)
   fastify.get("/model-definitions/:id/versions", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listModelDefinitionVersions(deps.modelDefinitionVersionRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /model-definition-versions (flat route for dashboard)
+  fastify.get("/model-definition-versions", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listModelDefinitionVersions(deps.modelDefinitionVersionRepo, orgId);
     return reply.code(200).send(result);

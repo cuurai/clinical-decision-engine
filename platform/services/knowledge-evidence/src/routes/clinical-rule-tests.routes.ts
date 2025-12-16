@@ -17,8 +17,15 @@ export async function clinicalRuleTestsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /clinical-rules/{id}/tests
+  // GET /clinical-rules/{id}/tests (nested route)
   fastify.get("/clinical-rules/:id/tests", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listClinicalRuleTests(deps.clinicalRuleTestRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /clinical-rule-tests (flat route for dashboard)
+  fastify.get("/clinical-rule-tests", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listClinicalRuleTests(deps.clinicalRuleTestRepo, orgId);
     return reply.code(200).send(result);

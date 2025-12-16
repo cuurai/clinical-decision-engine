@@ -17,8 +17,15 @@ export async function modelVersionTestsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /model-versions/{id}/tests
+  // GET /model-versions/{id}/tests (nested route)
   fastify.get("/model-versions/:id/tests", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listModelVersionTests(deps.modelVersionTestRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /model-version-tests (flat route for dashboard)
+  fastify.get("/model-version-tests", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listModelVersionTests(deps.modelVersionTestRepo, orgId);
     return reply.code(200).send(result);

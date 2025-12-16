@@ -17,8 +17,15 @@ export async function valueSetCodesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /value-sets/{id}/codes
+  // GET /value-sets/{id}/codes (nested route)
   fastify.get("/value-sets/:id/codes", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listValueSetCodes(deps.valueSetCodeRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /value-set-codes (flat route for dashboard)
+  fastify.get("/value-set-codes", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listValueSetCodes(deps.valueSetCodeRepo, orgId);
     return reply.code(200).send(result);

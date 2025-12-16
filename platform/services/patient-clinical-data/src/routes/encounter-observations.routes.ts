@@ -17,8 +17,15 @@ export async function encounterObservationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /encounters/{id}/observations
+  // GET /encounters/{id}/observations (nested route)
   fastify.get("/encounters/:id/observations", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listEncounterObservations(deps.encounterObservationRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /encounter-observations (flat route for dashboard)
+  fastify.get("/encounter-observations", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listEncounterObservations(deps.encounterObservationRepo, orgId);
     return reply.code(200).send(result);

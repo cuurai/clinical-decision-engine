@@ -17,8 +17,15 @@ export async function imagingStudySeriesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /imaging-studies/{id}/series
+  // GET /imaging-studies/{id}/series (nested route)
   fastify.get("/imaging-studies/:id/series", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listImagingStudySeries(deps.imagingStudySeriesRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /imaging-study-series (flat route for dashboard)
+  fastify.get("/imaging-study-series", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listImagingStudySeries(deps.imagingStudySeriesRepo, orgId);
     return reply.code(200).send(result);

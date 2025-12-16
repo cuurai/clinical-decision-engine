@@ -17,8 +17,15 @@ export async function conceptMapMappingsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /concept-maps/{id}/mappings
+  // GET /concept-maps/{id}/mappings (nested route)
   fastify.get("/concept-maps/:id/mappings", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listConceptMapMappings(deps.conceptMapMappingRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /concept-map-mappings (flat route for dashboard)
+  fastify.get("/concept-map-mappings", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listConceptMapMappings(deps.conceptMapMappingRepo, orgId);
     return reply.code(200).send(result);

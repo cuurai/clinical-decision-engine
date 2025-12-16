@@ -17,8 +17,15 @@ export async function conditionNotesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /conditions/{id}/notes
+  // GET /conditions/{id}/notes (nested route)
   fastify.get("/conditions/:id/notes", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listConditionNotes(deps.conditionNoteRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /condition-notes (flat route for dashboard)
+  fastify.get("/condition-notes", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listConditionNotes(deps.conditionNoteRepo, orgId);
     return reply.code(200).send(result);

@@ -17,8 +17,15 @@ export async function guidelineSectionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /guidelines/{id}/sections
+  // GET /guidelines/{id}/sections (nested route)
   fastify.get("/guidelines/:id/sections", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listGuidelineSections(deps.guidelineSectionRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /guideline-sections (flat route for dashboard)
+  fastify.get("/guideline-sections", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listGuidelineSections(deps.guidelineSectionRepo, orgId);
     return reply.code(200).send(result);
