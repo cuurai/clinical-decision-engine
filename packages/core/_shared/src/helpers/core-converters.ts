@@ -3,9 +3,10 @@
  */
 
 /**
- * Standard API Response Envelope
+ * Standard API Response Envelope (simple version with optional meta)
+ * @internal Use ApiResponse from types/responses.types.ts for public APIs
  */
-export interface ApiResponse<T> {
+export interface SimpleApiResponse<T> {
   data: T;
   meta?: {
     correlationId?: string;
@@ -14,9 +15,10 @@ export interface ApiResponse<T> {
 }
 
 /**
- * Standard API List Response Envelope
+ * Standard API List Response Envelope (simple version with optional meta)
+ * @internal Use ApiListResponse from types/responses.types.ts for public APIs
  */
-export interface ApiListResponse<T> {
+export interface SimpleApiListResponse<T> {
   data: T[];
   meta?: {
     correlationId?: string;
@@ -56,7 +58,7 @@ export function timestamsFromApi(data: any): any {
 /**
  * Wrap response data in standard envelope
  */
-export function wrapResponse<T>(data: T, correlationId?: string): ApiResponse<T> {
+export function wrapResponse<T>(data: T, correlationId?: string): SimpleApiResponse<T> {
   return {
     data,
     ...(correlationId && { meta: { correlationId } }),
@@ -66,7 +68,7 @@ export function wrapResponse<T>(data: T, correlationId?: string): ApiResponse<T>
 /**
  * Wrap array response data in standard envelope
  */
-export function wrapListResponse<T>(data: T[], correlationId?: string): ApiListResponse<T> {
+export function wrapListResponse<T>(data: T[], correlationId?: string): SimpleApiListResponse<T> {
   return {
     data,
     ...(correlationId && { meta: { correlationId } }),

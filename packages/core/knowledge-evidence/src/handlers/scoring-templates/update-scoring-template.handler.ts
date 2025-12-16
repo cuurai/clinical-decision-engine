@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { UpdateScoringTemplateResponse } from "@cuur-cde/core/knowledge-evidence";
-import type { ScoringTemplateRepository } from "@cuur-cde/core/knowledge-evidence";
-import { keTransactionId } from "@cuur-cde/core/knowledge-evidence";
+import type { UpdateScoringTemplateResponse } from "../../types/index.js";
+import type { ScoringTemplateRepository } from "../../repositories/index.js";
+import { keTransactionId } from "../../utils/transaction-id.js";
 /**
  * Mapper: input → validated
  */

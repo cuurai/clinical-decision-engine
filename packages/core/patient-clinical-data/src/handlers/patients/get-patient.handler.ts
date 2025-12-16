@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-patient-clinical-data.json
  */
 
-import type { GetPatientResponse } from "@cuur-cde/core/patient-clinical-data";
-import type { PatientRepository } from "@cuur-cde/core/patient-clinical-data";
-import { pcTransactionId } from "@cuur-cde/core/patient-clinical-data";
+import type { GetPatientResponse } from "../../types/index.js";
+import type { PatientRepository } from "../../repositories/index.js";
+import { pcTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * Get patient by ID

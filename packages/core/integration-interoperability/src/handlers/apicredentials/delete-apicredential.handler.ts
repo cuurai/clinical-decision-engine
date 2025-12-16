@@ -5,8 +5,8 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { APICredentialRepository } from "@cuur-cde/core/integration-interoperability";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
+import type { APICredentialRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * Delete API credential

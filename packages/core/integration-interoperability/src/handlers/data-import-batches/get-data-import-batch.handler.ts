@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { GetDataImportBatchResponse } from "@cuur-cde/core/integration-interoperability";
-import type { DataImportBatchRepository } from "@cuur-cde/core/integration-interoperability";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
+import type { GetDataImportBatchResponse } from "../../types/index.js";
+import type { DataImportBatchRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * Get data import batch by ID

@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { ListExplanationsParams, ListExplanationsResponse } from "@cuur-cde/core/decision-intelligence";
-import type { ExplanationRepository } from "@cuur-cde/core/decision-intelligence";
-import { diTransactionId } from "@cuur-cde/core/decision-intelligence";
+import type { ListExplanationsParams, ListExplanationsResponse } from "../../types/index.js"
+import type { ExplanationRepository } from "../../repositories/index.js"
+import { diTransactionId } from "../../utils/transaction-id.js"
 
 /**
  * List explanations

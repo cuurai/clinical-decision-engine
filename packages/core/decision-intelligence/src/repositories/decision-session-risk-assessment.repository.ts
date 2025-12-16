@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  ReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { ReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  DecisionSessionRiskAssessment
-} from "@cuur-cde/core/decision-intelligence";
+import type { DecisionSessionRiskAssessment } from "../types/index.js";
 /**
  * DecisionSessionRiskAssessmentRepository Interface
  */
-export interface DecisionSessionRiskAssessmentRepository extends ReadRepository<DecisionSessionRiskAssessment, string, Record<string, never>> {
-
-}
+export interface DecisionSessionRiskAssessmentRepository
+  extends ReadRepository<DecisionSessionRiskAssessment, string, Record<string, never>> {}

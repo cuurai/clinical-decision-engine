@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  ReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { ReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  SimulationScenarioRun
-} from "@cuur-cde/core/decision-intelligence";
+import type { SimulationScenarioRun } from "../types/index.js";
 /**
  * SimulationScenarioRunRepository Interface
  */
-export interface SimulationScenarioRunRepository extends ReadRepository<SimulationScenarioRun, string, Record<string, never>> {
-
-}
+export interface SimulationScenarioRunRepository
+  extends ReadRepository<SimulationScenarioRun, string, Record<string, never>> {}

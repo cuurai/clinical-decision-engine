@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { ListCarePathwayTemplateOrderSetTemplatesResponse } from "@cuur-cde/core/workflow-care-pathways";
-import type { CarePathwayTemplateOrderSetTemplateRepository } from "@cuur-cde/core/workflow-care-pathways";
-import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways";
+import type { ListCarePathwayTemplateOrderSetTemplatesResponse } from "../../types/index.js";
+import type { CarePathwayTemplateOrderSetTemplateRepository } from "../../repositories/index.js";
+import { wcTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List care pathway template order set templates

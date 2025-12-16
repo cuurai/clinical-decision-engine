@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { GetDecisionSessionResponse } from "@cuur-cde/core/decision-intelligence";
-import type { DecisionSessionRepository } from "@cuur-cde/core/decision-intelligence";
-import { diTransactionId } from "@cuur-cde/core/decision-intelligence";
+import type { GetDecisionSessionResponse } from "../../types/index.js"
+import type { DecisionSessionRepository } from "../../repositories/index.js"
+import { diTransactionId } from "../../utils/transaction-id.js"
 
 /**
  * Get decision session by ID

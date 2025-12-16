@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { ListHLMessagesParams, ListHLMessagesResponse } from "@cuur-cde/core/integration-interoperability";
-import type { HL7MessageRepository } from "@cuur-cde/core/integration-interoperability";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
+import type { ListHLMessagesParams, ListHLMessagesResponse } from "../../types/index.js";
+import type { HL7MessageRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List HL7 messages

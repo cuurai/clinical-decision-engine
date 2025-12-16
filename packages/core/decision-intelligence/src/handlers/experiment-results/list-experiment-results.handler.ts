@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { ListExperimentResultsResponse } from "@cuur-cde/core/decision-intelligence";
-import type { ExperimentResultRepository } from "@cuur-cde/core/decision-intelligence";
-import { diTransactionId } from "@cuur-cde/core/decision-intelligence";
+import type { ListExperimentResultsResponse } from "../../types/index.js"
+import type { ExperimentResultRepository } from "../../repositories/index.js"
+import { diTransactionId } from "../../utils/transaction-id.js"
 
 /**
  * List experiment results

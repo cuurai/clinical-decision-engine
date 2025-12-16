@@ -9,18 +9,21 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CrudRepository,
-} from "@cuur-cde/core/_shared";
+import type { CrudRepository } from "@cuur-cde/core/_shared";
 
 import type {
   Recommendation,
   ListRecommendationsParams,
-  UpdateRecommendationRequest
-} from "@cuur-cde/core/decision-intelligence";
+  UpdateRecommendationRequest,
+} from "../types/index.js";
 /**
  * RecommendationRepository Interface
  */
-export interface RecommendationRepository extends CrudRepository<Recommendation, Recommendation, UpdateRecommendationRequest, string, ListRecommendationsParams> {
-
-}
+export interface RecommendationRepository
+  extends CrudRepository<
+    Recommendation,
+    Recommendation,
+    UpdateRecommendationRequest,
+    string,
+    ListRecommendationsParams
+  > {}

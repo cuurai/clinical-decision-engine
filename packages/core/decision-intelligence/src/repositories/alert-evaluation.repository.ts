@@ -9,18 +9,21 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CrudRepository,
-} from "@cuur-cde/core/_shared";
+import type { CrudRepository } from "@cuur-cde/core/_shared";
 
 import type {
   AlertEvaluation,
   ListAlertEvaluationsParams,
-  UpdateAlertEvaluationRequest
-} from "@cuur-cde/core/decision-intelligence";
+  UpdateAlertEvaluationRequest,
+} from "../types/index.js";
 /**
  * AlertEvaluationRepository Interface
  */
-export interface AlertEvaluationRepository extends CrudRepository<AlertEvaluation, AlertEvaluation, UpdateAlertEvaluationRequest, string, ListAlertEvaluationsParams> {
-
-}
+export interface AlertEvaluationRepository
+  extends CrudRepository<
+    AlertEvaluation,
+    AlertEvaluation,
+    UpdateAlertEvaluationRequest,
+    string,
+    ListAlertEvaluationsParams
+  > {}

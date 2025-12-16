@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { GetAlertEvaluationResponse } from "@cuur-cde/core/decision-intelligence";
-import type { AlertEvaluationRepository } from "@cuur-cde/core/decision-intelligence";
-import { diTransactionId } from "@cuur-cde/core/decision-intelligence";
+import type { GetAlertEvaluationResponse } from "../../types/index.js"
+import type { AlertEvaluationRepository } from "../../repositories/index.js"
+import { diTransactionId } from "../../utils/transaction-id.js"
 
 /**
  * Get alert evaluation by ID

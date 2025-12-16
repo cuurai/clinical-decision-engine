@@ -73,27 +73,27 @@ export interface ErrorEnvelope {
 /**
  * Validation error - specific error type for validation failures
  */
-export interface ValidationError extends Problem {
-  code?: "VALIDATION_ERROR";
-  status?: 422;
+export interface ValidationError extends Omit<Problem, "status" | "code"> {
+  code: "VALIDATION_ERROR";
+  status: 422;
 }
 
 /**
  * Organization mismatch error - when orgId in header doesn't match path parameter
  */
-export interface OrgMismatchError extends Problem {
-  code?: "ORG_MISMATCH";
-  status?: 400;
-  title?: "Organization Mismatch";
+export interface OrgMismatchError extends Omit<Problem, "title" | "code" | "status"> {
+  code: "ORG_MISMATCH";
+  status: 400;
+  title: "Organization Mismatch";
   detail?: string;
 }
 
 /**
  * Organization unverified error - when organization verification is required
  */
-export interface OrgUnverifiedError extends Problem {
-  code?: "ORG_UNVERIFIED";
-  status?: 403;
-  title?: "Organization Not Verified";
+export interface OrgUnverifiedError extends Omit<Problem, "title" | "code" | "status"> {
+  code: "ORG_UNVERIFIED";
+  status: 403;
+  title: "Organization Not Verified";
   detail?: string;
 }

@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { GetDecisionMetricSnapshotResponse } from "@cuur-cde/core/decision-intelligence";
-import type { DecisionMetricSnapshotRepository } from "@cuur-cde/core/decision-intelligence";
-import { diTransactionId } from "@cuur-cde/core/decision-intelligence";
+import type { GetDecisionMetricSnapshotResponse } from "../../types/index.js"
+import type { DecisionMetricSnapshotRepository } from "../../repositories/index.js"
+import { diTransactionId } from "../../utils/transaction-id.js"
 
 /**
  * Get decision metric snapshot by ID

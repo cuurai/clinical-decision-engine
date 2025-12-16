@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { ListDecisionPoliciesParams, ListDecisionPoliciesResponse } from "@cuur-cde/core/decision-intelligence";
-import type { DecisionPolicyRepository } from "@cuur-cde/core/decision-intelligence";
-import { diTransactionId } from "@cuur-cde/core/decision-intelligence";
+import type { ListDecisionPoliciesParams, ListDecisionPoliciesResponse } from "../../types/index.js"
+import type { DecisionPolicyRepository } from "../../repositories/index.js"
+import { diTransactionId } from "../../utils/transaction-id.js"
 
 /**
  * List decision policies

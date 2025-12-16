@@ -9,18 +9,21 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CrudRepository,
-} from "@cuur-cde/core/_shared";
+import type { CrudRepository } from "@cuur-cde/core/_shared";
 
 import type {
   DecisionPolicy,
   ListDecisionPoliciesParams,
-  UpdateDecisionPolicyRequest
-} from "@cuur-cde/core/decision-intelligence";
+  UpdateDecisionPolicyRequest,
+} from "../types/index.js";
 /**
  * DecisionPolicyRepository Interface
  */
-export interface DecisionPolicyRepository extends CrudRepository<DecisionPolicy, DecisionPolicy, UpdateDecisionPolicyRequest, string, ListDecisionPoliciesParams> {
-
-}
+export interface DecisionPolicyRepository
+  extends CrudRepository<
+    DecisionPolicy,
+    DecisionPolicy,
+    UpdateDecisionPolicyRequest,
+    string,
+    ListDecisionPoliciesParams
+  > {}

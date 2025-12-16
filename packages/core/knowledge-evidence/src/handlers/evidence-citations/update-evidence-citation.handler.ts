@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { UpdateEvidenceCitationResponse } from "@cuur-cde/core/knowledge-evidence";
-import type { EvidenceCitationRepository } from "@cuur-cde/core/knowledge-evidence";
-import { keTransactionId } from "@cuur-cde/core/knowledge-evidence";
+import type { UpdateEvidenceCitationResponse } from "../../types/index.js";
+import type { EvidenceCitationRepository } from "../../repositories/index.js";
+import { keTransactionId } from "../../utils/transaction-id.js";
 /**
  * Mapper: input → validated
  */

@@ -9,18 +9,21 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CrudRepository,
-} from "@cuur-cde/core/_shared";
+import type { CrudRepository } from "@cuur-cde/core/_shared";
 
 import type {
   SimulationScenario,
   ListSimulationScenariosParams,
-  UpdateSimulationScenarioRequest
-} from "@cuur-cde/core/decision-intelligence";
+  UpdateSimulationScenarioRequest,
+} from "../types/index.js";
 /**
  * SimulationScenarioRepository Interface
  */
-export interface SimulationScenarioRepository extends CrudRepository<SimulationScenario, SimulationScenario, UpdateSimulationScenarioRequest, string, ListSimulationScenariosParams> {
-
-}
+export interface SimulationScenarioRepository
+  extends CrudRepository<
+    SimulationScenario,
+    SimulationScenario,
+    UpdateSimulationScenarioRequest,
+    string,
+    ListSimulationScenariosParams
+  > {}

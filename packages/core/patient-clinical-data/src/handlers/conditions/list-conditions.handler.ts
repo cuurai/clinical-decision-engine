@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-patient-clinical-data.json
  */
 
-import type { ListConditionsParams, ListConditionsResponse } from "@cuur-cde/core/patient-clinical-data";
-import type { ConditionRepository } from "@cuur-cde/core/patient-clinical-data";
-import { pcTransactionId } from "@cuur-cde/core/patient-clinical-data";
+import type { ListConditionsParams, ListConditionsResponse } from "../../types/index.js";
+import type { ConditionRepository } from "../../repositories/index.js";
+import { pcTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List conditions

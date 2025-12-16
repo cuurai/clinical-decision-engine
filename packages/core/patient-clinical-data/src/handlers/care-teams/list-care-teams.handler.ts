@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-patient-clinical-data.json
  */
 
-import type { ListCareTeamsParams, ListCareTeamsResponse } from "@cuur-cde/core/patient-clinical-data";
-import type { CareTeamRepository } from "@cuur-cde/core/patient-clinical-data";
-import { pcTransactionId } from "@cuur-cde/core/patient-clinical-data";
+import type { ListCareTeamsParams, ListCareTeamsResponse } from "../../types/index.js";
+import type { CareTeamRepository } from "../../repositories/index.js";
+import { pcTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List care teams

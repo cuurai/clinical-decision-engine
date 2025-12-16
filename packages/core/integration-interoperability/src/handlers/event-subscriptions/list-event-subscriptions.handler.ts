@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { ListEventSubscriptionsParams, ListEventSubscriptionsResponse } from "@cuur-cde/core/integration-interoperability";
-import type { EventSubscriptionRepository } from "@cuur-cde/core/integration-interoperability";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
+import type { ListEventSubscriptionsParams, ListEventSubscriptionsResponse } from "../../types/index.js";
+import type { EventSubscriptionRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List event subscriptions

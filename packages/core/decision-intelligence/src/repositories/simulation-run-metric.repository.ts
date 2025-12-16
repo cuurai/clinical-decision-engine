@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  ReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { ReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  SimulationRunMetric
-} from "@cuur-cde/core/decision-intelligence";
+import type { SimulationRunMetric } from "../types/index.js";
 /**
  * SimulationRunMetricRepository Interface
  */
-export interface SimulationRunMetricRepository extends ReadRepository<SimulationRunMetric, string, Record<string, never>> {
-
-}
+export interface SimulationRunMetricRepository
+  extends ReadRepository<SimulationRunMetric, string, Record<string, never>> {}

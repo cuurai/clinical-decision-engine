@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { ListConnectionHealthChecksResponse } from "@cuur-cde/core/integration-interoperability";
-import type { ConnectionHealthCheckRepository } from "@cuur-cde/core/integration-interoperability";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
+import type { ListConnectionHealthChecksResponse } from "../../types/index.js";
+import type { ConnectionHealthCheckRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List connection health checks

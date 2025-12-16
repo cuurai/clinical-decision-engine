@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  ReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { ReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  RecommendationExplanation
-} from "@cuur-cde/core/decision-intelligence";
+import type { RecommendationExplanation } from "../types/index.js";
 /**
  * RecommendationExplanationRepository Interface
  */
-export interface RecommendationExplanationRepository extends ReadRepository<RecommendationExplanation, string, Record<string, never>> {
-
-}
+export interface RecommendationExplanationRepository
+  extends ReadRepository<RecommendationExplanation, string, Record<string, never>> {}

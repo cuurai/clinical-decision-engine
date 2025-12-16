@@ -9,18 +9,21 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CrudRepository,
-} from "@cuur-cde/core/_shared";
+import type { CrudRepository } from "@cuur-cde/core/_shared";
 
 import type {
   DecisionSession,
   ListDecisionSessionsParams,
-  UpdateDecisionSessionRequest
-} from "@cuur-cde/core/decision-intelligence";
+  UpdateDecisionSessionRequest,
+} from "../types/index.js";
 /**
  * DecisionSessionRepository Interface
  */
-export interface DecisionSessionRepository extends CrudRepository<DecisionSession, DecisionSession, UpdateDecisionSessionRequest, string, ListDecisionSessionsParams> {
-
-}
+export interface DecisionSessionRepository
+  extends CrudRepository<
+    DecisionSession,
+    DecisionSession,
+    UpdateDecisionSessionRequest,
+    string,
+    ListDecisionSessionsParams
+  > {}

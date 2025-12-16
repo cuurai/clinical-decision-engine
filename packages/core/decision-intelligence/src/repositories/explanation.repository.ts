@@ -9,17 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CreateReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { CreateReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  Explanation,
-  ListExplanationsParams
-} from "@cuur-cde/core/decision-intelligence";
+import type { Explanation, ListExplanationsParams } from "../types/index.js";
 /**
  * ExplanationRepository Interface
  */
-export interface ExplanationRepository extends CreateReadRepository<Explanation, Explanation, string, ListExplanationsParams> {
-
-}
+export interface ExplanationRepository
+  extends CreateReadRepository<Explanation, Explanation, string, ListExplanationsParams> {}

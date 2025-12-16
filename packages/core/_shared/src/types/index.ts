@@ -68,27 +68,3 @@ export type {
   ResourcePrefixMapping,
   ResourcePrefixMappings,
 } from "./resource-prefixes.types.js";
-
-// ============================================================================
-// Legacy Support (for backward compatibility)
-// ============================================================================
-
-/**
- * @deprecated Use ResponseMeta directly
- */
-export type { ResponseMeta };
-
-/**
- * @deprecated Use DataEnvelope directly
- */
-export type { DataEnvelope };
-
-/**
- * @deprecated Use ErrorEnvelope directly
- */
-export type { ErrorEnvelope };
-
-/**
- * @deprecated Use PageInfo directly
- */
-export type { PageInfo };

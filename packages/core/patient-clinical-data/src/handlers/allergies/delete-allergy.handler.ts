@@ -5,8 +5,8 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-patient-clinical-data.json
  */
 
-import type { AllergyRepository } from "@cuur-cde/core/patient-clinical-data";
-import { pcTransactionId } from "@cuur-cde/core/patient-clinical-data";
+import type { AllergyRepository } from "../../repositories/index.js";
+import { pcTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * Delete allergy

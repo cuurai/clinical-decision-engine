@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { ListValueSetCodesResponse } from "@cuur-cde/core/knowledge-evidence";
-import type { ValueSetCodeRepository } from "@cuur-cde/core/knowledge-evidence";
-import { keTransactionId } from "@cuur-cde/core/knowledge-evidence";
+import type { ListValueSetCodesResponse } from "../../types/index.js";
+import type { ValueSetCodeRepository } from "../../repositories/index.js";
+import { keTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List value set codes

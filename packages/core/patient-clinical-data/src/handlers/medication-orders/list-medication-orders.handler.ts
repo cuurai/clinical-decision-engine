@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-patient-clinical-data.json
  */
 
-import type { ListMedicationOrdersParams, ListMedicationOrdersResponse } from "@cuur-cde/core/patient-clinical-data";
-import type { MedicationOrderRepository } from "@cuur-cde/core/patient-clinical-data";
-import { pcTransactionId } from "@cuur-cde/core/patient-clinical-data";
+import type { ListMedicationOrdersParams, ListMedicationOrdersResponse } from "../../types/index.js";
+import type { MedicationOrderRepository } from "../../repositories/index.js";
+import { pcTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List medication orders

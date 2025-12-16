@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-patient-clinical-data.json
  */
 
-import type { ListImmunizationsParams, ListImmunizationsResponse } from "@cuur-cde/core/patient-clinical-data";
-import type { ImmunizationRepository } from "@cuur-cde/core/patient-clinical-data";
-import { pcTransactionId } from "@cuur-cde/core/patient-clinical-data";
+import type { ListImmunizationsParams, ListImmunizationsResponse } from "../../types/index.js";
+import type { ImmunizationRepository } from "../../repositories/index.js";
+import { pcTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List immunizations

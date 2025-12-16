@@ -9,18 +9,21 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CrudRepository,
-} from "@cuur-cde/core/_shared";
+import type { CrudRepository } from "@cuur-cde/core/_shared";
 
 import type {
   ThresholdProfile,
   ListThresholdProfilesParams,
-  UpdateThresholdProfileRequest
-} from "@cuur-cde/core/decision-intelligence";
+  UpdateThresholdProfileRequest,
+} from "../types/index.js";
 /**
  * ThresholdProfileRepository Interface
  */
-export interface ThresholdProfileRepository extends CrudRepository<ThresholdProfile, ThresholdProfile, UpdateThresholdProfileRequest, string, ListThresholdProfilesParams> {
-
-}
+export interface ThresholdProfileRepository
+  extends CrudRepository<
+    ThresholdProfile,
+    ThresholdProfile,
+    UpdateThresholdProfileRequest,
+    string,
+    ListThresholdProfilesParams
+  > {}

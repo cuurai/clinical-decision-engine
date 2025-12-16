@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  ReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { ReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  ExplanationRuleTrace
-} from "@cuur-cde/core/decision-intelligence";
+import type { ExplanationRuleTrace } from "../types/index.js";
 /**
  * ExplanationRuleTraceRepository Interface
  */
-export interface ExplanationRuleTraceRepository extends ReadRepository<ExplanationRuleTrace, string, Record<string, never>> {
-
-}
+export interface ExplanationRuleTraceRepository
+  extends ReadRepository<ExplanationRuleTrace, string, Record<string, never>> {}

@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { ListWorkflowDefinitionTransitionsResponse } from "@cuur-cde/core/workflow-care-pathways";
-import type { WorkflowDefinitionTransitionRepository } from "@cuur-cde/core/workflow-care-pathways";
-import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways";
+import type { ListWorkflowDefinitionTransitionsResponse } from "../../types/index.js";
+import type { WorkflowDefinitionTransitionRepository } from "../../repositories/index.js";
+import { wcTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List workflow definition transitions

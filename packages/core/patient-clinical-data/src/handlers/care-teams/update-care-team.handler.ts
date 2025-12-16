@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-patient-clinical-data.json
  */
 
-import type { UpdateCareTeamResponse } from "@cuur-cde/core/patient-clinical-data";
-import type { CareTeamRepository } from "@cuur-cde/core/patient-clinical-data";
-import { pcTransactionId } from "@cuur-cde/core/patient-clinical-data";
+import type { UpdateCareTeamResponse } from "../../types/index.js";
+import type { CareTeamRepository } from "../../repositories/index.js";
+import { pcTransactionId } from "../../utils/transaction-id.js";
 /**
  * Mapper: input → validated
  */

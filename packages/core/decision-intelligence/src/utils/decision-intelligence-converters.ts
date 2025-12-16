@@ -37,7 +37,7 @@ import type {
   ThresholdProfileInput,
   ThresholdProfileUpdate,
   Timestamps,
-} from "@cuur-cde/core/decision-intelligence";
+} from "../types/index.js";
 
 /**
  * Convert AlertEvaluationInput domain entity to API response
@@ -46,8 +46,12 @@ import type {
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function alertEvaluationInputToApi(alertEvaluationInput: AlertEvaluationInput): AlertEvaluationInput {
-  return ConverterPresets.standardApiResponse(alertEvaluationInput, { dateFields: [] }) as AlertEvaluationInput;
+export function alertEvaluationInputToApi(
+  alertEvaluationInput: AlertEvaluationInput
+): AlertEvaluationInput {
+  return ConverterPresets.standardApiResponse(alertEvaluationInput, {
+    dateFields: [],
+  }) as AlertEvaluationInput;
 }
 
 /**
@@ -62,8 +66,12 @@ export function alertEvaluationInputToApi(alertEvaluationInput: AlertEvaluationI
  * - Non-Date values are left unchanged (with console warnings in development mode)
  * - String values are assumed to already be in ISO format and are left unchanged
  */
-export function alertEvaluationUpdateToApi(alertEvaluationUpdate: AlertEvaluationUpdate): AlertEvaluationUpdate {
-  return ConverterPresets.standardApiResponse(alertEvaluationUpdate, { dateFields: ["overriddenAt", "snoozedUntil"] }) as AlertEvaluationUpdate;
+export function alertEvaluationUpdateToApi(
+  alertEvaluationUpdate: AlertEvaluationUpdate
+): AlertEvaluationUpdate {
+  return ConverterPresets.standardApiResponse(alertEvaluationUpdate, {
+    dateFields: ["overriddenAt", "snoozedUntil"],
+  }) as AlertEvaluationUpdate;
 }
 
 /**
@@ -78,8 +86,12 @@ export function alertEvaluationUpdateToApi(alertEvaluationUpdate: AlertEvaluatio
  * - Non-Date values are left unchanged (with console warnings in development mode)
  * - String values are assumed to already be in ISO format and are left unchanged
  */
-export function decisionMetricSnapshotInputToApi(decisionMetricSnapshotInput: DecisionMetricSnapshotInput): DecisionMetricSnapshotInput {
-  return ConverterPresets.standardApiResponse(decisionMetricSnapshotInput, { dateFields: ["snapshotDate"] }) as DecisionMetricSnapshotInput;
+export function decisionMetricSnapshotInputToApi(
+  decisionMetricSnapshotInput: DecisionMetricSnapshotInput
+): DecisionMetricSnapshotInput {
+  return ConverterPresets.standardApiResponse(decisionMetricSnapshotInput, {
+    dateFields: ["snapshotDate"],
+  }) as DecisionMetricSnapshotInput;
 }
 
 /**
@@ -89,8 +101,12 @@ export function decisionMetricSnapshotInputToApi(decisionMetricSnapshotInput: De
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function decisionPolicyInputToApi(decisionPolicyInput: DecisionPolicyInput): DecisionPolicyInput {
-  return ConverterPresets.standardApiResponse(decisionPolicyInput, { dateFields: [] }) as DecisionPolicyInput;
+export function decisionPolicyInputToApi(
+  decisionPolicyInput: DecisionPolicyInput
+): DecisionPolicyInput {
+  return ConverterPresets.standardApiResponse(decisionPolicyInput, {
+    dateFields: [],
+  }) as DecisionPolicyInput;
 }
 
 /**
@@ -100,8 +116,12 @@ export function decisionPolicyInputToApi(decisionPolicyInput: DecisionPolicyInpu
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function decisionPolicyUpdateToApi(decisionPolicyUpdate: DecisionPolicyUpdate): DecisionPolicyUpdate {
-  return ConverterPresets.standardApiResponse(decisionPolicyUpdate, { dateFields: [] }) as DecisionPolicyUpdate;
+export function decisionPolicyUpdateToApi(
+  decisionPolicyUpdate: DecisionPolicyUpdate
+): DecisionPolicyUpdate {
+  return ConverterPresets.standardApiResponse(decisionPolicyUpdate, {
+    dateFields: [],
+  }) as DecisionPolicyUpdate;
 }
 
 /**
@@ -111,8 +131,12 @@ export function decisionPolicyUpdateToApi(decisionPolicyUpdate: DecisionPolicyUp
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function decisionResultInputToApi(decisionResultInput: DecisionResultInput): DecisionResultInput {
-  return ConverterPresets.standardApiResponse(decisionResultInput, { dateFields: [] }) as DecisionResultInput;
+export function decisionResultInputToApi(
+  decisionResultInput: DecisionResultInput
+): DecisionResultInput {
+  return ConverterPresets.standardApiResponse(decisionResultInput, {
+    dateFields: [],
+  }) as DecisionResultInput;
 }
 
 /**
@@ -122,8 +146,12 @@ export function decisionResultInputToApi(decisionResultInput: DecisionResultInpu
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function decisionResultUpdateToApi(decisionResultUpdate: DecisionResultUpdate): DecisionResultUpdate {
-  return ConverterPresets.standardApiResponse(decisionResultUpdate, { dateFields: [] }) as DecisionResultUpdate;
+export function decisionResultUpdateToApi(
+  decisionResultUpdate: DecisionResultUpdate
+): DecisionResultUpdate {
+  return ConverterPresets.standardApiResponse(decisionResultUpdate, {
+    dateFields: [],
+  }) as DecisionResultUpdate;
 }
 
 /**
@@ -133,8 +161,12 @@ export function decisionResultUpdateToApi(decisionResultUpdate: DecisionResultUp
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function decisionSessionInputToApi(decisionSessionInput: DecisionSessionInput): DecisionSessionInput {
-  return ConverterPresets.standardApiResponse(decisionSessionInput, { dateFields: [] }) as DecisionSessionInput;
+export function decisionSessionInputToApi(
+  decisionSessionInput: DecisionSessionInput
+): DecisionSessionInput {
+  return ConverterPresets.standardApiResponse(decisionSessionInput, {
+    dateFields: [],
+  }) as DecisionSessionInput;
 }
 
 /**
@@ -149,8 +181,12 @@ export function decisionSessionInputToApi(decisionSessionInput: DecisionSessionI
  * - Non-Date values are left unchanged (with console warnings in development mode)
  * - String values are assumed to already be in ISO format and are left unchanged
  */
-export function decisionSessionUpdateToApi(decisionSessionUpdate: DecisionSessionUpdate): DecisionSessionUpdate {
-  return ConverterPresets.standardApiResponse(decisionSessionUpdate, { dateFields: ["endedAt"] }) as DecisionSessionUpdate;
+export function decisionSessionUpdateToApi(
+  decisionSessionUpdate: DecisionSessionUpdate
+): DecisionSessionUpdate {
+  return ConverterPresets.standardApiResponse(decisionSessionUpdate, {
+    dateFields: ["endedAt"],
+  }) as DecisionSessionUpdate;
 }
 
 /**
@@ -166,7 +202,9 @@ export function decisionSessionUpdateToApi(decisionSessionUpdate: DecisionSessio
  * - String values are assumed to already be in ISO format and are left unchanged
  */
 export function experimentArmToApi(experimentArm: ExperimentArm): ExperimentArm {
-  return ConverterPresets.standardApiResponse(experimentArm, { dateFields: ["createdAt", "updatedAt"] }) as ExperimentArm;
+  return ConverterPresets.standardApiResponse(experimentArm, {
+    dateFields: ["createdAt", "updatedAt"],
+  }) as ExperimentArm;
 }
 
 /**
@@ -182,7 +220,9 @@ export function experimentArmToApi(experimentArm: ExperimentArm): ExperimentArm 
  * - String values are assumed to already be in ISO format and are left unchanged
  */
 export function experimentInputToApi(experimentInput: ExperimentInput): ExperimentInput {
-  return ConverterPresets.standardApiResponse(experimentInput, { dateFields: ["endDate", "startDate"] }) as ExperimentInput;
+  return ConverterPresets.standardApiResponse(experimentInput, {
+    dateFields: ["endDate", "startDate"],
+  }) as ExperimentInput;
 }
 
 /**
@@ -198,7 +238,9 @@ export function experimentInputToApi(experimentInput: ExperimentInput): Experime
  * - String values are assumed to already be in ISO format and are left unchanged
  */
 export function experimentResultToApi(experimentResult: ExperimentResult): ExperimentResult {
-  return ConverterPresets.standardApiResponse(experimentResult, { dateFields: ["createdAt", "updatedAt"] }) as ExperimentResult;
+  return ConverterPresets.standardApiResponse(experimentResult, {
+    dateFields: ["createdAt", "updatedAt"],
+  }) as ExperimentResult;
 }
 
 /**
@@ -214,7 +256,9 @@ export function experimentResultToApi(experimentResult: ExperimentResult): Exper
  * - String values are assumed to already be in ISO format and are left unchanged
  */
 export function experimentUpdateToApi(experimentUpdate: ExperimentUpdate): ExperimentUpdate {
-  return ConverterPresets.standardApiResponse(experimentUpdate, { dateFields: ["endDate"] }) as ExperimentUpdate;
+  return ConverterPresets.standardApiResponse(experimentUpdate, {
+    dateFields: ["endDate"],
+  }) as ExperimentUpdate;
 }
 
 /**
@@ -225,7 +269,9 @@ export function experimentUpdateToApi(experimentUpdate: ExperimentUpdate): Exper
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
 export function explanationInputToApi(explanationInput: ExplanationInput): ExplanationInput {
-  return ConverterPresets.standardApiResponse(explanationInput, { dateFields: [] }) as ExplanationInput;
+  return ConverterPresets.standardApiResponse(explanationInput, {
+    dateFields: [],
+  }) as ExplanationInput;
 }
 
 /**
@@ -240,8 +286,12 @@ export function explanationInputToApi(explanationInput: ExplanationInput): Expla
  * - Non-Date values are left unchanged (with console warnings in development mode)
  * - String values are assumed to already be in ISO format and are left unchanged
  */
-export function featureAttributionToApi(featureAttribution: FeatureAttribution): FeatureAttribution {
-  return ConverterPresets.standardApiResponse(featureAttribution, { dateFields: ["createdAt", "updatedAt"] }) as FeatureAttribution;
+export function featureAttributionToApi(
+  featureAttribution: FeatureAttribution
+): FeatureAttribution {
+  return ConverterPresets.standardApiResponse(featureAttribution, {
+    dateFields: ["createdAt", "updatedAt"],
+  }) as FeatureAttribution;
 }
 
 /**
@@ -251,8 +301,12 @@ export function featureAttributionToApi(featureAttribution: FeatureAttribution):
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function modelInvocationInputToApi(modelInvocationInput: ModelInvocationInput): ModelInvocationInput {
-  return ConverterPresets.standardApiResponse(modelInvocationInput, { dateFields: [] }) as ModelInvocationInput;
+export function modelInvocationInputToApi(
+  modelInvocationInput: ModelInvocationInput
+): ModelInvocationInput {
+  return ConverterPresets.standardApiResponse(modelInvocationInput, {
+    dateFields: [],
+  }) as ModelInvocationInput;
 }
 
 /**
@@ -262,8 +316,12 @@ export function modelInvocationInputToApi(modelInvocationInput: ModelInvocationI
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function recommendationInputToApi(recommendationInput: RecommendationInput): RecommendationInput {
-  return ConverterPresets.standardApiResponse(recommendationInput, { dateFields: [] }) as RecommendationInput;
+export function recommendationInputToApi(
+  recommendationInput: RecommendationInput
+): RecommendationInput {
+  return ConverterPresets.standardApiResponse(recommendationInput, {
+    dateFields: [],
+  }) as RecommendationInput;
 }
 
 /**
@@ -278,8 +336,12 @@ export function recommendationInputToApi(recommendationInput: RecommendationInpu
  * - Non-Date values are left unchanged (with console warnings in development mode)
  * - String values are assumed to already be in ISO format and are left unchanged
  */
-export function recommendationUpdateToApi(recommendationUpdate: RecommendationUpdate): RecommendationUpdate {
-  return ConverterPresets.standardApiResponse(recommendationUpdate, { dateFields: ["acceptedAt"] }) as RecommendationUpdate;
+export function recommendationUpdateToApi(
+  recommendationUpdate: RecommendationUpdate
+): RecommendationUpdate {
+  return ConverterPresets.standardApiResponse(recommendationUpdate, {
+    dateFields: ["acceptedAt"],
+  }) as RecommendationUpdate;
 }
 
 /**
@@ -289,8 +351,12 @@ export function recommendationUpdateToApi(recommendationUpdate: RecommendationUp
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function riskAssessmentInputToApi(riskAssessmentInput: RiskAssessmentInput): RiskAssessmentInput {
-  return ConverterPresets.standardApiResponse(riskAssessmentInput, { dateFields: [] }) as RiskAssessmentInput;
+export function riskAssessmentInputToApi(
+  riskAssessmentInput: RiskAssessmentInput
+): RiskAssessmentInput {
+  return ConverterPresets.standardApiResponse(riskAssessmentInput, {
+    dateFields: [],
+  }) as RiskAssessmentInput;
 }
 
 /**
@@ -300,8 +366,12 @@ export function riskAssessmentInputToApi(riskAssessmentInput: RiskAssessmentInpu
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function riskAssessmentUpdateToApi(riskAssessmentUpdate: RiskAssessmentUpdate): RiskAssessmentUpdate {
-  return ConverterPresets.standardApiResponse(riskAssessmentUpdate, { dateFields: [] }) as RiskAssessmentUpdate;
+export function riskAssessmentUpdateToApi(
+  riskAssessmentUpdate: RiskAssessmentUpdate
+): RiskAssessmentUpdate {
+  return ConverterPresets.standardApiResponse(riskAssessmentUpdate, {
+    dateFields: [],
+  }) as RiskAssessmentUpdate;
 }
 
 /**
@@ -317,7 +387,9 @@ export function riskAssessmentUpdateToApi(riskAssessmentUpdate: RiskAssessmentUp
  * - String values are assumed to already be in ISO format and are left unchanged
  */
 export function ruleTraceToApi(ruleTrace: RuleTrace): RuleTrace {
-  return ConverterPresets.standardApiResponse(ruleTrace, { dateFields: ["createdAt", "updatedAt"] }) as RuleTrace;
+  return ConverterPresets.standardApiResponse(ruleTrace, {
+    dateFields: ["createdAt", "updatedAt"],
+  }) as RuleTrace;
 }
 
 /**
@@ -333,7 +405,9 @@ export function ruleTraceToApi(ruleTrace: RuleTrace): RuleTrace {
  * - String values are assumed to already be in ISO format and are left unchanged
  */
 export function simulationMetricToApi(simulationMetric: SimulationMetric): SimulationMetric {
-  return ConverterPresets.standardApiResponse(simulationMetric, { dateFields: ["createdAt", "updatedAt"] }) as SimulationMetric;
+  return ConverterPresets.standardApiResponse(simulationMetric, {
+    dateFields: ["createdAt", "updatedAt"],
+  }) as SimulationMetric;
 }
 
 /**
@@ -343,8 +417,12 @@ export function simulationMetricToApi(simulationMetric: SimulationMetric): Simul
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function simulationRunInputToApi(simulationRunInput: SimulationRunInput): SimulationRunInput {
-  return ConverterPresets.standardApiResponse(simulationRunInput, { dateFields: [] }) as SimulationRunInput;
+export function simulationRunInputToApi(
+  simulationRunInput: SimulationRunInput
+): SimulationRunInput {
+  return ConverterPresets.standardApiResponse(simulationRunInput, {
+    dateFields: [],
+  }) as SimulationRunInput;
 }
 
 /**
@@ -354,8 +432,12 @@ export function simulationRunInputToApi(simulationRunInput: SimulationRunInput):
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function simulationScenarioInputToApi(simulationScenarioInput: SimulationScenarioInput): SimulationScenarioInput {
-  return ConverterPresets.standardApiResponse(simulationScenarioInput, { dateFields: [] }) as SimulationScenarioInput;
+export function simulationScenarioInputToApi(
+  simulationScenarioInput: SimulationScenarioInput
+): SimulationScenarioInput {
+  return ConverterPresets.standardApiResponse(simulationScenarioInput, {
+    dateFields: [],
+  }) as SimulationScenarioInput;
 }
 
 /**
@@ -365,8 +447,12 @@ export function simulationScenarioInputToApi(simulationScenarioInput: Simulation
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function simulationScenarioUpdateToApi(simulationScenarioUpdate: SimulationScenarioUpdate): SimulationScenarioUpdate {
-  return ConverterPresets.standardApiResponse(simulationScenarioUpdate, { dateFields: [] }) as SimulationScenarioUpdate;
+export function simulationScenarioUpdateToApi(
+  simulationScenarioUpdate: SimulationScenarioUpdate
+): SimulationScenarioUpdate {
+  return ConverterPresets.standardApiResponse(simulationScenarioUpdate, {
+    dateFields: [],
+  }) as SimulationScenarioUpdate;
 }
 
 /**
@@ -376,8 +462,12 @@ export function simulationScenarioUpdateToApi(simulationScenarioUpdate: Simulati
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function thresholdProfileInputToApi(thresholdProfileInput: ThresholdProfileInput): ThresholdProfileInput {
-  return ConverterPresets.standardApiResponse(thresholdProfileInput, { dateFields: [] }) as ThresholdProfileInput;
+export function thresholdProfileInputToApi(
+  thresholdProfileInput: ThresholdProfileInput
+): ThresholdProfileInput {
+  return ConverterPresets.standardApiResponse(thresholdProfileInput, {
+    dateFields: [],
+  }) as ThresholdProfileInput;
 }
 
 /**
@@ -387,8 +477,12 @@ export function thresholdProfileInputToApi(thresholdProfileInput: ThresholdProfi
  *
  * No date-time fields detected in OpenAPI schema - no date conversion performed
  */
-export function thresholdProfileUpdateToApi(thresholdProfileUpdate: ThresholdProfileUpdate): ThresholdProfileUpdate {
-  return ConverterPresets.standardApiResponse(thresholdProfileUpdate, { dateFields: [] }) as ThresholdProfileUpdate;
+export function thresholdProfileUpdateToApi(
+  thresholdProfileUpdate: ThresholdProfileUpdate
+): ThresholdProfileUpdate {
+  return ConverterPresets.standardApiResponse(thresholdProfileUpdate, {
+    dateFields: [],
+  }) as ThresholdProfileUpdate;
 }
 
 /**
@@ -404,5 +498,7 @@ export function thresholdProfileUpdateToApi(thresholdProfileUpdate: ThresholdPro
  * - String values are assumed to already be in ISO format and are left unchanged
  */
 export function timestampsToApi(timestamps: Timestamps): Timestamps {
-  return ConverterPresets.standardApiResponse(timestamps, { dateFields: ["createdAt", "updatedAt"] }) as Timestamps;
+  return ConverterPresets.standardApiResponse(timestamps, {
+    dateFields: ["createdAt", "updatedAt"],
+  }) as Timestamps;
 }

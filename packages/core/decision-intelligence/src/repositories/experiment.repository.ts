@@ -9,18 +9,21 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CrudRepository,
-} from "@cuur-cde/core/_shared";
+import type { CrudRepository } from "@cuur-cde/core/_shared";
 
 import type {
   Experiment,
   ListExperimentsParams,
-  UpdateExperimentRequest
-} from "@cuur-cde/core/decision-intelligence";
+  UpdateExperimentRequest,
+} from "../types/index.js";
 /**
  * ExperimentRepository Interface
  */
-export interface ExperimentRepository extends CrudRepository<Experiment, Experiment, UpdateExperimentRequest, string, ListExperimentsParams> {
-
-}
+export interface ExperimentRepository
+  extends CrudRepository<
+    Experiment,
+    Experiment,
+    UpdateExperimentRequest,
+    string,
+    ListExperimentsParams
+  > {}

@@ -9,8 +9,8 @@ import type {
   UpdateChecklistTemplateResponse,
   UpdateChecklistTemplateInput,
 } from "@cuur-cde/core/workflow-care-pathways";
-import type { ChecklistTemplateRepository } from "@cuur-cde/core/workflow-care-pathways";
-import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways";
+import type { ChecklistTemplateRepository } from "../../repositories/index.js";
+import { wcTransactionId } from "../../utils/transaction-id.js";
 /**
  * Mapper: input → validated
  */

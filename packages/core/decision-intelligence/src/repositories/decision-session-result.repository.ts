@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  ReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { ReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  DecisionSessionResult
-} from "@cuur-cde/core/decision-intelligence";
+import type { DecisionSessionResult } from "../types/index.js";
 /**
  * DecisionSessionResultRepository Interface
  */
-export interface DecisionSessionResultRepository extends ReadRepository<DecisionSessionResult, string, Record<string, never>> {
-
-}
+export interface DecisionSessionResultRepository
+  extends ReadRepository<DecisionSessionResult, string, Record<string, never>> {}

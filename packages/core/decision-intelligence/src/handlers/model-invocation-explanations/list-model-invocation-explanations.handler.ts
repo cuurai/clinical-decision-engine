@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { ListModelInvocationExplanationsResponse } from "@cuur-cde/core/decision-intelligence";
-import type { ModelInvocationExplanationRepository } from "@cuur-cde/core/decision-intelligence";
-import { diTransactionId } from "@cuur-cde/core/decision-intelligence";
+import type { ListModelInvocationExplanationsResponse } from "../../types/index.js"
+import type { ModelInvocationExplanationRepository } from "../../repositories/index.js"
+import { diTransactionId } from "../../utils/transaction-id.js"
 
 /**
  * List model invocation explanations

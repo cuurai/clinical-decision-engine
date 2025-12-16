@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  ReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { ReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  ModelInvocationExplanation
-} from "@cuur-cde/core/decision-intelligence";
+import type { ModelInvocationExplanation } from "../types/index.js";
 /**
  * ModelInvocationExplanationRepository Interface
  */
-export interface ModelInvocationExplanationRepository extends ReadRepository<ModelInvocationExplanation, string, Record<string, never>> {
-
-}
+export interface ModelInvocationExplanationRepository
+  extends ReadRepository<ModelInvocationExplanation, string, Record<string, never>> {}

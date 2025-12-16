@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { ListInterfaceErrorsParams, ListInterfaceErrorsResponse } from "@cuur-cde/core/integration-interoperability";
-import type { InterfaceErrorRepository } from "@cuur-cde/core/integration-interoperability";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
+import type { ListInterfaceErrorsParams, ListInterfaceErrorsResponse } from "../../types/index.js";
+import type { InterfaceErrorRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List interface errors

@@ -9,16 +9,16 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CreateReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { CreateReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  DecisionMetricSnapshot
-} from "@cuur-cde/core/decision-intelligence";
+import type { DecisionMetricSnapshot } from "../types/index.js";
 /**
  * DecisionMetricSnapshotRepository Interface
  */
-export interface DecisionMetricSnapshotRepository extends CreateReadRepository<DecisionMetricSnapshot, DecisionMetricSnapshot, string, Record<string, never>> {
-
-}
+export interface DecisionMetricSnapshotRepository
+  extends CreateReadRepository<
+    DecisionMetricSnapshot,
+    DecisionMetricSnapshot,
+    string,
+    Record<string, never>
+  > {}

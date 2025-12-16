@@ -14,11 +14,22 @@ export type {
   PaginatedResult,
   ReadRepository,
   CreateReadRepository,
+  CreateUpdateReadRepository,
+  CreateDeleteReadRepository,
   CrudRepository,
   ActionRepository,
 } from "./repositories/_base-repository.js";
 
 // Helpers (Utility functions - selective exports to avoid conflicts)
 export * from "./helpers/id.js";
-export * from "./helpers/core-converters.js";
-export * from "./helpers/response-wrapper.js";
+// Export only functions from core-converters, not interfaces (ApiResponse/ApiListResponse are exported from types)
+export {
+  timestampsToApi,
+  timestamsFromApi,
+  wrapResponse,
+  wrapListResponse,
+  ConverterPresets,
+} from "./helpers/core-converters.js";
+// Export response-wrapper types but not the conflicting interfaces
+export type { WrapResponse, WrapListResponse } from "./helpers/response-wrapper.js";
+export { createResponse, createListResponse } from "./helpers/response-wrapper.js";

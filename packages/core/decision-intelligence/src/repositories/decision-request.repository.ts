@@ -9,17 +9,19 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CreateReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { CreateReadRepository } from "@cuur-cde/core/_shared";
 
 import type {
   DecisionRequest,
-  ListDecisionRequestsParams
-} from "@cuur-cde/core/decision-intelligence";
+  ListDecisionRequestsParams,
+} from "../types/index.js";
 /**
  * DecisionRequestRepository Interface
  */
-export interface DecisionRequestRepository extends CreateReadRepository<DecisionRequest, DecisionRequest, string, ListDecisionRequestsParams> {
-
-}
+export interface DecisionRequestRepository
+  extends CreateReadRepository<
+    DecisionRequest,
+    DecisionRequest,
+    string,
+    ListDecisionRequestsParams
+  > {}

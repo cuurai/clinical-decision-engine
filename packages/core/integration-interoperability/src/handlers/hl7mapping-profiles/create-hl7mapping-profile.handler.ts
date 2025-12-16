@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { CreateHLMappingProfileResponse } from "@cuur-cde/core/integration-interoperability";
-import type { HL7MappingProfileRepository } from "@cuur-cde/core/integration-interoperability";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
+import type { CreateHLMappingProfileResponse } from "../../types/index.js";
+import type { HL7MappingProfileRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../utils/transaction-id.js";
 /**
  * Mapper: input → validated
  */

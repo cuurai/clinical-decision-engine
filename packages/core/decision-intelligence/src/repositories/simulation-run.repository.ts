@@ -9,17 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CreateReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { CreateReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  SimulationRun,
-  ListSimulationRunsParams
-} from "@cuur-cde/core/decision-intelligence";
+import type { SimulationRun, ListSimulationRunsParams } from "../types/index.js";
 /**
  * SimulationRunRepository Interface
  */
-export interface SimulationRunRepository extends CreateReadRepository<SimulationRun, SimulationRun, string, ListSimulationRunsParams> {
-
-}
+export interface SimulationRunRepository
+  extends CreateReadRepository<SimulationRun, SimulationRun, string, ListSimulationRunsParams> {}

@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { ListFHIRBundleResourcesResponse } from "@cuur-cde/core/integration-interoperability";
-import type { FHIRBundleResourceRepository } from "@cuur-cde/core/integration-interoperability";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
+import type { ListFHIRBundleResourcesResponse } from "../../types/index.js";
+import type { FHIRBundleResourceRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List FHIR bundle resources

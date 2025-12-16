@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { GetQuestionnaireTemplateResponse } from "@cuur-cde/core/knowledge-evidence";
-import type { QuestionnaireTemplateRepository } from "@cuur-cde/core/knowledge-evidence";
-import { keTransactionId } from "@cuur-cde/core/knowledge-evidence";
+import type { GetQuestionnaireTemplateResponse } from "../../types/index.js";
+import type { QuestionnaireTemplateRepository } from "../../repositories/index.js";
+import { keTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * Get questionnaire template by ID

@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  ReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { ReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  DecisionPolicyThresholdProfile
-} from "@cuur-cde/core/decision-intelligence";
+import type { DecisionPolicyThresholdProfile } from "../types/index.js";
 /**
  * DecisionPolicyThresholdProfileRepository Interface
  */
-export interface DecisionPolicyThresholdProfileRepository extends ReadRepository<DecisionPolicyThresholdProfile, string, Record<string, never>> {
-
-}
+export interface DecisionPolicyThresholdProfileRepository
+  extends ReadRepository<DecisionPolicyThresholdProfile, string, Record<string, never>> {}

@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { ListSimulationScenarioRunsResponse } from "@cuur-cde/core/decision-intelligence";
-import type { SimulationScenarioRunRepository } from "@cuur-cde/core/decision-intelligence";
-import { diTransactionId } from "@cuur-cde/core/decision-intelligence";
+import type { ListSimulationScenarioRunsResponse } from "../../types/index.js"
+import type { SimulationScenarioRunRepository } from "../../repositories/index.js"
+import { diTransactionId } from "../../utils/transaction-id.js"
 
 /**
  * List simulation scenario runs

@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { ListOrderSetTemplateItemsResponse } from "@cuur-cde/core/knowledge-evidence";
-import type { OrderSetTemplateItemRepository } from "@cuur-cde/core/knowledge-evidence";
-import { keTransactionId } from "@cuur-cde/core/knowledge-evidence";
+import type { ListOrderSetTemplateItemsResponse } from "../../types/index.js";
+import type { OrderSetTemplateItemRepository } from "../../repositories/index.js";
+import { keTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List order set template items

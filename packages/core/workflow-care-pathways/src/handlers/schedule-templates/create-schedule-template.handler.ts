@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-workflow-care-pathways.json
  */
 
-import type { CreateScheduleTemplateResponse } from "@cuur-cde/core/workflow-care-pathways";
-import type { ScheduleTemplateRepository } from "@cuur-cde/core/workflow-care-pathways";
-import { wcTransactionId } from "@cuur-cde/core/workflow-care-pathways";
+import type { CreateScheduleTemplateResponse } from "../../types/index.js";
+import type { ScheduleTemplateRepository } from "../../repositories/index.js";
+import { wcTransactionId } from "../../utils/transaction-id.js";
 /**
  * Mapper: input → validated
  */

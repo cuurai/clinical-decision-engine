@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { ListIntegrationRunsParams, ListIntegrationRunsResponse } from "@cuur-cde/core/integration-interoperability";
-import type { IntegrationRunRepository } from "@cuur-cde/core/integration-interoperability";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
+import type { ListIntegrationRunsParams, ListIntegrationRunsResponse } from "../../types/index.js";
+import type { IntegrationRunRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List integration runs

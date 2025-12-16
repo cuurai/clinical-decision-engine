@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { ListExternalSystemsParams, ListExternalSystemsResponse } from "@cuur-cde/core/integration-interoperability";
-import type { ExternalSystemRepository } from "@cuur-cde/core/integration-interoperability";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
+import type { ListExternalSystemsParams, ListExternalSystemsResponse } from "../../types/index.js";
+import type { ExternalSystemRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List external systems

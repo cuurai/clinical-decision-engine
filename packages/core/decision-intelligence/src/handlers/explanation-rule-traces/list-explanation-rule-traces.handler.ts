@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-decision-intelligence.json
  */
 
-import type { ListExplanationRuleTracesResponse } from "@cuur-cde/core/decision-intelligence";
-import type { ExplanationRuleTraceRepository } from "@cuur-cde/core/decision-intelligence";
-import { diTransactionId } from "@cuur-cde/core/decision-intelligence";
+import type { ListExplanationRuleTracesResponse } from "../../types/index.js"
+import type { ExplanationRuleTraceRepository } from "../../repositories/index.js"
+import { diTransactionId } from "../../utils/transaction-id.js"
 
 /**
  * List explanation rule traces

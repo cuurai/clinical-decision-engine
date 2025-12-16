@@ -25,6 +25,7 @@
     "typescript": "^5.9.3",
     "@types/node": "^20.11.0",
     "zod": "^3.23.8",
+    "@zodios/core": "^10.9.6",
     "dotenv-cli": "^11.0.0"
   }
 }

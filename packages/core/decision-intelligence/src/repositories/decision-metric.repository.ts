@@ -9,17 +9,14 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  ReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { ReadRepository } from "@cuur-cde/core/_shared";
 
 import type {
   DecisionMetricSnapshot,
-  ListDecisionMetricsParams
-} from "@cuur-cde/core/decision-intelligence";
+  ListDecisionMetricsParams,
+} from "../types/index.js";
 /**
  * DecisionMetricRepository Interface
  */
-export interface DecisionMetricRepository extends ReadRepository<DecisionMetricSnapshot, string, ListDecisionMetricsParams> {
-
-}
+export interface DecisionMetricRepository
+  extends ReadRepository<DecisionMetricSnapshot, string, ListDecisionMetricsParams> {}

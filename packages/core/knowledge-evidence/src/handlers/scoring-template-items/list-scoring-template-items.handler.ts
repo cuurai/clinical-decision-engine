@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { ListScoringTemplateItemsResponse } from "@cuur-cde/core/knowledge-evidence";
-import type { ScoringTemplateItemRepository } from "@cuur-cde/core/knowledge-evidence";
-import { keTransactionId } from "@cuur-cde/core/knowledge-evidence";
+import type { ListScoringTemplateItemsResponse } from "../../types/index.js";
+import type { ScoringTemplateItemRepository } from "../../repositories/index.js";
+import { keTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List scoring template items

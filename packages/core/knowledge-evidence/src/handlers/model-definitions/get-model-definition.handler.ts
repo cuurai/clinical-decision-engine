@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-knowledge-evidence.json
  */
 
-import type { GetModelDefinitionResponse } from "@cuur-cde/core/knowledge-evidence";
-import type { ModelDefinitionRepository } from "@cuur-cde/core/knowledge-evidence";
-import { keTransactionId } from "@cuur-cde/core/knowledge-evidence";
+import type { GetModelDefinitionResponse } from "../../types/index.js";
+import type { ModelDefinitionRepository } from "../../repositories/index.js";
+import { keTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * Get model definition by ID

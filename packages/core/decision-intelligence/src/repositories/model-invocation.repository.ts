@@ -9,17 +9,19 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CreateReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { CreateReadRepository } from "@cuur-cde/core/_shared";
 
 import type {
   ModelInvocation,
-  ListModelInvocationsParams
-} from "@cuur-cde/core/decision-intelligence";
+  ListModelInvocationsParams,
+} from "../types/index.js";
 /**
  * ModelInvocationRepository Interface
  */
-export interface ModelInvocationRepository extends CreateReadRepository<ModelInvocation, ModelInvocation, string, ListModelInvocationsParams> {
-
-}
+export interface ModelInvocationRepository
+  extends CreateReadRepository<
+    ModelInvocation,
+    ModelInvocation,
+    string,
+    ListModelInvocationsParams
+  > {}

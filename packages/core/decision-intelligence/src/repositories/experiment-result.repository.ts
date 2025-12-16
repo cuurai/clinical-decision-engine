@@ -9,16 +9,11 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  ReadRepository,
-} from "@cuur-cde/core/_shared";
+import type { ReadRepository } from "@cuur-cde/core/_shared";
 
-import type {
-  ExperimentResult
-} from "@cuur-cde/core/decision-intelligence";
+import type { ExperimentResult } from "../types/index.js";
 /**
  * ExperimentResultRepository Interface
  */
-export interface ExperimentResultRepository extends ReadRepository<ExperimentResult, string, Record<string, never>> {
-
-}
+export interface ExperimentResultRepository
+  extends ReadRepository<ExperimentResult, string, Record<string, never>> {}

@@ -9,18 +9,21 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-import type {
-  CrudRepository,
-} from "@cuur-cde/core/_shared";
+import type { CrudRepository } from "@cuur-cde/core/_shared";
 
 import type {
   RiskAssessment,
   ListRiskAssessmentsParams,
-  UpdateRiskAssessmentRequest
-} from "@cuur-cde/core/decision-intelligence";
+  UpdateRiskAssessmentRequest,
+} from "../types/index.js";
 /**
  * RiskAssessmentRepository Interface
  */
-export interface RiskAssessmentRepository extends CrudRepository<RiskAssessment, RiskAssessment, UpdateRiskAssessmentRequest, string, ListRiskAssessmentsParams> {
-
-}
+export interface RiskAssessmentRepository
+  extends CrudRepository<
+    RiskAssessment,
+    RiskAssessment,
+    UpdateRiskAssessmentRequest,
+    string,
+    ListRiskAssessmentsParams
+  > {}

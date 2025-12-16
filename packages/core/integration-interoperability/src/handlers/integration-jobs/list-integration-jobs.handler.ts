@@ -5,9 +5,9 @@
  * Source: /Users/nrahal/@code/fazezero-apps/cuurai/cuur-mcps/clinical-decision-engine/openapi/.bundled/openapi-integration-interoperability.json
  */
 
-import type { ListIntegrationJobsParams, ListIntegrationJobsResponse } from "@cuur-cde/core/integration-interoperability";
-import type { IntegrationJobRepository } from "@cuur-cde/core/integration-interoperability";
-import { iiTransactionId } from "@cuur-cde/core/integration-interoperability";
+import type { ListIntegrationJobsParams, ListIntegrationJobsResponse } from "../../types/index.js";
+import type { IntegrationJobRepository } from "../../repositories/index.js";
+import { iiTransactionId } from "../../utils/transaction-id.js";
 
 /**
  * List integration jobs
