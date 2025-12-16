@@ -2,41 +2,28 @@
   "name": "@cuurai/clinical-decision-engine",
   "version": "1.0.0",
   "description": "Clinical Decision Engine - Monorepo Root",
-  "type": "module",
   "private": true,
+  "type": "module",
   "workspaces": [
     "packages/core",
-    "packages/core/*",
     "packages/database",
-    "platform/adapters/decision-intelligence",
-    "platform/adapters/integration-interoperability",
-    "platform/adapters/knowledge-evidence",
-    "platform/adapters/patient-clinical-data",
-    "platform/adapters/workflow-care-pathways",
-    "platform/services/src/*"
+    "platform/adapters/*",
+    "platform/services/*"
   ],
   "scripts": {
-    "build": "cd packages/core && npm install && npm run build",
-    "build:watch": "cd packages/core && npm run build:watch",
-    "clean": "cd packages/core && npm run clean",
-    "typecheck": "cd packages/core && npm run typecheck",
-    "lint": "cd packages/core && npm run lint",
-    "format": "cd packages/core && npm run format",
-    "generate:prisma": "bash scripts/generate-prisma-clients.sh"
+    "build": "tsc -b",
+    "build:services": "tsc -b platform/services",
+    "build:adapters": "tsc -b platform/adapters",
+    "clean": "tsc -b --clean",
+    "typecheck": "tsc -b --noEmit",
+    "generate:prisma": "cd packages/database && prisma generate"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
-  },
-  "dependencies": {
-    "@fastify/cors": "^11.2.0",
-    "@prisma/client": "^6.0.1",
-    "js-yaml": "^4.1.1",
-    "prisma": "^6.0.1"
+    "node": ">=18.0.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^10.1.0",
-    "dotenv-cli": "^11.0.0",
-    "glob": "^13.0.0"
+    "typescript": "^5.9.3",
+    "@types/node": "^20.11.0",
+    "dotenv-cli": "^11.0.0"
   }
 }
