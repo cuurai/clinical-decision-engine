@@ -17,8 +17,15 @@ export async function workQueueTasksRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /work-queues/{id}/tasks
+  // GET /work-queues/{id}/tasks (nested route)
   fastify.get("/work-queues/:id/tasks", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listWorkQueueTasks(deps.workQueueTaskRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /work-queue-tasks (flat route for dashboard)
+  fastify.get("/work-queue-tasks", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listWorkQueueTasks(deps.workQueueTaskRepo, orgId);
     return reply.code(200).send(result);

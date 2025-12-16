@@ -17,8 +17,15 @@ export async function workQueueAlertsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /work-queues/{id}/alerts
+  // GET /work-queues/{id}/alerts (nested route)
   fastify.get("/work-queues/:id/alerts", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listWorkQueueAlerts(deps.workQueueAlertRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /work-queue-alerts (flat route for dashboard)
+  fastify.get("/work-queue-alerts", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listWorkQueueAlerts(deps.workQueueAlertRepo, orgId);
     return reply.code(200).send(result);

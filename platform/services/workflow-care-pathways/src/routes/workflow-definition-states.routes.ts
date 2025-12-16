@@ -17,8 +17,15 @@ export async function workflowDefinitionStatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /workflow-definitions/{id}/states
+  // GET /workflow-definitions/{id}/states (nested route)
   fastify.get("/workflow-definitions/:id/states", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listWorkflowDefinitionStates(deps.workflowDefinitionStateRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /workflow-definition-states (flat route for dashboard)
+  fastify.get("/workflow-definition-states", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listWorkflowDefinitionStates(deps.workflowDefinitionStateRepo, orgId);
     return reply.code(200).send(result);

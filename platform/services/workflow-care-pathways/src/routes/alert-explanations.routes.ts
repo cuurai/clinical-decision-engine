@@ -17,8 +17,15 @@ export async function alertExplanationsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /alerts/{id}/explanations
+  // GET /alerts/{id}/explanations (nested route)
   fastify.get("/alerts/:id/explanations", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listAlertExplanations(deps.alertExplanationRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /alert-explanations (flat route for dashboard)
+  fastify.get("/alert-explanations", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listAlertExplanations(deps.alertExplanationRepo, orgId);
     return reply.code(200).send(result);

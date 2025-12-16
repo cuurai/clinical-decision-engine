@@ -17,8 +17,15 @@ export async function taskCommentsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /tasks/{id}/comments
+  // GET /tasks/{id}/comments (nested route)
   fastify.get("/tasks/:id/comments", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listTaskComments(deps.taskCommentRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /task-comments (flat route for dashboard)
+  fastify.get("/task-comments", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listTaskComments(deps.taskCommentRepo, orgId);
     return reply.code(200).send(result);

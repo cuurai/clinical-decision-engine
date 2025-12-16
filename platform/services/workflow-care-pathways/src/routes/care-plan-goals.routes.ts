@@ -17,8 +17,15 @@ export async function carePlanGoalsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /care-plans/{id}/goals
+  // GET /care-plans/{id}/goals (nested route)
   fastify.get("/care-plans/:id/goals", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listCarePlanGoals(deps.carePlanGoalRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /care-plan-goals (flat route for dashboard)
+  fastify.get("/care-plan-goals", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listCarePlanGoals(deps.carePlanGoalRepo, orgId);
     return reply.code(200).send(result);

@@ -17,8 +17,15 @@ export async function workflowInstanceAuditEventsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /workflow-instances/{id}/audit-events
+  // GET /workflow-instances/{id}/audit-events (nested route)
   fastify.get("/workflow-instances/:id/audit-events", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listWorkflowInstanceAuditEvents(deps.workflowInstanceAuditEventRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /workflow-instance-audit-events (flat route for dashboard)
+  fastify.get("/workflow-instance-audit-events", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listWorkflowInstanceAuditEvents(deps.workflowInstanceAuditEventRepo, orgId);
     return reply.code(200).send(result);

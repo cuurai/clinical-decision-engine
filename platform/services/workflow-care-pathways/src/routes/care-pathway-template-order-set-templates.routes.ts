@@ -17,8 +17,15 @@ export async function carePathwayTemplateOrderSetTemplatesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /care-pathway-templates/{id}/order-set-templates
+  // GET /care-pathway-templates/{id}/order-set-templates (nested route)
   fastify.get("/care-pathway-templates/:id/order-set-templates", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listCarePathwayTemplateOrderSetTemplates(deps.carePathwayTemplateOrderSetTemplateRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /care-pathway-template-order-set-templates (flat route for dashboard)
+  fastify.get("/care-pathway-template-order-set-templates", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listCarePathwayTemplateOrderSetTemplates(deps.carePathwayTemplateOrderSetTemplateRepo, orgId);
     return reply.code(200).send(result);

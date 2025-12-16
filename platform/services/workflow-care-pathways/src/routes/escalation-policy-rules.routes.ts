@@ -17,8 +17,15 @@ export async function escalationPolicyRulesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /escalation-policies/{id}/rules
+  // GET /escalation-policies/{id}/rules (nested route)
   fastify.get("/escalation-policies/:id/rules", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listEscalationPolicyRules(deps.escalationPolicyRuleRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /escalation-policy-rules (flat route for dashboard)
+  fastify.get("/escalation-policy-rules", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listEscalationPolicyRules(deps.escalationPolicyRuleRepo, orgId);
     return reply.code(200).send(result);

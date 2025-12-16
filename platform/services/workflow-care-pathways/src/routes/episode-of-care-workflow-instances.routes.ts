@@ -17,8 +17,15 @@ export async function episodeOfCareWorkflowInstancesRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /episodes-of-care/{id}/workflow-instances
+  // GET /episodes-of-care/{id}/workflow-instances (nested route)
   fastify.get("/episodes-of-care/:id/workflow-instances", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listEpisodeOfCareWorkflowInstances(deps.episodeOfCareWorkflowInstanceRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /episode-of-care-workflow-instances (flat route for dashboard)
+  fastify.get("/episode-of-care-workflow-instances", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listEpisodeOfCareWorkflowInstances(deps.episodeOfCareWorkflowInstanceRepo, orgId);
     return reply.code(200).send(result);

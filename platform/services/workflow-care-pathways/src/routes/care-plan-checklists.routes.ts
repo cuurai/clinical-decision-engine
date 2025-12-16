@@ -17,8 +17,15 @@ export async function carePlanChecklistsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /care-plans/{id}/checklists
+  // GET /care-plans/{id}/checklists (nested route)
   fastify.get("/care-plans/:id/checklists", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listCarePlanChecklists(deps.carePlanChecklistRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /care-plan-checklists (flat route for dashboard)
+  fastify.get("/care-plan-checklists", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listCarePlanChecklists(deps.carePlanChecklistRepo, orgId);
     return reply.code(200).send(result);

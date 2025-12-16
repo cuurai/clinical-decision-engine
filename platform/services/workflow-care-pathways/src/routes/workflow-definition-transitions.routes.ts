@@ -17,8 +17,15 @@ export async function workflowDefinitionTransitionsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /workflow-definitions/{id}/transitions
+  // GET /workflow-definitions/{id}/transitions (nested route)
   fastify.get("/workflow-definitions/:id/transitions", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listWorkflowDefinitionTransitions(deps.workflowDefinitionTransitionRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /workflow-definition-transitions (flat route for dashboard)
+  fastify.get("/workflow-definition-transitions", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listWorkflowDefinitionTransitions(deps.workflowDefinitionTransitionRepo, orgId);
     return reply.code(200).send(result);

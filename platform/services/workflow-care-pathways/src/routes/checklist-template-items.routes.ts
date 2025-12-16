@@ -17,8 +17,15 @@ export async function checklistTemplateItemsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /checklist-templates/{id}/items
+  // GET /checklist-templates/{id}/items (nested route)
   fastify.get("/checklist-templates/:id/items", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listChecklistTemplateItems(deps.checklistTemplateItemRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /checklist-template-items (flat route for dashboard)
+  fastify.get("/checklist-template-items", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listChecklistTemplateItems(deps.checklistTemplateItemRepo, orgId);
     return reply.code(200).send(result);

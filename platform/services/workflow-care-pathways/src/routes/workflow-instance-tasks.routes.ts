@@ -17,8 +17,15 @@ export async function workflowInstanceTasksRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /workflow-instances/{id}/tasks
+  // GET /workflow-instances/{id}/tasks (nested route)
   fastify.get("/workflow-instances/:id/tasks", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listWorkflowInstanceTasks(deps.workflowInstanceTaskRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /workflow-instance-tasks (flat route for dashboard)
+  fastify.get("/workflow-instance-tasks", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listWorkflowInstanceTasks(deps.workflowInstanceTaskRepo, orgId);
     return reply.code(200).send(result);

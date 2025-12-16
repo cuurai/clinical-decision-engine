@@ -17,8 +17,15 @@ export async function alertAuditEventsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /alerts/{id}/audit-events
+  // GET /alerts/{id}/audit-events (nested route)
   fastify.get("/alerts/:id/audit-events", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listAlertAuditEvents(deps.alertAuditEventRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /alert-audit-events (flat route for dashboard)
+  fastify.get("/alert-audit-events", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listAlertAuditEvents(deps.alertAuditEventRepo, orgId);
     return reply.code(200).send(result);

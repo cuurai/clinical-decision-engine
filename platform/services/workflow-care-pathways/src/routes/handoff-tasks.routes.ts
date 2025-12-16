@@ -17,8 +17,15 @@ export async function handoffTasksRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /handoffs/{id}/tasks
+  // GET /handoffs/{id}/tasks (nested route)
   fastify.get("/handoffs/:id/tasks", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listHandoffTasks(deps.handoffTaskRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /handoff-tasks (flat route for dashboard)
+  fastify.get("/handoff-tasks", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listHandoffTasks(deps.handoffTaskRepo, orgId);
     return reply.code(200).send(result);

@@ -17,8 +17,15 @@ export async function episodeOfCareCarePlansRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /episodes-of-care/{id}/care-plans
+  // GET /episodes-of-care/{id}/care-plans (nested route)
   fastify.get("/episodes-of-care/:id/care-plans", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listEpisodeOfCareCarePlans(deps.episodeOfCareCarePlanRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /episode-of-care-care-plans (flat route for dashboard)
+  fastify.get("/episode-of-care-care-plans", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listEpisodeOfCareCarePlans(deps.episodeOfCareCarePlanRepo, orgId);
     return reply.code(200).send(result);

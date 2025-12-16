@@ -17,8 +17,15 @@ export async function taskAuditEventsRoutes(
   fastify: FastifyInstance,
   deps: Dependencies
 ) {
-  // GET /tasks/{id}/audit-events
+  // GET /tasks/{id}/audit-events (nested route)
   fastify.get("/tasks/:id/audit-events", async (request, reply) => {
+    const orgId = extractOrgId(request);
+    const result = await listTaskAuditEvents(deps.taskAuditEventRepo, orgId);
+    return reply.code(200).send(result);
+  });
+
+  // GET /task-audit-events (flat route for dashboard)
+  fastify.get("/task-audit-events", async (request, reply) => {
     const orgId = extractOrgId(request);
     const result = await listTaskAuditEvents(deps.taskAuditEventRepo, orgId);
     return reply.code(200).send(result);
