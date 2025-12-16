@@ -1,35 +1,34 @@
 /**
  * Shared Prisma Client for Clinical Decision Engine
  *
- * This exports a singleton PrismaClient instance that should be used
- * by all services. The client is generated from the unified schema
- * in packages/database/prisma/schema.prisma
+ * Exports a singleton PrismaClient instance used by all services.
+ * Generated from packages/database/prisma/schema.prisma
+ *
+ * Prisma v6 (ESM):
+ * - Default export is Prisma namespace
+ * - PrismaClient is accessed via Prisma.PrismaClient
  */
 
-import pkg from '@prisma/client';
-const { PrismaClient } = pkg;
+import Prisma from "@prisma/client";
 
 // Create a singleton Prisma client instance
 const prismaClientSingleton = () => {
-  return new PrismaClient({
-    log: process.env.NODE_ENV === 'development'
-      ? ['query', 'error', 'warn']
-      : ['error'],
+  return new Prisma.PrismaClient({
+    log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
   });
 };
 
 declare global {
   // eslint-disable-next-line no-var
-  var prisma: undefined | ReturnType<typeof prismaClientSingleton>;
+  var prisma: Prisma.PrismaClient | undefined;
 }
 
-// In development, reuse the same instance across hot reloads
-// In production, create a new instance
+// Reuse client in dev (hot reload safe), new instance in prod
 export const prisma = globalThis.prisma ?? prismaClientSingleton();
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   globalThis.prisma = prisma;
 }
 
-// Export PrismaClient type for type annotations
-export type { PrismaClient } from '@prisma/client';
+// Re-export PrismaClient type for consumers
+export type PrismaClient = Prisma.PrismaClient;

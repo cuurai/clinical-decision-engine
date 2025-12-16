@@ -2,7 +2,9 @@
  * @cuur-cde/database - Shared Database Package
  *
  * Exports the Prisma client and types for use across all services.
+ * This is the single source of truth for database access across all adapters.
  */
 
-export { prisma, type PrismaClient } from './client.js';
-export * from '@prisma/client';
+export { prisma } from './client.js';
+export type { DaoClient } from './dao-client.js';
+export type { PrismaClient } from './client.js';

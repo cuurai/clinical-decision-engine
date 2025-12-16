@@ -9,39 +9,66 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-export { DaoFHIRMappingProfileRepository } from "./fhirmapping-profile.dao.repository.js";
-export { DaoIntegrationJobRepository } from "./integration-job.dao.repository.js";
-export { DaoHL7MessageMappingResultRepository } from "./hl7message-mapping-result.dao.repository.js";
-export { DaoHL7MappingProfileRepository } from "./hl7mapping-profile.dao.repository.js";
-export { DaoConnectionRepository } from "./connection.dao.repository.js";
-export { DaoExternalSystemIntegrationJobRepository } from "./external-system-integration-job.dao.repository.js";
-export { DaoEventSubscriptionRepository } from "./event-subscription.dao.repository.js";
-export { DaoFHIRBundleResourceRepository } from "./fhirbundle-resource.dao.repository.js";
-export { DaoDataImportBatchRecordRepository } from "./data-import-batch-record.dao.repository.js";
-export { DaoIntegrationJobRunRepository } from "./integration-job-run.dao.repository.js";
-export { DaoInterfaceHealthCheckRepository } from "./interface-health-check.dao.repository.js";
-export { DaoFHIRBundleRepository } from "./fhirbundle.dao.repository.js";
-export { DaoDataExportBatchFileRepository } from "./data-export-batch-file.dao.repository.js";
-export { DaoConnectionIntegrationJobRepository } from "./connection-integration-job.dao.repository.js";
-export { DaoAPIClientCredentialRepository } from "./apiclient-credential.dao.repository.js";
-export { DaoConnectionHealthCheckRepository } from "./connection-health-check.dao.repository.js";
-export { DaoExternalSystemRepository } from "./external-system.dao.repository.js";
-export { DaoAPIClientUsageMetricRepository } from "./apiclient-usage-metric.dao.repository.js";
-export { DaoDataImportBatchRepository } from "./data-import-batch.dao.repository.js";
-export { DaoHL7MappingProfileRuleRepository } from "./hl7mapping-profile-rule.dao.repository.js";
-export { DaoIntegrationRunRepository } from "./integration-run.dao.repository.js";
-export { DaoExternalSystemConnectionRepository } from "./external-system-connection.dao.repository.js";
-export { DaoAPIClientRepository } from "./apiclient.dao.repository.js";
-export { DaoExternalSystemEndpointRepository } from "./external-system-endpoint.dao.repository.js";
-export { DaoDataExportBatchErrorRepository } from "./data-export-batch-error.dao.repository.js";
-export { DaoDataExportBatchRepository } from "./data-export-batch.dao.repository.js";
-export { DaoAPICredentialRepository } from "./apicredential.dao.repository.js";
-export { DaoHL7MessageSegmentRepository } from "./hl7message-segment.dao.repository.js";
-export { DaoIntegrationRunErrorRepository } from "./integration-run-error.dao.repository.js";
-export { DaoFHIRMappingProfileRuleRepository } from "./fhirmapping-profile-rule.dao.repository.js";
-export { DaoEventDeliveryRepository } from "./event-delivery.dao.repository.js";
-export { DaoHL7MessageRepository } from "./hl7message.dao.repository.js";
-export { DaoInterfaceErrorRepository } from "./interface-error.dao.repository.js";
-export { DaoIntegrationRunLogRepository } from "./integration-run-log.dao.repository.js";
-export { DaoDataImportBatchErrorRepository } from "./data-import-batch-error.dao.repository.js";
-export { DaoEventSubscriptionDeliveryRepository } from "./event-subscription-delivery.dao.repository.js";
+// API Client repositories
+export { DaoAPIClientRepository } from "./repositories/apiclient/apiclient.dao.repository.js";
+export { DaoAPIClientCredentialRepository } from "./repositories/apiclient/apiclient-credential.dao.repository.js";
+export { DaoAPIClientUsageMetricRepository } from "./repositories/apiclient/apiclient-usage-metric.dao.repository.js";
+
+// API Credential repositories
+export { DaoAPICredentialRepository } from "./repositories/apicredential/apicredential.dao.repository.js";
+
+// Connection repositories
+export { DaoConnectionRepository } from "./repositories/connection/connection.dao.repository.js";
+export { DaoConnectionHealthCheckRepository } from "./repositories/connection/connection-health-check.dao.repository.js";
+export { DaoConnectionIntegrationJobRepository } from "./repositories/connection/connection-integration-job.dao.repository.js";
+
+// Data Export Batch repositories
+export { DaoDataExportBatchRepository } from "./repositories/data-export-batch/data-export-batch.dao.repository.js";
+export { DaoDataExportBatchErrorRepository } from "./repositories/data-export-batch/data-export-batch-error.dao.repository.js";
+export { DaoDataExportBatchFileRepository } from "./repositories/data-export-batch/data-export-batch-file.dao.repository.js";
+
+// Data Import Batch repositories
+export { DaoDataImportBatchRepository } from "./repositories/data-import-batch/data-import-batch.dao.repository.js";
+export { DaoDataImportBatchErrorRepository } from "./repositories/data-import-batch/data-import-batch-error.dao.repository.js";
+export { DaoDataImportBatchRecordRepository } from "./repositories/data-import-batch/data-import-batch-record.dao.repository.js";
+
+// Event Subscription repositories
+export { DaoEventSubscriptionRepository } from "./repositories/event-subscription/event-subscription.dao.repository.js";
+export { DaoEventSubscriptionDeliveryRepository } from "./repositories/event-subscription/event-subscription-delivery.dao.repository.js";
+export { DaoEventDeliveryRepository } from "./repositories/event-subscription/event-delivery.dao.repository.js";
+
+// External System repositories
+export { DaoExternalSystemRepository } from "./repositories/external-system/external-system.dao.repository.js";
+export { DaoExternalSystemConnectionRepository } from "./repositories/external-system/external-system-connection.dao.repository.js";
+export { DaoExternalSystemEndpointRepository } from "./repositories/external-system/external-system-endpoint.dao.repository.js";
+export { DaoExternalSystemIntegrationJobRepository } from "./repositories/external-system/external-system-integration-job.dao.repository.js";
+
+// FHIR Bundle repositories
+export { DaoFHIRBundleRepository } from "./repositories/fhirbundle/fhirbundle.dao.repository.js";
+export { DaoFHIRBundleResourceRepository } from "./repositories/fhirbundle/fhirbundle-resource.dao.repository.js";
+
+// FHIR Mapping Profile repositories
+export { DaoFHIRMappingProfileRepository } from "./repositories/fhirmapping-profile/fhirmapping-profile.dao.repository.js";
+export { DaoFHIRMappingProfileRuleRepository } from "./repositories/fhirmapping-profile/fhirmapping-profile-rule.dao.repository.js";
+
+// HL7 Message repositories
+export { DaoHL7MessageRepository } from "./repositories/hl7message/hl7message.dao.repository.js";
+export { DaoHL7MessageSegmentRepository } from "./repositories/hl7message/hl7message-segment.dao.repository.js";
+export { DaoHL7MessageMappingResultRepository } from "./repositories/hl7message/hl7message-mapping-result.dao.repository.js";
+
+// HL7 Mapping Profile repositories
+export { DaoHL7MappingProfileRepository } from "./repositories/hl7mapping-profile/hl7mapping-profile.dao.repository.js";
+export { DaoHL7MappingProfileRuleRepository } from "./repositories/hl7mapping-profile/hl7mapping-profile-rule.dao.repository.js";
+
+// Integration Job repositories
+export { DaoIntegrationJobRepository } from "./repositories/integration-job/integration-job.dao.repository.js";
+export { DaoIntegrationJobRunRepository } from "./repositories/integration-job/integration-job-run.dao.repository.js";
+
+// Integration Run repositories
+export { DaoIntegrationRunRepository } from "./repositories/integration-run/integration-run.dao.repository.js";
+export { DaoIntegrationRunErrorRepository } from "./repositories/integration-run/integration-run-error.dao.repository.js";
+export { DaoIntegrationRunLogRepository } from "./repositories/integration-run/integration-run-log.dao.repository.js";
+
+// Interface repositories
+export { DaoInterfaceErrorRepository } from "./repositories/interface/interface-error.dao.repository.js";
+export { DaoInterfaceHealthCheckRepository } from "./repositories/interface/interface-health-check.dao.repository.js";

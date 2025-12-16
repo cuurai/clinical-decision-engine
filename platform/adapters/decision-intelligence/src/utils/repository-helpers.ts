@@ -4,7 +4,7 @@
  * Shared utilities for DAO repositories
  */
 
-import type { DaoClient } from "../db/dao-client.js";
+import type { DaoClient } from "@cuur-cde/database";
 
 /**
  * Error thrown when a resource is not found

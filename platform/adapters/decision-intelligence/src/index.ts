@@ -9,38 +9,59 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-export { DaoRiskAssessmentRepository } from "./risk-assessment.dao.repository.js";
-export { DaoExplanationFeatureRepository } from "./explanation-feature.dao.repository.js";
-export { DaoDecisionSessionAlertRepository } from "./decision-session-alert.dao.repository.js";
-export { DaoDecisionPolicyThresholdProfileRepository } from "./decision-policy-threshold-profile.dao.repository.js";
-export { DaoExplanationRepository } from "./explanation.dao.repository.js";
-export { DaoThresholdProfileRepository } from "./threshold-profile.dao.repository.js";
-export { DaoDecisionRequestResultRepository } from "./decision-request-result.dao.repository.js";
-export { DaoExperimentResultRepository } from "./experiment-result.dao.repository.js";
-export { DaoDecisionResultExplanationRepository } from "./decision-result-explanation.dao.repository.js";
-export { DaoExperimentRepository } from "./experiment.dao.repository.js";
-export { DaoDecisionResultRiskAssessmentRepository } from "./decision-result-risk-assessment.dao.repository.js";
-export { DaoDecisionSessionRiskAssessmentRepository } from "./decision-session-risk-assessment.dao.repository.js";
-export { DaoDecisionSessionExplanationRepository } from "./decision-session-explanation.dao.repository.js";
-export { DaoSimulationScenarioRepository } from "./simulation-scenario.dao.repository.js";
-export { DaoDecisionPolicyRepository } from "./decision-policy.dao.repository.js";
-export { DaoDecisionRequestExplanationRepository } from "./decision-request-explanation.dao.repository.js";
-export { DaoSimulationRunRepository } from "./simulation-run.dao.repository.js";
-export { DaoDecisionRequestRepository } from "./decision-request.dao.repository.js";
-export { DaoSimulationScenarioRunRepository } from "./simulation-scenario-run.dao.repository.js";
-export { DaoDecisionSessionRepository } from "./decision-session.dao.repository.js";
-export { DaoDecisionSessionRequestRepository } from "./decision-session-request.dao.repository.js";
-export { DaoDecisionResultRecommendationRepository } from "./decision-result-recommendation.dao.repository.js";
-export { DaoExperimentArmRepository } from "./experiment-arm.dao.repository.js";
-export { DaoExplanationRuleTraceRepository } from "./explanation-rule-trace.dao.repository.js";
-export { DaoRecommendationRepository } from "./recommendation.dao.repository.js";
-export { DaoDecisionResultRepository } from "./decision-result.dao.repository.js";
-export { DaoAlertEvaluationRepository } from "./alert-evaluation.dao.repository.js";
-export { DaoDecisionSessionResultRepository } from "./decision-session-result.dao.repository.js";
-export { DaoSimulationRunDecisionResultRepository } from "./simulation-run-decision-result.dao.repository.js";
-export { DaoSimulationRunMetricRepository } from "./simulation-run-metric.dao.repository.js";
-export { DaoModelInvocationExplanationRepository } from "./model-invocation-explanation.dao.repository.js";
-export { DaoModelInvocationRepository } from "./model-invocation.dao.repository.js";
-export { DaoRecommendationExplanationRepository } from "./recommendation-explanation.dao.repository.js";
-export { DaoRiskAssessmentExplanationRepository } from "./risk-assessment-explanation.dao.repository.js";
-export { DaoDecisionMetricRepository } from "./decision-metric.dao.repository.js";
+// Core repositories
+export { DaoAlertEvaluationRepository } from "./repositories/core/alert-evaluation.dao.repository.js";
+export { DaoDecisionMetricRepository } from "./repositories/core/decision-metric.dao.repository.js";
+export { DaoThresholdProfileRepository } from "./repositories/core/threshold-profile.dao.repository.js";
+
+// Decision Policy repositories
+export { DaoDecisionPolicyRepository } from "./repositories/decision-policy/decision-policy.dao.repository.js";
+export { DaoDecisionPolicyThresholdProfileRepository } from "./repositories/decision-policy/decision-policy-threshold-profile.dao.repository.js";
+
+// Decision Request repositories
+export { DaoDecisionRequestRepository } from "./repositories/decision-request/decision-request.dao.repository.js";
+export { DaoDecisionRequestExplanationRepository } from "./repositories/decision-request/decision-request-explanation.dao.repository.js";
+export { DaoDecisionRequestResultRepository } from "./repositories/decision-request/decision-request-result.dao.repository.js";
+
+// Decision Result repositories
+export { DaoDecisionResultRepository } from "./repositories/decision-result/decision-result.dao.repository.js";
+export { DaoDecisionResultExplanationRepository } from "./repositories/decision-result/decision-result-explanation.dao.repository.js";
+export { DaoDecisionResultRecommendationRepository } from "./repositories/decision-result/decision-result-recommendation.dao.repository.js";
+export { DaoDecisionResultRiskAssessmentRepository } from "./repositories/decision-result/decision-result-risk-assessment.dao.repository.js";
+
+// Decision Session repositories
+export { DaoDecisionSessionRepository } from "./repositories/decision-session/decision-session.dao.repository.js";
+export { DaoDecisionSessionAlertRepository } from "./repositories/decision-session/decision-session-alert.dao.repository.js";
+export { DaoDecisionSessionExplanationRepository } from "./repositories/decision-session/decision-session-explanation.dao.repository.js";
+export { DaoDecisionSessionRequestRepository } from "./repositories/decision-session/decision-session-request.dao.repository.js";
+export { DaoDecisionSessionResultRepository } from "./repositories/decision-session/decision-session-result.dao.repository.js";
+export { DaoDecisionSessionRiskAssessmentRepository } from "./repositories/decision-session/decision-session-risk-assessment.dao.repository.js";
+
+// Experiment repositories
+export { DaoExperimentRepository } from "./repositories/experiment/experiment.dao.repository.js";
+export { DaoExperimentArmRepository } from "./repositories/experiment/experiment-arm.dao.repository.js";
+export { DaoExperimentResultRepository } from "./repositories/experiment/experiment-result.dao.repository.js";
+
+// Explanation repositories
+export { DaoExplanationRepository } from "./repositories/explanation/explanation.dao.repository.js";
+export { DaoExplanationFeatureRepository } from "./repositories/explanation/explanation-feature.dao.repository.js";
+export { DaoExplanationRuleTraceRepository } from "./repositories/explanation/explanation-rule-trace.dao.repository.js";
+
+// Model Invocation repositories
+export { DaoModelInvocationRepository } from "./repositories/model-invocation/model-invocation.dao.repository.js";
+export { DaoModelInvocationExplanationRepository } from "./repositories/model-invocation/model-invocation-explanation.dao.repository.js";
+
+// Recommendation repositories
+export { DaoRecommendationRepository } from "./repositories/recommendation/recommendation.dao.repository.js";
+export { DaoRecommendationExplanationRepository } from "./repositories/recommendation/recommendation-explanation.dao.repository.js";
+
+// Risk Assessment repositories
+export { DaoRiskAssessmentRepository } from "./repositories/risk-assessment/risk-assessment.dao.repository.js";
+export { DaoRiskAssessmentExplanationRepository } from "./repositories/risk-assessment/risk-assessment-explanation.dao.repository.js";
+
+// Simulation repositories
+export { DaoSimulationScenarioRepository } from "./repositories/simulation/simulation-scenario.dao.repository.js";
+export { DaoSimulationScenarioRunRepository } from "./repositories/simulation/simulation-scenario-run.dao.repository.js";
+export { DaoSimulationRunRepository } from "./repositories/simulation/simulation-run.dao.repository.js";
+export { DaoSimulationRunDecisionResultRepository } from "./repositories/simulation/simulation-run-decision-result.dao.repository.js";
+export { DaoSimulationRunMetricRepository } from "./repositories/simulation/simulation-run-metric.dao.repository.js";

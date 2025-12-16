@@ -9,41 +9,68 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-export { DaoWorkQueueRepository } from "./work-queue.dao.repository.js";
-export { DaoWorkflowDefinitionTransitionRepository } from "./workflow-definition-transition.dao.repository.js";
-export { DaoWorkflowDefinitionStateRepository } from "./workflow-definition-state.dao.repository.js";
-export { DaoTaskCommentRepository } from "./task-comment.dao.repository.js";
-export { DaoCarePathwayTemplateOrderSetTemplateRepository } from "./care-pathway-template-order-set-template.dao.repository.js";
-export { DaoAlertRepository } from "./alert.dao.repository.js";
-export { DaoWorkflowInstanceRepository } from "./workflow-instance.dao.repository.js";
-export { DaoEscalationPolicyRepository } from "./escalation-policy.dao.repository.js";
-export { DaoEpisodeOfCareWorkflowInstanceRepository } from "./episode-of-care-workflow-instance.dao.repository.js";
-export { DaoTaskAssignmentRepository } from "./task-assignment.dao.repository.js";
-export { DaoChecklistTemplateItemRepository } from "./checklist-template-item.dao.repository.js";
-export { DaoWorkflowDefinitionRepository } from "./workflow-definition.dao.repository.js";
-export { DaoEpisodesOfCareRepository } from "./episodes-of-care.dao.repository.js";
-export { DaoCarePlanGoalRepository } from "./care-plan-goal.dao.repository.js";
-export { DaoHandoffRepository } from "./handoff.dao.repository.js";
-export { DaoAlertAuditEventRepository } from "./alert-audit-event.dao.repository.js";
-export { DaoRoutingRuleRepository } from "./routing-rule.dao.repository.js";
-export { DaoTaskAuditEventRepository } from "./task-audit-event.dao.repository.js";
-export { DaoEpisodeOfCareCarePlanRepository } from "./episode-of-care-care-plan.dao.repository.js";
-export { DaoCarePlanChecklistRepository } from "./care-plan-checklist.dao.repository.js";
-export { DaoWorkQueueAlertRepository } from "./work-queue-alert.dao.repository.js";
-export { DaoCarePathwayTemplateStepRepository } from "./care-pathway-template-step.dao.repository.js";
-export { DaoCarePlanRepository } from "./care-plan.dao.repository.js";
-export { DaoWorkflowInstanceTaskRepository } from "./workflow-instance-task.dao.repository.js";
-export { DaoWorkflowInstanceEventRepository } from "./workflow-instance-event.dao.repository.js";
-export { DaoScheduleTemplateRepository } from "./schedule-template.dao.repository.js";
-export { DaoEscalationPolicyRuleRepository } from "./escalation-policy-rule.dao.repository.js";
-export { DaoCarePathwayTemplateRepository } from "./care-pathway-template.dao.repository.js";
-export { DaoChecklistInstanceItemRepository } from "./checklist-instance-item.dao.repository.js";
-export { DaoWorkQueueTaskRepository } from "./work-queue-task.dao.repository.js";
-export { DaoWorkflowInstanceAuditEventRepository } from "./workflow-instance-audit-event.dao.repository.js";
-export { DaoAlertExplanationRepository } from "./alert-explanation.dao.repository.js";
-export { DaoChecklistInstanceRepository } from "./checklist-instance.dao.repository.js";
-export { DaoChecklistTemplateRepository } from "./checklist-template.dao.repository.js";
-export { DaoEpisodeOfCareEncounterRepository } from "./episode-of-care-encounter.dao.repository.js";
-export { DaoHandoffTaskRepository } from "./handoff-task.dao.repository.js";
-export { DaoTaskRepository } from "./task.dao.repository.js";
-export { DaoCarePlanTaskRepository } from "./care-plan-task.dao.repository.js";
+// Alert repositories
+export { DaoAlertRepository } from "./repositories/alert/alert.dao.repository.js";
+export { DaoAlertAuditEventRepository } from "./repositories/alert/alert-audit-event.dao.repository.js";
+export { DaoAlertExplanationRepository } from "./repositories/alert/alert-explanation.dao.repository.js";
+
+// Care Pathway Template repositories
+export { DaoCarePathwayTemplateRepository } from "./repositories/care-pathway-template/care-pathway-template.dao.repository.js";
+export { DaoCarePathwayTemplateOrderSetTemplateRepository } from "./repositories/care-pathway-template/care-pathway-template-order-set-template.dao.repository.js";
+export { DaoCarePathwayTemplateStepRepository } from "./repositories/care-pathway-template/care-pathway-template-step.dao.repository.js";
+
+// Care Plan repositories
+export { DaoCarePlanRepository } from "./repositories/care-plan/care-plan.dao.repository.js";
+export { DaoCarePlanChecklistRepository } from "./repositories/care-plan/care-plan-checklist.dao.repository.js";
+export { DaoCarePlanGoalRepository } from "./repositories/care-plan/care-plan-goal.dao.repository.js";
+export { DaoCarePlanTaskRepository } from "./repositories/care-plan/care-plan-task.dao.repository.js";
+
+// Checklist Instance repositories
+export { DaoChecklistInstanceRepository } from "./repositories/checklist-instance/checklist-instance.dao.repository.js";
+export { DaoChecklistInstanceItemRepository } from "./repositories/checklist-instance/checklist-instance-item.dao.repository.js";
+
+// Checklist Template repositories
+export { DaoChecklistTemplateRepository } from "./repositories/checklist-template/checklist-template.dao.repository.js";
+export { DaoChecklistTemplateItemRepository } from "./repositories/checklist-template/checklist-template-item.dao.repository.js";
+
+// Episode of Care repositories
+export { DaoEpisodesOfCareRepository } from "./repositories/episode-of-care/episodes-of-care.dao.repository.js";
+export { DaoEpisodeOfCareCarePlanRepository } from "./repositories/episode-of-care/episode-of-care-care-plan.dao.repository.js";
+export { DaoEpisodeOfCareEncounterRepository } from "./repositories/episode-of-care/episode-of-care-encounter.dao.repository.js";
+export { DaoEpisodeOfCareWorkflowInstanceRepository } from "./repositories/episode-of-care/episode-of-care-workflow-instance.dao.repository.js";
+
+// Escalation Policy repositories
+export { DaoEscalationPolicyRepository } from "./repositories/escalation-policy/escalation-policy.dao.repository.js";
+export { DaoEscalationPolicyRuleRepository } from "./repositories/escalation-policy/escalation-policy-rule.dao.repository.js";
+
+// Handoff repositories
+export { DaoHandoffRepository } from "./repositories/handoff/handoff.dao.repository.js";
+export { DaoHandoffTaskRepository } from "./repositories/handoff/handoff-task.dao.repository.js";
+
+// Routing Rule repositories
+export { DaoRoutingRuleRepository } from "./repositories/routing-rule/routing-rule.dao.repository.js";
+
+// Schedule Template repositories
+export { DaoScheduleTemplateRepository } from "./repositories/schedule-template/schedule-template.dao.repository.js";
+
+// Task repositories
+export { DaoTaskRepository } from "./repositories/task/task.dao.repository.js";
+export { DaoTaskAssignmentRepository } from "./repositories/task/task-assignment.dao.repository.js";
+export { DaoTaskAuditEventRepository } from "./repositories/task/task-audit-event.dao.repository.js";
+export { DaoTaskCommentRepository } from "./repositories/task/task-comment.dao.repository.js";
+
+// Work Queue repositories
+export { DaoWorkQueueRepository } from "./repositories/work-queue/work-queue.dao.repository.js";
+export { DaoWorkQueueAlertRepository } from "./repositories/work-queue/work-queue-alert.dao.repository.js";
+export { DaoWorkQueueTaskRepository } from "./repositories/work-queue/work-queue-task.dao.repository.js";
+
+// Workflow Definition repositories
+export { DaoWorkflowDefinitionRepository } from "./repositories/workflow-definition/workflow-definition.dao.repository.js";
+export { DaoWorkflowDefinitionStateRepository } from "./repositories/workflow-definition/workflow-definition-state.dao.repository.js";
+export { DaoWorkflowDefinitionTransitionRepository } from "./repositories/workflow-definition/workflow-definition-transition.dao.repository.js";
+
+// Workflow Instance repositories
+export { DaoWorkflowInstanceRepository } from "./repositories/workflow-instance/workflow-instance.dao.repository.js";
+export { DaoWorkflowInstanceAuditEventRepository } from "./repositories/workflow-instance/workflow-instance-audit-event.dao.repository.js";
+export { DaoWorkflowInstanceEventRepository } from "./repositories/workflow-instance/workflow-instance-event.dao.repository.js";
+export { DaoWorkflowInstanceTaskRepository } from "./repositories/workflow-instance/workflow-instance-task.dao.repository.js";

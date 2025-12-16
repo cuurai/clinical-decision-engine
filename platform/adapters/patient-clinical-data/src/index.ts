@@ -9,41 +9,66 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-export { DaoPatientProcedureRepository } from "./patient-procedure.dao.repository.js";
-export { DaoConditionNoteRepository } from "./condition-note.dao.repository.js";
-export { DaoMedicationStatementRepository } from "./medication-statement.dao.repository.js";
-export { DaoDocumentRepository } from "./document.dao.repository.js";
-export { DaoDiagnosticReportImagingStudyRepository } from "./diagnostic-report-imaging-study.dao.repository.js";
-export { DaoPatientLabRepository } from "./patient-lab.dao.repository.js";
-export { DaoImagingStudySeriesRepository } from "./imaging-study-series.dao.repository.js";
-export { DaoEncounterConditionRepository } from "./encounter-condition.dao.repository.js";
-export { DaoImmunizationRepository } from "./immunization.dao.repository.js";
-export { DaoPatientObservationRepository } from "./patient-observation.dao.repository.js";
-export { DaoEncounterNoteRepository } from "./encounter-note.dao.repository.js";
-export { DaoPatientImmunizationRepository } from "./patient-immunization.dao.repository.js";
-export { DaoPatientVitalRepository } from "./patient-vital.dao.repository.js";
-export { DaoDiagnosticReportRepository } from "./diagnostic-report.dao.repository.js";
-export { DaoProcedureRepository } from "./procedure.dao.repository.js";
-export { DaoMedicationOrderRepository } from "./medication-order.dao.repository.js";
-export { DaoNoteRepository } from "./note.dao.repository.js";
-export { DaoPatientAllergyRepository } from "./patient-allergy.dao.repository.js";
-export { DaoPatientRepository } from "./patient.dao.repository.js";
-export { DaoPatientCareTeamRepository } from "./patient-care-team.dao.repository.js";
-export { DaoPatientMedicationRepository } from "./patient-medication.dao.repository.js";
-export { DaoEncounterProcedureRepository } from "./encounter-procedure.dao.repository.js";
-export { DaoMedicationAdministrationRepository } from "./medication-administration.dao.repository.js";
-export { DaoPatientDocumentRepository } from "./patient-document.dao.repository.js";
-export { DaoPatientConditionRepository } from "./patient-condition.dao.repository.js";
-export { DaoObservationRepository } from "./observation.dao.repository.js";
-export { DaoAllergyRepository } from "./allergy.dao.repository.js";
-export { DaoPatientEncounterRepository } from "./patient-encounter.dao.repository.js";
-export { DaoEncounterRepository } from "./encounter.dao.repository.js";
-export { DaoPatientSummaryRepository } from "./patient-summary.dao.repository.js";
-export { DaoConditionRepository } from "./condition.dao.repository.js";
-export { DaoEncounterDiagnosticReportRepository } from "./encounter-diagnostic-report.dao.repository.js";
-export { DaoPatientDiagnosticReportRepository } from "./patient-diagnostic-report.dao.repository.js";
-export { DaoEncounterObservationRepository } from "./encounter-observation.dao.repository.js";
-export { DaoDiagnosticReportObservationRepository } from "./diagnostic-report-observation.dao.repository.js";
-export { DaoCareTeamRepository } from "./care-team.dao.repository.js";
-export { DaoImagingStudyRepository } from "./imaging-study.dao.repository.js";
-export { DaoPatientNoteRepository } from "./patient-note.dao.repository.js";
+// Allergy repositories
+export { DaoAllergyRepository } from "./repositories/allergy/allergy.dao.repository.js";
+
+// Care Team repositories
+export { DaoCareTeamRepository } from "./repositories/care-team/care-team.dao.repository.js";
+
+// Condition repositories
+export { DaoConditionRepository } from "./repositories/condition/condition.dao.repository.js";
+export { DaoConditionNoteRepository } from "./repositories/condition/condition-note.dao.repository.js";
+
+// Diagnostic Report repositories
+export { DaoDiagnosticReportRepository } from "./repositories/diagnostic-report/diagnostic-report.dao.repository.js";
+export { DaoDiagnosticReportImagingStudyRepository } from "./repositories/diagnostic-report/diagnostic-report-imaging-study.dao.repository.js";
+export { DaoDiagnosticReportObservationRepository } from "./repositories/diagnostic-report/diagnostic-report-observation.dao.repository.js";
+
+// Document repositories
+export { DaoDocumentRepository } from "./repositories/document/document.dao.repository.js";
+
+// Encounter repositories
+export { DaoEncounterRepository } from "./repositories/encounter/encounter.dao.repository.js";
+export { DaoEncounterConditionRepository } from "./repositories/encounter/encounter-condition.dao.repository.js";
+export { DaoEncounterDiagnosticReportRepository } from "./repositories/encounter/encounter-diagnostic-report.dao.repository.js";
+export { DaoEncounterNoteRepository } from "./repositories/encounter/encounter-note.dao.repository.js";
+export { DaoEncounterObservationRepository } from "./repositories/encounter/encounter-observation.dao.repository.js";
+export { DaoEncounterProcedureRepository } from "./repositories/encounter/encounter-procedure.dao.repository.js";
+
+// Imaging Study repositories
+export { DaoImagingStudyRepository } from "./repositories/imaging-study/imaging-study.dao.repository.js";
+export { DaoImagingStudySeriesRepository } from "./repositories/imaging-study/imaging-study-series.dao.repository.js";
+
+// Immunization repositories
+export { DaoImmunizationRepository } from "./repositories/immunization/immunization.dao.repository.js";
+
+// Medication repositories
+export { DaoMedicationAdministrationRepository } from "./repositories/medication/medication-administration.dao.repository.js";
+export { DaoMedicationOrderRepository } from "./repositories/medication/medication-order.dao.repository.js";
+export { DaoMedicationStatementRepository } from "./repositories/medication/medication-statement.dao.repository.js";
+
+// Note repositories
+export { DaoNoteRepository } from "./repositories/note/note.dao.repository.js";
+
+// Observation repositories
+export { DaoObservationRepository } from "./repositories/observation/observation.dao.repository.js";
+
+// Patient repositories
+export { DaoPatientRepository } from "./repositories/patient/patient.dao.repository.js";
+export { DaoPatientAllergyRepository } from "./repositories/patient/patient-allergy.dao.repository.js";
+export { DaoPatientCareTeamRepository } from "./repositories/patient/patient-care-team.dao.repository.js";
+export { DaoPatientConditionRepository } from "./repositories/patient/patient-condition.dao.repository.js";
+export { DaoPatientDiagnosticReportRepository } from "./repositories/patient/patient-diagnostic-report.dao.repository.js";
+export { DaoPatientDocumentRepository } from "./repositories/patient/patient-document.dao.repository.js";
+export { DaoPatientEncounterRepository } from "./repositories/patient/patient-encounter.dao.repository.js";
+export { DaoPatientImmunizationRepository } from "./repositories/patient/patient-immunization.dao.repository.js";
+export { DaoPatientLabRepository } from "./repositories/patient/patient-lab.dao.repository.js";
+export { DaoPatientMedicationRepository } from "./repositories/patient/patient-medication.dao.repository.js";
+export { DaoPatientNoteRepository } from "./repositories/patient/patient-note.dao.repository.js";
+export { DaoPatientObservationRepository } from "./repositories/patient/patient-observation.dao.repository.js";
+export { DaoPatientProcedureRepository } from "./repositories/patient/patient-procedure.dao.repository.js";
+export { DaoPatientSummaryRepository } from "./repositories/patient/patient-summary.dao.repository.js";
+export { DaoPatientVitalRepository } from "./repositories/patient/patient-vital.dao.repository.js";
+
+// Procedure repositories
+export { DaoProcedureRepository } from "./repositories/procedure/procedure.dao.repository.js";

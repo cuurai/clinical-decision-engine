@@ -2,12 +2,22 @@
   "name": "@cuur/adapters",
   "version": "1.0.0",
   "type": "module",
+  "private": true,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./shared/dao-client": "./dist/shared/dao-client.js",
-    "./shared": "./dist/shared/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./shared": {
+      "types": "./dist/shared/index.d.ts",
+      "default": "./dist/shared/index.js"
+    },
+    "./shared/dao-client": {
+      "types": "./dist/shared/dao-client.d.ts",
+      "default": "./dist/shared/dao-client.js"
+    }
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -17,10 +27,8 @@
   },
   "dependencies": {
     "@cuur-cde/core": "workspace:*",
-    "@prisma/client": "^6.0.1"
+    "@cuur-cde/database": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0",
-    "typescript": "^5.3.3"
-  }
-}
+    "typescript": "^5.9.3",
+    "@types/node":

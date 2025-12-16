@@ -9,40 +9,67 @@
  * This file is auto-generated. Any manual changes will be overwritten.
  */
 
-export { DaoOrderSetTemplateRepository } from "./order-set-template.dao.repository.js";
-export { DaoKnowledgePackageClinicalRuleRepository } from "./knowledge-package-clinical-rule.dao.repository.js";
-export { DaoQuestionnaireTemplateRepository } from "./questionnaire-template.dao.repository.js";
-export { DaoQuestionnaireTemplateQuestionRepository } from "./questionnaire-template-question.dao.repository.js";
-export { DaoEvidenceCitationRepository } from "./evidence-citation.dao.repository.js";
-export { DaoOntologyTermChildRepository } from "./ontology-term-child.dao.repository.js";
-export { DaoScoringTemplateItemRepository } from "./scoring-template-item.dao.repository.js";
-export { DaoOntologyTermParentRepository } from "./ontology-term-parent.dao.repository.js";
-export { DaoCareProtocolStepRepository } from "./care-protocol-step.dao.repository.js";
-export { DaoEvidenceReviewRepository } from "./evidence-review.dao.repository.js";
-export { DaoCareProtocolRepository } from "./care-protocol.dao.repository.js";
-export { DaoClinicalRuleRepository } from "./clinical-rule.dao.repository.js";
-export { DaoModelVersionTestRepository } from "./model-version-test.dao.repository.js";
-export { DaoModelVersionRepository } from "./model-version.dao.repository.js";
-export { DaoGuidelineRepository } from "./guideline.dao.repository.js";
-export { DaoClinicalRuleTestRepository } from "./clinical-rule-test.dao.repository.js";
-export { DaoModelDefinitionVersionRepository } from "./model-definition-version.dao.repository.js";
-export { DaoOrderSetTemplateItemRepository } from "./order-set-template-item.dao.repository.js";
-export { DaoScoringTemplateRepository } from "./scoring-template.dao.repository.js";
-export { DaoGuidelineSectionRepository } from "./guideline-section.dao.repository.js";
-export { DaoConceptMapRepository } from "./concept-map.dao.repository.js";
-export { DaoGuidelineEvidenceCitationRepository } from "./guideline-evidence-citation.dao.repository.js";
-export { DaoValueSetRepository } from "./value-set.dao.repository.js";
-export { DaoModelDefinitionPerformanceMetricRepository } from "./model-definition-performance-metric.dao.repository.js";
-export { DaoCareProtocolOrderSetRepository } from "./care-protocol-order-set.dao.repository.js";
-export { DaoOntologyTermRepository } from "./ontology-term.dao.repository.js";
-export { DaoConceptMapMappingRepository } from "./concept-map-mapping.dao.repository.js";
-export { DaoKnowledgePackageModelDefinitionRepository } from "./knowledge-package-model-definition.dao.repository.js";
-export { DaoKnowledgePackageValueSetRepository } from "./knowledge-package-value-set.dao.repository.js";
-export { DaoRuleSetClinicalRuleRepository } from "./rule-set-clinical-rule.dao.repository.js";
-export { DaoClinicalRuleVersionRepository } from "./clinical-rule-version.dao.repository.js";
-export { DaoModelDefinitionRepository } from "./model-definition.dao.repository.js";
-export { DaoModelVersionFeatureDefinitionRepository } from "./model-version-feature-definition.dao.repository.js";
-export { DaoRuleSetRepository } from "./rule-set.dao.repository.js";
-export { DaoOntologyTermMappingRepository } from "./ontology-term-mapping.dao.repository.js";
-export { DaoValueSetCodeRepository } from "./value-set-code.dao.repository.js";
-export { DaoKnowledgePackageRepository } from "./knowledge-package.dao.repository.js";
+// Care Protocol repositories
+export { DaoCareProtocolRepository } from "./repositories/care-protocol/care-protocol.dao.repository.js";
+export { DaoCareProtocolOrderSetRepository } from "./repositories/care-protocol/care-protocol-order-set.dao.repository.js";
+export { DaoCareProtocolStepRepository } from "./repositories/care-protocol/care-protocol-step.dao.repository.js";
+
+// Clinical Rule repositories
+export { DaoClinicalRuleRepository } from "./repositories/clinical-rule/clinical-rule.dao.repository.js";
+export { DaoClinicalRuleTestRepository } from "./repositories/clinical-rule/clinical-rule-test.dao.repository.js";
+export { DaoClinicalRuleVersionRepository } from "./repositories/clinical-rule/clinical-rule-version.dao.repository.js";
+
+// Concept Map repositories
+export { DaoConceptMapRepository } from "./repositories/concept-map/concept-map.dao.repository.js";
+export { DaoConceptMapMappingRepository } from "./repositories/concept-map/concept-map-mapping.dao.repository.js";
+
+// Evidence repositories
+export { DaoEvidenceCitationRepository } from "./repositories/evidence/evidence-citation.dao.repository.js";
+export { DaoEvidenceReviewRepository } from "./repositories/evidence/evidence-review.dao.repository.js";
+
+// Guideline repositories
+export { DaoGuidelineRepository } from "./repositories/guideline/guideline.dao.repository.js";
+export { DaoGuidelineEvidenceCitationRepository } from "./repositories/guideline/guideline-evidence-citation.dao.repository.js";
+export { DaoGuidelineSectionRepository } from "./repositories/guideline/guideline-section.dao.repository.js";
+
+// Knowledge Package repositories
+export { DaoKnowledgePackageRepository } from "./repositories/knowledge-package/knowledge-package.dao.repository.js";
+export { DaoKnowledgePackageClinicalRuleRepository } from "./repositories/knowledge-package/knowledge-package-clinical-rule.dao.repository.js";
+export { DaoKnowledgePackageModelDefinitionRepository } from "./repositories/knowledge-package/knowledge-package-model-definition.dao.repository.js";
+export { DaoKnowledgePackageValueSetRepository } from "./repositories/knowledge-package/knowledge-package-value-set.dao.repository.js";
+
+// Model Definition repositories
+export { DaoModelDefinitionRepository } from "./repositories/model-definition/model-definition.dao.repository.js";
+export { DaoModelDefinitionPerformanceMetricRepository } from "./repositories/model-definition/model-definition-performance-metric.dao.repository.js";
+export { DaoModelDefinitionVersionRepository } from "./repositories/model-definition/model-definition-version.dao.repository.js";
+
+// Model Version repositories
+export { DaoModelVersionRepository } from "./repositories/model-version/model-version.dao.repository.js";
+export { DaoModelVersionFeatureDefinitionRepository } from "./repositories/model-version/model-version-feature-definition.dao.repository.js";
+export { DaoModelVersionTestRepository } from "./repositories/model-version/model-version-test.dao.repository.js";
+
+// Ontology Term repositories
+export { DaoOntologyTermRepository } from "./repositories/ontology-term/ontology-term.dao.repository.js";
+export { DaoOntologyTermChildRepository } from "./repositories/ontology-term/ontology-term-child.dao.repository.js";
+export { DaoOntologyTermMappingRepository } from "./repositories/ontology-term/ontology-term-mapping.dao.repository.js";
+export { DaoOntologyTermParentRepository } from "./repositories/ontology-term/ontology-term-parent.dao.repository.js";
+
+// Order Set Template repositories
+export { DaoOrderSetTemplateRepository } from "./repositories/order-set-template/order-set-template.dao.repository.js";
+export { DaoOrderSetTemplateItemRepository } from "./repositories/order-set-template/order-set-template-item.dao.repository.js";
+
+// Questionnaire Template repositories
+export { DaoQuestionnaireTemplateRepository } from "./repositories/questionnaire-template/questionnaire-template.dao.repository.js";
+export { DaoQuestionnaireTemplateQuestionRepository } from "./repositories/questionnaire-template/questionnaire-template-question.dao.repository.js";
+
+// Rule Set repositories
+export { DaoRuleSetRepository } from "./repositories/rule-set/rule-set.dao.repository.js";
+export { DaoRuleSetClinicalRuleRepository } from "./repositories/rule-set/rule-set-clinical-rule.dao.repository.js";
+
+// Scoring Template repositories
+export { DaoScoringTemplateRepository } from "./repositories/scoring-template/scoring-template.dao.repository.js";
+export { DaoScoringTemplateItemRepository } from "./repositories/scoring-template/scoring-template-item.dao.repository.js";
+
+// Value Set repositories
+export { DaoValueSetRepository } from "./repositories/value-set/value-set.dao.repository.js";
+export { DaoValueSetCodeRepository } from "./repositories/value-set/value-set-code.dao.repository.js";

@@ -1,23 +1,27 @@
 {
   "extends": "../../tsconfig.json",
+
   "compilerOptions": {
-    "noEmit": true,
-    "composite": false,
+    "rootDir": "src",
+    "outDir": "dist",
+
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    "noEmit": false,
     "declaration": true,
     "declarationMap": true,
+
     "verbatimModuleSyntax": false,
-    "emitDeclarationOnly": false
+    "composite": false
   },
+
+  "include": ["src/**/*.ts"],
+
   "exclude": [
     "node_modules",
     "dist",
-    "**/dist/**",
     "**/*.test.ts",
-    "**/*.spec.ts",
-    "**/*.js",
-    "**/*.d.ts",
-    "**/*.js.map",
-    "**/*.d.ts.map"
-  ],
-  "include": []
+    "**/*.spec.ts"
+  ]
 }
