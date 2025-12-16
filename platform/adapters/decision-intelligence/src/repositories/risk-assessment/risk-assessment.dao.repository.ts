@@ -36,7 +36,7 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.riskAssessmentInput.findMany({
+      const records = await this.dao.riskAssessment.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<RiskAssessment | null> {
     try {
-      const record = await this.dao.riskAssessmentInput.findFirst({
+      const record = await this.dao.riskAssessment.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as RiskAssessmentInput;
     try {
-      const record = await this.dao.riskAssessmentInput.create({
+      const record = await this.dao.riskAssessment.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -106,7 +106,7 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
     data: UpdateRiskAssessmentRequest
   ): Promise<RiskAssessment> {
     try {
-      const record = await this.dao.riskAssessmentInput.update({
+      const record = await this.dao.riskAssessment.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -121,7 +121,7 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.riskAssessmentInput.update({
+      await this.dao.riskAssessment.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -139,7 +139,7 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: RiskAssessment[] = [];
         for (const item of items) {
-          const record = await txClient.riskAssessmentInput.create({
+          const record = await txClient.riskAssessment.create({
             data: {
               ...item,
               orgId,
@@ -180,7 +180,7 @@ export class DaoRiskAssessmentRepository implements RiskAssessmentRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.riskAssessmentInput.updateMany({
+      await this.dao.riskAssessment.updateMany({
         where: {
           id: { in: ids },
           orgId,

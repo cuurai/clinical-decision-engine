@@ -36,7 +36,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.diagnosticReportInput.findMany({
+      const records = await this.dao.diagnosticReport.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
   }
   async findById(orgId: OrgId, id: string): Promise<DiagnosticReport | null> {
     try {
-      const record = await this.dao.diagnosticReportInput.findFirst({
+      const record = await this.dao.diagnosticReport.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DiagnosticReportInput;
     try {
-      const record = await this.dao.diagnosticReportInput.create({
+      const record = await this.dao.diagnosticReport.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -106,7 +106,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
     data: UpdateDiagnosticReportRequest
   ): Promise<DiagnosticReport> {
     try {
-      const record = await this.dao.diagnosticReportInput.update({
+      const record = await this.dao.diagnosticReport.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -121,7 +121,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.diagnosticReportInput.update({
+      await this.dao.diagnosticReport.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -139,7 +139,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
         const txClient = tx as PrismaTransactionClient;
         const results: DiagnosticReport[] = [];
         for (const item of items) {
-          const record = await txClient.diagnosticReportInput.create({
+          const record = await txClient.diagnosticReport.create({
             data: {
               ...item,
               orgId,
@@ -164,7 +164,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
         const txClient = tx as PrismaTransactionClient;
         const results: DiagnosticReport[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.diagnosticReportInput.update({
+          const record = await txClient.diagnosticReport.update({
             where: { id, orgId },
             data,
           });
@@ -180,7 +180,7 @@ export class DaoDiagnosticReportRepository implements DiagnosticReportRepository
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.diagnosticReportInput.updateMany({
+      await this.dao.diagnosticReport.updateMany({
         where: {
           id: { in: ids },
           orgId,

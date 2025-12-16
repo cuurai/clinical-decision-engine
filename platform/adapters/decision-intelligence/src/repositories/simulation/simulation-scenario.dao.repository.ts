@@ -39,7 +39,7 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.simulationScenarioInput.findMany({
+      const records = await this.dao.simulationScenario.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -66,7 +66,7 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
   }
   async findById(orgId: OrgId, id: string): Promise<SimulationScenario | null> {
     try {
-      const record = await this.dao.simulationScenarioInput.findFirst({
+      const record = await this.dao.simulationScenario.findFirst({
         where: {
           orgId,
           id,
@@ -91,7 +91,7 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as SimulationScenarioInput;
     try {
-      const record = await this.dao.simulationScenarioInput.create({
+      const record = await this.dao.simulationScenario.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -109,7 +109,7 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
     data: UpdateSimulationScenarioRequest
   ): Promise<SimulationScenario> {
     try {
-      const record = await this.dao.simulationScenarioInput.update({
+      const record = await this.dao.simulationScenario.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -124,7 +124,7 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.simulationScenarioInput.update({
+      await this.dao.simulationScenario.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -145,7 +145,7 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
         const txClient = tx as PrismaTransactionClient;
         const results: SimulationScenario[] = [];
         for (const item of items) {
-          const record = await txClient.simulationScenarioInput.create({
+          const record = await txClient.simulationScenario.create({
             data: {
               ...item,
               orgId,
@@ -186,7 +186,7 @@ export class DaoSimulationScenarioRepository implements SimulationScenarioReposi
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.simulationScenarioInput.updateMany({
+      await this.dao.simulationScenario.updateMany({
         where: {
           id: { in: ids },
           orgId,

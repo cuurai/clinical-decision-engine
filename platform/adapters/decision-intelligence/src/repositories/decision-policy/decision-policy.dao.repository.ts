@@ -37,7 +37,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.decisionPolicyInput.findMany({
+      const records = await this.dao.decisionPolicy.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<DecisionPolicy | null> {
     try {
-      const record = await this.dao.decisionPolicyInput.findFirst({
+      const record = await this.dao.decisionPolicy.findFirst({
         where: {
           orgId,
           id,
@@ -89,7 +89,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DecisionPolicyInput;
     try {
-      const record = await this.dao.decisionPolicyInput.create({
+      const record = await this.dao.decisionPolicy.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -107,7 +107,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
     data: UpdateDecisionPolicyRequest
   ): Promise<DecisionPolicy> {
     try {
-      const record = await this.dao.decisionPolicyInput.update({
+      const record = await this.dao.decisionPolicy.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -122,7 +122,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.decisionPolicyInput.update({
+      await this.dao.decisionPolicy.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -140,7 +140,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: DecisionPolicy[] = [];
         for (const item of items) {
-          const record = await txClient.decisionPolicyInput.create({
+          const record = await txClient.decisionPolicy.create({
             data: {
               ...item,
               orgId,
@@ -181,7 +181,7 @@ export class DaoDecisionPolicyRepository implements DecisionPolicyRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.decisionPolicyInput.updateMany({
+      await this.dao.decisionPolicy.updateMany({
         where: {
           id: { in: ids },
           orgId,

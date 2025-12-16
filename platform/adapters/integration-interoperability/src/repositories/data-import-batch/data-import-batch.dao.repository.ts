@@ -37,7 +37,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.dataImportBatchInput.findMany({
+      const records = await this.dao.dataImportBatch.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<DataImportBatch | null> {
     try {
-      const record = await this.dao.dataImportBatchInput.findFirst({
+      const record = await this.dao.dataImportBatch.findFirst({
         where: {
           orgId,
           id,
@@ -89,7 +89,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DataImportBatchInput;
     try {
-      const record = await this.dao.dataImportBatchInput.create({
+      const record = await this.dao.dataImportBatch.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -107,7 +107,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
     data: UpdateDataImportBatchRequest
   ): Promise<DataImportBatch> {
     try {
-      const record = await this.dao.dataImportBatchInput.update({
+      const record = await this.dao.dataImportBatch.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -122,7 +122,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.dataImportBatchInput.update({
+      await this.dao.dataImportBatch.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -140,7 +140,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: DataImportBatch[] = [];
         for (const item of items) {
-          const record = await txClient.dataImportBatchInput.create({
+          const record = await txClient.dataImportBatch.create({
             data: {
               ...item,
               orgId,
@@ -165,7 +165,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: DataImportBatch[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.dataImportBatchInput.update({
+          const record = await txClient.dataImportBatch.update({
             where: { id, orgId },
             data,
           });
@@ -181,7 +181,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.dataImportBatchInput.updateMany({
+      await this.dao.dataImportBatch.updateMany({
         where: {
           id: { in: ids },
           orgId,

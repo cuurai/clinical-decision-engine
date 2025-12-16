@@ -37,7 +37,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.thresholdProfileInput.findMany({
+      const records = await this.dao.thresholdProfile.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
   }
   async findById(orgId: OrgId, id: string): Promise<ThresholdProfile | null> {
     try {
-      const record = await this.dao.thresholdProfileInput.findFirst({
+      const record = await this.dao.thresholdProfile.findFirst({
         where: {
           orgId,
           id,
@@ -89,7 +89,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ThresholdProfileInput;
     try {
-      const record = await this.dao.thresholdProfileInput.create({
+      const record = await this.dao.thresholdProfile.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -107,7 +107,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
     data: UpdateThresholdProfileRequest
   ): Promise<ThresholdProfile> {
     try {
-      const record = await this.dao.thresholdProfileInput.update({
+      const record = await this.dao.thresholdProfile.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -122,7 +122,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.thresholdProfileInput.update({
+      await this.dao.thresholdProfile.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -140,7 +140,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
         const txClient = tx as PrismaTransactionClient;
         const results: ThresholdProfile[] = [];
         for (const item of items) {
-          const record = await txClient.thresholdProfileInput.create({
+          const record = await txClient.thresholdProfile.create({
             data: {
               ...item,
               orgId,
@@ -181,7 +181,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.thresholdProfileInput.updateMany({
+      await this.dao.thresholdProfile.updateMany({
         where: {
           id: { in: ids },
           orgId,

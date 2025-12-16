@@ -37,7 +37,7 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.taskAssignmentInput.findMany({
+      const records = await this.dao.taskAssignment.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<TaskAssignment | null> {
     try {
-      const record = await this.dao.taskAssignmentInput.findFirst({
+      const record = await this.dao.taskAssignment.findFirst({
         where: {
           orgId,
           id,
@@ -89,7 +89,7 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as TaskAssignmentInput;
     try {
-      const record = await this.dao.taskAssignmentInput.create({
+      const record = await this.dao.taskAssignment.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -107,7 +107,7 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
     data: UpdateTaskAssignmentRequest
   ): Promise<TaskAssignment> {
     try {
-      const record = await this.dao.taskAssignmentInput.update({
+      const record = await this.dao.taskAssignment.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -122,7 +122,7 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.taskAssignmentInput.update({
+      await this.dao.taskAssignment.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -140,7 +140,7 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: TaskAssignment[] = [];
         for (const item of items) {
-          const record = await txClient.taskAssignmentInput.create({
+          const record = await txClient.taskAssignment.create({
             data: {
               ...item,
               orgId,
@@ -165,7 +165,7 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: TaskAssignment[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.taskAssignmentInput.update({
+          const record = await txClient.taskAssignment.update({
             where: { id, orgId },
             data,
           });
@@ -181,7 +181,7 @@ export class DaoTaskAssignmentRepository implements TaskAssignmentRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.taskAssignmentInput.updateMany({
+      await this.dao.taskAssignment.updateMany({
         where: {
           id: { in: ids },
           orgId,

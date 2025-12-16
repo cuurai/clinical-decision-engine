@@ -36,7 +36,7 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.workQueueInput.findMany({
+      const records = await this.dao.workQueue.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<WorkQueue | null> {
     try {
-      const record = await this.dao.workQueueInput.findFirst({
+      const record = await this.dao.workQueue.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as WorkQueueInput;
     try {
-      const record = await this.dao.workQueueInput.create({
+      const record = await this.dao.workQueue.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -102,7 +102,7 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateWorkQueueRequest): Promise<WorkQueue> {
     try {
-      const record = await this.dao.workQueueInput.update({
+      const record = await this.dao.workQueue.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -117,7 +117,7 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.workQueueInput.update({
+      await this.dao.workQueue.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -135,7 +135,7 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: WorkQueue[] = [];
         for (const item of items) {
-          const record = await txClient.workQueueInput.create({
+          const record = await txClient.workQueue.create({
             data: {
               ...item,
               orgId,
@@ -160,7 +160,7 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: WorkQueue[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.workQueueInput.update({
+          const record = await txClient.workQueue.update({
             where: { id, orgId },
             data,
           });
@@ -176,7 +176,7 @@ export class DaoWorkQueueRepository implements WorkQueueRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.workQueueInput.updateMany({
+      await this.dao.workQueue.updateMany({
         where: {
           id: { in: ids },
           orgId,

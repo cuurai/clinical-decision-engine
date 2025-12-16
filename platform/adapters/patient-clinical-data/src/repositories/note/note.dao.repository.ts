@@ -37,7 +37,7 @@ export class DaoNoteRepository implements NoteRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.clinicalNoteInput.findMany({
+      const records = await this.dao.clinicalNote.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoNoteRepository implements NoteRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<ClinicalNote | null> {
     try {
-      const record = await this.dao.clinicalNoteInput.findFirst({
+      const record = await this.dao.clinicalNote.findFirst({
         where: {
           orgId,
           id,
@@ -89,7 +89,7 @@ export class DaoNoteRepository implements NoteRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ClinicalNoteInput;
     try {
-      const record = await this.dao.clinicalNoteInput.create({
+      const record = await this.dao.clinicalNote.create({
         data: {
           ...inputData,
           orgId,
@@ -103,7 +103,7 @@ export class DaoNoteRepository implements NoteRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateClinicalNoteRequest): Promise<ClinicalNote> {
     try {
-      const record = await this.dao.clinicalNoteInput.update({
+      const record = await this.dao.clinicalNote.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -118,7 +118,7 @@ export class DaoNoteRepository implements NoteRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.clinicalNoteInput.update({
+      await this.dao.clinicalNote.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -136,7 +136,7 @@ export class DaoNoteRepository implements NoteRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: ClinicalNote[] = [];
         for (const item of items) {
-          const record = await txClient.clinicalNoteInput.create({
+          const record = await txClient.clinicalNote.create({
             data: {
               ...item,
               orgId,
@@ -161,7 +161,7 @@ export class DaoNoteRepository implements NoteRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: ClinicalNote[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.clinicalNoteInput.update({
+          const record = await txClient.clinicalNote.update({
             where: { id, orgId },
             data,
           });
@@ -177,7 +177,7 @@ export class DaoNoteRepository implements NoteRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.clinicalNoteInput.updateMany({
+      await this.dao.clinicalNote.updateMany({
         where: {
           id: { in: ids },
           orgId,

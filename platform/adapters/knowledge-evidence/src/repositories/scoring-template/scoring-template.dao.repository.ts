@@ -36,7 +36,7 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.scoringTemplateInput.findMany({
+      const records = await this.dao.scoringTemplate.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<ScoringTemplate | null> {
     try {
-      const record = await this.dao.scoringTemplateInput.findFirst({
+      const record = await this.dao.scoringTemplate.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ScoringTemplateInput;
     try {
-      const record = await this.dao.scoringTemplateInput.create({
+      const record = await this.dao.scoringTemplate.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -106,7 +106,7 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
     data: UpdateScoringTemplateRequest
   ): Promise<ScoringTemplate> {
     try {
-      const record = await this.dao.scoringTemplateInput.update({
+      const record = await this.dao.scoringTemplate.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -121,7 +121,7 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.scoringTemplateInput.update({
+      await this.dao.scoringTemplate.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -139,7 +139,7 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: ScoringTemplate[] = [];
         for (const item of items) {
-          const record = await txClient.scoringTemplateInput.create({
+          const record = await txClient.scoringTemplate.create({
             data: {
               ...item,
               orgId,
@@ -164,7 +164,7 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: ScoringTemplate[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.scoringTemplateInput.update({
+          const record = await txClient.scoringTemplate.update({
             where: { id, orgId },
             data,
           });
@@ -180,7 +180,7 @@ export class DaoScoringTemplateRepository implements ScoringTemplateRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.scoringTemplateInput.updateMany({
+      await this.dao.scoringTemplate.updateMany({
         where: {
           id: { in: ids },
           orgId,

@@ -36,7 +36,7 @@ export class DaoDecisionResultRepository implements DecisionResultRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.decisionResultInput.findMany({
+      const records = await this.dao.decisionResult.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoDecisionResultRepository implements DecisionResultRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<DecisionResult | null> {
     try {
-      const record = await this.dao.decisionResultInput.findFirst({
+      const record = await this.dao.decisionResult.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoDecisionResultRepository implements DecisionResultRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DecisionResultInput;
     try {
-      const record = await this.dao.decisionResultInput.create({
+      const record = await this.dao.decisionResult.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -106,7 +106,7 @@ export class DaoDecisionResultRepository implements DecisionResultRepository {
     data: UpdateDecisionResultRequest
   ): Promise<DecisionResult> {
     try {
-      const record = await this.dao.decisionResultInput.update({
+      const record = await this.dao.decisionResult.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -121,7 +121,7 @@ export class DaoDecisionResultRepository implements DecisionResultRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.decisionResultInput.update({
+      await this.dao.decisionResult.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -139,7 +139,7 @@ export class DaoDecisionResultRepository implements DecisionResultRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: DecisionResult[] = [];
         for (const item of items) {
-          const record = await txClient.decisionResultInput.create({
+          const record = await txClient.decisionResult.create({
             data: {
               ...item,
               orgId,
@@ -180,7 +180,7 @@ export class DaoDecisionResultRepository implements DecisionResultRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.decisionResultInput.updateMany({
+      await this.dao.decisionResult.updateMany({
         where: {
           id: { in: ids },
           orgId,

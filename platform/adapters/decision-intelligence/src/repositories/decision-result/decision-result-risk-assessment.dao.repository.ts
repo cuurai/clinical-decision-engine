@@ -35,7 +35,7 @@ export class DaoDecisionResultRiskAssessmentRepository
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.riskAssessmentInput.findMany({
+      const records = await this.dao.riskAssessment.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -62,7 +62,7 @@ export class DaoDecisionResultRiskAssessmentRepository
   }
   async findById(orgId: OrgId, id: string): Promise<DecisionResultRiskAssessment | null> {
     try {
-      const record = await this.dao.riskAssessmentInput.findFirst({
+      const record = await this.dao.riskAssessment.findFirst({
         where: {
           orgId,
           id,

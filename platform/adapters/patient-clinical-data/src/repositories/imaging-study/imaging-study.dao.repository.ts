@@ -36,7 +36,7 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.imagingStudyInput.findMany({
+      const records = await this.dao.imagingStudy.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<ImagingStudy | null> {
     try {
-      const record = await this.dao.imagingStudyInput.findFirst({
+      const record = await this.dao.imagingStudy.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ImagingStudyInput;
     try {
-      const record = await this.dao.imagingStudyInput.create({
+      const record = await this.dao.imagingStudy.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -102,7 +102,7 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateImagingStudyRequest): Promise<ImagingStudy> {
     try {
-      const record = await this.dao.imagingStudyInput.update({
+      const record = await this.dao.imagingStudy.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -117,7 +117,7 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.imagingStudyInput.update({
+      await this.dao.imagingStudy.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -135,7 +135,7 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: ImagingStudy[] = [];
         for (const item of items) {
-          const record = await txClient.imagingStudyInput.create({
+          const record = await txClient.imagingStudy.create({
             data: {
               ...item,
               orgId,
@@ -160,7 +160,7 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: ImagingStudy[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.imagingStudyInput.update({
+          const record = await txClient.imagingStudy.update({
             where: { id, orgId },
             data,
           });
@@ -176,7 +176,7 @@ export class DaoImagingStudyRepository implements ImagingStudyRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.imagingStudyInput.updateMany({
+      await this.dao.imagingStudy.updateMany({
         where: {
           id: { in: ids },
           orgId,

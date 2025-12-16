@@ -29,7 +29,7 @@ export class DaoEpisodesOfCareRepository implements EpisodesOfCareRepository, Ep
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.episodeOfCareInput.findMany({
+      const records = await this.dao.episodeOfCare.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -56,7 +56,7 @@ export class DaoEpisodesOfCareRepository implements EpisodesOfCareRepository, Ep
   }
   async findById(orgId: OrgId, id: string): Promise<EpisodeOfCare | null> {
     try {
-      const record = await this.dao.episodeOfCareInput.findFirst({
+      const record = await this.dao.episodeOfCare.findFirst({
         where: {
           orgId,
           id,
@@ -79,7 +79,7 @@ export class DaoEpisodesOfCareRepository implements EpisodesOfCareRepository, Ep
   async create(orgId: OrgId, data: EpisodeOfCare): Promise<EpisodeOfCare> {
     const inputData = data as any;
     try {
-      const record = await this.dao.episodeOfCareInput.create({
+      const record = await this.dao.episodeOfCare.create({
         data: {
           ...inputData,
           orgId,
@@ -94,14 +94,14 @@ export class DaoEpisodesOfCareRepository implements EpisodesOfCareRepository, Ep
 
   async update(orgId: OrgId, id: string, data: UpdateEpisodeOfCareRequest): Promise<EpisodeOfCare> {
     try {
-      const existing = await this.dao.episodeOfCareInput.findFirst({
+      const existing = await this.dao.episodeOfCare.findFirst({
         where: { orgId, id, deletedAt: null },
       });
       if (!existing) {
         throw new NotFoundError("EpisodeOfCare", id);
       }
 
-      const record = await this.dao.episodeOfCareInput.update({
+      const record = await this.dao.episodeOfCare.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -116,14 +116,14 @@ export class DaoEpisodesOfCareRepository implements EpisodesOfCareRepository, Ep
 
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
-      const existing = await this.dao.episodeOfCareInput.findFirst({
+      const existing = await this.dao.episodeOfCare.findFirst({
         where: { orgId, id, deletedAt: null },
       });
       if (!existing) {
         throw new NotFoundError("EpisodeOfCare", id);
       }
 
-      await this.dao.episodeOfCareInput.update({
+      await this.dao.episodeOfCare.update({
         where: { id, orgId },
         data: { deletedAt: new Date() },
       });

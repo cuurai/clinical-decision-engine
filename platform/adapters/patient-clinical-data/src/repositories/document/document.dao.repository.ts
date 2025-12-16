@@ -36,7 +36,7 @@ export class DaoDocumentRepository implements DocumentRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.documentReferenceInput.findMany({
+      const records = await this.dao.documentReference.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoDocumentRepository implements DocumentRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<DocumentReference | null> {
     try {
-      const record = await this.dao.documentReferenceInput.findFirst({
+      const record = await this.dao.documentReference.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoDocumentRepository implements DocumentRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DocumentReferenceInput;
     try {
-      const record = await this.dao.documentReferenceInput.create({
+      const record = await this.dao.documentReference.create({
         data: {
           ...inputData,
           orgId,
@@ -106,7 +106,7 @@ export class DaoDocumentRepository implements DocumentRepository {
     data: UpdateDocumentReferenceRequest
   ): Promise<DocumentReference> {
     try {
-      const record = await this.dao.documentReferenceInput.update({
+      const record = await this.dao.documentReference.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -121,7 +121,7 @@ export class DaoDocumentRepository implements DocumentRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.documentReferenceInput.update({
+      await this.dao.documentReference.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -142,7 +142,7 @@ export class DaoDocumentRepository implements DocumentRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: DocumentReference[] = [];
         for (const item of items) {
-          const record = await txClient.documentReferenceInput.create({
+          const record = await txClient.documentReference.create({
             data: {
               ...item,
               orgId,
@@ -167,7 +167,7 @@ export class DaoDocumentRepository implements DocumentRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: DocumentReference[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.documentReferenceInput.update({
+          const record = await txClient.documentReference.update({
             where: { id, orgId },
             data,
           });
@@ -183,7 +183,7 @@ export class DaoDocumentRepository implements DocumentRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.documentReferenceInput.updateMany({
+      await this.dao.documentReference.updateMany({
         where: {
           id: { in: ids },
           orgId,

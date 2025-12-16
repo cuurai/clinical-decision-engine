@@ -36,7 +36,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.eventDeliveryInput.findMany({
+      const records = await this.dao.eventDelivery.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<EventDelivery | null> {
     try {
-      const record = await this.dao.eventDeliveryInput.findFirst({
+      const record = await this.dao.eventDelivery.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as EventDeliveryInput;
     try {
-      const record = await this.dao.eventDeliveryInput.create({
+      const record = await this.dao.eventDelivery.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -102,7 +102,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateEventDeliveryRequest): Promise<EventDelivery> {
     try {
-      const record = await this.dao.eventDeliveryInput.update({
+      const record = await this.dao.eventDelivery.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -121,7 +121,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: EventDelivery[] = [];
         for (const item of items) {
-          const record = await txClient.eventDeliveryInput.create({
+          const record = await txClient.eventDelivery.create({
             data: {
               ...item,
               orgId,
@@ -146,7 +146,7 @@ export class DaoEventDeliveryRepository implements EventDeliveryRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: EventDelivery[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.eventDeliveryInput.update({
+          const record = await txClient.eventDelivery.update({
             where: { id, orgId },
             data,
           });

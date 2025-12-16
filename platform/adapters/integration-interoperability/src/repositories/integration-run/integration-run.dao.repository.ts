@@ -35,7 +35,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.integrationRunInput.findMany({
+      const records = await this.dao.integrationRun.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -62,7 +62,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<IntegrationRun | null> {
     try {
-      const record = await this.dao.integrationRunInput.findFirst({
+      const record = await this.dao.integrationRun.findFirst({
         where: {
           orgId,
           id,
@@ -87,7 +87,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as IntegrationRunInput;
     try {
-      const record = await this.dao.integrationRunInput.create({
+      const record = await this.dao.integrationRun.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -106,7 +106,7 @@ export class DaoIntegrationRunRepository implements IntegrationRunRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: IntegrationRun[] = [];
         for (const item of items) {
-          const record = await txClient.integrationRunInput.create({
+          const record = await txClient.integrationRun.create({
             data: {
               ...item,
               orgId,

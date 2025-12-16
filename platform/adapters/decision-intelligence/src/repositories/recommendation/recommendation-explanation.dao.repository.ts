@@ -34,7 +34,7 @@ export class DaoRecommendationExplanationRepository implements RecommendationExp
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.explanationInput.findMany({
+      const records = await this.dao.explanation.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoRecommendationExplanationRepository implements RecommendationExp
   }
   async findById(orgId: OrgId, id: string): Promise<RecommendationExplanation | null> {
     try {
-      const record = await this.dao.explanationInput.findFirst({
+      const record = await this.dao.explanation.findFirst({
         where: {
           orgId,
           id,

@@ -36,7 +36,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.explanationInput.findMany({
+      const records = await this.dao.explanation.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<Explanation | null> {
     try {
-      const record = await this.dao.explanationInput.findFirst({
+      const record = await this.dao.explanation.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ExplanationInput;
     try {
-      const record = await this.dao.explanationInput.create({
+      const record = await this.dao.explanation.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -107,7 +107,7 @@ export class DaoExplanationRepository implements ExplanationRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: Explanation[] = [];
         for (const item of items) {
-          const record = await txClient.explanationInput.create({
+          const record = await txClient.explanation.create({
             data: {
               ...item,
               orgId,

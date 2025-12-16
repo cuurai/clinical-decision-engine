@@ -39,7 +39,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.alertEvaluationInput.findMany({
+      const records = await this.dao.alertEvaluation.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -66,7 +66,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<AlertEvaluation | null> {
     try {
-      const record = await this.dao.alertEvaluationInput.findFirst({
+      const record = await this.dao.alertEvaluation.findFirst({
         where: {
           orgId,
           id,
@@ -91,7 +91,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as AlertEvaluationInput;
     try {
-      const record = await this.dao.alertEvaluationInput.create({
+      const record = await this.dao.alertEvaluation.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -109,7 +109,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
     data: UpdateAlertEvaluationRequest
   ): Promise<AlertEvaluation> {
     try {
-      const record = await this.dao.alertEvaluationInput.update({
+      const record = await this.dao.alertEvaluation.update({
         where: { id, orgId },
         data,
       });
@@ -122,7 +122,7 @@ export class DaoAlertEvaluationRepository implements AlertEvaluationRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.alertEvaluationInput.update({
+      await this.dao.alertEvaluation.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),

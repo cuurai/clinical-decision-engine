@@ -39,7 +39,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.careProtocolTemplateInput.findMany({
+      const records = await this.dao.careProtocolTemplate.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -66,7 +66,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<CareProtocolTemplate | null> {
     try {
-      const record = await this.dao.careProtocolTemplateInput.findFirst({
+      const record = await this.dao.careProtocolTemplate.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
   }
   async create(orgId: OrgId, data: CareProtocolTemplate): Promise<CareProtocolTemplate> {
     try {
-      const record = await this.dao.careProtocolTemplateInput.create({
+      const record = await this.dao.careProtocolTemplate.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -106,7 +106,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
     data: UpdateCareProtocolTemplateRequest
   ): Promise<CareProtocolTemplate> {
     try {
-      const record = await this.dao.careProtocolTemplateInput.update({
+      const record = await this.dao.careProtocolTemplate.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -121,7 +121,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.careProtocolTemplateInput.update({
+      await this.dao.careProtocolTemplate.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -142,7 +142,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: CareProtocolTemplate[] = [];
         for (const item of items) {
-          const record = await txClient.careProtocolTemplateInput.create({
+          const record = await txClient.careProtocolTemplate.create({
             data: {
               ...item,
               orgId,
@@ -167,7 +167,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: CareProtocolTemplate[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.careProtocolTemplateInput.update({
+          const record = await txClient.careProtocolTemplate.update({
             where: { id, orgId },
             data,
           });
@@ -183,7 +183,7 @@ export class DaoCareProtocolRepository implements CareProtocolRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.careProtocolTemplateInput.updateMany({
+      await this.dao.careProtocolTemplate.updateMany({
         where: {
           id: { in: ids },
           orgId,

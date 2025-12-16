@@ -36,7 +36,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.interfaceHealthCheckInput.findMany({
+      const records = await this.dao.interfaceHealthCheck.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
   }
   async findById(orgId: OrgId, id: string): Promise<InterfaceHealthCheck | null> {
     try {
-      const record = await this.dao.interfaceHealthCheckInput.findFirst({
+      const record = await this.dao.interfaceHealthCheck.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as InterfaceHealthCheckInput;
     try {
-      const record = await this.dao.interfaceHealthCheckInput.create({
+      const record = await this.dao.interfaceHealthCheck.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -110,7 +110,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
         const txClient = tx as PrismaTransactionClient;
         const results: InterfaceHealthCheck[] = [];
         for (const item of items) {
-          const record = await txClient.interfaceHealthCheckInput.create({
+          const record = await txClient.interfaceHealthCheck.create({
             data: {
               ...item,
               orgId,

@@ -36,7 +36,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.connectionInput.findMany({
+      const records = await this.dao.connection.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<Connection | null> {
     try {
-      const record = await this.dao.connectionInput.findFirst({
+      const record = await this.dao.connection.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ConnectionInput;
     try {
-      const record = await this.dao.connectionInput.create({
+      const record = await this.dao.connection.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -102,7 +102,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateConnectionRequest): Promise<Connection> {
     try {
-      const record = await this.dao.connectionInput.update({
+      const record = await this.dao.connection.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -117,7 +117,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.connectionInput.update({
+      await this.dao.connection.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -135,7 +135,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: Connection[] = [];
         for (const item of items) {
-          const record = await txClient.connectionInput.create({
+          const record = await txClient.connection.create({
             data: {
               ...item,
               orgId,
@@ -160,7 +160,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: Connection[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.connectionInput.update({
+          const record = await txClient.connection.update({
             where: { id, orgId },
             data,
           });
@@ -176,7 +176,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.connectionInput.updateMany({
+      await this.dao.connection.updateMany({
         where: {
           id: { in: ids },
           orgId,

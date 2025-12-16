@@ -37,7 +37,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.checklistInstanceInput.findMany({
+      const records = await this.dao.checklistInstance.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
   }
   async findById(orgId: OrgId, id: string): Promise<ChecklistInstance | null> {
     try {
-      const record = await this.dao.checklistInstanceInput.findFirst({
+      const record = await this.dao.checklistInstance.findFirst({
         where: {
           orgId,
           id,
@@ -86,7 +86,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
   }
   async create(orgId: OrgId, data: ChecklistInstanceInput): Promise<ChecklistInstance> {
     try {
-      const record = await this.dao.checklistInstanceInput.create({
+      const record = await this.dao.checklistInstance.create({
         data: {
           ...data,
           orgId,
@@ -104,7 +104,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
     data: UpdateChecklistInstanceRequest
   ): Promise<ChecklistInstance> {
     try {
-      const record = await this.dao.checklistInstanceInput.update({
+      const record = await this.dao.checklistInstance.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -119,7 +119,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.checklistInstanceInput.update({
+      await this.dao.checklistInstance.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -140,7 +140,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
         const txClient = tx as PrismaTransactionClient;
         const results: ChecklistInstance[] = [];
         for (const item of items) {
-          const record = await txClient.checklistInstanceInput.create({
+          const record = await txClient.checklistInstance.create({
             data: {
               ...item,
               orgId,
@@ -165,7 +165,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
         const txClient = tx as PrismaTransactionClient;
         const results: ChecklistInstance[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.checklistInstanceInput.update({
+          const record = await txClient.checklistInstance.update({
             where: { id, orgId },
             data,
           });
@@ -181,7 +181,7 @@ export class DaoChecklistInstanceRepository implements ChecklistInstanceReposito
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.checklistInstanceInput.updateMany({
+      await this.dao.checklistInstance.updateMany({
         where: {
           id: { in: ids },
           orgId,

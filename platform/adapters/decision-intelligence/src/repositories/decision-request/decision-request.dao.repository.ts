@@ -35,7 +35,7 @@ export class DaoDecisionRequestRepository implements DecisionRequestRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.decisionRequestInput.findMany({
+      const records = await this.dao.decisionRequest.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -62,7 +62,7 @@ export class DaoDecisionRequestRepository implements DecisionRequestRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<DecisionRequest | null> {
     try {
-      const record = await this.dao.decisionRequestInput.findFirst({
+      const record = await this.dao.decisionRequest.findFirst({
         where: {
           orgId,
           id,
@@ -87,7 +87,7 @@ export class DaoDecisionRequestRepository implements DecisionRequestRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as DecisionRequestInput;
     try {
-      const record = await this.dao.decisionRequestInput.create({
+      const record = await this.dao.decisionRequest.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -106,7 +106,7 @@ export class DaoDecisionRequestRepository implements DecisionRequestRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: DecisionRequest[] = [];
         for (const item of items) {
-          const record = await txClient.decisionRequestInput.create({
+          const record = await txClient.decisionRequest.create({
             data: {
               ...item,
               orgId,

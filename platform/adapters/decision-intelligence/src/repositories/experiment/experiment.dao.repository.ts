@@ -36,7 +36,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.experimentInput.findMany({
+      const records = await this.dao.experiment.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<Experiment | null> {
     try {
-      const record = await this.dao.experimentInput.findFirst({
+      const record = await this.dao.experiment.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ExperimentInput;
     try {
-      const record = await this.dao.experimentInput.create({
+      const record = await this.dao.experiment.create({
         data: {
           ...inputData,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -102,7 +102,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateExperimentRequest): Promise<Experiment> {
     try {
-      const record = await this.dao.experimentInput.update({
+      const record = await this.dao.experiment.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -117,7 +117,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.experimentInput.update({
+      await this.dao.experiment.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -135,7 +135,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: Experiment[] = [];
         for (const item of items) {
-          const record = await txClient.experimentInput.create({
+          const record = await txClient.experiment.create({
             data: {
               ...item,
               orgId,
@@ -176,7 +176,7 @@ export class DaoExperimentRepository implements ExperimentRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.experimentInput.updateMany({
+      await this.dao.experiment.updateMany({
         where: {
           id: { in: ids },
           orgId,

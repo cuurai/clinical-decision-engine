@@ -34,7 +34,7 @@ export class DaoDecisionSessionRequestRepository implements DecisionSessionReque
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.decisionRequestInput.findMany({
+      const records = await this.dao.decisionRequest.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -61,7 +61,7 @@ export class DaoDecisionSessionRequestRepository implements DecisionSessionReque
   }
   async findById(orgId: OrgId, id: string): Promise<DecisionSessionRequest | null> {
     try {
-      const record = await this.dao.decisionRequestInput.findFirst({
+      const record = await this.dao.decisionRequest.findFirst({
         where: {
           orgId,
           id,

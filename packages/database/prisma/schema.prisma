@@ -78,7 +78,7 @@ enum RisktypeEnum {
   other
 }
 
-model AlertEvaluationInput {
+model AlertEvaluation {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33)
@@ -129,7 +129,7 @@ model AlertEvaluationUpdate {
   @@index([orgId, status])
 }
 
-model DecisionMetricSnapshotInput {
+model DecisionMetricSnapshot {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   decisionPolicyId String @db.Char(33) /// FK: References DecisionPolicy
@@ -152,7 +152,7 @@ model DecisionMetricSnapshotInput {
   // Relationship: decisionPolicyId -> DecisionPolicy
 }
 
-model DecisionPolicyInput {
+model DecisionPolicy {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -198,7 +198,7 @@ model DecisionPolicyUpdate {
   @@index([orgId, status])
 }
 
-model DecisionRequestInput {
+model DecisionRequest {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   decisionSessionId String @db.Char(33) /// FK: References DecisionSession
@@ -222,7 +222,7 @@ model DecisionRequestInput {
   // Relationship: decisionSessionId -> DecisionSession
 }
 
-model DecisionResultInput {
+model DecisionResult {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   decisionRequestId String @db.Char(33) /// FK: References DecisionRequest
@@ -268,7 +268,7 @@ model DecisionResultUpdate {
   @@index([orgId, status])
 }
 
-model DecisionSessionInput {
+model DecisionSession {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33)
@@ -354,7 +354,7 @@ model ExperimentArm {
   // Relationship: decisionPolicyId -> DecisionPolicy
 }
 
-model ExperimentInput {
+model Experiment {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -423,7 +423,7 @@ model ExperimentUpdate {
   @@index([orgId, status])
 }
 
-model ExplanationInput {
+model Explanation {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   explanationType ExplanationtypeEnum
@@ -465,7 +465,7 @@ model FeatureAttribution {
   // Relationship: explanationId -> Explanation
 }
 
-model ModelInvocationInput {
+model ModelInvocation {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   modelVersionId String @db.Char(33)
@@ -489,7 +489,7 @@ model ModelInvocationInput {
   @@index([patientId])
 }
 
-model RecommendationInput {
+model Recommendation {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   decisionResultId String @db.Char(33) /// FK: References DecisionResult
@@ -536,7 +536,7 @@ model RecommendationUpdate {
   @@index([orgId, status])
 }
 
-model RiskAssessmentInput {
+model RiskAssessment {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33)
@@ -628,7 +628,7 @@ model SimulationMetric {
   // Relationship: simulationRunId -> SimulationRun
 }
 
-model SimulationRunInput {
+model SimulationRun {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   simulationScenarioId String @db.Char(33) /// FK: References SimulationScenario
@@ -650,7 +650,7 @@ model SimulationRunInput {
   // Relationship: simulationScenarioId -> SimulationScenario
 }
 
-model SimulationScenarioInput {
+model SimulationScenario {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -695,7 +695,7 @@ model SimulationScenarioUpdate {
   @@index([orgId, status])
 }
 
-model ThresholdProfileInput {
+model ThresholdProfile {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -838,7 +838,7 @@ enum MetrictypeEnum {
   throttle_count
 }
 
-model APIClientInput {
+model APIClient {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -882,7 +882,7 @@ model APIClientUpdate {
   @@index([orgId, status])
 }
 
-model APICredentialInput {
+model APICredential {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   apiClientId String @db.Char(33) /// FK: References APIClient
@@ -923,7 +923,7 @@ model APICredentialUpdate {
   @@index([deletedAt])
 }
 
-model ConnectionInput {
+model Connection {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   externalSystemId String @db.Char(33) /// FK: References ExternalSystem
@@ -974,7 +974,7 @@ model ConnectionUpdate {
   @@index([orgId, status])
 }
 
-model DataExportBatchInput {
+model DataExportBatch {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -1021,7 +1021,7 @@ model DataExportBatchUpdate {
   @@index([orgId, status])
 }
 
-model DataImportBatchInput {
+model DataImportBatch {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -1068,7 +1068,7 @@ model DataImportBatchUpdate {
   @@index([orgId, status])
 }
 
-model EventDeliveryInput {
+model EventDelivery {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   eventSubscriptionId String @db.Char(33) /// FK: References EventSubscription
@@ -1113,7 +1113,7 @@ model EventDeliveryUpdate {
   @@index([orgId, status])
 }
 
-model EventSubscriptionInput {
+model EventSubscription {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   eventType String
@@ -1181,7 +1181,7 @@ model ExportFile {
   // Relationship: dataExportBatchId -> DataExportBatch
 }
 
-model ExternalSystemInput {
+model ExternalSystem {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -1222,7 +1222,7 @@ model ExternalSystemUpdate {
   @@index([deletedAt])
 }
 
-model FHIRBundleInput {
+model FHIRBundle {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   bundleType BundletypeEnum
@@ -1244,7 +1244,7 @@ model FHIRBundleInput {
   // Relationship: connectionId -> Connection
 }
 
-model FHIRMappingProfileInput {
+model FHIRMappingProfile {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -1289,7 +1289,7 @@ model FHIRMappingProfileUpdate {
   @@index([deletedAt])
 }
 
-model HL7MappingProfileInput {
+model HL7MappingProfile {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -1332,7 +1332,7 @@ model HL7MappingProfileUpdate {
   @@index([deletedAt])
 }
 
-model HL7MessageInput {
+model HL7Message {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   rawMessage String
@@ -1399,7 +1399,7 @@ model ImportRecord {
   // Relationship: dataImportBatchId -> DataImportBatch
 }
 
-model IntegrationJobInput {
+model IntegrationJob {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -1472,7 +1472,7 @@ model IntegrationLog {
   // Relationship: integrationRunId -> IntegrationRun
 }
 
-model IntegrationRunInput {
+model IntegrationRun {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   integrationJobId String @db.Char(33) /// FK: References IntegrationJob
@@ -1499,7 +1499,7 @@ model IntegrationRunInput {
   // Relationship: integrationJobId -> IntegrationJob
 }
 
-model InterfaceErrorInput {
+model InterfaceError {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   errorType ErrortypeEnum
@@ -1546,7 +1546,7 @@ model InterfaceErrorUpdate {
   @@index([orgId, status])
 }
 
-model InterfaceHealthCheckInput {
+model InterfaceHealthCheck {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   connectionId String @db.Char(33) /// FK: References Connection
@@ -1729,7 +1729,7 @@ enum QuestiontypeEnum {
   text
 }
 
-model CareProtocolTemplateInput {
+model CareProtocolTemplate {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -1775,7 +1775,7 @@ model CareProtocolTemplateUpdate {
   @@index([orgId, status])
 }
 
-model ClinicalGuidelineInput {
+model ClinicalGuideline {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   title String
@@ -1825,7 +1825,7 @@ model ClinicalGuidelineUpdate {
   @@index([deletedAt])
 }
 
-model ClinicalRuleInput {
+model ClinicalRule {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -1930,7 +1930,7 @@ model Coding {
   @@index([deletedAt])
 }
 
-model ConceptMapInput {
+model ConceptMap {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -1991,7 +1991,7 @@ model ConceptMapping {
   // Relationship: conceptMapId -> ConceptMap
 }
 
-model EvidenceCitationInput {
+model EvidenceCitation {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   citationType CitationtypeEnum
@@ -2038,7 +2038,7 @@ model EvidenceCitationUpdate {
   @@index([deletedAt])
 }
 
-model EvidenceReviewInput {
+model EvidenceReview {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   evidenceCitationId String @db.Char(33) /// FK: References EvidenceCitation
@@ -2124,7 +2124,7 @@ model GuidelineSection {
   @@index([guidelineId])
 }
 
-model KnowledgePackageInput {
+model KnowledgePackage {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -2170,7 +2170,7 @@ model KnowledgePackageUpdate {
   @@index([orgId, status])
 }
 
-model ModelDefinitionInput {
+model ModelDefinition {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -2239,7 +2239,7 @@ model ModelTest {
   // Relationship: modelVersionId -> ModelVersion
 }
 
-model ModelVersionInput {
+model ModelVersion {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   modelDefinitionId String @db.Char(33) /// FK: References ModelDefinition
@@ -2331,7 +2331,7 @@ model OrderSetItem {
   // Relationship: orderSetTemplateId -> OrderSetTemplate
 }
 
-model OrderSetTemplateInput {
+model OrderSetTemplate {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -2444,7 +2444,7 @@ model QuestionnaireQuestion {
   // Relationship: questionnaireTemplateId -> QuestionnaireTemplate
 }
 
-model QuestionnaireTemplateInput {
+model QuestionnaireTemplate {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -2484,7 +2484,7 @@ model QuestionnaireTemplateUpdate {
   @@index([deletedAt])
 }
 
-model RuleSetInput {
+model RuleSet {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -2569,7 +2569,7 @@ model ScoringItem {
   // Relationship: scoringTemplateId -> ScoringTemplate
 }
 
-model ScoringTemplateInput {
+model ScoringTemplate {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -2653,7 +2653,7 @@ model ValueSetCode {
   // Relationship: valueSetId -> ValueSet
 }
 
-model ValueSetInput {
+model ValueSet {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -2724,7 +2724,7 @@ enum QueuetypeEnum {
   mixed
 }
 
-model AlertInput {
+model Alert {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33)
@@ -2794,7 +2794,7 @@ model AuditEvent {
   @@index([entityId])
 }
 
-model CarePathwayTemplateInput {
+model CarePathwayTemplate {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -2857,7 +2857,7 @@ model CarePlanGoal {
   // Relationship: carePlanId -> CarePlan
 }
 
-model CarePlanInput {
+model CarePlan {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33)
@@ -2909,7 +2909,7 @@ model CarePlanUpdate {
   @@index([orgId, status])
 }
 
-model ChecklistInstanceInput {
+model ChecklistInstance {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   checklistTemplateId String @db.Char(33) /// FK: References ChecklistTemplate
@@ -3001,7 +3001,7 @@ model ChecklistItemInstance {
   // Relationship: checklistItemId -> ChecklistItem
 }
 
-model ChecklistTemplateInput {
+model ChecklistTemplate {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -3058,7 +3058,7 @@ model Encounter {
   @@index([patientId])
 }
 
-model EpisodeOfCareInput {
+model EpisodeOfCare {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33)
@@ -3102,7 +3102,7 @@ model EpisodeOfCareUpdate {
   @@index([orgId, status])
 }
 
-model EscalationPolicyInput {
+model EscalationPolicy {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -3164,24 +3164,7 @@ model EscalationRule {
   // Relationship: escalationPolicyId -> EscalationPolicy
 }
 
-model Explanation {
-  id        String   @id @db.Char(33) /// Format: XX_<ULID>
-  orgId     String   @map("org_id")
-  explanationType String
-  content String
-  createdAt DateTime
-  updatedAt DateTime
-  createdBy String? @map("created_by")
-  updatedBy String? @map("updated_by")
-  deletedAt DateTime? @map("deleted_at")
-  deletedBy String? @map("deleted_by")
-  @@index([orgId])
-  @@index([createdAt])
-  @@index([updatedAt])
-  @@index([deletedAt])
-}
-
-model HandoffInput {
+model Handoff {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33)
@@ -3229,23 +3212,6 @@ model HandoffUpdate {
   @@index([orgId, status])
 }
 
-model OrderSetTemplate {
-  id        String   @id @db.Char(33) /// Format: XX_<ULID>
-  orgId     String   @map("org_id")
-  name String
-  description String
-  createdAt DateTime
-  updatedAt DateTime
-  createdBy String? @map("created_by")
-  updatedBy String? @map("updated_by")
-  deletedAt DateTime? @map("deleted_at")
-  deletedBy String? @map("deleted_by")
-  @@index([orgId])
-  @@index([createdAt])
-  @@index([updatedAt])
-  @@index([deletedAt])
-}
-
 model PathwayStep {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
@@ -3268,7 +3234,7 @@ model PathwayStep {
   // Relationship: carePathwayTemplateId -> CarePathwayTemplate
 }
 
-model RoutingRuleInput {
+model RoutingRule {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -3316,7 +3282,7 @@ model RoutingRuleUpdate {
   @@index([deletedAt])
 }
 
-model ScheduleTemplateInput {
+model ScheduleTemplate {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -3356,7 +3322,7 @@ model ScheduleTemplateUpdate {
   @@index([deletedAt])
 }
 
-model TaskAssignmentInput {
+model TaskAssignment {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   taskId String @db.Char(33) /// FK: References Task
@@ -3415,7 +3381,7 @@ model TaskComment {
   // Relationship: taskId -> Task
 }
 
-model TaskInput {
+model Task {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   carePlanId String @db.Char(33) /// FK: References CarePlan
@@ -3473,7 +3439,7 @@ model TaskUpdate {
   @@index([orgId, status])
 }
 
-model WorkQueueInput {
+model WorkQueue {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -3517,7 +3483,7 @@ model WorkQueueUpdate {
   @@index([teamId])
 }
 
-model WorkflowDefinitionInput {
+model WorkflowDefinition {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   name String
@@ -3578,7 +3544,7 @@ model WorkflowEvent {
   // Relationship: workflowInstanceId -> WorkflowInstance
 }
 
-model WorkflowInstanceInput {
+model WorkflowInstance {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   workflowDefinitionId String @db.Char(33) /// FK: References WorkflowDefinition
@@ -3753,7 +3719,7 @@ model Address {
   @@index([deletedAt])
 }
 
-model AllergyInput {
+model Allergy {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -3836,7 +3802,7 @@ model Attachment {
   @@index([deletedAt])
 }
 
-model CareTeamInput {
+model CareTeam {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -3921,7 +3887,7 @@ model CareTeamUpdate {
   @@index([orgId, status])
 }
 
-model ClinicalNoteInput {
+model ClinicalNote {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -3964,7 +3930,7 @@ model ClinicalNoteUpdate {
   @@index([deletedAt])
 }
 
-model ConditionInput {
+model Condition {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -4030,7 +3996,7 @@ model ContactPoint {
   @@index([deletedAt])
 }
 
-model DiagnosticReportInput {
+model DiagnosticReport {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -4093,7 +4059,7 @@ model DocumentContent {
   @@index([deletedAt])
 }
 
-model DocumentReferenceInput {
+model DocumentReference {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -4177,31 +4143,6 @@ model Duration {
   @@index([deletedAt])
 }
 
-model EncounterInput {
-  id        String   @id @db.Char(33) /// Format: XX_<ULID>
-  orgId     String   @map("org_id")
-  patientId String @db.Char(33) /// FK: References Patient
-  status StatusEnum
-  class ClassEnum
-  type String[]
-  period String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  createdBy String? @map("created_by")
-  updatedBy String? @map("updated_by")
-  deletedAt DateTime? @map("deleted_at")
-  deletedBy String? @map("deleted_by")
-  @@index([orgId])
-  @@index([status])
-  @@index([type])
-  @@index([createdAt])
-  @@index([updatedAt])
-  @@index([deletedAt])
-  @@index([patientId])
-  @@index([orgId, status])
-  // Relationship: patientId -> Patient
-}
-
 model EncounterUpdate {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
@@ -4282,7 +4223,7 @@ model ImagingSeries {
   // Relationship: imagingStudyId -> ImagingStudy
 }
 
-model ImagingStudyInput {
+model ImagingStudy {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -4326,7 +4267,7 @@ model ImagingStudyUpdate {
   @@index([orgId, status])
 }
 
-model ImmunizationInput {
+model Immunization {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -4371,7 +4312,7 @@ model ImmunizationUpdate {
   @@index([orgId, status])
 }
 
-model MedicationOrderInput {
+model MedicationOrder {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -4416,7 +4357,7 @@ model MedicationOrderUpdate {
   @@index([orgId, status])
 }
 
-model MedicationStatementInput {
+model MedicationStatement {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -4460,7 +4401,7 @@ model MedicationStatementUpdate {
   @@index([orgId, status])
 }
 
-model ObservationInput {
+model Observation {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -4532,7 +4473,7 @@ model Pagination {
   @@index([deletedAt])
 }
 
-model PatientInput {
+model Patient {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient
@@ -4629,7 +4570,7 @@ model Period {
   @@index([deletedAt])
 }
 
-model ProcedureInput {
+model Procedure {
   id        String   @id @db.Char(33) /// Format: XX_<ULID>
   orgId     String   @map("org_id")
   patientId String @db.Char(33) /// FK: References Patient

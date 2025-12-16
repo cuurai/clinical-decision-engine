@@ -36,7 +36,7 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.immunizationInput.findMany({
+      const records = await this.dao.immunization.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<Immunization | null> {
     try {
-      const record = await this.dao.immunizationInput.findFirst({
+      const record = await this.dao.immunization.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ImmunizationInput;
     try {
-      const record = await this.dao.immunizationInput.create({
+      const record = await this.dao.immunization.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -102,7 +102,7 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateImmunizationRequest): Promise<Immunization> {
     try {
-      const record = await this.dao.immunizationInput.update({
+      const record = await this.dao.immunization.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -117,7 +117,7 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.immunizationInput.update({
+      await this.dao.immunization.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -135,7 +135,7 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: Immunization[] = [];
         for (const item of items) {
-          const record = await txClient.immunizationInput.create({
+          const record = await txClient.immunization.create({
             data: {
               ...item,
               orgId,
@@ -160,7 +160,7 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: Immunization[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.immunizationInput.update({
+          const record = await txClient.immunization.update({
             where: { id, orgId },
             data,
           });
@@ -176,7 +176,7 @@ export class DaoImmunizationRepository implements ImmunizationRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.immunizationInput.updateMany({
+      await this.dao.immunization.updateMany({
         where: {
           id: { in: ids },
           orgId,

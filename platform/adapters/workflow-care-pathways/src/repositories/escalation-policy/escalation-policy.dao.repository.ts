@@ -37,7 +37,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.escalationPolicyInput.findMany({
+      const records = await this.dao.escalationPolicy.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
   }
   async findById(orgId: OrgId, id: string): Promise<EscalationPolicy | null> {
     try {
-      const record = await this.dao.escalationPolicyInput.findFirst({
+      const record = await this.dao.escalationPolicy.findFirst({
         where: {
           orgId,
           id,
@@ -89,7 +89,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as EscalationPolicyInput;
     try {
-      const record = await this.dao.escalationPolicyInput.create({
+      const record = await this.dao.escalationPolicy.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -107,7 +107,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
     data: UpdateEscalationPolicyRequest
   ): Promise<EscalationPolicy> {
     try {
-      const record = await this.dao.escalationPolicyInput.update({
+      const record = await this.dao.escalationPolicy.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -122,7 +122,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.escalationPolicyInput.update({
+      await this.dao.escalationPolicy.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -140,7 +140,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
         const txClient = tx as PrismaTransactionClient;
         const results: EscalationPolicy[] = [];
         for (const item of items) {
-          const record = await txClient.escalationPolicyInput.create({
+          const record = await txClient.escalationPolicy.create({
             data: {
               ...item,
               orgId,
@@ -165,7 +165,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
         const txClient = tx as PrismaTransactionClient;
         const results: EscalationPolicy[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.escalationPolicyInput.update({
+          const record = await txClient.escalationPolicy.update({
             where: { id, orgId },
             data,
           });
@@ -181,7 +181,7 @@ export class DaoEscalationPolicyRepository implements EscalationPolicyRepository
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.escalationPolicyInput.updateMany({
+      await this.dao.escalationPolicy.updateMany({
         where: {
           id: { in: ids },
           orgId,

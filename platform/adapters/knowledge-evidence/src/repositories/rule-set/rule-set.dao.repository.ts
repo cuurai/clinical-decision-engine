@@ -37,7 +37,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.ruleSetInput.findMany({
+      const records = await this.dao.ruleSet.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<RuleSet | null> {
     try {
-      const record = await this.dao.ruleSetInput.findFirst({
+      const record = await this.dao.ruleSet.findFirst({
         where: {
           orgId,
           id,
@@ -89,7 +89,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as RuleSetInput;
     try {
-      const record = await this.dao.ruleSetInput.create({
+      const record = await this.dao.ruleSet.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -103,7 +103,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateRuleSetRequest): Promise<RuleSet> {
     try {
-      const record = await this.dao.ruleSetInput.update({
+      const record = await this.dao.ruleSet.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -118,7 +118,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.ruleSetInput.update({
+      await this.dao.ruleSet.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -136,7 +136,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: RuleSet[] = [];
         for (const item of items) {
-          const record = await txClient.ruleSetInput.create({
+          const record = await txClient.ruleSet.create({
             data: {
               ...item,
               orgId,
@@ -161,7 +161,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: RuleSet[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.ruleSetInput.update({
+          const record = await txClient.ruleSet.update({
             where: { id, orgId },
             data,
           });
@@ -177,7 +177,7 @@ export class DaoRuleSetRepository implements RuleSetRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.ruleSetInput.updateMany({
+      await this.dao.ruleSet.updateMany({
         where: {
           id: { in: ids },
           orgId,

@@ -37,7 +37,7 @@ export class DaoDecisionMetricRepository implements DecisionMetricRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.decisionMetricSnapshotInput.findMany({
+      const records = await this.dao.decisionMetricSnapshot.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoDecisionMetricRepository implements DecisionMetricRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<DecisionMetricSnapshot | null> {
     try {
-      const record = await this.dao.decisionMetricSnapshotInput.findFirst({
+      const record = await this.dao.decisionMetricSnapshot.findFirst({
         where: {
           orgId,
           id,

@@ -40,7 +40,7 @@ export class DaoCarePathwayTemplateOrderSetTemplateRepository implements CarePat
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.carePathwayTemplateInputOrderSetTemplate.findMany({
+      const records = await this.dao.carePathwayTemplateOrderSetTemplate.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -67,7 +67,7 @@ export class DaoCarePathwayTemplateOrderSetTemplateRepository implements CarePat
   }
   async findById(orgId: OrgId, id: string): Promise<CarePathwayTemplateOrderSetTemplate | null> {
     try {
-      const record = await this.dao.carePathwayTemplateInputOrderSetTemplate.findFirst({
+      const record = await this.dao.carePathwayTemplateOrderSetTemplate.findFirst({
         where: {
           orgId,
           id,

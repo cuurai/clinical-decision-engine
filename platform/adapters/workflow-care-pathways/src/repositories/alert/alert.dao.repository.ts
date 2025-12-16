@@ -37,7 +37,7 @@ export class DaoAlertRepository implements AlertRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.alertInput.findMany({
+      const records = await this.dao.alert.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -64,7 +64,7 @@ export class DaoAlertRepository implements AlertRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<Alert | null> {
     try {
-      const record = await this.dao.alertInput.findFirst({
+      const record = await this.dao.alert.findFirst({
         where: {
           orgId,
           id,
@@ -89,7 +89,7 @@ export class DaoAlertRepository implements AlertRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as AlertInput;
     try {
-      const record = await this.dao.alertInput.create({
+      const record = await this.dao.alert.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -103,7 +103,7 @@ export class DaoAlertRepository implements AlertRepository {
   }
   async update(orgId: OrgId, id: string, data: UpdateAlertRequest): Promise<Alert> {
     try {
-      const record = await this.dao.alertInput.update({
+      const record = await this.dao.alert.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -118,7 +118,7 @@ export class DaoAlertRepository implements AlertRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.alertInput.update({
+      await this.dao.alert.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -136,7 +136,7 @@ export class DaoAlertRepository implements AlertRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: Alert[] = [];
         for (const item of items) {
-          const record = await txClient.alertInput.create({
+          const record = await txClient.alert.create({
             data: {
               ...item,
               orgId,
@@ -161,7 +161,7 @@ export class DaoAlertRepository implements AlertRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: Alert[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.alertInput.update({
+          const record = await txClient.alert.update({
             where: { id, orgId },
             data,
           });
@@ -177,7 +177,7 @@ export class DaoAlertRepository implements AlertRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.alertInput.updateMany({
+      await this.dao.alert.updateMany({
         where: {
           id: { in: ids },
           orgId,

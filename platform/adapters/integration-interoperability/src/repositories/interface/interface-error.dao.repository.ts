@@ -35,7 +35,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.interfaceErrorInput.findMany({
+      const records = await this.dao.interfaceError.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -62,7 +62,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<InterfaceError | null> {
     try {
-      const record = await this.dao.interfaceErrorInput.findFirst({
+      const record = await this.dao.interfaceError.findFirst({
         where: {
           orgId,
           id,
@@ -87,7 +87,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as CreateInterfaceErrorInput;
     try {
-      const record = await this.dao.interfaceErrorInput.create({
+      const record = await this.dao.interfaceError.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -105,7 +105,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
     data: UpdateInterfaceErrorRequest
   ): Promise<InterfaceError> {
     try {
-      const record = await this.dao.interfaceErrorInput.update({
+      const record = await this.dao.interfaceError.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -127,7 +127,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: InterfaceError[] = [];
         for (const item of items) {
-          const record = await txClient.interfaceErrorInput.create({
+          const record = await txClient.interfaceError.create({
             data: {
               ...item,
               orgId,
@@ -152,7 +152,7 @@ export class DaoInterfaceErrorRepository implements InterfaceErrorRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: InterfaceError[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.interfaceErrorInput.update({
+          const record = await txClient.interfaceError.update({
             where: { id, orgId },
             data,
           });

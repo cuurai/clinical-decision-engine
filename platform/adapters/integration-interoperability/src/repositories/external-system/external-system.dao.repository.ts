@@ -36,7 +36,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.externalSystemInput.findMany({
+      const records = await this.dao.externalSystem.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<ExternalSystem | null> {
     try {
-      const record = await this.dao.externalSystemInput.findFirst({
+      const record = await this.dao.externalSystem.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as ExternalSystemInput;
     try {
-      const record = await this.dao.externalSystemInput.create({
+      const record = await this.dao.externalSystem.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -106,7 +106,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
     data: UpdateExternalSystemRequest
   ): Promise<ExternalSystem> {
     try {
-      const record = await this.dao.externalSystemInput.update({
+      const record = await this.dao.externalSystem.update({
         where: { id, orgId },
         data: {
           ...data,
@@ -121,7 +121,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.externalSystemInput.update({
+      await this.dao.externalSystem.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -139,7 +139,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: ExternalSystem[] = [];
         for (const item of items) {
-          const record = await txClient.externalSystemInput.create({
+          const record = await txClient.externalSystem.create({
             data: {
               ...item,
               orgId,
@@ -164,7 +164,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: ExternalSystem[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.externalSystemInput.update({
+          const record = await txClient.externalSystem.update({
             where: { id, orgId },
             data,
           });
@@ -180,7 +180,7 @@ export class DaoExternalSystemRepository implements ExternalSystemRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.externalSystemInput.updateMany({
+      await this.dao.externalSystem.updateMany({
         where: {
           id: { in: ids },
           orgId,

@@ -36,7 +36,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
     try {
       const limit = params?.limit ?? DEFAULT_LIMIT;
 
-      const records = await this.dao.integrationJobInput.findMany({
+      const records = await this.dao.integrationJob.findMany({
         where: {
           orgId,
           deletedAt: null, // Soft delete filter - only return non-deleted records
@@ -63,7 +63,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
   }
   async findById(orgId: OrgId, id: string): Promise<IntegrationJob | null> {
     try {
-      const record = await this.dao.integrationJobInput.findFirst({
+      const record = await this.dao.integrationJob.findFirst({
         where: {
           orgId,
           id,
@@ -88,7 +88,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
     // Extract only the input fields to avoid including id, createdAt, updatedAt
     const inputData = data as unknown as IntegrationJobInput;
     try {
-      const record = await this.dao.integrationJobInput.create({
+      const record = await this.dao.integrationJob.create({
         data: {
           ...data,
           orgId, // Set orgId after spread to ensure it's always set correctly
@@ -106,7 +106,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
     data: UpdateIntegrationJobRequest
   ): Promise<IntegrationJob> {
     try {
-      const record = await this.dao.integrationJobInput.update({
+      const record = await this.dao.integrationJob.update({
         where: { id, orgId },
         data,
       });
@@ -119,7 +119,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
   async delete(orgId: OrgId, id: string): Promise<void> {
     try {
       // Soft delete: set deletedAt instead of hard delete
-      await this.dao.integrationJobInput.update({
+      await this.dao.integrationJob.update({
         where: { id, orgId },
         data: {
           deletedAt: new Date(),
@@ -137,7 +137,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: IntegrationJob[] = [];
         for (const item of items) {
-          const record = await txClient.integrationJobInput.create({
+          const record = await txClient.integrationJob.create({
             data: {
               ...item,
               orgId,
@@ -162,7 +162,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
         const txClient = tx as PrismaTransactionClient;
         const results: IntegrationJob[] = [];
         for (const { id, data } of updates) {
-          const record = await txClient.integrationJobInput.update({
+          const record = await txClient.integrationJob.update({
             where: { id, orgId },
             data,
           });
@@ -178,7 +178,7 @@ export class DaoIntegrationJobRepository implements IntegrationJobRepository {
   async deleteMany(orgId: OrgId, ids: string[]): Promise<void> {
     try {
       // Soft delete: set deletedAt for multiple records
-      await this.dao.integrationJobInput.updateMany({
+      await this.dao.integrationJob.updateMany({
         where: {
           id: { in: ids },
           orgId,
