@@ -33,3 +33,9 @@ export {
 // Export response-wrapper types but not the conflicting interfaces
 export type { WrapResponse, WrapListResponse } from "./helpers/response-wrapper.js";
 export { createResponse, createListResponse } from "./helpers/response-wrapper.js";
+
+// Errors (Error classes and handlers)
+export { NotFoundError, DomainConflictError, handleDatabaseError } from "./errors/index.js";
+
+// Transactions (Transaction management utilities)
+export type { TransactionManager } from "./transactions/index.js";

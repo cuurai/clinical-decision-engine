@@ -1,5 +1,5 @@
 {
-  "name": "@cuur/adapters-decision-intelligence",
+  "name": "@cuur/adapters-knowledge-evidence",
   "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",

@@ -8,6 +8,7 @@
     "generate": "prisma generate"
   },
   "dependencies": {
+    "@cuur-cde/core": "workspace:*",
     "@prisma/client": "^6.19.1"
   },
   "devDependencies": {

@@ -28,6 +28,9 @@ importers:
 
   packages/database:
     dependencies:
+      '@cuur-cde/core':
+        specifier: workspace:*
+        version: link:../core
       '@prisma/client':
         specifier: ^6.19.1
         version: 6.19.1(prisma@6.19.1(typescript@5.9.3))(typescript@5.9.3)
@@ -41,80 +44,45 @@ importers:
       '@cuur-cde/core':
         specifier: workspace:*
         version: link:../../../packages/core
-      '@prisma/client':
-        specifier: ^6.0.1
-        version: 6.19.1(prisma@6.19.1(typescript@5.9.3))(typescript@5.9.3)
-    devDependencies:
-      '@types/node':
-        specifier: ^20.0.0
-        version: 20.19.27
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
+      '@cuur-cde/database':
+        specifier: workspace:*
+        version: link:../../../packages/database
 
   platform/adapters/integration-interoperability:
     dependencies:
       '@cuur-cde/core':
         specifier: workspace:*
         version: link:../../../packages/core
-      '@prisma/client':
-        specifier: ^6.0.1
-        version: 6.19.1(prisma@6.19.1(typescript@5.9.3))(typescript@5.9.3)
-    devDependencies:
-      '@types/node':
-        specifier: ^20.0.0
-        version: 20.19.27
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
+      '@cuur-cde/database':
+        specifier: workspace:*
+        version: link:../../../packages/database
 
   platform/adapters/knowledge-evidence:
     dependencies:
       '@cuur-cde/core':
         specifier: workspace:*
         version: link:../../../packages/core
-      '@prisma/client':
-        specifier: ^6.0.1
-        version: 6.19.1(prisma@6.19.1(typescript@5.9.3))(typescript@5.9.3)
-    devDependencies:
-      '@types/node':
-        specifier: ^20.0.0
-        version: 20.19.27
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
+      '@cuur-cde/database':
+        specifier: workspace:*
+        version: link:../../../packages/database
 
   platform/adapters/patient-clinical-data:
     dependencies:
       '@cuur-cde/core':
         specifier: workspace:*
         version: link:../../../packages/core
-      '@prisma/client':
-        specifier: ^6.0.1
-        version: 6.19.1(prisma@6.19.1(typescript@5.9.3))(typescript@5.9.3)
-    devDependencies:
-      '@types/node':
-        specifier: ^20.0.0
-        version: 20.19.27
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
+      '@cuur-cde/database':
+        specifier: workspace:*
+        version: link:../../../packages/database
 
   platform/adapters/workflow-care-pathways:
     dependencies:
       '@cuur-cde/core':
         specifier: workspace:*
         version: link:../../../packages/core
-      '@prisma/client':
-        specifier: ^6.0.1
-        version: 6.19.1(prisma@6.19.1(typescript@5.9.3))(typescript@5.9.3)
-    devDependencies:
-      '@types/node':
-        specifier: ^20.0.0
-        version: 20.19.27
-      typescript:
-        specifier: ^5.3.3
-        version: 5.9.3
+      '@cuur-cde/database':
+        specifier: workspace:*
+        version: link:../../../packages/database
 
   platform/services/decision-intelligence:
     dependencies:
