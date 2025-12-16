@@ -21,15 +21,14 @@ import type {
   AlertExplanation,
 } from "@cuur-cde/core/workflow-care-pathways";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoAlertExplanationRepository implements AlertExplanationRepository {
-  private transactionManager: TransactionManager;
+  private readonly tx: TransactionManager;
 
   constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
   }
 
   async list(

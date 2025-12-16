@@ -18,15 +18,15 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
+import type { TransactionManager } from "@cuur-cde/core/_shared";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoDecisionSessionRepository implements DecisionSessionRepository {
-  private transactionManager: TransactionManager;
+  private readonly tx: TransactionManager;
 
   constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
   }
 
   async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<DecisionSession>> {
@@ -132,7 +132,7 @@ export class DaoDecisionSessionRepository implements DecisionSessionRepository {
   async createMany(orgId: OrgId, items: Array<DecisionSessionInput>): Promise<DecisionSession[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.transactionManager.run(async (tx) => {
         const results: DecisionSession[] = [];
         for (const item of items) {
           const record = await tx.decisionSessionInput.create({
@@ -156,7 +156,7 @@ export class DaoDecisionSessionRepository implements DecisionSessionRepository {
   ): Promise<DecisionSession[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.transactionManager.run(async (tx) => {
         const results: DecisionSession[] = [];
         for (const { id, data } of updates) {
           const record = await tx.decisionSession.update({

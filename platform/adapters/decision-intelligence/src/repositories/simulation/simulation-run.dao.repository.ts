@@ -17,15 +17,15 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
+import type { TransactionManager } from "@cuur-cde/core/_shared";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoSimulationRunRepository implements SimulationRunRepository {
-  private transactionManager: TransactionManager;
+  private readonly tx: TransactionManager;
 
   constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
   }
 
   async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<SimulationRun>> {
@@ -99,7 +99,7 @@ export class DaoSimulationRunRepository implements SimulationRunRepository {
   async createMany(orgId: OrgId, items: Array<SimulationRunInput>): Promise<SimulationRun[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.tx.run(async (tx) => {
         const results: SimulationRun[] = [];
         for (const item of items) {
           const record = await tx.simulationRunInput.create({

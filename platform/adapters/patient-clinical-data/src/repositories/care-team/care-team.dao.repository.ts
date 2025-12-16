@@ -19,15 +19,14 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/patient-clinical-data";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoCareTeamRepository implements CareTeamRepository {
-  private transactionManager: TransactionManager;
+  private readonly tx: TransactionManager;
 
   constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
   }
 
   async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<CareTeam>> {
@@ -129,7 +128,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
   async createMany(orgId: OrgId, items: Array<CareTeamInput>): Promise<CareTeam[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.tx.run(async (tx) => {
         const results: CareTeam[] = [];
         for (const item of items) {
           const record = await tx.careTeamInput.create({
@@ -153,7 +152,7 @@ export class DaoCareTeamRepository implements CareTeamRepository {
   ): Promise<CareTeam[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.tx.run(async (tx) => {
         const results: CareTeam[] = [];
         for (const { id, data } of updates) {
           const record = await tx.careTeamInput.update({

@@ -19,15 +19,17 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/integration-interoperability";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoDataImportBatchRepository implements DataImportBatchRepository {
-  private transactionManager: TransactionManager;
+  
 
-  constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
+  constructor(
+    private readonly dao: DaoClient,
+    private readonly tx: TransactionManager
+  ) {
   }
 
   async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<DataImportBatch>> {
@@ -133,7 +135,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
   async createMany(orgId: OrgId, items: Array<DataImportBatchInput>): Promise<DataImportBatch[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.tx.run(async (tx) => {
         const results: DataImportBatch[] = [];
         for (const item of items) {
           const record = await tx.dataImportBatchInput.create({
@@ -157,7 +159,7 @@ export class DaoDataImportBatchRepository implements DataImportBatchRepository {
   ): Promise<DataImportBatch[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.tx.run(async (tx) => {
         const results: DataImportBatch[] = [];
         for (const { id, data } of updates) {
           const record = await tx.dataImportBatchInput.update({

@@ -13,15 +13,18 @@ import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_s
 import type { DecisionSessionAlertRepository } from "@cuur-cde/core/decision-intelligence";
 import type { DecisionSessionAlert } from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
+import type { TransactionManager } from "@cuur-cde/core/_shared";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoDecisionSessionAlertRepository implements DecisionSessionAlertRepository {
-  private transactionManager: TransactionManager;
+  
 
-  constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
+  constructor(
+    private readonly dao: DaoClient,
+    private readonly tx: TransactionManager
+  ) {
   }
 
   async list(

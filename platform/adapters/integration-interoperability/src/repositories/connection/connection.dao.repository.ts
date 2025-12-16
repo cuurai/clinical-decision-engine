@@ -19,15 +19,14 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/integration-interoperability";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoConnectionRepository implements ConnectionRepository {
-  private transactionManager: TransactionManager;
+  private readonly tx: TransactionManager;
 
   constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
   }
 
   async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<Connection>> {
@@ -129,7 +128,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
   async createMany(orgId: OrgId, items: Array<ConnectionInput>): Promise<Connection[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.transactionManager.run(async (tx) => {
         const results: Connection[] = [];
         for (const item of items) {
           const record = await tx.connectionInput.create({
@@ -153,7 +152,7 @@ export class DaoConnectionRepository implements ConnectionRepository {
   ): Promise<Connection[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.transactionManager.run(async (tx) => {
         const results: Connection[] = [];
         for (const { id, data } of updates) {
           const record = await tx.connectionInput.update({

@@ -13,17 +13,20 @@ import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_s
 import type { ModelInvocationExplanationRepository } from "@cuur-cde/core/decision-intelligence";
 import type { ModelInvocationExplanation } from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
+import type { TransactionManager } from "@cuur-cde/core/_shared";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoModelInvocationExplanationRepository
   implements ModelInvocationExplanationRepository
 {
-  private transactionManager: TransactionManager;
+  private readonly tx: TransactionManager;
 
-  constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
+  constructor(
+    private readonly dao: DaoClient,
+    private readonly tx: TransactionManager
+  ) {
   }
 
   async list(

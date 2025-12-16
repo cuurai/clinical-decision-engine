@@ -19,15 +19,17 @@ import type {
   UpdateWorkflowInstanceRequest,
 } from "@cuur-cde/core/workflow-care-pathways";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository {
-  private transactionManager: TransactionManager;
+  
 
-  constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
+  constructor(
+    private readonly dao: DaoClient,
+    private readonly tx: TransactionManager
+  ) {
   }
 
   async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<WorkflowInstance>> {
@@ -133,7 +135,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
   async createMany(orgId: OrgId, items: Array<WorkflowInstanceInput>): Promise<WorkflowInstance[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.tx.run(async (tx) => {
         const results: WorkflowInstance[] = [];
         for (const item of items) {
           const record = await tx.workflowInstanceInput.create({
@@ -157,7 +159,7 @@ export class DaoWorkflowInstanceRepository implements WorkflowInstanceRepository
   ): Promise<WorkflowInstance[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.tx.run(async (tx) => {
         const results: WorkflowInstance[] = [];
         for (const { id, data } of updates) {
           const record = await tx.workflowInstanceInput.update({

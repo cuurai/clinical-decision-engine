@@ -18,15 +18,18 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
+import type { TransactionManager } from "@cuur-cde/core/_shared";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoThresholdProfileRepository implements ThresholdProfileRepository {
-  private transactionManager: TransactionManager;
+  
 
-  constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
+  constructor(
+    private readonly dao: DaoClient,
+    private readonly tx: TransactionManager
+  ) {
   }
 
   async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<ThresholdProfile>> {
@@ -132,7 +135,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
   async createMany(orgId: OrgId, items: Array<ThresholdProfileInput>): Promise<ThresholdProfile[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.tx.run(async (tx) => {
         const results: ThresholdProfile[] = [];
         for (const item of items) {
           const record = await tx.thresholdProfileInput.create({
@@ -156,7 +159,7 @@ export class DaoThresholdProfileRepository implements ThresholdProfileRepository
   ): Promise<ThresholdProfile[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.tx.run(async (tx) => {
         const results: ThresholdProfile[] = [];
         for (const { id, data } of updates) {
           const record = await tx.thresholdProfile.update({

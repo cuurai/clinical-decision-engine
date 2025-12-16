@@ -19,15 +19,14 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/workflow-care-pathways";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoRoutingRuleRepository implements RoutingRuleRepository {
-  private transactionManager: TransactionManager;
+  private readonly tx: TransactionManager;
 
   constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
   }
 
   async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<RoutingRule>> {
@@ -129,7 +128,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
   async createMany(orgId: OrgId, items: Array<RoutingRuleInput>): Promise<RoutingRule[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.transactionManager.run(async (tx) => {
         const results: RoutingRule[] = [];
         for (const item of items) {
           const record = await tx.routingRuleInput.create({
@@ -153,7 +152,7 @@ export class DaoRoutingRuleRepository implements RoutingRuleRepository {
   ): Promise<RoutingRule[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.transactionManager.run(async (tx) => {
         const results: RoutingRule[] = [];
         for (const { id, data } of updates) {
           const record = await tx.routingRuleInput.update({

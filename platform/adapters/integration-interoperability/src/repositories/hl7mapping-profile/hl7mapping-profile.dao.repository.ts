@@ -18,15 +18,17 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/integration-interoperability";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoHL7MappingProfileRepository implements HL7MappingProfileRepository {
-  private transactionManager: TransactionManager;
+  
 
-  constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
+  constructor(
+    private readonly dao: DaoClient,
+    private readonly tx: TransactionManager
+  ) {
   }
 
   async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<HL7MappingProfile>> {
@@ -132,7 +134,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
   ): Promise<HL7MappingProfile[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.transactionManager.run(async (tx) => {
         const results: HL7MappingProfile[] = [];
         for (const item of items) {
           const record = await tx.hl7mappingProfile.create({
@@ -156,7 +158,7 @@ export class DaoHL7MappingProfileRepository implements HL7MappingProfileReposito
   ): Promise<HL7MappingProfile[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.transactionManager.run(async (tx) => {
         const results: HL7MappingProfile[] = [];
         for (const { id, data } of updates) {
           const record = await tx.hl7mappingProfile.update({

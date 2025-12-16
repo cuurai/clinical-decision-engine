@@ -16,15 +16,14 @@ import type {
   InterfaceHealthCheck,
 } from "@cuur-cde/core/integration-interoperability";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRepository {
-  private transactionManager: TransactionManager;
+  private readonly tx: TransactionManager;
 
   constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
   }
 
   async list(
@@ -104,7 +103,7 @@ export class DaoInterfaceHealthCheckRepository implements InterfaceHealthCheckRe
   ): Promise<InterfaceHealthCheck[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.transactionManager.run(async (tx) => {
         const results: InterfaceHealthCheck[] = [];
         for (const item of items) {
           const record = await tx.interfaceHealthCheckInput.create({

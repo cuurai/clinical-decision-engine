@@ -18,15 +18,17 @@ import type {
   Timestamps,
 } from "@cuur-cde/core/integration-interoperability";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoAPICredentialRepository implements APICredentialRepository {
-  private transactionManager: TransactionManager;
+  
 
-  constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
+  constructor(
+    private readonly dao: DaoClient,
+    private readonly tx: TransactionManager
+  ) {
   }
 
   async list(orgId: OrgId, params?: PaginationParams): Promise<PaginatedResult<APICredential>> {
@@ -125,7 +127,7 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
   async createMany(orgId: OrgId, items: Array<APICredentialInput>): Promise<APICredential[]> {
     try {
       // Use transaction with individual creates to get created records with IDs
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.transactionManager.run(async (tx) => {
         const results: APICredential[] = [];
         for (const item of items) {
           const record = await tx.apicredential.create({
@@ -149,7 +151,7 @@ export class DaoAPICredentialRepository implements APICredentialRepository {
   ): Promise<APICredential[]> {
     try {
       // Use transaction for atomic batch updates
-      return await this.transactionManager.executeInTransaction(async (tx) => {
+      return await this.transactionManager.run(async (tx) => {
         const results: APICredential[] = [];
         for (const { id, data } of updates) {
           const record = await tx.apicredential.update({

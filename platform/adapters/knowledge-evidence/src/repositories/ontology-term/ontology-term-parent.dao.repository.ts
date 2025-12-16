@@ -21,15 +21,17 @@ import type {
   OntologyTermParent,
 } from "@cuur-cde/core/knowledge-evidence";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "../utils/repository-helpers.js";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoOntologyTermParentRepository implements OntologyTermParentRepository {
-  private transactionManager: TransactionManager;
+  private readonly tx: TransactionManager;
 
-  constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
+  constructor(
+    private readonly dao: DaoClient,
+    private readonly tx: TransactionManager
+  ) {
   }
 
   async list(

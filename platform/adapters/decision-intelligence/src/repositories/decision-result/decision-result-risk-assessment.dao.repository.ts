@@ -13,17 +13,17 @@ import type { OrgId, PaginatedResult, PaginationParams } from "@cuur-cde/core/_s
 import type { DecisionResultRiskAssessmentRepository } from "@cuur-cde/core/decision-intelligence";
 import type { DecisionResultRiskAssessment } from "@cuur-cde/core/decision-intelligence";
 import type { DaoClient } from "@cuur-cde/database";
-import { NotFoundError, TransactionManager, handleDatabaseError } from "@cuur-cde/core/_shared";
+import type { TransactionManager } from "@cuur-cde/core/_shared";
+import { NotFoundError, handleDatabaseError } from "@cuur-cde/core/_shared";
 
 const DEFAULT_LIMIT = 50;
 
 export class DaoDecisionResultRiskAssessmentRepository
   implements DecisionResultRiskAssessmentRepository
 {
-  private transactionManager: TransactionManager;
+  private readonly tx: TransactionManager;
 
   constructor(private readonly dao: DaoClient) {
-    this.transactionManager = new TransactionManager(dao);
   }
 
   async list(
