@@ -1,0 +1,42 @@
+useCase: ProvisionExternalSystemConnection
+orchestrator: InteroperabilityIngestion
+purpose: >
+  Provision an external system and establish a connection for data ingestion.
+
+trigger:
+  type: api
+  source: AdminUI | SystemAPI
+
+input:
+  orgId: string
+  name: string
+  systemType: string
+  description?: string
+  connectionConfig: object
+  provisionedBy: string
+
+output:
+  externalSystemId: string
+  connectionId: string
+  status: string
+
+dependencies:
+  repositories:
+    - ExternalSystemRepository
+    - ConnectionRepository
+  services:
+    - ExternalSystemFactory
+    - ConnectionHealthService
+    - AuditService
+
+flow:
+  - step: create_external_system
+  - step: test_connection
+  - step: attach_connection
+  - step: persist_system
+  - step: persist_connection
+  - step: audit
+
+events:
+  emits:
+    - EXTERNAL_SYSTEM_PROVISIONED

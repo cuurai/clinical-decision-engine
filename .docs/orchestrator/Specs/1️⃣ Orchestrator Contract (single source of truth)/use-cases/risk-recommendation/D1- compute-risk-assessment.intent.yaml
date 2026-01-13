@@ -1,0 +1,41 @@
+useCase: ComputeRiskAssessment
+orchestrator: RiskRecommendation
+purpose: >
+  Compute risk assessment with score, tier, confidence, and evidence.
+
+trigger:
+  type: event
+  source: DECISION_EVALUATION_COMPLETED
+
+input:
+  orgId: string
+  decisionResultId: string
+  patientContext: object
+
+output:
+  riskAssessmentId: string
+  decisionResultId: string
+  riskType: string
+  score: number
+  tier: string
+  confidence: number
+  evidence: object
+
+dependencies:
+  repositories:
+    - RiskAssessmentRepository
+  services:
+    - RiskAssessmentFactory
+    - RiskAssessmentService
+    - AuditService
+
+flow:
+  - step: load_decision_result
+  - step: compute_risk
+  - step: create_assessment
+  - step: persist_assessment
+  - step: audit
+
+events:
+  emits:
+    - RISK_ASSESSMENT_COMPUTED

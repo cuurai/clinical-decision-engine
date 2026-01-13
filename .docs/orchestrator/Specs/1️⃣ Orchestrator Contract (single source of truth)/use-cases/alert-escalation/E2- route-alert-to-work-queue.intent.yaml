@@ -1,0 +1,41 @@
+useCase: RouteAlertToWorkQueue
+orchestrator: AlertEscalation
+purpose: >
+  Route an alert to the appropriate work queue based on routing rules,
+  schedule templates, and role/team assignments.
+
+trigger:
+  type: event
+  source: ALERT_CREATED
+
+input:
+  orgId: string
+  alertId: string
+  routingRules?: string[]
+
+output:
+  alertId: string
+  workQueueId: string
+  assignedTo?: string
+  assignedTeam?: string
+
+dependencies:
+  repositories:
+    - AlertRepository
+    - WorkQueueRepository
+  services:
+    - RoutingRuleService
+    - ScheduleTemplateService
+    - AuditService
+
+flow:
+  - step: load_alert
+  - step: evaluate_routing_rules
+  - step: select_work_queue
+  - step: apply_routing
+  - step: persist_alert
+  - step: audit
+
+events:
+  emits:
+    - ALERT_ROUTED

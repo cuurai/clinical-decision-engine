@@ -1,0 +1,40 @@
+useCase: TrackOutcomeSignals
+orchestrator: RiskRecommendation
+purpose: >
+  Track outcome signals: accepted/rejected/overridden; follow-up results.
+
+trigger:
+  type: api | event
+  source: ClinicianUI | WorkQueueUI | TaskCompleted
+
+input:
+  orgId: string
+  recommendationId: string
+  outcome: string
+  outcomeDetails?: object
+  followUpResults?: object
+
+output:
+  outcomeSignalId: string
+  recommendationId: string
+  outcome: string
+  trackedAt: string
+
+dependencies:
+  repositories:
+    - RecommendationRepository
+    - OutcomeSignalRepository
+  services:
+    - OutcomeSignalFactory
+    - AuditService
+
+flow:
+  - step: load_recommendation
+  - step: create_outcome_signal
+  - step: persist_signal
+  - step: update_recommendation_status
+  - step: audit
+
+events:
+  emits:
+    - OUTCOME_SIGNAL_TRACKED

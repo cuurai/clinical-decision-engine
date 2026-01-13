@@ -1,0 +1,50 @@
+useCase: CloseDecisionSession
+orchestrator: ClinicalDecisionSession
+purpose: >
+  Finalize a decision session and emit completion events.
+
+trigger:
+  type: api
+  source: ClinicianUI | System
+
+input:
+  orgId: string
+  decisionSessionId: string
+  closedBy: string
+  reason?: string
+  finalStatus?: string
+
+output:
+  decisionSessionId: string
+  status: string
+  closedAt: string
+  summary:
+    totalRequests: number
+    completedRequests: number
+    pendingRequests: number
+    totalResults: number
+    totalRiskAssessments: number
+    totalRecommendations: number
+    totalAlerts: number
+    duration: number
+
+dependencies:
+  repositories:
+    - DecisionSessionRepository
+    - DecisionRequestRepository
+  services:
+    - DecisionSessionSummaryService
+    - AuditService
+    - EventEmitterService
+
+flow:
+  - step: load_session
+  - step: generate_summary
+  - step: close_session
+  - step: persist_state
+  - step: audit
+  - step: emit_events
+
+events:
+  emits:
+    - DECISION_SESSION_CLOSED

@@ -1,0 +1,41 @@
+useCase: LinkEvidenceCitations
+orchestrator: ExplainabilityTrace
+purpose: >
+  Link evidence citations to decision: guidelines/sections/citations used.
+
+trigger:
+  type: event
+  source: DECISION_RESULT_CREATED
+
+input:
+  orgId: string
+  decisionResultId: string
+  guidelineIds?: string[]
+
+output:
+  evidenceCitationId: string
+  decisionResultId: string
+  citations: object[]
+  linkedGuidelines: object[]
+
+dependencies:
+  repositories:
+    - EvidenceCitationRepository
+    - DecisionResultRepository
+    - GuidelineRepository
+  services:
+    - EvidenceCitationFactory
+    - EvidenceCitationService
+    - AuditService
+
+flow:
+  - step: load_decision_result
+  - step: identify_guidelines
+  - step: extract_citations
+  - step: create_citations
+  - step: persist_citations
+  - step: audit
+
+events:
+  emits:
+    - EVIDENCE_CITATIONS_LINKED

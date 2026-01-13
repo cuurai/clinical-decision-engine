@@ -1,0 +1,40 @@
+useCase: NormalizeInboundClinicalData
+orchestrator: InteroperabilityIngestion
+purpose: >
+  Normalize inbound clinical data from mapped resources into
+  standardized patient clinical data entities.
+
+trigger:
+  type: event
+  source: HL7_MESSAGE_INGESTED | FHIR_BUNDLE_INGESTED
+
+input:
+  orgId: string
+  mappedResources: object[]
+  sourceSystem: string
+  connectionId: string
+
+output:
+  normalizedData:
+    patients: object[]
+    encounters: object[]
+    observations: object[]
+    conditions: object[]
+    medications: object[]
+    procedures: object[]
+    errors: object[]
+  recordCount: number
+
+dependencies:
+  services:
+    - DataNormalizationService
+    - AuditService
+
+flow:
+  - step: normalize_resources
+  - step: validate_normalized_data
+  - step: audit
+
+events:
+  emits:
+    - CLINICAL_DATA_NORMALIZED

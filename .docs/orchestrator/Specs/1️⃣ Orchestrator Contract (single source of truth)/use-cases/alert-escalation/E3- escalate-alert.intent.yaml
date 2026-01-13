@@ -1,0 +1,37 @@
+useCase: EscalateAlert
+orchestrator: AlertEscalation
+purpose: >
+  Escalate an alert based on escalation policy rules and timers.
+
+trigger:
+  type: event | timer
+  source: ALERT_ROUTED | EscalationTimer
+
+input:
+  orgId: string
+  alertId: string
+  escalationReason?: string
+
+output:
+  alertId: string
+  escalationLevel: number
+  escalatedTo?: string
+  escalatedAt: string
+
+dependencies:
+  repositories:
+    - AlertRepository
+  services:
+    - EscalationPolicyService
+    - AuditService
+
+flow:
+  - step: load_alert
+  - step: evaluate_escalation_policy
+  - step: escalate_alert
+  - step: persist_alert
+  - step: audit
+
+events:
+  emits:
+    - ALERT_ESCALATED

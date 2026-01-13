@@ -1,0 +1,41 @@
+useCase: RollbackPackage
+orchestrator: KnowledgePackagingRelease
+purpose: >
+  Rollback package: fast revert while preserving audit.
+
+trigger:
+  type: api
+  source: AdminUI | DeploymentAPI
+
+input:
+  orgId: string
+  packageVersionId: string
+  rollbackToVersionId: string
+  rollbackReason?: string
+  rolledBackBy: string
+
+output:
+  rollbackId: string
+  packageVersionId: string
+  rolledBackToVersionId: string
+  rollbackStatus: string
+
+dependencies:
+  repositories:
+    - PackageVersionRepository
+    - DecisionPolicyRepository
+  services:
+    - PackageRollbackService
+    - AuditService
+
+flow:
+  - step: load_current_version
+  - step: load_target_version
+  - step: validate_rollback
+  - step: execute_rollback
+  - step: persist_rollback
+  - step: audit
+
+events:
+  emits:
+    - KNOWLEDGE_PACKAGE_ROLLED_BACK

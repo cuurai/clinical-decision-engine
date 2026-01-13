@@ -1,0 +1,40 @@
+useCase: ActivateDeactivatePolicy
+orchestrator: PolicyThresholdGovernance
+purpose: >
+  Activate or deactivate policy with effective dates and staged rollout.
+
+trigger:
+  type: api
+  source: AdminUI | PolicyManagementAPI
+
+input:
+  orgId: string
+  policyId: string
+  action: string
+  effectiveDate?: string
+  rolloutPlan?: object
+  activatedBy: string
+
+output:
+  policyId: string
+  status: string
+  effectiveDate: string
+  rolloutStage?: string
+
+dependencies:
+  repositories:
+    - DecisionPolicyRepository
+  services:
+    - PolicyActivationService
+    - AuditService
+
+flow:
+  - step: load_policy
+  - step: validate_activation
+  - step: activate_or_deactivate
+  - step: persist_policy
+  - step: audit
+
+events:
+  emits:
+    - DECISION_POLICY_ACTIVATED | DECISION_POLICY_DEACTIVATED

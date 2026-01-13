@@ -1,0 +1,43 @@
+useCase: VersionSignPackage
+orchestrator: KnowledgePackagingRelease
+purpose: >
+  Version and sign package: immutable release artifact.
+
+trigger:
+  type: api | event
+  source: AdminUI | KNOWLEDGE_PACKAGE_VALIDATED
+
+input:
+  orgId: string
+  knowledgePackageId: string
+  versionNotes?: string
+  signedBy: string
+  signature?: string
+
+output:
+  packageVersionId: string
+  knowledgePackageId: string
+  version: string
+  signedAt: string
+  artifactHash: string
+
+dependencies:
+  repositories:
+    - KnowledgePackageRepository
+    - PackageVersionRepository
+  services:
+    - PackageVersionFactory
+    - PackageSigningService
+    - AuditService
+
+flow:
+  - step: load_package
+  - step: create_version
+  - step: sign_version
+  - step: compute_hash
+  - step: persist_version
+  - step: audit
+
+events:
+  emits:
+    - KNOWLEDGE_PACKAGE_VERSIONED

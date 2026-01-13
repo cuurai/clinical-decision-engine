@@ -1,0 +1,47 @@
+useCase: PersistNormalizedRecords
+orchestrator: InteroperabilityIngestion
+purpose: >
+  Persist normalized clinical data records into patient clinical data domain.
+  Handles deduplication and idempotency.
+
+trigger:
+  type: event
+  source: CLINICAL_DATA_NORMALIZED
+
+input:
+  orgId: string
+  normalizedData: object
+  sourceSystem: string
+  connectionId: string
+
+output:
+  persistedCount: number
+  duplicateCount: number
+  errorCount: number
+  patientIdMap: object
+
+dependencies:
+  repositories:
+    - PatientRepository
+    - EncounterRepository
+    - ObservationRepository
+  services:
+    - PatientFactory
+    - EncounterFactory
+    - ObservationFactory
+    - DeduplicationService
+    - AuditService
+
+flow:
+  - step: deduplicate_patients
+  - step: create_patients
+  - step: persist_patients
+  - step: create_encounters
+  - step: persist_encounters
+  - step: create_observations
+  - step: persist_observations
+  - step: audit
+
+events:
+  emits:
+    - NORMALIZED_RECORDS_PERSISTED

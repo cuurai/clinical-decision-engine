@@ -1,0 +1,38 @@
+useCase: DefineExperiment
+orchestrator: ExperimentationSimulation
+purpose: >
+  Define experiment: hypothesis, target population, KPIs.
+
+trigger:
+  type: api
+  source: AdminUI | ResearchAPI
+
+input:
+  orgId: string
+  experimentName: string
+  hypothesis: string
+  targetPopulation: object
+  kpis: object[]
+  definedBy: string
+
+output:
+  experimentId: string
+  experimentName: string
+  status: string
+
+dependencies:
+  repositories:
+    - ExperimentRepository
+  services:
+    - ExperimentFactory
+    - AuditService
+
+flow:
+  - step: validate_experiment
+  - step: create_experiment
+  - step: persist_experiment
+  - step: audit
+
+events:
+  emits:
+    - EXPERIMENT_DEFINED

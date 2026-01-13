@@ -1,0 +1,44 @@
+useCase: DeliverEventsWithRetries
+orchestrator: EventingOutboundDelivery
+purpose: >
+  Deliver events with retries: delivery status, error capture.
+
+trigger:
+  type: event | schedule
+  source: DECISION_EVENT_EMITTED | WORKFLOW_EVENT_EMITTED | RetryScheduler
+
+input:
+  orgId: string
+  eventId: string
+  subscriptionId: string
+  retryAttempt?: number
+
+output:
+  deliveryId: string
+  eventId: string
+  subscriptionId: string
+  deliveryStatus: string
+  deliveredAt?: string
+
+dependencies:
+  repositories:
+    - EventDeliveryRepository
+    - EventSubscriptionRepository
+  services:
+    - EventDeliveryFactory
+    - EventDeliveryService
+    - RetryService
+    - AuditService
+
+flow:
+  - step: load_event
+  - step: load_subscription
+  - step: attempt_delivery
+  - step: handle_delivery_result
+  - step: schedule_retry_if_needed
+  - step: persist_delivery
+  - step: audit
+
+events:
+  emits:
+    - EVENT_DELIVERY_COMPLETED | EVENT_DELIVERY_FAILED

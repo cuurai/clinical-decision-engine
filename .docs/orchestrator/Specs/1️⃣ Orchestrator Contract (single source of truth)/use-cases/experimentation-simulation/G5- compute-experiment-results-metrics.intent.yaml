@@ -1,0 +1,45 @@
+useCase: ComputeExperimentResultsMetrics
+orchestrator: ExperimentationSimulation
+purpose: >
+  Compute experiment results and metrics: decision metrics, safety metrics.
+
+trigger:
+  type: event | schedule
+  source: EXPERIMENT_ARMS_CONFIGURED | MetricsScheduler
+
+input:
+  orgId: string
+  experimentId: string
+  metricTypes?: string[]
+  timeRange?: object
+
+output:
+  resultsId: string
+  experimentId: string
+  decisionMetrics: object
+  safetyMetrics: object
+  computedAt: string
+
+dependencies:
+  repositories:
+    - ExperimentRepository
+    - ExperimentResultsRepository
+    - DecisionResultRepository
+  services:
+    - ExperimentResultsFactory
+    - MetricsComputationService
+    - SafetyMetricsService
+    - AuditService
+
+flow:
+  - step: load_experiment
+  - step: collect_results
+  - step: compute_decision_metrics
+  - step: compute_safety_metrics
+  - step: create_results
+  - step: persist_results
+  - step: audit
+
+events:
+  emits:
+    - EXPERIMENT_RESULTS_COMPUTED

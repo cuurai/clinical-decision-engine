@@ -1,0 +1,41 @@
+useCase: PolicyVersioningAudit
+orchestrator: PolicyThresholdGovernance
+purpose: >
+  Create immutable policy versions with signed approvals.
+
+trigger:
+  type: api | event
+  source: AdminUI | DECISION_POLICY_UPDATED
+
+input:
+  orgId: string
+  policyId: string
+  versionNotes?: string
+  approvedBy: string
+  signature?: string
+
+output:
+  policyVersionId: string
+  policyId: string
+  version: number
+  signedAt: string
+
+dependencies:
+  repositories:
+    - DecisionPolicyRepository
+    - PolicyVersionRepository
+  services:
+    - PolicyVersionFactory
+    - PolicySigningService
+    - AuditService
+
+flow:
+  - step: load_policy
+  - step: create_version
+  - step: sign_version
+  - step: persist_version
+  - step: audit
+
+events:
+  emits:
+    - POLICY_VERSION_CREATED

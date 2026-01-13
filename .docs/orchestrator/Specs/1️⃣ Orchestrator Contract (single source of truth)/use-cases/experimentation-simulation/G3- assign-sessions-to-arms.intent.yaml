@@ -1,0 +1,41 @@
+useCase: AssignSessionsToArms
+orchestrator: ExperimentationSimulation
+purpose: >
+  Assign sessions to arms: deterministic bucketing.
+
+trigger:
+  type: event
+  source: DECISION_SESSION_STARTED
+
+input:
+  orgId: string
+  experimentId: string
+  decisionSessionId: string
+  assignmentCriteria?: object
+
+output:
+  assignmentId: string
+  experimentId: string
+  decisionSessionId: string
+  armId: string
+
+dependencies:
+  repositories:
+    - ExperimentRepository
+    - DecisionSessionRepository
+  services:
+    - SessionAssignmentService
+    - BucketingService
+    - AuditService
+
+flow:
+  - step: load_experiment
+  - step: load_session
+  - step: determine_bucket
+  - step: assign_to_arm
+  - step: persist_assignment
+  - step: audit
+
+events:
+  emits:
+    - SESSION_ASSIGNED_TO_ARM

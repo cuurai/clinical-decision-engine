@@ -1,0 +1,44 @@
+useCase: IngestFHIRBundle
+orchestrator: InteroperabilityIngestion
+purpose: >
+  Ingest a FHIR bundle: store, map resources via mapping profile.
+
+trigger:
+  type: api | event
+  source: FHIRInterface | IntegrationJob
+
+input:
+  orgId: string
+  fhirBundle: object
+  sourceSystem: string
+  connectionId: string
+  mappingProfileId?: string
+
+output:
+  fhirBundleId: string
+  status: string
+  resourceCount?: number
+  mappingResultId?: string
+
+dependencies:
+  repositories:
+    - FHIRBundleRepository
+    - FHIRMappingProfileRepository
+  services:
+    - FHIRBundleFactory
+    - FHIRParserService
+    - FHIRMappingService
+    - AuditService
+
+flow:
+  - step: create_bundle
+  - step: parse_bundle
+  - step: load_mapping_profile
+  - step: apply_mapping
+  - step: attach_mapping_result
+  - step: persist_bundle
+  - step: audit
+
+events:
+  emits:
+    - FHIR_BUNDLE_INGESTED

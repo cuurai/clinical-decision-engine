@@ -1,0 +1,41 @@
+useCase: PolicyChangeImpactPreview
+orchestrator: PolicyThresholdGovernance
+purpose: >
+  Preview policy change impact: simulate effect on recent sessions/cohorts.
+
+trigger:
+  type: api
+  source: AdminUI | PolicyManagementAPI
+
+input:
+  orgId: string
+  policyId: string
+  proposedChanges: object
+  simulationScope: object
+  requestedBy: string
+
+output:
+  impactPreviewId: string
+  affectedSessions: number
+  impactMetrics: object
+  recommendations: object[]
+
+dependencies:
+  repositories:
+    - DecisionPolicyRepository
+    - DecisionSessionRepository
+  services:
+    - PolicyImpactSimulationService
+    - AuditService
+
+flow:
+  - step: load_policy
+  - step: select_sessions
+  - step: simulate_changes
+  - step: compute_impact
+  - step: generate_recommendations
+  - step: audit
+
+events:
+  emits:
+    - POLICY_CHANGE_IMPACT_PREVIEW_GENERATED

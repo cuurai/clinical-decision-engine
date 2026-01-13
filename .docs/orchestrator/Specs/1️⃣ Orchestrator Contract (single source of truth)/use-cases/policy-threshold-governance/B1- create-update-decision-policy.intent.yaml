@@ -1,0 +1,41 @@
+useCase: CreateUpdateDecisionPolicy
+orchestrator: PolicyThresholdGovernance
+purpose: >
+  Create or update decision policy with metadata, scope, and eligibility constraints.
+
+trigger:
+  type: api
+  source: AdminUI | PolicyManagementAPI
+
+input:
+  orgId: string
+  policyId?: string
+  name: string
+  description?: string
+  scope: string
+  eligibilityConstraints: object
+  metadata?: object
+  updatedBy: string
+
+output:
+  policyId: string
+  version: number
+  status: string
+
+dependencies:
+  repositories:
+    - DecisionPolicyRepository
+  services:
+    - DecisionPolicyFactory
+    - PolicyValidationService
+    - AuditService
+
+flow:
+  - step: validate_policy
+  - step: create_or_update_policy
+  - step: persist_policy
+  - step: audit
+
+events:
+  emits:
+    - DECISION_POLICY_CREATED | DECISION_POLICY_UPDATED

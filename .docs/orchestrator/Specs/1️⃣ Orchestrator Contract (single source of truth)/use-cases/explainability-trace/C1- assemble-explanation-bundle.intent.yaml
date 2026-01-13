@@ -1,0 +1,38 @@
+useCase: AssembleExplanationBundle
+orchestrator: ExplainabilityTrace
+purpose: >
+  Assemble explanation bundle for a decision result.
+
+trigger:
+  type: event
+  source: DECISION_RESULT_CREATED
+
+input:
+  orgId: string
+  decisionResultId: string
+  patientContext: object
+
+output:
+  explanationBundleId: string
+  decisionResultId: string
+  bundleComponents: object[]
+
+dependencies:
+  repositories:
+    - ExplanationRepository
+    - DecisionResultRepository
+  services:
+    - ExplanationBundleFactory
+    - ExplanationAssemblyService
+    - AuditService
+
+flow:
+  - step: load_decision_result
+  - step: assemble_components
+  - step: create_bundle
+  - step: persist_bundle
+  - step: audit
+
+events:
+  emits:
+    - EXPLANATION_BUNDLE_ASSEMBLED

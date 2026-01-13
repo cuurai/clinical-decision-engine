@@ -1,0 +1,43 @@
+useCase: PromoteWinningArm
+orchestrator: ExperimentationSimulation
+purpose: >
+  Promote winning arm: rollout plan, staged activation.
+
+trigger:
+  type: api
+  source: AdminUI | ResearchAPI
+
+input:
+  orgId: string
+  experimentId: string
+  winningArmId: string
+  rolloutPlan: object
+  promotedBy: string
+
+output:
+  promotionId: string
+  experimentId: string
+  winningArmId: string
+  rolloutPlan: object
+  promotionStatus: string
+
+dependencies:
+  repositories:
+    - ExperimentRepository
+    - DecisionPolicyRepository
+  services:
+    - ArmPromotionService
+    - RolloutService
+    - AuditService
+
+flow:
+  - step: load_experiment
+  - step: validate_winning_arm
+  - step: create_rollout_plan
+  - step: promote_arm
+  - step: persist_promotion
+  - step: audit
+
+events:
+  emits:
+    - WINNING_ARM_PROMOTED

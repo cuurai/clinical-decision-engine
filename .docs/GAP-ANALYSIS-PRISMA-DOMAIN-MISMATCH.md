@@ -458,3 +458,4 @@ The model rename was successful, but revealed deeper architectural mismatches be
 3. **Type system alignment** (long-term)
 
 The good news: These are **fixable** and follow predictable patterns. With proper mapper utilities, most fixes can be automated or templated.
+

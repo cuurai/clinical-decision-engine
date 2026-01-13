@@ -1,0 +1,43 @@
+useCase: SubmitDecisionRequest
+orchestrator: ClinicalDecisionSession
+purpose: >
+  Submit a specific clinical decision intent within an active session.
+
+trigger:
+  type: api
+  source: ClinicianUI | Automation
+
+input:
+  orgId: string
+  decisionSessionId: string
+  decisionIntent: string
+  submittedBy: string
+  contextOverrides?: object
+  metadata?: object
+
+output:
+  decisionRequestId: string
+  decisionSessionId: string
+  decisionIntent: string
+  status: string
+  policyId: string
+
+dependencies:
+  repositories:
+    - DecisionSessionRepository
+    - DecisionRequestRepository
+  services:
+    - DecisionPolicyService
+    - AuditService
+
+flow:
+  - step: load_session
+  - step: validate_intent
+  - step: resolve_policy
+  - step: create_request
+  - step: persist_request
+  - step: audit
+
+events:
+  emits:
+    - DECISION_REQUEST_SUBMITTED

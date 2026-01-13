@@ -1,0 +1,44 @@
+useCase: RunSimulationScenario
+orchestrator: ExperimentationSimulation
+purpose: >
+  Run simulation scenario: replay historical sessions or synthetic cohorts.
+
+trigger:
+  type: api
+  source: AdminUI | ResearchAPI
+
+input:
+  orgId: string
+  simulationScenarioId: string
+  scenarioType: string
+  historicalSessionIds?: string[]
+  syntheticCohort?: object
+  runBy: string
+
+output:
+  simulationRunId: string
+  simulationScenarioId: string
+  status: string
+  sessionsSimulated: number
+
+dependencies:
+  repositories:
+    - SimulationScenarioRepository
+    - SimulationRunRepository
+    - DecisionSessionRepository
+  services:
+    - SimulationRunFactory
+    - SimulationExecutorService
+    - AuditService
+
+flow:
+  - step: load_scenario
+  - step: prepare_sessions
+  - step: create_simulation_run
+  - step: execute_simulation
+  - step: persist_run
+  - step: audit
+
+events:
+  emits:
+    - SIMULATION_SCENARIO_RUN

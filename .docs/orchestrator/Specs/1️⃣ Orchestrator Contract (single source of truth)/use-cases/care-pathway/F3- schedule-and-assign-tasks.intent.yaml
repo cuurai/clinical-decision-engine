@@ -1,0 +1,42 @@
+useCase: ScheduleAndAssignTasks
+orchestrator: CarePathway
+purpose: >
+  Schedule and assign tasks: assignments, schedules, work queues.
+
+trigger:
+  type: event
+  source: CARE_PLAN_INSTANTIATED
+
+input:
+  orgId: string
+  carePlanId: string
+  taskIds: string[]
+  assignmentRules?: object
+  scheduledBy: string
+
+output:
+  carePlanId: string
+  assignedTasks: object[]
+  scheduledTasks: object[]
+
+dependencies:
+  repositories:
+    - CarePlanRepository
+    - TaskRepository
+    - WorkQueueRepository
+  services:
+    - TaskAssignmentService
+    - TaskSchedulingService
+    - AuditService
+
+flow:
+  - step: load_care_plan
+  - step: load_tasks
+  - step: assign_tasks
+  - step: schedule_tasks
+  - step: persist_assignments
+  - step: audit
+
+events:
+  emits:
+    - TASKS_SCHEDULED_AND_ASSIGNED

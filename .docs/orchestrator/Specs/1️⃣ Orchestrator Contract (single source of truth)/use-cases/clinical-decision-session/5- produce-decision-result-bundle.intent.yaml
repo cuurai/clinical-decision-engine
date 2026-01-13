@@ -1,0 +1,46 @@
+useCase: ProduceDecisionResultBundle
+orchestrator: ClinicalDecisionSession
+purpose: >
+  Assemble decision results, risks, recommendations, and alerts
+  into a cohesive result bundle.
+
+trigger:
+  type: event
+  source: DECISION_EVALUATION_COMPLETED
+
+input:
+  orgId: string
+  decisionResultId: string
+  patientContext: object
+
+output:
+  decisionResultId: string
+  riskAssessments: object[]
+  recommendations: object[]
+  alerts: object[]
+  bundleId: string
+
+dependencies:
+  repositories:
+    - DecisionResultRepository
+    - RiskAssessmentRepository
+    - RecommendationRepository
+  services:
+    - RiskAssessmentService
+    - RecommendationService
+    - AlertService
+    - BundleIdGenerator
+    - AuditService
+
+flow:
+  - step: load_result
+  - step: compute_risks
+  - step: generate_recommendations
+  - step: create_alerts
+  - step: persist_risks
+  - step: persist_recommendations
+  - step: audit
+
+events:
+  emits:
+    - DECISION_RESULT_BUNDLE_PRODUCED

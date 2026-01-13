@@ -1,0 +1,39 @@
+useCase: EmitDecisionEvent
+orchestrator: EventingOutboundDelivery
+purpose: >
+  Emit decision event: decision created/overridden/resolved.
+
+trigger:
+  type: event
+  source: DECISION_RESULT_CREATED | DECISION_OVERRIDDEN | DECISION_RESOLVED
+
+input:
+  orgId: string
+  decisionResultId: string
+  eventType: string
+  eventPayload: object
+
+output:
+  eventId: string
+  decisionResultId: string
+  eventType: string
+  emittedAt: string
+
+dependencies:
+  repositories:
+    - DecisionResultRepository
+  services:
+    - EventEmitterService
+    - EventDeliveryService
+    - AuditService
+
+flow:
+  - step: load_decision_result
+  - step: create_event
+  - step: match_subscriptions
+  - step: queue_deliveries
+  - step: audit
+
+events:
+  emits:
+    - DECISION_EVENT_EMITTED

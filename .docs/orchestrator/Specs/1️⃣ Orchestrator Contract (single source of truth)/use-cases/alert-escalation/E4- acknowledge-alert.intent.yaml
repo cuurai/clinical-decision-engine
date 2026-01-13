@@ -1,0 +1,37 @@
+useCase: AcknowledgeAlert
+orchestrator: AlertEscalation
+purpose: >
+  Acknowledge an alert, updating its state machine.
+
+trigger:
+  type: api
+  source: ClinicianUI | WorkQueueUI
+
+input:
+  orgId: string
+  alertId: string
+  acknowledgedBy: string
+  acknowledgedAt?: string
+
+output:
+  alertId: string
+  status: string
+  acknowledgedBy: string
+  acknowledgedAt: string
+
+dependencies:
+  repositories:
+    - AlertRepository
+  services:
+    - AuditService
+
+flow:
+  - step: load_alert
+  - step: validate_state_transition
+  - step: acknowledge_alert
+  - step: persist_alert
+  - step: audit
+
+events:
+  emits:
+    - ALERT_ACKNOWLEDGED

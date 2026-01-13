@@ -1,0 +1,41 @@
+useCase: ConfigureArms
+orchestrator: ExperimentationSimulation
+purpose: >
+  Configure arms: policy versions, threshold profiles, model versions.
+
+trigger:
+  type: api | event
+  source: AdminUI | EXPERIMENT_DEFINED
+
+input:
+  orgId: string
+  experimentId: string
+  arms: object[]
+  configuredBy: string
+
+output:
+  experimentId: string
+  arms: object[]
+  armCount: number
+
+dependencies:
+  repositories:
+    - ExperimentRepository
+    - DecisionPolicyRepository
+    - ThresholdProfileRepository
+    - ModelVersionRepository
+  services:
+    - ArmFactory
+    - ArmConfigurationService
+    - AuditService
+
+flow:
+  - step: load_experiment
+  - step: validate_arms
+  - step: create_arms
+  - step: persist_arms
+  - step: audit
+
+events:
+  emits:
+    - EXPERIMENT_ARMS_CONFIGURED

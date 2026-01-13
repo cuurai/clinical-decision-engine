@@ -1,0 +1,40 @@
+useCase: CreateAlertFromDecisionResult
+orchestrator: AlertEscalation
+purpose: >
+  Create an alert from a decision result with severity, urgency, and routing tags.
+
+trigger:
+  type: event
+  source: DECISION_RESULT_BUNDLE_PRODUCED
+
+input:
+  orgId: string
+  decisionResultId: string
+  severity: string
+  urgency: string
+  routingTags?: string[]
+
+output:
+  alertId: string
+  decisionResultId: string
+  severity: string
+  urgency: string
+  status: string
+
+dependencies:
+  repositories:
+    - AlertRepository
+  services:
+    - AlertFactory
+    - AuditService
+
+flow:
+  - step: load_decision_result
+  - step: determine_severity_urgency
+  - step: create_alert
+  - step: persist_alert
+  - step: audit
+
+events:
+  emits:
+    - ALERT_CREATED

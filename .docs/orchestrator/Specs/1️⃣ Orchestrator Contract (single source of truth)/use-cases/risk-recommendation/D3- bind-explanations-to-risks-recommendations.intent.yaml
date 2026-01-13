@@ -1,0 +1,40 @@
+useCase: BindExplanationsToRisksRecommendations
+orchestrator: RiskRecommendation
+purpose: >
+  Bind explanations to risks and recommendations for traceability.
+
+trigger:
+  type: event
+  source: DECISION_EXPLANATION_BUNDLE_GENERATED
+
+input:
+  orgId: string
+  riskAssessmentIds: string[]
+  recommendationIds: string[]
+  explanationId: string
+
+output:
+  bindingsCreated: number
+  riskBindings: object[]
+  recommendationBindings: object[]
+
+dependencies:
+  repositories:
+    - RiskAssessmentRepository
+    - RecommendationRepository
+    - ExplanationRepository
+  services:
+    - ExplanationBindingService
+    - AuditService
+
+flow:
+  - step: load_explanation
+  - step: load_risks
+  - step: load_recommendations
+  - step: create_bindings
+  - step: persist_bindings
+  - step: audit
+
+events:
+  emits:
+    - EXPLANATIONS_BOUND_TO_RISKS_RECOMMENDATIONS

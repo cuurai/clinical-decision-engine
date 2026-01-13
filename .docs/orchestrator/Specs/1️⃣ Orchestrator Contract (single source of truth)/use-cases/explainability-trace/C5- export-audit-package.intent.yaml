@@ -1,0 +1,42 @@
+useCase: ExportAuditPackage
+orchestrator: ExplainabilityTrace
+purpose: >
+  Export audit package: human readable + machine readable.
+
+trigger:
+  type: api
+  source: AdminUI | AuditSystem
+
+input:
+  orgId: string
+  decisionResultId: string
+  format: string
+  includeArtifacts?: boolean
+
+output:
+  auditPackageId: string
+  humanReadable: string
+  machineReadable: string
+  exportedAt: string
+
+dependencies:
+  repositories:
+    - ExplanationRepository
+    - DecisionResultRepository
+    - AuditPackageRepository
+  services:
+    - AuditPackageFactory
+    - AuditExportService
+    - AuditService
+
+flow:
+  - step: load_explanation_bundle
+  - step: generate_human_readable
+  - step: generate_machine_readable
+  - step: create_package
+  - step: persist_package
+  - step: audit
+
+events:
+  emits:
+    - AUDIT_PACKAGE_EXPORTED

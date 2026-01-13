@@ -1,0 +1,44 @@
+useCase: InstantiateCarePlan
+orchestrator: CarePathway
+purpose: >
+  Instantiate care plan: goals, checklists, tasks.
+
+trigger:
+  type: event
+  source: CARE_PATHWAY_TEMPLATE_SELECTED
+
+input:
+  orgId: string
+  carePathwayTemplateId: string
+  patientId: string
+  encounterId?: string
+  instantiatedBy: string
+
+output:
+  carePlanId: string
+  patientId: string
+  goals: object[]
+  checklists: object[]
+  tasks: object[]
+
+dependencies:
+  repositories:
+    - CarePlanRepository
+    - CarePathwayTemplateRepository
+  services:
+    - CarePlanFactory
+    - CarePlanInstantiationService
+    - AuditService
+
+flow:
+  - step: load_template
+  - step: instantiate_plan
+  - step: create_goals
+  - step: create_checklists
+  - step: create_tasks
+  - step: persist_plan
+  - step: audit
+
+events:
+  emits:
+    - CARE_PLAN_INSTANTIATED

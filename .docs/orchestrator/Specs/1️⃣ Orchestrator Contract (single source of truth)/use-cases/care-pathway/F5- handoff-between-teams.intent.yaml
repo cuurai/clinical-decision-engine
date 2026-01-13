@@ -1,0 +1,46 @@
+useCase: HandoffBetweenTeams
+orchestrator: CarePathway
+purpose: >
+  Handoff between teams: handoffs + handoff tasks.
+
+trigger:
+  type: api
+  source: WorkQueueUI | ClinicianUI
+
+input:
+  orgId: string
+  carePlanId: string
+  fromTeam: string
+  toTeam: string
+  handoffReason?: string
+  handoffTasks?: string[]
+  handedOffBy: string
+
+output:
+  handoffId: string
+  carePlanId: string
+  fromTeam: string
+  toTeam: string
+  handoffTasks: object[]
+
+dependencies:
+  repositories:
+    - CarePlanRepository
+    - HandoffRepository
+    - TaskRepository
+  services:
+    - HandoffFactory
+    - HandoffService
+    - AuditService
+
+flow:
+  - step: load_care_plan
+  - step: validate_handoff
+  - step: create_handoff
+  - step: create_handoff_tasks
+  - step: persist_handoff
+  - step: audit
+
+events:
+  emits:
+    - HANDOFF_BETWEEN_TEAMS

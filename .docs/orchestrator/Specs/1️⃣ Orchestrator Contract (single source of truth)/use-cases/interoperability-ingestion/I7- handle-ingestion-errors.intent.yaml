@@ -1,0 +1,41 @@
+useCase: HandleIngestionErrors
+orchestrator: InteroperabilityIngestion
+purpose: >
+  Handle errors during ingestion, track them, and support
+  idempotent reprocessing.
+
+trigger:
+  type: event | error
+  source: IntegrationJob | HL7_MESSAGE_INGESTED | FHIR_BUNDLE_INGESTED
+
+input:
+  orgId: string
+  errors: object[]
+  integrationRunId: string
+  connectionId: string
+
+output:
+  errorsHandled: number
+  errorsByType: object
+  retryableErrors: object[]
+
+dependencies:
+  repositories:
+    - InterfaceErrorRepository
+    - IntegrationRunErrorRepository
+  services:
+    - InterfaceErrorFactory
+    - IntegrationRunErrorFactory
+    - ErrorClassificationService
+    - AuditService
+
+flow:
+  - step: classify_errors
+  - step: create_interface_errors
+  - step: create_run_errors
+  - step: persist_errors
+  - step: audit
+
+events:
+  emits:
+    - INGESTION_ERRORS_HANDLED

@@ -1,0 +1,40 @@
+useCase: DeployPackageToPolicy
+orchestrator: KnowledgePackagingRelease
+purpose: >
+  Deploy package to policy: policy points to package version.
+
+trigger:
+  type: api
+  source: AdminUI | DeploymentAPI
+
+input:
+  orgId: string
+  packageVersionId: string
+  policyId: string
+  deploymentPlan?: object
+  deployedBy: string
+
+output:
+  deploymentId: string
+  packageVersionId: string
+  policyId: string
+  deploymentStatus: string
+
+dependencies:
+  repositories:
+    - PackageVersionRepository
+    - DecisionPolicyRepository
+  services:
+    - PackageDeploymentService
+    - AuditService
+
+flow:
+  - step: load_package_version
+  - step: load_policy
+  - step: deploy_to_policy
+  - step: persist_deployment
+  - step: audit
+
+events:
+  emits:
+    - KNOWLEDGE_PACKAGE_DEPLOYED_TO_POLICY

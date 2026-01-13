@@ -1,0 +1,43 @@
+useCase: ValidatePackage
+orchestrator: KnowledgePackagingRelease
+purpose: >
+  Validate package: rule tests, model tests, value set integrity.
+
+trigger:
+  type: api | event
+  source: AdminUI | KNOWLEDGE_PACKAGE_AUTHORED
+
+input:
+  orgId: string
+  knowledgePackageId: string
+  validationLevel?: string
+
+output:
+  validationId: string
+  knowledgePackageId: string
+  isValid: boolean
+  validationResults: object
+  errors: object[]
+
+dependencies:
+  repositories:
+    - KnowledgePackageRepository
+  services:
+    - PackageValidationService
+    - RuleTestService
+    - ModelTestService
+    - ValueSetIntegrityService
+    - AuditService
+
+flow:
+  - step: load_package
+  - step: run_rule_tests
+  - step: run_model_tests
+  - step: check_value_set_integrity
+  - step: aggregate_results
+  - step: persist_validation
+  - step: audit
+
+events:
+  emits:
+    - KNOWLEDGE_PACKAGE_VALIDATED

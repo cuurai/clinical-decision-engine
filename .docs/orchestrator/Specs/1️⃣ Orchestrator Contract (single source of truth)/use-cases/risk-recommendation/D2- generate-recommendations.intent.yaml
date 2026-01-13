@@ -1,0 +1,38 @@
+useCase: GenerateRecommendations
+orchestrator: RiskRecommendation
+purpose: >
+  Generate actionable recommendations: actions, contraindications,
+  alternatives, next tests.
+
+trigger:
+  type: event
+  source: RISK_ASSESSMENT_COMPUTED
+
+input:
+  orgId: string
+  decisionResultId: string
+  riskAssessments: object[]
+
+output:
+  recommendations: object[]
+  recommendationCount: number
+
+dependencies:
+  repositories:
+    - RecommendationRepository
+  services:
+    - RecommendationFactory
+    - RecommendationService
+    - AuditService
+
+flow:
+  - step: load_decision_result
+  - step: load_risk_assessments
+  - step: generate_recommendations
+  - step: create_recommendations
+  - step: persist_recommendations
+  - step: audit
+
+events:
+  emits:
+    - RECOMMENDATIONS_GENERATED

@@ -1,0 +1,42 @@
+useCase: PublishToWorkQueues
+orchestrator: RiskRecommendation
+purpose: >
+  Publish recommendations to work queues as task creation or clinician alert.
+
+trigger:
+  type: event
+  source: RECOMMENDATIONS_GENERATED
+
+input:
+  orgId: string
+  recommendationIds: string[]
+  workQueueId?: string
+  priority?: string
+
+output:
+  tasksCreated: number
+  alertsCreated: number
+  workQueueId: string
+
+dependencies:
+  repositories:
+    - RecommendationRepository
+    - WorkQueueRepository
+    - TaskRepository
+  services:
+    - TaskFactory
+    - AlertService
+    - WorkQueueService
+    - AuditService
+
+flow:
+  - step: load_recommendations
+  - step: select_work_queue
+  - step: create_tasks
+  - step: create_alerts
+  - step: persist_tasks
+  - step: audit
+
+events:
+  emits:
+    - RECOMMENDATIONS_PUBLISHED_TO_WORK_QUEUE

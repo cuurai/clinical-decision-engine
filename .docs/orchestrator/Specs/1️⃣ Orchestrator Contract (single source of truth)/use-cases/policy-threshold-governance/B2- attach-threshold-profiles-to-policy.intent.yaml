@@ -1,0 +1,40 @@
+useCase: AttachThresholdProfilesToPolicy
+orchestrator: PolicyThresholdGovernance
+purpose: >
+  Attach threshold profiles to policy by condition, care setting, org/site, population segment.
+
+trigger:
+  type: api
+  source: AdminUI | PolicyManagementAPI
+
+input:
+  orgId: string
+  policyId: string
+  thresholdProfileIds: string[]
+  attachmentRules: object
+  attachedBy: string
+
+output:
+  policyId: string
+  attachedProfiles: object[]
+  attachmentCount: number
+
+dependencies:
+  repositories:
+    - DecisionPolicyRepository
+    - ThresholdProfileRepository
+  services:
+    - PolicyThresholdBindingService
+    - AuditService
+
+flow:
+  - step: load_policy
+  - step: load_threshold_profiles
+  - step: validate_attachment_rules
+  - step: attach_profiles
+  - step: persist_policy
+  - step: audit
+
+events:
+  emits:
+    - THRESHOLD_PROFILES_ATTACHED_TO_POLICY

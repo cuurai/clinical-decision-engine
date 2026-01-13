@@ -1,0 +1,41 @@
+useCase: CloseEpisodeOfCare
+orchestrator: CarePathway
+purpose: >
+  Close episode of care: episode state, encounter linkage.
+
+trigger:
+  type: api
+  source: ClinicianUI | System
+
+input:
+  orgId: string
+  carePlanId: string
+  episodeId: string
+  closedBy: string
+  closureReason?: string
+
+output:
+  episodeId: string
+  carePlanId: string
+  status: string
+  closedAt: string
+
+dependencies:
+  repositories:
+    - EpisodeOfCareRepository
+    - CarePlanRepository
+  services:
+    - EpisodeClosureService
+    - AuditService
+
+flow:
+  - step: load_episode
+  - step: load_care_plan
+  - step: validate_closure
+  - step: close_episode
+  - step: persist_episode
+  - step: audit
+
+events:
+  emits:
+    - EPISODE_OF_CARE_CLOSED

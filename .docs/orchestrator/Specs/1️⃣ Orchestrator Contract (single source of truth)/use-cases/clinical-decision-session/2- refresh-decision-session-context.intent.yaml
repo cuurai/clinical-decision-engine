@@ -1,0 +1,40 @@
+useCase: RefreshDecisionSessionContext
+orchestrator: ClinicalDecisionSession
+purpose: >
+  Refresh and freeze patient clinical context as-of a point in time
+  for deterministic decisioning.
+
+trigger:
+  type: api
+  source: DecisionEngine | ClinicianUI
+
+input:
+  orgId: string
+  decisionSessionId: string
+  refreshScope?: string[]
+  asOfTime?: string
+
+output:
+  refreshedAt: string
+  contextSnapshot:
+    patientId: string
+    asOf: string
+    updatedFields: string[]
+
+dependencies:
+  repositories:
+    - DecisionSessionRepository
+  services:
+    - PatientContextService
+    - AuditService
+
+flow:
+  - step: load_session
+  - step: collect_clinical_data
+  - step: refresh_context
+  - step: persist_session
+  - step: audit
+
+events:
+  emits:
+    - DECISION_SESSION_CONTEXT_REFRESHED

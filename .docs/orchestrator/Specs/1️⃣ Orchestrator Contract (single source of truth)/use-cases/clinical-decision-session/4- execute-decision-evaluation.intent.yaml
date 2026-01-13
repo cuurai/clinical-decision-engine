@@ -1,0 +1,47 @@
+useCase: ExecuteDecisionEvaluation
+orchestrator: ClinicalDecisionSession
+purpose: >
+  Evaluate clinical policies, rules, thresholds, scoring templates,
+  and models for a decision request.
+
+trigger:
+  type: event
+  source: DECISION_REQUEST_SUBMITTED
+
+input:
+  orgId: string
+  decisionRequestId: string
+  patientContext: object
+
+output:
+  decisionResultId: string
+  decisionRequestId: string
+  status: string
+  evaluationSummary:
+    rulesEvaluated: number
+    modelsInvoked: number
+    thresholdsBreached: number
+
+dependencies:
+  repositories:
+    - DecisionRequestRepository
+    - DecisionResultRepository
+  services:
+    - RuleEvaluationService
+    - ModelInvocationService
+    - ThresholdEvaluationService
+    - AuditService
+
+flow:
+  - step: load_request
+  - step: evaluate_rules
+  - step: invoke_models
+  - step: aggregate_scores
+  - step: evaluate_thresholds
+  - step: create_result
+  - step: persist_result
+  - step: audit
+
+events:
+  emits:
+    - DECISION_EVALUATION_COMPLETED

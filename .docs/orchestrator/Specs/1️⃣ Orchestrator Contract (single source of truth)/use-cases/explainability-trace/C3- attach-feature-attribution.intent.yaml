@@ -1,0 +1,42 @@
+useCase: AttachFeatureAttribution
+orchestrator: ExplainabilityTrace
+purpose: >
+  Attach feature attribution: feature list, contributions, missingness handling.
+
+trigger:
+  type: event
+  source: DECISION_EVALUATION_COMPLETED
+
+input:
+  orgId: string
+  decisionResultId: string
+  modelInvocationIds: string[]
+
+output:
+  featureAttributionId: string
+  decisionResultId: string
+  features: object[]
+  contributions: object
+  missingnessHandling: object
+
+dependencies:
+  repositories:
+    - ExplanationFeatureRepository
+    - DecisionResultRepository
+  services:
+    - ExplanationFeatureFactory
+    - FeatureAttributionService
+    - AuditService
+
+flow:
+  - step: load_decision_result
+  - step: extract_features
+  - step: compute_contributions
+  - step: handle_missingness
+  - step: create_attribution
+  - step: persist_attribution
+  - step: audit
+
+events:
+  emits:
+    - FEATURE_ATTRIBUTION_ATTACHED

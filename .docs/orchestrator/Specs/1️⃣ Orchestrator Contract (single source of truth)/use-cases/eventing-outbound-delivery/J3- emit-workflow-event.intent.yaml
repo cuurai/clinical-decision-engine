@@ -1,0 +1,40 @@
+useCase: EmitWorkflowEvent
+orchestrator: EventingOutboundDelivery
+purpose: >
+  Emit workflow event: task created/completed, alert escalated.
+
+trigger:
+  type: event
+  source: TASK_CREATED | TASK_COMPLETED | ALERT_ESCALATED
+
+input:
+  orgId: string
+  workflowEntityId: string
+  eventType: string
+  eventPayload: object
+
+output:
+  eventId: string
+  workflowEntityId: string
+  eventType: string
+  emittedAt: string
+
+dependencies:
+  repositories:
+    - TaskRepository
+    - AlertRepository
+  services:
+    - EventEmitterService
+    - EventDeliveryService
+    - AuditService
+
+flow:
+  - step: load_workflow_entity
+  - step: create_event
+  - step: match_subscriptions
+  - step: queue_deliveries
+  - step: audit
+
+events:
+  emits:
+    - WORKFLOW_EVENT_EMITTED

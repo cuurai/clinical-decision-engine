@@ -1,0 +1,38 @@
+useCase: ResolveAlert
+orchestrator: AlertEscalation
+purpose: >
+  Resolve an alert, updating its state machine.
+
+trigger:
+  type: api
+  source: ClinicianUI | WorkQueueUI
+
+input:
+  orgId: string
+  alertId: string
+  resolvedBy: string
+  resolutionNotes?: string
+  resolvedAt?: string
+
+output:
+  alertId: string
+  status: string
+  resolvedBy: string
+  resolvedAt: string
+
+dependencies:
+  repositories:
+    - AlertRepository
+  services:
+    - AuditService
+
+flow:
+  - step: load_alert
+  - step: validate_state_transition
+  - step: resolve_alert
+  - step: persist_alert
+  - step: audit
+
+events:
+  emits:
+    - ALERT_RESOLVED

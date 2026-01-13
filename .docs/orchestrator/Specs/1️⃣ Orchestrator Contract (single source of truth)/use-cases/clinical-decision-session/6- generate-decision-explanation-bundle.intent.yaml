@@ -1,0 +1,46 @@
+useCase: GenerateDecisionExplanationBundle
+orchestrator: ClinicalDecisionSession
+purpose: >
+  Generate full explainability artifacts for a decision result.
+
+trigger:
+  type: event
+  source: DECISION_RESULT_BUNDLE_PRODUCED
+
+input:
+  orgId: string
+  decisionResultId: string
+  patientContext: object
+
+output:
+  explanationId: string
+  decisionResultId: string
+  features: object[]
+  ruleTraces: object[]
+  modelExplanations: object[]
+  evidenceCitations: object[]
+
+dependencies:
+  repositories:
+    - DecisionResultRepository
+    - ExplanationRepository
+  services:
+    - ExplanationFeatureService
+    - RuleTraceService
+    - ModelExplanationService
+    - EvidenceCitationService
+    - AuditService
+
+flow:
+  - step: load_result
+  - step: extract_features
+  - step: trace_rules
+  - step: explain_models
+  - step: link_evidence
+  - step: create_explanation
+  - step: persist_explanation
+  - step: audit
+
+events:
+  emits:
+    - DECISION_EXPLANATION_BUNDLE_GENERATED

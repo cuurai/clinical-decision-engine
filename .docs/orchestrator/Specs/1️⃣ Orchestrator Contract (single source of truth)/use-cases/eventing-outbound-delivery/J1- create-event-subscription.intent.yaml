@@ -1,0 +1,38 @@
+useCase: CreateEventSubscription
+orchestrator: EventingOutboundDelivery
+purpose: >
+  Create event subscription: topics, filters, destination.
+
+trigger:
+  type: api
+  source: AdminUI | IntegrationAPI
+
+input:
+  orgId: string
+  subscriptionName: string
+  topics: string[]
+  filters?: object
+  destination: object
+  createdBy: string
+
+output:
+  subscriptionId: string
+  subscriptionName: string
+  status: string
+
+dependencies:
+  repositories:
+    - EventSubscriptionRepository
+  services:
+    - EventSubscriptionFactory
+    - AuditService
+
+flow:
+  - step: validate_subscription
+  - step: create_subscription
+  - step: persist_subscription
+  - step: audit
+
+events:
+  emits:
+    - EVENT_SUBSCRIPTION_CREATED

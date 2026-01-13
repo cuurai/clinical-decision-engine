@@ -1,0 +1,45 @@
+useCase: RunIntegrationJob
+orchestrator: InteroperabilityIngestion
+purpose: >
+  Run an integration job for import batch or incremental sync.
+
+trigger:
+  type: api | schedule
+  source: AdminUI | Scheduler
+
+input:
+  orgId: string
+  integrationJobId: string
+  connectionId: string
+  runType: string
+  startedBy: string
+  parameters?: object
+
+output:
+  integrationRunId: string
+  integrationJobId: string
+  status: string
+  recordsProcessed: number
+
+dependencies:
+  repositories:
+    - IntegrationJobRepository
+    - IntegrationRunRepository
+    - ConnectionRepository
+  services:
+    - IntegrationRunFactory
+    - IntegrationJobExecutor
+    - AuditService
+
+flow:
+  - step: load_job
+  - step: load_connection
+  - step: create_run
+  - step: execute_job
+  - step: attach_result
+  - step: persist_run
+  - step: audit
+
+events:
+  emits:
+    - INTEGRATION_JOB_RUN

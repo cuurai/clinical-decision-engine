@@ -1,0 +1,39 @@
+useCase: StartDecisionSession
+orchestrator: ClinicalDecisionSession
+purpose: >
+  Initialize a clinical decision session by binding patient, encounter,
+  decision scope, and policy context.
+
+trigger:
+  type: api
+  source: ClinicianUI | SystemAPI
+
+input:
+  orgId: string
+  patientId: string
+  encounterId?: string
+  decisionScope: string
+  policySetId?: string
+  initiatedBy: string
+
+output:
+  decisionSessionId: string
+
+dependencies:
+  repositories:
+    - DecisionSessionRepository
+  services:
+    - PatientContextService
+    - PolicyContextService
+    - AuditService
+
+flow:
+  - step: load_patient_context
+  - step: resolve_policy_context
+  - step: start_session
+  - step: persist_session
+  - step: audit
+
+events:
+  emits:
+    - DECISION_SESSION_STARTED

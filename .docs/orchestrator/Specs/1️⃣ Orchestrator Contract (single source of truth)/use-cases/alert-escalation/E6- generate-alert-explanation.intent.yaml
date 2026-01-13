@@ -1,0 +1,36 @@
+useCase: GenerateAlertExplanation
+orchestrator: AlertEscalation
+purpose: >
+  Generate an explanation for why this alert was created and why now.
+
+trigger:
+  type: api | event
+  source: ClinicianUI | ALERT_CREATED
+
+input:
+  orgId: string
+  alertId: string
+
+output:
+  alertExplanationId: string
+  alertId: string
+  explanation: string
+  reasoning: object
+
+dependencies:
+  repositories:
+    - AlertRepository
+    - AlertExplanationRepository
+  services:
+    - AlertExplanationService
+    - AuditService
+
+flow:
+  - step: load_alert
+  - step: generate_explanation
+  - step: persist_explanation
+  - step: audit
+
+events:
+  emits:
+    - ALERT_EXPLANATION_GENERATED

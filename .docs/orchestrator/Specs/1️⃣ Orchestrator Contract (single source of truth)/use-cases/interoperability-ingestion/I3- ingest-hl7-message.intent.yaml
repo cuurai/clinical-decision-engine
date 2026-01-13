@@ -1,0 +1,44 @@
+useCase: IngestHL7Message
+orchestrator: InteroperabilityIngestion
+purpose: >
+  Ingest an HL7 message: store raw, parse segments, apply mapping profile.
+
+trigger:
+  type: api | event
+  source: HL7Interface | IntegrationJob
+
+input:
+  orgId: string
+  rawMessage: string
+  sourceSystem: string
+  connectionId: string
+  mappingProfileId?: string
+
+output:
+  hl7MessageId: string
+  status: string
+  parsedSegments?: number
+  mappingResultId?: string
+
+dependencies:
+  repositories:
+    - HL7MessageRepository
+    - HL7MappingProfileRepository
+  services:
+    - HL7MessageFactory
+    - HL7ParserService
+    - HL7MappingService
+    - AuditService
+
+flow:
+  - step: create_message
+  - step: parse_message
+  - step: load_mapping_profile
+  - step: apply_mapping
+  - step: attach_mapping_result
+  - step: persist_message
+  - step: audit
+
+events:
+  emits:
+    - HL7_MESSAGE_INGESTED

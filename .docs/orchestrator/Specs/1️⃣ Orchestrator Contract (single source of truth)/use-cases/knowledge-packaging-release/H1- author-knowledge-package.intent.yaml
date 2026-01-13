@@ -1,0 +1,43 @@
+useCase: AuthorKnowledgePackage
+orchestrator: KnowledgePackagingRelease
+purpose: >
+  Author knowledge package: which value sets + rules + models are included.
+
+trigger:
+  type: api
+  source: AdminUI | KnowledgeManagementAPI
+
+input:
+  orgId: string
+  packageName: string
+  description?: string
+  valueSetIds: string[]
+  ruleIds: string[]
+  modelDefinitionIds: string[]
+  authoredBy: string
+
+output:
+  knowledgePackageId: string
+  packageName: string
+  status: string
+
+dependencies:
+  repositories:
+    - KnowledgePackageRepository
+    - ValueSetRepository
+    - ClinicalRuleRepository
+    - ModelDefinitionRepository
+  services:
+    - KnowledgePackageFactory
+    - AuditService
+
+flow:
+  - step: validate_components
+  - step: create_package
+  - step: attach_components
+  - step: persist_package
+  - step: audit
+
+events:
+  emits:
+    - KNOWLEDGE_PACKAGE_AUTHORED

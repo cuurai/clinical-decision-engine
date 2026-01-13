@@ -1,0 +1,38 @@
+useCase: SelectCarePathwayTemplate
+orchestrator: CarePathway
+purpose: >
+  Select care pathway template based on decision type, condition, risk tier.
+
+trigger:
+  type: event
+  source: DECISION_RESULT_CREATED
+
+input:
+  orgId: string
+  decisionResultId: string
+  decisionType: string
+  condition?: string
+  riskTier?: string
+
+output:
+  carePathwayTemplateId: string
+  decisionResultId: string
+  templateName: string
+
+dependencies:
+  repositories:
+    - CarePathwayTemplateRepository
+    - DecisionResultRepository
+  services:
+    - CarePathwaySelectionService
+    - AuditService
+
+flow:
+  - step: load_decision_result
+  - step: evaluate_selection_criteria
+  - step: select_template
+  - step: audit
+
+events:
+  emits:
+    - CARE_PATHWAY_TEMPLATE_SELECTED

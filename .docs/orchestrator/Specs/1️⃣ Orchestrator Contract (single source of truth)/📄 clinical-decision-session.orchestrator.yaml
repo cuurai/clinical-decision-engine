@@ -1,0 +1,21 @@
+orchestrator: ClinicalDecisionSession
+type: core-runtime
+goal: >
+  Run a bounded clinical decisioning session for a patient and/or encounter,
+  producing auditable, explainable decision artifacts.
+
+ownedAggregate:
+  - DecisionSession
+
+composesDomains:
+  - PatientClinicalData
+  - KnowledgeEvidence
+  - DecisionIntelligence
+  - WorkflowCarePathways
+  - IntegrationInteroperability
+
+invariants:
+  - A decision session has a single patient context
+  - Decision artifacts are immutable once persisted
+  - All decisions must be explainable
+  - Session execution is replayable and auditable

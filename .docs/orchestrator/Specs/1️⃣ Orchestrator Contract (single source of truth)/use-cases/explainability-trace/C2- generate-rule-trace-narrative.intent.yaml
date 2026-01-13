@@ -1,0 +1,39 @@
+useCase: GenerateRuleTraceNarrative
+orchestrator: ExplainabilityTrace
+purpose: >
+  Generate rule trace narrative: what rules fired, in which order, why.
+
+trigger:
+  type: event
+  source: DECISION_EVALUATION_COMPLETED
+
+input:
+  orgId: string
+  decisionResultId: string
+  ruleEvaluationResult: object
+
+output:
+  ruleTraceId: string
+  decisionResultId: string
+  narrative: string
+  ruleTraces: object[]
+
+dependencies:
+  repositories:
+    - RuleTraceRepository
+    - DecisionResultRepository
+  services:
+    - RuleTraceFactory
+    - RuleTraceService
+    - AuditService
+
+flow:
+  - step: load_decision_result
+  - step: generate_traces
+  - step: create_narrative
+  - step: persist_traces
+  - step: audit
+
+events:
+  emits:
+    - RULE_TRACE_NARRATIVE_GENERATED

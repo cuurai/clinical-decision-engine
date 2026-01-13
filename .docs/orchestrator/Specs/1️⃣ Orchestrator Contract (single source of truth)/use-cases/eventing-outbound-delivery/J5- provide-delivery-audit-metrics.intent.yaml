@@ -1,0 +1,42 @@
+useCase: ProvideDeliveryAuditMetrics
+orchestrator: EventingOutboundDelivery
+purpose: >
+  Provide delivery audit and metrics: usage metrics, SLA.
+
+trigger:
+  type: api | schedule
+  source: AdminUI | MetricsScheduler
+
+input:
+  orgId: string
+  subscriptionId?: string
+  timeRange?: object
+  metricTypes?: string[]
+
+output:
+  metricsId: string
+  subscriptionId?: string
+  metrics: object
+  slaCompliance: object
+  generatedAt: string
+
+dependencies:
+  repositories:
+    - EventDeliveryRepository
+    - EventSubscriptionRepository
+  services:
+    - MetricsService
+    - SLAService
+    - AuditService
+
+flow:
+  - step: load_deliveries
+  - step: compute_metrics
+  - step: compute_sla_compliance
+  - step: generate_report
+  - step: persist_metrics
+  - step: audit
+
+events:
+  emits:
+    - DELIVERY_METRICS_GENERATED

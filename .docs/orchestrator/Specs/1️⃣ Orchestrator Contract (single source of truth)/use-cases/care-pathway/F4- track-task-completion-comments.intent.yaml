@@ -1,0 +1,39 @@
+useCase: TrackTaskCompletionComments
+orchestrator: CarePathway
+purpose: >
+  Track task completion and comments: audit trail.
+
+trigger:
+  type: api | event
+  source: WorkQueueUI | TaskCompleted
+
+input:
+  orgId: string
+  taskId: string
+  completedBy: string
+  completionNotes?: string
+  comments?: object[]
+
+output:
+  taskId: string
+  status: string
+  completedAt: string
+  comments: object[]
+
+dependencies:
+  repositories:
+    - TaskRepository
+  services:
+    - TaskTrackingService
+    - AuditService
+
+flow:
+  - step: load_task
+  - step: update_completion
+  - step: add_comments
+  - step: persist_task
+  - step: audit
+
+events:
+  emits:
+    - TASK_COMPLETION_TRACKED

@@ -1,0 +1,46 @@
+useCase: PolicyToRuleSetBinding
+orchestrator: PolicyThresholdGovernance
+purpose: >
+  Bind policy to rule-set(s), scoring templates, model versions.
+
+trigger:
+  type: api
+  source: AdminUI | PolicyManagementAPI
+
+input:
+  orgId: string
+  policyId: string
+  ruleSetIds: string[]
+  scoringTemplateIds: string[]
+  modelVersionIds: string[]
+  boundBy: string
+
+output:
+  policyId: string
+  bindings:
+    ruleSets: object[]
+    scoringTemplates: object[]
+    modelVersions: object[]
+
+dependencies:
+  repositories:
+    - DecisionPolicyRepository
+    - RuleSetRepository
+    - ScoringTemplateRepository
+    - ModelVersionRepository
+  services:
+    - PolicyBindingService
+    - AuditService
+
+flow:
+  - step: load_policy
+  - step: load_rule_sets
+  - step: load_scoring_templates
+  - step: load_model_versions
+  - step: create_bindings
+  - step: persist_policy
+  - step: audit
+
+events:
+  emits:
+    - POLICY_TO_RULESET_BOUND
